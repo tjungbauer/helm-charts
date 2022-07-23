@@ -1,0 +1,39 @@
+---
+
+# Install Operator RHACS 
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0 
+operators:
+  compliance-operator:
+    enabled: true
+    syncwave: '0'
+    namespace: openshift-compliance
+    subscription:
+      channel: release-0.1
+      approval: Automatic
+      operatorName: compliance-operator
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+      notownnamespace: true
+
+compliance:
+  wait_time: 60 # wait time in seconds for the check-job to verify when the deployments should be ready
+
+  namespace: 
+    name: openshift-compliance
+    syncwave: '0'
+    descr: 'Red Hat Compliance'
+  
+  scansettingbinding:
+    enabled: true
+    syncwave: '3'
+    profiles:
+      - name: ocp4-cis-node 
+      - name: ocp4-cis 
+    scansetting: default
+
+serviceAccount:
+  create: true 
+  name: "sa-compliance"
