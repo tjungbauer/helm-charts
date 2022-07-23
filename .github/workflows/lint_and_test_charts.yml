@@ -38,9 +38,8 @@ jobs:
             echo "::set-output name=changed::true"
           fi
           echo $changed
-          ct list-changed --target-branch main
+          ct list-changed --target-branch main --charts-dir charts
           which ct
-          cat /opt/hostedtoolcache/ct/v3.5.1/x86_64/ct
 
       - name: test
         run: ls -la
