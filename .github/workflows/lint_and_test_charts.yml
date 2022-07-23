@@ -37,6 +37,7 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+          changed=test
           echo $changed
     
       - name: Run chart-testing (lint ALL)
