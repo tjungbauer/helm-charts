@@ -40,6 +40,7 @@ jobs:
           echo $changed
           ct list-changed --target-branch main
           which ct
+          cat /opt/hostedtoolcache/ct/v3.5.1/x86_64/ct
 
       - name: test
         run: ls -la
