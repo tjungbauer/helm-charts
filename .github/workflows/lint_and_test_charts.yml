@@ -38,7 +38,7 @@ jobs:
             echo "::set-output name=changed::true"
           fi
           echo $changed
-          ct list-changed --target-branch main --charts-dir charts
+          ct list-changed --target-branch main --chart-dirs charts
           which ct
 
       - name: test
