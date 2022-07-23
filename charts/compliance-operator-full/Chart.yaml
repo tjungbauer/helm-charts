@@ -4,3 +4,4 @@ description: Master chart to deploy and configure the Compliance Operator
 version: 1.0.0  
 maintainers:
   - name: tjungbau
+
