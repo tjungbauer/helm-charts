@@ -17,15 +17,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v2.1
         with:
           version: v3.8.1
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.7
 
@@ -44,11 +42,11 @@ jobs:
       #  run: ct lint --target-branch ${{ github.event.repository.default_branch }}
     
       - name: Run chart-testing (lint)
-        run: ct lint charts/*
+        run: ct lint
 
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.2.0
-        if: steps.list-changed.outputs.changed == 'true'
+#      - name: Create kind cluster
+#        uses: helm/kind-action@v1.2.0
+#        if: steps.list-changed.outputs.changed == 'true'
 
 #      - name: Run chart-testing (install)
 #        run: ct install
