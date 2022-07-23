@@ -38,7 +38,7 @@ jobs:
             echo "::set-output name=changed::true"
           fi
           changed=test
-          echo $changed
+          echo $changed >> $GITHUB_ENV
     
       - name: Run chart-testing (lint ALL)
         run: |
