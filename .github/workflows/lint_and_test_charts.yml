@@ -37,7 +37,8 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
-          ct list-changed
+          echo $changed
+          ct list-changed --target-branch main
           which ct
 
       - name: test
