@@ -1,0 +1,41 @@
+namespaces:
+  - name: codeready-workspaces
+  - name: resource-locker-operator
+
+operators:
+  codeready-workspaces:
+    enabled: true
+    namespace: codeready-workspaces
+    subscription:
+      channel: latest
+      approval: Automatic
+      operatorName: codeready-workspaces
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+
+  resource-locker:
+    enabled: true
+    namespace: resource-locker-operator
+    subscription:
+      channel: alpha
+      approval: Automatic
+      operatorName: resource-locker-operator
+      sourceName: community-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+      notownnamespace: true
+
+  netobserv:
+    enabled: true
+    namespace: openshift-operators
+    subscription:
+      channel: alpha
+      approval: Automatic
+      operatorName: netobserv-operator
+      sourceName: community-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: false

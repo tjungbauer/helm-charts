@@ -1,0 +1,58 @@
+---
+override-rhacm-operator-version: &rhacmversion release-2.5
+
+namespaces:
+  - name: single-sign-on
+  - name: openshift-cert-manager-operator
+
+operators:
+  rhacm-operator:
+    enabled: true
+    namespace: open-cluster-management
+    subscription:
+      channel: *rhacmversion
+      approval: Automatic
+      operatorName: advanced-cluster-management
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+
+  quay-operator:
+    enabled: true
+    namespace: openshift-operators
+    subscription:
+      channel: stable-3.7
+      approval: Automatic
+      operatorName: quay-operator
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: false
+
+  rhsso-operator:
+    enabled: true
+    namespace: single-sign-on
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: rhsso-operator
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+
+  openshift-cert-manager-operator:
+    enabled: true
+    namespace: openshift-cert-manager-operator
+    subscription:
+      channel: tech-preview
+      approval: Automatic
+      operatorName: openshift-cert-manager-operator
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+      # cert-manager does not support to monitor own namespace,
+      # therefor the spec in the OperatorGroup must be empty
+      notownnamespace: true

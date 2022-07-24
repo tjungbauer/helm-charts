@@ -1,0 +1,8 @@
+apiVersion: v2
+name: collection-optional-operators
+description: Collection of optional operators, like CodeReadyWorkspaces.
+version: 1.0.0
+home: https://github.com/tjungbauer/helm-charts
+icon: https://sdk.operatorframework.io/build/images/logo.svg
+maintainers:
+  - name: tjungbauer
