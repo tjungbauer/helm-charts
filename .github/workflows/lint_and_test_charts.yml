@@ -38,11 +38,11 @@ jobs:
           else
             echo "::set-output name=changed::false"
           fi
-    
+   
+        # actually not best practice to verify if there were changes or not. The chart-version should be incremented with any change
       - name: Run chart-testing (lint)
         run: |
-          echo ${{ steps.list-changed.outputs.changed }}
-          if [ "${{ steps.list-changed.outputs.changed }}" ]; then
+          if [ "${{ steps.list-changed.outputs.changed }}" = true ]; then
             echo "checking changed charts only"
             ct lint --target-branch ${{ github.event.repository.default_branch }}
           else
