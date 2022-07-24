@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: check-operator-status
+  namespace: {{ .Values.rhacs.namespace.name | quote }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: '1'
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "rhacs.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:1.0
+          command:
+            - /bin/bash
+            - -c
+            - |
+             #!/usr/bin/env bash
+              # Wait for central to be ready
+              attempt_counter=0
+              max_attempts={{ .Values.rhacs.job_vars.max_attempts | default 20 }}
+              sleep_timer={{ .Values.rhacs.job_vars.wait_time | default 20 }}
+              crd_check_time={{ .Values.rhacs.job_vars.crd_check_time | default 5 }}
+              status=0
+
+              echo "Waiting for operator to be available..."
+
+              # we assume that the operator is ready, once the CRD Central is available.
+              # when this is the case ArgoCD can continue
+              #until $(oc get crd/centrals.platform.stackrox.io &>/dev/null); do
+                  if [ ${attempt_counter} -eq ${max_attempts} ];then
+                    echo "Max attempts reached. I give up"
+                    exit 1
+                  fi
+                  attempt_counter=$((attempt_counter+1))
+                  echo "Made attempt $attempt_counter of $max_attempts, waiting..."
+                  sleep $crd_check_time
+              #done
+
+              echo "Custom Resources are available, checking Deployment"
+
+              # turned out it takes even more time until operator is ready, so lets check the deployment
+              deployments=(rhacs-operator-controller-manager)
+              for i in "${deployments[@]}";
+              do
+                printf "\nWaiting for deployment %s\n" "$i";
+                oc get deployment/"$i" -n {{ .Values.operators.rhacs_operator.namespace }}
+                depl_status=$?
+                if [ $depl_status -eq 1 ]; then
+                    echo "Deployment not yet found... Give Operator $sleep_timer seconds to create the Deployment"
+                    sleep $sleep_timer
+                fi
+                oc rollout status deployment "$i" -n {{ .Values.operators.rhacs_operator.namespace }}
+                status=$?
+              done
+
+              echo $status
+
+              if [ $status -eq 0 ]; then
+                  echo "Operator seems to be ready"
+              else
+                  echo "ERROR: Operator is not ready"
+                  exit 1
+              fi
+          name: check-operator
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccount: {{ include "rhacs.serviceAccountName" $ }}
+      serviceAccountName: {{ include "rhacs.serviceAccountName" $ }}

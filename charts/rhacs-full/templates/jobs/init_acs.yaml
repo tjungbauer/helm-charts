@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-acs
+  namespace: {{ .Values.rhacs.namespace.name | quote }}
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "rhacs.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:1.0
+          envFrom:
+          - secretRef:
+              name: central-htpasswd
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+              # Wait for central to be ready
+              attempt_counter=0
+              max_attempts={{ .Values.rhacs.job_vars.max_attempts | default 20 }}
+              
+              echo "Waiting for central to be available..."
+              
+              until $(curl -k --output /dev/null --silent --head --fail https://central); do
+                  if [ ${attempt_counter} -eq ${max_attempts} ];then
+                    echo "Max attempts reached"
+                    exit 1
+                  fi
+                  attempt_counter=$(($attempt_counter+1))
+                  echo "Made attempt $attempt_counter of $max_attempts, waiting..."
+                  sleep 5
+              done
+
+              echo "Setup temporary OCP user to make ansible happy"
+              echo "tempuser:x:$(id -u):$(id -g):,,,:${HOME}:/bin/bash" >> /etc/passwd
+              echo "tempuser:x:$(id -G | cut -d' ' -f 2)" >> /etc/group
+              id
+
+              # Install community general in order to get json_query filter
+              ansible-galaxy collection install community.general
+
+              # Do a sparse checkout (nly a specific folder)
+              mkdir playbooks
+              cd playbooks || exit
+
+              git init                                                                                                                                                            
+              git remote add -f origin https://github.com/tjungbauer/openshift-cluster-bootstrap.git
+              git config core.sparseCheckout true
+              echo "ansible/rhacs-automation" >> .git/info/sparse-checkout
+              git pull origin main
+              
+              cd ansible/rhacs-automation || exit
+              # Use available admin user with password in central-htpasswd secret, override endpoint to use service
+              ansible-playbook acs.yaml -e username=admin -e password=$password -e api_endpoint=central
+          name: init-acs
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccount: default
+      serviceAccountName: default

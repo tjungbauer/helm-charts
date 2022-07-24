@@ -1,0 +1,35 @@
+# Note this is resource reduced, this should not be taken as a production ready installation
+apiVersion: platform.stackrox.io/v1alpha1
+kind: Central
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.central.syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: central
+  namespace: {{ .Values.rhacs.namespace.name | quote }}
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "rhacs.labels" $ | nindent 4 }}
+spec:
+  central:
+    exposure:
+      loadBalancer:
+        enabled: false
+        port: 443
+      nodePort:
+        enabled: false
+      route:
+        enabled: true
+    persistence:
+      persistentVolumeClaim:
+        claimName: {{ .Values.rhacs.central.pvc | quote }}
+  egress:
+    connectivityPolicy: {{ .Values.rhacs.central.egress.connectivityPolicy }}
+  scanner:
+    analyzer:
+      scaling:
+        autoScaling: {{ .Values.rhacs.central.scannerautoscaling }}
+        maxReplicas: 5
+        minReplicas: 2
+        replicas: 2
+    scannerComponent: Enabled

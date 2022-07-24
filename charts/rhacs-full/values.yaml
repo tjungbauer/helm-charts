@@ -1,0 +1,58 @@
+---
+override-rhacs-operator-version: &rhacsversion rhacs-3.70
+
+# Install Operator RHACS
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+operators:
+  rhacs_operator:
+    enabled: true
+    syncwave: '0'
+    namespace: rhacs-operator
+    subscription:
+      channel: *rhacsversion
+      approval: Automatic
+      operatorName: rhacs-operator
+      source: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+      # rhacs does not support to monitor own namespace,
+      # therefor the spec in the OperatorGroup must be empty
+      notownnamespace: true
+
+
+rhacs:
+
+  job_vars:
+    max_attempts: 20  # How otften shall the status of the operator be checked (Default 20)
+    wait_time: 20  # If the Deployments are not ready yet, how long shall I wait in addition (Default 20)
+    crd_check_time: 5  # Time to sleep before I verify that the CRDs have been created
+
+  namespace:
+    name: stackrox
+    syncwave: '0'
+    descr: 'Red Hat Advanced Cluster Security'
+
+  central:
+    syncwave: '3'
+    pvc: stackrox-db
+    egress:
+      connectivityPolicy: Online
+    scannerautoscaling: Disabled
+
+  job_init_bundle:
+    syncwave: '3'
+
+  consolelink:
+    syncwave: '3'
+    location: ApplicationMenu
+    text: Advanced Cluster Security
+    section: Observability
+
+  secured_cluster:
+    syncwave: '4'
+
+serviceAccount:
+  create: true
+  name: "create-cluster-init"
