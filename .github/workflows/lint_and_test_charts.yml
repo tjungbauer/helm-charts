@@ -44,8 +44,8 @@ jobs:
         run: |
           if [ "${{ steps.list-changed.outputs.changed }}" = true ]; then
             echo "checking changed charts only"
-            ct lint --target-branch ${{ github.event.repository.default_branch }}
+            ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
           else
             echo "checking ALL charts"
-            ct lint --all --target-branch ${{ github.event.repository.default_branch }}
+            ct lint --all --debug --target-branch ${{ github.event.repository.default_branch }}
           fi
