@@ -34,25 +34,18 @@ jobs:
         id: list-changed
         run: |
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
           if [[ -n "$changed" ]]; then                                                                                                                                            echo "::set-output name=changed::true"
           else
             echo "::set-output name=changed::false"
           fi
-          xxx=test
-          echo "changed2=$xxx" >> $GITHUB_ENV
     
-      - name: Run chart-testing (lint ALL)
+      - name: Run chart-testing (lint)
         run: |
           echo ${{ steps.list-changed.outputs.changed }}
-          echo $changed2
-          # ct lint --all --target-branch ${{ github.event.repository.default_branch }}
-
-#      - name: Create kind cluster
-#        uses: helm/kind-action@v1.2.0
-#        if: steps.list-changed.outputs.changed == 'true'
-
-#      - name: Run chart-testing (install)
-#        run: ct install
+          if [ "${{ steps.list-changed.outputs.changed }}" ]; then
+            echo "checking changed charts only"
+            ct lint --target-branch ${{ github.event.repository.default_branch }}
+          else
+            echo "checking ALL charts"
+            ct lint --all --target-branch ${{ github.event.repository.default_branch }}
+          fi
