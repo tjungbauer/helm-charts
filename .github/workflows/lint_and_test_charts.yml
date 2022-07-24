@@ -34,18 +34,19 @@ jobs:
         id: list-changed
         run: |
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
-          if [[ -n "$changed" ]]; then                                                                                                                                            echo "::set-output name=changed::true"
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
           else
             echo "::set-output name=changed::false"
           fi
    
-        # actually not best practice to verify if there were changes or not. The chart-version should be incremented with any change
+        # you MUST increase the version of the chart, otherwise chart-releaser will fail
       - name: Run chart-testing (lint)
         run: |
-          if [ "${{ steps.list-changed.outputs.changed }}" = true ]; then
-            echo "checking changed charts only"
+          #if [ "${{ steps.list-changed.outputs.changed }}" = true ]; then
+          #  echo "checking changed charts only"
             ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
-          else
-            echo "checking ALL charts"
-            ct lint --all --debug --target-branch ${{ github.event.repository.default_branch }}
-          fi
+          #else
+          #  echo "checking ALL charts"
+          #  ct lint --all --debug --target-branch ${{ github.event.repository.default_branch }}
+          #fi
