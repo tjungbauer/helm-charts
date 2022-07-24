@@ -1,0 +1,10 @@
+apiVersion: v2
+name: rhacs-demo-applications
+description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+home: https://github.com/tjungbauer/helm-charts
+icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+maintainers:
+  - name: tjungbauer

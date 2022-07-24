@@ -1,0 +1,53 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: linting-gitops
+  namespace: {{ .Values.demo_pipelines }}
+spec:
+  finally:
+    - name: cleanup
+      taskRef:
+        kind: Task
+        name: cleanup-task
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+  params:
+    - default: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+      name: repo-url
+      type: string
+    - default: main
+      name: revision
+      type: string
+    - default: /
+      name: context-path
+      type: string
+  tasks:
+    - name: fetch-repo
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: linting
+      runAfter:
+        - fetch-repo
+      taskRef:
+        kind: Task
+        name: linting
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+  workspaces:
+    - name: shared-workspace
+

@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: cleanup-task
+  namespace: {{ .Values.demo_pipelines }}
+spec:
+  steps:
+    - args:
+        - '-c'
+        - rm -rf $(workspaces.source.path)/source
+      command:
+        - /bin/bash
+      image: registry.access.redhat.com/ubi9/ubi
+      name: remove-source
+      resources: {}
+    - args:
+        - '-c'
+        - echo All files were deleted
+      command:
+        - /bin/bash
+      image: registry.access.redhat.com/ubi9/ubi
+      name: message
+      resources: {}
+  workspaces:
+    - name: source
+

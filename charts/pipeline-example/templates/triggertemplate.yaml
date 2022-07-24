@@ -1,0 +1,40 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: trigger-template-linting-gitops
+  namespace: {{ .Values.demo_pipelines }}
+spec:
+  params:
+    - name: git-revision
+    - name: git-commit-message
+    - name: git-repo-url
+    - name: git-repo-name
+    - name: content-type
+    - name: pusher-name
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        annotations:
+          pipeline.openshift.io/started-by: 'kube:admin'
+        generateName: linting-gitops-
+        labels:
+          tekton.dev/pipeline: linting-gitops
+        namespace: {{ .Values.demo_pipelines }}
+      spec:
+        params:
+          - name: repo-url
+            value: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+          - name: revision
+            value: main
+          - name: context-path
+            value: /
+        pipelineRef:
+          name: linting-gitops
+        resources: []
+        status: null
+        workspaces:
+          - name: shared-workspace
+            persistentVolumeClaim:
+              claimName: pvc-pipeline-demo
+
