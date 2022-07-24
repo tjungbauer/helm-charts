@@ -46,7 +46,7 @@ jobs:
     
       - name: Run chart-testing (lint ALL)
         run: |
-          echo $outputs.changed
+          echo ${{ steps.list-changed.outputs.changed }}
           echo $changed2
           # ct lint --all --target-branch ${{ github.event.repository.default_branch }}
 
