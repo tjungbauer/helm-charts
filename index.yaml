@@ -15,6 +15,19 @@ entries:
     version: 1.0.2
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2022-07-24T17:24:19.73583523Z"
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: bec57ac87ea62fd20c6fc774a4acbda85a1fc140e2f4520cf296517024309cf2
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.1/rhacs-full-stack-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2022-07-24T05:50:53.925723725Z"
     description: Master chart to deploy RHACS operator, initialize it and do some
       configuration using API Calls
@@ -27,4 +40,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T05:50:53.925733325Z"
+generated: "2022-07-24T17:24:19.73585143Z"
