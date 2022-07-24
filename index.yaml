@@ -1,5 +1,45 @@
 apiVersion: v1
 entries:
+  collection-management-operators:
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.304193634Z"
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: b9b4a6523e4f8d036ffcbb92e3b1e4d21e7cf013a25f8e37f8070a8894e336a2
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.0/collection-management-operators-1.0.0.tgz
+    version: 1.0.0
+  collection-operators:
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.409045153Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 77ceac40c96ceaeb6969ebdd614de6353550af534aa3ee7a5efda06188a8be84
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
+    version: 1.0.0
+  collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.522674257Z"
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: bbb06a081d2e2a568ac5e090b97411fd9c92574a7124e41032757917b4b0e564
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.0/collection-optional-operators-1.0.0.tgz
+    version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
     created: "2022-07-24T05:50:53.775264135Z"
@@ -87,4 +127,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T17:58:19.53663884Z"
+generated: "2022-07-24T18:45:22.522688057Z"
