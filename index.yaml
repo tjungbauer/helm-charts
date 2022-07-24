@@ -32,6 +32,21 @@ entries:
   rhacs-demo-applications:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-07-24T17:58:19.53662724Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: 4bb2d81065c23d0458e383a154301fd131ae19da76f0e10a26a6a5da14cf82c5
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-demo-applications
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.0/rhacs-demo-applications-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-07-24T17:47:41.89156201Z"
     description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
       Demos
@@ -72,4 +87,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T17:47:41.892227725Z"
+generated: "2022-07-24T17:58:19.53663884Z"
