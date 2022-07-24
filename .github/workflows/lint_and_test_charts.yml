@@ -37,13 +37,18 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+          if [[ -n "$changed" ]]; then                                                                                                                                            echo "::set-output name=changed::true"
+          else
+            echo "::set-output name=changed::false"
+          fi
           xxx=test
-          echo "changed=$xxx" >> $GITHUB_ENV
+          echo "changed2=$xxx" >> $GITHUB_ENV
     
       - name: Run chart-testing (lint ALL)
         run: |
           echo $changed
-          ct lint --all --target-branch ${{ github.event.repository.default_branch }}
+          echo $changed2
+          # ct lint --all --target-branch ${{ github.event.repository.default_branch }}
 
 #      - name: Create kind cluster
 #        uses: helm/kind-action@v1.2.0
