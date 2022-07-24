@@ -16,6 +16,18 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-07-24T18:54:58.594327831Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 78b37354b2ad8d48111a542a6811e8045f1ab3ef0865613ff66211c2c518c53d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.1/collection-operators-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2022-07-24T18:45:22.409045153Z"
     description: Collection of Operators which can be deployed on Demo Systems.
     digest: 77ceac40c96ceaeb6969ebdd614de6353550af534aa3ee7a5efda06188a8be84
@@ -127,4 +139,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T18:45:22.522688057Z"
+generated: "2022-07-24T18:54:58.594348031Z"
