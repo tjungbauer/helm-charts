@@ -1,7 +1,6 @@
 apiVersion: v2
 name: compliance-operator-full-stack
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.0  
+version: 1.0.1
 maintainers:
   - name: tjungbau
-
