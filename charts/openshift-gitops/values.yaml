@@ -1,0 +1,18 @@
+---
+# General values
+#
+
+gitops:
+  enabled: true
+  clusterAdmin: enabled
+  namespace:
+    name: openshift-operators
+  subscription:
+    approval: Automatic
+    operatorName: openshift-pipelines-operator-rh
+    sourceName: redhat-operators
+    sourceNamespace: openshift-marketplace
+
+serviceAccount:
+  create: true
+  name: openshift-gitops-app-controller

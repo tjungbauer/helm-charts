@@ -1,0 +1,12 @@
+apiVersion: v2
+name: collection-operators
+description: Collection of Operators which can be deployed on Demo Systems.
+version: 1.0.2
+home: https://github.com/tjungbauer/helm-charts
+icon: https://sdk.operatorframework.io/build/images/logo.svg
+dependencies:
+- name: helper-operator
+  version: "1.0.0"
+  repository: "file://../helper-operator"
+maintainers:
+  - name: tjungbauer

@@ -1,0 +1,17 @@
+{{- with .Values.gitops }}
+{{ if eq ( .enabled | toString) "true" }}
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-gitops-operator
+  namespace: {{ .namespace.name | default "openshift-operators" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  channel: stable
+  installPlanApproval: {{ .subscription.approval | default "Automatic" | quote }}
+  name: {{ .subscription.operatorName | default "openshift-pipelines-operator-rh" | quote }}
+  source: {{ .subscription.sourceName | default "redhat-operators" | quote }}
+  sourceNamespace: {{ .subscription.sourceNamespace | default "openshift-marketplace" | quote }}
+{{- end }}
+{{- end }}
