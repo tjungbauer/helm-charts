@@ -230,6 +230,19 @@ entries:
     version: 1.0.2
   helper-operator:
   - apiVersion: v2
+    created: "2022-07-25T09:11:25.282954988Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: ea06e56a521013e3619d67bff803381cba8018a6b1f0bf54e9e34e4a3c4503cc
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.6/helper-operator-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2022-07-25T08:30:29.736279571Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
       as a dependency by other charts in order to install Operators
@@ -342,4 +355,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T09:04:48.799551909Z"
+generated: "2022-07-25T09:11:25.282999989Z"
