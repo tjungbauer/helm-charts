@@ -1,6 +1,351 @@
 apiVersion: v1
 entries:
+  collection-management-operators:
+  - apiVersion: v2
+    created: "2022-07-25T10:52:21.509358197Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: b6b3b15cd5fc718c987ff8f2c9388a65e5e820a5834c79cee7b52f864ab39a24
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.7/collection-management-operators-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    created: "2022-07-25T09:44:09.485989163Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: f56dd3c64c65f670b37c135aa0e2f41950ddbc7cc433f56116b306ba84ec29cd
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.6/collection-management-operators-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.2861388Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: 0575079d855538f8e59180be31f6694daf2ffa9427dd244f011f9f8e4fe2fd91
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.3/collection-management-operators-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    created: "2022-07-25T08:13:14.815289526Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: e081883de2f9c0ee501a9e771abdda1008592a7e43ace96d5a8d46e196d924df
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.2/collection-management-operators-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    created: "2022-07-25T05:04:20.746151128Z"
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: 7fb8ec05a99de0e14c0c07e1abf6d218d96c04409872fe6552f986e9158d157f
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.1/collection-management-operators-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.304193634Z"
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: b9b4a6523e4f8d036ffcbb92e3b1e4d21e7cf013a25f8e37f8070a8894e336a2
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.0/collection-management-operators-1.0.0.tgz
+    version: 1.0.0
+  collection-operators:
+  - apiVersion: v2
+    created: "2022-07-25T09:44:09.627825764Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 0b4e4f7536705fede42f4781c32958fce7660e3179b727446d4a5695bf14502e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.8/collection-operators-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.454061551Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 94f77925890f750618f89f0f31d2817f729acfbaa2bc58ffbcec2e4a08e1bbb1
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.7/collection-operators-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    created: "2022-07-25T08:07:28.145337993Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 0abf339305fa7330232f8d9df84a3d6abbc41ace8e9625ba0eff61ef3a56641e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.5/collection-operators-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    created: "2022-07-25T08:05:56.337867358Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: a7967aa6021dde2bec140c0af3e6d696245e3330a477dab2899ac0b517eea4aa
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.4/collection-operators-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    created: "2022-07-25T05:04:20.889639918Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 7ed4c3de5e3c15a37aa19bc6b4674033a308310b9ffab9ed26d862e414af956e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.2/collection-operators-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    created: "2022-07-24T18:54:58.594327831Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 78b37354b2ad8d48111a542a6811e8045f1ab3ef0865613ff66211c2c518c53d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.1/collection-operators-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.409045153Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 77ceac40c96ceaeb6969ebdd614de6353550af534aa3ee7a5efda06188a8be84
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
+    version: 1.0.0
+  collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-07-25T09:44:09.783414942Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 7c063888b9993b672e7f68891d11ecae3bf7b45745be917be5b7b52f76558d9f
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.5/collection-optional-operators-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.592257069Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: babd39cfc3bd477ef97bd6f9ab34f2661468e013c24d2d71a23e5d3c46bf7d3e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.3/collection-optional-operators-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    created: "2022-07-25T08:13:14.942912218Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: abb63de9147966929b56de44269f7c0039087c6d5b997e8d8fd09a9e1cd1eae8
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.2/collection-optional-operators-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    created: "2022-07-25T05:04:21.036424349Z"
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 02bec5df383996b92fe8692f8e5c1d90b6371ac6a15461c5b4d1889622b3e635
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.1/collection-optional-operators-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    created: "2022-07-24T18:45:22.522674257Z"
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: bbb06a081d2e2a568ac5e090b97411fd9c92574a7124e41032757917b4b0e564
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.0/collection-optional-operators-1.0.0.tgz
+    version: 1.0.0
   compliance-operator-full-stack:
+  - apiVersion: v2
+    created: "2022-07-25T11:48:59.234792301Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 580dc23f276fa0c9d59e9fe0b883f060048a2b492eea6f2a579d8bcbf708983b
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.7/compliance-operator-full-stack-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    created: "2022-07-25T10:52:21.698841755Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 732f50c9a54c2ac34039c5555d7373f02be0a2b3f431f49ece0625288aebe7e3
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.6/compliance-operator-full-stack-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
+    created: "2022-07-25T09:40:25.477469771Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: b5d2f652b2f842ee285ec17fc1a56d35f9f45a52a16d14b8000f7847567764aa
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.5/compliance-operator-full-stack-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    created: "2022-07-25T09:22:36.253997063Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 025f14d0c2ef75d8c41f7f7797d6da93fd179d944a7035c83b00e12bcd9f6320
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.4/compliance-operator-full-stack-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    created: "2022-07-25T09:04:48.799512307Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.3
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 3120f32801db9e698f02d236762a3a9a4ac616536f8753146c03d80aaece3f8d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.3/compliance-operator-full-stack-1.0.3.tgz
+    version: 1.0.3
   - apiVersion: v2
     created: "2022-07-24T05:50:53.775264135Z"
     description: Master chart to deploy and configure the Compliance Operator
@@ -13,7 +358,159 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
+  helper-operator:
+  - apiVersion: v2
+    created: "2022-07-25T11:48:59.390814204Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 914dd7a06e68ac29c57d0df6c030a129c03b05fa20e02d42326ce2051dcd0665
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.8/helper-operator-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    created: "2022-07-25T09:15:47.389882632Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 7d1e010c9301f1f4738af1ddaec148d569df5acbe16a7f239a141e71cc2681a3
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.7/helper-operator-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
+    created: "2022-07-25T09:11:25.282954988Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: ea06e56a521013e3619d67bff803381cba8018a6b1f0bf54e9e34e4a3c4503cc
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.6/helper-operator-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.736279571Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 6700add290b7a3b403d01727737f9f52a7ab7b9d19052a523ff0a49112ad5fd5
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.3/helper-operator-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    created: "2022-07-25T08:05:56.58820003Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 408635df7b0463262ea9128729572900148706b40e3d163d684784eb387a441d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
+    version: 1.0.2
+  openshift-gitops:
+  - apiVersion: v2
+    created: "2022-07-25T10:52:21.842994074Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: eaba420faa58a8551120a5c4c438ee401bf85d73ddd00fbae2a1544aeb940860
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
+    version: 1.0.0
+  openshift_gitops:
+  - apiVersion: v2
+    created: "2022-07-25T08:05:56.851507209Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: c5fb12bbf703e2b0b734ab0fb8c193f9cefbe4285350d3667ef80aa6fbe68220
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift_gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz
+    version: 1.0.0
+  pipeline-example:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-07-24T17:47:41.784834809Z"
+    description: Create an example Pipeline which does a linting of openshift-cluster-bootstrap
+      using kubelinter, yamllin, yamlscore ....
+    digest: 35092a60a5a6f6ae5c3af789f393d97c2ee03723e8d29105c188e86f2fad088f
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://cd.foundation/wp-content/uploads/sites/78/2020/04/tekton-icon-color-1-300x300.png
+    maintainers:
+    - name: tjungbauer
+    name: pipeline-example
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz
+    version: 0.1.0
+  rhacs-demo-applications:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-07-24T17:58:19.53662724Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: 4bb2d81065c23d0458e383a154301fd131ae19da76f0e10a26a6a5da14cf82c5
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-demo-applications
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.0/rhacs-demo-applications-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-07-24T17:47:41.89156201Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: ffb561053f948e37d6928d5f45812041e5a6063edaebb546ee5735752adad692
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-demo-applications
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-0.1.0/rhacs-demo-applications-0.1.0.tgz
+    version: 0.1.0
   rhacs-full-stack:
+  - apiVersion: v2
+    created: "2022-07-25T10:52:22.012708297Z"
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 6216dbbbfa65b65c0eae01584691027e0a036fc6202330c3c38c71b45dd9d676
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.2/rhacs-full-stack-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-07-24T17:24:19.73583523Z"
     description: Master chart to deploy RHACS operator, initialize it and do some
@@ -40,4 +537,42 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T17:24:19.73585143Z"
+  sealed-secrets:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-07-25T11:48:59.546746808Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm
+      chart
+    digest: d91ae54ab9daacb75c67d4711619c7a081051a947a28c9fe01f9365d510c9f8b
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: sealed-secrets
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.1/sealed-secrets-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-07-25T10:52:22.13967131Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets
+    digest: 6864588e45f2a8fb897340eefa2d02255233c6f2fcaf0b70fb294c3c614512b4
+    maintainers:
+    - name: tjungbauer
+    name: sealed-secrets
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-07-25T11:48:59.546818808Z"
