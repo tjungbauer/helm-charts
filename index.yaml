@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-07-25T08:30:29.2861388Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: 0575079d855538f8e59180be31f6694daf2ffa9427dd244f011f9f8e4fe2fd91
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.3/collection-management-operators-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-07-25T08:13:14.815289526Z"
     dependencies:
     - name: helper-operator
@@ -45,6 +62,22 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.0/collection-management-operators-1.0.0.tgz
     version: 1.0.0
   collection-operators:
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.454061551Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 94f77925890f750618f89f0f31d2817f729acfbaa2bc58ffbcec2e4a08e1bbb1
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.7/collection-operators-1.0.7.tgz
+    version: 1.0.7
   - apiVersion: v2
     created: "2022-07-25T08:07:28.145337993Z"
     dependencies:
@@ -111,6 +144,22 @@ entries:
     version: 1.0.0
   collection-optional-operators:
   - apiVersion: v2
+    created: "2022-07-25T08:30:29.592257069Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: babd39cfc3bd477ef97bd6f9ab34f2661468e013c24d2d71a23e5d3c46bf7d3e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.3/collection-optional-operators-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-07-25T08:13:14.942912218Z"
     dependencies:
     - name: helper-operator
@@ -164,6 +213,19 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
   helper-operator:
+  - apiVersion: v2
+    created: "2022-07-25T08:30:29.736279571Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 6700add290b7a3b403d01727737f9f52a7ab7b9d19052a523ff0a49112ad5fd5
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.3/helper-operator-1.0.3.tgz
+    version: 1.0.3
   - apiVersion: v2
     created: "2022-07-25T08:05:56.58820003Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
@@ -264,4 +326,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T08:13:14.942946918Z"
+generated: "2022-07-25T08:30:29.737205285Z"
