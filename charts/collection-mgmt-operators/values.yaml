@@ -9,7 +9,8 @@ helper-operator:
   operators:
     rhacm-operator:
       enabled: true
-      namespace: open-cluster-management
+      namespace:
+        name: open-cluster-management
       subscription:
         channel: *rhacmversion
         approval: Automatic
@@ -21,7 +22,8 @@ helper-operator:
 
     quay-operator:
       enabled: true
-      namespace: openshift-operators
+      namespace:
+        name: openshift-operators
       subscription:
         channel: stable-3.7
         approval: Automatic
@@ -33,7 +35,8 @@ helper-operator:
 
     rhsso-operator:
       enabled: true
-      namespace: single-sign-on
+      namespace:
+        name: single-sign-on
       subscription:
         channel: stable
         approval: Automatic
@@ -45,7 +48,8 @@ helper-operator:
 
     openshift-cert-manager-operator:
       enabled: true
-      namespace: openshift-cert-manager-operator
+      namespace:
+        name: openshift-cert-manager-operator
       subscription:
         channel: tech-preview
         approval: Automatic

@@ -15,4 +15,3 @@ operators:
       sourceNamespace: openshift-marketplace
     operatorgroup:
       create: true
-
