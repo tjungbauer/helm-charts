@@ -201,6 +201,22 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2022-07-25T09:04:48.799512307Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.3
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 3120f32801db9e698f02d236762a3a9a4ac616536f8753146c03d80aaece3f8d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.3/compliance-operator-full-stack-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-07-24T05:50:53.775264135Z"
     description: Master chart to deploy and configure the Compliance Operator
     digest: df1e7798fd81c71626de2272dc5dd57fcbad9ba79f59878736d86a4c8556c389
@@ -326,4 +342,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T08:30:29.737205285Z"
+generated: "2022-07-25T09:04:48.799551909Z"
