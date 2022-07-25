@@ -6,13 +6,15 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: {{ $key | default "demo-operator-group" | quote }}
-  namespace: {{ $value.namespace | quote }}
+  namespace: {{ $value.namespace.name | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 {{- if $value.operatorgroup.notownnamespace }}
 spec: {}
 {{- else }}
 spec:
   targetNamespaces:
-  - {{ $value.namespace }}
+  - {{ $value.namespace.name }}
 {{- end }}
 {{- end }}
 {{- end }}

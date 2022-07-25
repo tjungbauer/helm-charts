@@ -11,7 +11,8 @@ logging:
 operators:
   openshift-pipelines-operator-rh:
     enabled: true
-    namespace: openshift-operators
+    namespace:
+      name: openshift-operators
     subscription:
       approval: Automatic
       operatorName: openshift-pipelines-operator-rh
@@ -22,7 +23,9 @@ operators:
 
   elasticsearch-operator:
     enabled: true
-    namespace: openshift-operators-redhat
+    namespace:
+      name: openshift-operators-redhat
+      create: true
     subscription:
       approval: Automatic
       operatorName: elasticsearch-operator
@@ -33,7 +36,9 @@ operators:
 
   cluster-logging-operator:
     enabled: true
-    namespace: openshift-logging
+    namespace:
+      name: openshift-logging
+      create: true
     subscription:
       approval: Automatic
       operatorName: cluster-logging
@@ -44,7 +49,8 @@ operators:
 
   servicemesh-operator:
     enabled: true
-    namespace: openshift-operators
+    namespace:
+      name: openshift-operators
     subscription:
       approval: Automatic
       operatorName: servicemeshoperator
@@ -55,7 +61,8 @@ operators:
 
   jaeger-operator:
     enabled: true
-    namespace: openshift-operators
+    namespace:
+      name: openshift-operators
     subscription:
       approval: Automatic
       operatorName: jaeger-product
@@ -66,7 +73,8 @@ operators:
 
   kiali-operator:
     enabled: true
-    namespace: openshift-operators
+    namespace:
+      name: openshift-operators
     subscription:
       approval: Automatic
       operatorName: kiali-ossm
@@ -77,7 +85,9 @@ operators:
 
   rhacs-operator:
     enabled: false  # is deployed using "rhacs-full-stack" folder
-    namespace: rhacs-operator
+    namespace:
+      name: rhacs-operator
+      create: true
     subscription:
       channel: *rhacsversion
       approval: Manual

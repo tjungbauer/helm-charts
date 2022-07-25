@@ -6,4 +6,5 @@ metadata:
   name: "{{ $.Values.prefix }}{{- if ne $.Values.prefix "" }}{{- else }}{{ end }}{{ .name }}"
   labels:
     openshift.io/cluster-monitoring: "true"
+    {{- include "common.labels" $ | nindent 4 }}
 {{- end }}

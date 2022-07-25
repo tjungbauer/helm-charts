@@ -5,7 +5,9 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: {{ $key | quote }}
-  namespace: {{ $value.namespace | quote }}
+  namespace: {{ $value.namespace.name | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   channel: {{ $value.subscription.channel | default "stable" | quote }}
   installPlanApproval: {{ $value.subscription.approval | default "Automatic" | quote }}

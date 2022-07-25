@@ -1,7 +1,15 @@
-{{- range $key := .Values.namespaces }}
+
+{{- range $key, $value := .Values.operators }}
+{{ if eq ($value.enabled | toString) "true" }}
+{{ if eq ($value.namespace.create | toString) "true" }}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "{{ $.Values.prefix }}{{- if ne $.Values.prefix "" }}{{- else }}{{ end }}{{ .name }}"
+  name: {{ $value.namespace.name | quote }}
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "common.labels" $ | nindent 4 }}
+{{- end }}
+{{- end }}
 {{- end }}
