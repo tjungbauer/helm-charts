@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Helm Repo</title>
+  <meta name="description" content="Helm Chart Repo">
+  <meta name="author" content="Ed Robinson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: lightgrey;
+    }
+
+    .chart header h3, pre {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    main, pre {
+      margin: 1em;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+      grid-gap: 1em;
+    }
+
+    body > pre, .chart {
+      box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    pre, a {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .chart {
+      background: aliceblue;
+      border-radius: 0.5em;
+    }
+
+    .chart header:before,
+    .chart header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .chart header {
+      background: #3371e3;
+      padding: 0.5em;
+    }
+
+    .chart header h2,
+    .chart header h3 {
+      margin: 0.2em;
+    }
+
+    .chart header h2 {
+      color: white;
+    }
+
+    .chart header h3 {
+      float: right;
+      font-size: 1em;
+      background: white;
+      padding: 0.4em;
+    }
+
+    .chart p {
+      padding: 0 1em;
+    }
+
+
+    pre {
+      padding: 1em;
+      background: white;
+    }
+
+    @media only screen and (max-width: 500px) {
+      main, body, body > pre {
+        margin: 0;
+      }
+
+      body > pre {
+        margin-bottom: 1em;
+      }
+
+      .chart {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <pre>helm repo add errm <%= REPO_URL %></pre>
+  <main>
+<% Chart.all.each do |chart| %>
+    <div class="chart">
+      <header>
+        <h3><%= chart.version %></h3>
+        <h2><%= chart.name %></h2>
+      </header>
+      <div class="description">
+        <p><%= chart.description %></p>
+        <pre>helm repo update
+helm install errm/<%= chart.name %></pre>
+        <% if chart.home %><p><a href="<%= chart.home %>"><%= chart.home %></a></p><% end %>
+      </div>
+    </div>
+<% end %>
+  </main>
+</body>
+</html>
