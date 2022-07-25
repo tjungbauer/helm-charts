@@ -267,6 +267,22 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2022-07-25T11:48:59.234792301Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 580dc23f276fa0c9d59e9fe0b883f060048a2b492eea6f2a579d8bcbf708983b
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.7/compliance-operator-full-stack-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
     created: "2022-07-25T10:52:21.698841755Z"
     dependencies:
     - name: helper-operator
@@ -343,6 +359,19 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
   helper-operator:
+  - apiVersion: v2
+    created: "2022-07-25T11:48:59.390814204Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 914dd7a06e68ac29c57d0df6c030a129c03b05fa20e02d42326ce2051dcd0665
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.8/helper-operator-1.0.8.tgz
+    version: 1.0.8
   - apiVersion: v2
     created: "2022-07-25T09:15:47.389882632Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
@@ -511,6 +540,26 @@ entries:
   sealed-secrets:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-07-25T11:48:59.546746808Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm
+      chart
+    digest: d91ae54ab9daacb75c67d4711619c7a081051a947a28c9fe01f9365d510c9f8b
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: sealed-secrets
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.1/sealed-secrets-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-07-25T10:52:22.13967131Z"
     dependencies:
     - condition: sealed-secrets.enabled
@@ -526,4 +575,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T10:52:22.139857412Z"
+generated: "2022-07-25T11:48:59.546818808Z"
