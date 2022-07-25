@@ -29,6 +29,18 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-07-25T08:05:56.337867358Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: a7967aa6021dde2bec140c0af3e6d696245e3330a477dab2899ac0b517eea4aa
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.4/collection-operators-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     created: "2022-07-25T05:04:20.889639918Z"
     description: Collection of Operators which can be deployed on Demo Systems.
     digest: 7ed4c3de5e3c15a37aa19bc6b4674033a308310b9ffab9ed26d862e414af956e
@@ -102,6 +114,33 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
+  helper-operator:
+  - apiVersion: v2
+    created: "2022-07-25T08:05:56.58820003Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: 408635df7b0463262ea9128729572900148706b40e3d163d684784eb387a441d
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
+    version: 1.0.2
+  openshift_gitops:
+  - apiVersion: v2
+    created: "2022-07-25T08:05:56.851507209Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: c5fb12bbf703e2b0b734ab0fb8c193f9cefbe4285350d3667ef80aa6fbe68220
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift_gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz
+    version: 1.0.0
   pipeline-example:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -176,4 +215,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T05:04:21.036462149Z"
+generated: "2022-07-25T08:05:56.851548911Z"
