@@ -37,6 +37,7 @@ helper-operator:
       enabled: true
       namespace:
         name: single-sign-on
+        create: true
       subscription:
         channel: stable
         approval: Automatic
@@ -50,6 +51,7 @@ helper-operator:
       enabled: true
       namespace:
         name: openshift-cert-manager-operator
+        create: true
       subscription:
         channel: tech-preview
         approval: Automatic

@@ -8,6 +8,7 @@ helper-operator:
       enabled: true
       namespace:
         name: codeready-workspaces
+        create: true
       subscription:
         channel: latest
         approval: Automatic
@@ -21,6 +22,7 @@ helper-operator:
       enabled: true
       namespace:
         name: resource-locker-operator
+        create: true
       subscription:
         channel: alpha
         approval: Automatic
