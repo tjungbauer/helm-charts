@@ -6,7 +6,7 @@ home: https://github.com/tjungbauer/helm-charts
 icon: https://sdk.operatorframework.io/build/images/logo.svg
 dependencies:
   - name: helper-operator
-    version: "1.0.3"
+    version: "1.0.7"
     repository: https://tjungbauer.github.io/helm-charts/
 maintainers:
   - name: tjungbauer
