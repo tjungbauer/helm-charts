@@ -28,5 +28,5 @@ jobs:
       run: |
         ls -la 
         rake --version
-        rake --trace
+        rake -v --trace
         ls -la 
