@@ -10,7 +10,7 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: {{ $value.syncwave | default | "0" quote }}
+    argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "0" | quote }}
 spec:
   channel: {{ $value.subscription.channel | default "stable" | quote }}
   installPlanApproval: {{ $value.subscription.approval | default "Automatic" | quote }}
