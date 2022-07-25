@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-07-25T08:13:14.815289526Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: e081883de2f9c0ee501a9e771abdda1008592a7e43ace96d5a8d46e196d924df
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.2/collection-management-operators-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-07-25T05:04:20.746151128Z"
     description: Collection of management Operators which are usually installed on
       the management cluster only. I.e. Quay, ACM, Cert-Manager...
@@ -93,6 +110,22 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-07-25T08:13:14.942912218Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.2
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: abb63de9147966929b56de44269f7c0039087c6d5b997e8d8fd09a9e1cd1eae8
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.2/collection-optional-operators-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-07-25T05:04:21.036424349Z"
     description: Collection of optional operators, like CodeReadyWorkspaces.
@@ -231,4 +264,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T08:07:28.145412297Z"
+generated: "2022-07-25T08:13:14.942946918Z"
