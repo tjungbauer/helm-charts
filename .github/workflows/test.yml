@@ -24,6 +24,11 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
 
+    - name: test 
+      run: |
+        ls -la 
+        rake version
+
     - name: Install dependencies
       run: bundle install
 
