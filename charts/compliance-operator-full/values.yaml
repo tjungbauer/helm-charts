@@ -3,11 +3,17 @@
 # Install Operator Compliance Operator
 # Deploys Operator --> Subscription and Operatorgroup
 # Syncwave: 0
-operators:
+
+synwave must be supported by helper-operator 
+
+helper-operator:
+ operators:
   compliance-operator:
     enabled: true
     syncwave: '0'
-    namespace: openshift-compliance
+    namespace: 
+      name: openshift-compliance
+      create: true
     subscription:
       channel: release-0.1
       approval: Automatic

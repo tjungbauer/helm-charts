@@ -1,0 +1,10 @@
+{{- range $key := .Values.namespaces }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: "{{ $.Values.prefix }}{{- if ne $.Values.prefix "" }}{{- else }}{{ end }}{{ .name }}"
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "common.labels" $ | nindent 4 }}
+{{- end }}
