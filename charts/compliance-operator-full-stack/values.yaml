@@ -8,7 +8,7 @@ helper-operator:
     compliance-operator:
       enabled: true
       syncwave: '0'
-      namespace: 
+      namespace:
         name: openshift-compliance
         create: true
       subscription:

@@ -12,6 +12,6 @@ sealed-secrets:
   commandArgs:
     - "--update-status=true"
 
-namespace: 
+namespace:
   name: sealed-secrets
   create: true
