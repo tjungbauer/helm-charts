@@ -1,0 +1,13 @@
+apiVersion: v2
+name: sealed-secrets
+description: A Helm chart to deploy sealed-secrets
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+maintainers:
+  - name: tjungbauer
+dependencies:
+  - name: sealed-secrets
+    version: "2.4.0"
+    repository: https://bitnami-labs.github.io/sealed-secrets
+    condition: sealed-secrets.enabled

@@ -1,0 +1,6 @@
+sealed-secrets:
+  # Disabled by default
+  enabled: false
+  nameOverride: sealed-secrets
+  fullnameOverride: sealed-secrets
+  namespace: sealed-secrets
