@@ -3,26 +3,23 @@
 # Install Operator Compliance Operator
 # Deploys Operator --> Subscription and Operatorgroup
 # Syncwave: 0
-
-synwave must be supported by helper-operator 
-
 helper-operator:
- operators:
-  compliance-operator:
-    enabled: true
-    syncwave: '0'
-    namespace: 
-      name: openshift-compliance
-      create: true
-    subscription:
-      channel: release-0.1
-      approval: Automatic
-      operatorName: compliance-operator
-      source: redhat-operators
-      sourceNamespace: openshift-marketplace
-    operatorgroup:
-      create: true
-      notownnamespace: true
+  operators:
+    compliance-operator:
+      enabled: true
+      syncwave: '0'
+      namespace: 
+        name: openshift-compliance
+        create: true
+      subscription:
+        channel: release-0.1
+        approval: Automatic
+        operatorName: compliance-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: true
 
 compliance:
   wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
