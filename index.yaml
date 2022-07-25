@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-07-25T10:52:21.509358197Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: b6b3b15cd5fc718c987ff8f2c9388a65e5e820a5834c79cee7b52f864ab39a24
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.7/collection-management-operators-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
     created: "2022-07-25T09:44:09.485989163Z"
     dependencies:
     - name: helper-operator
@@ -250,6 +267,22 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2022-07-25T10:52:21.698841755Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://tjungbauer.github.io/helm-charts/
+      version: 1.0.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 732f50c9a54c2ac34039c5555d7373f02be0a2b3f431f49ece0625288aebe7e3
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.6/compliance-operator-full-stack-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2022-07-25T09:40:25.477469771Z"
     dependencies:
     - name: helper-operator
@@ -362,6 +395,19 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
     version: 1.0.2
+  openshift-gitops:
+  - apiVersion: v2
+    created: "2022-07-25T10:52:21.842994074Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: eaba420faa58a8551120a5c4c438ee401bf85d73ddd00fbae2a1544aeb940860
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
+    version: 1.0.0
   openshift_gitops:
   - apiVersion: v2
     created: "2022-07-25T08:05:56.851507209Z"
@@ -424,6 +470,19 @@ entries:
     version: 0.1.0
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2022-07-25T10:52:22.012708297Z"
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 6216dbbbfa65b65c0eae01584691027e0a036fc6202330c3c38c71b45dd9d676
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.2/rhacs-full-stack-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-07-24T17:24:19.73583523Z"
     description: Master chart to deploy RHACS operator, initialize it and do some
       configuration using API Calls
@@ -449,4 +508,22 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T09:44:09.783749544Z"
+  sealed-secrets:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-07-25T10:52:22.13967131Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets
+    digest: 6864588e45f2a8fb897340eefa2d02255233c6f2fcaf0b70fb294c3c614512b4
+    maintainers:
+    - name: tjungbauer
+    name: sealed-secrets
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-07-25T10:52:22.139857412Z"
