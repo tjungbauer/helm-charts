@@ -1,17 +1,2 @@
 ---
-logging:
-  namespace: openshift-logging
 
-operators:
-  cluster-logging-operator:
-    enabled: true
-    namespace:
-      name: openshift-logging
-      create: true
-    subscription:
-      approval: Automatic
-      operatorName: cluster-logging
-      source: redhat-operators
-      sourceNamespace: openshift-marketplace
-    operatorgroup:
-      create: true
