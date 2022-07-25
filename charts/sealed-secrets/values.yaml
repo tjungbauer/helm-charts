@@ -4,3 +4,14 @@ sealed-secrets:
   nameOverride: sealed-secrets
   fullnameOverride: sealed-secrets
   namespace: sealed-secrets
+  # Dont touch the security context values, deployment will fail in OpenShift otherwise.
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
+  commandArgs:
+    - "--update-status=true"
+
+namespace: 
+  name: sealed-secrets
+  create: true
