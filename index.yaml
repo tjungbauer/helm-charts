@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-07-25T05:04:20.746151128Z"
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: 7fb8ec05a99de0e14c0c07e1abf6d218d96c04409872fe6552f986e9158d157f
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-management-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.1/collection-management-operators-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2022-07-24T18:45:22.304193634Z"
     description: Collection of management Operators which are usually installed on
       the management cluster only. I.e. Quay, ACM, Cert-Manager...
@@ -15,6 +28,18 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.0/collection-management-operators-1.0.0.tgz
     version: 1.0.0
   collection-operators:
+  - apiVersion: v2
+    created: "2022-07-25T05:04:20.889639918Z"
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 7ed4c3de5e3c15a37aa19bc6b4674033a308310b9ffab9ed26d862e414af956e
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.2/collection-operators-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-07-24T18:54:58.594327831Z"
     description: Collection of Operators which can be deployed on Demo Systems.
@@ -40,6 +65,18 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-07-25T05:04:21.036424349Z"
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 02bec5df383996b92fe8692f8e5c1d90b6371ac6a15461c5b4d1889622b3e635
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://sdk.operatorframework.io/build/images/logo.svg
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.1/collection-optional-operators-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2022-07-24T18:45:22.522674257Z"
     description: Collection of optional operators, like CodeReadyWorkspaces.
@@ -139,4 +176,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.0/rhacs-full-stack-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-24T18:54:58.594348031Z"
+generated: "2022-07-25T05:04:21.036462149Z"
