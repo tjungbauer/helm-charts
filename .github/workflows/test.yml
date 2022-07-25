@@ -27,10 +27,5 @@ jobs:
     - name: test 
       run: |
         ls -la 
-        rake version
-
-    - name: Install dependencies
-      run: bundle install
-
-    - name: Run tests
-      run: bundle exec rake
+        rake
+        ls -la 
