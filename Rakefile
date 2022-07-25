@@ -51,4 +51,8 @@ task :clean do
   sh "rm -rf #{WEB_ROOT}"
 end
 
+task WEB_ROOT do
+  next if File.directory? WEB_ROOT
+end
+
 task default: [:package, :index]
