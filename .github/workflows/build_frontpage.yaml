@@ -3,7 +3,7 @@ name: Build Frontpage
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [pages build and deployment]
+    workflows: [Release Charts]
     types:
       - completed
 
