@@ -24,4 +24,8 @@ jobs:
       run: |
         ls -la 
         helm plugin install https://github.com/halkeye/helm-repo-html
+
+    - name: test2
+      run: |
+        helm repo-html
         ls -la 
