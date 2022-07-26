@@ -82,6 +82,7 @@
         width: 300px;
         margin: 0.5em;
         box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
+        position: relative;
       }
       
       .chart .icon {
@@ -120,6 +121,21 @@
         color: #fff;
         text-align: right;
       }
+      .bottom{
+        position: relative;
+      }
+    
+      .bottom span {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      div.chart div.bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
     </style>
   </head>
 
@@ -156,11 +172,14 @@
                 <p class="description">
                   Collection of management Operators which are usually installed on the management cluster only. I.e. Quay, ACM, Cert-Manager...
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -176,11 +195,14 @@
                 <p class="description">
                   Collection of Operators which can be deployed on Demo Systems.
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -196,11 +218,14 @@
                 <p class="description">
                   Collection of optional operators, like CodeReadyWorkspaces.
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -216,11 +241,14 @@
                 <p class="description">
                   Master chart to deploy and configure the Compliance Operator
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -236,11 +264,14 @@
                 <p class="description">
                   A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -256,11 +287,14 @@
                 <p class="description">
                   Installs and patches the Red Hat Openshift Gitops Operator
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -276,11 +310,14 @@
                 <p class="description">
                   Installs and patches the Red Hat Openshift Gitops Operator
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -296,11 +333,14 @@
                 <p class="description">
                   Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -316,11 +356,14 @@
                 <p class="description">
                   Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -336,11 +379,14 @@
                 <p class="description">
                   Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
           <div class="chart">
@@ -356,11 +402,14 @@
                 <p class="description">
                   A Helm chart to deploy sealed-secrets - epends on Bitnami&#39;s helm chart
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           
 
