@@ -9,29 +9,37 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # here is the main section for us, where we spin up the Redpanda instance
-    # using the Redpanda GitHub action,pay attention on the `.with.version` key, we are using _latest_ but you can use any Redpanda version
-    # tip: version is exactly the same as the Redpanda docker image
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        ref: 'main'
+        ref: 'gh-pages'
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        persist-credentials: true
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+    - name: Set up Helm
+      uses: azure/setup-helm@v2.1
       with:
-        ruby-version: '3.0'
-        bundler-cache: true
+        version: v3.8.1
 
-    - name: Install dependencies
-      run: bundle install
-    - name: Run tests
-      run: bundle exec rake
-
-    - name: test 
+    - name: test
       run: |
-        ls -la 
-        rake --version
-        rake -v --trace
-        ls -la 
+        ls -la
+        helm plugin install https://github.com/halkeye/helm-repo-html
+
+    - name: test2
+      run: |
+        helm repo-html
+        ls -la
+
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+      	ssh: true
+        branch: 'gh-pages'
