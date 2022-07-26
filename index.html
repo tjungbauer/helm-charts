@@ -7,17 +7,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQFUKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+      .body {
+        background-color: #303030;
+      }
       .markdown-body {
         box-sizing: border-box;
         min-width: 200px;
         margin: 0 auto;
         padding: 45px;
+        color: #dedede;
+      }
+
+      .markdown-body a {
+        color: #a3d0f5;
       }
     
       @media (max-width: 767px) {
         .markdown-body {
           padding: 15px;
         }
+      }
+      .markdown-body pre {
+        background-color: #282c34;
       }
 
       .snippet { position: relative; }
@@ -64,11 +75,13 @@
       .chart {
         border-radius: 8px;
         overflow: hidden;
-        border: 1px solid #d7d9dd;
-        transition: transform .2s ease;
-        background-color: #eaedef;
+        border: 1px solid #ccc;
+         
+        transition: 0.25s ease box-shadow, 0.25s ease transform;
+         
         width: 300px;
         margin: 0.5em;
+        box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
       }
       
       .chart .icon {
@@ -100,10 +113,16 @@
       .chart .body .description {
         text-align: left;
       }
+      .time {
+        color: #dedede;
+      }
+      .githublogo {
+        color: #fff;
+      }
     </style>
   </head>
 
-  <body>
+  <body class="body">
 
     <section class="markdown-body">
       <h1>Helm Charts</h1>
@@ -133,7 +152,7 @@
                   collection-management-operators (1.0.10)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.10/collection-management-operators-1.0.10.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.10/collection-management-operators-1.0.10.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -153,7 +172,7 @@
                   collection-operators (1.0.11)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.11/collection-operators-1.0.11.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.11/collection-operators-1.0.11.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -173,7 +192,7 @@
                   collection-optional-operators (1.0.9)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.9/collection-optional-operators-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.9/collection-optional-operators-1.0.9.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -193,7 +212,7 @@
                   compliance-operator-full-stack (1.0.10)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.10/compliance-operator-full-stack-1.0.10.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.10/compliance-operator-full-stack-1.0.10.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -213,7 +232,7 @@
                   helper-operator (1.0.9)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.9/helper-operator-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.9/helper-operator-1.0.9.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -233,7 +252,7 @@
                   openshift-gitops (1.0.1)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.1/openshift-gitops-1.0.1.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.1/openshift-gitops-1.0.1.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -253,7 +272,7 @@
                   openshift_gitops (1.0.0)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -273,7 +292,7 @@
                   pipeline-example (1.0.0)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.0/pipeline-example-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.0/pipeline-example-1.0.0.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -293,7 +312,7 @@
                   rhacs-demo-applications (1.0.1)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.1/rhacs-demo-applications-1.0.1.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.1/rhacs-demo-applications-1.0.1.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -313,7 +332,7 @@
                   rhacs-full-stack (1.0.3)
                   <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.3/rhacs-full-stack-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.3/rhacs-full-stack-1.0.3.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -324,16 +343,16 @@
           </div>
           
           <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.5/sealed-secrets-1.0.5.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.5/sealed-secrets-1.0.5.tgz">
+            <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.6/sealed-secrets-1.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.6/sealed-secrets-1.0.6.tgz">
               <div class="icon">
                 <img class="chart-item-logo" alt="logo" src="https://avatars.githubusercontent.com/u/34656521?s=200&amp;v=4">
               </div>
               <div class="body">
                 <p class="info">
-                  sealed-secrets (1.0.5)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.5/sealed-secrets-1.0.5.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.5/sealed-secrets-1.0.5.tgz">
+                  sealed-secrets (1.0.6)
+                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.6/sealed-secrets-1.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.6/sealed-secrets-1.0.6.tgz">
                   <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">
-                    <span class="fa-brands fa-github"></span>
+                    <span class="fa-brands fa-github githublogo"></span>
                   </a>
                 </p>
                 <p class="description">
@@ -347,6 +366,6 @@
       </div>
 
     </section>
-    <time datetime="2022-07-26T10:01:11" pubdate id="generated">Tue Jul 26 2022 10:01:11AM UTC&#43;00:00</time>
+    <time class="time" datetime="2022-07-26T10:32:37" pubdate id="generated">Tue Jul 26 2022 10:32:37AM UTC&#43;00:00</time>
   </body>
 </html>
