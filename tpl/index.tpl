@@ -135,7 +135,7 @@
       </code></pre>
 
 
-      <p>These Charts are used to make my life easier when I need to install a Demo-Environment. Anyone is free to use them and make suggestions. .</p>
+      <p>These Charts are used to make my life easier when I need to install a Demo-Environment. Anyone is free to use them and make suggestions.</p>
 
       <h2>Charts</h2>
 
