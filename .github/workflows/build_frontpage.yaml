@@ -1,5 +1,5 @@
 # the name of our job
-name: test
+name: Build Frontpage
 
 # yes, we want to run for all branches and pull requests
 on:
