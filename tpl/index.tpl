@@ -174,7 +174,6 @@
                 </p>
                 
               </div>
-            </a>
             <div class="bottom">
                 <a href="{{ (index $chartEntry 0).Home }}">
                     <span class="fa-brands fa-github githublogo"></span>
