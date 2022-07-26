@@ -1,0 +1,21 @@
+---
+
+# Install Operator Compliance Operator
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+helper-operator:
+  operators:
+    odf-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-storage
+        create: true
+      subscription:
+        channel: stable-4.10
+        approval: Automatic
+        operatorName: odf-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
