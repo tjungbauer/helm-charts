@@ -1,20 +1,199 @@
+
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Helm Chart Repository</title>
+    <title>Helm Charts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+    <style>
+      .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+      }
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 15px;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <h1>&#129311; Helm Chart Repository &#129311;</h1>
-    <p>Add this repository</p>
-    <pre>
-      helm repo add tjungbauer https://tjungbauer.github.io/helm-charts/
-    </pre>
-    <p>Update your repositories</p>
-    <pre>
-      helm repo update
-    </pre>
-    <p>Sarch your repositories</p>
-    <pre>
-      helm search repo
-    </pre>
+
+    <section class="markdown-body">
+      <h1>Helm Charts</h1>
+
+      <h2>Usage</h2>
+      <pre lang="no-highlight"><code>
+        helm repo add halkeye https://halkeye.github.io/helm-charts
+      </code></pre>
+
+      <p>These are presented as is. Anyone is free to use them, and make suggestions, but they were created for my own use. At some point I want to submit them to the actual helm charts repo.</p>
+
+      <h2>Charts</h2>
+
+      <ul>
+			
+				<li>
+					<p>
+						collection-management-operators
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.7/collection-management-operators-1.0.7.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.7/collection-management-operators-1.0.7.tgz">
+						1.0.7
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Collection of management Operators which are usually installed on the management cluster only. I.e. Quay, ACM, Cert-Manager...
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						collection-operators
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.8/collection-operators-1.0.8.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.8/collection-operators-1.0.8.tgz">
+						1.0.8
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Collection of Operators which can be deployed on Demo Systems.
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						collection-optional-operators
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.5/collection-optional-operators-1.0.5.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.5/collection-optional-operators-1.0.5.tgz">
+						1.0.5
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Collection of optional operators, like CodeReadyWorkspaces.
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						compliance-operator-full-stack
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.7/compliance-operator-full-stack-1.0.7.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.7/compliance-operator-full-stack-1.0.7.tgz">
+						1.0.7
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Master chart to deploy and configure the Compliance Operator
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						helper-operator
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.8/helper-operator-1.0.8.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.8/helper-operator-1.0.8.tgz">
+						1.0.8
+						@
+						
+						</a>)
+					</p>
+					<p>
+						A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						openshift-gitops
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz">
+						1.0.0
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Installs and patches the Red Hat Openshift Gitops Operator
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						openshift_gitops
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz">
+						1.0.0
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Installs and patches the Red Hat Openshift Gitops Operator
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						pipeline-example
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz">
+						0.1.0
+						@
+						1.16.0
+						</a>)
+					</p>
+					<p>
+						Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						rhacs-demo-applications
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.0/rhacs-demo-applications-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.0/rhacs-demo-applications-1.0.0.tgz">
+						1.0.0
+						@
+						1.16.0
+						</a>)
+					</p>
+					<p>
+						Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						rhacs-full-stack
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.2/rhacs-full-stack-1.0.2.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.2/rhacs-full-stack-1.0.2.tgz">
+						1.0.2
+						@
+						
+						</a>)
+					</p>
+					<p>
+						Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
+					</p>
+				</li>
+			
+				<li>
+					<p>
+						sealed-secrets
+						(<a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.3/sealed-secrets-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.3/sealed-secrets-1.0.3.tgz">
+						1.0.3
+						@
+						1.0.0
+						</a>)
+					</p>
+					<p>
+						A Helm chart to deploy sealed-secrets - epends on Bitnami&#39;s helm chart
+					</p>
+				</li>
+			
+      </ul>
+    </section>
+		<time datetime="2022-07-26T04:57:04" pubdate id="generated">Tue Jul 26 2022 04:57:04AM UTC&#43;00:00</time>
   </body>
 </html>
