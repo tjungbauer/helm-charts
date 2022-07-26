@@ -82,6 +82,7 @@
         width: 300px;
         margin: 0.5em;
         box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
+        position: relative;
       }
       
       .chart .icon {
@@ -120,6 +121,21 @@
         color: #fff;
         text-align: right;
       }
+      .bottom{
+        position: relative;
+      }
+    
+      .bottom span {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      div.chart div.bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
     </style>
   </head>
 
@@ -156,11 +172,14 @@
                 <p class="description">
                   {{ (index $chartEntry 0).Description }}
                 </p>
+                
+              </div>
+            </a>
+            <div class="bottom">
                 <a href="{{ (index $chartEntry 0).Home }}">
                     <span class="fa-brands fa-github githublogo"></span>
                 </a>
-              </div>
-            </a>
+            </div>
           </div>
           {{end}}
 
