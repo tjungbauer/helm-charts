@@ -1,14 +1,16 @@
-# the name of our job
 name: Build Frontpage
 
-# yes, we want to run for all branches and pull requests
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: [pages build and deployment]
+    types:
+      - completed
 
-# we have just our job `test`
 jobs:
-  test:
+  on-success:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -22,15 +24,13 @@ jobs:
       with:
         version: v3.8.1
 
-    - name: test
+    - name: Install Helm Plugin helm-repo-htlm
       run: |
-        ls -la
         helm plugin install https://github.com/halkeye/helm-repo-html
 
-    - name: test2
+    - name: Create Frontpage
       run: |
-        helm repo-html
-        ls -la
+        helm repo-html -t tpl/index.tpl
 
     - name: Commit files
       run: |
