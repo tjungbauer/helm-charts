@@ -9,7 +9,7 @@ gitops:
     name: openshift-operators
   subscription:
     approval: Automatic
-    operatorName: openshift-pipelines-operator-rh
+    operatorName: openshift-gitops-operator
     sourceName: redhat-operators
     sourceNamespace: openshift-marketplace
 
