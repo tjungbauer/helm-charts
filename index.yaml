@@ -556,19 +556,6 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
     version: 1.0.0
-  openshift_gitops:
-  - apiVersion: v2
-    created: "2022-07-25T08:05:56.851507209Z"
-    description: Installs and patches the Red Hat Openshift Gitops Operator
-    digest: c5fb12bbf703e2b0b734ab0fb8c193f9cefbe4285350d3667ef80aa6fbe68220
-    home: https://github.com/tjungbauer/helm-charts
-    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
-    maintainers:
-    - name: tjungbauer
-    name: openshift_gitops
-    urls:
-    - https://github.com/tjungbauer/helm-charts/releases/download/openshift_gitops-1.0.0/openshift_gitops-1.0.0.tgz
-    version: 1.0.0
   pipeline-example:
   - apiVersion: v2
     appVersion: 1.16.0
