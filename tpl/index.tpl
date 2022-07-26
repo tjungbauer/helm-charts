@@ -167,7 +167,7 @@
               <div class="body">
                 <p class="info">
                   {{ (index $chartEntry 0).Name }} ({{ (index $chartEntry 0).Version }})
-                  <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
+                  <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}"></a>
                 </p>
                 <p class="description">
                   {{ (index $chartEntry 0).Description }}
