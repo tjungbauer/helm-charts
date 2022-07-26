@@ -118,6 +118,7 @@
       }
       .githublogo {
         color: #fff;
+        text-align: right;
       }
     </style>
   </head>
@@ -151,13 +152,13 @@
                 <p class="info">
                   {{ (index $chartEntry 0).Name }} ({{ (index $chartEntry 0).Version }})
                   <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
-                  <a href="{{ (index $chartEntry 0).Home }}">
-                    <span class="fa-brands fa-github githublogo"></span>
-                  </a>
                 </p>
                 <p class="description">
                   {{ (index $chartEntry 0).Description }}
                 </p>
+                <a href="{{ (index $chartEntry 0).Home }}">
+                    <span class="fa-brands fa-github githublogo"></span>
+                </a>
               </div>
             </a>
           </div>
