@@ -540,6 +540,26 @@ entries:
   sealed-secrets:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-07-26T04:57:04.897878318Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm
+      chart
+    digest: afab4849ad271a4b70a99ccc1b45be19532e36a7302c18b33b220d28a4cdfb7f
+    home: https://github.com/tjungbauer/helm-charts
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: sealed-secrets
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.3/sealed-secrets-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-07-25T13:14:54.065044103Z"
     dependencies:
     - condition: sealed-secrets.enabled
@@ -595,4 +615,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-25T13:14:54.065266813Z"
+generated: "2022-07-26T04:57:04.898069518Z"
