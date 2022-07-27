@@ -1,0 +1,60 @@
+{{- with .Values }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: check-operator-status
+  namespace: {{ .namespace.name | quote }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:1.0
+          command:
+            - /bin/bash
+            - -c
+            - |
+             #!/usr/bin/env bash
+             sleep_timer={{ .wait_time | default 20 }}
+             status=0
+
+             echo "Waiting for operator to be available..."
+
+             # turned out it takes even more time until operator is ready, so lets check the deployment
+             deployments=({{ .deployments }})
+             for i in "${deployments[@]}";
+             do
+                printf "\nWaiting for deployment %s\n" "$i";
+                oc get deployment/"$i" -n {{ .namespace.name | quote }}
+                depl_status=$?
+                if [ $depl_status -eq 1 ]; then
+                    echo "Deployment not yet found... Give Operator $sleep_timer seconds to create the Deployment"
+                    sleep $sleep_timer
+                fi
+                oc rollout status deployment "$i" -n {{ .namespace.name | quote }}
+                status=$?
+             done
+
+             echo $status
+
+             if [ $status -eq 0 ]; then
+                  echo "Operator seems to be ready"
+             else
+                  echo "ERROR: Operator is not ready"
+                  exit 1
+             fi
+          name: check-operator
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccount: {{ include "helper.serviceAccountName" $ }}
+      serviceAccountName: {{ include "helper.serviceAccountName" $ }}
+{{- end }}
+{{- end }}

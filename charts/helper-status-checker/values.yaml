@@ -1,0 +1,13 @@
+# Example
+#  enabled: true
+
+#  deployments: "ocs-operator odf-console odf-operator-controller-manager ocs-metrics-exporter noobaa-operator csi-addons-controller-manager"
+
+#  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
+
+#  namespace:
+#    name: openshift-storage
+
+#  serviceAccount:
+#    create: true
+#    name: "status-checker"

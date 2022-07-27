@@ -1,0 +1,20 @@
+{{- with .Values }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "helper.rolename" $ }}-rb
+  namespace: {{ .namespace.name | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "helper.rolename" $ }}-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "helper.serviceAccountName" $ }}
+    namespace: {{ .namespace.name | quote }}
+{{- end }}
+{{- end }}
