@@ -146,7 +146,7 @@
 
       <h2>Usage</h2>
       <pre lang="no-highlight"><code>
-        helm repo add tjungbauer https://tjungbauer.github.io/helm-charts/
+        helm repo add tjungbauer https://charts.stderr.at/
 
         help repo update
       </code></pre>
