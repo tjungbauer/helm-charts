@@ -131,6 +131,22 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-07-27T05:40:53.193912814Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 61dde0fb3df17b3b5a9746d21c516f24d5028ccbf73835f38a69e86882a06882
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://keithtenzer.com/assets/2020/01/38202270.png
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.12/collection-operators-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
     created: "2022-07-26T09:57:31.290077759Z"
     dependencies:
     - name: helper-operator
@@ -244,6 +260,22 @@ entries:
     version: 1.0.0
   collection-optional-operators:
   - apiVersion: v2
+    created: "2022-07-27T05:40:53.297252667Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 0c8bcb264d417b6deb07703cde5b12047fe97ac085568f7116773b4e62f31a98
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
+    icon: https://keithtenzer.com/assets/2020/01/38202270.png
+    maintainers:
+    - name: tjungbauer
+    name: collection-optional-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.10/collection-optional-operators-1.0.10.tgz
+    version: 1.0.10
+  - apiVersion: v2
     created: "2022-07-26T09:57:31.515019136Z"
     dependencies:
     - name: helper-operator
@@ -332,6 +364,22 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.0/collection-optional-operators-1.0.0.tgz
     version: 1.0.0
   compliance-operator-full-stack:
+  - apiVersion: v2
+    created: "2022-07-27T05:40:53.41206276Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 809f188d557051460022e89c32e044eba530295d69ffecc7476d24acdeff939e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://avatars.githubusercontent.com/u/40638982?s=200&v=4
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.11/compliance-operator-full-stack-1.0.11.tgz
+    version: 1.0.11
   - apiVersion: v2
     created: "2022-07-26T09:57:31.668655205Z"
     dependencies:
@@ -520,6 +568,22 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
     version: 1.0.2
   openshift-data-foundation:
+  - apiVersion: v2
+    created: "2022-07-27T05:40:53.515499616Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: 798bd640c79eb0d69b0f29aa839abf10dd2ab5fcfc76af1409c318818d41692c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: openshift-data-foundation
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.2/openshift-data-foundation-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2022-07-26T19:20:52.368268349Z"
     dependencies:
@@ -897,4 +961,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-27T05:36:17.183628124Z"
+generated: "2022-07-27T05:40:53.515679321Z"
