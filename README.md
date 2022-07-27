@@ -15,7 +15,7 @@ Charts in this repo contains for example are:
 
 ## Add Helm Repository locally
 ```
-helm repo add tjungbauer https://tjungbauer.github.io/helm-charts/
+helm repo add tjungbauer https://charts.stderr.at/
 ```
 
 ## Update your repository
@@ -44,7 +44,7 @@ All Charts in this repository must pass the linting process. Use [`helm lint`](h
 This Repo is using two Github Actions to validate the Charts and to create the Helm repository:
 
 * Lint and Test Charts: Uses Chart Tester to automatically verify all NEW (updated) Charts. This means that the version of a Chart must be incremented in order to be found by this action.
-* Release Charts: Uses Chart Releaser to build the helm repository on Github Pages. This page is automatically created in the branch "gh-pages" and can be found at: https://tjungbauer.github.io/helm-charts/ 
+* Release Charts: Uses Chart Releaser to build the helm repository on Github Pages. This page is automatically created in the branch "gh-pages" and can be found at: https://charts.stderr.at/
 
 ## Thanks
 For all the inspiration: https://github.com/redhat-cop/helm-charts 
