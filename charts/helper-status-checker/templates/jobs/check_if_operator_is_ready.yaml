@@ -16,7 +16,7 @@ spec:
   template:
     spec:
       containers:
-        - image: registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8:1.0
+        - image: registry.redhat.io/openshift4/ose-cli
           command:
             - /bin/bash
             - -c
