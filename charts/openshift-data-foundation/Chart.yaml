@@ -9,7 +9,7 @@ dependencies:
     version: "1.0.9"
     repository: https://charts.stderr.at/
   - name: helper-status-checker
-    version: ~1.0.0
+    version: ~1.0.1
     repository: 'file://../helper-status-checker'
     condition: helper-status-checker.enabled
 maintainers:
