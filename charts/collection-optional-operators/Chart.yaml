@@ -1,9 +1,9 @@
 apiVersion: v2
 name: collection-optional-operators
 description: Collection of optional operators, like CodeReadyWorkspaces.
-version: 1.0.10
+version: 1.0.11
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
-icon: https://keithtenzer.com/assets/2020/01/38202270.png
+icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
 dependencies:
   - name: helper-operator
     version: "1.0.9"

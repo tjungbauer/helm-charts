@@ -1,8 +1,8 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
-version: 1.0.9
+version: 1.0.10
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
-icon: https://keithtenzer.com/assets/2020/01/38202270.png
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
   - name: tjungbauer
