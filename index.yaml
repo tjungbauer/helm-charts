@@ -631,6 +631,20 @@ entries:
     version: 1.0.2
   helper-status-checker:
   - apiVersion: v2
+    created: "2022-07-28T06:31:50.447382434Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments
+    digest: af9df966792d73f437df9f790353d51113c0178e6c4d33ffa39b6531fac0c833
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-status-checker
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.2/helper-status-checker-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-07-27T12:08:59.615021973Z"
     description: A helper Chart which creates a job to verify if the deployments of
       an operator are running. To do so it creates a service account with a role to
@@ -659,6 +673,26 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.0/helper-status-checker-1.0.0.tgz
     version: 1.0.0
   openshift-data-foundation:
+  - apiVersion: v2
+    created: "2022-07-28T06:31:50.605722192Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.1
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: 11fcdf2b85509a0ee3cf99cdefb9e5afdfce65332dc749a5ecebc894679ee578
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: openshift-data-foundation
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.6/openshift-data-foundation-1.0.6.tgz
+    version: 1.0.6
   - apiVersion: v2
     created: "2022-07-27T12:39:04.647256234Z"
     dependencies:
@@ -1107,4 +1141,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-27T12:39:04.647400446Z"
+generated: "2022-07-28T06:31:50.60597279Z"
