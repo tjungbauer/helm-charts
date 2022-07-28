@@ -1,0 +1,22 @@
+# Example
+
+etcd_encryption:
+  enabled: false
+
+self_provisioner:
+  deactivate: false
+
+idp:
+  enabled: false
+  ldap:
+    enabled: false
+    name: LDAP
+    url: yourURL
+    insecure: false
+    binddn: binddn
+    preferredusername: sAMAccountName
+    secretname: ldap-secret
+  htpasswd:
+    enabled: false
+    name: HTPASSWD
+    secretname: htpasswd-secret

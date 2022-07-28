@@ -1,0 +1,48 @@
+{{- with .Values.idp }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+{{- with .ldap -}}
+{{ if eq ( .enabled | toString) "true" }}
+  identityProviders:
+  - ldap:
+      attributes:
+        email:
+        - mail
+        id:
+        - dn
+        name:
+        - cn
+        preferredUsername:
+        # Currently only one item in the list, create a range would be better
+        - {{ .preferredusername | quote }}
+      bindDN: {{ .binddn | quote }}
+      bindPassword:
+        name: {{ .secretname | default "ldap-secret" }}
+      ca:
+        name: {{ .cmname | default "ca-config-map" }}
+      insecure: {{ .insecure | default true }}
+      url: {{ .url | quote }}
+    mappingMethod: claim
+    name: {{ .name | default "ldap" | quote }}
+    type: LDAP
+{{- end }}
+{{- end }}
+{{- with .htpasswd -}}
+{{ if eq ( .enabled | toString) "true" }}
+  - htpasswd:
+      fileData:
+        name: {{ .secretname | default "htpasswd-secret" }}
+    mappingMethod: claim
+    name: {{ .name | default "htpasswd" | quote }}
+    type: HTPasswd
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

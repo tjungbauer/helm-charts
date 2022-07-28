@@ -1,0 +1,16 @@
+{{- with .Values.etcd_encryption }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: config.openshift.io/v1
+kind: APIServer
+metadata:
+  annotations:
+    release.openshift.io/create-only: 'true'
+  name: cluster
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  encryption:
+    type: aescbc
+{{- end }}
+{{- end }}

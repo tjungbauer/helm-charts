@@ -1,0 +1,15 @@
+{{- with .Values.console_banner }}
+{{ if eq ( .enabled | toString) "true" }}
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: cluster-banner
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  text: {{ .text | quote }}
+  location: {{ .location | quote }} 
+  color: "{{ .color }}"
+  backgroundColor: "{{ .backgroundcolor }}"
+{{- end }}
+{{- end }}
