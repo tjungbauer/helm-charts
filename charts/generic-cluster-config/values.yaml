@@ -8,15 +8,15 @@ self_provisioner:
 
 idp:
   enabled: false
-  ldap:
-    enabled: false
-    name: LDAP
-    url: yourURL
-    insecure: false
-    binddn: binddn
-    preferredusername: sAMAccountName
-    secretname: ldap-secret
-  htpasswd:
-    enabled: false
-    name: HTPASSWD
-    secretname: htpasswd-secret
+  providers:
+    htpasswd:
+      - name: HTPASSWD
+        enabled: false
+        secretname: htpasswd-secret
+    ldap:
+      - name: LDAP
+        enabled: false
+        url: 127.0.0.1
+        insecure: true
+        binddn: xyz
+        preferredusername: sAMAccountName

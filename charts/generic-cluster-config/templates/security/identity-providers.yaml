@@ -8,9 +8,10 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-{{- with .ldap -}}
-{{ if eq ( .enabled | toString) "true" }}
   identityProviders:
+{{- with .providers }}
+{{- range $key, $value := .ldap -}}
+{{ if eq ($value.enabled | toString) "true" }}
   - ldap:
       attributes:
         email:
@@ -34,14 +35,17 @@ spec:
     type: LDAP
 {{- end }}
 {{- end }}
-{{- with .htpasswd -}}
-{{ if eq ( .enabled | toString) "true" }}
+{{- end }}
+{{- with .providers }}
+{{- range $key, $value := .htpasswd -}}
+{{ if eq ($value.enabled | toString) "true" }}
   - htpasswd:
       fileData:
         name: {{ .secretname | default "htpasswd-secret" }}
     mappingMethod: claim
     name: {{ .name | default "htpasswd" | quote }}
     type: HTPasswd
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
