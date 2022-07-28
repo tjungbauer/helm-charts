@@ -537,6 +537,20 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
+  generic-cluster-config:
+  - apiVersion: v2
+    created: "2022-07-28T06:37:00.283847953Z"
+    description: This Chart is responsible to deploy generic clusterconfiguration,
+      for example etcd encryption, oauth etc.
+    digest: 174b5872a831ce82c12733bbf77187e8af395fc8f668a3b14482b723c3a5b1dd
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png
+    maintainers:
+    - name: tjungbauer
+    name: generic-cluster-config
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.0/generic-cluster-config-1.0.0.tgz
+    version: 1.0.0
   helper-operator:
   - apiVersion: v2
     created: "2022-07-27T06:05:59.16165254Z"
@@ -1141,4 +1155,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-28T06:31:50.60597279Z"
+generated: "2022-07-28T06:37:00.284094771Z"
