@@ -862,6 +862,18 @@ entries:
     version: 1.0.0
   openshift-gitops:
   - apiVersion: v2
+    created: "2022-07-29T12:35:44.978744522Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 929f6b32fe1d5ae1cdac0bd849cfb6478a545522f2ccd948af6eebf322979438
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.3/openshift-gitops-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-07-26T13:31:33.174432141Z"
     description: Installs and patches the Red Hat Openshift Gitops Operator
     digest: a6e331a12c518bb06f3ee1a62341a9e8c1b93811144c1cae1f6a100da0563183
@@ -1220,4 +1232,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-29T11:08:15.981912988Z"
+generated: "2022-07-29T12:35:44.979576489Z"
