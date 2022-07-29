@@ -21,17 +21,16 @@ idp:
         binddn: xyz
         preferredusername: sAMAccountName
 
-
 console:
   console_banners:
     topbanner:
-      enabled: true
+      enabled: false
       text: 'MGMT Cluster'
       location: BannerTop
       color: "#FFFFFF"
       backgroundcolor: '#0088ee'
     bottombanner:
-      enabled: true
+      enabled: false
       text: Copyright © 2020 Sample Company, Inc. |
       location: BannerBottom
       color: "#FFFFFF"
