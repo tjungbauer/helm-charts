@@ -1,0 +1,46 @@
+{{- with .Values.loggingConfig }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: "logging.openshift.io/v1"
+kind: "ClusterLogging"
+metadata:
+  name: "instance" 
+  namespace: "openshift-logging"
+spec:
+  managementState: "Managed"  
+  logStore:
+    type: "elasticsearch"
+    retentionPolicy: 
+      application:
+        maxAge: {{ .es.retentionPolicy.application }}
+      infra:
+        maxAge: {{ .es.retentionPolicy.infra }}
+      audit:
+        maxAge: {{ .es.retentionPolicy.audit }}
+    elasticsearch:
+      nodeCount: {{ .es.nodes }}
+      storage:
+        storageClassName: {{ .es.storageclass | quote }}
+        size: {{ .es.storagesize }}
+      resources: 
+          limits:
+            memory: {{ .es.limits.mem | quote }}
+          requests:
+            memory: {{ .es.requests.mem | quote }}
+      proxy:
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            memory: 256Mi
+      redundancyPolicy: {{ .es.redundancyPolicy | quote }}
+  visualization:
+    type: "kibana"
+    kibana:
+      replicas: 1
+  collection:
+    logs:
+      type: "fluentd"
+      fluentd: {}
+{{- end }}
+{{- end }}

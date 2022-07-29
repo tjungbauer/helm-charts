@@ -1,0 +1,47 @@
+---
+
+# Install Operator Compliance Operator
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+helper-operator:
+  operators:
+    elasticsearch-operator:
+      enabled: true
+      namespace:
+        name: openshift-operators-redhat
+        create: true
+      subscription:
+        approval: Automatic
+        operatorName: elasticsearch-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+
+    cluster-logging-operator:
+      enabled: true
+      namespace:
+        name: openshift-logging
+        create: true
+      subscription:
+        approval: Automatic
+        operatorName: cluster-logging
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+
+helper-status-checker:
+  enabled: true
+
+  # space separate list of deployments which shall be checked for status
+  deployments: "cluster-logging-operator"
+
+  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
+
+  namespace:
+    name: openshift-logging
+
+  serviceAccount:
+    create: true
+    name: "status-checker"
