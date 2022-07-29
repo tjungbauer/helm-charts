@@ -3,8 +3,8 @@
 #
 
 gitops:
-  enabled: true
-  clusterAdmin: enabled
+  enabled: false
+  clusterAdmin: disabled
   namespace:
     name: openshift-operators
   subscription:
@@ -14,5 +14,5 @@ gitops:
     sourceNamespace: openshift-marketplace
 
 serviceAccount:
-  create: true
+  create: false
   name: openshift-gitops-app-controller
