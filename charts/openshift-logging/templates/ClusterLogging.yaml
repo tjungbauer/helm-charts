@@ -6,6 +6,11 @@ kind: "ClusterLogging"
 metadata:
   name: "instance" 
   namespace: "openshift-logging"
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   managementState: "Managed"  
   logStore:
