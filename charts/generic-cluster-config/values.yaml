@@ -20,3 +20,73 @@ idp:
         insecure: true
         binddn: xyz
         preferredusername: sAMAccountName
+
+
+console:
+  console_banners:
+    topbanner:
+      enabled: true
+      text: 'MGMT Cluster'
+      location: BannerTop
+      color: "#FFFFFF"
+      backgroundcolor: '#0088ee'
+    bottombanner:
+      enabled: true
+      text: Copyright © 2020 Sample Company, Inc. |
+      location: BannerBottom
+      color: "#FFFFFF"
+      backgroundcolor: '#000'
+      link:
+        href: 'https://www.example.com/data-protection-policy'
+        text: Data Protection and Privacy Policy
+
+  console_links:
+    userlink:
+      enabled: false
+      text: "Intranet"
+      location: UserMenu
+      href: https://intranet
+    namespacedlink:
+      enabled: false
+      text: Link valid for selected namespace only
+      location: NamespaceDashboard
+      href: https://report
+      namespaces:
+        - default
+        - openshift-gitops
+    namespacedlink_all_namespaces:
+      enabled: false
+      text: Report Violations
+      location: NamespaceDashboard
+      href: https://report
+    helplink:
+      enabled: false
+      text: Red Hat CVE Database
+      location: HelpMenu
+      href: https://access.redhat.com/security/security-updates/#/cve
+    applicationlink:
+      enabled: false
+      text: Red Hat Subscription Management
+      location: ApplicationMenu
+      href: https://access.redhat.com/management
+      applicationMenu:
+        section: My Subscriptions
+        imageURL: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/configuration.png
+
+  yamlsamples:
+    secret-yaml-sample:
+      enabled: false
+      targetresource:
+        apiversion: v1
+        kind: secret
+      title: "Secret based on cleartext values"
+      descr: "This is an example to create a Secret based on clear-text values"
+      yamlDef: |+
+            apiVersion: v1
+            kind: Secret
+            metadata:
+              name: example
+            type: Opaque
+            stringData:
+              email: youremail@address.com
+              password: YourSuperPassword
