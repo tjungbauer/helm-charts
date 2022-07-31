@@ -9,6 +9,6 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
 data:
   config.yaml: |
-    enableUserWorkload: 'true'
+    enableUserWorkload: true
 {{- end }}
 {{- end }}
