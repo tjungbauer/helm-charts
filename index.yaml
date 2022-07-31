@@ -734,6 +734,20 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
     version: 1.0.2
+  helper-proj-onboarding:
+  - apiVersion: v2
+    created: "2022-07-31T10:11:59.042467707Z"
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: 64cf6362b342e26a6ac421abd57b0cc9d35075fbe9f84852178335ac7527c213
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarder
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-proj-onboarding
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.0/helper-proj-onboarding-1.0.0.tgz
+    version: 1.0.0
   helper-status-checker:
   - apiVersion: v2
     created: "2022-07-28T06:31:50.447382434Z"
@@ -1313,4 +1327,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-31T03:00:08.349632513Z"
+generated: "2022-07-31T10:11:59.042749707Z"
