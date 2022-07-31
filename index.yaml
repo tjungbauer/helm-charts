@@ -539,6 +539,19 @@ entries:
     version: 1.0.2
   generic-cluster-config:
   - apiVersion: v2
+    created: "2022-07-31T02:49:01.469550248Z"
+    description: This Chart is responsible to deploy generic clusterconfiguration,
+      for example etcd encryption, oauth etc.
+    digest: e3194ce67460ad6d852e4d413196890719715a16042f976feaac6cb7d6780d17
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png
+    maintainers:
+    - name: tjungbauer
+    name: generic-cluster-config
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.6/generic-cluster-config-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2022-07-29T11:08:15.98157619Z"
     description: This Chart is responsible to deploy generic clusterconfiguration,
       for example etcd encryption, oauth etc.
@@ -861,6 +874,18 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.0/openshift-data-foundation-1.0.0.tgz
     version: 1.0.0
   openshift-gitops:
+  - apiVersion: v2
+    created: "2022-07-31T02:49:01.662694605Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: f12f0472d10aad25dcfadb044473e7aef56af09bd1b0d9e5eed01307586932ef
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: openshift-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.4/openshift-gitops-1.0.4.tgz
+    version: 1.0.4
   - apiVersion: v2
     created: "2022-07-29T12:35:44.978744522Z"
     description: Installs and patches the Red Hat Openshift Gitops Operator
@@ -1275,4 +1300,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-07-29T14:01:38.805555739Z"
+generated: "2022-07-31T02:49:01.662974207Z"
