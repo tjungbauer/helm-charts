@@ -1,0 +1,5 @@
+# Example
+
+namespace:
+  name: my_test_application
+  enabled: false
