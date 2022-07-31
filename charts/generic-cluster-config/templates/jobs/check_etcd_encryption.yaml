@@ -57,6 +57,8 @@ spec:
                check_apiserver_status $1
              }
              
+             # wait before start checking
+             sleep 60
              attempt_counter=0
              check_apiserver_status "openshiftapiserver"
              attempt_counter=0
