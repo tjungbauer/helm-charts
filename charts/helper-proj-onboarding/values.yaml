@@ -3,3 +3,4 @@
 namespace:
   name: my_test_application
   enabled: false
+  gitops_namespace: gitops-applications

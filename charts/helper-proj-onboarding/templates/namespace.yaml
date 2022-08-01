@@ -7,4 +7,5 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "common.labels" $ | nindent 4 }}
+    argocd.argoproj.io/managed-by: {{ .Values.namespace.gitops_namespace | quote }}
 {{- end }}
