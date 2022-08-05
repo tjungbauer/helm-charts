@@ -17,6 +17,7 @@ helper-operator:
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
+        notownnamespace: true
         create: true
 
     cluster-logging-operator:
