@@ -6,7 +6,7 @@ home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-oper
 icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
 dependencies:
   - name: helper-operator
-    version: "1.0.9"
+    version: "1.0.10"
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
