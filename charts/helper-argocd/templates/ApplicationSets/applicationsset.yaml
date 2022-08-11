@@ -1,0 +1,85 @@
+{{- range $key, $value := .Values.applicationsets }}
+{{ if eq ($value.enabled | toString) "true" }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ $key | replace "_" "-" }}
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  labels:
+    {{- include "argo.labels" $ | nindent 4 }}
+    {{- if $value.labels }}
+    {{- range $key_labels, $value_labels := $value.labels }}
+    {{ $key_labels }}: {{ $value_labels }}
+    {{- end }}
+    {{- end }}
+spec:
+  generators:
+    {{- if .generatorlist }}
+      - list:
+          elements: 
+          {{- range .generatorlist }}
+            - cluster: {{ .clustername }}
+              url: {{ .clusterurl }}
+          {{- end }}
+    {{- else }}
+  # This does not work, since openshift-gitops keeps removing the label of the local ArgoCD secret
+    {{- if .generatorclusters }}
+      {{- range .clusters }}
+        - clusters:
+            selector:
+              matchLabels:
+                env: {{ .env }}
+      {{- end }}
+    {{- else }}
+      - clusters: {}
+    {{- end }}
+  {{- end }}
+  template:
+    metadata:
+      {{- if .generatorlist }}
+      name: >-
+          {{ printf "{{ cluster }}-%s" $key | replace "_" "-" }}
+      {{- else }}
+      name: >-
+          {{ printf "{{ name }}-%s" $key | replace "_" "-" }} 
+      {{- end }}
+    spec:
+      {{- if .generatorlist }}
+      project: >-
+        {{ printf "{{ cluster }}" }}
+      {{- else }}
+      project:  >-
+          {{ printf "{{ name }}" }}
+      {{- end }}
+      source:
+        repoURL: {{ .repourl | default $.Values.general.source.repourl }}
+        targetRevision: {{ .targetrevision | default $.Values.general.branch }}
+        {{- if .per_cluster_helm_values }}
+        helm:
+          valueFiles: 
+            - '{{ printf "{{ name }}-values.yaml" }}'
+        {{- end }}
+        path: {{ .path }}
+      {{ if .autosync_enabled }}
+      syncPolicy:
+        automated:
+          prune: {{ .syncpolicy_prune | default "false"  }}
+          selfHeal: {{.syncpolicy_selfheal | default "false"  }}
+      {{- end }}
+      destination:
+      {{- if .generatorlist }}
+        server:  >-
+          {{ printf "{{ url }}" }}
+        {{- else }}
+        server:  >-
+          {{ printf "{{ server }}" }}
+        {{- end }}
+        namespace: default
+      info:
+        - name: Description
+          value: {{ .description | default "No Description" }}
+{{- end }}
+{{- end }}

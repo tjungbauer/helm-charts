@@ -1,0 +1,65 @@
+---
+# General values
+#
+# Set cluster names ... Unfortunately the openshift-gitops operator keeps
+# removing the secret of the *mgmtclustername (local cluster),
+# therefor we switch ti list generator
+# https://issues.redhat.com/browse/GITOPS-1777
+mgmt-cluster: &mgmtcluster https://kubernetes.default.svc
+mgmt-cluster-name: &mgmtclustername in-cluster
+
+repourl: &repourl 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+repobranch: &branch main
+
+argocd_projects:
+#  - *mgmtclustername
+
+applicationsets:
+  generic_clusterconfig:
+    enabled: false
+    description: "Deploy generic cluster configuration, like banners or etcd encryption"
+    labels:
+      category: cluster-configuration
+    path: clusters/all/clusterconfig/
+    per_cluster_helm_values: true
+    generatorclusters: []
+#    repourl: "" # Optional
+#    targetrevision: "" # Optional
+
+  # A collection of MANAGEMENT operators,
+  # installed usually on the management cluster only.
+  install-mgmt-operator-collection:
+    enabled: false
+    description: "Deploy a collection of Operators which are usually installed on a management cluster only"
+    labels:
+      category: operators
+    path: charts/collection-management-operators
+    generatorlist:
+      - clustername: *mgmtclustername
+        clusterurl: *mgmtcluster
+    autosync_enabled: false  # should be disabled for operators
+    repourl: "https://github.com/tjungbauer/helm-charts"
+    targetrevision: "main"
+
+
+applications:
+  in-cluster-init-rhacs:
+    enabled: false
+    server: *mgmtcluster
+    project: default
+    description: "Initialize Red Hat Advanced Cluster Security and deploy Central and SecuredCluster"
+    labels:
+      category: security
+      solution: rhacs
+    source:
+      path: charts/rhacs-full-stack
+      repourl: "https://github.com/tjungbauer/helm-charts"
+      targetrevision: "main"
+
+# These define the default values.
+# It is possible to overwrite repourl and targetrevision in the Applications(Sets)
+general:
+  argocd_project: 'default'
+  source:
+    repourl: *repourl
+  branch: *branch

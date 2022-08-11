@@ -1,0 +1,8 @@
+apiVersion: v2
+name: helper-argocd
+description: Takes care of creation of Applications and ApplicationSets
+version: 1.0.0
+icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper_argocd
+maintainers:
+  - name: tjungbauer
