@@ -148,6 +148,22 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-08-11T07:17:32.746673892Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.10
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: c084632fe121e45dd913a938e06fdc340ffc11ba6e79008955d6f5673e89632a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - name: tjungbauer
+    name: collection-operators
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.14/collection-operators-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
     created: "2022-07-27T06:05:58.895049975Z"
     dependencies:
     - name: helper-operator
@@ -1387,4 +1403,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-11T05:59:38.432536109Z"
+generated: "2022-08-11T07:17:32.746884295Z"
