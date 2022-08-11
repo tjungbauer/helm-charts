@@ -642,6 +642,19 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.0/generic-cluster-config-1.0.0.tgz
     version: 1.0.0
+  helper-argocd:
+  - apiVersion: v2
+    created: "2022-08-11T05:59:38.432307205Z"
+    description: Takes care of creation of Applications and ApplicationSets
+    digest: d8d44b5cc4491d92b6c56435dafb613ba2ee69dd7db3fe5568031149321c2025
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper_argocd
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-argocd
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.0/helper-argocd-1.0.0.tgz
+    version: 1.0.0
   helper-operator:
   - apiVersion: v2
     created: "2022-07-27T06:05:59.16165254Z"
@@ -1374,4 +1387,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-05T14:13:54.790044927Z"
+generated: "2022-08-11T05:59:38.432536109Z"
