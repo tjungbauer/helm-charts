@@ -673,6 +673,19 @@ entries:
     version: 1.0.0
   helper-operator:
   - apiVersion: v2
+    created: "2022-08-18T12:25:40.257277869Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: a4b4c68d32e64a18ae0c0da04ca1054ea5a1bee51e6bdf65d3dce54d6e2af953
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-operator
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.11/helper-operator-1.0.11.tgz
+    version: 1.0.11
+  - apiVersion: v2
     created: "2022-07-27T06:05:59.16165254Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
       as a dependency by other charts in order to install Operators
@@ -1403,4 +1416,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-11T07:17:32.746884295Z"
+generated: "2022-08-18T12:25:40.257445467Z"
