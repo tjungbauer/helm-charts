@@ -15,7 +15,7 @@ spec:
   channel: {{ $value.subscription.channel | default "stable" | quote }}
   installPlanApproval: {{ $value.subscription.approval | default "Automatic" | quote }}
   name: {{ $value.subscription.operatorName | quote }}
-  source: {{ $value.subscription.sourceName | default "redhat-operators" | quote }}
+  source: {{ $value.subscription.source | default "redhat-operators" | quote }}
   sourceNamespace: {{ $value.subscription.sourceNamespace | default "openshift-marketplace" | quote }}
 {{- if $value.subscription.csv }}
   startingCSV: {{ $value.subscription.csv }}
