@@ -1199,6 +1199,19 @@ entries:
     version: 0.1.0
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2022-10-17T07:26:17.115277866Z"
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: bf7600a8d564ac0ab5ee496b7a31c80f74241a27022a6e99be5de02f74734183
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacs-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.5/rhacs-full-stack-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     created: "2022-10-03T14:27:57.544818321Z"
     description: Master chart to deploy RHACS operator, initialize it and do some
       configuration using API Calls
@@ -1441,4 +1454,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-10-03T14:27:57.544990721Z"
+generated: "2022-10-17T07:26:17.115647271Z"
