@@ -430,6 +430,22 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2022-10-22T09:49:02.994788006Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.9
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 5fb10191910c8f0cca27c311cef85b13c3f4cc30853046971aa071953bdca3b6
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    maintainers:
+    - name: tjungbauer
+    name: compliance-operator-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.12/compliance-operator-full-stack-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
     created: "2022-07-27T05:40:53.41206276Z"
     dependencies:
     - name: helper-operator
@@ -815,6 +831,20 @@ entries:
     name: helper-proj-onboarding
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.0/helper-proj-onboarding-1.0.0.tgz
+    version: 1.0.0
+  helper-server-side-apply:
+  - apiVersion: v2
+    created: "2022-10-22T09:49:03.115731143Z"
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: 91fe4ec6e200063b1f3f7e5ccc5abe1e8d1e778fcebd5504fb203ec279f66045
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-server-side-apply
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.0/helper-server-side-apply-1.0.0.tgz
     version: 1.0.0
   helper-status-checker:
   - apiVersion: v2
@@ -1454,4 +1484,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-10-17T07:26:17.115647271Z"
+generated: "2022-10-22T09:49:03.115908143Z"
