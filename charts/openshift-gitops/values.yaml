@@ -8,6 +8,7 @@ gitops:
   namespace:
     name: openshift-operators
   subscription:
+    channel: stable
     approval: Automatic
     operatorName: openshift-gitops-operator
     sourceName: redhat-operators

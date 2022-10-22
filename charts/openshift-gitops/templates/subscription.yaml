@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  channel: stable
+  channel: {{ .subscription.channel | default "stable" | quote }}
   installPlanApproval: {{ .subscription.approval | default "Automatic" | quote }}
   name: {{ .subscription.operatorName | default "openshift-pipelines-operator-rh" | quote }}
   source: {{ .subscription.sourceName | default "redhat-operators" | quote }}
