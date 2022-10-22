@@ -1,0 +1,20 @@
+{{- range $key, $value := .Values.nodes }}
+{{ if eq ( $value.enabled | toString) "true" }}
+---
+kind: Node
+apiVersion: v1
+metadata:
+  name: {{ $value.name | quote }}
+  labels:
+    gitops.ownedBy: openshift-gitops
+    {{- include "common.labels" $ | nindent 4 }}
+    {{- if $value.labels }}
+    {{- range $key_labels, $value_labels := $value.labels }}
+    {{ $key_labels }}: {{ $value_labels }}
+    {{- end }}
+    {{- end }}
+    {{- range $key_custom_label, $value_custom_label := $value.custom_labels }}
+    {{ $key_custom_label }}: {{ $value_custom_label | quote }}
+    {{- end }}
+{{- end }}
+{{- end }}

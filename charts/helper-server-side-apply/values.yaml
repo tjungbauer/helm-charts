@@ -1,0 +1,13 @@
+---
+
+nodes:
+  - name: node1
+    enabled: true
+    custom_labels:
+      environment: 'Production'
+      gpu: 'true'
+  - name: node2
+    enabled: true
+    custom_labels:
+      environment: 'Test'
+      gpu: 'true'
