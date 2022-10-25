@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: init-acs
+  name: init-rhacs
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   annotations:
     argocd.argoproj.io/hook: PostSync
@@ -58,7 +58,7 @@ spec:
               
               cd ansible/rhacs-automation || exit
               # Use available admin user with password in central-htpasswd secret, override endpoint to use service
-              ansible-playbook acs.yaml -e username=admin -e password=$password -e api_endpoint=central
+              ansible-playbook acs.yaml -e username=admin -e password=$password -e api_endpoint=central -vvv
           name: init-acs
       dnsPolicy: ClusterFirst
       restartPolicy: Never
