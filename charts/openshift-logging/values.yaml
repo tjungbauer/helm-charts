@@ -6,7 +6,7 @@
 helper-operator:
   operators:
     elasticsearch-operator:
-      enabled: true
+      enabled: false
       syncwave: '0'
       namespace:
         name: openshift-operators-redhat
@@ -19,6 +19,22 @@ helper-operator:
       operatorgroup:
         notownnamespace: true
         create: true
+
+    loki-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators-redhat
+        create: true
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: loki-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        # notownnamespace: true
+        create: false
 
     cluster-logging-operator:
       enabled: true
