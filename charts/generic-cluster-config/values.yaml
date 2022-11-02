@@ -8,7 +8,11 @@ self_provisioner:
 
 idp:
   enabled: false
+  customloginpage:
+    enabled: false
+    secretname: customlogin
   providers:
+    enabled: false
     htpasswd:
       - name: HTPASSWD
         enabled: false

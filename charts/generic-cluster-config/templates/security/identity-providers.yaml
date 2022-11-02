@@ -8,8 +8,14 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  identityProviders:
+{{- if eq ( .customloginpage.enabled | toString) "true" }}
+  templates:
+    login:
+      name: {{ .customloginpage.secretname }}
+{{- end }}
 {{- with .providers }}
+{{- if eq ( .enabled | toString) "true" }}
+  identityProviders:
 {{- range $key, $value := .ldap -}}
 {{ if eq ($value.enabled | toString) "true" }}
   - ldap:
@@ -45,6 +51,7 @@ spec:
     mappingMethod: claim
     name: {{ .name | default "htpasswd" | quote }}
     type: HTPasswd
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
