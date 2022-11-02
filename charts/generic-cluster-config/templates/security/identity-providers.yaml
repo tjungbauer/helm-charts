@@ -13,9 +13,9 @@ spec:
     login:
       name: {{ .customloginpage.secretname }}
 {{- end }}
-{{- with .providers }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if eq ( .enable_idp_provider | toString) "true" }}
   identityProviders:
+{{- with .providers }}
 {{- range $key, $value := .ldap -}}
 {{ if eq ($value.enabled | toString) "true" }}
   - ldap:
