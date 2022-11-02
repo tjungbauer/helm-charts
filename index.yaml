@@ -887,6 +887,20 @@ entries:
     version: 1.0.0
   helper-status-checker:
   - apiVersion: v2
+    created: "2022-11-02T13:16:58.485264497Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments
+    digest: d194e261bfad56d20cc4a724760bb4782a34ffbb2dca5217d452c556784f5f1a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-status-checker
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.5/helper-status-checker-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     created: "2022-11-02T13:10:15.976960775Z"
     description: A helper Chart which creates a job to verify if the deployments of
       an operator are running. To do so it creates a service account with a role to
@@ -1576,4 +1590,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-02T13:10:15.977295499Z"
+generated: "2022-11-02T13:16:58.485604699Z"
