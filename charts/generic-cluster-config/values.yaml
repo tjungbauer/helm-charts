@@ -11,6 +11,7 @@ idp:
   customloginpage:
     enabled: false
     secretname: customlogin
+    secretname_providerpage: customerproviderpage
   enable_idp_provider: false
   providers:
     htpasswd:

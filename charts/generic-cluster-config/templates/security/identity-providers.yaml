@@ -12,6 +12,10 @@ spec:
   templates:
     login:
       name: {{ .customloginpage.secretname }}
+    {{- if .customloginpage.secretname_providerpage }}
+    providerSelection:
+      name: {{ .customloginpage.secretname_providerpage }}
+    {{- end }}
 {{- end }}
 {{- if eq ( .enable_idp_provider | toString) "true" }}
   identityProviders:
