@@ -1,3 +1,5 @@
+{{- with .Values }}
+{{ if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -54,3 +56,5 @@ spec:
       terminationGracePeriodSeconds: 30
       serviceAccount: {{ include "helper.serviceAccountName" $ }}
       serviceAccountName: {{ include "helper.serviceAccountName" $ }}
+{{- end }}
+{{- end }}
