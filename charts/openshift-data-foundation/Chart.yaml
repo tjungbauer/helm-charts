@@ -6,7 +6,7 @@ home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 dependencies:
   - name: helper-operator
-    version: "1.0.9"
+    version: ~1.0.9
     repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~1.0.1
