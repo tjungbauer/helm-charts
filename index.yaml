@@ -873,6 +873,19 @@ entries:
     version: 1.0.0
   helper-server-side-apply:
   - apiVersion: v2
+    created: "2022-11-04T07:31:45.589291228Z"
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: 3b1cbeba365db3270fbce90ed549340626a6e19b530968e30dbafac7778d5e2d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - name: tjungbauer
+    name: helper-server-side-apply
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.3/helper-server-side-apply-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-11-04T07:21:12.874104473Z"
     description: Using Server Side Apply to create for example node labelling, requires
       openshift-gitops 1.6+
@@ -1672,4 +1685,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-04T07:21:12.874436081Z"
+generated: "2022-11-04T07:31:45.589572025Z"
