@@ -101,7 +101,7 @@ spec:
         server:  >-
           {{ printf "{{ server }}" }}
         {{- end }}
-        namespace: default
+        namespace: {{ .namespace | default "default" }}
       info:
         - name: Description
           value: {{ .description | default "No Description" }}
