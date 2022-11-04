@@ -57,17 +57,38 @@ spec:
       source:
         repoURL: {{ .repourl | default $.Values.general.source.repourl }}
         targetRevision: {{ .targetrevision | default $.Values.general.branch }}
-        {{- if .per_cluster_helm_values }}
+        {{- if .helm }}
         helm:
+          {{- if .helm.per_cluster_helm_values }}
           valueFiles: 
             - '{{ printf "{{ name }}-values.yaml" }}'
-        {{- end }}
+          {{- end }}
+          {{- if .helm.releasename }}
+          releaseName: {{ .helm.releasename }}
+          {{- end }}
+          {{- if .helm.helmvalues }}
+          parameters:
+          {{- range .helm.helmvalues }}
+          - name: {{ .name }}
+            value: '{{ .value }}' 
+          {{- end }}
+          {{- end }}
+        {{- else }}
         path: {{ .path }}
-      {{ if .autosync_enabled }}
+        {{- end }}
+      {{ if .syncPolicy }}
       syncPolicy:
+        {{ if .syncPolicy.autosync_enabled }}
         automated:
-          prune: {{ .syncpolicy_prune | default "false"  }}
-          selfHeal: {{.syncpolicy_selfheal | default "false"  }}
+          prune: {{ .syncPolicy.syncpolicy_prune | default "false"  }}
+          selfHeal: {{ .syncPolicy.syncpolicy_selfheal | default "false"  }}
+        {{- end }}
+        {{ if .syncPolicy.syncOptions }}
+        syncOptions:
+          {{- range .syncPolicy.syncOptions }}
+          - {{ .name }}={{ .value }}
+          {{- end }}
+        {{- end }}
       {{- end }}
       destination:
       {{- if .generatorlist }}
