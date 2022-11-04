@@ -3,11 +3,13 @@
 nodes:
   - name: node1
     enabled: true
+    ignore_argocd_labels: true
     custom_labels:
       environment: 'Production'
       gpu: 'true'
   - name: node2
     enabled: true
+    ignore_argocd_labels: true
     custom_labels:
       environment: 'Test'
       gpu: 'true'

@@ -7,7 +7,10 @@ metadata:
   name: {{ $value.name | quote }}
   labels:
     gitops.ownedBy: openshift-gitops
+    {{- if eq ($value.ignore_argocd_labels | toString) "true" }}
+    {{- else }}
     {{- include "common.labels" $ | nindent 4 }}
+    {{- end }}
     {{- if $value.labels }}
     {{- range $key_labels, $value_labels := $value.labels }}
     {{ $key_labels }}: {{ $value_labels }}
