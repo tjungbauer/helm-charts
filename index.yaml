@@ -1431,6 +1431,26 @@ entries:
     version: 0.1.0
   rhacm-full-stack:
   - apiVersion: v2
+    created: "2022-11-30T12:25:40.622397729Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.11
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.6
+    description: Master chart to deploy RHACM operator
+    digest: 034d2a84526550be164ec8e500711818ab1498078df6d953ea03e6993f2cf5b0
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacm-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.3/rhacm-full-stack-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2022-11-30T12:23:42.539417147Z"
     dependencies:
     - name: helper-operator
@@ -1802,4 +1822,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-30T12:23:42.539711366Z"
+generated: "2022-11-30T12:25:40.622740231Z"
