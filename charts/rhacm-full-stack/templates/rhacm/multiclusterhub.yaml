@@ -1,0 +1,15 @@
+{{ if eq (.Values.rhacm.multiclusterhub.enabled | toString) "true" }}
+---
+apiVersion: operator.open-cluster-management.io/v1
+kind: MultiClusterHub
+metadata:
+  name: multiclusterhub
+  namespace: {{ .Values.rhacm.namespace.name | quote }}
+  labels:
+    {{- include "rhacm.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.rhacm.multiclusterhub.syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  availabilityConfig: {{ .Values.rhacm.multiclusterhub.availabilityConfig | default ("Basic") }}
+{{- end }}

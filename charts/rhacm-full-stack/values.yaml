@@ -36,3 +36,11 @@ helper-status-checker:
   serviceAccount:
     create: true
     name: "status-checker"
+
+rhacm:
+  namespace:
+    name: openshift-compliance
+  multiclusterhub:
+    enabled: true
+    syncwave: '3'
+    availabilityConfig: High # Might be High or Basic
