@@ -1429,6 +1429,23 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz
     version: 0.1.0
+  rhacm-full-stack:
+  - apiVersion: v2
+    created: "2022-11-30T10:10:54.547676037Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.11
+    description: Master chart to deploy RHACM operator
+    digest: 5b177e2f6d15afd4949ad6793ddb29eedab262b3de86b2c4c8d72a75b3663b01
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - name: tjungbauer
+    name: rhacm-full-stack
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.0/rhacm-full-stack-1.0.0.tgz
+    version: 1.0.0
   rhacs-demo-applications:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -1745,4 +1762,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-09T13:38:50.9870377Z"
+generated: "2022-11-30T10:10:54.547960439Z"
