@@ -39,7 +39,7 @@ helper-status-checker:
 
 rhacm:
   namespace:
-    name: openshift-compliance
+    name: open-cluster-management
   multiclusterhub:
     enabled: true
     syncwave: '3'
