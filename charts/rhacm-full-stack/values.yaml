@@ -22,17 +22,17 @@ helper-operator:
         create: true
         notownnamespace: false
 
-rhacm:
+helper-status-checker:
+  enabled: true
 
-  job_vars:
-    max_attempts: 20  # How otften shall the status of the operator be checked (Default 20)
-    wait_time: 20  # If the Deployments are not ready yet, how long shall I wait in addition (Default 20)
-    crd_check_time: 5  # Time to sleep before I verify that the CRDs have been created
+  # space separate list of deployments which shall be checked for status
+  deployments: "multicluster-operators-application multicluster-observability-operator multicluster-operators-channel multicluster-operators-hub-subscription multicluster-operators-standalone-subscription multicluster-operators-subscription-report multiclusterhub-operator submariner-addon"
+
+  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
 
   namespace:
     name: open-cluster-management
-    syncwave: '0'
 
-serviceAccount:
-  create: true
-  name: "sa-acm"
+  serviceAccount:
+    create: true
+    name: "status-checker"
