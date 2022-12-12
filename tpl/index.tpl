@@ -186,7 +186,23 @@
           {{end}}
 
       </div>
+      
+      <h2>License</h2>      
+<p>Copyright (c) 2022 Thomas Jungbauer</p>
 
+<p>Licensed under the Apache License, Version 2.0 (the "License");<br />
+you may not use this file except in compliance with the License.<br />
+You may obtain a copy of the License at<br />
+</p>
+<pre><code>    <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a> </pre></code>
+
+<p>
+Unless required by applicable law or agreed to in writing, software<br />
+distributed under the License is distributed on an "AS IS" BASIS,<br />
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br />
+See the License for the specific language governing permissions and<br />
+limitations under the License.<br />
+</p>
     </section>
     <time class="time" datetime="{{ .Generated.Format "2006-01-02T15:04:05" }}" pubdate id="generated">{{ .Generated.Format "Mon Jan 2 2006 03:04:05PM MST-07:00" }}</time>
   </body>
