@@ -1,4 +1,3 @@
-[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/apache-airflow)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
 # Collection of Management Operators
