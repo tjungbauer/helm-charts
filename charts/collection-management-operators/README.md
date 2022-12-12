@@ -53,17 +53,17 @@ The following table lists the configurable parameters of the chart and their def
 | `helper-operator.namespaces` | A list of specific namespaces that should be created | `single-sign-on` and `helper-operator.openshift-cert-manager-operator` |
 | `helper-operator.UNIQUE-IDENTIFIER`| This is a unique identifier that will be used to create the Argo CD Application | `` |
 | `helper-operator.UNIQUE-IDENTIFIER.enabled` | enabled yes/no | `false` |
-| `helper-operator.UNIQUE-IDENTIFIES.syncwave` | Sets the Syncwave for Argo CD | 0 |
+| `helper-operator.UNIQUE-IDENTIFIER.syncwave` | Sets the Syncwave for Argo CD | 0 |
 | `helper-operator.UNIQUE-IDENTIFIER.namespace` | The Namespace the Operator should be installed in | ` ` |
 | `helper-operator.UNIQUE-IDENTIFIER.namespace.create` | Create the namespace true/false | `false` |
 | `helper-operator.UNIQUE-IDENTIFIER.subscription` | Definition of the Operator Subscription | `` |
 | `helper-operator.UNIQUE-IDENTIFIER.subscription.channel` | Subscription channel | `stable` |
-| `helper-operator.UNIQUE-IDENTIFIER.subscription.approval` | Operator Subscription update behaviour | `Automatic` |
+| `helper-operator.UNIQUE-IDENTIFIER.subscription.approval` | Operator Subscription update behavior  | `Automatic` |
 | `helper-operator.UNIQUE-IDENTIFIER.subscription.operatorName` | Operator name | `` |
 | `helper-operator.UNIQUE-IDENTIFIER.subscription.source` | Operator source | `redhat-operators `|
 | `helper-operator.UNIQUE-IDENTIFIER.subscription.sourceNamespace` | Operator Sourcenamespace  | `openshift-marketplace` |
 | `helper-operator.UNIQUE-IDENTIFIER.operatorgroup.create` |  Create an Operatorgroup object  | `false` |
-| `helper-operator.UNIQUE-IDENTIFIER.operatorgroup.notownnamespace` | Monitor own Namespace. For some Operators no `targetNamespaces`must be defined | `false` |
+| `helper-operator.UNIQUE-IDENTIFIER.operatorgroup.notownnamespace` | Monitor own Namespace. For some Operators no `targetNamespaces` must be defined | `false` |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
