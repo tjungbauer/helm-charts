@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-12-12T07:51:38.296445624Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.11
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: fd2f89f8f2196fd8a6a07f40e964fed32f244b117316fa9b49a088245aff9a11
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.14/collection-management-operators-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
     created: "2022-12-12T07:44:07.90540274Z"
     dependencies:
     - name: helper-operator
@@ -1862,4 +1882,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-12T07:44:07.905632538Z"
+generated: "2022-12-12T07:51:38.296866024Z"
