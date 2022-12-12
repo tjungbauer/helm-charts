@@ -775,6 +775,21 @@ entries:
     version: 1.0.0
   helper-argocd:
   - apiVersion: v2
+    created: "2022-12-12T16:03:56.48090775Z"
+    description: Takes care of creation of Applications and ApplicationSets
+    digest: 8d79c0e4728c38687ba243e514e330483a727dc97eb6fc99a04ff40f5de60b83
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.5/helper-argocd-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     created: "2022-11-04T14:18:52.890254016Z"
     description: Takes care of creation of Applications and ApplicationSets
     digest: 5b51adfebec70deca11dd217214a83b49337ae8134a7dc218abe3f7ccd3696ad
@@ -835,6 +850,22 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.0/helper-argocd-1.0.0.tgz
     version: 1.0.0
   helper-operator:
+  - apiVersion: v2
+    created: "2022-12-12T16:03:56.636122846Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: c8110400cc6fb5922eff8c09feb06d8cb508e5d33b2834d4d003f0df60d53cc9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.12/helper-operator-1.0.12.tgz
+    version: 1.0.12
   - apiVersion: v2
     created: "2022-08-18T12:25:40.257277869Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
@@ -1902,4 +1933,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-12T11:58:35.45120106Z"
+generated: "2022-12-12T16:03:56.636360057Z"
