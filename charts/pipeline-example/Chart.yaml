@@ -2,9 +2,12 @@ apiVersion: v2
 name: pipeline-example
 description: Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "1.16.0"
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
 maintainers:
   - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts
