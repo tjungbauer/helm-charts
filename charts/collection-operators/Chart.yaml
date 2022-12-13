@@ -1,12 +1,15 @@
 apiVersion: v2
 name: collection-operators
 description: Collection of Operators which can be deployed on Demo Systems.
-version: 1.0.14
+version: 1.0.17
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
 icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
 dependencies:
   - name: helper-operator
-    version: "1.0.10"
+    version: "1.0.14"
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts

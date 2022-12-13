@@ -1,12 +1,12 @@
 apiVersion: v2
 name: collection-management-operators
 description: Collection of management Operators which are usually installed on the management cluster only. I.e. Quay, ACM, Cert-Manager...
-version: 1.0.15
+version: 1.0.17
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
 icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
 dependencies:
   - name: helper-operator
-    version: "1.0.11"
+    version: "1.0.14"
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
