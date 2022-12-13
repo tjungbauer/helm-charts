@@ -1,7 +1,7 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
-# Collection of Management Operators
+# Helper Chart to install Operators
 
 This chart can be used to install Operators in OpenShift. 
 It is best used with a GitOps approach such as Argo CD does. For example: https://github.com/tjungbauer/openshift-cluster-bootstrap

@@ -1,7 +1,7 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
-# Collection of Management Operators
+# Helper SubChart to verify Operator Status
 
 This chart is used the check the installation status of an Operator. Whenever a new Operator gets installed, this Chart can be called to verify if the Deployments of the Operator are up and running. 
 It is best used as a Subchart. For example, https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
