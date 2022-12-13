@@ -43,13 +43,6 @@ The command removes all the Kubernetes components associated with the chart and 
 ## Parameters
 The following table lists the configurable parameters of the chart and their default values. In this example it is called as a Subchart
 
-helper-status-checker:
-  enabled: true
-
-  # space separate list of deployments which shall be checked for status
-  deployments: "multicluster-operators-application multicluster-observability-operator multicluster-operators-channel multicluster-operators-hub-subscription multicluster-operators-standalone-subscription multicluster-operators-subscription-report multiclusterhub-operator submariner-addon"
-
-
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
 | `helper-status-checker.enabled` | Enable the Status Checker | `false` |
