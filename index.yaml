@@ -866,6 +866,22 @@ entries:
     version: 1.0.0
   helper-operator:
   - apiVersion: v2
+    created: "2022-12-13T06:54:44.574958964Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators
+    digest: b22721f5e6b5def0b80db6d2617c3f61626f0b8568ffb968c30ac42e18cd4501
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.14/helper-operator-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
     created: "2022-12-13T06:10:09.282043498Z"
     description: A helper Chart to reduce code repetition. This Chart should be called
       as a dependency by other charts in order to install Operators
@@ -1082,6 +1098,23 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.0/helper-server-side-apply-1.0.0.tgz
     version: 1.0.0
   helper-status-checker:
+  - apiVersion: v2
+    created: "2022-12-13T06:54:44.699911099Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments
+    digest: ca754c615f4197a30e3a872d5517e9833909e2b62ce1403f1580e9c79d826bf9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.9/helper-status-checker-1.0.9.tgz
+    version: 1.0.9
   - apiVersion: v2
     created: "2022-12-13T06:43:16.118430525Z"
     description: A helper Chart which creates a job to verify if the deployments of
@@ -1668,6 +1701,24 @@ entries:
   rhacs-demo-applications:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-12-13T06:54:44.820448657Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: 180b4ed98c8d01f79977f68fab074be882933f17a4d278e6da1bb10231a58be9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-demo-applications
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.2/rhacs-demo-applications-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-07-26T09:57:32.223367429Z"
     description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
       Demos
@@ -2004,4 +2055,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-13T06:43:16.119024834Z"
+generated: "2022-12-13T06:54:44.820790255Z"
