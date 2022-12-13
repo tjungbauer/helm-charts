@@ -21,9 +21,22 @@ helper-operator:
         create: true
         notownnamespace: true
 
-compliance:
+helper-status-checker:
+  enabled: true
+
+  # space separate list of deployments which shall be checked for status
+  deployments: "compliance-operator ocp4-openshift-compliance-pp rhcos4-openshift-compliance-pp"
+
   wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
 
+  namespace:
+    name: openshift-compliance
+
+  serviceAccount:
+    create: true
+    name: "sa-compliance"
+
+compliance:
   namespace:
     name: openshift-compliance
     syncwave: '0'
@@ -35,7 +48,3 @@ compliance:
       - name: ocp4-cis-node
       - name: ocp4-cis
     scansetting: default
-
-serviceAccount:
-  create: true
-  name: "sa-compliance"
