@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   collection-management-operators:
   - apiVersion: v2
+    created: "2022-12-13T11:49:47.723430939Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: 80eac1e44b44c6c6ea4e95f29f9a99d73a5f05444d311dba3139e3ad0cb121bd
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.17/collection-management-operators-1.0.17.tgz
+    version: 1.0.17
+  - apiVersion: v2
     created: "2022-12-12T11:58:35.450909458Z"
     dependencies:
     - name: helper-operator
@@ -208,6 +228,25 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-12-13T11:49:47.919626074Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 7eacef30a96380dfa6e9365d8798475324de491c4172769a209d691cb630c280
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.17/collection-operators-1.0.17.tgz
+    version: 1.0.17
+  - apiVersion: v2
     created: "2022-08-11T07:17:32.746673892Z"
     dependencies:
     - name: helper-operator
@@ -368,6 +407,25 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-12-13T11:49:48.151123979Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 40059ddffcfd864c7fde1b96824e7c26a1b4d0f0ff2307353046818bb0fff1b8
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-optional-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.17/collection-optional-operators-1.0.17.tgz
+    version: 1.0.17
   - apiVersion: v2
     created: "2022-07-27T06:05:59.017696381Z"
     dependencies:
@@ -2113,4 +2171,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-13T11:44:21.206183648Z"
+generated: "2022-12-13T11:49:48.151532989Z"
