@@ -1575,6 +1575,24 @@ entries:
   pipeline-example:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-12-13T11:36:25.40465695Z"
+    description: Create an example Pipeline which does a linting of openshift-cluster-bootstrap
+      using kubelinter, yamllin, yamlscore ....
+    digest: 1a1574d42cd60d6ef93091ab1d12af59d93206713386d6de9a736b7e26e43373
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: pipeline-example
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.2/pipeline-example-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-07-27T06:05:59.267366087Z"
     description: Create an example Pipeline which does a linting of openshift-cluster-bootstrap
       using kubelinter, yamllin, yamlscore ....
@@ -2072,4 +2090,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-13T11:27:52.697187107Z"
+generated: "2022-12-13T11:36:25.405206654Z"
