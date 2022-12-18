@@ -43,4 +43,4 @@ rhacm:
   multiclusterhub:
     enabled: true
     syncwave: '3'
-    #availabilityConfig: High # Might be High or Basic
+    # availabilityConfig: High # Might be High or Basic
