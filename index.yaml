@@ -1782,6 +1782,29 @@ entries:
     version: 0.1.0
   rhacm-full-stack:
   - apiVersion: v2
+    created: "2022-12-18T06:27:58.124828589Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.10
+    description: Master chart to deploy RHACM operator
+    digest: 1fc8293ccf2c5b5b0492484f1505d72c2f9fe2137712a0605f5ee69cf18e8a06
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacm-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.6/rhacm-full-stack-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2022-11-30T12:28:28.676883594Z"
     dependencies:
     - name: helper-operator
@@ -2052,6 +2075,29 @@ entries:
   sealed-secrets:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-12-18T06:27:58.264627111Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.4.0
+    description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm
+      chart
+    digest: 53f246bf08aac4fe6ce4bc2e4c3ca2dc5c7f024506455774e564c23495dfb639
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.10/sealed-secrets-1.0.10.tgz
+    version: 1.0.10
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-12-12T16:14:00.026064247Z"
     dependencies:
     - condition: sealed-secrets.enabled
@@ -2250,4 +2296,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-18T06:08:14.793141555Z"
+generated: "2022-12-18T06:27:58.264932306Z"
