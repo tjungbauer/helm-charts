@@ -6,3 +6,6 @@ home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stac
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 maintainers:
   - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts
