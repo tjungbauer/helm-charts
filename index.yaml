@@ -228,6 +228,25 @@ entries:
     version: 1.0.0
   collection-operators:
   - apiVersion: v2
+    created: "2022-12-18T06:37:31.960729064Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 8ac878711f3cf16cb0f3f993dc74d03a3e056cee76899a036bbfb2d0907b6c53
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.18/collection-operators-1.0.18.tgz
+    version: 1.0.18
+  - apiVersion: v2
     created: "2022-12-13T11:49:47.919626074Z"
     dependencies:
     - name: helper-operator
@@ -407,6 +426,25 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - apiVersion: v2
+    created: "2022-12-18T06:37:32.070690557Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: 527d4189e53809ee453ff71bdacace48c138acded3b572697bc3a5767b87ee28
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
+    icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-optional-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.18/collection-optional-operators-1.0.18.tgz
+    version: 1.0.18
   - apiVersion: v2
     created: "2022-12-13T11:49:48.151123979Z"
     dependencies:
@@ -2312,4 +2350,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-18T06:36:28.496995903Z"
+generated: "2022-12-18T06:37:32.071854371Z"
