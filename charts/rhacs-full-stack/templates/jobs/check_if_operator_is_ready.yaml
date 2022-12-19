@@ -31,7 +31,7 @@ spec:
 
               # we assume that the operator is ready, once the CRD Central is available.
               # when this is the case ArgoCD can continue
-              #until $(oc get crd/centrals.platform.stackrox.io &>/dev/null); do
+              until $(oc get crd/centrals.platform.stackrox.io &>/dev/null); do
                   if [ ${attempt_counter} -eq ${max_attempts} ];then
                     echo "Max attempts reached. I give up"
                     exit 1
@@ -39,7 +39,7 @@ spec:
                   attempt_counter=$((attempt_counter+1))
                   echo "Made attempt $attempt_counter of $max_attempts, waiting..."
                   sleep $crd_check_time
-              #done
+              done
 
               echo "Custom Resources are available, checking Deployment"
 
