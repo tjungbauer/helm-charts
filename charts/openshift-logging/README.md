@@ -42,3 +42,36 @@ helm delete my-release
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+## Parameters
+The following table lists the configurable parameters of the chart and their default values. Only variables of this specific Helm Chart are listed. For the values of the Subchart read the appropriate README of the Subcharts.
+
+| Parameter                                 | Description                                   | Default                                                 |
+|-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
+| `elasticsearch` | Enable Elasticsearch Operator | `` |
+| `lokistack` | Enable (new) Lokistack | `` |
+| `vector` | Enable Vector with Logistack | `` |
+| `loggingConfig.enabled` | Configure Cluster Logging | `` |
+| `loggingConfig.syncwave` | Syncwave when ClusterLogging shall be created | `` |
+| `loggingConfig.es.retentionPolicy.application` | *Only ES* Retention Policy for applications | `` |
+| `loggingConfig.es.retentionPolicy.infra` | *Only ES* Retention Policy for infra logs | `` |
+| `loggingConfig.es.retentionPolicy.audit` | *Only ES* Retention Policy for audit logs | `` |
+| `loggingConfig.es.nodes` | *Only ES* number of ES nodes | `` |
+| `loggingConfig.es.storageclass` | *Only ES* storage class for ES | `` |
+| `loggingConfig.es.storagesize` | *Only ES* size of ES storage | `` |
+| `loggingConfig.es.limits.mem` | *Only ES* Set memory limit. Good for Labs. | `` |
+| `loggingConfig.es.requests.mem` | *Only ES* Set memory requests. Good for Labs. | `` |
+| `loggingConfig.es.redundancyPolicy` | *Only ES* ES Redundancy Policy. i.e. ZeroRedundancy | `` |
+
+## Example
+
+```yaml
+elasticsearch: &es false
+lokistack: &loki false
+# Vector is not enabled by default. Enable it with this parameter.
+vector: true
+
+loggingConfig:
+  enabled: true
+  syncwave: '3'
+```

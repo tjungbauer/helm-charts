@@ -11,8 +11,12 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if eq ( $.Values.vector | toString) "true" }}
+    logging.openshift.io/preview-vector-collector: enabled
+    {{- end }}
 spec:
-  managementState: "Managed"  
+  managementState: "Managed"
+  {{- if eq ( $.Values.elasticsearch | toString) "true" }}
   logStore:
     type: "elasticsearch"
     retentionPolicy: 
@@ -47,5 +51,18 @@ spec:
     logs:
       type: "fluentd"
       fluentd: {}
+  {{- end }}
+  {{- if eq ( $.Values.lokistack | toString) "true" }}
+  logStore:
+    type: lokistack
+    lokistack:
+      name: logging-loki
+    collection:
+      logs:
+        type: "vector"
+        vector: {}
+  {{- end }}
+
+
 {{- end }}
 {{- end }}
