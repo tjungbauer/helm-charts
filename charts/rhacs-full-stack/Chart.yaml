@@ -1,11 +1,15 @@
 apiVersion: v2
 name: rhacs-full-stack
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.8
+version: 1.0.9
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+dependencies:
+  - name: helper-operator
+    version: "1.0.14"
+    repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts

@@ -4,23 +4,25 @@ override-rhacs-operator-version: &rhacsversion rhacs-3.72
 # Install Operator RHACS
 # Deploys Operator --> Subscription and Operatorgroup
 # Syncwave: 0
-operators:
-  rhacs_operator:
-    enabled: true
-    syncwave: '0'
-    namespace: rhacs-operator
-    subscription:
-      channel: *rhacsversion
-      approval: Automatic
-      operatorName: rhacs-operator
-      source: redhat-operators
-      sourceNamespace: openshift-marketplace
-    operatorgroup:
-      create: true
-      # rhacs does not support to monitor own namespace,
-      # therefor the spec in the OperatorGroup must be empty
-      notownnamespace: true
-
+helper-operator:
+  operators:
+    rhacs-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: rhacs-operator
+        create: true
+      subscription:
+        channel: *rhacsversion
+        approval: Automatic
+        operatorName: rhacs-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        # rhacs does not support to monitor own namespace,
+        # therefor the spec in the OperatorGroup must be empty
+        notownnamespace: true
 
 rhacs:
 
