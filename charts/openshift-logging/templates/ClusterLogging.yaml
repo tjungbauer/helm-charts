@@ -60,7 +60,6 @@ spec:
   collection:
     logs:
       type: "vector"
-      vector: {}
   {{- end }}
 {{- end }}
 {{- end }}
