@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.demo_pipelines }}
 spec:
   steps:
-    - image: 'quay.io/tjungbau/linter-image:v1.0.0'
+    - image: 'quay.io/tjungbau/linter-image:v1.0.1'
       name: helm-linting
       resources: {}
       script: |
@@ -15,7 +15,7 @@ spec:
           helm_dir=$(dirname "${charts}")
           helm lint --strict "${helm_dir}"
         done
-    - image: 'quay.io/tjungbau/linter-image:v1.0.0'
+    - image: 'quay.io/tjungbau/linter-image:v1.0.1'
       name: yaml-linting
       resources: {}
       script: |
@@ -26,7 +26,7 @@ spec:
         done
 
         (exit $var)
-    - image: 'quay.io/tjungbau/linter-image:v1.0.0'
+    - image: 'quay.io/tjungbau/linter-image:v1.0.1'
       name: kube-score
       resources: {}
       script: >
@@ -59,7 +59,7 @@ spec:
         done
 
         (exit $RC)
-    - image: 'quay.io/tjungbau/linter-image:v1.0.0'
+    - image: 'quay.io/tjungbau/linter-image:v1.0.1'
       name: kube-linter
       resources: {}
       script: |
