@@ -36,6 +36,13 @@ spec:
           requests:
             memory: 256Mi
       redundancyPolicy: {{ .es.redundancyPolicy | quote }}
+      retentionPolicy: 
+        application:
+          maxAge: {{ .retentionPolicy.application | default "1d" }}
+        infra:
+          maxAge: {{ .retentionPolicy.infra | default "1d" }}
+        audit:
+          maxAge: {{ .retentionPolicy.audit | default "1d" }}
   visualization:
     type: "kibana"
     kibana:
@@ -55,12 +62,5 @@ spec:
       type: "vector"
       vector: {}
   {{- end }}
-  retentionPolicy: 
-      application:
-        maxAge: {{ .retentionPolicy.application | default "1d" }}
-      infra:
-        maxAge: {{ .retentionPolicy.infra | default "1d" }}
-      audit:
-        maxAge: {{ .retentionPolicy.audit | default "1d" }}
 {{- end }}
 {{- end }}

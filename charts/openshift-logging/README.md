@@ -59,9 +59,6 @@ The following table lists the configurable parameters of the chart and their def
 | `loggingConfig.es.limits.mem` | *Only ES* Set memory limit. Good for Labs. | `` |
 | `loggingConfig.es.requests.mem` | *Only ES* Set memory requests. Good for Labs. | `` |
 | `loggingConfig.es.redundancyPolicy` | *Only ES* ES Redundancy Policy. i.e. ZeroRedundancy | `` |
-| `loggingConfig.retentionPolicy.application` | Retention Policy for applications | `1d` |
-| `loggingConfig.retentionPolicy.infra` | Retention Policy for infra logs | `1d` |
-| `loggingConfig.retentionPolicy.audit` | Retention Policy for audit logs | `1d` |
 
 ## Example
 
