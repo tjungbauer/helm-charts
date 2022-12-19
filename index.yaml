@@ -2067,6 +2067,30 @@ entries:
     version: 0.1.0
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2022-12-19T10:38:04.908401895Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.10
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: bdd876a7cebc8d71c8c88a43d4ee597f95cc2cfc7fd674651465f17db9ca0a77
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.16/rhacs-full-stack-1.0.16.tgz
+    version: 1.0.16
+  - apiVersion: v2
     created: "2022-12-19T09:37:21.350666986Z"
     dependencies:
     - name: helper-operator
@@ -2505,4 +2529,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-19T10:35:27.642423009Z"
+generated: "2022-12-19T10:38:04.908902005Z"
