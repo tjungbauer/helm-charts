@@ -52,7 +52,7 @@ The following table lists the configurable parameters of the chart and their def
 
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
-| `override-rhacs-operator-version` | Set the Operator version to install | `rhacs-3.72` |
+| `override-rhacs-operator-version` | Set the Operatorto a specific version | `latest` |
 | `rhacs.job_vars.max_attempts` | How otften shall the status of the operator be checked (Default 20) | `` |
 | `rhacs.job_vars.wait_time` | If the Deployments are not ready yet, how long shall I wait in addition (Default 20) | `` |
 | `rhacs.job_vars.crd_check_time` | Time to sleep before I verify that the CRDs have been created | `20` |

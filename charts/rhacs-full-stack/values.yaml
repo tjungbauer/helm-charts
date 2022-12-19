@@ -1,5 +1,6 @@
 ---
-override-rhacs-operator-version: &rhacsversion rhacs-3.73
+override-rhacs-operator-version: &rhacsversion latest
+operatornamespace: &operatornamespace rhacs-operator
 
 # Install Operator RHACS
 # Deploys Operator --> Subscription and Operatorgroup
@@ -10,7 +11,7 @@ helper-operator:
       enabled: true
       syncwave: '0'
       namespace:
-        name: rhacs-operator
+        name: *operatornamespace
         create: true
       subscription:
         channel: *rhacsversion

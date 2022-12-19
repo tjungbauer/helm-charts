@@ -48,13 +48,13 @@ spec:
               for i in "${deployments[@]}";
               do
                 printf "\nWaiting for deployment %s\n" "$i";
-                oc get deployment/"$i" -n {{ .Values.operators.rhacs_operator.namespace }}
+                oc get deployment/"$i" -n {{ .Values.operatornamespace }}
                 depl_status=$?
                 if [ $depl_status -eq 1 ]; then
                     echo "Deployment not yet found... Give Operator $sleep_timer seconds to create the Deployment"
                     sleep $sleep_timer
                 fi
-                oc rollout status deployment "$i" -n {{ .Values.operators.rhacs_operator.namespace }}
+                oc rollout status deployment "$i" -n {{ .Values.operatornamespace }}
                 status=$?
               done
 
