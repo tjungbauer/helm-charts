@@ -53,15 +53,15 @@ The following table lists the configurable parameters of the chart and their def
 | `vector` | Enable Vector with Logistack | `` |
 | `loggingConfig.enabled` | Configure Cluster Logging | `` |
 | `loggingConfig.syncwave` | Syncwave when ClusterLogging shall be created | `` |
-| `loggingConfig.es.retentionPolicy.application` | *Only ES* Retention Policy for applications | `` |
-| `loggingConfig.es.retentionPolicy.infra` | *Only ES* Retention Policy for infra logs | `` |
-| `loggingConfig.es.retentionPolicy.audit` | *Only ES* Retention Policy for audit logs | `` |
 | `loggingConfig.es.nodes` | *Only ES* number of ES nodes | `` |
 | `loggingConfig.es.storageclass` | *Only ES* storage class for ES | `` |
 | `loggingConfig.es.storagesize` | *Only ES* size of ES storage | `` |
 | `loggingConfig.es.limits.mem` | *Only ES* Set memory limit. Good for Labs. | `` |
 | `loggingConfig.es.requests.mem` | *Only ES* Set memory requests. Good for Labs. | `` |
 | `loggingConfig.es.redundancyPolicy` | *Only ES* ES Redundancy Policy. i.e. ZeroRedundancy | `` |
+| `loggingConfig.retentionPolicy.application` | Retention Policy for applications | `1d` |
+| `loggingConfig.retentionPolicy.infra` | Retention Policy for infra logs | `1d` |
+| `loggingConfig.retentionPolicy.audit` | Retention Policy for audit logs | `1d` |
 
 ## Example
 

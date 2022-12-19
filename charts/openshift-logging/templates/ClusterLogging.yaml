@@ -19,13 +19,6 @@ spec:
   {{- if eq ( $.Values.elasticsearch | toString) "true" }}
   logStore:
     type: "elasticsearch"
-    retentionPolicy: 
-      application:
-        maxAge: {{ .es.retentionPolicy.application }}
-      infra:
-        maxAge: {{ .es.retentionPolicy.infra }}
-      audit:
-        maxAge: {{ .es.retentionPolicy.audit }}
     elasticsearch:
       nodeCount: {{ .es.nodes }}
       storage:
@@ -57,12 +50,17 @@ spec:
     type: lokistack
     lokistack:
       name: logging-loki
-    collection:
-      logs:
-        type: "vector"
-        vector: {}
+  collection:
+    logs:
+      type: "vector"
+      vector: {}
   {{- end }}
-
-
+  retentionPolicy: 
+      application:
+        maxAge: {{ .retentionPolicy.application | default "1d" }}
+      infra:
+        maxAge: {{ .retentionPolicy.infra | default "1d" }}
+      audit:
+        maxAge: {{ .retentionPolicy.audit | default "1d" }}
 {{- end }}
 {{- end }}
