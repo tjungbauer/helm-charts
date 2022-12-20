@@ -58,8 +58,10 @@ spec:
     lokistack:
       name: logging-loki
   collection:
+    type: vector
     logs:
       type: "vector"
+      vector: {}
   {{- end }}
 {{- end }}
 {{- end }}
