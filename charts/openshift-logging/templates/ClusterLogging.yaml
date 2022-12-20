@@ -61,7 +61,6 @@ spec:
     type: vector
     logs:
       type: "vector"
-      vector: {}
   {{- end }}
 {{- end }}
 {{- end }}
