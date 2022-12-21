@@ -10,7 +10,10 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     gitops.ownedBy: cluster-config
+    {{- if eq ($value.ignore_argocd_labels | toString) "true" }}
+    {{- else }}
     {{- include "argo.labels" $ | nindent 4 }}
+    {{- end }}
     {{- if $value.labels }}
     {{- range $key_labels, $value_labels := $value.labels }}
     {{ $key_labels }}: {{ $value_labels }}
@@ -20,11 +23,46 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-gitops
+    namespace: {{ .namespace.name | default "openshift-gitops" }}
     server: {{ .server }}
   project: {{ .project }}
+  {{- if eq (.namespace.create | toString) "true" }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  {{- end }}
+  {{- if eq (.namespace.create | toString) "false" }}
+  {{- if .syncOptions }}
+  syncPolicy:
+    syncOptions:
+    {{- range .syncOptions }}
+        - {{ .name }}={{ .value }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
   source:
+    {{- if .source.path }}
     path: {{ .source.path }}
+    {{- else }}
+    chart: {{ .source.chartname }}
+    {{- end }}
+    {{- if .source.helm }}
+    helm:
+      {{- if .source.helm.valuesfiles }}
+      {{- range .source.helm.valuesfiles }}
+      valueFiles: 
+        - {{ .name }}
+      {{- end }}
+      {{- end }}
+      {{- if .source.helm.releasename }}
+      releaseName: {{ .source.helm.releasename }}
+      {{- end }}
+      parameters:
+    {{- range .source.helm.helmvalues }}
+        - name: {{ .name }}
+          value: '{{ .value }}' 
+    {{- end }}
+    {{- end }}
     repoURL: {{ .source.repourl | default $.Values.general.source.repourl }}
     targetRevision: {{ .source.targetrevision | default $.Values.general.branch }}
   info:

@@ -82,14 +82,19 @@ The following table lists the configurable parameters of the chart and their def
 ||||
 |**Applications**|||
 |`applications.UNIQUE-IDENTIFIER`| This is the unique identifier. *Must not contain '-'*. This name is used for the name of the Application | `` |
-|`applicationsets.UNIQUE-IDENTIFIER.enabled`|Enabled yes/no| 'false' |
-|`applicationsets.UNIQUE-IDENTIFIER.server`|Target Cluster| '' |
-|`applicationsets.UNIQUE-IDENTIFIER.server`|Project inside Argo CD| '' |
-|`applicationsets.UNIQUE-IDENTIFIER.description`| A description of this ApplicationSet | `No description` |
-|`applicationsets.UNIQUE-IDENTIFIER.labels`| A list of labels that shall be added to the object. You are free to define your own set of labels. For example: `category: security` | `` |
-|`applicationsets.UNIQUE-IDENTIFIER.source.path`| The path to the Git repository.| `` |
-|`applicationsets.UNIQUE-IDENTIFIER.source.repourl`|Default URL to the repository| value of anchor `repourl`|
-|`applicationsets.UNIQUE-IDENTIFIER.source.targetrevision`|Default branch to use| value of anchor `repobranch`|
+|`applications.UNIQUE-IDENTIFIER.enabled`|Enabled yes/no| 'false' |
+|`applications.UNIQUE-IDENTIFIER.server`|Target Cluster| '' |
+|`applications.UNIQUE-IDENTIFIER.server`|Project inside Argo CD| '' |
+|`applications.UNIQUE-IDENTIFIER.description`| A description of this ApplicationSet | `No description` |
+|`applications.UNIQUE-IDENTIFIER.labels`| A list of labels that shall be added to the object. You are free to define your own set of labels. For example: `category: security` | `` |
+|`applications.UNIQUE-IDENTIFIER.syncOptions`| List of Argo CD sync options (name/value). | `` |
+|`applications.UNIQUE-IDENTIFIER.source.path`| The path to the Git repository.| `` |
+|`applications.UNIQUE-IDENTIFIER.source.chartname`| If Helm shall be used: Name of the Helm Chart | `` |
+|`applications.UNIQUE-IDENTIFIER.source.helm.releasename`| If Helm shall be used: Relasename of the Chart | `` |
+|`applications.UNIQUE-IDENTIFIER.source.helm.helmvalues`| If Helm shall be used: list (name/value) of specific Helm values | `` |
+|`applications.UNIQUE-IDENTIFIER.source.helm.helmvalues`| If Helm shall be used: list of additional Helm values files. | `` |
+|`applications.UNIQUE-IDENTIFIER.source.repourl`|Default URL to the repository| value of anchor `repourl`|
+|`applications.UNIQUE-IDENTIFIER.source.targetrevision`|Default branch to use| value of anchor `repobranch`|
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
@@ -156,4 +161,34 @@ Applications are bound to a specific cluster, so whenever a certain software nee
         path: charts/rhacs-full-stack
         repourl: "https://github.com/tjungbauer/helm-charts"
         targetrevision: "main"
+```
+
+### Application using Helm
+
+```yaml
+    hashicorp-vault:
+      enabled: true
+      description: "Deploy HashoCorp Vault"
+      labels:
+        category: security
+      namespace:
+        name: vault
+        create: true
+      server: *mgmtcluster
+      project: default
+      source:
+        chartname: vaultss
+        helm:
+          releasename: vault
+          helmvalues:
+            - name: global.openshift
+              value: 'true'
+            - name: server.ha.raft.enabled
+              value: 'true'
+            - name: server.ha.enabled
+              value: 'true'
+            - name: server.ha.replicas
+              value: '1'
+        repourl: "https://helm.releases.hashicorp.com"
+        targetrevision: 0.21.0
 ```
