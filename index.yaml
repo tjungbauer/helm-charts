@@ -926,6 +926,21 @@ entries:
     version: 1.0.0
   helper-argocd:
   - apiVersion: v2
+    created: "2022-12-21T11:58:13.411321895Z"
+    description: Takes care of creation of Applications and ApplicationSets
+    digest: 0597d9b21e5bd59c92304d30e7bf46e1d7b3888896c4e0290c698c20e2e6cb4a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.7/helper-argocd-1.0.7.tgz
+    version: 1.0.7
+  - apiVersion: v2
     created: "2022-12-13T06:10:09.091639088Z"
     description: Takes care of creation of Applications and ApplicationSets
     digest: dc8d6c778330d069f2c7eab12c6930a1efd5ad339c328adeda9bfa1c77e8912e
@@ -2755,4 +2770,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-21T08:22:52.573828684Z"
+generated: "2022-12-21T11:58:13.411716394Z"
