@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging including Elasticsearch and Kibana
-version: 1.0.11
+version: 1.0.12
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-ogging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
