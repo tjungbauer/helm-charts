@@ -49,7 +49,9 @@ The following table lists the configurable parameters of the chart and their def
 | `UNIQUE-IDENTIFIER`| This is a unique identifier that will be used to create the Argo CD Application | `` |
 | `UNIQUE-IDENTIFIER.enabled` | enabled yes/no | `false` |
 | `UNIQUE-IDENTIFIER.syncwave` | Sets the Syncwave for Argo CD | 0 |
-| `UNIQUE-IDENTIFIER.namespace` | The Namespace the Operator should be installed in | ` ` |
+| `UNIQUE-IDENTIFIER.namespace.name` | The Namespace the Operator should be installed in | ` ` |
+| `UNIQUE-IDENTIFIER.namespace.descr` | Description of the namespace | ` ` |
+| `UNIQUE-IDENTIFIER.namespace.displayname` | Display name of the namespace | ` ` |
 | `UNIQUE-IDENTIFIER.namespace.create` | Create the namespace true/false | `false` |
 | `UNIQUE-IDENTIFIER.subscription` | Definition of the Operator Subscription | `` |
 | `UNIQUE-IDENTIFIER.subscription.channel` | Subscription channel | `stable` |

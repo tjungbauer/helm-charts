@@ -10,6 +10,15 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "common.labels" $ | nindent 4 }}
+  {{- if or ($value.namespace.descr) ($value.namespace.displayname) }}
+  annotations:
+    {{- if $value.namespace.descr }}
+    openshift.io/description: {{ $value.namespace.descr }}
+    {{- end }}
+    {{- if $value.namespace.displayname }}
+    openshift.io/display-name: {{ $value.namespace.displayname }}
+    {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
