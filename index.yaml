@@ -1201,6 +1201,22 @@ entries:
     version: 1.0.2
   helper-proj-onboarding:
   - apiVersion: v2
+    created: "2022-12-23T07:37:45.7414191Z"
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: e5a5e3a163564355209b94b463a36276d2c51dacc07c55a912030e5ff98d3261
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.4/helper-proj-onboarding-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     created: "2022-12-18T06:36:28.496611205Z"
     description: This Chart shall deploy namespaces and their depending resources,
       like NetworkPolicies or Quotas etc.
@@ -1786,6 +1802,30 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
     version: 1.0.0
   openshift-logging:
+  - apiVersion: v2
+    created: "2022-12-23T07:37:45.864969004Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.10
+    description: Deploy and configure OpenShift Logging including Elasticsearch and
+      Kibana
+    digest: 780a4a3a5fb75ef9f31b97dd4b3ee24c5e5e23bdc90bf829b92492afec2760fe
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.14/openshift-logging-1.0.14.tgz
+    version: 1.0.14
   - apiVersion: v2
     created: "2022-12-21T07:54:57.377220861Z"
     dependencies:
@@ -2816,4 +2856,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-21T12:21:47.032603548Z"
+generated: "2022-12-23T07:37:45.865418998Z"
