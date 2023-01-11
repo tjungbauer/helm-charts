@@ -16,6 +16,10 @@ metadata:
     {{- end }}
     {{- end }}
 spec:
+  {{- if .preserveResourcesOnDeletion }}
+  syncPolicy:
+    preserveResourcesOnDeletion: {{ .preserveResourcesOnDeletion }}
+  {{- end }}
   generators:
     {{- if .generatorlist }}
       - list:
