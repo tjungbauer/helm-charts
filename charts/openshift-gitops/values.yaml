@@ -34,13 +34,13 @@ helper-status-checker:
     create: true
     name: "sa-gitops"
 
-gitops-cluster-instance:
-  enabled: false
+gitopsclusterinstance:
+  enabled: true
   clusterAdmin: enabled
   namespace:
     name: openshift-gitops
+    create: true
     syncwave: '5'
-
 
 serviceAccount:
   create: false
