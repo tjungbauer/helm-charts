@@ -5,6 +5,10 @@ kind: ArgoCD
 metadata:
   name: openshift-gitops
   namespace: openshift-gitops
+  annotations:
+    app.kubernetes.io/managed-by: Helm
+    meta.helm.sh/release-name: openshift-gitops-operator
+    meta.helm.sh/release-namespace: openshift-operators
 spec:
   applicationInstanceLabelKey: argocd.argoproj.io/instance
   resourceTrackingMethod: annotation
