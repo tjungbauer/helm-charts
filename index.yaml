@@ -1706,6 +1706,29 @@ entries:
     version: 1.0.0
   openshift-gitops:
   - apiVersion: v2
+    created: "2023-02-13T12:16:25.447751092Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.15
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~1.0.10
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: a23a6fb6c86c3d64b5fe809890f7f8ac59fce38d6493bcaed862b4477f1ee909
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.11/openshift-gitops-1.0.11.tgz
+    version: 1.0.11
+  - apiVersion: v2
     created: "2023-02-13T11:51:44.617717493Z"
     dependencies:
     - name: helper-operator
@@ -2894,4 +2917,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-02-13T11:51:44.618355609Z"
+generated: "2023-02-13T12:16:25.448176186Z"
