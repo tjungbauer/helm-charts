@@ -48,7 +48,6 @@ spec:
     route:
       enabled: false
   initialSSHKnownHosts: {}
-  resourceTrackingMethod: annotation
   applicationSet:
     resources:
       limits:
