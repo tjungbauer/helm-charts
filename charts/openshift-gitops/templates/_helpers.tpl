@@ -53,7 +53,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "gitopsclusterinstance.serviceAccountName" -}}
+{{- define "gitops.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "common.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
@@ -64,7 +64,7 @@ Create the name of the service account to use
 {{/*
 Create the name of the role and rolebinding for the serviceaccount
 */}}
-{{- define "gitopsclusterinstance.rolename" -}}
+{{- define "gitops.rolename" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "common.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
