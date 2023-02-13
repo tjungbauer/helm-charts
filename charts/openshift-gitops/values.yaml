@@ -2,17 +2,49 @@
 # General values
 #
 
-gitops:
-  enabled: false
-  clusterAdmin: disabled
+# Install Operator GitOps Operator
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+helper-operator:
+  operators:
+    openshift-gitops-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-gitops
+        create: true
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: openshift-gitops-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: false
+
+helper-status-checker:
+  enabled: true
+
+  # space separate list of deployments which shall be checked for status
+  deployments: "cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server"
+
+  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
+
   namespace:
-    name: openshift-operators
-  subscription:
-    channel: stable
-    approval: Automatic
-    operatorName: openshift-gitops-operator
-    sourceName: redhat-operators
-    sourceNamespace: openshift-marketplace
+    name: openshift-gitops
+
+  serviceAccount:
+    create: true
+    name: "sa-gitops"
+
+gitops-cluster-instance:
+  enabled: false
+  clusterAdmin: enabled
+  namespace:
+    name: openshift-gitops
+    syncwave: '5'
+
 
 serviceAccount:
   create: false
