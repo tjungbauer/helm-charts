@@ -67,7 +67,7 @@ The following table lists the configurable parameters of the chart and their def
 
 ```yaml
 ---
-override-rhacm-operator-version: &rhacmversion release-2.6
+override-rhacm-operator-version: &rhacmversion release-2.7
 
 # Install Operator RHACM
 # Deploys Operator --> Subscription and Operatorgroup
