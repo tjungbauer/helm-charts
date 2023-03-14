@@ -1367,6 +1367,23 @@ entries:
     version: 1.0.0
   helper-status-checker:
   - apiVersion: v2
+    created: "2023-03-14T14:41:05.79615057Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments
+    digest: f64cc424ce6c02b8f6ada2f174f40113caee489e030625d47db82e1550ab01ea
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-2.0.2/helper-status-checker-2.0.2.tgz
+    version: 2.0.2
+  - apiVersion: v2
     created: "2023-03-14T13:53:45.607844414Z"
     description: A helper Chart which creates a job to verify if the deployments of
       an operator are running. To do so it creates a service account with a role to
@@ -2065,6 +2082,30 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
     version: 1.0.0
   openshift-logging:
+  - apiVersion: v2
+    created: "2023-03-14T14:41:06.034932504Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~2.0.1
+    description: Deploy and configure OpenShift Logging including Elasticsearch and
+      Kibana
+    digest: 8a0213f7525c040fbfbc90017778a8176f45106eabf8c6961270b709be2632fb
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.16/openshift-logging-1.0.16.tgz
+    version: 1.0.16
   - apiVersion: v2
     created: "2023-03-14T13:38:28.058390226Z"
     dependencies:
@@ -3213,4 +3254,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-14T13:53:45.608357312Z"
+generated: "2023-03-14T14:41:06.035479503Z"
