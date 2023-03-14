@@ -58,7 +58,7 @@ helper-status-checker:
   enabled: true
 
   # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  operatorName: logging-operator
+  operatorName: cluster-logging
 
   # where operator is installed
   namespace:
