@@ -32,4 +32,4 @@ helper-status-checker:
 
   serviceAccount:
     create: true
-    name: "status-checker"
+    name: "status-checker-odf"
