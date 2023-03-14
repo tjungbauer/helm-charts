@@ -2,21 +2,21 @@
 {{ if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
-  name: {{ include "helper.rolename" $ }}-role
+  name: {{ include "helper.rolename" $ }}-clusterrole
   namespace: {{ .namespace.name | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 rules:
   - apiGroups:
-      - "apps"
+      - operators.coreos.com
     resources:
-      - deployments
+      - clusterserviceversions
     verbs:
       - get
       - list
