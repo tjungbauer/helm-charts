@@ -1548,6 +1548,29 @@ entries:
     version: 1.0.0
   openshift-data-foundation:
   - apiVersion: v2
+    created: "2023-03-14T13:45:18.152710005Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~2.0.0
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: 2f186d8fe0a8f3b03be81a7a0c12b692f50f1502d21c9c08b8e859f13978c21e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.12/openshift-data-foundation-1.0.12.tgz
+    version: 1.0.12
+  - apiVersion: v2
     created: "2023-03-14T13:38:27.930235309Z"
     dependencies:
     - name: helper-operator
@@ -3150,4 +3173,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-14T13:38:28.209347485Z"
+generated: "2023-03-14T13:45:18.153315016Z"
