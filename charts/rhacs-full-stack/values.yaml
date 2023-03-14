@@ -63,11 +63,10 @@ serviceAccount:
 helper-status-checker:
   enabled: true
 
-  # space separate list of deployments which shall be checked for status
-  deployments: "rhacs-operator-controller-manager"
+  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  operatorName: rhacs-operator
 
-  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
-
+  # where operator is installed
   namespace:
     name: rhacs-operator
 
