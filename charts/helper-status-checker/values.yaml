@@ -1,7 +1,7 @@
 enabled: false
 
-sleeptimer: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
-maxretries: 20  # number of retries for each check
+#sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
+#maxretries: 20  # number of retries for each check
 
 operatorName: my-operator
 

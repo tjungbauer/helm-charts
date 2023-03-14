@@ -64,9 +64,10 @@ Installing Red Hat Advanced Cluster Management and verifying if a list of Deploy
 helper-status-checker:
   enabled: true
 
-  sleeptimer: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
-
+  sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
   maxretries: 20  # number of retries for each check
+
+  operatorName: my-operator # use currentCSV from packagemanifest.spec.curretncsv but WITHOUT the version number
 
   namespace:
     name: open-cluster-management
