@@ -68,6 +68,7 @@ The following table lists the configurable parameters of the chart and their def
 |`applicationsets.UNIQUE-IDENTIFIER.per_cluster_helm_values`| Shall Helm use indifivual values files per cluster |`false`|
 |`applicationsets.UNIQUE-IDENTIFIER.releasename`| Releasename of a Helm chart |``|
 |`applicationsets.UNIQUE-IDENTIFIER.helmvalues`| Individual values to be set and to be overwritten |``|
+|`applicationsets.UNIQUE-IDENTIFIER.omitClustername`| Do not add the clustername to the ArgoCD Application that is created by the ApplicationSet. BE CAREFULL: to not create Applications with the same name! |``|
 |`applicationsets.UNIQUE-IDENTIFIER.generatorclusters`|Using ApplicationSet generator *cluster*|Define cluster using the anchors defined at the beginning. Use [] to deploy on *ALL* clusters|
 |`applicationsets.UNIQUE-IDENTIFIER.generatorlist`|Using ApplicationSet generator *list*|Define a list of cluster to which the application shall be deployed.||
 |`applicationsets.UNIQUE-IDENTIFIER.generatorlis.clusternamet`| Name of the cluster |``|

@@ -44,11 +44,21 @@ spec:
   template:
     metadata:
       {{- if .generatorlist }}
-      name: >-
-          {{ printf "{{ cluster }}-%s" $key | replace "_" "-" }}
+        {{- if eq (.omitClustername | toString) "true" }}
+          name: >-
+            {{ printf "%s" $key | replace "_" "-" }}
+        {{- else }}
+          name: >-
+            {{ printf "{{ cluster }}-%s" $key | replace "_" "-" }}
+        {{- end }}
       {{- else }}
-      name: >-
-          {{ printf "{{ name }}-%s" $key | replace "_" "-" }} 
+        {{- if eq (.omitClustername | toString) "true" }}
+          name: >-
+            {{ printf "%s" $key | replace "_" "-" }}
+        {{- else }}
+          name: >-
+            {{ printf "{{ name }}-%s" $key | replace "_" "-" }} 
+        {{- end }}
       {{- end }}
     spec:
       {{- if .generatorlist }}
