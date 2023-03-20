@@ -6,7 +6,27 @@ kind: Namespace
 metadata:
   name: {{ .name | replace "_" "-" | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
     {{- include "common.labels" $ | nindent 4 }}
+    {{- if .labels -}}
+    {{ toYaml .labels | nindent 4 }}
+    {{- end }}
+    {{- if .additional_settings }}
+    {{- with .additional_settings }}
+    {{- if .podsecurity_audit }}
+    pod-security.kubernetes.io/audit: {{ .podsecurity_audit }}
+    {{- end }}
+    {{- if .podsecurity_warn }}
+    pod-security.kubernetes.io/warn: {{ .podsecurity_warn }}
+    {{- end }}
+    {{- if .podsecurity_enforce }}
+    pod-security.kubernetes.io/enforce: {{ .podsecurity_enforce }}
+    {{- end }}
+    {{- if .cluster_monitoring }}
+    openshift.io/cluster-monitoring: {{ .cluster_monitoring }}
+    {{- end }}
+    {{- end }}
+    {{- else }}
+    openshift.io/cluster-monitoring: true
+    {{- end }}
 {{- end }}
 {{- end }}

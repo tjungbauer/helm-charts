@@ -1,0 +1,40 @@
+{{- range $key, $value := .Values.namespaces }}
+{{ if eq ( .enabled | toString) "true" }}
+{{ if .resourceQuotas }}
+{{ if eq ( .resourceQuotas.enabled | toString) "true" }}
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: core-object-counts
+  namespace: {{ .name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+{{- with .resourceQuotas }}
+spec:
+  hard:
+    pods: {{ .pods | quote }}
+    cpu: {{ .cpu | quote }}
+    memory: {{ .memory | replace "gi" "Gi" | replace "mi" "Mi" }}
+    ephemeral-storage: {{ .ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+    resourcequotas: {{ .resourcequotas | quote }}
+    configmaps: {{ .configmaps | quote }}
+    persistentvolumeclaims: {{.persistentvolumeclaims | quote }}
+    replicationcontrollers: {{ .replicationcontrollers | quote }}
+    secrets: {{ .secrets | quote }}
+    services: {{ .services | quote }}
+    limits.cpu: {{ .limits.cpu | quote }}
+    limits.memory: {{ .limits.memory | replace "gi" "Gi" | replace "mi" "Mi" }}
+    limits.ephemeral-storage: {{ .limits.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+    requests.cpu: {{ .requests.cpu | quote }}
+    requests.memory: {{ .requests.memory | replace "gi" "Gi" | replace "mi" "Mi"  }}
+    requests.storage: {{ .requests.storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+    requests.ephemeral-storage: {{ .requests.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+    {{- if .storageclasses -}}
+    {{ toYaml .storageclasses | nindent 4 }}
+    {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
