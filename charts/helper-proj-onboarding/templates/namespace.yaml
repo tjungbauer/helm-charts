@@ -1,11 +1,12 @@
-{{ if eq ( .Values.namespace.enabled | toString) "true" }}
+{{- range $key, $value := .Values.namespaces }}
+{{ if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespace.name | replace "_" "-" | quote }}
+  name: {{ .name | replace "_" "-" | quote }}
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "common.labels" $ | nindent 4 }}
-    argocd.argoproj.io/managed-by: {{ .Values.namespace.gitops_namespace | quote }}
+{{- end }}
 {{- end }}
