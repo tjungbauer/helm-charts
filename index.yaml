@@ -1254,6 +1254,22 @@ entries:
     version: 1.0.2
   helper-proj-onboarding:
   - apiVersion: v2
+    created: "2023-03-20T05:20:53.957384893Z"
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: 83170d9de669b6ff825657d065ec24ceac48f5f7bdbaa319e726a7bbe4741e68
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.5/helper-proj-onboarding-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     created: "2022-12-23T07:37:45.7414191Z"
     description: This Chart shall deploy namespaces and their depending resources,
       like NetworkPolicies or Quotas etc.
@@ -3293,4 +3309,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-15T13:48:25.547367781Z"
+generated: "2023-03-20T05:20:53.958684994Z"
