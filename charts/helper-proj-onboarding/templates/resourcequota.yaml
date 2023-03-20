@@ -6,7 +6,7 @@
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: core-object-counts
+  name: {{ .name | replace "_" "-" | quote }}-quota
   namespace: {{ .name | replace "_" "-" | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
