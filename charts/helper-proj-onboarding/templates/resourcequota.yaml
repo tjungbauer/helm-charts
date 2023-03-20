@@ -6,7 +6,7 @@
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: {{ .name | replace "_" "-" | quote }}-quota
+  name: {{ .name | replace "_" "-" }}-quota
   namespace: {{ .name | replace "_" "-" | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
