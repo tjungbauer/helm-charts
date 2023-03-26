@@ -1,0 +1,68 @@
+{{- range $key, $value := .Values.namespaces }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: {{ $value.name | replace "_" "-" }}-limitrange
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  {{- if .limitRanges }}
+  limits:
+    - type: "Pod" 
+      max:
+        cpu: {{ .limitRanges.pod.max.cpu | default "500m" | quote }}
+        memory: {{ .limitRanges.pod.max.memory | default "10Mi" | quote }}
+      min:
+        cpu: {{ .limitRanges.pod.min.cpu | default "100m" | quote }}
+        memory: {{ .limitRanges.pod.min.memory | default "5Mi" | quote }}
+    - type: "Container" 
+      max:
+        cpu: {{ .limitRanges.container.max.cpu | default "1" | quote }}
+        memory: {{ .limitRanges.container.max.memory | default "1Gi" | quote }}
+      min:
+        cpu: {{ .limitRanges.container.min.cpu | default "100m" | quote }}
+        memory: {{ .limitRanges.container.min.memory | default "5Mi" | quote }}
+      default:
+        cpu: {{ .limitRanges.container.default.cpu | default "200m" | quote }}
+        memory: {{ .limitRanges.container.default.memory | default "200Mi" | quote }}
+      defaultRequest: 
+        cpu: {{ .limitRanges.container.defaultRequest.cpu | default "100m" | quote }}
+        memory: {{ .limitRanges.container.defaultRequest.memory | default "100Mi" | quote }}
+    - type: "PersistentVolumeClaim"
+      min:
+        storage: {{ .limitRanges.pvc.min.storage | default "10Mi" | quote }}
+      max:
+        storage: {{ .limitRanges.pvc.max.storage | default "500Gi" | quote }}
+  {{- else }}
+  limits:
+    - type: "Pod" 
+      max:
+        cpu: "500m"
+        memory: "10Mi"
+      min:
+        cpu: "100m"
+        memory: "5Mi"
+    - type: "Container" 
+      max:
+        cpu: "1"
+        memory: "1Gi"
+      min:
+        cpu: "100m"
+        memory: "5Mi"
+      default:
+        cpu: "200m"
+        memory: "200Mi"
+      defaultRequest: 
+        cpu: "100m"
+        memory: "100Mi"
+    - type: "PersistentVolumeClaim"
+      min:
+        storage: "10Mi"
+      max:
+        storage: "500Gi"
+  {{- end }}
+{{- end }}
+{{- end }}
