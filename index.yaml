@@ -586,6 +586,29 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2023-06-08T14:06:38.684296813Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.15
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 82d608e8363b0ed095ddd3149ae5601f15a874d661ff7c041665e6871c5074f5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.19/compliance-operator-full-stack-1.0.19.tgz
+    version: 1.0.19
+  - apiVersion: v2
     created: "2023-06-08T14:00:44.875359867Z"
     dependencies:
     - name: helper-operator
@@ -3743,4 +3766,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-08T14:00:44.876303578Z"
+generated: "2023-06-08T14:06:38.691424549Z"
