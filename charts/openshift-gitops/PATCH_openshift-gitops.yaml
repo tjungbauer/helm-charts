@@ -61,20 +61,20 @@ spec:
           end
         end
         return hs
-      operators.coreos.com/Subscription:
-        health.lua: |
-          hs = {}
-          hs.status = "Progressing"
-          hs.message = ""
-          if obj.status ~= nil then
-            if obj.status.state ~= nil then
-              if obj.status.state == "AtLatestKnown" then
-                hs.message = obj.status.state .. " - " .. obj.status.currentCSV
-                hs.status = "Healthy"
-              end
+    operators.coreos.com/Subscription:
+      health.lua: |
+        hs = {}
+        hs.status = "Progressing"
+        hs.message = ""
+        if obj.status ~= nil then
+          if obj.status.state ~= nil then
+            if obj.status.state == "AtLatestKnown" then
+              hs.message = obj.status.state .. " - " .. obj.status.currentCSV
+              hs.status = "Healthy"
             end
           end
-          return hs
+        end
+        return hs
     platform.stackrox.io/Central:
       health.lua: |
         hs = {}
