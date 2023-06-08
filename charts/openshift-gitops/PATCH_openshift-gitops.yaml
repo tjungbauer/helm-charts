@@ -61,42 +61,20 @@ spec:
           end
         end
         return hs
-    operators.coreos.com/Subscription:
-      health.lua: |
-        health_status = {}
-        if obj.status ~= nil then
-          if obj.status.conditions ~= nil then
-            numDegraded = 0
-            numPending = 0
-            msg = ""
-            for i, condition in pairs(obj.status.conditions) do
-              msg = msg .. i .. ": " .. condition.type .. " | " .. condition.status .. "\n"
-              if condition.type == "InstallPlanPending" and condition.status == "True" then
-                numPending = numPending + 1
-              elseif (condition.type == "InstallPlanMissing" and condition.reason ~= "ReferencedInstallPlanNotFound") then
-                numDegraded = numDegraded + 1
-              elseif (condition.type == "CatalogSourcesUnhealthy" or condition.type == "InstallPlanFailed" or condition.type == "ResolutionFailed") and condition.status == "True" then
-                numDegraded = numDegraded + 1
+      operators.coreos.com/Subscription:
+        health.lua: |
+          hs = {}
+          hs.status = "Progressing"
+          hs.message = ""
+          if obj.status ~= nil then
+            if obj.status.state ~= nil then
+              if obj.status.state == "AtLatestKnown" then
+                hs.message = obj.status.state .. " - " .. obj.status.currentCSV
+                hs.status = "Healthy"
               end
             end
-            if numDegraded == 0 and numPending == 0 then
-              health_status.status = "Healthy"
-              health_status.message = msg
-              return health_status
-            elseif numPending > 0 and numDegraded == 0 then
-              health_status.status = "Progressing"
-              health_status.message = "An install plan for a subscription is pending installation"
-              return health_status
-            else
-              health_status.status = "Degraded"
-              health_status.message = msg
-              return health_status
-            end
           end
-        end
-        health_status.status = "Progressing"
-        health_status.message = "An install plan for a subscription is pending installation"
-        return health_status
+          return hs
     platform.stackrox.io/Central:
       health.lua: |
         hs = {}
@@ -116,38 +94,6 @@ spec:
       ignoreDifferences: |
         jsonPointers:
         - /status/ingress
-    image.openshift.io/ImageStream:
-      health.lua: |
-        hs = {}
-        hs.status = "Progressing"
-        hs.message = ""
-        if obj.status ~= nil then
-          if obj.status.tags ~= nil then
-            numTags = 0
-            for _ , item in pairs(obj.status.tags) do
-              numTags = numTags + 1
-              numItems = 0
-              if item.tags ~= nil then
-                for _ , item in pairs(item.tags) do
-                  numItems = numItems + 1
-                end
-                if numItems == 0 then
-                  return hs
-                end
-              end
-            end
-            if numTags > 0 then
-              hs.status = "Healthy"
-              hs.message = "ImageStream has tags resolved"
-              return hs
-            end
-          end
-        end
-        return hs
-    quay.redhat.com/QuayRegistry:
-      ignoreDifferences: |
-        jsonPointers:
-        - /spec/components
     operators.coreos.com/InstallPlan:
       health.lua: |
         hs = {}
@@ -162,21 +108,6 @@ spec:
         end
         hs.status = "Progressing"
         hs.message = "Waiting for InstallPlan to complete"
-        return hs
-    build.openshift.io/Build:
-      health.lua: |
-        hs = {}
-        if obj.status ~= nil then
-          if obj.status.phase ~= nil then
-            if obj.status.phase == "Complete" then
-              hs.status = "Healthy"
-              hs.message = obj.status.phase
-              return hs
-            end
-          end
-        end
-        hs.status = "Progressing"
-        hs.message = "Waiting for Build to complete"
         return hs
   resourceExclusions: |
     - apiGroups:

@@ -38,7 +38,7 @@ rhacs:
     descr: 'Red Hat Advanced Cluster Security'
 
   central:
-    syncwave: '3'
+    syncwave: '2'
     pvc: stackrox-db
     egress:
       connectivityPolicy: Online
@@ -61,7 +61,7 @@ serviceAccount:
   name: "create-cluster-init"
 
 helper-status-checker:
-  enabled: true
+  enabled: false
 
   # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
   operatorName: rhacs-operator
