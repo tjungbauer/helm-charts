@@ -4,7 +4,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: check-operator-status
+  name: check-operator-status-{{ randAlphaNum 5 | lower }}
   namespace: {{ .namespace.name | quote }}
   annotations:
     argocd.argoproj.io/hook: Sync
@@ -45,7 +45,12 @@ spec:
                fi
 
                echo "Operator not yet found... Give Operator $sleep_timer seconds to create the Deployment"
-               sleep $sleep_timer
+               #sleep $sleep_timer
+               while [[ $sleep_timer -le "20" ]]; do
+                 echo -n "."
+                 sleep 1
+                 sleep_timer=$(($sleep_timer+1))
+               done
                get_exact_name=`oc get clusterserviceversion -n {{ .namespace.name }} | grep $operator | awk -F" " '{print $1}'`
              done
 
@@ -64,7 +69,12 @@ spec:
                fi
 
                echo "Operator not yet ready ... Waiting $sleep_timer seconds"
-               sleep $sleep_timer
+               #sleep $sleep_timer
+               while [[ $sleep_timer -le "20" ]]; do
+                 echo -n "."
+                 sleep 1
+                 sleep_timer=$(($sleep_timer+1))
+               done
                get_status=`oc get clusterserviceversion -n {{ .namespace.name }} $get_exact_name -o jsonpath={.status.phase}`
              done
 
@@ -83,7 +93,12 @@ spec:
                fi
 
                echo "Operator deployment is ongoing. Current status: $get_status"
-               sleep $sleep_timer
+               #sleep $sleep_timer
+               while [[ $sleep_timer -le "20" ]]; do
+                 echo -n "."
+                 sleep 1
+                 sleep_timer=$(($sleep_timer+1))
+               done
                if [ "$get_status" == "Succeeded" ];
                then
                  status=$?
@@ -94,7 +109,13 @@ spec:
              oc get clusterserviceversion -n {{ .namespace.name }} $get_exact_name
 
              echo "Falling to sleep"
-             sleep 10
+             sl_tmp = 0
+             #sleep 10
+             while [[ $sl_tmp -le "10" ]]; do
+                echo -n "."
+                sleep 1
+                sl_tmp=$(($sl_tmp+1))
+             done
 
              printf "\nStatus: $status\n"
              if [ $status -eq 0 ]; then
@@ -107,7 +128,6 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
-      serviceAccount: {{ include "helper.serviceAccountName" $ }}
       serviceAccountName: {{ include "helper.serviceAccountName" $ }}
 {{- end }}
 {{- end }}

@@ -1,4 +1,5 @@
 enabled: false
+approver: false
 
 # sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
 # maxretries: 20  # number of retries for each check

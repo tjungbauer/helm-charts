@@ -11,7 +11,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

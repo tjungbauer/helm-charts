@@ -1,0 +1,61 @@
+{{- with .Values }}
+{{ if eq ( .approver | toString) "true" }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: installplan-approver-{{ randAlphaNum 5 | lower}}
+  namespace: {{ .namespace.name | quote }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/approver
+
+              echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
+              sleep_timer={{ .sleeptimer | default 20 }}
+
+              while [[ $sleep_timer -le "20" ]]; do
+                echo -n "."
+                sleep 1
+                sleep_timer=$(($sleep_timer+1))
+              done
+
+              subscription={{ .operatorName }}
+              echo "Processing subscription '$subscription'"
+
+              installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
+
+              echo "Check installplan approved status"
+              oc get installplan $installplan -o jsonpath="{.spec.approved}"
+
+              if [ "`oc get installplan $installplan -o jsonpath="{.spec.approved}"`" == "false" ]; then
+
+                echo "Approving Subscription $subscription with install plan $installplan"
+
+                oc patch installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
+
+              else
+                echo "Install Plan '$installplan' already approved"
+              fi
+          imagePullPolicy: Always
+          name: installplan-approver
+          env:
+            - name: SLEEP
+              value: "20"
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: {{ include "helper.serviceAccountName" $ }}
+{{- end }}
+{{- end }}
