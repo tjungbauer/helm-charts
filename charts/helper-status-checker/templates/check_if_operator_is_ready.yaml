@@ -46,10 +46,11 @@ spec:
 
                echo "Operator not yet found... Give Operator $sleep_timer seconds to create the Deployment"
                #sleep $sleep_timer
-               while [[ $sleep_timer -le "20" ]]; do
+               SLEEPER_TMP=0
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
-                 sleep_timer=$(($sleep_timer+1))
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
                get_exact_name=`oc get clusterserviceversion -n {{ .namespace.name }} | grep $operator | awk -F" " '{print $1}'`
              done
@@ -70,10 +71,12 @@ spec:
 
                echo "Operator not yet ready ... Waiting $sleep_timer seconds"
                #sleep $sleep_timer
-               while [[ $sleep_timer -le "20" ]]; do
+
+               SLEEPER_TMP=0
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
-                 sleep_timer=$(($sleep_timer+1))
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
                get_status=`oc get clusterserviceversion -n {{ .namespace.name }} $get_exact_name -o jsonpath={.status.phase}`
              done
@@ -94,11 +97,14 @@ spec:
 
                echo "Operator deployment is ongoing. Current status: $get_status"
                #sleep $sleep_timer
-               while [[ $sleep_timer -le "20" ]]; do
+
+               SLEEPER_TMP=0
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
-                 sleep_timer=$(($sleep_timer+1))
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
+
                if [ "$get_status" == "Succeeded" ];
                then
                  status=$?

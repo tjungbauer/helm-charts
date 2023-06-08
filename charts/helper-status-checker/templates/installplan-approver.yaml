@@ -25,11 +25,12 @@ spec:
               echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
               sleep_timer={{ .sleeptimer | default 20 }}
 
-              while [[ $sleep_timer -le "20" ]]; do
-                echo -n "."
-                sleep 1
-                sleep_timer=$(($sleep_timer+1))
-              done
+              SLEEPER_TMP=0
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
+               done
 
               subscription={{ .operatorName }}
               echo "Processing subscription '$subscription'"
