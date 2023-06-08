@@ -586,6 +586,29 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2023-06-08T10:11:12.05893227Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.15
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~2.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 77fd7836ace6b9738a4c8f42b358a41c05efb42aff0fc39143bff32cbbb890fd
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.15/compliance-operator-full-stack-1.0.15.tgz
+    version: 1.0.15
+  - apiVersion: v2
     created: "2023-03-14T13:38:27.811952839Z"
     dependencies:
     - name: helper-operator
@@ -1944,6 +1967,21 @@ entries:
     version: 1.0.0
   openshift-gitops:
   - apiVersion: v2
+    created: "2023-06-08T10:11:12.258943274Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 27a93bd95d07666363f8b678619dbe5338bff7dcd86ef684600671a4cf762a5a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.16/openshift-gitops-1.0.16.tgz
+    version: 1.0.16
+  - apiVersion: v2
     created: "2023-02-13T13:42:33.787108166Z"
     description: Installs and patches the Red Hat Openshift Gitops Operator
     digest: c652f88c29034980810e181d63fcfce6af67f57f8cf53180f76a7f6f6e4dca55
@@ -2864,6 +2902,30 @@ entries:
     version: 0.1.0
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2023-06-08T10:11:12.481367081Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~2.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 1a3706ca216c0324cc58f61249a62f885c5223bba5f40ac93a6b692b88ee481e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.18/rhacs-full-stack-1.0.18.tgz
+    version: 1.0.18
+  - apiVersion: v2
     created: "2023-03-14T13:38:28.208666475Z"
     dependencies:
     - name: helper-operator
@@ -3373,4 +3435,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-03-26T18:36:48.046334066Z"
+generated: "2023-06-08T10:11:12.482224688Z"
