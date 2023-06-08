@@ -58,7 +58,7 @@ compliance:
 
     profiles:
       - name: ocp4-cis-node
-        kind: Profil  # Could be Profile or TailedProfile
+        kind: Profile  # Could be Profile or TailedProfile
       - name: ocp4-cis
-        kind: Profil
+        kind: Profile
     scansetting: default
