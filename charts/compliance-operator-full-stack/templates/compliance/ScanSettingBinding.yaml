@@ -13,7 +13,7 @@ metadata:
 profiles:
 {{- range $key, $value := .Values.compliance.scansettingbinding.profiles }}
   - name: {{ $value.name }} 
-    kind: Profile
+    kind: {{ $value.kind }}
     apiGroup: compliance.openshift.io/v1alpha1
 {{- end }}
 settingsRef:
