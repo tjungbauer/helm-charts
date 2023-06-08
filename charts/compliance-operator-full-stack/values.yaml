@@ -12,7 +12,7 @@ helper-operator:
         name: openshift-compliance
         create: true
       subscription:
-        channel: release-0.1
+        channel: stable
         approval: Automatic
         operatorName: compliance-operator
         source: redhat-operators
@@ -22,7 +22,7 @@ helper-operator:
         notownnamespace: true
 
 helper-status-checker:
-  enabled: true
+  enabled: false
 
   # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
   operatorName: compliance-operator
