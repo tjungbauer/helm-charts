@@ -1,6 +1,7 @@
 ---
-override-rhacs-operator-version: &rhacsversion latest
+override-rhacs-operator-version: &rhacsversion stable
 operatornamespace: &operatornamespace rhacs-operator
+clustername: &clustername local-cluster
 
 # Install Operator RHACS
 # Deploys Operator --> Subscription and Operatorgroup
@@ -38,23 +39,78 @@ rhacs:
     descr: 'Red Hat Advanced Cluster Security'
 
   central:
-    syncwave: '2'
+    enabled: true
+    syncwave: '3'
     pvc: stackrox-db
     egress:
       connectivityPolicy: Online
-    scannerautoscaling: Disabled
+    # only route is currently possible
+    scannerautoscaling:
+      status: "Disabled"
+      max: 1
+      min: 1
+      replicas: 1
+    # resources for Central DB
+#    db:
+#      resources:
+#        requests:
+#          cpu: '1'
+#          memory: '1'
+    # tolerations for central DB
+#      tolerations:
+#      - effect: NoSchedule
+#        key: infra
+#        operator: Equal
+#        value: reserved
+#    tolerations:
+#    - effect: NoSchedule
+#      key: infra
+#      operator: Equal
+#      value: reserved
+
+    # tolerations for scanner and scanner DB
+  scanner: {}
+#    tolerations:
+#    - effect: NoSchedule
+#      key: infra
+#      operator: Equal
+#      value: reserved
+  db: {}
+#    tolerations:
+#    - effect: NoSchedule
+#      key: infra
+#      operator: Equal
+#      value: reserved
 
   job_init_bundle:
+    enabled: true
     syncwave: '3'
 
   consolelink:
+    enabled: true
     syncwave: '3'
     location: ApplicationMenu
     text: Advanced Cluster Security
     section: Observability
 
   secured_cluster:
+    enabled: true
     syncwave: '4'
+    clustername: *clustername
+
+    # in case tolerations are required
+    sensor: {}
+    #  tolerations:
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
+    admissioncontrol: {}
+    #  tolerations:
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
 
 serviceAccount:
   create: true

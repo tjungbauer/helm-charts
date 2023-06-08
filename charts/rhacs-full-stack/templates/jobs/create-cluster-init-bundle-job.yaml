@@ -1,3 +1,5 @@
+{{ if eq (.Values.rhacs.job_init_bundle.enabled | toString) "true" }} 
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -68,3 +70,4 @@ spec:
       serviceAccount: {{ include "rhacs.serviceAccountName" $ }}
       serviceAccountName: {{ include "rhacs.serviceAccountName" $ }}
       terminationGracePeriodSeconds: 30
+{{- end }}
