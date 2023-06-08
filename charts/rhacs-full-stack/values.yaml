@@ -50,12 +50,12 @@ rhacs:
       max: 1
       min: 1
       replicas: 1
-    # resources for Central DB
-#    db:
-#      resources:
-#        requests:
-#          cpu: '1'
-#          memory: '1'
+    # resources for Central DB ... limit it to have more resourcen on demo systems (not for production)
+    db:
+      resources:
+        requests:
+          cpu: '1'
+          memory: '1'
     # tolerations for central DB
 #      tolerations:
 #      - effect: NoSchedule
