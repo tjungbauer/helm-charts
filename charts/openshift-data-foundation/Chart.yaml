@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-data-foundation
 description: Deploys the OpenShift Data Foundation Operator
-version: 1.0.13
+version: 1.0.14
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
     version: ~1.0.14
     repository: https://charts.stderr.at/
   - name: helper-status-checker
-    version: ~2.0.0
+    version: ~3.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
