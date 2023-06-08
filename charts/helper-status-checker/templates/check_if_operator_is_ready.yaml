@@ -32,6 +32,7 @@ spec:
              printf "\nWaiting for operator %s to appear\n" "$i";
 
              # Wait until operator appears
+             SLEEPER_TMP=0
              get_exact_name=`oc get clusterserviceversion -n {{ .namespace.name }} | grep $operator | awk -F" " '{print $1}'`
              until [ "$get_exact_name" != "" ]; do
                # do not wait forever
@@ -45,8 +46,6 @@ spec:
                fi
 
                echo "Operator not yet found... Give Operator $sleep_timer seconds to create the Deployment"
-               #sleep $sleep_timer
-               SLEEPER_TMP=0
                while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
@@ -57,6 +56,7 @@ spec:
 
              # Get exact name of the operator
              counter=0
+             SLEEPER_TMP=0
              get_status=`oc get clusterserviceversion -n {{ .namespace.name }} $get_exact_name -o jsonpath={.status.phase}`
              until [ "$get_status" != "" ]; do
                # do not wait forever
@@ -70,9 +70,7 @@ spec:
                fi
 
                echo "Operator not yet ready ... Waiting $sleep_timer seconds"
-               #sleep $sleep_timer
 
-               SLEEPER_TMP=0
                while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
@@ -85,6 +83,7 @@ spec:
 
              # Wait until operator is ready
              counter=0
+             SLEEPER_TMP=0
              until [ "$get_status" == "Succeeded" ]; do
              let "counter=counter+1"
                echo "Attempt $counter of $max_timer"
@@ -98,7 +97,6 @@ spec:
                echo "Operator deployment is ongoing. Current status: $get_status"
                #sleep $sleep_timer
 
-               SLEEPER_TMP=0
                while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
                  sleep 1
@@ -115,12 +113,13 @@ spec:
              oc get clusterserviceversion -n {{ .namespace.name }} $get_exact_name
 
              echo "Falling to sleep"
-             sl_tmp = 0
-             #sleep 10
-             while [[ $sl_tmp -le "10" ]]; do
-                echo -n "."
-                sleep 1
-                sl_tmp=$(($sl_tmp+1))
+            
+             SLEEPER_TMP=0
+
+             while [[ $SLEEPER_TMP -le "10" ]]; do
+                 echo -n "."
+                 sleep 1
+                 SLEEPER_TMP=$(($SLEEPER_TMP+1))
              done
 
              printf "\nStatus: $status\n"
