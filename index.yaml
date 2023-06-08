@@ -586,6 +586,29 @@ entries:
     version: 1.0.0
   compliance-operator-full-stack:
   - apiVersion: v2
+    created: "2023-06-08T12:19:45.352603097Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.15
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: ac392f8164a93e455fc5cdbde2593aa95389e86598a671f518f4296b8bdca3af
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.16/compliance-operator-full-stack-1.0.16.tgz
+    version: 1.0.16
+  - apiVersion: v2
     created: "2023-06-08T10:11:12.05893227Z"
     dependencies:
     - name: helper-operator
@@ -1734,6 +1757,29 @@ entries:
     version: 1.0.0
   openshift-data-foundation:
   - apiVersion: v2
+    created: "2023-06-08T12:19:45.574536518Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: 2d397ba0669af3f86d1fb14ff60ebc8cd056a4a6fa68d8e94b4509db78883c69
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.14/openshift-data-foundation-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
     created: "2023-03-14T13:47:41.647830453Z"
     dependencies:
     - name: helper-operator
@@ -2265,6 +2311,30 @@ entries:
     version: 1.0.0
   openshift-logging:
   - apiVersion: v2
+    created: "2023-06-08T12:19:45.77007797Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Deploy and configure OpenShift Logging including Elasticsearch and
+      Kibana
+    digest: 667dd7224381d3d74eb9f172db1e206f2f14241e41cada40cedc44ae5636598b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.18/openshift-logging-1.0.18.tgz
+    version: 1.0.18
+  - apiVersion: v2
     created: "2023-03-14T15:07:12.652615084Z"
     dependencies:
     - name: helper-operator
@@ -2743,6 +2813,29 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz
     version: 0.1.0
   rhacm-full-stack:
+  - apiVersion: v2
+    created: "2023-06-08T12:19:45.961226394Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy RHACM operator
+    digest: 5eaa5c4711a13999d275a5c1d00ff9d8a598f2aeb6ea855a195b674e409299e0
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacm-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.8/rhacm-full-stack-1.0.8.tgz
+    version: 1.0.8
   - apiVersion: v2
     created: "2023-02-14T12:21:59.887976065Z"
     dependencies:
@@ -3556,4 +3649,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-08T12:06:07.600410609Z"
+generated: "2023-06-08T12:19:45.9621987Z"
