@@ -61,7 +61,7 @@ serviceAccount:
   name: "create-cluster-init"
 
 helper-status-checker:
-  enabled: false
+  enabled: true
 
   # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
   operatorName: rhacs-operator
