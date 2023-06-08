@@ -46,7 +46,7 @@ compliance:
 
     # Example
     tailored:
-      enabled: true
+      enabled: false
       modified_profiles:
       - name: tailoredprofile-ocp4-cis
         description: Modified ocp4-cis profile
@@ -59,6 +59,6 @@ compliance:
     profiles:
       - name: ocp4-cis-node
         kind: Profil  # Could be Profile or TailedProfile
-      - name: tailoredprofile-ocp4-cis
-        kind: TailoredProfile
+      - name: ocp4-cis
+        kind: Profil
     scansetting: default
