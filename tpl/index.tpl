@@ -86,6 +86,11 @@
         position: relative;
       }
       
+      .chart:hover {
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+        transform: scale(0.985);
+      }
+      
       .chart .icon {
         display: flex;
         justify-content: center;
