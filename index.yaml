@@ -888,6 +888,22 @@ entries:
     version: 1.0.2
   generic-cluster-config:
   - apiVersion: v2
+    created: "2023-06-10T07:55:02.754134154Z"
+    description: This Chart is responsible to deploy generic clusterconfiguration,
+      for example etcd encryption, oauth etc.
+    digest: 0b2e18d2bb4cafc688f7d79237965a77a630a3e3dd22a68e2622c5bddbdbc388
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.13/generic-cluster-config-1.0.13.tgz
+    version: 1.0.13
+  - apiVersion: v2
     created: "2022-12-19T09:07:07.200920841Z"
     description: This Chart is responsible to deploy generic clusterconfiguration,
       for example etcd encryption, oauth etc.
@@ -3766,4 +3782,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-08T14:06:38.691424549Z"
+generated: "2023-06-10T07:55:02.755073663Z"
