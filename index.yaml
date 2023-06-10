@@ -3129,6 +3129,30 @@ entries:
     version: 0.1.0
   rhacs-full-stack:
   - apiVersion: v2
+    created: "2023-06-10T08:19:15.857256157Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 1a8d463f4e0aea2ab55dab33afbc9ef3839ce6d1f639daa23dbc414f63d3d7e3
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.24/rhacs-full-stack-1.0.24.tgz
+    version: 1.0.24
+  - apiVersion: v2
     created: "2023-06-08T13:09:23.441153878Z"
     dependencies:
     - name: helper-operator
@@ -3806,4 +3830,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-10T08:12:47.380213036Z"
+generated: "2023-06-10T08:19:15.85789296Z"
