@@ -5,9 +5,11 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: check-status-etcd-encryption
-  namespace: openshift-gitops
+  namespace: {{ .namespace | quote }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
@@ -58,7 +60,16 @@ spec:
              }
              
              # wait before start checking
-             sleep 60
+             SLEEPER_TMP=0
+
+             printf "Waiting 60 seconds before I first check if etcd encryption is finished\n"
+             
+             while [[ $SLEEPER_TMP -le "60" ]]; do
+               echo -n "."
+               sleep 1
+               SLEEPER_TMP=$(($SLEEPER_TMP+1))
+             done
+
              attempt_counter=0
              check_apiserver_status "openshiftapiserver"
              attempt_counter=0
@@ -74,7 +85,6 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
-      serviceAccount: openshift-gitops-argocd-application-controller
-      serviceAccountName: openshift-gitops-argocd-application-controller
+      serviceAccountName: {{ .serviceAccount }}
 {{- end }}
 {{- end }}

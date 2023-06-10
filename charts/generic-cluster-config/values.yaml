@@ -2,6 +2,8 @@
 
 etcd_encryption:
   enabled: false
+  namespace: openshift-gitops
+  serviceAccount: etcd-encryption-checker
 
 self_provisioner:
   deactivate: false
