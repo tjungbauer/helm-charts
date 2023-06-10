@@ -1,0 +1,28 @@
+---
+
+# Install Operator Compliance Operator
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+helper-operator:
+  operators:
+    security-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: stable-3.8
+        approval: Automatic
+        operatorName: container-security-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: true
+
+# No need to check the status, this operator does not have any configurations or CRDs
+helper-status-checker:
+  enabled: false
+  # automatically approve the installplan
+  approver: false
