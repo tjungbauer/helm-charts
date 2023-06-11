@@ -3807,6 +3807,35 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.0/sealed-secrets-1.0.0.tgz
     version: 1.0.0
   setup-container-security-operator:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-06-11T19:17:48.721579641Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Setup the Container Security Operator
+    digest: 71db318fcf381a909d99df2bddf522fd00b2d75d44e5d1112891d055a238095b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: setup-container-security-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.2/setup-container-security-operator-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     created: "2023-06-11T18:45:38.288566211Z"
     dependencies:
@@ -3853,4 +3882,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-11T18:45:38.289343426Z"
+generated: "2023-06-11T19:17:48.722234552Z"
