@@ -3808,6 +3808,29 @@ entries:
     version: 1.0.0
   setup-container-security-operator:
   - apiVersion: v2
+    created: "2023-06-11T18:45:38.288566211Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Setup the Container Security Operator
+    digest: 199a16e43245b1d108c729e783f27f46cef5e089eabf06492c37abb7d2fa92dd
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: setup-container-security-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.1/setup-container-security-operator-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-06-10T08:12:47.379503531Z"
     dependencies:
     - name: helper-operator
@@ -3830,4 +3853,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-10T08:19:15.85789296Z"
+generated: "2023-06-11T18:45:38.289343426Z"
