@@ -142,6 +142,26 @@
         bottom: 0;
         right: 0;
       }
+      
+      .tags {
+       display: inline-block;
+       line-height: 2em;
+       font-size: 0.8em;
+       position: relative;
+       margin: 0 16px 8px 0;
+       padding: 0 10px 0 12px;
+       background: #507aa5;
+       -webkit-border-bottom-right-radius: 3px;
+       border-bottom-right-radius: 3px;
+       -webkit-border-top-right-radius: 3px;
+       border-top-right-radius: 3px;
+       -webkit-border-bottom-left-radius: 3px;
+       border-bottom-left-radius: 3px;
+       -webkit-border-top-left-radius: 3px;
+       border-top-left-radius: 3px;
+       -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+       color: #fff;
     </style>
   </head>
 
@@ -180,7 +200,12 @@
                 <p class="description">
                   {{ (index $chartEntry 0).Description }}
                 </p>
-                
+                <br />
+                <p>
+                {{ range $key, $keywords := (index $chartEntry 0).Keywords }}
+                <span class="tags">{{ (index $keywords ) }}</span>
+                {{end}}
+                </p>
               </div>
             <div class="bottom">
                 <a href="{{ (index $chartEntry 0).Home }}">
