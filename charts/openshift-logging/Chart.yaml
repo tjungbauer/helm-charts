@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging including Elasticsearch and Kibana
-version: 1.0.18
+version: 1.0.19
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
@@ -17,3 +17,13 @@ maintainers:
     email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
+keywords:
+  - logging
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart

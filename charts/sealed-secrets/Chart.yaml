@@ -2,7 +2,7 @@ apiVersion: v2
 name: sealed-secrets
 description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm chart
 type: application
-version: 1.0.11
+version: 1.0.12
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
 icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
@@ -16,3 +16,15 @@ dependencies:
     version: "2.7.2"
     repository: https://bitnami-labs.github.io/sealed-secrets
     condition: sealed-secrets.enabled
+keywords:
+  - secretmanagement
+  - security
+annotations:
+  artifacthub.io/category: security
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart

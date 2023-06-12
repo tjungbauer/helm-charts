@@ -1,7 +1,7 @@
 apiVersion: v2
 name: collection-operators
 description: Collection of Operators which can be deployed on Demo Systems.
-version: 1.0.18
+version: 1.0.19
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
 icon: https://cncf-branding.netlify.app/img/projects/operatorframework/icon/color/operatorframework-icon-color.png
 dependencies:
@@ -13,3 +13,14 @@ maintainers:
     email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
+keywords:
+  - operator
+  - deployment
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart

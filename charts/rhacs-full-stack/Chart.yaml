@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-full-stack
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.24
+version: 1.0.25
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 maintainers:
@@ -17,3 +17,15 @@ dependencies:
     condition: helper-status-checker.enabled
 sources:
   - https://github.com/tjungbauer/helm-charts
+keywords:
+  - acs
+  - security
+annotations:
+  artifacthub.io/category: security
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart

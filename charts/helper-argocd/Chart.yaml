@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications and ApplicationSets
-version: 1.0.9
+version: 1.0.10
 icon: https://cncf-branding.netlify.app/img/projects/argo/stacked/color/argo-stacked-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -9,3 +9,15 @@ maintainers:
     email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
+keywords:
+  - helper
+  - subchart
+  - gitops
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart

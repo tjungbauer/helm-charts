@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacm-full-stack
 description: Master chart to deploy RHACM operator
-version: 1.0.8
+version: 1.0.9
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 dependencies:
@@ -17,3 +17,13 @@ maintainers:
     email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
+keywords:
+  - clustermanagement
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: Signing Chart
