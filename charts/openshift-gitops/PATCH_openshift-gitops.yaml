@@ -39,18 +39,25 @@ spec:
       tls:
         termination: reencrypt
         insecureEdgeTerminationPolicy: Redirect
-  resourceCustomizations: |
-    admissionregistration.k8s.io/MutatingWebhookConfiguration:
-      ignoreDifferences: |
-        jsonPointers:
-          - /webhooks/0/clientConfig/caBundle
-          - /webhooks/1/clientConfig/caBundle
-          - /webhooks/2/clientConfig/caBundle
-          - /webhooks/3/clientConfig/caBundle
-          - /webhooks/4/clientConfig/caBundle
-          - /webhooks/5/clientConfig/caBundle
-    argoproj.io/Application:
-      health.lua: |
+  resourceIgnoreDifferences:
+    resourceIdentifiers:
+      - customization:
+          jsonPointers:
+            - /webhooks/0/clientConfig/caBundle
+            - /webhooks/1/clientConfig/caBundle
+            - /webhooks/2/clientConfig/caBundle
+            - /webhooks/3/clientConfig/caBundle
+            - /webhooks/4/clientConfig/caBundle
+            - /webhooks/5/clientConfig/caBundle
+        group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+      - customization:
+          jsonPointers:
+            - /status/ingress
+        group: route.openshift.io
+        kind: Route
+  resourceHealthChecks:
+    - check: |
         hs = {}
         hs.status = "Progressing"
         hs.message = ""
@@ -61,8 +68,9 @@ spec:
           end
         end
         return hs
-    operators.coreos.com/Subscription:
-      health.lua: |
+      group: argoproj.io
+      kind: Application
+    - check: |
         hs = {}
         hs.status = "Progressing"
         hs.message = ""
@@ -75,8 +83,9 @@ spec:
           end
         end
         return hs
-    platform.stackrox.io/Central:
-      health.lua: |
+      group: operators.coreos.com
+      kind: Subscription
+    - check: |
         hs = {}
         if obj.status ~= nil and obj.status.conditions ~= nil then
             for i, condition in ipairs(obj.status.conditions) do
@@ -90,12 +99,9 @@ spec:
         hs.status = "Progressing"
         hs.message = "Waiting for Central to deploy."
         return hs
-    route.openshift.io/Route:
-      ignoreDifferences: |
-        jsonPointers:
-        - /status/ingress
-    operators.coreos.com/InstallPlan:
-      health.lua: |
+      group: platform.stackrox.io
+      kind: Central
+    - check: |
         hs = {}
         if obj.status ~= nil then
           if obj.status.phase ~= nil then
@@ -109,6 +115,8 @@ spec:
         hs.status = "Progressing"
         hs.message = "Waiting for InstallPlan to complete"
         return hs
+      group: operators.coreos.com
+      kind: InstallPlan
   resourceExclusions: |
     - apiGroups:
       - tekton.dev
