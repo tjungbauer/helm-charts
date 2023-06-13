@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="/images/favicon-152.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQFUKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQF
+UKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
       .body {
         background-color: #303030;
@@ -22,7 +23,7 @@
       .markdown-body a {
         color: #a3d0f5;
       }
-    
+
       @media (max-width: 767px) {
         .markdown-body {
           padding: 15px;
@@ -81,16 +82,17 @@
         transition: 0.25s ease box-shadow, 0.25s ease transform;
         /*background-color: #eaedef; */
         width: 300px;
+        min-height: 350px;
         margin: 0.5em;
         box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
         position: relative;
       }
-      
+
       .chart:hover {
         box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
         transform: scale(0.985);
       }
-      
+
       .chart .icon {
         display: flex;
         justify-content: center;
@@ -99,7 +101,7 @@
         background-color: #fff;
         align-items: center;
       }
-      .chart .icon img { 
+      .chart .icon img {
         max-height: 80%;
       }
       .chart .body {
@@ -130,7 +132,7 @@
       .bottom{
         position: relative;
       }
-    
+
       .bottom span {
         position: absolute;
         bottom: 10px;
@@ -142,13 +144,24 @@
         bottom: 0;
         right: 0;
       }
-      
-      .tags {
+
+      div.tags {
+        justify-content: center;
+        text-align: center;
+        display: flex;
+      }
+
+      p.tags {
+        position: absolute;
+        bottom: 0;
+      }
+
+      span.tags {
        display: inline-block;
        line-height: 2em;
        font-size: 0.8em;
        position: relative;
-       margin: 0 16px 8px 0;
+       /* margin: 0 16px 8px 0; */
        padding: 0 10px 0 12px;
        background: #507aa5;
        -webkit-border-bottom-right-radius: 3px;
@@ -162,6 +175,18 @@
        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        color: #fff;
+    }
+
+    .tagsbottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+      /* top: auto; */
+      bottom: 0;
+      justify-content: center;
+      display: flex;
+      text-align: center;
+    }
     </style>
   </head>
 
@@ -187,6 +212,7 @@
       <div class="charts">
 
           {{ range $key, $chartEntry := .Entries }}
+
           <div class="chart">
             <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
               <div class="icon">
@@ -200,13 +226,14 @@
                 <p class="description">
                   {{ (index $chartEntry 0).Description }}
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 {{ range $key, $keywords := (index $chartEntry 0).Keywords }}
                 <span class="tags">{{ (index $keywords ) }}</span>
                 {{end}}
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="{{ (index $chartEntry 0).Home }}">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -216,8 +243,8 @@
           {{end}}
 
       </div>
-      
-      <h2>License</h2>      
+
+      <h2>License</h2>
 <p>Copyright (c) 2022 Thomas Jungbauer</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");<br />
