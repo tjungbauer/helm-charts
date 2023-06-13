@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
-version: 1.0.14
+version: 1.0.15
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png
 maintainers:
@@ -18,5 +18,5 @@ annotations:
     fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
     url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Signing Chart
+    - kind: added
+      description: Possibility to configure allowed registries

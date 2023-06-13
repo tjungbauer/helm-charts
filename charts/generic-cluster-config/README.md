@@ -48,6 +48,13 @@ The following table lists the configurable parameters of the chart and their def
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
 | `etcd_encryption.enabled` | Enable ETCD encryption? | `false` |
 | `self_provisioner.deactivate` | Disable self provisioner | `false` |
+
+| `config_allowed_registries.enabled` | Enable configuration to limit allowed registries | `false` |
+| `config_allowed_registries.registry_sources` | `` | `` |
+| `config_allowed_registries.allowed_registries` | Defines list of allowed registries | [] |
+| `config_allowed_registries.allowedRegistriesForImport` | Defines list of registries allowed for import | [] |
+| `config_allowed_registries.allowedRegistriesForImport.domain` | Domainname | `` |
+| `config_allowed_registries.allowedRegistriesForImport.insecure` | Shall SSL be verified or not | `` |
 | `idp.enabled` | Shall identity provider configuration be done. This includes IDP setup itself as well as frontpage customization | `false` |
 | `idp.customloginpage.enabled` | Enable a customized login page for OpenShift | `false` |
 | `idp.customloginpage.secretname` | Secret name that holds the html configuration for the startpage (login) of OpenShift | `customlogin` |
@@ -101,6 +108,21 @@ etcd_encryption:
 
 self_provisioner:
   deactivate: false
+
+config_allowed_registries:
+  enabled: false
+  registry_sources:
+    allowed_registries:
+    - registry.connect.redhat.com
+    - registry.redhat.io
+    - quay.io
+    - registry.access.redhat.com
+    - 'image-registry.openshift-image-registry.svc:5000'
+  allowedRegistriesForImport:
+  - domain: quay.io
+    insecure: false
+  - domain: registry.connect.redhat.com
+  - domain: registry.redhat.io
 
 idp:
   enabled: false

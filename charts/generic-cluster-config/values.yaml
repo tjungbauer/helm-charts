@@ -8,6 +8,21 @@ etcd_encryption:
 self_provisioner:
   deactivate: false
 
+config_allowed_registries:
+  enabled: false
+  registry_sources:
+    allowed_registries:
+    - registry.connect.redhat.com
+    - registry.redhat.io
+    - quay.io
+    - registry.access.redhat.com
+    - 'image-registry.openshift-image-registry.svc:5000'
+  allowedRegistriesForImport:
+  - domain: quay.io
+    insecure: false
+  - domain: registry.connect.redhat.com
+  - domain: registry.redhat.io
+
 idp:
   enabled: false
   customloginpage:
