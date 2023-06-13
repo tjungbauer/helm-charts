@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="/images/favicon-152.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQFUKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQF
+UKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
       .body {
         background-color: #303030;
@@ -22,7 +23,7 @@
       .markdown-body a {
         color: #a3d0f5;
       }
-    
+
       @media (max-width: 767px) {
         .markdown-body {
           padding: 15px;
@@ -81,16 +82,17 @@
         transition: 0.25s ease box-shadow, 0.25s ease transform;
          
         width: 300px;
+        min-height: 350px;
         margin: 0.5em;
         box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
         position: relative;
       }
-      
+
       .chart:hover {
         box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
         transform: scale(0.985);
       }
-      
+
       .chart .icon {
         display: flex;
         justify-content: center;
@@ -99,7 +101,7 @@
         background-color: #fff;
         align-items: center;
       }
-      .chart .icon img { 
+      .chart .icon img {
         max-height: 80%;
       }
       .chart .body {
@@ -130,7 +132,7 @@
       .bottom{
         position: relative;
       }
-    
+
       .bottom span {
         position: absolute;
         bottom: 10px;
@@ -142,13 +144,24 @@
         bottom: 0;
         right: 0;
       }
-      
-      .tags {
+
+      div.tags {
+        justify-content: center;
+        text-align: center;
+        display: flex;
+      }
+
+      p.tags {
+        position: absolute;
+        bottom: 0;
+      }
+
+      span.tags {
        display: inline-block;
        line-height: 2em;
        font-size: 0.8em;
        position: relative;
-       margin: 0 16px 8px 0;
+        
        padding: 0 10px 0 12px;
        background: #507aa5;
        -webkit-border-bottom-right-radius: 3px;
@@ -162,6 +175,18 @@
        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        color: #fff;
+    }
+
+    .tagsbottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+       
+      bottom: 0;
+      justify-content: center;
+      display: flex;
+      text-align: center;
+    }
     </style>
   </head>
 
@@ -187,6 +212,7 @@
       <div class="charts">
 
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.18/collection-management-operators-1.0.18.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.18/collection-management-operators-1.0.18.tgz">
               <div class="icon">
@@ -200,15 +226,16 @@
                 <p class="description">
                   Collection of management Operators which are usually installed on the management cluster only. I.e. Quay, ACM, Cert-Manager...
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">operator</span>
                 
                 <span class="tags">deployment</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -216,6 +243,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.19/collection-operators-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.19/collection-operators-1.0.19.tgz">
               <div class="icon">
@@ -229,15 +257,16 @@
                 <p class="description">
                   Collection of Operators which can be deployed on Demo Systems.
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">operator</span>
                 
                 <span class="tags">deployment</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -245,6 +274,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.19/collection-optional-operators-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.19/collection-optional-operators-1.0.19.tgz">
               <div class="icon">
@@ -258,15 +288,16 @@
                 <p class="description">
                   Collection of optional operators, like CodeReadyWorkspaces.
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">operator</span>
                 
                 <span class="tags">deployment</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -274,6 +305,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz">
               <div class="icon">
@@ -287,15 +319,16 @@
                 <p class="description">
                   Master chart to deploy and configure the Compliance Operator
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">security</span>
                 
                 <span class="tags">compliance</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -303,6 +336,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.14/generic-cluster-config-1.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.14/generic-cluster-config-1.0.14.tgz">
               <div class="icon">
@@ -316,15 +350,16 @@
                 <p class="description">
                   This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">generic</span>
                 
                 <span class="tags">clusterconfig</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -332,6 +367,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.10/helper-argocd-1.0.10.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.10/helper-argocd-1.0.10.tgz">
               <div class="icon">
@@ -345,8 +381,9 @@
                 <p class="description">
                   Takes care of creation of Applications and ApplicationSets
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">helper</span>
                 
@@ -354,8 +391,8 @@
                 
                 <span class="tags">gitops</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -363,6 +400,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.16/helper-operator-1.0.16.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.16/helper-operator-1.0.16.tgz">
               <div class="icon">
@@ -376,15 +414,16 @@
                 <p class="description">
                   A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">helper</span>
                 
                 <span class="tags">subchart</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -392,6 +431,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.10/helper-proj-onboarding-1.0.10.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.10/helper-proj-onboarding-1.0.10.tgz">
               <div class="icon">
@@ -405,15 +445,16 @@
                 <p class="description">
                   This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">helper</span>
                 
                 <span class="tags">subchart</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -421,6 +462,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.5/helper-server-side-apply-1.0.5.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.5/helper-server-side-apply-1.0.5.tgz">
               <div class="icon">
@@ -434,15 +476,16 @@
                 <p class="description">
                   Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6&#43;
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">helper</span>
                 
                 <span class="tags">subchart</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -450,6 +493,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.3/helper-status-checker-3.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.3/helper-status-checker-3.0.3.tgz">
               <div class="icon">
@@ -463,15 +507,16 @@
                 <p class="description">
                   A helper Chart which creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">helper</span>
                 
                 <span class="tags">subchart</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -479,6 +524,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.15/openshift-data-foundation-1.0.15.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.15/openshift-data-foundation-1.0.15.tgz">
               <div class="icon">
@@ -492,15 +538,16 @@
                 <p class="description">
                   Deploys the OpenShift Data Foundation Operator
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">storage</span>
                 
                 <span class="tags">odf</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -508,6 +555,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.18/openshift-gitops-1.0.18.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.18/openshift-gitops-1.0.18.tgz">
               <div class="icon">
@@ -521,15 +569,16 @@
                 <p class="description">
                   Installs and patches the Red Hat Openshift Gitops Operator
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">gitops</span>
                 
                 <span class="tags">management</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -537,6 +586,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz">
               <div class="icon">
@@ -550,13 +600,14 @@
                 <p class="description">
                   Deploy and configure OpenShift Logging including Elasticsearch and Kibana
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">logging</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -564,6 +615,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz">
               <div class="icon">
@@ -577,15 +629,16 @@
                 <p class="description">
                   Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">pipelines</span>
                 
                 <span class="tags">cicd</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -593,6 +646,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.9/rhacm-full-stack-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.9/rhacm-full-stack-1.0.9.tgz">
               <div class="icon">
@@ -606,13 +660,14 @@
                 <p class="description">
                   Master chart to deploy RHACM operator
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">clustermanagement</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -620,6 +675,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz">
               <div class="icon">
@@ -633,13 +689,14 @@
                 <p class="description">
                   Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">securitytesting</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -647,6 +704,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.25/rhacs-full-stack-1.0.25.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.25/rhacs-full-stack-1.0.25.tgz">
               <div class="icon">
@@ -660,15 +718,16 @@
                 <p class="description">
                   Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">acs</span>
                 
                 <span class="tags">security</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -676,6 +735,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz">
               <div class="icon">
@@ -689,15 +749,16 @@
                 <p class="description">
                   A Helm chart to deploy sealed-secrets - epends on Bitnami&#39;s helm chart
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">secretmanagement</span>
                 
                 <span class="tags">security</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -705,6 +766,7 @@
             </div>
           </div>
           
+
           <div class="chart">
             <a href="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz">
               <div class="icon">
@@ -718,15 +780,16 @@
                 <p class="description">
                   Setup the Container Security Operator
                 </p>
-                <br />
-                <p>
+              </div>
+            <div class="tagsbottom">
+              <p class="tags">
                 
                 <span class="tags">operator</span>
                 
                 <span class="tags">security</span>
                 
-                </p>
-              </div>
+              </p>
+            </div>
             <div class="bottom">
                 <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator">
                     <span class="fa-brands fa-github githublogo"></span>
@@ -736,8 +799,8 @@
           
 
       </div>
-      
-      <h2>License</h2>      
+
+      <h2>License</h2>
 <p>Copyright (c) 2022 Thomas Jungbauer</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");<br />
