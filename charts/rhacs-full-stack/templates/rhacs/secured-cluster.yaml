@@ -41,7 +41,7 @@ spec:
   {{- end }}
   perNode:
     collector:
-      collection: KernelModule
+      collection: EBPF
       imageFlavor: Regular
     taintToleration: TolerateTaints
 {{- end }}
