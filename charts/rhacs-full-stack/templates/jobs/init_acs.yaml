@@ -1,3 +1,4 @@
+{{ if eq (.Values.rhacs.init_acs.enabled | toString) "true" }} 
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -65,3 +66,4 @@ spec:
       terminationGracePeriodSeconds: 30
       serviceAccount: default
       serviceAccountName: default
+{{- end }}
