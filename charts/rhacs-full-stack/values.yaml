@@ -112,6 +112,12 @@ rhacs:
     #    operator: Equal
     #    value: reserved
 
+  basic_acs_settings:
+    auth_provider: 'OpenShift'
+    auth_provider_type: 'openshift'
+    min_access_role: 'None'
+    syncwave: 5
+
 serviceAccount:
   create: true
   name: "create-cluster-init"
