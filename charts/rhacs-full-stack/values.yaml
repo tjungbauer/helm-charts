@@ -112,10 +112,6 @@ rhacs:
     #    operator: Equal
     #    value: reserved
 
-  init_acs:
-    enabled: true
-    syncwave: '5'
-
 serviceAccount:
   create: true
   name: "create-cluster-init"
