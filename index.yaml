@@ -1805,6 +1805,33 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-07-06T07:46:27.545277217Z"
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: a46427a49776f3393e62b1514df7853ee0db49c9e50e3ef20cfe610d13096610
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-server-side-apply
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-06-12T06:33:32.654509047Z"
     description: Using Server Side Apply to create for example node labelling, requires
       openshift-gitops 1.6+
@@ -4694,4 +4721,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-06-30T04:01:46.574351105Z"
+generated: "2023-07-06T07:46:27.54611343Z"
