@@ -19,5 +19,7 @@ metadata:
     {{- range $key_custom_label, $value_custom_label := $value.custom_labels }}
     {{ $key_custom_label }}: {{ $value_custom_label | quote }}
     {{- end }}
+  finalizers:
+    - kubernetes
 {{- end }}
 {{- end }}
