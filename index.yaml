@@ -1915,6 +1915,34 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-07-12T17:23:13.198577893Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments
+    digest: 5b3b57c5714f858ec373587a904939c29a1d5b63d8a95f6ea93ed20f8322390c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.4/helper-status-checker-3.0.4.tgz
+    version: 3.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-06-12T06:33:32.776068162Z"
     description: A helper Chart which creates a job to verify if the deployments of
       an operator are running. To do so it creates a service account with a role to
@@ -4721,4 +4749,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-07-06T07:46:27.54611343Z"
+generated: "2023-07-12T17:23:13.199543908Z"
