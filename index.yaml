@@ -329,6 +329,36 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-07-24T11:20:40.828580009Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of Operators which can be deployed on Demo Systems.
+    digest: 0375154c49b997ecaf066df04ee11dcb2a89f5b2463412242aba7d32527e4bab
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz
+    version: 1.0.20
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-06-12T06:33:31.705657603Z"
     dependencies:
     - name: helper-operator
@@ -549,6 +579,36 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-07-24T11:20:40.964553929Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of optional operators, like CodeReadyWorkspaces.
+    digest: fc1000378ee2b7c3440e129ceb66aa17e9043dbb16d0c80c884ba699f8513f31
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-optional-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.20/collection-optional-operators-1.0.20.tgz
+    version: 1.0.20
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1320,6 +1380,33 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.0/generic-cluster-config-1.0.0.tgz
     version: 1.0.0
   helper-argocd:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-07-24T11:20:41.097255909Z"
+    description: Takes care of creation of Applications and ApplicationSets
+    digest: ff41984d3baf51abc20960f52e1b3d423840fede7a4929d8e6e61ef87f3e9cd9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-1.0.11/helper-argocd-1.0.11.tgz
+    version: 1.0.11
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2653,6 +2740,32 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.0/openshift-data-foundation-1.0.0.tgz
     version: 1.0.0
   openshift-gitops:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-07-24T11:20:41.24469862Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: a0b1c38f967d58a62dad7d3d2dd2cdc5a7993acbe43cdc78e93578820480b69f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz
+    version: 1.0.20
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -4867,4 +4980,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-07-24T11:16:20.131192315Z"
+generated: "2023-07-24T11:20:41.246260687Z"
