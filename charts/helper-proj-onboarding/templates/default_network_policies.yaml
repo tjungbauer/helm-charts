@@ -7,6 +7,9 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-from-openshift-ingress
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   ingress:
   - from:
@@ -24,6 +27,9 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-from-openshift-monitoring
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   ingress:
   - from:
@@ -41,6 +47,9 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: allow-same-namespace
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   podSelector:
   ingress:
@@ -54,6 +63,9 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-from-kube-apiserver-operator
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   ingress:
   - from:
@@ -73,6 +85,9 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-egress
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 spec:
   podSelector: {}
   policyTypes:

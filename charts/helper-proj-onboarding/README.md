@@ -4,7 +4,14 @@
 # Helper Chart to deploy Namespace
 
 This chart is prepared to help with Namespace onboarding. 
-While it currently created Namespaces only, it can be extended to create other relevant objects, like NetworkPolicy or Quotas too. 
+It is able to create:
+
+* Namespaces
+* Labels
+* enable/disable default Network Policy (ingress, monitoring, deny all, apiserver, allow inside a namespace)
+* custom network policies
+* resource quota
+* limit ranges
 
 It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
 
