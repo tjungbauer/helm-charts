@@ -34,7 +34,7 @@ spec:
         {{- if $value.subscription.config.resources.limits.memory }}
         memory: {{ $value.subscription.config.resources.limits.memory | quote }}
         {{- end }}
-        {{- if $value.subscription.config.limits.requests.cpu }}
+        {{- if $value.subscription.config.resources.limits.cpu }}
         cpu: {{ $value.subscription.config.resources.limits.cpu | quote }}
         {{- end }}
       {{- end }}
