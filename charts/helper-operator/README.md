@@ -59,8 +59,13 @@ The following table lists the configurable parameters of the chart and their def
 | `UNIQUE-IDENTIFIER.subscription.operatorName` | Operator name | `` |
 | `UNIQUE-IDENTIFIER.subscription.source` | Operator source | `redhat-operators `|
 | `UNIQUE-IDENTIFIER.subscription.sourceNamespace` | Operator Sourcenamespace  | `openshift-marketplace` |
+| `UNIQUE-IDENTIFIER.subscription.config.resources.requests.memory` | Optional: resource requests - memory (e.g. 64Mi) |  |
+| `UNIQUE-IDENTIFIER.subscription.config.resources.requests.cpu` | Optional: resource requests - cpu (e.g. 250m) |  |
+| `UNIQUE-IDENTIFIER.subscription.config.resources.limits.memory` | Optional: resource limits - memory (e.g. 128Mi) |  |
+| `UNIQUE-IDENTIFIER.subscription.config.resources.requests.memory` | Optional: resource requests - cpu (e.g. 500m) |  |
 | `UNIQUE-IDENTIFIER.operatorgroup.create` |  Create an Operatorgroup object  | `false` |
 | `UNIQUE-IDENTIFIER.operatorgroup.notownnamespace` | Monitor own Namespace. For some Operators no `targetNamespaces` must be defined | `false` |
+
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
@@ -87,6 +92,14 @@ TIP: Get the values for the subscription specification via `oc get packagemanife
         operatorName: advanced-cluster-management
         source: redhat-operators
         sourceNamespace: openshift-marketplace
+        config:
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 250m
+            limits:
+              memory: 128Mi
+              cpu: 500m
       operatorgroup:
         create: true
         notownnamespace: false
