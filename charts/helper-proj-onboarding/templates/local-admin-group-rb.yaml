@@ -1,0 +1,22 @@
+{{- range $key, $value := .Values.namespaces }}
+{{ if eq ( .enabled | toString) "true" }}
+{{ if .local_admin_group }}
+{{ if eq ( .local_admin_group.enabled | toString) "true" }}
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ if .local_admin_group.group_name }}{{ .local_admin_group.group_name }}{{- else }}{{ .name | replace "_" "-" }}-rb{{- end }}
+  namespace: {{ .name | replace "_" "-" }}
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: {{ if .local_admin_group.group_name }}{{ .local_admin_group.group_name }}{{- else }}{{ .name | replace "_" "-" }}-admins{{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
