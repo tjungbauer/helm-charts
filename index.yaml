@@ -1802,6 +1802,33 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-08-30T19:37:52.810884513Z"
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: 142eed111066f3fcf5181d3b4bf11eb799eabea9aedbe8af97d03037dd7d7896
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.12/helper-proj-onboarding-1.0.12.tgz
+    version: 1.0.12
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-08-24T16:18:26.281988561Z"
     description: This Chart shall deploy namespaces and their depending resources,
       like NetworkPolicies or Quotas etc.
@@ -5034,4 +5061,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-08-30T06:33:57.148397652Z"
+generated: "2023-08-30T19:37:52.812422214Z"
