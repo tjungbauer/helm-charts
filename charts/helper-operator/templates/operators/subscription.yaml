@@ -1,5 +1,5 @@
 {{- range $key, $value := .Values.operators }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{- if eq ($value.enabled | toString) "true" }}
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
@@ -17,6 +17,28 @@ spec:
   name: {{ $value.subscription.operatorName | quote }}
   source: {{ $value.subscription.source | default "redhat-operators" | quote }}
   sourceNamespace: {{ $value.subscription.sourceNamespace | default "openshift-marketplace" | quote }}
+  {{- if $value.subscription.config }}
+  config: 
+    resources:
+      {{- if $value.subscription.config.resources.requests }}
+      requests:
+        {{- if $value.subscription.config.resources.requests.memory }}
+        memory: {{ $value.subscription.config.resources.requests.memory | quote }}
+        {{- end }}
+        {{- if $value.subscription.config.resources.requests.cpu }}
+        cpu: {{ $value.subscription.config.resources.requests.cpu | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if $value.subscription.config.resources.limits }}
+      limits:
+        {{- if $value.subscription.config.resources.limits.memory }}
+        memory: {{ $value.subscription.config.resources.limits.memory | quote }}
+        {{- end }}
+        {{- if $value.subscription.config.limits.requests.cpu }}
+        cpu: {{ $value.subscription.config.resources.limits.cpu | quote }}
+        {{- end }}
+      {{- end }}
+  {{- end }}
 {{- if $value.subscription.csv }}
   startingCSV: {{ $value.subscription.csv }}
 {{- end }}
