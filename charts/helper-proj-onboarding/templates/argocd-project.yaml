@@ -1,0 +1,70 @@
+
+{{- range $key, $value := .Values.namespaces }}
+{{ if eq ( .enabled | toString) "true" }}
+
+{{ range $key_approject, $value_appproject := $value.argocd_rbac_setup }}
+{{ if eq ($value_appproject.enabled | toString) "true" }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: {{ $value_appproject.name | replace "_" "-" }}
+  namespace: {{ $.Values.global.application_gitops_namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  description: {{ $value_appproject.name | replace "_" "-" }} GitOps Project
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  roles:
+    {{- range $role_key, $role_value := $value_appproject.rbac }}
+    - name: {{ .name }}
+      description: {{ .description | quote }}
+      groups:
+        {{- range .oidc_groups }}
+        - {{ . }}
+        {{- end }}
+      policies:
+      {{- range .policies }}
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, {{ .resource | default "applications" }}, {{ .action }}, {{ $value_appproject.name }}/{{ .object | default "*" }}, {{ .permission | default "deny" }}'
+      {{- end }}
+    {{- end }}
+  sourceRepos:
+    {{- range $value_appproject.sourceRepos }}
+      - '{{ . }}'
+    {{- end }}
+  destinations:
+    {{- range $value_appproject.destinations }}
+      - name: {{ .name }}
+        namespace: {{ $value.name }}
+        server: {{ .server }}
+    {{- end }}
+  {{- if .syncWindows }}
+  syncWindows:
+    {{- range .syncWindows }}
+    - applications:
+        {{- range .applications }}
+        - '{{ . }}'
+        {{- end }}
+      clusters:
+      {{- range .clusters }}
+        - '{{ . }}'
+      {{- end }}
+      duration: {{ .duration | default "1h" }}
+      kind: {{ .kind | default "allow" }}
+      manualSync: {{ .manualSync | default "true" }}
+      namespaces:
+      {{- range .namespaces }}
+        - '{{ . }}'
+      {{- end }}
+      schedule: '{{ .schedule | default "55 0 1 12 *" }}'
+      timeZone: {{ .timezone | default "Europe/Amsterdam" }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
