@@ -6,6 +6,7 @@ kind: Namespace
 metadata:
   name: {{ .name | replace "_" "-" | quote }}
   labels:
+    argocd.argoproj.io/managed-by: {{ $.Values.global.application_gitops_namespace }}
     {{- include "common.labels" $ | nindent 4 }}
     {{- if .labels -}}
     {{ toYaml .labels | nindent 4 }}
