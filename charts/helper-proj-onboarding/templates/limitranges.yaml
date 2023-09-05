@@ -1,5 +1,7 @@
 {{- range $key, $value := .Values.namespaces }}
 {{ if eq ( .enabled | toString) "true" }}
+{{ if .limitRanges }}
+{{ if eq ( .limitRanges.enabled | toString) "true" }}
 ---
 apiVersion: v1
 kind: LimitRange
@@ -64,5 +66,7 @@ spec:
       max:
         storage: "500Gi"
   {{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
