@@ -1,7 +1,7 @@
 {{- range $key, $value := .Values.namespaces }}
-{{ if eq ( .enabled | toString) "true" }}
-{{ if .resourceQuotas }}
-{{ if eq ( .resourceQuotas.enabled | toString) "true" }}
+{{- if eq ( .enabled | toString) "true" }}
+{{- if .resourceQuotas }}
+{{- if eq ( .resourceQuotas.enabled | toString) "true" }}
 ---
 apiVersion: v1
 kind: ResourceQuota
@@ -13,56 +13,60 @@ metadata:
 {{- with .resourceQuotas }}
 spec:
   hard:
-    {{- if .pods -}}
+    {{- if .pods }}
     pods: {{ .pods | quote }}
     {{- end }}
-    {{- if .cpu -}}
+    {{- if .cpu }}
     cpu: {{ .cpu | quote }}
     {{- end }}
-    {{- if .memory -}}
+    {{- if .memory }}
     memory: {{ .memory | replace "gi" "Gi" | replace "mi" "Mi" }}
     {{- end }}
-    {{- if .ephemeral_storage -}}
+    {{- if .ephemeral_storage }}
     ephemeral-storage: {{ .ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
     {{- end }}
-    {{- if .resourcequotas -}}
+    {{- if .resourcequotas }}
     resourcequotas: {{ .resourcequotas | quote }}
     {{- end }}
-    {{- if .configmaps -}}
+    {{- if .configmaps }}
     configmaps: {{ .configmaps | quote }}
     {{- end }}
-    {{- if .persistentvolumeclaims -}}
+    {{- if .persistentvolumeclaims }}
     persistentvolumeclaims: {{.persistentvolumeclaims | quote }}
     {{- end }}
-    {{- if .replicationcontrollers -}}
+    {{- if .replicationcontrollers }}
     replicationcontrollers: {{ .replicationcontrollers | quote }}
     {{- end }}
-    {{- if .secrets -}}
+    {{- if .secrets }}
     secrets: {{ .secrets | quote }}
     {{- end }}
-    {{- if .services -}}
+    {{- if .services }}
     services: {{ .services | quote }}
     {{- end }}
-    {{- if .limits.cpu -}}
+    {{- if .limits }}
+      {{- if .limits.cpu }}
     limits.cpu: {{ .limits.cpu | quote }}
-    {{- end }}
-    {{- if .limits.memory -}}
+      {{- end }}
+      {{- if .limits.memory }}
     limits.memory: {{ .limits.memory | replace "gi" "Gi" | replace "mi" "Mi" }}
-    {{- end }}
-    {{- if .limits.ephemeral_storage -}}
+      {{- end }}
+      {{- if .limits.ephemeral_storage }}
     limits.ephemeral-storage: {{ .limits.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+      {{- end }}
     {{- end }}
-    {{- if .requests.cpu  -}}
+    {{- if .requests }}
+      {{- if .requests.cpu  }}
     requests.cpu: {{ .requests.cpu | quote }}
-    {{- end }}
-    {{- if .requests.memory  -}}
+      {{- end }}
+      {{- if .requests.memory  }}
     requests.memory: {{ .requests.memory | replace "gi" "Gi" | replace "mi" "Mi"  }}
-    {{- end }}
-    {{- if .requests.storage -}}
+      {{- end }}
+      {{- if .requests.storage }}
     requests.storage: {{ .requests.storage | replace "gi" "Gi" | replace "mi" "Mi" }}
-    {{- end }}
-    {{- if .requests.ephemeral_storage  -}}
+      {{- end }}
+      {{- if .requests.ephemeral_storage  }}
     requests.ephemeral-storage: {{ .requests.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" }}
+      {{- end }}
     {{- end }}
     {{- if .storageclasses -}}
     {{ toYaml .storageclasses | nindent 4 }}
