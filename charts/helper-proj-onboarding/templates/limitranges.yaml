@@ -13,58 +13,81 @@ metadata:
 spec:
   {{- if .limitRanges }}
   limits:
+    {{- if .limitRanges.pod }}  
     - type: "Pod" 
+      {{- if .limitRanges.pod.max }} 
       max:
-        cpu: {{ .limitRanges.pod.max.cpu | default "500m" | quote }}
-        memory: {{ .limitRanges.pod.max.memory | default "10Mi" | quote }}
+        {{- if .limitRanges.pod.max.cpu }} 
+        cpu: {{ .limitRanges.pod.max.cpu  | quote }}
+        {{- end }}
+        {{- if .limitRanges.pod.max.memory }} 
+        memory: {{ .limitRanges.pod.max.memory | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .limitRanges.pod.min }} 
       min:
-        cpu: {{ .limitRanges.pod.min.cpu | default "100m" | quote }}
-        memory: {{ .limitRanges.pod.min.memory | default "5Mi" | quote }}
+        {{- if .limitRanges.pod.min.cpu }} 
+        cpu: {{ .limitRanges.pod.min.cpu | quote }}
+        {{- end }}
+        {{- if .limitRanges.pod.min.memory }} 
+        memory: {{ .limitRanges.pod.min.memory | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .limitRanges.container }} 
     - type: "Container" 
+      {{- if .limitRanges.container.max }} 
       max:
-        cpu: {{ .limitRanges.container.max.cpu | default "1" | quote }}
-        memory: {{ .limitRanges.container.max.memory | default "1Gi" | quote }}
+        {{- if .limitRanges.container.max.cpu }} 
+        cpu: {{ .limitRanges.container.max.cpu | quote }}
+        {{- end }}
+        {{- if .limitRanges.container.max.memory }} 
+        memory: {{ .limitRanges.container.max.memory | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .limitRanges.container.min }} 
       min:
-        cpu: {{ .limitRanges.container.min.cpu | default "100m" | quote }}
-        memory: {{ .limitRanges.container.min.memory | default "5Mi" | quote }}
+        {{- if .limitRanges.container.min.cpu }} 
+        cpu: {{ .limitRanges.container.min.cpu | quote }}
+        {{- end }}
+        {{- if .limitRanges.container.min.memory }} 
+        memory: {{ .limitRanges.container.min.memory | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .limitRanges.container.default }} 
       default:
-        cpu: {{ .limitRanges.container.default.cpu | default "200m" | quote }}
-        memory: {{ .limitRanges.container.default.memory | default "200Mi" | quote }}
+        {{- if .limitRanges.container.default.cpu }} 
+        cpu: {{ .limitRanges.container.default.cpu | quote }}
+        {{- end }}
+        {{- if .limitRanges.container.default.memory }} 
+        memory: {{ .limitRanges.container.default.memory | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .limitRanges.container.defaultRequest }} 
       defaultRequest: 
-        cpu: {{ .limitRanges.container.defaultRequest.cpu | default "100m" | quote }}
-        memory: {{ .limitRanges.container.defaultRequest.memory | default "100Mi" | quote }}
+        {{- if .limitRanges.container.defaultRequest.cpu }} 
+        cpu: {{ .limitRanges.container.defaultRequest.cpu | quote }}
+        {{- end }}
+        {{- if .limitRanges.container.defaultRequest.memory }} 
+        memory: {{ .limitRanges.container.defaultRequest.memory | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .limitRanges.pvc }} 
     - type: "PersistentVolumeClaim"
+      {{- if .limitRanges.pvc.min }} 
       min:
-        storage: {{ .limitRanges.pvc.min.storage | default "10Mi" | quote }}
+        {{- if .limitRanges.pvc.min.storage }} 
+        storage: {{ .limitRanges.pvc.min.storage | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .limitRanges.pvc.max }} 
       max:
-        storage: {{ .limitRanges.pvc.max.storage | default "500Gi" | quote }}
-  {{- else }}
-  limits:
-    - type: "Pod" 
-      max:
-        cpu: "500m"
-        memory: "10Mi"
-      min:
-        cpu: "100m"
-        memory: "5Mi"
-    - type: "Container" 
-      max:
-        cpu: "1"
-        memory: "1Gi"
-      min:
-        cpu: "100m"
-        memory: "5Mi"
-      default:
-        cpu: "200m"
-        memory: "200Mi"
-      defaultRequest: 
-        cpu: "100m"
-        memory: "100Mi"
-    - type: "PersistentVolumeClaim"
-      min:
-        storage: "10Mi"
-      max:
-        storage: "500Gi"
+        {{- if .limitRanges.pvc.max.storage }} 
+        storage: {{ .limitRanges.pvc.max.storage | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
   {{- end }}
 {{- end }}
 {{- end }}
