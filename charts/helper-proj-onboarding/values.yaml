@@ -1,4 +1,4 @@
-# Example values files for a customer onboarding
+# Example values files for a tenant onboarding
 # It is a huge file and can help you creating:
 #   - one or more namespaces including labels etc.
 #   - local project admin group (in case groups are not created by other mechnics like LDAP Group Sync)
@@ -13,8 +13,8 @@
 #
 # Most variables are handed over to the Sub-Chart: helper-proj-onboarding https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
 
-# List of namespaces this customer shall manage.
-# A customer or project may consist of multiple namespace
+# List of namespaces this tenant shall manage.
+# A tenant or project may consist of multiple namespace
 namespaces:
   # Name of the first Namespace
   - name: &name my-main-app-project-1
@@ -29,16 +29,16 @@ namespaces:
         - peter
     # Creation of Argo CD Project
     argocd_rbac_setup:
-      # This is required to build the rbac rules correctly. Theoretically, you can create multiple RBAC rules, but usually you create one per project/customer
+      # This is required to build the rbac rules correctly. Theoretically, you can create multiple RBAC rules, but usually you create one per project/tenant
       argocd_project_1:
         enabled: false
-        # Name of the AppProject is set to the customers Namespace. Which means, each Namespace will get it's own AppProject
+        # Name of the AppProject is set to the tenants Namespace. Which means, each Namespace will get it's own AppProject
         name: *name
         # Destination clusters. They are defined above. Since we split the values file per environment (cluster) here usually one cluster should be listed.
         destinations:
           - name: env
             server: https://api
-        # List of allowed repositories. If the customer tries to use a different repo, Argo CD will deny it.
+        # List of allowed repositories. If the tenant tries to use a different repo, Argo CD will deny it.
         sourceRepos:
           - 'https://github.com/tjungbauer/book-import/'
         rbac:
