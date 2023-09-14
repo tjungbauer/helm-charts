@@ -36,12 +36,19 @@ spec:
     {{- range $value_appproject.sourceRepos }}
       - '{{ . }}'
     {{- end }}
+{{- /*
+Get global values and find the URL and name of the cluster
+*/}}
+{{- range $envs_key, $envs_value := $.Values.global.envs }}
+{{- if eq ($envs_value.name | toString) ($.Values.environment | toString) }}
+{{- $cluster_name := $envs_value.name }}
+{{- $cluster_url := $envs_value.url }}
   destinations:
-    {{- range $value_appproject.destinations }}
-      - name: {{ .name }}
-        namespace: {{ $value.name }}
-        server: {{ .server }}
-    {{- end }}
+      - name: {{ $cluster_name }}
+        namespace: {{ $value.url }}
+        server: {{ $cluster_url }}
+{{- end }}
+{{- end }}
   {{- if .syncWindows }}
   syncWindows:
     {{- range .syncWindows }}
