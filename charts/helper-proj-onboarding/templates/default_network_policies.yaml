@@ -1,7 +1,10 @@
 {{- range $key, $value := .Values.namespaces }}
 {{ if eq ( .enabled | toString) "true" }}
-{{ if .default_policies }}
-{{ if ne (.default_policies.disable_allow_from_ingress | toString) "true" }}
+
+{{- $default_policies := index $value "default_policies" | default dict }}
+
+{{- $disable_allow_from_ingress := index $default_policies "disable_allow_from_ingress" | default "false" }}
+{{ if ne ($disable_allow_from_ingress | toString) "true" }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -21,7 +24,8 @@ spec:
   - Ingress
 {{- end }}
 
-{{ if ne (.default_policies.disable_allow_from_monitoring | toString) "true" }}
+{{- $disable_allow_from_monitoring := index $default_policies "disable_allow_from_monitoring" | default "false" }}
+{{ if ne ($disable_allow_from_monitoring | toString) "true" }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -41,7 +45,8 @@ spec:
   - Ingress
 {{- end }}
 
-{{ if ne (.default_policies.disable_allow_from_same_namespace | toString) "true" }}
+{{- $disable_allow_from_same_namespace := index $default_policies "disable_allow_from_same_namespace" | default "false" }}
+{{ if ne ($disable_allow_from_same_namespace | toString) "true" }}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -57,7 +62,8 @@ spec:
     - podSelector: {}
 {{- end }}
 
-{{ if ne (.default_policies.disable_allow_kube_apiserver| toString) "true" }}
+{{- $disable_allow_kube_apiserver := index $default_policies "disable_allow_kube_apiserver" | default "false" }}
+{{ if ne ($disable_allow_kube_apiserver | toString) "true" }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -79,7 +85,8 @@ spec:
   - Ingress
 {{- end }}
 
-{{ if ne (.default_policies.disable_deny_all_egress| toString) "true" }}
+{{- $disable_deny_all_egress := index $default_policies "disable_deny_all_egress" | default "false" }}
+{{ if ne ($disable_deny_all_egress | toString) "true" }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -92,9 +99,6 @@ spec:
   podSelector: {}
   policyTypes:
   - Egress
-{{- end }}
-
-
 {{- end }}
 {{- end }}
 {{- end }}

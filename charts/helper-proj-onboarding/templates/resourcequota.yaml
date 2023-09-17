@@ -1,5 +1,6 @@
 {{- range $key, $value := .Values.namespaces }}
 {{- if eq ( .enabled | toString) "true" }}
+{{- if not .project_size }}
 {{- if .resourceQuotas }}
 {{- if eq ( .resourceQuotas.enabled | toString) "true" }}
 ---
@@ -76,3 +77,5 @@ spec:
 {{- end }}
 {{- end }}
 {{- end }}
+{{- end }}
+

@@ -29,5 +29,8 @@ metadata:
     {{- else }}
     openshift.io/cluster-monitoring: 'true'
     {{- end }}
+    {{- if .project_size }}
+    namespace-size: {{ .project_size | quote }}
+    {{- end }}
 {{- end }}
 {{- end }}

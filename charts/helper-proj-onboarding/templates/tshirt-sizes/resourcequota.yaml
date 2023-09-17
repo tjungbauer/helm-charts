@@ -1,0 +1,99 @@
+{{- range $key, $value := .Values.namespaces }}
+{{- if eq ( .enabled | toString) "true" }}
+{{- if .project_size }}
+{{- /*
+Get global values and find the URL and name of the cluster
+*/}}
+{{- range $sizes_key, $sizes_value := $.Values.global.tshirt_sizes }}
+{{- if eq ($sizes_value.name | toString) ( $value.project_size | toString) }}
+{{- with $sizes_value.quota }}
+---
+apiVersion: v1
+kind: resourceQuota
+metadata:
+  name: {{ $value.name | replace "_" "-" }}-quota
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  hard:
+    {{- if or (.pods) (and ($value.resourceQuotas) ($value.resourceQuotas.pods)) }}
+    pods: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.pods }}{{ $value.resourceQuotas.pods | quote }}{{- end }}{{- else }}{{ .pods | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.cpu) (and ($value.resourceQuotas) ($value.resourceQuotas.cpu)) }}
+    cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.cpu }}{{ $value.resourceQuotas.cpu | quote }}{{- end }}{{- else }}{{ .cpu | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.memory) (and ($value.resourceQuotas) ($value.resourceQuotas.memory)) }}
+    memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.memory }}{{ $value.resourceQuotas.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}{{- else }}{{ .memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.ephemeral_storage)) }}
+    ephemeral-storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.ephemeral_storage }}{{ $value.resourceQuotas.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}{{- else }}{{ .ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.resourceQuotas) (and ($value.resourceQuotas) ($value.resourceQuotas.resourcequotas)) }}
+    resourceQuotas: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.resourcequotas }}{{ $value.resourceQuotas.resourcequotas | quote }}{{- end }}{{- else }}{{ .resourcequotas | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.configmaps) (and ($value.resourceQuotas) ($value.resourceQuotas.configmaps)) }}
+    configmaps: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.configmaps }}{{ $value.resourceQuotas.configmaps | quote }}{{- end }}{{- else }}{{ .configmaps | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.persistentvolumeclaims) (and ($value.resourceQuotas) ($value.resourceQuotas.persistentvolumeclaims)) }}
+    persistentvolumeclaims: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.persistentvolumeclaims }}{{ $value.resourceQuotas.persistentvolumeclaims | quote }}{{- end }}{{- else }}{{ .persistentvolumeclaims | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.replicationcontrollers) (and ($value.resourceQuotas) ($value.resourceQuotas.replicationcontrollers)) }}
+    replicationcontrollers: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.replicationcontrollers }}{{ $value.resourceQuotas.replicationcontrollers | quote }}{{- end }}{{- else }}{{ .replicationcontrollers | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.secrets) (and ($value.resourceQuotas) ($value.resourceQuotas.secrets)) }}
+    secrets: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.secrets }}{{ $value.resourceQuotas.secrets | quote }}{{- end }}{{- else }}{{ .secrets | quote }}{{- end }}
+    {{- end }}
+    {{- if or (.services) (and ($value.resourceQuotas) ($value.resourceQuotas.services)) }}
+    services: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.services }}{{ $value.resourceQuotas.services | quote }}{{- end }}{{- else }}{{ .services | quote }}{{- end }}
+    {{- end }}
+    
+    {{- /* Get Limits */}}
+    {{- if or (.limits) (and ($value.resourceQuotas) ($value.resourceQuotas.limits)) }}
+      {{- if or (.limits.cpu) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.cpu)) }}
+    limits.cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.cpu) }}{{ $value.resourceQuotas.limits.cpu | quote }}{{- else }}{{ .limits.cpu | quote }}{{- end }}{{- else }}{{ .limits.cpu | quote }}{{- end }}{{- else }}{{ .limits.cpu | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.limits.memory) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.memory)) }}
+    limits.memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.memory) }}{{ $value.resourceQuotas.limits.memory | quote }}{{- else }}{{ .limits.memory | quote }}{{- end }}{{- else }}{{ .limits.memory | quote }}{{- end }}{{- else }}{{ .limits.memory | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.limits.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.ephemeral_storage)) }}
+    limits.ephemeral_storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.ephemeral_storage) }}{{ $value.resourceQuotas.limits.ephemeral_storage | quote }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* Get Requests */}}
+    {{- if or (.requests) (and ($value.resourceQuotas) ($value.resourceQuotas.requests)) }}
+      {{- if or (.requests.cpu) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.cpu)) }}
+    requests.cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.cpu) }}{{ $value.resourceQuotas.requests.cpu | quote }}{{- else }}{{ .requests.cpu | quote }}{{- end }}{{- else }}{{ .requests.cpu | quote }}{{- end }}{{- else }}{{ .requests.cpu | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.requests.memory) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.memory)) }}
+    requests.memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.memory) }}{{ $value.resourceQuotas.requests.memory | quote }}{{- else }}{{ .requests.memory | quote }}{{- end }}{{- else }}{{ .requests.memory | quote }}{{- end }}{{- else }}{{ .requests.memory | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.requests.storage) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.storage)) }}
+    requests.storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.storage) }}{{ $value.resourceQuotas.requests.storage | quote }}{{- else }}{{ .requests.storage | quote }}{{- end }}{{- else }}{{ .requests.storage | quote }}{{- end }}{{- else }}{{ .requests.storage | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.requests.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.ephemeral_storage)) }}
+    requests.ephemeral_storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.ephemeral_storage) }}{{ $value.resourceQuotas.requests.ephemeral_storage | quote }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* Get StorageClasses */}}
+    {{- if or (.storageclasses) (and ($value.resourceQuotas) ($value.resourceQuotas.storageclasses) ($value.resourceQuotas.storageclasses)) }}
+      {{- if $value.resourceQuotas }}
+        {{- if $value.resourceQuotas.storageclasses }}
+            {{- toYaml $value.resourceQuotas.storageclasses | nindent 4 }}
+          {{- else }}
+            {{- toYaml .storageclasses | nindent 4 }}
+          {{- end }}
+        {{- else }}
+          {{- toYaml .storageclasses | nindent 4 }}
+        {{- end }}
+    {{- end }} 
+
+
+{{- end }} 
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
