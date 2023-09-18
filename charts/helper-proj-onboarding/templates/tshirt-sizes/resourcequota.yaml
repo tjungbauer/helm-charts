@@ -9,7 +9,7 @@ Get global values and find the URL and name of the cluster
 {{- with $sizes_value.quota }}
 ---
 apiVersion: v1
-kind: resourceQuota
+kind: ResourceQuota
 metadata:
   name: {{ $value.name | replace "_" "-" }}-quota
   namespace: {{ $value.name | replace "_" "-" | quote }}
