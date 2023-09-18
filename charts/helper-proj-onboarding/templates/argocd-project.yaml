@@ -72,6 +72,68 @@ Get global values and find the URL and name of the cluster
     {{- end }}
   {{- end }}
 {{- end }}
+
+{{- /*
+In case not RBAC rules are defined use a default setting - especially usefull for Tshirt-Sized projects 
+*/}}
+
+{{- else }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: {{ $value.name | replace "_" "-" }}
+  namespace: {{ $.Values.global.application_gitops_namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  description: {{ $value.name | replace "_" "-" }} GitOps Project
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  roles:
+    - name: "write"
+      description: "Group to deploy on DEV environment"
+      groups:
+        {{- if (.local_admin_group).group_name }}
+        - {{ .local_admin_group.group_name }}
+        {{- else }}
+        - {{ $value.name | replace "_" "-" }}-admins
+        {{- end }}
+      policies:
+      {{- range tuple "get" "create" "update" "delete" "sync" "override" }}
+        - 'p, proj:{{ $value.name }}:write, "applications", {{ . }}, {{ $value.name }}/*, "allow"'
+      {{- end }}
+  sourceRepos:
+    {{- if $value.allowed_source_repos }}
+      {{- range $value.allowed_source_repos }}
+      - '{{ . }}'
+      {{- end }}
+    {{- else if $.Values.global.allowed_source_repos }}
+      {{- range $.Values.global.allowed_source_repos }}
+      - '{{ . }}'
+      {{- end }}
+    {{- else }}
+      - 'https://dummy-repo-define-allowed_source_repos'
+    {{- end }}
+
+{{- /*
+Get global values and find the URL and name of the cluster
+*/}}
+{{- range $envs_key, $envs_value := $.Values.global.envs }}
+{{- if eq ($envs_value.name | toString) ($.Values.environment | toString) }}
+{{- $cluster_name := $envs_value.name }}
+{{- $cluster_url := $envs_value.url }}
+  destinations:
+      - name: {{ $cluster_name }}
+        namespace: {{ $value.url }}
+        server: {{ $cluster_url }}
+{{- end }}
+{{- end }}
+
+
 {{- end }}
 {{- end }}
 {{- end }}
