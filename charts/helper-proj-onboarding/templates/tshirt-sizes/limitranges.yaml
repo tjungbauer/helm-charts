@@ -65,7 +65,7 @@ spec:
     {{- $containers := $limitrange.container | default dict }}
 
     {{- if or ($containers) ($containers_overwrite) }}  
-    - type: "container"
+    - type: "Container"
       {{- /* container MAX */}}
       {{- $containers_max_overwrite := $containers_overwrite.max | default dict }}
       {{- $containers_max := $containers.max | default dict }}
