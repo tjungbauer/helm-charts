@@ -25,6 +25,8 @@ helper-operator:
 helper-status-checker:
   enabled: true
 
+  operatorName: advanced-cluster-management
+
   # space separate list of deployments which shall be checked for status
   deployments: "multicluster-operators-application multicluster-observability-operator multicluster-operators-channel multicluster-operators-hub-subscription multicluster-operators-standalone-subscription multicluster-operators-subscription-report multiclusterhub-operator submariner-addon"
 
