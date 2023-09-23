@@ -80,7 +80,7 @@ spec:
           {{- if .targetRevision }}
           targetRevision: {{ .targetRevision }}
           {{- else }}
-          targetRevision: {{ .helm.default_revision | default "1.0.0" }}
+          targetRevision: {{ $value.default_revision | default "1.0.0" }}
           {{- end }}
           {{- if .ref }}
           ref: {{ .ref | default "values" }}
