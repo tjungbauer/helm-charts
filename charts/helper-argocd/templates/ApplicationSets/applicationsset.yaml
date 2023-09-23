@@ -68,6 +68,47 @@ spec:
       project:  >-
           {{ printf "{{ name }}" }}
       {{- end }}
+      {{- if .multiple_sources }}
+      sources:
+        {{- range $source_key, $source_value := .multiple_sources }}
+        - {{- if .repoUrl }}
+          repoURL: {{ .repoUrl }}
+          {{- end }}
+          {{- if .path }}
+          path: {{ .path }}
+          {{- end }}
+          {{- if .targetRevision }}
+          targetRevision: {{ .targetRevision }}
+          {{- end }}
+          {{- if .ref }}
+          ref: {{ .ref | default "values" }}
+          {{- end }}
+          {{- if .chart }}
+          chart: {{ .chart }}
+          {{- end }}
+          {{- if .helm }}
+          helm:
+            valueFiles:
+              - {{ .helm.default_values_file }}
+            {{- range .helm.additional_values_files }}
+              - {{ . }}
+            {{- end }}
+            {{- if $value.helm.per_cluster_helm_values }}
+              - '{{ printf "{{ name }}-values.yaml" }}'
+            {{- end }}          
+            {{- if .helm.helmvalues }}
+            parameters:
+            {{- range .helm.helmvalues }}
+            - name: {{ .name }}
+              value: '{{ .value }}' 
+            {{- end }}
+            {{- end }}
+            {{- if .helm.releaseName }}
+            releaseName: {{ .helm.releaseName }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- else }}
       source:
         repoURL: {{ .repourl | default $.Values.general.source.repourl }}
         targetRevision: {{ .targetrevision | default $.Values.general.branch }}
@@ -93,14 +134,16 @@ spec:
         {{- else }}
         chart: {{ .chartname }}
         {{- end }}
-      {{ if .syncPolicy }}
+      {{- end }}
+
+      {{- if .syncPolicy }}
       syncPolicy:
-        {{ if .syncPolicy.autosync_enabled }}
+        {{- if .syncPolicy.autosync_enabled }}
         automated:
           prune: {{ .syncPolicy.syncpolicy_prune | default "false"  }}
           selfHeal: {{ .syncPolicy.syncpolicy_selfheal | default "false"  }}
         {{- end }}
-        {{ if .syncPolicy.syncOptions }}
+        {{- if .syncPolicy.syncOptions }}
         syncOptions:
           {{- range .syncPolicy.syncOptions }}
           - {{ .name }}={{ .value }}
