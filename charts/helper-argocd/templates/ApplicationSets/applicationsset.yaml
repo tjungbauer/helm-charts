@@ -27,8 +27,8 @@ spec:
           {{- range .generatorlist }}
             - cluster: {{ .clustername }}
               url: {{ .clusterurl }}
-              {{- if .used_revision }}
-              used_revision: {{ .used_revision }}
+              {{- if .chart_version }}
+              chart_version: {{ .chart_version }}
               {{- end }}
           {{- end }}
     {{- else }}
@@ -80,10 +80,10 @@ spec:
           {{- if .path }}
           path: {{ .path }}
           {{- end }}
-          {{- if .targetRevision }}
-          targetRevision: {{ .targetRevision }}
+          {{- if .default_version }}
+          targetRevision: {{ .default_version }}
           {{- else }}
-          targetRevision: {{ $value.default_revision | default "1.0.0" }}
+          targetRevision: '{{ printf "{{ chart_version }}" }}'
           {{- end }}
           {{- if .ref }}
           ref: {{ .ref | default "values" }}
