@@ -198,7 +198,7 @@
       <pre lang="no-highlight"><code>
         helm repo add tjungbauer https://charts.stderr.at/
 
-        help repo update
+        helm repo update
       </code></pre>
 
 
