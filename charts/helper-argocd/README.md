@@ -1,3 +1,78 @@
+# helper-argocd
+
+![Version: 2.0.6](https://img.shields.io/badge/Version-2.0.6-informational?style=flat-square)
+
+Takes care of creation of Applications and ApplicationSets
+
+**Homepage:** <https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| tjungbauer | <tjungbau@redhat.com> |  |
+
+## Source Code
+
+* <https://github.com/tjungbauer/helm-charts>
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| applications.in-cluster-init-rhacs.description | string | `"Initialize Red Hat Advanced Cluster Security and deploy Central and SecuredCluster"` |  |
+| applications.in-cluster-init-rhacs.enabled | bool | `false` |  |
+| applications.in-cluster-init-rhacs.labels.category | string | `"security"` |  |
+| applications.in-cluster-init-rhacs.labels.solution | string | `"rhacs"` |  |
+| applications.in-cluster-init-rhacs.project | string | `"default"` |  |
+| applications.in-cluster-init-rhacs.server | string | `"https://kubernetes.default.svc"` |  |
+| applications.in-cluster-init-rhacs.source.path | string | `"charts/rhacs-full-stack"` |  |
+| applications.in-cluster-init-rhacs.source.repourl | string | `"https://github.com/tjungbauer/helm-charts"` |  |
+| applications.in-cluster-init-rhacs.source.targetrevision | string | `"main"` |  |
+| applicationsets.generic_clusterconfig.description | string | `"Deploy generic cluster configuration, like banners or etcd encryption"` |  |
+| applicationsets.generic_clusterconfig.enabled | bool | `true` |  |
+| applicationsets.generic_clusterconfig.generatorclusters | list | `[]` |  |
+| applicationsets.generic_clusterconfig.labels.category | string | `"cluster-configuration"` |  |
+| applicationsets.generic_clusterconfig.path | string | `"clusters/all/clusterconfig/"` |  |
+| applicationsets.generic_clusterconfig.per_cluster_helm_values | bool | `true` |  |
+| applicationsets.install-mgmt-operator-collection.autosync_enabled | bool | `false` |  |
+| applicationsets.install-mgmt-operator-collection.description | string | `"Deploy a collection of Operators which are usually installed on a management cluster only"` |  |
+| applicationsets.install-mgmt-operator-collection.enabled | bool | `false` |  |
+| applicationsets.install-mgmt-operator-collection.generatorlist[0].clustername | string | `"in-cluster"` |  |
+| applicationsets.install-mgmt-operator-collection.generatorlist[0].clusterurl | string | `"https://kubernetes.default.svc"` |  |
+| applicationsets.install-mgmt-operator-collection.labels.category | string | `"operators"` |  |
+| applicationsets.install-mgmt-operator-collection.path | string | `"charts/collection-management-operators"` |  |
+| applicationsets.install-mgmt-operator-collection.repourl | string | `"https://github.com/tjungbauer/helm-charts"` |  |
+| applicationsets.install-mgmt-operator-collection.targetrevision | string | `"main"` |  |
+| applicationsets.xetcd-encryption.description | string | `"Enable Cluster ETCD Encryption"` |  |
+| applicationsets.xetcd-encryption.enabled | bool | `false` |  |
+| applicationsets.xetcd-encryption.generatorlist[0].chart_version | string | `"1.0.16"` |  |
+| applicationsets.xetcd-encryption.generatorlist[0].clustername | string | `"in-cluster"` |  |
+| applicationsets.xetcd-encryption.generatorlist[0].clusterurl | string | `"https://kubernetes.default.svc"` |  |
+| applicationsets.xetcd-encryption.generatorlist[1].chart_version | string | `"1.0.13"` |  |
+| applicationsets.xetcd-encryption.generatorlist[1].clustername | string | `"https://cluster-api-url:6443"` |  |
+| applicationsets.xetcd-encryption.generatorlist[1].clusterurl | string | `"prod"` |  |
+| applicationsets.xetcd-encryption.helm.per_cluster_helm_values | bool | `false` |  |
+| applicationsets.xetcd-encryption.labels.category | string | `"security"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[0].ref | string | `"values"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[0].repoUrl | string | `"https://github.com/tjungbauer/openshift-cluster-bootstrap"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[0].targetRevision | string | `"main"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[1].chart | string | `"generic-cluster-config"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[1].helm.default_values_file | string | `"$values/clusters/all/etcd-encryption/values.yaml"` |  |
+| applicationsets.xetcd-encryption.multiple_sources[1].repoUrl | string | `"https://charts.stderr.at/"` |  |
+| argocd_projects | string | `nil` |  |
+| general.argocd_project | string | `"default"` |  |
+| general.branch | string | `"main"` |  |
+| general.source.repourl | string | `"https://github.com/tjungbauer/openshift-cluster-bootstrap"` |  |
+| mgmt-cluster | string | `"https://kubernetes.default.svc"` |  |
+| mgmt-cluster-name | string | `"in-cluster"` |  |
+| production-cluster | string | `"https://cluster-api-url:6443"` |  |
+| production-cluster-name | string | `"prod"` |  |
+| repobranch | string | `"main"` |  |
+| repourl | string | `"https://github.com/tjungbauer/openshift-cluster-bootstrap"` |  |
+
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.11.2](https://github.com/norwoodj/helm-docs/releases/v1.11.2)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
@@ -80,6 +155,19 @@ The following table lists the configurable parameters of the chart and their def
 |`applicationsets.UNIQUE-IDENTIFIER.syncPolicy.syncOptions`|List of sync options to be bypassed to the Application<. It takes the Argo CD sync option name as key (name) and the value as setting for that option (value)<br>For example: `-name: CreateNamespace<br><value: true`|``|
 |`applicationsets.UNIQUE-IDENTIFIER.syncPolicy.syncpolicy_prune`|Enable pruning|'false'|
 |`applicationsets.UNIQUE-IDENTIFIER.syncPolicy.syncpolicy_selfheal`|Enable self healing|'false'|
+||||
+|**ApplicationSets with multiple sources**|||
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources`|Define multiple sources|''|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.[].repoURL`||'URL to source repository'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.targetRevision`||'traget revision of source repository. Maight be omitted'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.ref`||'Values Reference'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.chart`||'Name of the Helm chart'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm.default_version`||'Default version of repository. Used (on all clusters) when no targetRevision is defined'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm`||'Parameters for helm'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm.default_values_file`||'The default values file for multiple sources'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm.additional_values_files`||'An array of additional values files'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm.helmvalues`||'An array of additional helm parameters'|
+|`applicationsets.UNIQUE-IDENTIFIER.multiple_sources.helm.releaseName`||'Overwrite the Releasename for this chart'|
 ||||
 |**Applications**|||
 |`applications.UNIQUE-IDENTIFIER`| This is the unique identifier. *Must not contain '-'*. This name is used for the name of the Application | `` |

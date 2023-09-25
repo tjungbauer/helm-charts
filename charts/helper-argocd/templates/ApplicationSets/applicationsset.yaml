@@ -83,7 +83,7 @@ spec:
           {{- if .default_version }}
           targetRevision: {{ .default_version }}
           {{- else }}
-          targetRevision: '{{ printf "{{ chart_version }}" }}'
+          targetRevision: {{ if .targetRevision }}{{ .targetRevision }}{{ else }}'{{ printf "{{ chart_version }}" }}'{{ end }}
           {{- end }}
           {{- if .ref }}
           ref: {{ .ref | default "values" }}
@@ -98,9 +98,11 @@ spec:
             {{- range .helm.additional_values_files }}
               - {{ . }}
             {{- end }}
+            {{- if $value.helm }}
             {{- if $value.helm.per_cluster_helm_values }}
               - '{{ printf "{{ name }}-values.yaml" }}'
-            {{- end }}          
+            {{- end }}
+            {{- end }}      
             {{- if .helm.helmvalues }}
             parameters:
             {{- range .helm.helmvalues }}
