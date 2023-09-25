@@ -1,0 +1,23 @@
+apiVersion: v2
+name: cyclonedx
+description: A Helm chart to deploy CycloneDX to generate SBOM
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts
+keywords:
+  - gitops
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release

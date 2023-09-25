@@ -1,0 +1,18 @@
+Create the Service: 
+kind: Service
+apiVersion: v1
+metadata:
+  name: cyclonedx-bom-repo-server
+  namespace: {{ .Values.namespace.name | quote }}
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http-listener
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  selector:
+    app: cyclonedx-bom-repo-server

@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: cyclonedx-bom-repo-server
+  namespace: {{ .Values.namespace.name | quote }}
+spec:
+  to:
+    kind: Service
+    name: cyclonedx-bom-repo-server
+    weight: 100
+  port:
+    targetPort: http-listener
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  wildcardPolicy: None
