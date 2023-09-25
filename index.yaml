@@ -1164,6 +1164,34 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
+  cyclonedx:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-09-25T16:24:06.735110087Z"
+    description: A Helm chart to deploy CycloneDX to generate SBOM
+    digest: de3cb80c9662460097c3fd79d7ec8430017542ad6e802b99f10e17905fcb1233
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
+    keywords:
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: cyclonedx
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz
+    version: 1.0.0
   generic-cluster-config:
   - annotations:
       artifacthub.io/changes: |
@@ -5777,4 +5805,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-09-25T12:15:09.39985129Z"
+generated: "2023-09-25T16:24:06.737538305Z"
