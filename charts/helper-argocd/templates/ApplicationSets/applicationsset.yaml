@@ -20,6 +20,9 @@ spec:
   syncPolicy:
     preserveResourcesOnDeletion: {{ .preserveResourcesOnDeletion }}
   {{- end }}
+  {{- if eq (.goTemplate | toString) "true" }}
+  goTemplate: true
+  {{- end }}
   generators:
     {{- if .generatorlist }}
       - list:
@@ -31,6 +34,17 @@ spec:
               chart_version: {{ .chart_version }}
               {{- end }}
           {{- end }}
+
+    {{- else if .generatorgit }}
+      {{- range .generatorgit }}
+      - git:
+          files:
+            {{- range .files }}
+            - path: {{ . }}
+            {{- end }}
+          repoURL: {{ .repourl }}
+          revision: {{ .targetrevision | default "main" }}
+      {{- end }}
     {{- else }}
   # This does not work, since openshift-gitops keeps removing the label of the local ArgoCD secret
     {{- if .generatorclusters }}
@@ -54,6 +68,9 @@ spec:
           name: >-
             {{ printf "{{ cluster }}-%s" $key | replace "_" "-" }}
         {{- end }}
+      {{- else if .generatorgit }}
+          name: >-
+            {{ printf "{{ index .path.segments 1 | normalize }}-{{ .path.basename }}" }}
       {{- else }}
         {{- if eq (.omitClustername | toString) "true" }}
           name: >-
@@ -67,6 +84,8 @@ spec:
       {{- if .generatorlist }}
       project: >-
         {{ printf "{{ cluster }}" }}
+      {{- else if .generatorgit }}
+      project: default
       {{- else }}
       project:  >-
           {{ printf "{{ name }}" }}
@@ -121,9 +140,14 @@ spec:
         targetRevision: {{ .targetrevision | default $.Values.general.branch }}
         {{- if .helm }}
         helm:
-          {{- if .helm.per_cluster_helm_values }}
+          {{- if or (.helm.per_cluster_helm_values) (.helm.value_files) }}
           valueFiles: 
+            {{- range .helm.value_files }}
+            - {{ . }}
+            {{- end }}
+            {{- if .helm.per_cluster_helm_values }}
             - '{{ printf "{{ name }}-values.yaml" }}'
+            {{- end }}
           {{- end }}
           {{- if .helm.releasename }}
           releaseName: {{ .helm.releasename }}
@@ -161,10 +185,12 @@ spec:
       {{- if .generatorlist }}
         server:  >-
           {{ printf "{{ url }}" }}
-        {{- else }}
+      {{- else if .generatorgit }}
+        name: {{ printf "'{{ .environment }}'" }}
+      {{- else }}
         server:  >-
           {{ printf "{{ server }}" }}
-        {{- end }}
+      {{- end }}
         namespace: {{ .namespace | default "default" }}
       info:
         - name: Description

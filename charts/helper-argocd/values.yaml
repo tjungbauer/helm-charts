@@ -3,7 +3,7 @@
 #
 # Set cluster names ... Unfortunately the openshift-gitops operator keeps
 # removing the secret of the *mgmtclustername (local cluster),
-# therefor we switch ti list generator
+# therefor we switch to list generator
 # https://issues.redhat.com/browse/GITOPS-1777
 mgmt-cluster: &mgmtcluster https://kubernetes.default.svc
 mgmt-cluster-name: &mgmtclustername in-cluster
