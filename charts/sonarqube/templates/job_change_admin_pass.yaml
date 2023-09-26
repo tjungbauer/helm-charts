@@ -1,0 +1,46 @@
+{{ if eq ( .Values.set_admin_password | toString) "true" }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: change-admin-password-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Values.namespace.name | quote }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: 5
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli
+          env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: adminpass
+                name: credentials
+          command:
+            - /bin/bash
+            - -c
+            - |
+             #!/usr/bin/env bash
+
+             ENDPOINT=http://{{ .Values.endpoint }}
+             STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ENDPOINT)
+             while [ $STATUS_CODE -ne 200 ] && [ $STATUS_CODE -ne 403 ]; do
+               sleep 5s
+               echo $STATUS_CODE
+               echo $ENDPOINT
+               ENDPOINT=http://{{ .Values.endpoint }}
+               STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" -u "admin:admin" $ENDPOINT/api/users/groups?login=admin&password=admin)
+             done
+             curl -X POST -u "admin:admin" "$ENDPOINT/api/users/change_password?login=admin&password=$PASSWORD&previousPassword=admin" -H "Content-Type: application/json"
+          name: check-operator
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: default
+{{- end }}

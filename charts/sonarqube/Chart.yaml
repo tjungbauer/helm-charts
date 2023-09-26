@@ -1,0 +1,30 @@
+apiVersion: v2
+name: sonarcube
+description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonar-dark-backgrounds.png
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts
+dependencies:
+  - name: sonarqube
+    version: ~10.1.0
+    repository: https://SonarSource.github.io/helm-chart-sonarqube
+    condition: sonarqube.enabled
+keywords:
+  - devsecops
+  - security
+annotations:
+  artifacthub.io/category: security
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: initial chart
