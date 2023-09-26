@@ -1,5 +1,5 @@
 apiVersion: v2
-name: sonarcube
+name: sonarqube
 description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
 type: application
 version: 1.0.0
