@@ -5836,42 +5836,6 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
-  sonarcube:
-  - annotations:
-      artifacthub.io/category: security
-      artifacthub.io/changes: |
-        - kind: added
-          description: initial chart
-      artifacthub.io/license: Apache-2.0
-      artifacthub.io/signKey: |
-        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
-        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
-    apiVersion: v2
-    appVersion: 1.0.0
-    created: "2023-09-26T08:03:57.295317093Z"
-    dependencies:
-    - condition: sonarqube.enabled
-      name: sonarqube
-      repository: https://SonarSource.github.io/helm-chart-sonarqube
-      version: ~10.1.0
-    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
-      helm chart
-    digest: 63d74eed7e98fbec520ab714cd6a25ef58220be3245bd55b07ac51880f6e1542
-    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
-    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonar-dark-backgrounds.png
-    keywords:
-    - devsecops
-    - security
-    maintainers:
-    - email: tjungbau@redhat.com
-      name: tjungbauer
-    name: sonarcube
-    sources:
-    - https://github.com/tjungbauer/helm-charts
-    type: application
-    urls:
-    - https://github.com/tjungbauer/helm-charts/releases/download/sonarcube-1.0.0/sonarcube-1.0.0.tgz
-    version: 1.0.0
   sonarqube:
   - annotations:
       artifacthub.io/category: security
