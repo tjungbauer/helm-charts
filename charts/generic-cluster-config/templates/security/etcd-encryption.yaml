@@ -9,7 +9,6 @@ metadata:
   name: cluster
   labels:
     {{- include "common.labels" $ | nindent 4 }}
-    testlabel: true
 spec:
   encryption:
     type: aescbc
