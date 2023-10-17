@@ -75,12 +75,6 @@ rhacs:
     # tolerations for scanner and scanner DB
   scanner:
     analyzer:
-
-      autoscaling:
-        # status: "Disabled"
-        # max: 1
-        # min: 1
-        # replicas: 1
       # tolerations:
       #   - effect: NoSchedule
       #     key: infra
@@ -90,6 +84,13 @@ rhacs:
       #     key: test
       #     operator: Equal
       #     value: reserved
+
+
+      # autoscaling:
+      #   status: "Disabled"
+      #   max: 1
+      #   min: 1
+      #   replicas: 1
 
     db:
       resources:

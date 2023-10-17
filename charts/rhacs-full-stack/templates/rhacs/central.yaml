@@ -87,14 +87,16 @@ spec:
     connectivityPolicy: {{ .Values.rhacs.central.egress.connectivityPolicy }}
 
   scanner:
+    {{- if .Values.rhacs.scanner.analyzer }}
     analyzer:
+      {{- if .Values.rhacs.scanner.analyzer.autoscaling }}
       scaling:
         # default: enabled, max 5, min 2, replicas 3
-        # FIXME this does not work if rhacs.scanner.analyser.autoscaling is not defined
         autoScaling: {{ .Values.rhacs.scanner.analyzer.autoscaling.status | default "Enabled" }}
         maxReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.max | default "5" }}
         minReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.min | default "2" }}
         replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3"}}
+      {{- end }}
 
       {{- if .Values.rhacs.scanner.analyzer.tolerations }}
       tolerations:
