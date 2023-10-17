@@ -75,36 +75,36 @@ rhacs:
     # tolerations for scanner and scanner DB
   scanner:
     analyzer:
-      tolerations:
-        - effect: NoSchedule
-          key: infra
-          operator: Equal
-          value: reserved
-        - effect: NoSchedule
-          key: test
-          operator: Equal
-          value: reserved
 
       autoscaling:
         # status: "Disabled"
         # max: 1
         # min: 1
         # replicas: 1
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: infra
+      #     operator: Equal
+      #     value: reserved
+      #   - effect: NoSchedule
+      #     key: test
+      #     operator: Equal
+      #     value: reserved
 
     db:
       resources:
         requests:
           cpu: '1'
           memory: '1'
-      tolerations:
-        - effect: NoSchedule
-          key: infra
-          operator: Equal
-          value: reserved
-        - effect: NoSchedule
-          key: test
-          operator: Equal
-          value: reserved
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: infra
+      #     operator: Equal
+      #     value: reserved
+      #   - effect: NoSchedule
+      #     key: test
+      #     operator: Equal
+      #     value: reserved
 
   job_init_bundle:
     enabled: true

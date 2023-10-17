@@ -96,9 +96,9 @@ spec:
         minReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.min | default "2" }}
         replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3"}}
 
-      {{- if .Values.rhacs.scanner.tolerations }}
+      {{- if .Values.rhacs.scanner.analyzer.tolerations }}
       tolerations:
-        {{- range $key, $value := .Values.rhacs.scanner.tolerations }}
+        {{- range $key, $value := .Values.rhacs.scanner.analyzer.tolerations }}
         - effect: {{ $value.effect }}
           key: {{ $value.key }}
           operator: {{ $value.operator }}
