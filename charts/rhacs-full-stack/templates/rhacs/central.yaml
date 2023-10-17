@@ -110,27 +110,36 @@ spec:
 
       {{- if .Values.rhacs.scanner.analyzer.resources }}
       {{- with .Values.rhacs.scanner.analyzer }}
-      # TODO add if for all resources
       resources:
+
         {{- if .resources.requests }}
         requests:
+          {{- if .resources.requests.cpu }}
           cpu: {{ .resources.requests.cpu }}
+          {{- end }}
+          {{- if .resources.requests.memory }}
           memory: {{ .resources.requests.memory }}
-          {{- if .resources.requests.ephemeral-storage }}
-          ephemeral-storage: {{ .resources.requests.ephemeral-storage }}
+          {{- end }}
+          {{- if index .resources.requests "ephemeral-storage" }}
+          ephemeral-storage: {{ index .resources.requests "ephemeral-storage" }}
           {{- end }}
         {{- end }}
+
         {{- if .resources.limits }}
         limits:
-          cpu: {{ .resources.limits.cpu  }}
-          memory: {{ .resources.limits.memory }}
-          {{- if .resources.requests.ephemeral-storage }}
-          ephemeral-storage: {{ .resources.limits.ephemeral-storage }}
+          {{- if .resources.limits.cpu }}
+          cpu: {{ .resources.limits.cpu }}
           {{- end }}
-
+          {{- if .resources.limits.memory }}
+          memory: {{ .resources.limits.memory }}
+          {{- end }}
+          {{- if index .resources.requests "ephemeral-storage" }}
+          ephemeral-storage: {{ index .resources.limits "ephemeral-storage" }}
+          {{- end }}
         {{- end }}
       {{- end }}
       {{- end }}
+    {{- end }}
 
     {{- if .Values.rhacs.scanner.db }}
     db:
@@ -139,13 +148,21 @@ spec:
       resources:
         {{- if .resources.requests }}
         requests:
+          {{- if .resources.requests.cpu }}
           cpu: {{ .resources.requests.cpu }}
+          {{- end }}
+          {{- if .resources.requests.memory }}
           memory: {{ .resources.requests.memory }}
+          {{- end }}
         {{- end }}
         {{- if .resources.limits }}
         limits:
-          cpu: {{ .resources.limits.cpu  }}
+          {{- if .resources.limits.cpu }}
+          cpu: {{ .resources.limits.cpu }}
+          {{- end }}
+          {{- if .resources.limits.memory }}
           memory: {{ .resources.limits.memory }}
+          {{- end }}
         {{- end }}
       {{- end }}
       {{- end }}
