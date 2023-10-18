@@ -1,7 +1,7 @@
 apiVersion: v2
 name: collection-management-operators
 description: Collection of management Operators which are usually installed on the management cluster only. I.e. Quay, ACM, Cert-Manager...
-version: 1.0.22
+version: 1.0.23
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
 dependencies:
