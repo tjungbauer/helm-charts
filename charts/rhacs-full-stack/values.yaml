@@ -261,15 +261,15 @@ rhacs:
       # Default values are:
       #   - limits cpu 2, memory 4Gi
       #   - requests: cpu: 200m, memory 200Mi
-      resources:
-        requests:
-          cpu: 1
-          memory: 1Gi
-          ephemeral-storage: 50Mi
-        limits:
-          cpu: 500m
-          memory: 10Gi
-          ephemeral-storage: 500Mi
+      # resources:
+      #  requests:
+      #    cpu: 1
+      #    memory: 1Gi
+      #    ephemeral-storage: 50Mi
+      #  limits:
+      #    cpu: 500m
+      #    memory: 10Gi
+      #    ephemeral-storage: 500Mi
 
   # Run the Job to initialze an ACS secrued cluster
   job_init_bundle:
