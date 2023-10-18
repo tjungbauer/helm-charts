@@ -4897,6 +4897,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-18T10:49:55.577915629Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: bbff97112d77fe63dc685c6241c4e92f337e4f4e8bc3c1861c9a43bd32748e54
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.32/rhacs-full-stack-1.0.32.tgz
+    version: 1.0.32
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-17T07:03:30.723842688Z"
     dependencies:
     - name: helper-operator
@@ -5999,4 +6035,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-17T07:03:30.725231901Z"
+generated: "2023-10-18T10:49:55.579271649Z"
