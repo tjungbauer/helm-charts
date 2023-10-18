@@ -17,27 +17,53 @@ spec:
   centralEndpoint: {{ .Values.rhacs.secured_cluster.centralEndpoint }}
   {{- end }}
   admissionControl:
+    {{- if .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}
+    {{- with .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}
+    {{- if .creates }}
+    {{- if eq (.creates | toString) "true" }}
+    listenOnCreates: true
+    {{- else }}
     listenOnCreates: false
+    {{- end }}
+    {{- if eq (.events | toString) "true" }}
     listenOnEvents: true
+    {{- else }}
+    listenOnEvents: false
+    {{- end }}
+    {{- if eq (.updates | toString) "true" }}
+    listenOnUpdates: true
+    {{- else }}
     listenOnUpdates: false
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
     {{- if .Values.rhacs.secured_cluster.admissioncontrol.tolerations }}
+    tolerations:
     {{- range $key, $value := .Values.rhacs.secured_cluster.admissioncontrol.tolerations }}
-    tolerations:
       - effect: {{ $value.effect }}
         key: {{ $value.key }}
         operator: {{ $value.operator }}
         value: {{ $value.value }}
+        {{- if $value.tolerationSeconds }}
+        tolerationSeconds: {{ $value.tolerationSeconds }}
+        {{- end }}
     {{- end }}
     {{- end }}
-  {{- if .Values.rhacs.secured_cluster.sensor.tolerations }}
-  {{- range $key, $value := .Values.rhacs.secured_cluster.sensor.tolerations }}
+  {{- if .Values.rhacs.secured_cluster.sensor }}
   sensor:
+    {{- if .Values.rhacs.secured_cluster.sensor.tolerations }}
     tolerations:
+    {{- range $key, $value := .Values.rhacs.secured_cluster.sensor.tolerations }}
       - effect: {{ $value.effect }}
         key: {{ $value.key }}
         operator: {{ $value.operator }}
         value: {{ $value.value }}
-  {{- end }}
+        {{- if $value.tolerationSeconds }}
+        tolerationSeconds: {{ $value.tolerationSeconds }}
+        {{- end }}
+    {{- end }}
+    {{- end }}
   {{- end }}
   perNode:
     collector:

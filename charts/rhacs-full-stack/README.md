@@ -48,21 +48,53 @@ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Parameters
-The following table lists the configurable parameters of the chart and their default values. Only variables of this specific Helm Chart are listed. For the values of the Subchart read the appropriate README of the Subcharts. 
+The following table lists the configurable parameters of the chart and their default values. Only variables of this specific Helm Chart are listed. For the values of the Subchart read the appropriate README of the Subcharts. See values.yaml for a full example.
 
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
 | `override-rhacs-operator-version` | Set the Operatorto a specific version | `latest` |
+| `operatornamespace` | Namespace of the operator. Usually rhacs-operator | `` |
+| `clustername` | Name of the cluster for the SecuredCluster object | `` |
 | `rhacs.job_vars.max_attempts` | How otften shall the status of the operator be checked (Default 20) | `` |
-| `rhacs.job_vars.wait_time` | If the Deployments are not ready yet, how long shall I wait in addition (Default 20) | `` |
-| `rhacs.job_vars.crd_check_time` | Time to sleep before I verify that the CRDs have been created | `20` |
 | `rhacs.namespace.name` | Name of the Namespace where ACS central shall be deployed | `20` |
 | `rhacs.namespace.syncwave` | Syncwave when the Namespace shall be created (usually 0) | `5` |
 | `rhacs.namespace.descr` | Description of the Namespace | `` |
+| `rhacs.central.enabled` | Enable Central CRD | `` |
 | `rhacs.central.syncwave` | Syncwave when Central shall be created | `3` |
-| `rhacs.central.pvc` | Name of the PVC | `stackrox-db` |
+| `rhacs.central.monitoring` | Enable monitoring endpoint for Central | `Disabled` |
+| `rhacs.central.exposure.loadbalancer` | Expose Central through loadbalancer | `` |
+| `rhacs.central.exposure.loadbalancer.enabled` | Expose Central through loadbalancer enabled or not | `Disabled` |
+| `rhacs.central.exposure.loadbalancer.port` | Loadbalancer port | `443` |
+| `rhacs.central.exposure.loadbalancer.ip` | Loadbalancer IP | `127.0.0.1` |
+| `rhacs.central.exposure.nodePort` | Expose Central through nodePort | `` |
+| `rhacs.central.exposure.nodePort.enabled` | Expose Central through nodePort enabled or not | `Disabled` |
+| `rhacs.central.exposure.route` | Expose Central through OpenShift route | `` |
+| `rhacs.central.exposure.route.enabled` | Expose Central through OpenShift route | `Enabled` |
+| `rhacs.central.defaultsslsecret` | Set a custom default SSL via secret | `` |
+| `rhacs.central.adminPasswordSecret` | Set a custom admin password via secret | `` |
 | `rhacs.central.egress.connectivityPolicy` | Can ACS connect to the internet or not? (Online or Offline) | `Online` |
-| `rhacs.central.scannerautoscaling` | Automatically scale the Scanner when needed | `Disabled` |
+| `rhacs.central.pvc` | Name of the PVC | `stackrox-db` |
+| `rhacs.central.pvc_size` | Size of the PVC | `` |
+| `rhacs.central.pvc_storageclass` | Storageclass of the PVC | `` |
+| `rhacs.central.resources.requests` | CENTRAL: resource requests for cpu, memory and ephemeral-storage | `` |
+| `rhacs.central.resources.limits` | CENTRAL: resource limits for cpu, memory and ephemeral-storage | `` |
+| `rhacs.central.tolerations` | CENTRAL: set tolerations | `` |
+| `rhacs.central.db.passwordSecret` | Set a custom admin password via secret | `` |
+| `rhacs.central.db.pvc` | Name of the PVC | `central-db` |
+| `rhacs.central.db.pvc_size` | Size of the PVC | `` |
+| `rhacs.central.db.pvc_storageclass` | Storageclass of the PVC | `` |
+| `rhacs.central.db.resources.requests` | CENTRAL-DB: resource requests for cpu, memory and ephemeral-storage | `` |
+| `rhacs.central.db.resources.limits` | CENTRAL-DB: resource limits for cpu, memory and ephemeral-storage | `` |
+| `rhacs.central.db.tolerations` | CENTRAL-DB: set tolerations | `` |
+| `rhacs.scanner.enabled` | Enable Scanner | `` |
+| `rhacs.scanner.monitoring` | Enable monitoring endpoint for scanner | `Disabled` |
+| `rhacs.scanner.analyzer.autoscaling` | Automatically scale the Scanner when needed | `Disabled` |
+| `rhacs.scanner.analyzer.resources.requests` | SCANNER: resource requests for cpu, memory and ephemeral-storage | `` |
+| `rhacs.scanner.analyzer.resources.limits` | SCNANER: resource limits for cpu, memory and ephemeral-storage | `` |
+| `rhacs.scanner.analyzer.tolerations` | SCANNER: set tolerations | `` |
+| `rhacs.scanner.db.resources.requests` | SCANNER: resource requests for cpu, memory and ephemeral-storage | `` |
+| `rhacs.scanner.db.resources.limits` | SCNANER: resource limits for cpu, memory and ephemeral-storage | `` |
+| `rhacs.scanner.db.tolerations` | SCANNER: set tolerations | `` |
 | `rhacs.job_init_bundle.syncwave` | Syncwave when Job to create the init-bundle shall be started | `3` |
 | `rhacs.consolelink.syncwave` | Syncwave when the console link shall be created | `3` |
 | `rhacs.consolelink.location` | Location of the console link | `ApplicationMenu` |
@@ -71,6 +103,9 @@ The following table lists the configurable parameters of the chart and their def
 | `rhacs.secured_cluster.syncwave` | Syncwave when the Secured Cluster instance shall be created (must be AFTER init-bundle creation) | `4` |
 | `serviceAccount.create` | Create a ServiceAccount to verify the status of the Operator | `true` |
 | `serviceAccount.name` | Name of the ServiceAccount that shall be created | `create-cluster-init` |
+
+
+---
 
 ## Example
 
