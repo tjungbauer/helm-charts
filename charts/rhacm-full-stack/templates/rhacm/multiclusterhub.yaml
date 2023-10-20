@@ -12,4 +12,20 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   availabilityConfig: {{ .Values.rhacm.multiclusterhub.availabilityConfig | default ("Basic") }}
+  disableHubSelfManagement: {{ .Values.rhacm.multiclusterhub.disableHubSelfManagement | default ("false") }}
+  disableUpdateClusterImageSets: {{ .Values.rhacm.multiclusterhub.disableUpdateClusterImageSets | default ("false") }}
+
+  {{- if .Values.rhacm.multiclusterhub.tolerations }}
+  tolerations:
+    {{- range $key, $value := .Values.rhacm.multiclusterhub.tolerations }}
+    - effect: {{ $value.effect }}
+      key: {{ $value.key }}
+      operator: {{ $value.operator }}
+      value: {{ $value.value }}
+      {{- if $value.tolerationSeconds }}
+      tolerationSeconds: {{ $value.tolerationSeconds }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
 {{- end }}

@@ -40,9 +40,30 @@ helper-status-checker:
     name: "status-checker"
 
 rhacm:
+  # Namespace
+  # Should be installed in open-cluster-management (default)
   namespace:
     name: open-cluster-management
   multiclusterhub:
     enabled: true
     syncwave: '3'
-    # availabilityConfig: High # Might be High or Basic
+
+    # Specifies deployment replication for improved availability. Options are: Basic and High
+    # Default: Basic
+    # availabilityConfig: High
+
+    # Disable automatic import of the hub cluster as a managed cluster
+    # Default: false
+    # disableHubSelfManagement: false
+
+    # Disable automatic update of ClusterImageSets
+    # Default: false
+    # disableUpdateClusterImageSets: false
+
+    # If you want this component to only run on specific nodes, you can
+    # configure tolerations of tainted nodes.
+    # tolerations:
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
