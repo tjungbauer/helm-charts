@@ -4602,6 +4602,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-20T19:16:56.304805416Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    deprecated: true
+    description: Master chart to deploy RHACM operator
+    digest: de4ff252d5dc3f9bef81d412bee96eb6babf3014919e77a29224e4b604f1d825
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
+    keywords:
+    - clustermanagement
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacm-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz
+    version: 1.0.14
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: support for tolerations in MultiClusterHub CRD
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-20T18:49:23.915936235Z"
     dependencies:
     - name: helper-operator
@@ -4924,6 +4960,42 @@ entries:
     name: rhacm-full-stack
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.0/rhacm-full-stack-1.0.0.tgz
+    version: 1.0.0
+  rhacm-setup:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: support for tolerations in MultiClusterHub CRD
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-10-20T19:16:56.521531277Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Setup and configure Advanced Cluster Managerment.
+    digest: 36e0a717ae93ef9d27ea9754e8bc6a604e34d29257a27c128abe0eaa3a78ccaa
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
+    keywords:
+    - clustermanagement
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacm-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.0/rhacm-setup-1.0.0.tgz
     version: 1.0.0
   rhacs-demo-applications:
   - annotations:
@@ -5855,6 +5927,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-20T19:16:56.731680842Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: d8794b727a5a3200f9768060507a9a0b57fe0f68385383639acb703ea49e9bf2
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-18T11:50:08.040711446Z"
     dependencies:
     - name: helper-operator
@@ -6346,4 +6454,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-20T18:49:23.91703294Z"
+generated: "2023-10-20T19:16:56.733026262Z"
