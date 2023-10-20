@@ -10,6 +10,37 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-20T18:07:56.323306687Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of management Operators which are usually installed on
+      the management cluster only. I.e. Quay, ACM, Cert-Manager...
+    digest: ba70192032404aaf297b894fe780449bcdcef33df15ca18bf4ea9fa7a57e44c3
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.24/collection-management-operators-1.0.24.tgz
+    version: 1.0.24
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-18T11:46:53.126741217Z"
     dependencies:
     - name: helper-operator
@@ -6245,4 +6276,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-18T11:50:08.041962988Z"
+generated: "2023-10-20T18:07:56.324690306Z"
