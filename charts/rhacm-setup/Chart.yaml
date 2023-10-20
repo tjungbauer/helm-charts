@@ -1,12 +1,9 @@
 apiVersion: v2
-name: rhacs-setup
-description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.2
-home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
-icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
-maintainers:
-  - name: tjungbauer
-    email: tjungbau@redhat.com
+name: rhacm-setup
+description: Setup and configure Advanced Cluster Managerment.
+version: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
 dependencies:
   - name: helper-operator
     version: "1.0.14"
@@ -15,13 +12,14 @@ dependencies:
     version: ~3.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
 keywords:
-  - acs
-  - security
+  - clustermanagement
 annotations:
-  artifacthub.io/category: security
   artifacthub.io/license: Apache-2.0
   artifacthub.io/signKey: |
     fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -29,3 +27,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: Signing Chart
+    - kind: added
+      description: support for tolerations in MultiClusterHub CRD

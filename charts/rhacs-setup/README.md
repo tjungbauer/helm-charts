@@ -32,7 +32,7 @@ helm repo update
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release tjungbauer/rhacs-full-stack
+helm install my-release tjungbauer/rhacs-setup
 ```
 
 The command deploys the chart on the Kubernetes cluster in the default configuration.
