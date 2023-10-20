@@ -176,6 +176,27 @@
        color: #fff;
     }
 
+      span.deprecated{
+       display: inline-block;
+       line-height: 2em;
+       font-size: 0.8em;
+       position: relative;
+       /* margin: 0 16px 8px 0; */
+       padding: 0 10px 0 12px;
+       background: #b31d28;
+       -webkit-border-bottom-right-radius: 3px;
+       border-bottom-right-radius: 3px;
+       -webkit-border-top-right-radius: 3px;
+       border-top-right-radius: 3px;
+       -webkit-border-bottom-left-radius: 3px;
+       border-bottom-left-radius: 3px;
+       -webkit-border-top-left-radius: 3px;
+       border-top-left-radius: 3px;
+       -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+       color: #fff;
+    }
+
     .tagsbottom {
       position: absolute;
       left: 0;
@@ -212,6 +233,8 @@
 
           {{ range $key, $chartEntry := .Entries }}
 
+          {{if not (index $chartEntry 0).Deprecated }}
+
           <div class="chart">
             <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
               <div class="icon">
@@ -239,6 +262,38 @@
                 </a>
             </div>
           </div>
+          {{end}}
+          {{end}}
+
+      </div>
+
+      <h2>DEPRECATED CHARTS</h2>
+
+      <div class="charts">
+
+          {{ range $key, $chartEntry := .Entries }}
+
+          {{if (index $chartEntry 0).Deprecated }}
+
+          <div class="chart">
+            <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
+              <div class="icon">
+                <img class="chart-item-logo" alt="logo" src="{{ (index $chartEntry 0).Icon }}">
+              </div>
+              <div class="body">
+                <p class="info">
+                  {{ (index $chartEntry 0).Name }} ({{ (index $chartEntry 0).Version }})
+                  <a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}"></a>
+                </p>
+              <p class="deprecated">
+                <span class="deprecated">DEPRECATED</span>
+              </p>
+                <p class="description">
+                  {{ (index $chartEntry 0).Description }}
+                </p>
+              </div>
+          </div>
+          {{end}}
           {{end}}
 
       </div>
