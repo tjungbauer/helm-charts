@@ -12,6 +12,40 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-21T08:02:01.226386846Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.17
+    description: Collection of management Operators which are required as a dependency
+      for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator
+      to deploy all required operators.
+    digest: 067f4ca490945a6408ff3c8ab28f25507f482bc93143536a87cf9bb859b81db3
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.26/collection-management-operators-1.0.26.tgz
+    version: 1.0.26
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: redefined the management operators that shall be installed.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-21T07:53:24.772098681Z"
     dependencies:
     - name: helper-operator
@@ -6524,4 +6558,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-21T07:53:24.91124548Z"
+generated: "2023-10-21T08:02:01.22725535Z"
