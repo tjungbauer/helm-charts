@@ -34,6 +34,7 @@ helper-operator:
         create: false
         # Watch own namespace or not.
         # Only makes sense when operatorgroup is created
+        # AllNamespaces InstallModeType not supported, cannot configure to watch all namespaces
         notownnamespace: true
 
     #######
@@ -70,7 +71,7 @@ helper-operator:
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
-        notownnamespace: true
+        notownnamespace: false
 
     ############
     # NetObserv
