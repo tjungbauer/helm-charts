@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacm-full-stack
 description: Master chart to deploy RHACM operator
-version: 1.0.15
+version: 1.0.16
 deprecated: true
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
@@ -13,9 +13,6 @@ dependencies:
     version: ~3.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
-maintainers:
-  - name: tjungbauer
-    email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
 keywords:
