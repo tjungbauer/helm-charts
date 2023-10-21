@@ -1,65 +1,127 @@
 ---
-helper-operator:
-  override-rhacm-operator-version: &rhacmversion release-2.5
 
-  namespaces:
-    - name: single-sign-on
-    - name: openshift-cert-manager-operator
+# The sub-chart helper-operator performs the actual isntallation of the operator.
+helper-operator:
 
   operators:
-    rhacm-operator:
+    #####################
+    # OpenShift Pipelines
+    #####################
+    # Name of the operator (This name will be used as name of the Application in Argo CD)
+    openshift-pipelines-operator-rh:
       enabled: true
-      namespace:
-        name: open-cluster-management
-      subscription:
-        channel: *rhacmversion
-        approval: Automatic
-        operatorName: advanced-cluster-management
-        source: redhat-operators
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: true
-
-    quay-operator:
-      enabled: true
+      # Namespace where the operator shall be installed into
       namespace:
         name: openshift-operators
-      subscription:
-        channel: stable-3.7
-        approval: Automatic
-        operatorName: quay-operator
-        source: redhat-operators
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
+        # Only create if it is a non-existing namespace. i.e. openshift-operators must not be created
         create: false
 
-    rhsso-operator:
+      # Information about the subscription
+      subscription:
+        # Version that shall be used
+        channel: latest
+        # Automatic of manual approval to update the Operator
+        # Default: Automatic
+        approval: Automatic
+        # The operator Name
+        operatorName: openshift-pipelines-operator-rh
+        # Source of the Operator
+        source: redhat-operators
+        # Source Namespace, typically openshift-marketplace
+        sourceNamespace: openshift-marketplace
+      # Crete an Operator group of not
+      operatorgroup:
+        create: false
+        # Watch own namespace or not.
+        # Only makes sense when operatorgroup is created
+        notownnamespace: true
+
+    #######
+    # Loki
+    #######
+    loki-operator:
       enabled: true
       namespace:
-        name: single-sign-on
+        name: openshift-operators-redhat
         create: true
       subscription:
         channel: stable
         approval: Automatic
-        operatorName: rhsso-operator
+        operatorName: loki-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: true
+
+    ####################
+    # OpenShift Logging
+    ####################
+    openshift-logging:
+      enabled: true
+      namespace:
+        name: openshift-logging
+        create: true
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: cluster-logging
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
+        notownnamespace: true
 
+    ############
+    # NetObserv
+    ############
+    netobserv-operator:
+      enabled: true
+      namespace:
+        name: openshift-netobserv-operator
+        create: true
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: netobserv-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: true
+
+    ############
+    # Cert-Utils
+    ############
+    cert-utils-operator:
+      enabled: true
+      namespace:
+        name: cert-utils-operator
+        create: true
+      subscription:
+        channel: alpha
+        approval: Automatic
+        operatorName: cert-utils-operator
+        source: community-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: true
+
+    ##############
+    # Cert-Manager
+    ##############
     openshift-cert-manager-operator:
       enabled: true
       namespace:
-        name: openshift-cert-manager-operator
+        name: cert-manager-operator
         create: true
       subscription:
-        channel: tech-preview
+        channel: stable-v1
         approval: Automatic
         operatorName: openshift-cert-manager-operator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
-        # cert-manager does not support to monitor own namespace,
-        # therefor the spec in the OperatorGroup must be empty
-        notownnamespace: true
+        notownnamespace: false
