@@ -38,12 +38,12 @@ quay:
     syncwave: 5
     serviceAccount: quay-initiator
 
-# Install Operator Compliance Operator
+# Install Quay Operator
 # Deploys Operator --> Subscription and Operatorgroup
 # Syncwave: 0
 helper-operator:
   operators:
-    compliance-operator:
+    quay-operator:
       enabled: false
       syncwave: '0'
       namespace:
