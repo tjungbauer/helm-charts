@@ -1,0 +1,74 @@
+---
+
+quay:
+  enabled: false
+  config_bundle: config-bundle-secret
+  syncwave: 3
+  public_route: quay.apps.chvk8mgmt.lonzagroup.net
+
+  namespace:
+    create: true
+    name: quay-enterprise
+    syncwave: 1
+
+  components:
+    clair:
+      overrides:
+        replicas: 1
+    postgres: {}
+    objectstore:
+      managed: "false"
+    redis: {}
+    hpa:
+      managed: "false"
+    route: {}
+    mirror:
+      overrides:
+        replicas: 1
+    monitoring: {}
+    tls:
+      managed: "false"
+    quay:
+      overrides:
+        replicas: 1
+    clairpostgres: {}
+
+  job_init_quay:
+    enabled: false
+    syncwave: 5
+    serviceAccount: quay-initiator
+
+# Install Operator Compliance Operator
+# Deploys Operator --> Subscription and Operatorgroup
+# Syncwave: 0
+helper-operator:
+  operators:
+    compliance-operator:
+      enabled: false
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: stable-3.9
+        approval: Manual
+        operatorName: quay-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: true
+
+helper-status-checker:
+  enabled: false
+
+  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  operatorName: quay-operator
+
+  # where operator is installed
+  namespace:
+    name: openshift-operators
+
+  serviceAccount:
+    create: true
+    name: "sa-quay"

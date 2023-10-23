@@ -1,0 +1,136 @@
+{{- with .Values.quay }}
+{{ if eq ( .job_init_quay.enabled | toString) "true" }}
+---
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: init-quay
+  namespace: {{ .namespace.name | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | quote }}
+spec:
+  parallelism: 1
+  completions: 1
+  backoffLimit: 6
+  template:
+    spec:
+      containers:
+        - name: init-quay
+          image: registry.redhat.io/openshift4/ose-cli
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: init-user
+                  key: password
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: init-user
+                  key: username
+            - name: MAIL
+              valueFrom:
+                secretKeyRef:
+                  name: init-user
+                  key: mail
+          command:
+            - /bin/bash
+            - '-c'
+            - >-
+              #!/usr/bin/env bash
+
+              printf "Give quay some time to start. Waiting for 60 seconds\n"
+
+              SLEEPER_TMP=0
+
+              while [[ $SLEEPER_TMP -le "60" ]]; do
+                echo -n "."
+                sleep 1
+                SLEEPER_TMP=$(($SLEEPER_TMP+1))
+              done
+              
+              sleep_timer={{ .job_init_quay.sleeptimer | default "30" }}
+              counter=0
+              max_retries={{ .job_init_quay.sleeptimer | default "20" }}
+
+              printf "\nVerifying if Quay is already up and running\n"
+              {{ .job_init_quay.quay_basename }}
+              get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
+
+              until [ "$get_quay_deployment" -eq "200" ]; do
+                let "counter=counter+1"
+                printf "\nAttempt $counter of $max_retries"
+                if [[ $counter -eq $max_retries ]]
+                then
+                  echo "Giving up. Quay does not seem to be able to start"
+                  exit 3
+                fi
+              
+                printf "Quay Application is not yet ready. Sleeping for $sleep_timer\n"
+                printf "Trying to reach: https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance"
+
+                TIMER_TMP=0
+                while [[ $TIMER_TMP -le $sleep_timer ]]; do
+                  echo -n "."
+                  sleep 1
+                  TIMER_TMP=$(($TIMER_TMP+1))
+                done
+                get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
+                
+              done
+              
+              printf "Quay is running. Injecting first User (Admin)\n"
+
+              data() 
+              {  
+              
+              cat <<EOF
+              
+              {
+                "username": "$USERNAME",
+                "password": "$PASSWORD",
+                "mail": "$MAIL",
+                "access_token": true
+              }
+              
+              EOF
+              
+              }
+              
+              create_user=`curl -Ss --connect-timeout 10 -X POST -k https://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
+              
+              printf "Got the following response: $create_user\n"
+
+              if [[ $create_user == "" ]]; then
+                printf "Something went wrong during user creation\n"
+                exit 3
+              fi
+
+              if [[ $create_user == "Cannot initialize user in a non-empty database" ]]; then
+                printf "User has been created previously. Exiting\n"
+                exit 0
+              else
+                printf "User has been created\n"
+                exit 0
+              fi
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      serviceAccountName: {{ .job_init_quay.serviceAccount }}
+      serviceAccount: {{ .job_init_quay.serviceAccount }}
+      securityContext: {}
+      schedulerName: default-scheduler
+      tolerations:
+        - key: infra
+          operator: Equal
+          value: reserved
+          effect: NoSchedule
+{{- end }}
+{{- end }}

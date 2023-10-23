@@ -1,0 +1,37 @@
+{{- with .Values.quay }}
+{{ if eq ( .job_init_quay.enabled | toString) "true" }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | quote }}
+  name: {{ .job_init_quay.serviceAccount }}-role
+  namespace: {{ .namespace.name | quote }}
+rules:
+- verbs:
+  - get
+  - list
+  apiGroups:
+  - apps
+  resources:
+  - deployments
+- verbs:
+  - get
+  - list
+  apiGroups:
+  - ''
+  resources:
+  - secrets
+- verbs:
+  - get
+  - list
+  apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+{{- end }}
+{{- end }}

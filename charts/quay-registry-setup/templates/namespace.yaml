@@ -1,0 +1,15 @@
+{{ if eq ( .Values.quay.namespace.create | toString) "true" }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.quay.namespace.syncwave | default "0" | quote }}
+    openshift.io/display-name: {{ .Values.quay.namespace.descr | default "" | quote }}
+    openshift.io/node-selector: node-role.kubernetes.io/infra=
+    scheduler.alpha.kubernetes.io/defaultTolerations: >-
+      [{"operator": "Equal", "effect": "NoSchedule", "key":"infra", "value": "reserved"}]
+  name: {{ .Values.quay.namespace.name }}
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "common.labels" $ | nindent 4 }}
+{{- end }}
