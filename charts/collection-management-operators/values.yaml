@@ -9,7 +9,7 @@ helper-operator:
     #####################
     # Name of the operator (This name will be used as name of the Application in Argo CD)
     openshift-pipelines-operator-rh:
-      enabled: true
+      enabled: false
       # Namespace where the operator shall be installed into
       namespace:
         name: openshift-operators
@@ -41,7 +41,7 @@ helper-operator:
     # Loki
     #######
     loki-operator:
-      enabled: true
+      enabled: false
       namespace:
         name: openshift-operators-redhat
         create: true
@@ -59,7 +59,7 @@ helper-operator:
     # OpenShift Logging
     ####################
     openshift-logging:
-      enabled: true
+      enabled: false
       namespace:
         name: openshift-logging
         create: true
@@ -77,7 +77,7 @@ helper-operator:
     # NetObserv
     ############
     netobserv-operator:
-      enabled: true
+      enabled: false
       namespace:
         name: openshift-netobserv-operator
         create: true
@@ -95,7 +95,7 @@ helper-operator:
     # Cert-Utils
     ############
     cert-utils-operator:
-      enabled: true
+      enabled: false
       namespace:
         name: cert-utils-operator
         create: true
@@ -113,7 +113,7 @@ helper-operator:
     # Cert-Manager
     ##############
     openshift-cert-manager-operator:
-      enabled: true
+      enabled: false
       namespace:
         name: cert-manager-operator
         create: true
@@ -126,3 +126,39 @@ helper-operator:
       operatorgroup:
         create: true
         notownnamespace: false
+
+    ###############
+    # Quay Registry
+    ###############
+    quay-operator:
+      enabled: false
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: stable-3.9
+        approval: Automatic
+        operatorName: quay-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: true
+
+    ######################
+    # Open Data Foundation
+    ######################
+    odf-operator:
+      enabled: false
+      syncwave: '0'
+      namespace:
+        name: openshift-storage
+        create: true
+      subscription:
+        channel: stable-4.13
+        approval: Automatic
+        operatorName: odf-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
