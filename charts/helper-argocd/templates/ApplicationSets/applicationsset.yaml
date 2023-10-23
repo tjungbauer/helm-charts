@@ -119,7 +119,7 @@ spec:
             {{- end }}
             {{- if $value.helm }}
             {{- if $value.helm.per_cluster_helm_values }}
-              - '{{ printf "%s/{{ name }}-values.yaml" $value.helm.per_cluster_helm_values_path }} }}'
+              - '{{ printf "%s/{{ cluster }}-values.yaml" $value.helm.per_cluster_helm_values_path }} }}'
             {{- end }}
             {{- end }}      
             {{- if .helm.helmvalues }}
