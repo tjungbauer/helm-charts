@@ -49,8 +49,7 @@ The following table lists the configurable parameters of the chart and their def
 
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
-| `helper-operator.override-rhacm-operator-version` | Sets the release version (channel) for RH ACM | `release-2.5` |
-| `helper-operator.namespaces` | A list of specific namespaces that should be created | `single-sign-on` and `helper-operator.openshift-cert-manager-operator` |
+| `helper-operator.console_plugins` | A list Console Plugins that shall be activated | ` ` |
 | `helper-operator.UNIQUE-IDENTIFIER`| This is a unique identifier that will be used to create the Argo CD Application | `` |
 | `helper-operator.UNIQUE-IDENTIFIER.enabled` | enabled yes/no | `false` |
 | `helper-operator.UNIQUE-IDENTIFIER.syncwave` | Sets the Syncwave for Argo CD | 0 |

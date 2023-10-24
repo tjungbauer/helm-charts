@@ -1,0 +1,14 @@
+{{- if .Values.console_plugins }}
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: enable-console-plugin-sa
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 5 | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+{{- end }}

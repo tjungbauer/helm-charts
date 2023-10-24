@@ -3,6 +3,10 @@
 # The sub-chart helper-operator performs the actual isntallation of the operator.
 helper-operator:
 
+  # enable Console Plugins. You need to know the name of it
+  # It will start a Job in openshift-gitops, that will enable the plugins
+  # console_plugins: []
+  
   operators:
     #####################
     # OpenShift Pipelines
@@ -52,7 +56,7 @@ helper-operator:
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
-        create: false
+        create: true
         notownnamespace: true
 
     ####################

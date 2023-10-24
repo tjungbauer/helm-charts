@@ -46,6 +46,7 @@ The following table lists the configurable parameters of the chart and their def
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
 | `namespaces` | A list of specific namespaces that should be created | `single-sign-on` and openshift-cert-manager-operator` |
+| `console_plugins` | A list of Console Plugins that shall be enabled | `none` |
 | `UNIQUE-IDENTIFIER`| This is a unique identifier that will be used to create the Argo CD Application | `` |
 | `UNIQUE-IDENTIFIER.enabled` | enabled yes/no | `false` |
 | `UNIQUE-IDENTIFIER.syncwave` | Sets the Syncwave for Argo CD | 0 |

@@ -1,0 +1,33 @@
+{{- if .Values.console_plugins }}
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: enable-console-plugin-{{ randAlphaNum 5 | lower }}
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 5 | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  selector: {}
+  template:
+    metadata:
+      name: enable-console-plugin
+    spec:
+      containers:
+        - name: enable-console-plugin
+          image: registry.redhat.io/openshift4/ose-cli:latest
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+
+              oc patch console.operator cluster --type json -p '[{"op": "add", "path": "/spec/plugins", "value": [{{ join "," .Values.console_plugins }}] }]'
+
+      restartPolicy: Never
+      serviceAccountName: enable-console-plugin-sa
+{{- end }}
