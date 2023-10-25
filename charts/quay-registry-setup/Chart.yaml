@@ -3,14 +3,14 @@ name: quay-registry-setup
 description: Chart to deploy and configure Quay
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 1.0.1
+version: 1.0.2
 dependencies:
   - name: helper-operator
     version: ~1.0.0
-    repository: file://../helper-operator
+    repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~3.0.0
-    repository: file://../helper-status-checker
+    repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
