@@ -13,21 +13,208 @@ production-cluster-name: &prodclustername prod
 repourl: &repourl 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
 repobranch: &branch main
 
+# the anchor *rev must be set to a default value, in case it is not set for the cluster
+dummy_rev: &rev 1.0.0
+
 argocd_projects:
 #  - *mgmtclustername
 
 applicationsets:
+
+  ############################
+  # MATRIX GENERATOR EXAMPLE #
+  ############################
+  # Matrix Generator: The idea here is to walk over a folder, for example /clusters/management-cluster
+  # and take all settings from there.
+  # This way you see what is installed on which cluster and you do not need to configure the application here
+  # Instead, you just add a new configuretion to clusters/management-cluster and it will automatically takes from there.
+  #
+  # The generator config here is bypassed 1:1 to the applicationset. It uses Git and list.
+  #   Git: Walking through the specified path
+  #   List: simply defines the target cluster. This is important so that we know where to deploy :)
+  #
+  # To make it flexible create one Matrix Generator per cluster.
+  # Don't forget that the Matrix Generator supports only 2 generators at the moment.
+  mgmt-cluster:
+    # Is the ApplicationSet enabled or not
+    enabled: false
+
+    # Description - always usful
+    description: "ApplicationSet that Deploys on Management Cluster (Matrix Generator)"
+
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
+    labels:
+      category: configuration
+
+    # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
+    goTemplate: true
+    argocd_project: *mgmtclustername
+
+    # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
+    preserveResourcesOnDeletion: true
+
+    # Definition of Matrix Generator. Only 2 generators are supported at the moment
+    generatormatrix:
+      # Git: Walking through the specific folder and take whatever is there.
+      - git:
+          directories:
+            - path: clusters/management-cluster/*
+          repoURL: *repourl
+          revision: *branch
+      # List: simply define the targetCluster. The name of the cluster must be known by Argo CD
+      - list:
+          elements:
+            # targetCluster is important, this will define on which cluster it will be rolled out.
+            # The cluster name must be known in Argo CD
+            - targetCluster: *mgmtclustername
+    syncPolicy:
+      autosync_enabled: false
+
+  ################################
+  # END MATRIX GENERATOR EXAMPLE #
+  ################################
+
+  ##########################
+  # GIT GENERATOR EXAMPLE #
+  ##########################
+  # Tenant Onboarding (using Git Generator)
+  onboarding-tenant-workload:
+    # Is the ApplicationSet enabled or not
+    enabled: false
+
+    # Description - always usful
+    description: "Onboarding Workload to the cluster"
+
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
+    labels:
+      catagory: tenant-onboarding
+
+    # Path to the Git repository. The default URL and revision are defined as anchors at the beginning of the file, but could be overwritten here.
+    path: clusters/all/project-onboarding
+
+    # Path to the Git repository. The default URL and revision are defined as anchors at the beginning of the file, but could be overwritten here.
+    repourl: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+    targetrevision: main
+
+    # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
+    goTemplate: true
+
+    # Helm configuration. A list of helm values files
+    helm:
+      per_cluster_helm_values: false
+      value_files:
+        - '/{{ .path.path }}/values.yaml'
+        - /tenant-projects/values-global.yaml
+
+    # Generator: currently list, git and cluster are possible.
+    # either "generatorlist", "generatorgit" or "generatorclusters"
+    # Define the repository that shall be checked for configuration file
+    generatorgit:
+      - repourl: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+        targetrevision: main
+        files:
+          - tenant-projects/**/values.yaml
+
+    # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
+    preserveResourcesOnDeletion: true
+
+  #############################
+  # END GIT GENERATOR EXAMPLE #
+  #############################
+
+  ##############################
+  # CLUSTERS GENERATOR EXAMPLE #
+  ##############################
+  # Name of the ApplicationSet. The clustername will be appended to the Application
   generic_clusterconfig:
-    enabled: true
-    description: "Deploy generic cluster configuration, like banners or etcd encryption"
+    # Is the ApplicationSet enabled or not
+    enabled: false
+
+    # Description - always usful
+    description: "Deploy generic cluster configuration or etcd encryption"
+
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
     labels:
       category: cluster-configuration
-    path: clusters/all/clusterconfig/
-    per_cluster_helm_values: true
-    generatorclusters: []
-#    repourl: "" # Optional
-#    targetrevision: "" # Optional
 
+    # Path to the Git repository. The default URL and revision are defined as anchors at the beginning of the file, but could be overwritten here.
+    path: clusters/all/clusterconfig/
+    # repourl: "" # Optional
+    # targetrevision: "" # Optional
+
+    # If Applications gets deleted, keep the resources
+    # https://argocd-applicationset.readthedocs.io/en/stable/Application-Deletion/
+    # preserveResourcesOnDeletion: true
+
+    # Helm settings
+    # These settings are used for single sources MAINLY.
+    #
+    # "per_cluster_helm_values" (bool, optional): Defines if every cluster known in Argo CD is using a spearate values-file. This values-file must be named <cluster-name>-values.yaml
+    # "releasename" (string, optional): Overwrites the releasename of the chart
+    # "paramters" (array, optional): Sets custom parameters for this chart. The list looks like:
+    #      - name: Name/key of the parameter
+    #      - value: value of the parameter
+    helm:
+      per_cluster_helm_values: true
+
+    # Generator: currently list, git and cluster are possible.
+    # either "generatorlist", "generatorgit" or "generatorclusters" when using Helm releases, list generator is recommended,
+    # since the cluster generator is currently mainly used to deploy the same configuration on ALL clusters.
+    generatorclusters: []
+
+  ##################################
+  # END CLUSTERS GENERATOR EXAMPLE #
+  ##################################
+
+  ##########################
+  # LIST GENERATOR EXAMPLE #
+  ##########################
+  # Name of the ApplicationSet. The clustername will be appended to the Application
+  install_sonarqube:
+    # Is the ApplicationSet enabled or not
+    enabled: false
+
+    # Description - always usful
+    description: "Install Sonarqube"
+
+    # Any specific namespace to be used
+    namespace: sonarqube
+
+    # Helm settings
+    # These settings are used for single sources MAINLY.
+    #
+    # "per_cluster_helm_values" (bool, optional): Defines if every cluster known in Argo CD is using a spearate values-file. This values-file must be named <cluster-name>-values.yaml
+    # "releasename" (string, optional): Overwrites the releasename of the chart
+    # "paramters" (array, optional): Sets custom parameters for this chart. The list looks like:
+    #      - name: Name/key of the parameter
+    #      - value: value of the parameter
+    helm:
+      releasename: sonarqube
+
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
+    labels:
+      category: project
+    chartname: sonarqube
+    repourl: "https://charts.stderr.at/"
+    targetrevision: 1.0.0
+
+    # List of clusters
+    # "clustername" (string): Is the name of the cluster a defined in Argo CD
+    # "clusterurl" (string): Is the URL of the cluster API
+    # "chart_version" (string, optional): Defines which chart version shall be deployed on each cluster.
+    generatorlist:
+      - clustername: *mgmtclustername
+        clusterurl: *mgmtcluster
+    syncPolicy:
+      autosync_enabled: false
+
+  ##############################
+  # END LIST GENERATOR EXAMPLE #
+  ##############################
+
+  ############################
+  # MULTIPLE SOURCES EXAMPLE #
+  ############################
   # Example using MULTIPLE SOURCES in an ApplicationSet
   # NOTE: As of Sep 2023 multiple sources is TechPreview. Currently, it is not supported in the UI or in the CLI
 
@@ -53,24 +240,46 @@ applicationsets:
     #      - value: value of the parameter
     helm:
       per_cluster_helm_values: false
+      # Mandatory path
+      per_cluster_helm_values_path: "Path to cluster specific values-file"
+
+    # Generator: currently list and cluster are possible.
+    # either "generatorlist" or "generatorclusters" when using Helm releases, list generator is recommended,
+    # since the cluster generator is currently mainly used to deploy the same configuration on ALL clusters.
     generatorlist:
+        # List of clusters
+        # "clustername" (string): Is the name of the cluster a defined in Argo CD
+        # "clusterurl" (string): Is the URL of the cluster API
+        # "chart_version" (string, optional): Defines which chart version shall be deployed on each cluster.
       - clustername: *mgmtclustername
         clusterurl: *mgmtcluster
-        chart_version: 1.0.16
-      - clustername: *prodcluster
-        clusterurl: *prodclustername
-        chart_version: 1.0.13
+        chart_version: 1.0.17
+        #    - clustername: *prodclustername
+       # clusterurl: *prodcluster
+       # chart_version: 1.0.13
+
+    # multiple_sources defines if multiple sources shall be used.
+    # Currently this feature is TechPreview and lacks support on the CLI or UI. However, it is a nice way to define a Helm Chart and use the values-file stored in a different repository.
     multiple_sources:
+
+        # Define repository of the values-file
       - repoUrl: https://github.com/tjungbauer/openshift-cluster-bootstrap
         targetRevision: main
         ref: values
+
+        # Define Helm Chart repository
       - repoUrl: "https://charts.stderr.at/"
         chart: generic-cluster-config
-        # Only set here, when it is not set in generatorlist
+
+        # Only set default_version, when it is not set in generatorlist
         # This is the version that will be used on all clusters
         # default_version: x.x.x
+
+        # Path to the values file
         helm:
           default_values_file: $values/clusters/all/etcd-encryption/values.yaml
+
+          # Any additional values-files or single parameters
           # additional_values_files:
           #  - example1.yaml
           #  - exampl2.yaml
@@ -79,36 +288,118 @@ applicationsets:
           #    value: values
           # releaseName: example
 
+  ################################
+  # END MULTIPLE SOURCES EXAMPLE #
+  ################################
 
-  # A collection of MANAGEMENT operators,
-  # installed usually on the management cluster only.
-  install-mgmt-operator-collection:
+  # Install RHACS Demo
+  rhacs-demo-app:
     enabled: false
-    description: "Deploy a collection of Operators which are usually installed on a management cluster only"
-    labels:
-      category: operators
-    path: charts/collection-management-operators
-    generatorlist:
-      - clustername: *mgmtclustername
-        clusterurl: *mgmtcluster
-    autosync_enabled: false  # should be disabled for operators
-    repourl: "https://github.com/tjungbauer/helm-charts"
-    targetrevision: "main"
-
-
-applications:
-  in-cluster-init-rhacs:
-    enabled: false
-    server: *mgmtcluster
-    project: default
-    description: "Initialize Red Hat Advanced Cluster Security and deploy Central and SecuredCluster"
+    description: "Deploy a vulnerable demo application to show results in RHACS"
     labels:
       category: security
       solution: rhacs
+    helm:
+      per_cluster_helm_values: false
+    generatorlist:
+      - clustername: *mgmtclustername
+        clusterurl: *mgmtcluster
+    syncPolicy:
+      autosync_enabled: false
+    path: charts/rhacs-demo-applications/
+    repourl: "https://github.com/tjungbauer/helm-charts"
+    targetrevision: "main"
+
+  install_kyverno:
+    enabled: false
+    description: "Deploy Kyverno"
+    namespace: kyverno
+    labels:
+      category: security
+    chartname: kyverno
+    helm:
+      per_cluster_helm_values: false
+      releasename: kyverno-policies
+      helmvalues:
+        - name: securityContext
+          value: null
+        - name: replicaCount
+          value: 3
+    syncPolicy:
+      autosync_enabled: false
+      # syncpolicy_prune: false
+      # syncpolicy_selfheal: false
+      syncOptions:
+        - name: CreateNamespace
+          value: true
+        - name: ServerSideApply
+          value: true
+        - name: Replace
+          value: true
+    generatorclusters: []
+    repourl: https://kyverno.github.io/kyverno
+    targetrevision: "2.6.1"
+
+  sealed-secrets:
+    enabled: false
+    description: "Deploy Sealed-Secrets"
+    labels:
+      category: security
+    generatorlist: []
+    project: default
+    chartname: sealed-secrets
+    helm:
+      releasename: sealed-secrets
+      helmvalues:
+        - name: sealed-secrets.enabled
+          value: 'true'
+    syncPolicy:
+      autosync_enabled: false
+      syncpolicy_prune: false
+      syncpolicy_selfheal: true
+    generatorclusters: []
+    repourl: "https://charts.stderr.at/"
+    targetrevision: 1.0.11
+
+
+# APPLICATIONS
+# applications:
+#  in-cluster-bulk-test:
+#    enabled: true
+#    server: *mgmtcluster
+#    namespace: {}
+#    project: default
+#    description: "Testing bulk operations"
+#    labels:
+#      category: test
+#    source:
+#      path: clusters/management-cluster/bulk-test
+
+  hashicorp-vault:
+    enabled: false
+    description: "Deploy HashoCorp Vault"
+    labels:
+      category: security
+    namespace:
+      name: vault
+      create: true
+    server: *mgmtcluster
+    project: default
     source:
-      path: charts/rhacs-full-stack
-      repourl: "https://github.com/tjungbauer/helm-charts"
-      targetrevision: "main"
+      chartname: vault
+      helm:
+        releasename: vault
+        helmvalues:
+          - name: global.openshift
+            value: 'true'
+          - name: server.ha.raft.enabled
+            value: 'true'
+          - name: server.ha.enabled
+            value: 'true'
+          - name: server.ha.replicas
+            value: '1'
+      repourl: "https://helm.releases.hashicorp.com"
+      targetrevision: 0.21.0
 
 # These define the default values.
 # It is possible to overwrite repourl and targetrevision in the Applications(Sets)

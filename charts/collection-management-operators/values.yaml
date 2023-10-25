@@ -6,7 +6,7 @@ helper-operator:
   # enable Console Plugins. You need to know the name of it
   # It will start a Job in openshift-gitops, that will enable the plugins
   # console_plugins: []
-  
+
   operators:
     #####################
     # OpenShift Pipelines

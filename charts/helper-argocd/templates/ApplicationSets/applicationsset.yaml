@@ -22,9 +22,15 @@ spec:
   {{- end }}
   {{- if eq (.goTemplate | toString) "true" }}
   goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
   {{- end }}
   generators:
-    {{- if .generatorlist }}
+    {{- if .generatormatrix }}
+    - matrix:
+        generators:
+            {{- toYaml .generatormatrix | nindent 10 }}
+    {{- else if .generatorlist }}
       - list:
           elements: 
           {{- range .generatorlist }}
@@ -60,7 +66,16 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- if .generatorlist }}
+      {{- if .generatormatrix }}
+        {{- if eq (.omitClustername | toString) "true" }}
+          name: >-
+          '{{ .targetCluster }}-{{ .path.basenameNormalized }}'
+            {{ printf "{{ .path.basenameNormalized }}" }}
+        {{- else }}
+          name: >-
+            {{ printf "{{ .targetCluster }}-{{ .path.basenameNormalized }}" }}
+        {{- end }}
+      {{- else if .generatorlist }}
         {{- if eq (.omitClustername | toString) "true" }}
           name: >-
             {{ printf "%s" $key | replace "_" "-" }}
@@ -86,6 +101,8 @@ spec:
         {{ printf "{{ cluster }}" }}
       {{- else if .generatorgit }}
       project: default
+      {{- else if .argocd_project }}
+      project: {{ .argocd_project }}
       {{- else }}
       project:  >-
           {{ printf "{{ name }}" }}
@@ -160,10 +177,15 @@ spec:
           {{- end }}
           {{- end }}
         {{- end }}
+        {{- if .generatormatrix }}
+        path: '{{ printf "{{ .path.path }}" }}'
+        {{- end }}
         {{- if .path }}
         path: {{.path }}
         {{- else }}
+        {{- if .chartname }}
         chart: {{ .chartname }}
+        {{- end }}
         {{- end }}
       {{- end }}
 
@@ -182,7 +204,9 @@ spec:
         {{- end }}
       {{- end }}
       destination:
-      {{- if .generatorlist }}
+      {{- if .generatormatrix }}
+        name: {{ printf "'{{ .targetCluster }}'" }}
+      {{- else if .generatorlist }}
         server:  >-
           {{ printf "{{ url }}" }}
       {{- else if .generatorgit }}
