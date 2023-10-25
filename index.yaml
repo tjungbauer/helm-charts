@@ -3789,6 +3789,44 @@ entries:
           description: Signing Chart
         - kind: added
           description: Updated to Open Data Foundation v4.13
+        - kind: added
+          description: Added StorageCluster object which automatically spins up the storage.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-10-25T09:56:35.956936401Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: a1b2d2fc401c7ed619b418ad9b1c24892cd88900403a8167e36590c5804d4f30
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    keywords:
+    - storage
+    - odf
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.17/openshift-data-foundation-1.0.17.tgz
+    version: 1.0.17
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Updated to Open Data Foundation v4.13
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -7019,4 +7057,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-25T07:06:21.559859462Z"
+generated: "2023-10-25T09:56:35.958031284Z"
