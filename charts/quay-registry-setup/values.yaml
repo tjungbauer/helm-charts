@@ -4,7 +4,7 @@ quay:
   enabled: false
   config_bundle: config-bundle-secret
   syncwave: 3
-  public_route: quay.apps.chvk8mgmt.lonzagroup.net
+  public_route: route
 
   namespace:
     create: false
