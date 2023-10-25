@@ -7,7 +7,7 @@ quay:
   public_route: quay.apps.chvk8mgmt.lonzagroup.net
 
   namespace:
-    create: true
+    create: false
     name: quay-enterprise
     syncwave: 1
 
