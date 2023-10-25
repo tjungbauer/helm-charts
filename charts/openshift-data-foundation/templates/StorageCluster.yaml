@@ -208,7 +208,7 @@ spec:
       {{- if .default_node_label }}
       {{ printf "%s:" .default_node_label }} 
       {{- else }}
-      cluster.ocs.openshift.io/openshift-storage:
+      cluster.ocs.openshift.io/openshift-storage: ''
       {{- end }}
   {{- end }}
 {{- end }}
