@@ -5,6 +5,11 @@ kind: StorageCluster
 metadata:
   name: ocs-storagecluster
   namespace: openshift-storage
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.storagecluster.syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
 {{- if eq ( .full_deployment.enabled | toString) "true" }}  
 {{- with .full_deployment }}  
 spec:
