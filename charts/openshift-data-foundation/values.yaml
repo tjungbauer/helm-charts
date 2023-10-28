@@ -4,7 +4,7 @@
 ###########################
 storagecluster:
   enabled: true
-  syncwave: 5
+  syncwave: 3
 
   # There are two options:
   # Either install the multigateway only. This is useful if you just need S3 for Quay registry for example.
