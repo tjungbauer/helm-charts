@@ -11,28 +11,6 @@ quay:
     name: quay-enterprise
     syncwave: 1
 
-  components:
-    clair:
-      overrides:
-        replicas: 1
-    postgres: {}
-    objectstore:
-      managed: "false"
-    redis: {}
-    hpa:
-      managed: "false"
-    route: {}
-    mirror:
-      overrides:
-        replicas: 1
-    monitoring: {}
-    tls:
-      managed: "false"
-    quay:
-      overrides:
-        replicas: 1
-    clairpostgres: {}
-
   job_init_quay:
     enabled: false
     syncwave: 5
