@@ -58,11 +58,11 @@ spec:
 
               printf "\nVerifying if Quay is already up and running\n"
               {{ .job_init_quay.quay_basename }}
-              get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
+              get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
 
               until [ "$get_quay_deployment" -eq "200" ]; do
                 let "counter=counter+1"
-                printf "\nAttempt $counter of $max_retries"
+                printf "\nAttempt $counter of $max_retries\n"
                 if [[ $counter -eq $max_retries ]]
                 then
                   echo "Giving up. Quay does not seem to be able to start"
@@ -70,7 +70,7 @@ spec:
                 fi
               
                 printf "Quay Application is not yet ready. Sleeping for $sleep_timer\n"
-                printf "Trying to reach: https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance"
+                printf "Trying to reach: http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance"
 
                 TIMER_TMP=0
                 while [[ $TIMER_TMP -le $sleep_timer ]]; do
@@ -78,7 +78,7 @@ spec:
                   sleep 1
                   TIMER_TMP=$(($TIMER_TMP+1))
                 done
-                get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null https://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
+                get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
                 
               done
               
@@ -100,7 +100,7 @@ spec:
               
               }
               
-              create_user=`curl -Ss --connect-timeout 10 -X POST -k https://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
+              create_user=`curl -Ss --connect-timeout 10 -X POST -k http://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
               
               printf "Got the following response: $create_user\n"
 
