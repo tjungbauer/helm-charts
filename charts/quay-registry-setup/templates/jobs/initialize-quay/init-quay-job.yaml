@@ -100,7 +100,7 @@ spec:
               
               }
               
-              create_user=`curl -Ss --connect-timeout 10 -X POST -k http://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
+              create_user=`curl -Ss --connect-timeout 10 -X POST -k https://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
               
               printf "Got the following response: $create_user\n"
 
