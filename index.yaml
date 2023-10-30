@@ -5212,6 +5212,40 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2023-10-30T07:14:09.271035359Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Chart to deploy and configure Quay
+    digest: a3c775df8aa5daea6723ef1d03d5c3b14c29e873a98937bb8470552806a5d372
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.8/quay-registry-setup-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2023-10-30T07:06:09.501019162Z"
     dependencies:
     - name: helper-operator
@@ -7375,4 +7409,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-30T07:06:09.50198719Z"
+generated: "2023-10-30T07:14:09.271649353Z"
