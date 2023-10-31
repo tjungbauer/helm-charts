@@ -96,6 +96,24 @@ spec:
         {{- end }}
       {{- end }}
     spec:
+      {{- if .ignoreDifferences }}
+      ignoreDifferences:
+        {{- range $idff_key, $idiff_val := .ignoreDifferences }}
+        - kind: {{ $idiff_val.kind }}
+          {{- if $idiff_val.jsonPointers }}
+          jsonPointers:
+            {{- range $idiff_val.jsonPointers }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if $idiff_val.name }}
+          name: {{ $idiff_val.name }}
+          {{- end }}
+          {{- if $idiff_val.namespace }}
+          namespace: {{ $idiff_val.namespace }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
       {{- if .generatorlist }}
       project: >-
         {{ printf "{{ cluster }}" }}
