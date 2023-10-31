@@ -32,42 +32,6 @@
         background-color: #282c34;
       }
 
-      .snippet { position: relative; }
-      .snippet:hover .btn, .snippet .btn:focus {
-        opacity: 1;
-      }
-      .snippet .btn {
-        -webkit-transition: opacity .3s ease-in-out;
-        -o-transition: opacity .3s ease-in-out;
-        transition: opacity .3s ease-in-out;
-        opacity: 0;
-        padding: 2px 6px;
-        position: absolute;
-        right: 4px;
-        top: 4px;
-      }
-      .btn {
-        position: relative;
-        display: inline-block;
-        padding: 6px 12px;
-        font-size: 13px;
-        font-weight: 700;
-        line-height: 20px;
-        color: #333;
-        white-space: nowrap;
-        vertical-align: middle;
-        cursor: pointer;
-        background-color: #eee;
-        background-image: linear-gradient(#fcfcfc,#eee);
-        border: 1px solid #d5d5d5;
-        border-radius: 3px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-appearance: none;
-      }
-
       .charts {
         display: flex;
         flex-wrap: wrap;
@@ -118,9 +82,7 @@
         word-wrap: break-word;
         text-align: center;
       }
-      .chart .body .description {
-        text-align: left;
-      }
+ 
       .time {
         color: #dedede;
       }
@@ -153,12 +115,12 @@
       p.tags {
         position: absolute;
         bottom: 0;
+        font-size: 75%
       }
 
       span.tags {
        display: inline-block;
        line-height: 2em;
-       font-size: 0.8em;
        position: relative;
         
        padding: 0 10px 0 12px;
@@ -174,27 +136,7 @@
        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        color: #fff;
-    }
-
-      span.deprecated{
-       display: inline-block;
-       line-height: 2em;
-       font-size: 0.8em;
-       position: relative;
-        
-       padding: 0 10px 0 12px;
-       background: #b31d28;
-       -webkit-border-bottom-right-radius: 3px;
-       border-bottom-right-radius: 3px;
-       -webkit-border-top-right-radius: 3px;
-       border-top-right-radius: 3px;
-       -webkit-border-bottom-left-radius: 3px;
-       border-bottom-left-radius: 3px;
-       -webkit-border-top-left-radius: 3px;
-       border-top-left-radius: 3px;
-       -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-       box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-       color: #fff;
+       margin-right: 5px;
     }
 
     .tagsbottom {
@@ -207,13 +149,3054 @@
       display: flex;
       text-align: center;
     }
+
+    span.deprecated {
+        display: inline-block;
+        line-height: 2em;
+        font-size: 0.8em;
+        position: relative;
+        padding: 0 10px 0 12px;
+        background: #b31d28;
+        -webkit-border-bottom-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        -webkit-border-top-right-radius: 3px;
+        border-top-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        -webkit-border-top-left-radius: 3px;
+        border-top-left-radius: 3px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        color: #fff;
+    }
+
+    .cardbox {
+      overflow: hidden;
+      border: 1px solid #676869;
+      transition: 0.25s ease box-shadow, 0.25s ease transform;
+      max-width: 100%!important;
+      min-height: 215px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .cardbox:hover {
+      box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+      transform: scale(0.996);
+    }
+
+    .cardbody {
+      padding: 1.75rem!important;
+      height: 100%!important;
+      display: flex!important;
+    }
+
+    .card, .cardbody {
+      color: #a3a3a6;
+      background-color: #232529;
+    }
+
+    .card-iconbox  {
+      height: 70px;
+      min-width: 70px;
+      width: 70px;
+      margin-bottom: 0!important;
+      margin-top: 0!important;
+    }
+
+    .chart-item-logo {
+      background-color: transparent!important;
+    }
+
+    .chart-info {
+      background-color: #2c2e31;
+      width: 600px;
+      min-width: 0;
+      height: 70px;
+      margin-left: 0.75rem;
+      padding: 0.6rem 1rem;
+      flex-direction: column!important;
+    }
+
+    .chart-maintainer {
+      margin-top: -1px;
+      font-size: 0.85rem;
+    }
+
+    .chart-maintainer-icon {
+      color: #cbd3da!important;
+      font-size: .85rem;
+      margin-right: 0.25rem!important;
+      position: relative!important;
+    }
+
+    .align-items-center {
+      align-items: center!important;
+    }
+    .justify-content-center {
+      justify-content: center!important;
+    }
+    .position-relative {
+      position: relative!important;
+    }
+    .d-flex {
+      display: flex!important;
+    }
+    .overflow-hidden {
+      overflow: hidden!important;
+    }
+
+    .justify-content-between {
+      justify-content: space-between!important;
+    }
+
+    .mwidth-100 {
+      min-width: 0;
+    }
+    .align-items-stretch {
+      align-items: stretch!important;
+    }
+    .flex-grow-1 {
+      flex-grow: 1!important;
+    }
+    .h-100 {
+      height: 100%!important;
+    }
+
+    .chart-title {
+      color: #a3a3a6;
+    }
+    .mb-0 {
+      margin-bottom: 0!important;
+    }
+    .text-truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .flex-row {
+      flex-direction: row!important;
+    }
+
+    .title {
+      font-size: 1.1rem;
+    }
+
+    .mw-100 {
+      max-width: 100%!important;
+    }
+
+    .chart-title-right {
+      padding-left: 2.25rem;
+    }
+ 
+    .ms-auto {
+      margin-left: auto!important;
+    }
+    .mb-auto {
+      margin-bottom: auto!important;
+    }
+    .align-items-end {
+      align-items: flex-end!important;
+    }
+    .flex-column {
+      flex-direction: column!important;
+    }
+
+    .mt-1 {
+      margin-top: 0.25rem!important;
+    }
+
+    .additional-info {
+      font-size: 75%;
+    }
+
+    .download-button{
+      color: #cbd3da!important;
+      background-color: #232529!important;
+      position: relative;
+      top: -1px;
+      font-size: 75%;
+      height: 19px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      outline: none;
+      border: solid 1px #737475;
+    }
+
+    .ms-1 {
+      margin-left: 0.25rem!important;
+    }
+
+    .download-icon {
+      bottom: -1px;
+    }
+
+    .download-link:hover, .source-link:hover {
+      text-decoration: none!important;
+      color: #cbd3da!important;
+    }
+
+    .mt-3 {
+      margin-top: 1rem!important;
+    }
+
+    .pt-md-2 {
+      padding-top: 0.5rem!important;
+    }
+    .mb-md-1 {
+      margin-bottom: 0.25rem!important;
+    }
+
+    .description {
+      color: #a0a0a0!important;
+      font-size: .85rem;
+    }
+
+    .mt-md-1rem {
+      margin-top: 1rem!important;
+    }
+    .pt-sm-2 {
+      padding-top: 0.5rem!important;
+    }
+
+    .source {
+      margin-right: 7px;
+    }
+
+    .markdown-body * {
+      box-sizing: unset;
+    }
     </style>
   </head>
 
   <body class="body">
 
     <section class="markdown-body">
+
       <h1>Helm Charts</h1>
+
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  collection-management-operators
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-25
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.31
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">operator</span>
+              
+              <span class="tags">deployment</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  collection-operators
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-07-24
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.20
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Collection of Operators which can be deployed on Demo Systems.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">operator</span>
+              
+              <span class="tags">deployment</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  collection-optional-operators
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.21/collection-optional-operators-1.0.21.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.21/collection-optional-operators-1.0.21.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-31
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.21
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Collection of optional operators, like CodeReadyWorkspaces.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">operator</span>
+              
+              <span class="tags">deployment</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  compliance-operator-full-stack
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.20
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Master chart to deploy and configure the Compliance Operator
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">security</span>
+              
+              <span class="tags">compliance</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  cyclonedx
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-09-25
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.0
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          A Helm chart to deploy CycloneDX to generate SBOM
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">gitops</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  generic-cluster-config
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-05
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.17
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">generic</span>
+              
+              <span class="tags">clusterconfig</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  helper-argocd
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-31
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 2.0.14
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Takes care of creation of Applications and ApplicationSets
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">helper</span>
+              
+              <span class="tags">subchart</span>
+              
+              <span class="tags">gitops</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  helper-operator
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-24
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.18
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">helper</span>
+              
+              <span class="tags">subchart</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  helper-proj-onboarding
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-09-18
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.27
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">helper</span>
+              
+              <span class="tags">subchart</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  helper-server-side-apply
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-07-06
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.6
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6&#43;
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">helper</span>
+              
+              <span class="tags">subchart</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  helper-status-checker
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-07-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 3.0.6
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          A helper Chart which creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">helper</span>
+              
+              <span class="tags">subchart</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  openshift-data-foundation
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-28
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.20
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Deploys the OpenShift Data Foundation Operator
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">storage</span>
+              
+              <span class="tags">odf</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  openshift-gitops
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-07-24
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.20
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Installs and patches the Red Hat Openshift Gitops Operator
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">gitops</span>
+              
+              <span class="tags">management</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  openshift-logging
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.19
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Deploy and configure OpenShift Logging including Elasticsearch and Kibana
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">logging</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  pipeline-example
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.4
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">pipelines</span>
+              
+              <span class="tags">cicd</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  quay-registry-setup
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-30
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.9
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Chart to deploy and configure Quay
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">management tool</span>
+              
+              <span class="tags">registry</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  rhacm-full-stack
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <span class="deprecated">DEPRECATED</span>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-20
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.14
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Master chart to deploy RHACM operator
+        </div>
+         
+
+        
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  rhacm-setup
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-21
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.1
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">clustermanagement</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  rhacs-demo-applications
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.3
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">securitytesting</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  rhacs-full-stack
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <span class="deprecated">DEPRECATED</span>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-18
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.35
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
+        </div>
+         
+
+        
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  rhacs-setup
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-10-20
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.2
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">acs</span>
+              
+              <span class="tags">security</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://avatars.githubusercontent.com/u/34656521?s=200&amp;v=4">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  sealed-secrets
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.12
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          A Helm chart to deploy sealed-secrets - epends on Bitnami&#39;s helm chart
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">secretmanagement</span>
+              
+              <span class="tags">security</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  setup-container-security-operator
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-06-12
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.3
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          Setup the Container Security Operator
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">operator</span>
+              
+              <span class="tags">security</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
+
+      
+      <div class="cardbox">
+        <div class="cardbody flex-column">
+          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+
+            
+            
+            <div class="card-iconbox align-items-center justify-content-center position-relative d-flex overflow-hidden">
+              <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonar-dark-backgrounds.png">
+            </div>
+
+            
+            <div class="chart-info justify-content-between d-flex">
+              <div class="chart-tile mb-0 text-truncate">
+                <div class="d-flex align-items-center flex-row justify-content-between title">
+                  sonarqube
+                </div>
+              </div>
+
+                <div></div>
+                
+                <div>
+                <div class="mw-100 d-flex flex-row">
+                  <div class="chart-maintainer d-flex flex-row">
+                    <div class="chart-maintainer-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="0.85rem" viewBox="0 0 448 512"><style>svg{fill:#cbd3da}</style><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    </div>
+                    <div class="text-truncate">
+                      Maintainers:
+                      
+                      tjungbauer
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+            
+
+            
+            <div class="chart-title-right ms-auto mb-auto align-items-end flex-column d-flex">
+           
+              <div class="d-flex justify-content-between">
+                
+                <div class="source">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <span class="fa-brands fa-github githublogo"></span>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="source-link" href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets" title="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">Source</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+                
+
+                <div class="">
+                <button class="download-button">
+                  <div class="d-flex flex-row align-items-center">
+                    <div class="position-relative download-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                    </div>
+                    <div class="ms-1"> 
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz">Download</a>
+                    </div>
+                  </div>
+                </button>
+                </div>
+              </div>
+
+
+
+              <div clas="mt-1">
+                <small class="additional-info">
+                  Last update: 2023-09-26
+                </small>
+              </div>
+              <div class="mt-1">
+                <small class="additional-info">
+                  Version: 1.0.0
+                </small>
+              </div>
+            </div>
+            
+          </div>
+
+
+
+         
+        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+          A Helm chart to deploy sonarqube community edition -d epends on Sonarcube&#39;s helm chart
+        </div>
+         
+
+        
+        
+        <div class="d-flex flex-row justify-content-between mt-md-1rem pt-sm-2">
+
+          <div class="">
+            <p class="tags">
+              Tags: 
+              
+              <span class="tags">devsecops</span>
+              
+              <span class="tags">security</span>
+              
+            </p>
+          </div>
+
+        </div>
+        
+        
+
+
+        </div>
+      </div>
+      
 
       <h2>Usage</h2>
       <pre lang="no-highlight"><code>
@@ -227,883 +3210,8 @@
       Mainly used by: <a href="https://github.com/tjungbauer/openshift-cluster-bootstrap">https://github.com/tjungbauer/openshift-cluster-bootstrap</a>
       </p>
 
-      <h2>Charts</h2>
 
-      <div class="charts">
-
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  collection-management-operators (1.0.31)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.31/collection-management-operators-1.0.31.tgz"></a>
-                </p>
-                <p class="description">
-                  Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">operator</span>
-                
-                <span class="tags">deployment</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  collection-operators (1.0.20)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.20/collection-operators-1.0.20.tgz"></a>
-                </p>
-                <p class="description">
-                  Collection of Operators which can be deployed on Demo Systems.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">operator</span>
-                
-                <span class="tags">deployment</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.20/collection-optional-operators-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.20/collection-optional-operators-1.0.20.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  collection-optional-operators (1.0.20)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.20/collection-optional-operators-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.20/collection-optional-operators-1.0.20.tgz"></a>
-                </p>
-                <p class="description">
-                  Collection of optional operators, like CodeReadyWorkspaces.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">operator</span>
-                
-                <span class="tags">deployment</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  compliance-operator-full-stack (1.0.20)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.20/compliance-operator-full-stack-1.0.20.tgz"></a>
-                </p>
-                <p class="description">
-                  Master chart to deploy and configure the Compliance Operator
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">security</span>
-                
-                <span class="tags">compliance</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  cyclonedx (1.0.0)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz"></a>
-                </p>
-                <p class="description">
-                  A Helm chart to deploy CycloneDX to generate SBOM
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">gitops</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  generic-cluster-config (1.0.17)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.17/generic-cluster-config-1.0.17.tgz"></a>
-                </p>
-                <p class="description">
-                  This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">generic</span>
-                
-                <span class="tags">clusterconfig</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  helper-argocd (2.0.14)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.14/helper-argocd-2.0.14.tgz"></a>
-                </p>
-                <p class="description">
-                  Takes care of creation of Applications and ApplicationSets
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">helper</span>
-                
-                <span class="tags">subchart</span>
-                
-                <span class="tags">gitops</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  helper-operator (1.0.18)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.18/helper-operator-1.0.18.tgz"></a>
-                </p>
-                <p class="description">
-                  A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">helper</span>
-                
-                <span class="tags">subchart</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  helper-proj-onboarding (1.0.27)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.27/helper-proj-onboarding-1.0.27.tgz"></a>
-                </p>
-                <p class="description">
-                  This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">helper</span>
-                
-                <span class="tags">subchart</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  helper-server-side-apply (1.0.6)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.6/helper-server-side-apply-1.0.6.tgz"></a>
-                </p>
-                <p class="description">
-                  Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6&#43;
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">helper</span>
-                
-                <span class="tags">subchart</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  helper-status-checker (3.0.6)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-3.0.6/helper-status-checker-3.0.6.tgz"></a>
-                </p>
-                <p class="description">
-                  A helper Chart which creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">helper</span>
-                
-                <span class="tags">subchart</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg">
-              </div>
-              <div class="body">
-                <p class="info">
-                  openshift-data-foundation (1.0.20)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.20/openshift-data-foundation-1.0.20.tgz"></a>
-                </p>
-                <p class="description">
-                  Deploys the OpenShift Data Foundation Operator
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">storage</span>
-                
-                <span class="tags">odf</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  openshift-gitops (1.0.20)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.20/openshift-gitops-1.0.20.tgz"></a>
-                </p>
-                <p class="description">
-                  Installs and patches the Red Hat Openshift Gitops Operator
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">gitops</span>
-                
-                <span class="tags">management</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg">
-              </div>
-              <div class="body">
-                <p class="info">
-                  openshift-logging (1.0.19)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.19/openshift-logging-1.0.19.tgz"></a>
-                </p>
-                <p class="description">
-                  Deploy and configure OpenShift Logging including Elasticsearch and Kibana
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">logging</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  pipeline-example (1.0.4)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.4/pipeline-example-1.0.4.tgz"></a>
-                </p>
-                <p class="description">
-                  Create an example Pipeline which does a linting of openshift-cluster-bootstrap using kubelinter, yamllin, yamlscore ....
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">pipelines</span>
-                
-                <span class="tags">cicd</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  quay-registry-setup (1.0.9)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.9/quay-registry-setup-1.0.9.tgz"></a>
-                </p>
-                <p class="description">
-                  Chart to deploy and configure Quay
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">management tool</span>
-                
-                <span class="tags">registry</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  rhacm-setup (1.0.1)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.1/rhacm-setup-1.0.1.tgz"></a>
-                </p>
-                <p class="description">
-                  Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">clustermanagement</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg">
-              </div>
-              <div class="body">
-                <p class="info">
-                  rhacs-demo-applications (1.0.3)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.3/rhacs-demo-applications-1.0.3.tgz"></a>
-                </p>
-                <p class="description">
-                  Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">securitytesting</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  rhacs-setup (1.0.2)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.2/rhacs-setup-1.0.2.tgz"></a>
-                </p>
-                <p class="description">
-                  Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">acs</span>
-                
-                <span class="tags">security</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://avatars.githubusercontent.com/u/34656521?s=200&amp;v=4">
-              </div>
-              <div class="body">
-                <p class="info">
-                  sealed-secrets (1.0.12)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.12/sealed-secrets-1.0.12.tgz"></a>
-                </p>
-                <p class="description">
-                  A Helm chart to deploy sealed-secrets - epends on Bitnami&#39;s helm chart
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">secretmanagement</span>
-                
-                <span class="tags">security</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  setup-container-security-operator (1.0.3)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.3/setup-container-security-operator-1.0.3.tgz"></a>
-                </p>
-                <p class="description">
-                  Setup the Container Security Operator
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">operator</span>
-                
-                <span class="tags">security</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonar-dark-backgrounds.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  sonarqube (1.0.0)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz"></a>
-                </p>
-                <p class="description">
-                  A Helm chart to deploy sonarqube community edition -d epends on Sonarcube&#39;s helm chart
-                </p>
-              </div>
-            <div class="tagsbottom">
-              <p class="tags">
-                
-                <span class="tags">devsecops</span>
-                
-                <span class="tags">security</span>
-                
-              </p>
-            </div>
-            <div class="bottom">
-                <a href="https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets">
-                    <span class="fa-brands fa-github githublogo"></span>
-                </a>
-            </div>
-          </div>
-          
-          
-
-      </div>
-
-      <h2>DEPRECATED CHARTS</h2>
-
-      <div class="charts">
-
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  rhacm-full-stack (1.0.14)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.14/rhacm-full-stack-1.0.14.tgz"></a>
-                </p>
-              <p class="deprecated">
-                <span class="deprecated">DEPRECATED</span>
-              </p>
-                <p class="description">
-                  Master chart to deploy RHACM operator
-                </p>
-              </div>
-          </div>
-          
-          
-
-          
-          
-
-          
-          
-
-          
-
-          <div class="chart">
-            <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz">
-              <div class="icon">
-                <img class="chart-item-logo" alt="logo" src="https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png">
-              </div>
-              <div class="body">
-                <p class="info">
-                  rhacs-full-stack (1.0.35)
-                  <a href="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/rhacs-full-stack-1.0.35/rhacs-full-stack-1.0.35.tgz"></a>
-                </p>
-              <p class="deprecated">
-                <span class="deprecated">DEPRECATED</span>
-              </p>
-                <p class="description">
-                  Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-                </p>
-              </div>
-          </div>
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-          
-          
-
-      </div>
-
-      <h2>License</h2>
+<h2>License</h2>
 <p>Copyright (c) 2022 Thomas Jungbauer</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");<br />
@@ -1121,6 +3229,6 @@ See the License for the specific language governing permissions and<br />
 limitations under the License.<br />
 </p>
     </section>
-    <time class="time" datetime="2023-10-31T07:20:33" pubdate id="generated">Tue Oct 31 2023 07:20:33AM UTC&#43;00:00</time>
+    <time class="time" datetime="2023-10-31T14:03:00" pubdate id="generated">Tue Oct 31 2023 02:03:00PM UTC&#43;00:00</time>
   </body>
 </html>
