@@ -212,7 +212,7 @@
       background-color: #2c2e31;
       width: 600px;
       min-width: 0;
-      height: 70px;
+      height: 85px;
       margin-left: 0.75rem;
       padding: 0.6rem 1rem;
       flex-direction: column!important;
@@ -378,6 +378,14 @@
 
       <h1>Helm Charts</h1>
 
+      <div>
+        <p>
+          Welcome to my Helm Repository. I am using these Charts as a central storage for my GitOps approach. <br />
+          Whenever I spin up a new cluster, these Charts help me to configure it. <br /><br />
+          Feel free to test them and let me know if there are any issues.
+       </p>
+      </div>
+
       {{ range $key, $chartEntry := .Entries }}
 
       <!-- chart box -->
@@ -436,7 +444,7 @@
                       <span class="fa-brands fa-github githublogo"></span>
                     </div>
                     <div class="ms-1"> 
-                      <a class="source-link" href="{{ (index $chartEntry 0).Home }}" title="{{ (index $chartEntry 0).Home }}">Source</a>
+                      <a class="source-link" href="{{ (index $chartEntry 0).Home }}" title="{{ (index $chartEntry 0).Home }}" target="_blank" rel="noopener noreferrer">Source</a>
                     </div>
                   </div>
                 </button>
@@ -466,9 +474,17 @@
               </div>
               <div class="mt-1">
                 <small class="additional-info">
+                  <a class="download-link" href="https://artifacthub.io/packages/helm/openshift-bootstraps/{{ (index $chartEntry 0).Name }}" target="_blank" rel="noopener noreferrer">Artifacthub</a>
+                </small>
+              </div>
+
+              <div class="mt-1">
+                <small class="additional-info">
                   Version: {{ (index $chartEntry 0).Version }}
                 </small>
               </div>
+
+
             </div>
             <!-- End Chart Right box -->
           </div>
