@@ -174,10 +174,11 @@
       overflow: hidden;
       border: 1px solid #676869;
       transition: 0.25s ease box-shadow, 0.25s ease transform;
-      max-width: 100%!important;
+      max-width: 48%!important;
       min-height: 215px;
       position: relative;
       margin-bottom: 20px;
+      background-color: #232529;
     }
 
     .cardbox:hover {
@@ -187,7 +188,7 @@
 
     .cardbody {
       padding: 1.75rem!important;
-      height: 100%!important;
+      /*height: 100%!important; */
       display: flex!important;
     }
 
@@ -250,6 +251,10 @@
       justify-content: space-between!important;
     }
 
+    .justify-content-evenly {
+        justify-content: space-evenly!important;
+      }
+
     .mwidth-100 {
       min-width: 0;
     }
@@ -273,6 +278,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .text-descr {
+      overflow: hidden;
     }
 
     .flex-row {
@@ -300,6 +309,9 @@
     .align-items-end {
       align-items: flex-end!important;
     }
+    .flex-wrap{
+        flex-wrap: wrap!important;
+      }
     .flex-column {
       flex-direction: column!important;
     }
@@ -386,8 +398,8 @@
        </p>
       </div>
 
+    <div class="d-flex flex-wrap justify-content-between">
       {{ range $key, $chartEntry := .Entries }}
-
       <!-- chart box -->
       <div class="cardbox">
         <div class="cardbody flex-column">
@@ -492,7 +504,7 @@
 
 
          <!-- Chart description -->
-        <div class="mb-0 mt-3 text-truncate pt-md-2 mb-md-1 description">
+        <div class="mb-0 mt-3 text-descr pt-md-2 mb-md-1 description">
           {{ (index $chartEntry 0).Description }}
         </div>
          <!-- End Chart description -->
@@ -518,6 +530,9 @@
         </div>
       </div>
       {{end}}
+
+    </div>
+
 
       <h2>Usage</h2>
       <pre lang="no-highlight"><code>
