@@ -31,57 +31,6 @@
       .markdown-body pre {
         background-color: #282c34;
       }
-
-      .charts {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .chart {
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #ccc;
-         
-        transition: 0.25s ease box-shadow, 0.25s ease transform;
-         
-        width: 300px;
-        min-height: 350px;
-        margin: 0.5em;
-        box-shadow: 3px 2px 8px 10px rgb(0 0 0 / 35%);
-        position: relative;
-      }
-
-      .chart:hover {
-        box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
-        transform: scale(0.985);
-      }
-
-      .chart .icon {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 110px;
-        background-color: #fff;
-        align-items: center;
-      }
-      .chart .icon img {
-        max-height: 80%;
-      }
-      .chart .body {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        border-top: 1px solid #d7d9dd;
-        padding: 0 1em;
-        flex-direction: column;
-        word-wrap: break-word;
-        text-align: center;
-      }
-      .chart .body .info {
-        word-wrap: break-word;
-        text-align: center;
-      }
  
       .time {
         color: #dedede;
@@ -89,21 +38,6 @@
       .githublogo {
         color: #fff;
         text-align: right;
-      }
-      .bottom{
-        position: relative;
-      }
-
-      .bottom span {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-      }
-
-      div.chart div.bottom {
-        position: absolute;
-        bottom: 0;
-        right: 0;
       }
 
       div.tags {
@@ -137,17 +71,6 @@
        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
        color: #fff;
        margin-right: 5px;
-    }
-
-    .tagsbottom {
-      position: absolute;
-      left: 0;
-      right: 0;
-       
-      bottom: 0;
-      justify-content: center;
-      display: flex;
-      text-align: center;
     }
 
     span.deprecated {
@@ -381,6 +304,42 @@
     .markdown-body * {
       box-sizing: unset;
     }
+
+    @media (max-width: 390px) {
+        .chart-info {
+            background-color: #2c2e31;
+            padding: 0.6rem 1rem;
+            width: unset!important;
+            flex-direction: column!important;
+            box-sizing: inherit;
+          }
+          .cardbox {
+            overflow: hidden;
+            border: 1px solid #676869;
+            transition: 0.25s ease box-shadow, 0.25s ease transform;
+            max-width: 100%!important;
+            min-height: 215px;
+            position: relative;
+            margin-bottom: 20px;
+            background-color: #232529;
+          }
+          .cardbody-inner {
+            display: unset!important;
+          }
+          .title {
+            font-size: 0.95rem;
+            display: unset!important;
+          }
+          .hide{
+            display: none!important;
+          }
+          .chart-title {
+            box-sizing: initial;
+          }
+          .download-button{
+            margin-top: 0.25rem!important;
+          }
+      }
     </style>
   </head>
 
@@ -403,7 +362,7 @@
       <!-- chart box -->
       <div class="cardbox">
         <div class="cardbody flex-column">
-          <div class="d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
+          <div class="cardbody-inner d-flex mwidth-100 align-items-stretch flex-grow-1 h-100">
 
             <!-- Chart title box -->
             <!-- Chart icon -->
@@ -464,7 +423,7 @@
                 {{end}}
 
                 <div class="">
-                <button class="download-button">
+                <button class="download-button hide">
                   <div class="d-flex flex-row align-items-center">
                     <div class="position-relative download-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
