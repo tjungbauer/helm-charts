@@ -1,0 +1,41 @@
+name: Build Frontpage Manual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+      #  if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: 'gh-pages'
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        persist-credentials: true
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install Helm Plugin helm-repo-htlm
+      run: |
+        helm plugin install https://github.com/halkeye/helm-repo-html
+
+    - name: Create Frontpage
+      run: |
+        helm repo-html -t tpl/index.tpl
+
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        ssh: true
+        branch: 'gh-pages'
