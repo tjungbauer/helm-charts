@@ -1,0 +1,7 @@
+---
+enabled: true
+syncwave: 2
+namespace: log-namespace
+secretname: logging-loki-s3
+bucket:
+  name: bucket-name
