@@ -11,11 +11,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    {{- if eq ( $.Values.vector | toString) "true" }}
-    logging.openshift.io/preview-vector-collector: enabled
-    {{- end }}
 spec:
-  managementState: "Managed"
+  managementState: {{ .managementState | default "Managed" | quote }}
   {{- if eq ( $.Values.elasticsearch | toString) "true" }}
   logStore:
     type: "elasticsearch"
@@ -38,11 +35,11 @@ spec:
       redundancyPolicy: {{ .es.redundancyPolicy | quote }}
       retentionPolicy: 
         application:
-          maxAge: {{ .retentionPolicy.application | default "1d" }}
+          maxAge: {{ .retentionPolicy.application.maxAge | default "1d" }}
         infra:
-          maxAge: {{ .retentionPolicy.infra | default "1d" }}
+          maxAge: {{ .retentionPolicy.infra.maxAge | default "1d" }}
         audit:
-          maxAge: {{ .retentionPolicy.audit | default "1d" }}
+          maxAge: {{ .retentionPolicy.audit.maxAge | default "1d" }}
   visualization:
     type: "kibana"
     kibana:
@@ -52,15 +49,87 @@ spec:
       type: "fluentd"
       fluentd: {}
   {{- end }}
-  {{- if eq ( $.Values.lokistack | toString) "true" }}
+  {{- if eq .logStore.type "lokistack" }}
+  {{- with .logStore }}
   logStore:
-    type: lokistack
+    type: {{ .type }}
     lokistack:
-      name: logging-loki
+      name: {{ .lokistack }}
+    {{- if .retentionPolicy }}
+    retentionPolicy:
+      {{- if .retentionPolicy.application }}
+      application:
+        {{- if .retentionPolicy.application.maxAge }}
+        maxAge: {{ .retentionPolicy.application.maxAge }}
+        pruneNamespacesInterval: {{ .retentionPolicy.application.pruneNamespacesInterval | default "1d" }}
+        {{- end }}
+      {{- end }}
+      {{- if .retentionPolicy.audit }}
+      audit:
+        {{- if .retentionPolicy.audit.maxAge }}
+        maxAge: {{ .retentionPolicy.audit.maxAge }}
+        pruneNamespacesInterval: {{ .retentionPolicy.audit.pruneNamespacesInterval | default "1d" }}
+        {{- end }}
+      {{- end }}
+      {{- if .retentionPolicy.infra }}
+      infra:
+        {{- if .retentionPolicy.infra.maxAge }}
+        maxAge: {{ .retentionPolicy.infra.maxAge }}
+        pruneNamespacesInterval: {{ .retentionPolicy.infra.pruneNamespacesInterval | default "1d" }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
   collection:
-    type: vector
-    logs:
-      type: vector
+    type: {{ .collection.type | default "vector" }}
+
+    {{- /* Set tolerations for the COLLECTOR */}}
+    {{- if .collection.tolerations }}
+    tolerations:
+      {{- range $key, $value := .collection.tolerations }}
+      - effect: {{ $value.effect }}
+        key: {{ $value.key }}
+        operator: {{ $value.operator }}
+        value: {{ $value.value }}
+        {{- if $value.tolerationSeconds }}
+        tolerationSeconds: {{ $value.tolerationSeconds }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* Set resources for the COLLECTOR */}}
+    {{- if .collection.resources }}
+    {{- with .collection.resources }}
+    resources:
+      {{- if .requests }}
+      requests:
+        {{- if .requests.cpu }}
+        cpu: {{ .requests.cpu }}
+        {{- end }}
+        {{- if .requests.memory }}
+        memory: {{ .requests.memory }}
+        {{- end }}
+        {{- if index  "ephemeral-storage" }}
+        ephemeral-storage: {{ index .requests "ephemeral-storage" }}
+        {{- end }}
+      {{- end }}
+      {{- if .limits }}
+      limits:
+        {{- if .limits.cpu }}
+        cpu: {{ .limits.cpu }}
+        {{- end }}
+        {{- if .limits.memory }}
+        memory: {{ .limits.memory }}
+        {{- end }}
+        {{- if index .limits "ephemeral-storage" }}
+        ephemeral-storage: {{ index .limits "ephemeral-storage" }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+  visualization:
+    type: {{ .visualization.type | default "ocp-console" }}
+  {{- end }}
   {{- end }}
 {{- end }}
 {{- end }}
+ 
