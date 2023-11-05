@@ -1,8 +1,46 @@
 ---
-
-elasticsearch: &es false
-lokistack: &loki false
-vector: false
+loggingConfig:
+  enabled: false
+  syncwave: '4'
+  # Indicator if the resource is 'Managed' or 'Unmanaged' by the operator
+  # managementState: Managed
+  # Specification of the Log Storage component for the cluster
+  logStore:
+    # The Type of Log Storage to configure. The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store.
+    type: lokistack
+    # Name of the LokiStack resource.
+    lokistack: logging-loki
+    retentionPolicy:
+      application:
+        maxAge: 1d
+      audit:
+        maxAge: 1d
+      infra:
+        maxAge: 1d
+    visualization:
+      # The type of Visualization to configure
+      # Could be either Kibana or ocp-console
+      type: ocp-console
+    collection:
+      # The type of Log Collection to configure
+      # Vector in case of Loki...
+      type: vector
+      # The resource requirements for the collector
+      # resources:
+      #   limits:
+      #     cpu: '500m'
+      #     memory: '1Gi'
+      #     ephemeral-storage: '50Mi'
+      #   requests:
+      #     cpu: '500m'
+      #     memory: '1Gi'
+      #     ephemeral-storage: '500Mi'
+      # Define the tolerations the Pods will accept
+      # tolerations:
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: 'reserved'
 
 # Install Operator Compliance Operator
 # Deploys Operator --> Subscription and Operatorgroup

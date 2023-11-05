@@ -1,12 +1,12 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging including Elasticsearch and Kibana
-version: 1.0.21
+version: 1.0.22
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
   - name: helper-operator
-    version: "1.0.14"
+    version: ~1.0.18
     repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~3.0.0
@@ -27,3 +27,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: Signing Chart
+    - kind: added
+      description: Optimizing Loki configuration for ClusterLogging object.
