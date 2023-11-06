@@ -64,12 +64,58 @@ spec:
         if obj.status ~= nil then
           if obj.status.health ~= nil then
             hs.status = obj.status.health.status
-            hs.message = obj.status.health.message
+            if obj.status.health.message ~= nil then
+              hs.message = obj.status.health.message
+            end
           end
+        end
+        if obj.status.sync.status == "Unknown" then
+          hs.status = "Degraded"
+          hs.message = "Something went wrong, status degraded. Verify the Argo CD Application"
         end
         return hs
       group: argoproj.io
       kind: Application
+    - check: |
+        hs = {}
+        if obj.status ~= nil and obj.status.conditions ~= nil then
+            for i, condition in ipairs(obj.status.conditions) do
+              if condition.type == "Degraded" and condition.reason == "MissingObjectStorageSecret" then
+                  hs.status = "Degraded"
+                  hs.message = "Missing Bucket Secret"
+              end
+              if condition.type == "Pending" and condition.reason == "PendingComponents" and condition.status == „True“ then
+                  hs.status = "Progressing"
+                  hs.message = "Some LokiStack components pending on dependencies"
+              end
+              if condition.type == "Ready" and condition.reason == "ReadyComponents" then
+                  hs.status = "Healthy"
+                  hs.message = "All components are ready"
+              end
+            end
+            return hs
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for LokiStack to deploy."
+        return hs
+      group: loki.grafana.com
+      kind: LokiStack
+    - check: |
+        hs = {}
+        hs.status = "Progressing"
+        hs.message = "Progressing ClusterLogging"
+        if obj.status ~= nil and obj.status.conditions ~= nil then
+            for i, condition in ipairs(obj.status.conditions) do
+              if condition.type == "Ready" then
+                  hs.status = "Healthy"
+                  hs.message = "ClusterLogging is ready"
+              end
+            end
+            return hs
+        end
+        return hs
+      group: logging.openshift.io
+      kind: ClusterLogging
     - check: |
         hs = {}
         hs.status = "Progressing"
