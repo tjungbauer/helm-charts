@@ -98,6 +98,7 @@
       border: 1px solid #676869;
       transition: 0.25s ease box-shadow, 0.25s ease transform;
       max-width: 48%!important;
+      min-width: 48%!important;
       min-height: 215px;
       position: relative;
       margin-bottom: 20px;
