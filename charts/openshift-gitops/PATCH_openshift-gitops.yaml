@@ -82,7 +82,7 @@ spec:
             -- check if phase (alls phases including PostSync) are Succeeded
             elseif obj.status.operationState.phase == "Succeeded" then
               hs.status = obj.status.health.status
-            -- everything else is Unknonw
+            -- everything else is Unknown
             else
               hs.status = "Unknown"
             end
