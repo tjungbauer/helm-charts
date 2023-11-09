@@ -23,22 +23,24 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
+    {{- if .namespace }}
     namespace: {{ .namespace.name | default "openshift-gitops" }}
+    {{- end }}
     server: {{ .server }}
   project: {{ .project }}
+  {{- if .namespace }}
   {{- if eq (.namespace.create | toString) "true" }}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
   {{- end }}
-  {{- if eq (.namespace.create | toString) "false" }}
+  {{- end }}
   {{- if .syncOptions }}
   syncPolicy:
     syncOptions:
     {{- range .syncOptions }}
         - {{ .name }}={{ .value }}
     {{- end }}
-  {{- end }}
   {{- end }}
   source:
     {{- if .source.path }}

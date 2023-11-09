@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications and ApplicationSets
-version: 2.0.17
+version: 2.0.18
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
