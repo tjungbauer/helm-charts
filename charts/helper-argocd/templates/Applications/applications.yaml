@@ -26,8 +26,8 @@ spec:
     {{- if .namespace }}
     namespace: {{ .namespace.name | default "openshift-gitops" }}
     {{- end }}
-    server: {{ .server }}
-  project: {{ .project }}
+    server: {{ .server | default $.Values.general.server }}
+  project: {{ .project | default "default" }}
   {{- if .namespace }}
   {{- if eq (.namespace.create | toString) "true" }}
   syncPolicy:
