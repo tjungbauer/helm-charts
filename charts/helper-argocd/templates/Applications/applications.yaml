@@ -24,7 +24,9 @@ metadata:
 spec:
   destination:
     {{- if .namespace }}
-    namespace: {{ .namespace.name | default "openshift-gitops" }}
+    namespace: {{ .namespace.name }}
+    {{- else }}
+    namespace: "openshift-gitops"
     {{- end }}
     server: {{ .server | default $.Values.general.server }}
   project: {{ .project | default "default" }}
