@@ -59,6 +59,7 @@ spec:
   resourceHealthChecks:
     - check: |
         hs = {}
+        -- Default return value ... to have something
         hs.status = "Progressing"
         hs.message = ""
         if obj.status ~= nil then
@@ -67,24 +68,40 @@ spec:
               hs.message = obj.status.health.message
             end
           end
+          -- verify operationState.phase to see if PostSync has been finished
           if obj.status.operationState ~= nil then
+            -- check if phase is Running or Terminating
             if obj.status.operationState.phase == "Running" or obj.status.operationState.phase == "Terminating" then 
               hs.status = "Progressing"
+            -- check if phase if Degraded or Error
             elseif obj.status.operationState.phase == "Degraded" or obj.status.operationState.phase == "Error" or obj.status.operationState.phase == "Failed" then
               hs.status = "Degraded"
               if obj.status.operationState.message ~= nil then
                 hs.message = obj.status.operationState.message
               end
+            -- check if phase (alls phases including PostSync) are Succeeded
             elseif obj.status.operationState.phase == "Succeeded" then
               hs.status = obj.status.health.status
+            -- everything else is Unknonw
             else
               hs.status = "Unknown"
+            end
+          else
+            -- for the main App of Apps and ApplicationSets that does not automatically sync the Apps.
+            if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Healthy" then
+              hs.status = "Missing"
+              hs.message = "Out of Sync"
+            end
+            -- Compare if status is Missing and sync.status is OutOfSync
+            if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Missing" then
+              hs.status = "Missing"
+              hs.message = "Out of Sync"
             end
           end
         end
         if obj.status.sync.status == "Unknown" then
-          hs.status = "Degraded"
-          hs.message = "Something went wrong, status degraded. Verify the Argo CD Application"
+          hs.status = "Progressing"
+          hs.message = "Unknown status. Verify the Argo CD Application"
         end
         return hs
       group: argoproj.io
