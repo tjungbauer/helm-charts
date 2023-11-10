@@ -34,8 +34,12 @@ spec:
   syncPolicy:
     {{- if .syncPolicy.autosync_enabled }}
     automated:
-      prune: {{ .syncPolicy.syncpolicy_prune | default "false"  }}
-      selfHeal: {{ .syncPolicy.syncpolicy_selfheal | default "false"  }}
+      {{ if eq (.syncPolicy.syncpolicy_prune | toString) "true" }}
+      prune: {{ .syncPolicy.syncpolicy_prune  }}
+      {{- end }}
+      {{ if eq (.syncPolicy.syncpolicy_selfheal | toString) "true" }}
+      selfHeal: {{ .syncPolicy.syncpolicy_selfheal }}
+      {{- end }}
     {{- end }}
     {{- if .syncPolicy.syncOptions }}
     syncOptions:
