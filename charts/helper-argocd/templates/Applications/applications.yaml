@@ -30,18 +30,18 @@ spec:
     {{- end }}
     server: {{ .server | default $.Values.general.server }}
   project: {{ .project | default "default" }}
-  {{- if .namespace }}
-  {{- if eq (.namespace.create | toString) "true" }}
+  {{- if .syncPolicy }}
   syncPolicy:
+    {{- if .syncPolicy.autosync_enabled }}
+    automated:
+      prune: {{ .syncPolicy.syncpolicy_prune | default "false"  }}
+      selfHeal: {{ .syncPolicy.syncpolicy_selfheal | default "false"  }}
+    {{- end }}
+    {{- if .syncPolicy.syncOptions }}
     syncOptions:
-      - CreateNamespace=true
-  {{- end }}
-  {{- end }}
-  {{- if .syncOptions }}
-  syncPolicy:
-    syncOptions:
-    {{- range .syncOptions }}
-        - {{ .name }}={{ .value }}
+    {{- range .syncPolicy.syncOptions }}
+      - {{ .name }}={{ .value }}
+    {{- end }}
     {{- end }}
   {{- end }}
   source:
