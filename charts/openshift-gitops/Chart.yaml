@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.26
+version: 1.0.27
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
