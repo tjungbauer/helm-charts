@@ -88,14 +88,18 @@ spec:
             end
           else
             -- for the main App of Apps and ApplicationSets that does not automatically sync the Apps.
-            if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Healthy" then
-              hs.status = "Missing"
-              hs.message = "Out of Sync"
+            if obj.status.sync.status ~= nil then
+              if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Healthy" then
+                hs.status = "Missing"
+                hs.message = "Out of Sync"
+              end
             end
             -- Compare if status is Missing and sync.status is OutOfSync
-            if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Missing" then
-              hs.status = "Missing"
-              hs.message = "Out of Sync"
+            if obj.status.sync.status ~= nil then
+              if obj.status.sync.status == "OutOfSync" and obj.status.health.status == "Missing" then
+                hs.status = "Missing"
+                hs.message = "Out of Sync"
+              end
             end
           end
         end
