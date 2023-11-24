@@ -1,0 +1,27 @@
+policyGenerator:
+  policyDefaults:
+    disabled: false
+    policyname: console-banner
+    namespace: policies-hub
+    categories:
+      - CM Configuration Management
+    controls:
+      - CM Console Customizations
+    standards:
+      - Baseline 2023v1
+    remediationAction: inform
+
+placement:
+  clusterSets:
+    - hub
+  lableSelectors:
+    - key: name
+      operator: In
+      values:
+        - local-cluster
+
+policySets:
+  - name: console-customizations
+    description: "Contains console customizations"
+    policies:
+      - console-banner

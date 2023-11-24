@@ -1,0 +1,27 @@
+
+backgroundColor: &backgroundColor "#CCCCCC"
+color: &color "#000000"
+  
+policyGenerator:
+  policyTemplates:
+    - name: console-banner
+      remediationAction: enforce
+      complianceType: musthave
+      severity: low
+      pruneObjectBehavior: "DeleteIfCreated"
+
+      objectDefinition:
+        apiVersion: console.openshift.io/v1
+        kind: ConsoleNotification
+        metadata:
+          name: consolebanner
+        spec:
+          backgroundColor: *backgroundColor
+          color: *color
+          link:
+            href: >-
+              {{ printf "https://console.redhat.com/openshift/details/{{fromClusterClaim \"%s\" }}" "id.openshift.io"}}
+            text: RedHat Console
+          location: BannerTop
+          text: >-
+            {{ printf "Name: {{ fromClusterClaim \"%s\" name }}, Version: {{fromClusterClaim \"%s\" }}" "name" "version.openshift.io"}}

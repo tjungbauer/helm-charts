@@ -1,0 +1,32 @@
+{{- with .Values.policyGenerator }}
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  annotations:
+    policy.open-cluster-management.io/categories: {{ join ", " .policyDefaults.categories }}
+    policy.open-cluster-management.io/controls: {{ join ", " .policyDefaults.controls }}
+    policy.open-cluster-management.io/standards: {{ join ", " .policyDefaults.standards }}
+  name: {{ .policyDefaults.policyname }}
+  namespace: {{ .policyDefaults.namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  disabled: {{ .policyDefaults.disabled }}
+  policy-templates:
+    {{- range .policyTemplates }}
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: {{ .name }}
+        spec:
+          object-templates:
+            - complianceType: {{ .complianceType }}
+              objectDefinition:
+{{ toYaml .objectDefinition | indent 16 }}
+          pruneObjectBehavior: {{ .pruneObjectBehavior }}
+          remediationAction: {{ .remediationAction }}
+          severity: {{ .severity }}
+    {{- end }}
+  remediationAction: {{ .policyDefaults.remediationAction }}
+{{- end }}

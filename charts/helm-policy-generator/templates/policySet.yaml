@@ -1,0 +1,17 @@
+{{- with .Values.policySets }}
+{{- range . }}
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.policyGenerator.policyDefaults.namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  description: {{ .description }}
+  policies:
+  {{- range .policies }}
+  - {{ . }}
+  {{- end }}
+{{- end }}
+{{- end }}

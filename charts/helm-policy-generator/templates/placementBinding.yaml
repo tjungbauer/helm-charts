@@ -1,0 +1,17 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placementbinding
+  namespace: {{ .Values.policyGenerator.policyDefaults.namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+placementRef:
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+  name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placement
+subjects:
+{{- range .Values.policySets }}
+- apiGroup: policy.open-cluster-management.io
+  kind: PolicySet
+  name: {{ .name }}
+{{- end }}
