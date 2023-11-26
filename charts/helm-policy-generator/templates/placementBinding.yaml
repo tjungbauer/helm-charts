@@ -1,3 +1,4 @@
+---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
@@ -10,8 +11,20 @@ placementRef:
   kind: Placement
   name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placement
 subjects:
-{{- range .Values.policySets }}
+{{- if .Values.policySet }}
+  {{- if eq ( .Values.policySet.enabled | toString ) "true"  }}
+    {{- range .Values.policySet.sets }}
 - apiGroup: policy.open-cluster-management.io
   kind: PolicySet
   name: {{ .name }}
+    {{- end }}
+  {{- else }}
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: {{ .Values.policyGenerator.policyDefaults.policyname }}
+  {{- end }}
+{{- else }}
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: {{ .Values.policyGenerator.policyDefaults.policyname }}
 {{- end }}

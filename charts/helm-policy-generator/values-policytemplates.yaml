@@ -3,13 +3,56 @@ backgroundColor: &backgroundColor "#CCCCCC"
 color: &color "#000000"
   
 policyGenerator:
+
+  # Used to create one or more policies to apply to a managed cluster.
   policyTemplates:
     - name: console-banner
+
+      # Specifies the action to take when the policy is non-compliant. Use
+      # the following parameter values:
+      #   - inform
+      #   - InformOnly
+      #   - enforce
+      #
+      # Default: inform
+      # Important: the policy-template.spec.remediationAction is overridden by the
+      # preceding parameter value for spec.remediationAction (if defined)
       remediationAction: enforce
+
+      # Used to define the desired state of the Kubernetes object on the
+      # managed clusters. You must use one of the following verbs as the parameter value:
+      # mustonlyhave: Indicates that an object must exist with the exact fields and values as 
+      #               defined in the objectDefinition.
+      # musthave: Indicates an object must exist with the same fields as specified in the objectDefinition. 
+      #           Any existing fields on the object that are not specified in the object-template
+      #           are ignored. In general, array values are appended. The exception for the array to be
+      #           patched is when the item contains a name key with a value that matches an existing item. Use a
+      #           fully defined objectDefinition using the mustonlyhave compliance type, if you want to
+      #           replace the array.
+      # mustnothave: Indicates that an object with the same fields as specified in the objectDefinition
+      #              cannot exist.
       complianceType: musthave
+
+      # Specifies the severity when the policy is non-compliant. Use the
+      # following parameter values: low, medium, high, or critical.
+      #
+      # Default: low
       severity: low
+
+      # Determines whether to clean up resources related to the policy
+      # when the policy is removed from a managed cluster.
+      #
+      # Values:
+      #    - DeleteIfCreated: Cleans up any resources created by the policy.
+      #    - DeleteAll: Cleans up all resources managed by the policy.
+      #    - None: This is the default value and maintains the same behavior
+      #            from previous releases, where no related resources are deleted.
       pruneObjectBehavior: "DeleteIfCreated"
 
+      # A Kubernetes object (either fully defined or containing a subset of
+      # fields) for the controller to compare with objects on the managed cluster
+      #
+      # In this example a full definition of ConsoleNotification is defined.
       objectDefinition:
         apiVersion: console.openshift.io/v1
         kind: ConsoleNotification

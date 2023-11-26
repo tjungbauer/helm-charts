@@ -1,5 +1,8 @@
-{{- with .Values.policySets }}
-{{- range . }}
+{{- if .Values.policySet }}
+{{- if .Values.policySet.enabled }}
+{{- if eq ( .Values.policySet.enabled | toString ) "true"  }}
+{{- range .Values.policySet.sets }}
+---
 apiVersion: policy.open-cluster-management.io/v1beta1
 kind: PolicySet
 metadata:
@@ -13,5 +16,7 @@ spec:
   {{- range .policies }}
   - {{ . }}
   {{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}

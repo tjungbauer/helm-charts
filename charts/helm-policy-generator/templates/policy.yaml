@@ -1,17 +1,27 @@
 {{- with .Values.policyGenerator }}
+---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   annotations:
+    {{- if .policyDefaults.categories }}
     policy.open-cluster-management.io/categories: {{ join ", " .policyDefaults.categories }}
+    {{- end }}
+    {{- if .policyDefaults.controls }}
     policy.open-cluster-management.io/controls: {{ join ", " .policyDefaults.controls }}
+    {{- end }}
+    {{- if .policyDefaults.standards }}
     policy.open-cluster-management.io/standards: {{ join ", " .policyDefaults.standards }}
+    {{- end }}
+    {{- if .policyDefaults.description }}
+    policy.open-cluster-management.io/description: {{ .policyDefaults.description }}
+    {{- end }}
   name: {{ .policyDefaults.policyname }}
   namespace: {{ .policyDefaults.namespace }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  disabled: {{ .policyDefaults.disabled }}
+  disabled: {{ .policyDefaults.disabled | default "true" }}
   policy-templates:
     {{- range .policyTemplates }}
     - objectDefinition:
@@ -24,9 +34,11 @@ spec:
             - complianceType: {{ .complianceType }}
               objectDefinition:
 {{ toYaml .objectDefinition | indent 16 }}
-          pruneObjectBehavior: {{ .pruneObjectBehavior }}
-          remediationAction: {{ .remediationAction }}
-          severity: {{ .severity }}
+          pruneObjectBehavior: {{ .pruneObjectBehavior | default "None" }}
+          remediationAction: {{ .remediationAction | default "inform" }}
+          severity: {{ .severity | default "low" }}
     {{- end }}
+  {{- if .policyDefaults.remediationAction }}
   remediationAction: {{ .policyDefaults.remediationAction }}
+  {{- end }}
 {{- end }}
