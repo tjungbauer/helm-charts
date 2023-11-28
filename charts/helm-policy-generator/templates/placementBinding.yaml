@@ -1,19 +1,20 @@
+{{- range .Values.policies }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placementbinding
-  namespace: {{ .Values.policyGenerator.policyDefaults.namespace }}
+  name: {{ .policyname }}-placementbinding
+  namespace: {{ .namespace }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 placementRef:
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
-  name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placement
+  name: {{ .policyname }}-placement
 subjects:
-{{- if .Values.policySet }}
-  {{- if eq ( .Values.policySet.enabled | toString ) "true"  }}
-    {{- range .Values.policySet.sets }}
+{{- if $.Values.policySet }}
+  {{- if eq ( $.Values.policySet.enabled | toString ) "true"  }}
+    {{- range $.Values.policySet.sets }}
 - apiGroup: policy.open-cluster-management.io
   kind: PolicySet
   name: {{ .name }}
@@ -21,10 +22,11 @@ subjects:
   {{- else }}
 - apiGroup: policy.open-cluster-management.io
   kind: Policy
-  name: {{ .Values.policyGenerator.policyDefaults.policyname }}
+  name: {{ .policyname }}
   {{- end }}
 {{- else }}
 - apiGroup: policy.open-cluster-management.io
   kind: Policy
-  name: {{ .Values.policyGenerator.policyDefaults.policyname }}
+  name: {{ .policyname }}
+{{- end }}
 {{- end }}

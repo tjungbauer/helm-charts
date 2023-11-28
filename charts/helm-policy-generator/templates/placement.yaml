@@ -1,15 +1,16 @@
+{{- range .Values.policies }}
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: {{ .Values.policyGenerator.policyDefaults.policyname }}-placement
-  namespace: {{ .Values.policyGenerator.policyDefaults.namespace }}
+  name: {{ .policyname }}-placement
+  namespace: {{ .namespace }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  {{- if .Values.placement.clusterSets }}
+  {{- if .placement.clusterSets }}
   clusterSets:
-    {{- range .Values.placement.clusterSets }}
+    {{- range .placement.clusterSets }}
     - {{ . }}
     {{- end }}
   {{- end }}
@@ -17,7 +18,7 @@ spec:
   - requiredClusterSelector:
       labelSelector:
         matchExpressions:
-        {{- range .Values.placement.lableSelectors }}
+        {{- range .placement.lableSelectors }}
         - key: {{ .key }}
           operator: {{ .operator }}
           values:
@@ -25,3 +26,4 @@ spec:
           - {{ . }}
           {{- end }}
         {{- end }}
+{{- end }}

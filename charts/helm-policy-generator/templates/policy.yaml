@@ -1,44 +1,149 @@
-{{- with .Values.policyGenerator }}
+{{- range .Values.policies }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   annotations:
-    {{- if .policyDefaults.categories }}
-    policy.open-cluster-management.io/categories: {{ join ", " .policyDefaults.categories }}
+    {{- if $.Values.policyDefaults }}
+      {{- if $.Values.policyDefaults.categories }}
+    policy.open-cluster-management.io/categories: {{ join ", " $.Values.policyDefaults.categories }}
+      {{- end }}
+    {{- else if .categories }}
+    policy.open-cluster-management.io/categories: {{ join ", " .categories }}
     {{- end }}
-    {{- if .policyDefaults.controls }}
-    policy.open-cluster-management.io/controls: {{ join ", " .policyDefaults.controls }}
+    {{- if $.Values.policyDefaults }}
+      {{- if $.Values.policyDefaults.controls }}
+    policy.open-cluster-management.io/controls: {{ join ", " $.Values.policyDefaults.controls }}
+      {{- end }}
+    {{- else if .controls }}
+    policy.open-cluster-management.io/controls: {{ join ", " .controls }}
     {{- end }}
-    {{- if .policyDefaults.standards }}
-    policy.open-cluster-management.io/standards: {{ join ", " .policyDefaults.standards }}
+    {{- if $.Values.policyDefaults }}
+      {{- if $.Values.policyDefaults.standards }}
+    policy.open-cluster-management.io/standards: {{ join ", " $.Values.policyDefaults.standards }}
+      {{- end }}
+    {{- else if .standards }}
+    policy.open-cluster-management.io/standards: {{ join ", " .standards }}
     {{- end }}
-    {{- if .policyDefaults.description }}
-    policy.open-cluster-management.io/description: {{ .policyDefaults.description }}
+    {{- if $.Values.policyDefaults }}
+      {{- if $.Values.policyDefaults.description }}
+    policy.open-cluster-management.io/description: {{ join ", " $.Values.policyDefaults.description }}
+      {{- end }}
+    {{- else if .description }}
+    policy.open-cluster-management.io/description: {{ .description }}
     {{- end }}
-  name: {{ .policyDefaults.policyname }}
-  namespace: {{ .policyDefaults.namespace }}
+  name: {{ .policyname }}
+  namespace: {{ .namespace }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  disabled: {{ .policyDefaults.disabled | default "true" }}
+  disabled: {{ .disabled | default "true" }}
+  {{- if .dependencies }}
+  dependencies:
+  {{- range .dependencies }}
+    - name: {{ .name | quote }}
+      namespace: {{ .namespace | quote }}
+      compliance: {{ .compliance | default "Compliant" | quote }} 
+      kind: {{ .kind | default "Policy" | quote }} 
+      apiVersion: {{ .apiVersion | default "policy.open-cluster-management.io/v1" | quote }} 
+  {{- end }}
+  {{- end }}
   policy-templates:
-    {{- range .policyTemplates }}
+    {{- range $key, $value := .policy_templates }}
+    {{- $files := printf "%s/**.yaml" .path }}
+    {{- range $path, $_ :=  $.Files.Glob  $files }}
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: {{ .name }}
+          {{- if $.Values.policyDefaults }}
+            {{- if eq ($.Values.policyDefaults.randomizer | toString) "true" }}
+          name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+            {{- else if eq ($value.randomizer | toString) "true" }}
+          name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+            {{- else }}
+          name: {{ $value.name }}
+            {{- end }}
+          {{- else if eq ($value.randomizer | toString) "true" }}
+          name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+          {{- else }}
+          name: {{ $value.name }}
+          {{- end }}
         spec:
           object-templates:
-            - complianceType: {{ .complianceType }}
-              objectDefinition:
-{{ toYaml .objectDefinition | indent 16 }}
-          pruneObjectBehavior: {{ .pruneObjectBehavior | default "None" }}
-          remediationAction: {{ .remediationAction | default "inform" }}
-          severity: {{ .severity | default "low" }}
+            - objectDefinition:  
+                {{- $.Files.Get $path | toYaml | trimAll "|-" | indent 14 }}
+              complianceType: {{ $value.complianceType | default "musthave" }} 
+          pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
+          remediationAction: {{ $value.remediationAction | default "inform" }}
+          severity: {{ $value.severity | default "low" }}
+      {{- end }}
+      {{- if $value.evaluationInterval }}
+      {{- if or ($value.evaluationInterval.compliant) ($value.evaluationInterval.noncompliant) }}
+      evaluationInterval:
+        {{- if $value.evaluationInterval.compliant }}
+        compliant: {{ $value.evaluationInterval.compliant }}
+        {{- end }}
+        {{- if $value.evaluationInterval.noncompliant }}
+        noncompliant: {{ $value.evaluationInterval.noncompliant }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- if $value.extraDependencies }}
+      extraDependencies:
+        {{- range $value.extraDependencies }}
+        - name: {{ $value.name | quote }}
+          namespace: {{ $value.namespace | quote }}
+          compliance: {{ $value.compliance | default "Compliant" | quote }} 
+          kind: {{ $value.kind | default "Policy" | quote }} 
+          apiVersion: {{ $value.apiVersion | default "policy.open-cluster-management.io/v1" | quote }} 
+        {{- end }}
+      {{- end }}
+
+      {{- if $value.namespaceSelector }}
+      namespaceSelector:
+        {{- if $value.namespaceSelector.include }}
+        include:
+        {{- range $value.namespaceSelector.include }}
+          - {{ . }}
+        {{- end }}
+        {{- end }}
+        {{- if $value.namespaceSelector.exclude }}
+        exclude:
+        {{- range $value.namespaceSelector.exclude }}
+          - {{ . }}
+        {{- end }}
+        {{- end }}
+        {{- if $value.namespaceSelector.matchExpressions }}
+        matchExpressions:
+        {{- range $value.namespaceSelector.matchExpressions }}
+        - key: {{ .key }}
+          operator: {{ .operator }}
+          values:
+          {{- range .values }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- if $value.namespaceSelector.matchLabels }}
+        matchLabels:
+        {{- range $key, $value := $value.namespaceSelector.matchLabels }}
+          {{ $key }}: {{ $value }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
     {{- end }}
-  {{- if .policyDefaults.remediationAction }}
-  remediationAction: {{ .policyDefaults.remediationAction }}
+    {{- if .ignorePending }}
+    ignorePending: {{ .ignorePending }}
+    {{- end }}
+  {{- if $.Values.policyDefaults }}
+    {{- if $.Values.policyDefaults.globalRemediationAction }}
+  remediationAction: {{ $.Values.policyDefaults.globalRemediationAction }}
+    {{- else if .remediationAction }}
+  remediationAction: {{ .remediationAction }}
+    {{- end }}
+  {{- else if .remediationAction }}
+  remediationAction: {{ .remediationAction }}
   {{- end }}
+  
 {{- end }}
