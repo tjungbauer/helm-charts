@@ -1950,6 +1950,37 @@ entries:
           description: Initial Release
         - kind: added
           description: descriptions in example values-files and some minor changes for optional parameters
+        - kind: added
+          description: added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2023-11-28T12:03:42.122832001Z"
+    description: This Chart shall help to generate policies for Advanced Cluster Management
+    digest: 2ef2f85444cf3b3cf40035454f7e673988aca535aac3ac328e823db638a6a79b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - acm
+    - policy
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helm-policy-generator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.2/helm-policy-generator-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: descriptions in example values-files and some minor changes for optional parameters
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -8508,4 +8539,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-11-26T06:55:30.574801481Z"
+generated: "2023-11-28T12:03:42.123336654Z"
