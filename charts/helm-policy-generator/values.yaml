@@ -72,6 +72,23 @@ policySet:
       policies:
         - console-banner
 
+      # Places a policySET to a cluster with selected labels and or clusterSet
+      placement:
+        # a clusterSet the policy to bind to. The clusterSet must exist.
+        # Optional
+        # clusterSets:
+        #   - hub
+
+        # required cluster selectors
+        # Selects a cluster based on its labels. For example: name euqals to "local-cluster"
+
+        # multiple selectors can be defined, which must all be true
+        lableSelectors:
+          - key: name
+            operator: In
+            values:
+              - local-cluster
+
 policies:
     # The name for identifying the policy resource.
   - policyname: console-banner
@@ -111,6 +128,14 @@ policies:
         # Optional:
         # Default: empty
         # randomizer: "true"
+
+        # In case multiple policy_templates are used, you can either use the "randomizer"
+        # do set unique names, or use the name of the file where the policy_template is defined.
+        # For example: file/myfile.yaml would name the policy_template as "myfile"
+
+        # Optional
+        # Default: empty
+        # name_use_template_filename: "true"
 
         # Specifies the action to take when the policy is non-compliant. Use
         # the following parameter values:
@@ -192,21 +217,22 @@ policies:
         #     env: test
 
     # Places a policy to a cluster with selected labels and or clusterSet
-    placement:
-      # a clusterSet the policy to bind to. The clusterSet must exist.
-      # Optional
-      # clusterSets:
-      #   - hub
+    # This is used when the PolicySet does NOT define a placement
+    # placement:
+    #   # a clusterSet the policy to bind to. The clusterSet must exist.
+    #   # Optional
+    #   # clusterSets:
+    #   #   - hub
 
-      # required cluster selectors
-      # Selects a cluster based on its labels. For example: name euqals to "local-cluster"
+    #   # required cluster selectors
+    #   # Selects a cluster based on its labels. For example: name euqals to "local-cluster"
 
-      # multiple selectors can be defined, which must all be true
-      lableSelectors:
-        - key: name
-          operator: In
-          values:
-            - local-cluster
+    #   # multiple selectors can be defined, which must all be true
+    #   lableSelectors:
+    #     - key: name
+    #       operator: In
+    #       values:
+    #         - local-cluster
 
     # Description of the policy. Simply adds an annotation.
     #

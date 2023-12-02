@@ -6,7 +6,7 @@ policyDefaults:
     controls:
       - CM Console Customizations
     standards:
-      - Baseline 2023v1
+      - Baseline 2024v1
     description: "Console Customizations"
     globalRemediationAction: enforce
 
@@ -20,6 +20,12 @@ policySet:
         - console-plugins
         - console-banner
         - console-links
+      placement:
+        lableSelectors:
+          - key: name
+            operator: In
+            values:
+              - local-cluster
 
 policies:
   - policyname: console-plugins
@@ -32,12 +38,6 @@ policies:
         complianceType: musthave
         severity: low
         pruneObjectBehavior: "DeleteIfCreated"
-    placement:
-      lableSelectors:
-        - key: name
-          operator: In
-          values:
-            - local-cluster
 
   - policyname: console-banner
     namespace: *namespace
@@ -49,12 +49,6 @@ policies:
         complianceType: musthave
         severity: low
         pruneObjectBehavior: "DeleteIfCreated"
-    placement:
-      lableSelectors:
-        - key: name
-          operator: In
-          values:
-            - local-cluster
 
   - policyname: console-links
     namespace: *namespace
@@ -67,9 +61,3 @@ policies:
         complianceType: musthave
         severity: low
         pruneObjectBehavior: "DeleteIfCreated"
-    placement:
-      lableSelectors:
-        - key: name
-          operator: In
-          values:
-            - local-cluster

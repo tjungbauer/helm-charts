@@ -1,0 +1,52 @@
+namespace: &namespace policies-hub
+
+policyDefaults:
+    categories:
+      - CM Health Checks
+    controls:
+      - CM Health Checks
+    standards:
+      - Baseline 2024v1
+    description: "Console Customizations"
+    globalRemediationAction: inform
+
+policySet:
+  enabled: true
+  sets:
+    - name: generic-cluster-health-checks
+      description: "Performing different generic health checks"
+      namespace: *namespace
+      placement:
+        lableSelectors:
+          - key: name
+            operator: In
+            values:
+              - local-cluster
+
+policies:
+  - policyname: pods-healthcheck
+    namespace: *namespace
+    disabled: 'false'
+    policy_templates:
+      - name: pods-healthcheck
+        name_use_template_filename: "true"
+        path: "examples/cluster-health-checks/pods-health-check"
+        complianceType: mustnothave
+        namespaceSelector:
+          include:
+            - "*"
+          exclude:
+            - default
+
+  - policyname: terminating-namespace
+    namespace: *namespace
+    disabled: 'false'
+    policy_templates:
+      - name: terminating-namespace-healthcheck
+        path: "examples/cluster-health-checks/terminating-namespaces"
+        complianceType: mustnothave
+        namespaceSelector:
+          include:
+            - "*"
+          exclude:
+            - default

@@ -61,11 +61,16 @@ spec:
           name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
             {{- else if eq ($value.randomizer | toString) "true" }}
           name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+            {{- else if eq ($value.name_use_template_filename | toString) "true" }}
+          name: {{ $path | splitList "/" | last | splitList "." | first }}
             {{- else }}
           name: {{ $value.name }}
             {{- end }}
+            
           {{- else if eq ($value.randomizer | toString) "true" }}
           name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+          {{- else if eq ($value.name_use_template_filename | toString) "true" }}
+          name: {{ $path | splitList "/" | last | splitList "." | first }}
           {{- else }}
           name: {{ $value.name }}
           {{- end }}
@@ -77,6 +82,40 @@ spec:
           pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
           remediationAction: {{ $value.remediationAction | default "inform" }}
           severity: {{ $value.severity | default "low" }}
+          {{- /*  */}}
+          {{- if $value.namespaceSelector }}
+          namespaceSelector:
+            {{- if $value.namespaceSelector.include }}
+            include:
+            {{- range $value.namespaceSelector.include }}
+              - {{ . | quote}}
+            {{- end }}
+            {{- end }}
+            {{- if $value.namespaceSelector.exclude }}
+            exclude:
+            {{- range $value.namespaceSelector.exclude }}
+              - {{ . | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if $value.namespaceSelector.matchExpressions }}
+            matchExpressions:
+            {{- range $value.namespaceSelector.matchExpressions }}
+            - key: {{ .key }}
+              operator: {{ .operator }}
+              values:
+              {{- range .values }}
+              - {{ . }}
+              {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if $value.namespaceSelector.matchLabels }}
+            matchLabels:
+            {{- range $key, $value := $value.namespaceSelector.matchLabels }}
+              {{ $key }}: {{ $value }}
+            {{- end }}
+            {{- end }}
+
+
       {{- end }}
       {{- if $value.evaluationInterval }}
       {{- if or ($value.evaluationInterval.compliant) ($value.evaluationInterval.noncompliant) }}
@@ -100,37 +139,6 @@ spec:
         {{- end }}
       {{- end }}
 
-      {{- if $value.namespaceSelector }}
-      namespaceSelector:
-        {{- if $value.namespaceSelector.include }}
-        include:
-        {{- range $value.namespaceSelector.include }}
-          - {{ . }}
-        {{- end }}
-        {{- end }}
-        {{- if $value.namespaceSelector.exclude }}
-        exclude:
-        {{- range $value.namespaceSelector.exclude }}
-          - {{ . }}
-        {{- end }}
-        {{- end }}
-        {{- if $value.namespaceSelector.matchExpressions }}
-        matchExpressions:
-        {{- range $value.namespaceSelector.matchExpressions }}
-        - key: {{ .key }}
-          operator: {{ .operator }}
-          values:
-          {{- range .values }}
-          - {{ . }}
-          {{- end }}
-        {{- end }}
-        {{- end }}
-        {{- if $value.namespaceSelector.matchLabels }}
-        matchLabels:
-        {{- range $key, $value := $value.namespaceSelector.matchLabels }}
-          {{ $key }}: {{ $value }}
-        {{- end }}
-        {{- end }}
       {{- end }}
     {{- end }}
     {{- if .ignorePending }}
