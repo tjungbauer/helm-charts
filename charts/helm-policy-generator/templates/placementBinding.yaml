@@ -1,7 +1,6 @@
 {{- if eq (.Values.policySet.enabled | toString) "true" }}
 {{- range .Values.policySet.sets }}
 {{- if .placement }}
-
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
@@ -20,7 +19,6 @@ subjects:
   name: {{ .name }}
 {{- end }}
 {{- end }}
-
 {{- else }}
 {{- range .Values.policies }}
 ---

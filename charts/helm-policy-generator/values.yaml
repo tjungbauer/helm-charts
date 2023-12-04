@@ -121,6 +121,7 @@ policies:
         # Path the Kubernetes objects in yaml format. (They must be fully defined)
         path: "console-banner"
 
+        # DEPRECATED - use name_use_template_filename instead
         # Activate the policy-template name randomizer for this template.
         # It will add an alpha-nummeric string to the policy-templates.
         # This is required if there are multiple policy-templates in one policy
@@ -215,6 +216,63 @@ policies:
         #   matchLabels:
         #     component: redis
         #     env: test
+
+        ###########################
+        # CertificatePolicy
+        ###########################
+        # Set the value to CertificatePolicy to indicate the type of policy.
+        #
+        # Optional: only required when CertificatePolicy shall be defined
+        # kind: CertificatePolicy
+
+        # When a value is not specified, the default value is 100h. This
+        # parameter specifies the smallest duration (in hours) before a
+        # certificate is considered noncompliant.
+        #
+        # Required
+        # Default: 100h
+        # minimumDuration: 100h
+
+        # Set a value to identify signing certificates that might expire
+        # soon with a different value from other certificates. If the
+        # parameter value is not specified, the CA certificate expiration is the
+        # value used for the minimumDuration.
+        #
+        # Optional
+        # minimumCADuration: 400h
+
+        # Set a value to identify certificates that have been created with a
+        # duration that exceeds your desired limit.
+        #
+        # Optional
+        # maximumDuration: 100h
+
+        # Set a value to identify signing certificates that have been
+        # created with a duration that exceeds your defined limit.
+        #
+        # Optional
+        # maximumCADuration: 100h
+
+        # A regular expression that must match every SAN entry that you
+        # have defined in your certificates.
+        # This parameter checks DNS names against patterns.
+        #
+        # Optional
+        # allowedSANPattern: ""
+
+        # A regular expression that must not match any SAN entries you
+        # have defined in your certificates.
+        # This parameter checks DNS names against patterns.
+        # Note: To detect wild-card certificate, use the following SAN
+        # pattern:
+        #    disallowedSANPattern: "[\\*]"
+        #
+        # Optional
+        # disallowedSANPattern: ""
+
+        ###########################
+        # END CertificatePolicy
+        ###########################
 
     # Places a policy to a cluster with selected labels and or clusterSet
     # This is used when the PolicySet does NOT define a placement

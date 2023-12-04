@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.3
+version: 1.0.4
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
@@ -31,3 +31,5 @@ annotations:
       description: added additional example, Placement and PlacementBinding are correctly created when using PolicySets
     - kind: added
       description: added example for cluster health checks
+    - kind: added
+      description: added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind

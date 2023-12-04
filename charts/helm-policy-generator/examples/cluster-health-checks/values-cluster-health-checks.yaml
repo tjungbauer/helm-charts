@@ -2,19 +2,21 @@ namespace: &namespace policies-hub
 
 policyDefaults:
     categories:
-      - CM Health Checks
+      - CM Configuration Management
     controls:
-      - CM Health Checks
+      - CM-3 Configuration Change Control
+      - Health Checks
     standards:
+      - NIST SP 800-53 Rev 5.1.1
       - Baseline 2024v1
-    description: "Console Customizations"
+    description: "Cluster Health Checks"
     globalRemediationAction: inform
 
 policySet:
   enabled: true
   sets:
     - name: generic-cluster-health-checks
-      description: "Performing different generic health checks"
+      description: "Performing generic health checks"
       namespace: *namespace
       placement:
         lableSelectors:
@@ -50,3 +52,40 @@ policies:
             - "*"
           exclude:
             - default
+
+  - policyname: cluster-operators-healthcheck
+    namespace: *namespace
+    disabled: 'false'
+    policy_templates:
+      - name: cluster-operators-healthcheck
+        path: "examples/cluster-health-checks/cluster-operators-healthcheck"
+        raw: "true"
+
+  - policyname: openshift-certificate-expiration-check
+    namespace: *namespace
+    disabled: 'false'
+    policy_templates:
+      - name: openshift-ingress-controller
+        kind: CertificatePolicy
+        minimumDuration: 24h
+        minimumCADuration: 400h
+        namespaceSelector:
+          include:
+            - openshift-ingress
+      - name: penshift-csrs
+        kind: CertificatePolicy
+        minimumDuration: 24h
+        minimumCADuration: 400h
+        namespaceSelector:
+          include:
+            - openshift-kube-apiserver-operator
+            - openshift-kube-controller-manager-operator
+      - name: openshift-internal-certs
+        kind: CertificatePolicy
+        minimumDuration: 24h
+        namespaceSelector:
+          include:
+            - openshift-config-managed
+            - openshift-kube-apiserver
+            - openshift-kube-scheduler
+            - openshift-kube-controller-manager

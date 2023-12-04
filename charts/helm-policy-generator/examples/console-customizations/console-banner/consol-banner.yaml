@@ -3,10 +3,10 @@ kind: ConsoleNotification
 metadata:
   name: consolebanner
 spec:
-  backgroundColor: "#CCCCCC"
-  color: "#000000"
+  backgroundColor: '{{ fromConfigMap "policies-hub" "hub-cluster-config" "topbanner.backgroundcolor" }}'
+  color: '{{ fromConfigMap "policies-hub" "hub-cluster-config" "topbanner.fontcolor" }}'
   link:
     href: 'https://console.redhat.com/openshift/details/{{fromClusterClaim "id.openshift.io" }}'
-    text: RedHat Console
+    text: '{{ fromConfigMap "policies-hub" "hub-cluster-config" "topbanner.linkname" }}'
   location: BannerTop
   text: 'Name: {{ fromClusterClaim "name" }}, Version: {{ fromClusterClaim "version.openshift.io"}}'
