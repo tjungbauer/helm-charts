@@ -63,6 +63,8 @@ spec:
   {{- end }}
   {{- /* END of policy dependency */}}
   policy-templates:
+
+  policy-templates:
     {{- /* RANGE through policy-templates that build up the polocy */}}
     {{- range $key, $value := .policy_templates }}
 
@@ -71,12 +73,60 @@ spec:
              - put this into helper.tpl or whereever it fits
     */}}
     {{- if eq ($value.kind) "CertificatePolicy" }}
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: {{ $value.kind | default "CertificatePolicy" }}
-        metadata:
-          name: {{ $value.name }}
+      - objectDefinition:
+          apiVersion: policy.open-cluster-management.io/v1
+          kind: {{ $value.kind | default "CertificatePolicy" }}
+          metadata:
+            name: {{ $value.name }}
         spec:
+    {{- else }}
+      {{- /* Get the subfolder and the files which define the policy template */}}
+      {{- $files := printf "%s/**.yaml" .path }}
+
+      {{- /* Get each yaml file from this path */}}
+      {{- range $path, $_ :=  $.Files.Glob  $files }}
+
+      {{- /* Define the object, could be for example ConfigurationPolicy, or CertificatePolicy etc. */}}
+      - objectDefinition:
+          apiVersion: policy.open-cluster-management.io/v1
+          kind: {{ $value.kind | default "ConfigurationPolicy" }}
+
+          {{- /* This is a if/else for the policy_template name:
+                 - If policyDefaults.randomizer is set, then add an alphanumeric value to the name
+                 - Else If policy_template.[0].randomizer is set, then add an alphanumeric value to the name 
+                 - Else if policy_template.[0].name_use_template_filename is set
+                      then: take the filename without the .yaml as name
+
+                randomizer is deprecated. Use name_use_template_filename instead
+          */}}
+          metadata:
+              {{- if eq ($policyDefaults.randomizer | toString) "true" }}
+            name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+              {{- else if eq ($value.randomizer | toString) "true" }}
+            name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
+              {{- else if eq ($value.name_use_template_filename | toString | lower ) "true" }}
+            name: {{ $path | splitList "/" | last | splitList "." | first }}
+              {{- else }}
+            name: {{ $value.name }}
+              {{- end }}
+          {{- /* END of if/else "name" sepcification */}}
+    {{- /* Define the object, could be for example ConfigurationPolicy, or CertificatePolicy etc. */}}
+        spec:
+          pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
+
+          {{- /* Define object tempaltes: either object-template of object-template-raw */}}
+          {{- if eq ( $value.raw | toString) "true" }}
+          object-templates-raw: | 
+          {{- else }}
+          object-templates:
+            - complianceType: {{ $value.complianceType | default "musthave" }}
+              objectDefinition:
+          {{- end }}
+                {{- $.Files.Get $path | toYaml | trimAll "|-" | indent 14 }}
+      {{- /* END of RANGE files.glob */}}
+      {{- end }}
+    {{- end }}
+          {{- if eq ($value.kind) "CertificatePolicy" }}
           minimumDuration: {{ $value.minimumDuration | default "100h" }}
           {{- if $value.minimumCADuration }}
           minimumCADuration: {{ $value.minimumCADuration }}
@@ -93,6 +143,7 @@ spec:
           {{- if $value.disallowedSANPattern }}
           disallowedSANPattern: {{ $value.disallowedSANPattern }}
           {{- end }}
+          {{- end }}
           remediationAction: {{ $value.remediationAction | default "inform" }}
           severity: {{ $value.severity | default "low" }}
           {{- /* Set namespaceSelector */}}
@@ -133,91 +184,6 @@ spec:
             {{- end }}
           {{- end }}
           {{- /* END of namespaceSelector */}}
-    {{- else }}
-
-
-    {{- /* Get the subfolder and the files which define the policy template */}}
-    {{- $files := printf "%s/**.yaml" .path }}
-
-    {{- /* Get each yaml file from this path */}}
-    {{- range $path, $_ :=  $.Files.Glob  $files }}
-
-    {{- /* Define the object, could be for example ConfigurationPolicy, or CertificatePolicy etc. */}}
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: {{ $value.kind | default "ConfigurationPolicy" }}
-
-        {{- /* This is a if/else for the policy_template name:
-               - If policyDefaults.randomizer is set, then add an alphanumeric value to the name
-               - Else If policy_template.[0].randomizer is set, then add an alphanumeric value to the name 
-               - Else if policy_template.[0].name_use_template_filename is set
-                    then: take the filename without the .yaml as name
-              
-              randomizer is deprecated. Use name_use_template_filename instead
-        */}}
-        metadata:
-            {{- if eq ($policyDefaults.randomizer | toString) "true" }}
-          name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
-            {{- else if eq ($value.randomizer | toString) "true" }}
-          name: {{ $value.name }}-{{ randAlphaNum 4 | lower }}
-            {{- else if eq ($value.name_use_template_filename | toString | lower ) "true" }}
-          name: {{ $path | splitList "/" | last | splitList "." | first }}
-            {{- else }}
-          name: {{ $value.name }}
-            {{- end }}
-        {{- /* END of if/else "name" sepcification */}}
-        spec:
-          pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
-          remediationAction: {{ $value.remediationAction | default "inform" }}
-          severity: {{ $value.severity | default "low" }}
-          {{- /* Set namespaceSelector */}}
-          {{- if $value.namespaceSelector }}
-          namespaceSelector:
-            {{- /* Define included namespaces */}}
-            {{- if $value.namespaceSelector.include }}
-            include:
-            {{- range $value.namespaceSelector.include }}
-              - {{ . | quote}}
-            {{- end }}
-            {{- end }}
-            {{- /* Define excluded namespaces */}}
-            {{- if $value.namespaceSelector.exclude }}
-            exclude:
-            {{- range $value.namespaceSelector.exclude }}
-              - {{ . | quote }}
-            {{- end }}
-            {{- end }}
-            {{- /* Set matchExpression for namespaces */}}
-            {{- if $value.namespaceSelector.matchExpressions }}
-            matchExpressions:
-            {{- range $value.namespaceSelector.matchExpressions }}
-            - key: {{ .key }}
-              operator: {{ .operator }}
-              values:
-              {{- range .values }}
-              - {{ . }}
-              {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- /* Set matchLabels for namespaces */}}
-            {{- if $value.namespaceSelector.matchLabels }}
-            matchLabels:
-            {{- range $key, $value := $value.namespaceSelector.matchLabels }}
-              {{ $key }}: {{ $value }}
-            {{- end }}
-            {{- end }}
-          {{- end }}
-          {{- /* END of namespaceSelector */}}
-
-          {{- /* Define object tempaltes: either object-template of object-template-raw */}}
-          {{- if eq ( $value.raw | toString) "true" }}
-          object-templates-raw: | 
-          {{- else }}
-          object-templates:
-            - complianceType: {{ $value.complianceType | default "musthave" }}
-              objectDefinition:
-          {{- end }}
-                {{- $.Files.Get $path | toYaml | trimAll "|-" | indent 14 }} 
 
       {{- /* Set evaluationInterval
              Check time for compliant or noncompliant policies can be defined
@@ -247,9 +213,6 @@ spec:
         {{- end }}
       {{- end }}
       {{- /* END of extraDependencies */}}
-    {{- /* END of RANGE files.glob */}}
-    {{- end }}
-   {{- end }} 
 
     {{- /* END of RANGE policy_templates */}}
     {{- end }}
