@@ -65,24 +65,27 @@ spec:
   policy-templates:
 
   policy-templates:
-    {{- /* RANGE through policy-templates that build up the polocy */}}
+    {{- /* RANGE through policy-templates that build up the policy */}}
     {{- range $key, $value := .policy_templates }}
 
-    {{- /* This is for CERTIFICATEPolicy ONLY  it is much smaller
-           TODO: 
-             - put this into helper.tpl or whereever it fits
+    {{- /* 
+               CERTIFICATEPOLICY
     */}}
+    {{- /* This is for CERTIFICATEPolicy ONLY  */}}
     {{- if eq ($value.kind) "CertificatePolicy" }}
       - objectDefinition:
           apiVersion: policy.open-cluster-management.io/v1
           kind: {{ $value.kind | default "CertificatePolicy" }}
           metadata:
             name: {{ $value.name }}
-        spec:
+          spec:
+    {{- /* 
+               CONFIGURATIONPOLICY
+    */}}
+    {{- /* This is for ConfigurationPolicy ONLY  */}}
     {{- else }}
       {{- /* Get the subfolder and the files which define the policy template */}}
       {{- $files := printf "%s/**.yaml" .path }}
-
       {{- /* Get each yaml file from this path */}}
       {{- range $path, $_ :=  $.Files.Glob  $files }}
 
@@ -111,79 +114,86 @@ spec:
               {{- end }}
           {{- /* END of if/else "name" sepcification */}}
     {{- /* Define the object, could be for example ConfigurationPolicy, or CertificatePolicy etc. */}}
-        spec:
-          pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
+          spec:
+            pruneObjectBehavior: {{ $value.pruneObjectBehavior | default "None" }}
 
-          {{- /* Define object tempaltes: either object-template of object-template-raw */}}
-          {{- if eq ( $value.raw | toString) "true" }}
-          object-templates-raw: | 
-          {{- else }}
-          object-templates:
-            - complianceType: {{ $value.complianceType | default "musthave" }}
-              objectDefinition:
-          {{- end }}
-                {{- $.Files.Get $path | toYaml | trimAll "|-" | indent 14 }}
-      {{- /* END of RANGE files.glob */}}
+            {{- /* Define object tempaltes: either object-template of object-template-raw */}}
+            {{- if eq ( $value.raw | toString) "true" }}
+            object-templates-raw: | 
+            {{- else }}
+            object-templates:
+              - complianceType: {{ $value.complianceType | default "musthave" }}
+                objectDefinition:
+            {{- end }}
+                  {{- $.Files.Get $path | toYaml | trimAll "|-" | indent 16 }}
+        {{- /* END of RANGE files.glob */}}
+        {{- end }}
       {{- end }}
-    {{- end }}
-          {{- if eq ($value.kind) "CertificatePolicy" }}
-          minimumDuration: {{ $value.minimumDuration | default "100h" }}
-          {{- if $value.minimumCADuration }}
-          minimumCADuration: {{ $value.minimumCADuration }}
-          {{- end }}
-          {{- if $value.maximumDuration }}
-          maximumDuration: {{ $value.maximumDuration }}
-          {{- end }}
-          {{- if $value.maximumCADuration }}
-          maximumCADuration: {{ $value.maximumCADuration }}
-          {{- end }}
-          {{- if $value.allowedSANPattern }}
-          allowedSANPattern: {{ $value.allowedSANPattern }}
-          {{- end }}
-          {{- if $value.disallowedSANPattern }}
-          disallowedSANPattern: {{ $value.disallowedSANPattern }}
-          {{- end }}
-          {{- end }}
-          remediationAction: {{ $value.remediationAction | default "inform" }}
-          severity: {{ $value.severity | default "low" }}
-          {{- /* Set namespaceSelector */}}
-          {{- if $value.namespaceSelector }}
-          namespaceSelector:
-            {{- /* Define included namespaces */}}
-            {{- if $value.namespaceSelector.include }}
-            include:
-            {{- range $value.namespaceSelector.include }}
-              - {{ . | quote}}
+              {{- /* 
+                     CERTIFICATEPOLICY
+              */}}
+            {{- /* This is for CERTIFICATEPolicy ONLY  */}}
+            {{- if eq ($value.kind) "CertificatePolicy" }}
+            minimumDuration: {{ $value.minimumDuration | default "100h" }}
+            {{- if $value.minimumCADuration }}
+            minimumCADuration: {{ $value.minimumCADuration }}
+            {{- end }}
+            {{- if $value.maximumDuration }}
+            maximumDuration: {{ $value.maximumDuration }}
+            {{- end }}
+            {{- if $value.maximumCADuration }}
+            maximumCADuration: {{ $value.maximumCADuration }}
+            {{- end }}
+            {{- if $value.allowedSANPattern }}
+            allowedSANPattern: {{ $value.allowedSANPattern }}
+            {{- end }}
+            {{- if $value.disallowedSANPattern }}
+            disallowedSANPattern: {{ $value.disallowedSANPattern }}
             {{- end }}
             {{- end }}
-            {{- /* Define excluded namespaces */}}
-            {{- if $value.namespaceSelector.exclude }}
-            exclude:
-            {{- range $value.namespaceSelector.exclude }}
-              - {{ . | quote }}
-            {{- end }}
-            {{- end }}
-            {{- /* Set matchExpression for namespaces */}}
-            {{- if $value.namespaceSelector.matchExpressions }}
-            matchExpressions:
-            {{- range $value.namespaceSelector.matchExpressions }}
-            - key: {{ .key }}
-              operator: {{ .operator }}
-              values:
-              {{- range .values }}
-              - {{ . }}
+                {{- /* 
+                       END CERTIFICATEPOLICY
+                */}}
+            remediationAction: {{ $value.remediationAction | default "inform" }}
+            severity: {{ $value.severity | default "low" }}
+            {{- /* Set namespaceSelector */}}
+            {{- if $value.namespaceSelector }}
+            namespaceSelector:
+              {{- /* Define included namespaces */}}
+              {{- if $value.namespaceSelector.include }}
+              include:
+              {{- range $value.namespaceSelector.include }}
+                - {{ . | quote}}
+              {{- end }}
+              {{- end }}
+              {{- /* Define excluded namespaces */}}
+              {{- if $value.namespaceSelector.exclude }}
+              exclude:
+              {{- range $value.namespaceSelector.exclude }}
+                - {{ . | quote }}
+              {{- end }}
+              {{- end }}
+              {{- /* Set matchExpression for namespaces */}}
+              {{- if $value.namespaceSelector.matchExpressions }}
+              matchExpressions:
+              {{- range $value.namespaceSelector.matchExpressions }}
+              - key: {{ .key }}
+                operator: {{ .operator }}
+                values:
+                {{- range .values }}
+                - {{ . }}
+                {{- end }}
+              {{- end }}
+              {{- end }}
+              {{- /* Set matchLabels for namespaces */}}
+              {{- if $value.namespaceSelector.matchLabels }}
+              matchLabels:
+              {{- range $key, $value := $value.namespaceSelector.matchLabels }}
+                {{ $key }}: {{ $value }}
+              {{- end }}
               {{- end }}
             {{- end }}
-            {{- end }}
-            {{- /* Set matchLabels for namespaces */}}
-            {{- if $value.namespaceSelector.matchLabels }}
-            matchLabels:
-            {{- range $key, $value := $value.namespaceSelector.matchLabels }}
-              {{ $key }}: {{ $value }}
-            {{- end }}
-            {{- end }}
-          {{- end }}
-          {{- /* END of namespaceSelector */}}
+            {{- /* END of namespaceSelector */}}
 
       {{- /* Set evaluationInterval
              Check time for compliant or noncompliant policies can be defined
