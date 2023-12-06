@@ -89,3 +89,12 @@ policies:
             - openshift-kube-apiserver
             - openshift-kube-scheduler
             - openshift-kube-controller-manager
+
+  - policyname: openshift-data-foundation-healthcheck
+    namespace: *namespace
+    disabled: 'false'
+    policy_templates:
+      - name: odf-healthcheck
+        name_use_template_filename: "true"
+        path: "examples/cluster-health-checks/openshift-data-foundation-healthcheck"
+        complianceType: musthave
