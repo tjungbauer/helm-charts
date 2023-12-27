@@ -17,63 +17,66 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
   hard:
-    {{- if or (.pods) (and ($value.resourceQuotas) ($value.resourceQuotas.pods)) }}
-    pods: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.pods }}{{ $value.resourceQuotas.pods | quote }}{{- end }}{{- else }}{{ .pods | quote }}{{- end }}
+    {{- if or (.pods) ($value.resourceQuotas).pods }}
+    pods: {{ if ($value.resourceQuotas).pods }}{{ $value.resourceQuotas.pods | quote }}{{- else }}{{ .pods | quote }}{{- end }}
     {{- end }}
-    {{- if or (.cpu) (and ($value.resourceQuotas) ($value.resourceQuotas.cpu)) }}
-    cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.cpu }}{{ $value.resourceQuotas.cpu | quote }}{{- end }}{{- else }}{{ .cpu | quote }}{{- end }}
+    {{- if or (.cpu) ($value.resourceQuotas).cpu }}
+    cpu: {{ if ($value.resourceQuotas).cpu }}{{ $value.resourceQuotas.cpu | quote }}{{- else }}{{ .cpu | quote }}{{- end }}
     {{- end }}
-    {{- if or (.memory) (and ($value.resourceQuotas) ($value.resourceQuotas.memory)) }}
-    memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.memory }}{{ $value.resourceQuotas.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}{{- else }}{{ .memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}
+    {{- if or (.memory) ($value.resourceQuotas).memory }}
+    memory: {{ if ($value.resourceQuotas).memory }}{{ $value.resourceQuotas.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- else }}{{ .memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}
     {{- end }}
-    {{- if or (.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.ephemeral_storage)) }}
-    ephemeral-storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.ephemeral_storage }}{{ $value.resourceQuotas.ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}{{- else }}{{ .ephemeral_storage | replace "gi" "Gi" | replace "mi" "Mi" | quote }}{{- end }}
+    {{- if or (.ephemeral_storage) ($value.resourceQuotas).ephemeral_storage }}
+    ephemeral_storage: {{ if ($value.resourceQuotas).ephemeral_storage }}{{ $value.resourceQuotas.ephemeral_storage | quote }}{{- else }}{{ .ephemeral_storage | quote }}{{- end }}
     {{- end }}
-    {{- if or (.resourceQuotas) (and ($value.resourceQuotas) ($value.resourceQuotas.resourcequotas)) }}
-    resourceQuotas: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.resourcequotas }}{{ $value.resourceQuotas.resourcequotas | quote }}{{- end }}{{- else }}{{ .resourcequotas | quote }}{{- end }}
+    {{- if or (.resourceQuotas) ($value.resourceQuotas).resourceQuotas }}
+    resourceQuotas: {{ if ($value.resourceQuotas).resourceQuotas }}{{ $value.resourceQuotas.resourceQuotas | quote }}{{- else }}{{ .resourceQuotas | quote }}{{- end }}
     {{- end }}
-    {{- if or (.configmaps) (and ($value.resourceQuotas) ($value.resourceQuotas.configmaps)) }}
-    configmaps: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.configmaps }}{{ $value.resourceQuotas.configmaps | quote }}{{- end }}{{- else }}{{ .configmaps | quote }}{{- end }}
+    {{- if or (.configmaps) ($value.resourceQuotas).configmaps }}
+    configmaps: {{ if ($value.resourceQuotas).configmaps }}{{ $value.resourceQuotas.configmaps | quote }}{{- else }}{{ .configmaps | quote }}{{- end }}
     {{- end }}
-    {{- if or (.persistentvolumeclaims) (and ($value.resourceQuotas) ($value.resourceQuotas.persistentvolumeclaims)) }}
-    persistentvolumeclaims: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.persistentvolumeclaims }}{{ $value.resourceQuotas.persistentvolumeclaims | quote }}{{- end }}{{- else }}{{ .persistentvolumeclaims | quote }}{{- end }}
+    {{- if or (.persistentvolumeclaims) ($value.resourceQuotas).persistentvolumeclaims }}
+    persistentvolumeclaims: {{ if ($value.resourceQuotas).persistentvolumeclaims }}{{ $value.resourceQuotas.persistentvolumeclaims | quote }}{{- else }}{{ .persistentvolumeclaims | quote }}{{- end }}
     {{- end }}
-    {{- if or (.replicationcontrollers) (and ($value.resourceQuotas) ($value.resourceQuotas.replicationcontrollers)) }}
-    replicationcontrollers: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.replicationcontrollers }}{{ $value.resourceQuotas.replicationcontrollers | quote }}{{- end }}{{- else }}{{ .replicationcontrollers | quote }}{{- end }}
+    {{- if or (.replicationcontrollers) ($value.resourceQuotas).replicationcontrollers }}
+    replicationcontrollers: {{ if ($value.resourceQuotas).replicationcontrollers }}{{ $value.resourceQuotas.replicationcontrollers | quote }}{{- else }}{{ .replicationcontrollers | quote }}{{- end }}
     {{- end }}
-    {{- if or (.secrets) (and ($value.resourceQuotas) ($value.resourceQuotas.secrets)) }}
-    secrets: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.secrets }}{{ $value.resourceQuotas.secrets | quote }}{{- end }}{{- else }}{{ .secrets | quote }}{{- end }}
+    {{- if or (.secrets) ($value.resourceQuotas).secrets }}
+    secrets: {{ if ($value.resourceQuotas).secrets }}{{ $value.resourceQuotas.secrets | quote }}{{- else }}{{ .secrets | quote }}{{- end }}
     {{- end }}
-    {{- if or (.services) (and ($value.resourceQuotas) ($value.resourceQuotas.services)) }}
-    services: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.services }}{{ $value.resourceQuotas.services | quote }}{{- end }}{{- else }}{{ .services | quote }}{{- end }}
-    {{- end }}
+    {{- if or (.services) ($value.resourceQuotas).services }}
+    services: {{ if ($value.resourceQuotas).services }}{{ $value.resourceQuotas.services | quote }}{{- else }}{{ .services | quote }}{{- end }}
+    {{- end }} 
     
     {{- /* Get Limits */}}
     {{- if or (.limits) (and ($value.resourceQuotas) ($value.resourceQuotas.limits)) }}
-      {{- if or (.limits.cpu) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.cpu)) }}
-    limits.cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.cpu) }}{{ $value.resourceQuotas.limits.cpu | quote }}{{- else }}{{ .limits.cpu | quote }}{{- end }}{{- else }}{{ .limits.cpu | quote }}{{- end }}{{- else }}{{ .limits.cpu | quote }}{{- end }}
+      {{- if or (.limits.cpu) (($value.resourceQuotas).limits).cpu }}
+    limits.cpu: {{ if (($value.resourceQuotas).limits).cpu }}{{ $value.resourceQuotas.limits.cpu | quote }}{{- else }}{{ .limits.cpu | quote }}{{- end }}
       {{- end }}
-      {{- if or (.limits.memory) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.memory)) }}
-    limits.memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.memory) }}{{ $value.resourceQuotas.limits.memory | quote }}{{- else }}{{ .limits.memory | quote }}{{- end }}{{- else }}{{ .limits.memory | quote }}{{- end }}{{- else }}{{ .limits.memory | quote }}{{- end }}
+      {{- if or (.limits.memory) (($value.resourceQuotas).limits).memory }}
+    limits.memory: {{ if (($value.resourceQuotas).limits).memory }}{{ $value.resourceQuotas.limits.memory | quote }}{{- else }}{{ .limits.memory | quote }}{{- end }}
       {{- end }}
-      {{- if or (.limits.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.limits) ($value.resourceQuotas.limits.ephemeral_storage)) }}
-    limits.ephemeral_storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.limits }}{{ if ($value.resourceQuotas.limits.ephemeral_storage) }}{{ $value.resourceQuotas.limits.ephemeral_storage | quote }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}
+      {{- if or (.limits.storage) (($value.resourceQuotas).limits).storage }}
+    limits.storage: {{ if (($value.resourceQuotas).limits).storage }}{{ $value.resourceQuotas.limits.storage | quote }}{{- else }}{{ .limits.storage | quote }}{{- end }}
+      {{- end }}
+      {{- if or (.limits.ephemeral_storage) (($value.resourceQuotas).limits).ephemeral_storage }}
+    limits.ephemeral_storage: {{ if (($value.resourceQuotas).limits).ephemeral_storage }}{{ $value.resourceQuotas.limits.ephemeral_storage | quote }}{{- else }}{{ .limits.ephemeral_storage | quote }}{{- end }}
       {{- end }}
     {{- end }}
 
     {{- /* Get Requests */}}
     {{- if or (.requests) (and ($value.resourceQuotas) ($value.resourceQuotas.requests)) }}
-      {{- if or (.requests.cpu) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.cpu)) }}
-    requests.cpu: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.cpu) }}{{ $value.resourceQuotas.requests.cpu | quote }}{{- else }}{{ .requests.cpu | quote }}{{- end }}{{- else }}{{ .requests.cpu | quote }}{{- end }}{{- else }}{{ .requests.cpu | quote }}{{- end }}
+      {{- if or (.requests.cpu) (($value.resourceQuotas).requests).cpu }}
+    requests.cpu: {{ if (($value.resourceQuotas).requests).cpu }}{{ $value.resourceQuotas.requests.cpu | quote }}{{- else }}{{ .requests.cpu | quote }}{{- end }}
       {{- end }}
-      {{- if or (.requests.memory) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.memory)) }}
-    requests.memory: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.memory) }}{{ $value.resourceQuotas.requests.memory | quote }}{{- else }}{{ .requests.memory | quote }}{{- end }}{{- else }}{{ .requests.memory | quote }}{{- end }}{{- else }}{{ .requests.memory | quote }}{{- end }}
+      {{- if or (.requests.memory) (($value.resourceQuotas).requests).memory }}
+    requests.memory: {{ if (($value.resourceQuotas).requests).memory }}{{ $value.resourceQuotas.requests.memory | quote }}{{- else }}{{ .requests.memory | quote }}{{- end }}
       {{- end }}
-      {{- if or (.requests.storage) (and ($value.resourceQuotas)  ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.storage)) }}
-    requests.storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.storage) }}{{ $value.resourceQuotas.requests.storage | quote }}{{- else }}{{ .requests.storage | quote }}{{- end }}{{- else }}{{ .requests.storage | quote }}{{- end }}{{- else }}{{ .requests.storage | quote }}{{- end }}
+      {{- if or (.requests.storage) (($value.resourceQuotas).requests).storage }}
+    requests.storage: {{ if (($value.resourceQuotas).requests).storage }}{{ $value.resourceQuotas.requests.storage | quote }}{{- else }}{{ .requests.storage | quote }}{{- end }}
       {{- end }}
-      {{- if or (.requests.ephemeral_storage) (and ($value.resourceQuotas) ($value.resourceQuotas.requests) ($value.resourceQuotas.requests.ephemeral_storage)) }}
-    requests.ephemeral_storage: {{ if $value.resourceQuotas }}{{ if $value.resourceQuotas.requests }}{{ if ($value.resourceQuotas.requests.ephemeral_storage) }}{{ $value.resourceQuotas.requests.ephemeral_storage | quote }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}
+      {{- if or (.requests.ephemeral_storage) (($value.resourceQuotas).requests).ephemeral_storage }}
+    requests.ephemeral_storage: {{ if (($value.resourceQuotas).requests).ephemeral_storage }}{{ $value.resourceQuotas.requests.ephemeral_storage | quote }}{{- else }}{{ .requests.ephemeral_storage | quote }}{{- end }}
       {{- end }}
     {{- end }}
 
