@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-operator
-description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators
-version: 1.0.18
+description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
+version: 1.0.19
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -12,6 +12,7 @@ sources:
 keywords:
   - helper
   - subchart
+  - operator
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/signKey: |
@@ -22,3 +23,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: Added Job that will enable Console Plugins if they are defined.
+    - kind: added
+      description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README

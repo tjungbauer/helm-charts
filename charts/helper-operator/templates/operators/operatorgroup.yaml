@@ -12,6 +12,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "0" | quote }}
+{{- /* Configure the operatorgroup for all Namespaces or for the "Home" namespace */ -}}
 {{- if $value.operatorgroup.notownnamespace }}
 spec: {}
 {{- else }}

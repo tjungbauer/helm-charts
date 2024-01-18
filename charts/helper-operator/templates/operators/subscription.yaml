@@ -12,18 +12,41 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "0" | quote }}
 spec:
+  {{- /* Main settings for the Operator */}}
   channel: {{ $value.subscription.channel | default "stable" | quote }}
   installPlanApproval: {{ $value.subscription.approval | default "Automatic" | quote }}
   name: {{ $value.subscription.operatorName | quote }}
   source: {{ $value.subscription.source | default "redhat-operators" | quote }}
   sourceNamespace: {{ $value.subscription.sourceNamespace | default "openshift-marketplace" | quote }}
+
+  {{- /* additional and optional settings for the Operator */}}
   {{- if $value.subscription.config }}
-  config: 
+  config:
+    {{- /* Define a nodeSelector if required */}}
+    {{- if $value.subscription.config.nodeSelector }}
+    nodeSelector:
+      {{ $value.subscription.config.nodeSelector.key }}: {{ $value.subscription.config.nodeSelector.value | quote }}
+    {{- end }}
+
+    {{- /* Define required tolerations */}}
+    {{- if $value.subscription.config.tolerations }}
+    tolerations:
+      {{- toYaml $value.subscription.config.tolerations | nindent 6 }}
+    {{- end }}
+    {{- if $value.subscription.config.env }}
+
+    {{- /* Define additional environment variables, that might configure the Operator */}}
+    env:
+      {{- toYaml $value.subscription.config.env | nindent 6 }}
+    {{- end }}
+    {{- if $value.subscription.config.resources }}
+
+    {{- /* Define resource limits and requests for the Operator */}}
     resources:
       {{- if $value.subscription.config.resources.requests }}
       requests:
         {{- if $value.subscription.config.resources.requests.memory }}
-        memory: {{ $value.subscription.config.resources.requests.memory | quote }}
+        memory: {{ $value.subscription.config.resources.requests.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}
         {{- end }}
         {{- if $value.subscription.config.resources.requests.cpu }}
         cpu: {{ $value.subscription.config.resources.requests.cpu | quote }}
@@ -32,12 +55,13 @@ spec:
       {{- if $value.subscription.config.resources.limits }}
       limits:
         {{- if $value.subscription.config.resources.limits.memory }}
-        memory: {{ $value.subscription.config.resources.limits.memory | quote }}
+        memory: {{ $value.subscription.config.resources.limits.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}
         {{- end }}
         {{- if $value.subscription.config.resources.limits.cpu }}
         cpu: {{ $value.subscription.config.resources.limits.cpu | quote }}
         {{- end }}
       {{- end }}
+    {{- end }}
   {{- end }}
 {{- if $value.subscription.csv }}
   startingCSV: {{ $value.subscription.csv }}
