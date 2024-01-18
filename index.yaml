@@ -3271,6 +3271,38 @@ entries:
           description: Signing Chart
         - kind: added
           description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-18T04:09:12.057037534Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: 285da26af056b80d07c75ee3acdaaa043aea707aeff5ffa82cdf0760193846dc
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.19/helper-operator-1.0.19.tgz
+    version: 1.0.19
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -8793,4 +8825,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2023-12-27T06:46:22.863304266Z"
+generated: "2024-01-18T04:09:12.057634737Z"
