@@ -1,5 +1,6 @@
 {{- with .Values.storagecluster }}
 {{ if eq ( .enabled | toString) "true" }}
+{{- if eq ( .multigateway_only.enabled | toString) "true" }}
 apiVersion: ocs.openshift.io/v1
 kind: StorageCluster
 metadata:
@@ -10,7 +11,6 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     {{- include "common.labels" $ | nindent 4 }}
-{{- if eq ( .multigateway_only.enabled | toString) "true" }}  
 spec:
   multiCloudGateway:
     dbStorageClassName: {{ .multigateway_only.storageclass }}
