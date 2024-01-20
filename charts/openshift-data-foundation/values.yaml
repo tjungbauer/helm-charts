@@ -17,7 +17,7 @@ storagecluster:
 
   # Second option is a full deployment, which will provide Block, File and Object Storage
   full_deployment:
-    enabled: true
+    enabled: false
 
     # Enable NFS or not
     nfs: enabled

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-data-foundation
 description: Deploys the OpenShift Data Foundation Operator
-version: 1.0.22
+version: 1.0.23
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
 dependencies:
@@ -34,3 +34,5 @@ annotations:
       description: Added StorageCluster object which automatically spins up the storage.
     - kind: added
       description: Spliting storagecluster to full-fletched and standalone for better reasability.
+    - kind: fixed
+      description: wrong IFs

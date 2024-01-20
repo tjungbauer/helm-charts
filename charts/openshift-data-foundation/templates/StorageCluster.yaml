@@ -1,6 +1,7 @@
 {{- with .Values.storagecluster }}
 {{ if eq ( .enabled | toString) "true" }}
 {{- with .full_deployment }}
+{{- if eq ( .enabled | toString) "true" }}  
 apiVersion: ocs.openshift.io/v1
 kind: StorageCluster
 metadata:
@@ -11,7 +12,6 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     {{- include "common.labels" $ | nindent 4 }}
-{{- if eq ( $.Values.storagecluster.full_deployment.enabled | toString) "true" }}  
 spec:
   storageDeviceSets:
     {{- range $key, $value := .storageDeviceSets }}
