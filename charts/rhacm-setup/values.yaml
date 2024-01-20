@@ -52,14 +52,6 @@ rhacm:
     # Default: Basic
     # availabilityConfig: High
 
-    # Disable automatic import of the hub cluster as a managed cluster
-    # Default: false
-    # disableHubSelfManagement: false
-
-    # Disable automatic update of ClusterImageSets
-    # Default: false
-    # disableUpdateClusterImageSets: false
-
     # If you want this component to only run on specific nodes, you can
     # configure tolerations of tainted nodes.
     # tolerations:
