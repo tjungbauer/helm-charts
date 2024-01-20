@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "odf.labels" $ | nindent 4 }}
 spec:
   multiCloudGateway:
     dbStorageClassName: {{ .multigateway_only.storageclass }}
