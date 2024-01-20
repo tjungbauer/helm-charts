@@ -118,7 +118,7 @@ spec:
                   hs.status = "Degraded"
                   hs.message = "Missing Bucket Secret"
               end
-              if condition.type == "Pending" and condition.reason == "PendingComponents" and condition.status == "True“ then
+              if condition.type == "Pending" and condition.reason == "PendingComponents" and condition.status == "True" then
                   hs.status = "Progressing"
                   hs.message = "Some LokiStack components pending on dependencies"
               end
