@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
-version: 1.0.17
+version: 1.0.18
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/configuration.png
 maintainers:
@@ -20,3 +20,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Possibility to configure allowed registries
+    - kind: added
+      description: added new type of etcd encryption, monitoring stack configuration etc.

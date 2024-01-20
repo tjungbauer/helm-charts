@@ -1,9 +1,16 @@
 # Example
 
+monitoring:
+  enabled: false
+
+projecttemplate:
+  enabled: false
+
 etcd_encryption:
   enabled: false
   namespace: openshift-gitops
   serviceAccount: etcd-encryption-checker
+  encryption_type: aesgcm
 
 self_provisioner:
   deactivate: false

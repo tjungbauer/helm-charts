@@ -47,6 +47,7 @@ The following table lists the configurable parameters of the chart and their def
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
 | `etcd_encryption.enabled` | Enable ETCD encryption? | `false` |
+| `etcd_encryption.encryption_type` | Type of encryption aesgcm or aescbc | `aesgcm` |
 | `self_provisioner.deactivate` | Disable self provisioner | `false` |
 
 | `config_allowed_registries.enabled` | Enable configuration to limit allowed registries | `false` |
