@@ -3333,6 +3333,35 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-loki-bucket-secret-1.0.0/helper-loki-bucket-secret-1.0.0.tgz
     version: 1.0.0
+  helper-objectstore:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-20T14:08:45.791646846Z"
+    description: A helper Chart to create BackingStore, BackingClass, BucketClaim
+      and StorageClass objects, when ODF is used. Currently on type PV is supported!
+    digest: ffacafa7c88fbdde7329cd6bbbc440078c572c40667c548c3f36623485ba29c8
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - odf
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-objectstore
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
+    version: 1.0.0
   helper-operator:
   - annotations:
       artifacthub.io/changes: |
@@ -4756,6 +4785,48 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.0/helper-status-checker-1.0.0.tgz
     version: 1.0.0
   openshift-data-foundation:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Updated to Open Data Foundation v4.13
+        - kind: added
+          description: Added StorageCluster object which automatically spins up the storage.
+        - kind: added
+          description: Spliting storagecluster to full-fletched and standalone for better reasability.
+        - kind: fixed
+          description: wrong IFs
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-20T14:08:45.991079423Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Deploys the OpenShift Data Foundation Operator
+    digest: 49d7cb593d1318b5fd5adf672b45b3036ff3692930b105c0914e58e4bf1c49ca
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/redhat.svg
+    keywords:
+    - storage
+    - odf
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.24/openshift-data-foundation-1.0.24.tgz
+    version: 1.0.24
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -9088,4 +9159,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-20T13:19:01.432357246Z"
+generated: "2024-01-20T14:08:45.991718248Z"
