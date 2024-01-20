@@ -1,0 +1,44 @@
+{{- range $key, $value := .Values.aide }}
+{{- with $value }}
+{{ if eq (.enabled | toString) "true" }}
+---
+apiVersion: fileintegrity.openshift.io/v1alpha1
+kind: FileIntegrity
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
+spec:
+  nodeSelector: 
+      {{ .selector.key }}: {{ .selector.value | quote }}
+  config:
+    gracePeriod: {{ .config.gracePeriod }}
+    maxBackups: {{ .config.maxBackups }}
+    {{- if eq (.config.customconfig.enabled | toString) "true" }}
+    name: {{ .config.customconfig.name }}
+    namespace: {{ .config.customconfig.namespace }}
+    key: {{ .config.customconfig.key | default "config" }}
+    {{- end }}
+
+  {{- /* Set tolerations for the central */}}
+  {{- if .tolerations }}
+  tolerations:
+  {{- range $key, $value := .tolerations }}
+    - effect: {{ $value.effect }}
+      key: {{ $value.key }}
+      operator: {{ $value.operator }}
+      {{- if $value.value }}
+      value: {{ $value.value }}
+      {{- end }}
+      {{- if $value.tolerationSeconds }}
+      tolerationSeconds: {{ $value.tolerationSeconds }}
+      {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
