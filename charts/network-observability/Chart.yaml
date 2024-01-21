@@ -2,7 +2,7 @@
 apiVersion: v2
 name: network-observability
 description: Installs and configures OpenShift Network Observability.
-version: 1.0.3
+version: 1.0.4
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/netobserv-icon.png
 dependencies:
@@ -20,8 +20,6 @@ dependencies:
     version: ~1.0.0
     repository: https://charts.stderr.at/
     condition: helper-objectstore.enabled
-maintainers:
-  - name: tjungbauer
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
