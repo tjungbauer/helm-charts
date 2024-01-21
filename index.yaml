@@ -4818,6 +4818,49 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: Initial Release
+        - kind: fixed
+          description: fixing icon
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-21T15:39:59.298751704Z"
+    dependencies:
+    - condition: helper-loki-bucket-secret.enabled
+      name: helper-loki-bucket-secret
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    - condition: helper-objectstore.enabled
+      name: helper-objectstore
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Installs and configures OpenShift Network Observability.
+    digest: ee54fa00b6158f67d019bb9eb809e6d0e382955a6e38b29a38cd5a8b20b3095d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/netobserv-icon.png
+    keywords:
+    - security
+    - network
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: network-observability
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-1.0.3/network-observability-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -9304,4 +9347,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-21T15:33:02.063226494Z"
+generated: "2024-01-21T15:39:59.299507009Z"
