@@ -3,7 +3,7 @@
 # Enable and configura ODF
 ###########################
 storagecluster:
-  enabled: true
+  enabled: false
   syncwave: 3
 
   # There are two options:
@@ -110,11 +110,11 @@ storagecluster:
 helper-operator:
   operators:
     odf-operator:
-      enabled: true
+      enabled: false
       syncwave: '0'
       namespace:
         name: openshift-storage
-        create: true
+        create: false
       subscription:
         channel: stable-4.13
         approval: Automatic
@@ -125,7 +125,7 @@ helper-operator:
         create: true
 
 helper-status-checker:
-  enabled: true
+  enabled: false
 
   # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
   operatorName: odf-operator
