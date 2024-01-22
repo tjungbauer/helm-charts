@@ -14,7 +14,7 @@ helper-operator:
         channel: stable
         approval: Automatic
         operatorName: file-integrity-operator
-        source: cs-redhat-operator-index
+        source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
@@ -46,7 +46,7 @@ aide:
     config:
       gracePeriod: 900
       maxBackups: 5
-      customconfig: # Created if omitted
+      customconfig:  # Created if omitted
         enabled: false
         # name: myconfig
         # namespace: openshift-file-integrity
@@ -70,7 +70,7 @@ aide:
     config:
       gracePeriod: 900
       maxBackups: 5
-      customconfig: # Created if omitted
+      customconfig:  # Created if omitted
         enabled: true
         name: controlplane-aide-conf
         namespace: openshift-file-integrity

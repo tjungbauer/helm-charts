@@ -1,0 +1,30 @@
+apiVersion: v2
+name: cost-management
+description: Setup and configure cost-management Operator
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
+version: 1.0.0
+dependencies:
+  - name: helper-operator
+    version: ~1.0.14
+    repository: file://../helper-operator
+  - name: helper-status-checker
+    version: ~3.0.0
+    repository: file://../helper-status-checker
+    condition: helper-status-checker.enabled
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+sources:
+  - https://github.com/tjungbauer/helm-charts
+keywords:
+  - configuration
+  - cost-management
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial Release
