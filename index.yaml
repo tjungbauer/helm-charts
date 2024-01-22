@@ -1820,6 +1820,35 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-01-22T13:50:21.932758921Z"
+    description: This Chart is responsible to deploy generic clusterconfiguration,
+      for example etcd encryption, oauth etc.
+    digest: 2878fe6ccb0dddb930edff41af802557ae97d971eff0f51a7543a35af269a6e8
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.19/generic-cluster-config-1.0.19.tgz
+    version: 1.0.19
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-01-20T16:26:17.85785059Z"
     description: This Chart is responsible to deploy generic clusterconfiguration,
       for example etcd encryption, oauth etc.
@@ -4937,6 +4966,35 @@ entries:
     name: helper-status-checker
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-1.0.0/helper-status-checker-1.0.0.tgz
+    version: 1.0.0
+  ingresscontroller:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-22T13:50:22.059642634Z"
+    description: Manages and sonfigures the ingressController objects.
+    digest: 267182475c1d4808d4dc92290413e01d5e3e50aa1de4cfc27dafb4992f6dd785
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: ingresscontroller
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.0/ingresscontroller-1.0.0.tgz
     version: 1.0.0
   network-observability:
   - annotations:
@@ -9623,4 +9681,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-22T07:17:10.602818288Z"
+generated: "2024-01-22T13:50:22.060822617Z"
