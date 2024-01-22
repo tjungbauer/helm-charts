@@ -3285,6 +3285,35 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: Initial release
+        - kind: fixed
+          description: removed hardcodedstring logging
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-01-22T06:07:11.297488884Z"
+    description: A helper Chart which creates a job to build the Secret in the format
+      LokiStack requires.
+    digest: 9c10521290d5a540fd3f7d0f9b2924994f2de336dbc2765ec5e26f95d62040ba
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-loki-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-loki-bucket-secret-1.0.4/helper-loki-bucket-secret-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -9417,4 +9446,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-22T06:03:01.380457058Z"
+generated: "2024-01-22T06:07:11.298150598Z"
