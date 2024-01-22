@@ -2,10 +2,10 @@ apiVersion: v2
 name: sonarqube
 description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
-icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonar-dark-backgrounds.png
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
