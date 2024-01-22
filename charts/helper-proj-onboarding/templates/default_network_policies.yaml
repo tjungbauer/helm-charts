@@ -3,8 +3,8 @@
 
 {{- $default_policies := index $value "default_policies" | default dict }}
 
-{{- $disable_allow_from_ingress := index $default_policies "disable_allow_from_ingress" | default "false" }}
-{{ if ne ($disable_allow_from_ingress | toString) "true" }}
+{{- $enable_allow_from_ingress := index $default_policies "enable_allow_from_ingress" | default "false" }}
+{{ if eq ($enable_allow_from_ingress | toString) "true" }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -45,22 +45,6 @@ spec:
   - Ingress
 {{- end }}
 
-{{- $disable_allow_from_same_namespace := index $default_policies "disable_allow_from_same_namespace" | default "false" }}
-{{ if ne ($disable_allow_from_same_namespace | toString) "true" }}
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-same-namespace
-  namespace: {{ $value.name | replace "_" "-" | quote }}
-  labels:
-    {{- include "common.labels" $ | nindent 4 }}
-spec:
-  podSelector:
-  ingress:
-  - from:
-    - podSelector: {}
-{{- end }}
 
 {{- $disable_allow_kube_apiserver := index $default_policies "disable_allow_kube_apiserver" | default "false" }}
 {{ if ne ($disable_allow_kube_apiserver | toString) "true" }}
@@ -100,5 +84,23 @@ spec:
   policyTypes:
   - Egress
 {{- end }}
+
+{{- $disable_deny_all_ingress := index $default_policies "disable_deny_all_ingress" | default "false" }}
+{{ if ne ($disable_deny_all_ingress | toString) "true" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: {{ $value.name | replace "_" "-" | quote }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
 {{- end }}
+{{- end }}
+
+
 {{- end }}
