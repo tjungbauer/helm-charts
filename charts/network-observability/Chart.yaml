@@ -2,9 +2,9 @@
 apiVersion: v2
 name: network-observability
 description: Installs and configures OpenShift Network Observability.
-version: 1.0.4
+version: 1.0.5
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
-icon: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/netobserv-icon.png
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
 dependencies:
   - name: helper-loki-bucket-secret
     version: ~1.0.0
