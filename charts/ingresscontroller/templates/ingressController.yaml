@@ -1,0 +1,37 @@
+{{- range .Values.ingresscontrollers }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  name: {{ .name }}
+  namespace: openshift-ingress-operator
+spec:
+  replicas: {{ .replicas }}
+  {{- if .nodePlacement }}
+  {{- with .nodePlacement }}
+  nodePlacement:
+    {{- if .nodeSelector }}
+    nodeSelector:
+      matchLabels:
+        {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
+    {{- end }}
+
+    {{- if .tolerations }}
+    tolerations:
+      {{- range $key, $value := .tolerations }}
+      - effect: {{ $value.effect }}
+        key: {{ $value.key }}
+        operator: {{ $value.operator }}
+        value: {{ $value.value }}
+        {{- if $value.tolerationSeconds }}
+        tolerationSeconds: {{ $value.tolerationSeconds }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+
+{{- end }}
+{{- end }}
