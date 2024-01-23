@@ -23,7 +23,7 @@ helper-operator:
         notownnamespace: false
 
 helper-status-checker:
-  enabled: true
+  enabled: false
 
   operatorName: advanced-cluster-management
 
