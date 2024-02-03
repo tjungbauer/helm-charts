@@ -5,7 +5,7 @@
 [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
 This Helm Chart repository contains Charts, which I use to deploy my Demos on OpenShift/Kubernetes. 
-It is mainly used by [Cluster Bootstrap](https://github.com/tjungbauer/openshift-cluster-bootstrap) but it can be used individually as well.
+It is mainly used by [Cluster Bootstrap](https://github.com/tjungbauer/openshift-clusterconfig-gitops) but it can be used individually as well.
 
 Charts in this repo contains for example are:
 

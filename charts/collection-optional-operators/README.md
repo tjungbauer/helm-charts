@@ -6,7 +6,7 @@
 This chart can be used to install Operators in OpenShift. Such charts were initially grouped into the purpose of the Operator ... here some optional Operators that are sometimes used for a cluster. 
 However, you can install any Operator with this chart. 
 
-It is best used with a GitOps approach such as Argo CD does. For example: https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example: https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 
