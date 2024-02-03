@@ -24,7 +24,7 @@ spec:
       spec:
         params:
           - name: repo-url
-            value: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+            value: 'https://github.com/tjungbauer/openshift-clusterconfig-gitops'
           - name: revision
             value: main
           - name: context-path

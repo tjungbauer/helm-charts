@@ -5,7 +5,7 @@
 
 A Chart to test Service Side Apply. It adds annotations to existing Node Objects. The idea is to use it as a wrapper for all kinds of SSA actions. Simply add additional templates.
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 

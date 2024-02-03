@@ -13,7 +13,7 @@ spec:
         - name: source
           workspace: shared-workspace
   params:
-    - default: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+    - default: 'https://github.com/tjungbauer/openshift-clusterconfig-gitops'
       name: repo-url
       type: string
     - default: main

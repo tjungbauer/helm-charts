@@ -1,7 +1,7 @@
 apiVersion: v2
 name: setup-container-security-operator
 description: Setup the Container Security Operator
-version: 1.0.3
+version: 1.0.4
 dependencies:
   - name: helper-operator
     version: ~1.0.14

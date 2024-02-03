@@ -4,7 +4,7 @@
 # Helper Chart for Argo CD
 
 This chart is a *helper* chart, that is typically used as a Subchart.
-For example, it is used by: https://github.com/tjungbauer/openshift-cluster-bootstrap/tree/main/clusters/argocd-object-manager 
+For example, it is used by: https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/clusters/argocd-object-manager 
 
 The chart creates all required objects for Argo CD, namely: 
 
@@ -54,7 +54,7 @@ The following table lists the configurable parameters of the chart and their def
 ||||
 |**General**|||
 |List of anchors: <br><li>`mgmt-cluster`</li><li>`mgmt-cluster-name`</li>| Helm anchors, used to define the API URL and the name of a Kubernetes cluster. Put here a list of your clusters, that are later used for ApplicationSets or Applications as target cluster. | <li>`mgmt-cluster: &mgmtcluster https://kubernetes.default.svc`</li><li>`mgmt-cluster-name: &mgmtclustername in-cluster`</li>|
-|`repourl`| Default URL to the repository |`https://github.com/tjungbauer/openshift-cluster-bootstrap`|
+|`repourl`| Default URL to the repository |`https://github.com/tjungbauer/openshift-clusterconfig-gitops`|
 |`repobranch`| Default branch to use|`main`|
 ||||
 |**ApplicationSets**|||

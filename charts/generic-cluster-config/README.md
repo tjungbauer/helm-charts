@@ -5,7 +5,7 @@
 
 Configure your cluster. Any generic and repeatable configuration goes in here. This helps me to quickly deploy Lab environments and demonstrate features. 
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 Multiple Argo CD applications are using this Chart to enable different aspects of the cluster (i.e., etcd encryption).
 

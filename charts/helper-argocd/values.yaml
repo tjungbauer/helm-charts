@@ -10,7 +10,7 @@ mgmt-cluster-name: &mgmtclustername in-cluster
 production-cluster: &prodcluster https://cluster-api-url:6443
 production-cluster-name: &prodclustername prod
 
-repourl: &repourl 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+repourl: &repourl 'https://github.com/tjungbauer/openshift-clusterconfig-gitops'
 repobranch: &branch main
 
 # the anchor *rev must be set to a default value, in case it is not set for the cluster
@@ -93,7 +93,7 @@ applicationsets:
     path: clusters/all/project-onboarding
 
     # Path to the Git repository. The default URL and revision are defined as anchors at the beginning of the file, but could be overwritten here.
-    repourl: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+    repourl: 'https://github.com/tjungbauer/openshift-clusterconfig-gitops'
     targetrevision: main
 
     # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
@@ -110,7 +110,7 @@ applicationsets:
     # either "generatorlist", "generatorgit" or "generatorclusters"
     # Define the repository that shall be checked for configuration file
     generatorgit:
-      - repourl: 'https://github.com/tjungbauer/openshift-cluster-bootstrap'
+      - repourl: 'https://github.com/tjungbauer/openshift-clusterconfig-gitops'
         targetrevision: main
         files:
           - tenant-projects/**/values.yaml
@@ -263,7 +263,7 @@ applicationsets:
     multiple_sources:
 
         # Define repository of the values-file
-      - repoUrl: https://github.com/tjungbauer/openshift-cluster-bootstrap
+      - repoUrl: https://github.com/tjungbauer/openshift-clusterconfig-gitops
         targetRevision: main
         ref: values
 

@@ -5,7 +5,7 @@
 
 This straightforward Chat is simply used to demonstrate OpenShift Pipelines. The task is to perform a Helm linting on my Helm repository. It can be used as basis for more sophisticated Charts. 
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 It only comes with one parameter `demo_pipelines` and requires the configuration of a Webhook in GitHub to trigger the Pipeline accordingly. 
 

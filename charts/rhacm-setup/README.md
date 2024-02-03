@@ -19,7 +19,7 @@ The full process is:
 
 **Note** The Observability Module must be deployed as Day-2 operation and is currently not part of this Charts since it has additional dependencies like S3 Storage and increased requirements of CPU and Memory.
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 

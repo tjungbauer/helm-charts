@@ -9,7 +9,7 @@ It uses the Subchart:
 * helper-operator: to create the required Operator resources
 * helper-status-checker: to verify of the Deployments of this Operator are running. 
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 

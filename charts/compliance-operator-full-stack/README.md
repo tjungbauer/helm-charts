@@ -17,7 +17,7 @@ The full process is:
 3. Create ServiceAccount, Role, RoleBinding and Job (This verifies of the Operator is up and running)
 4. Create a ScanSettingBinding object (This configures the Compliance Operator and initiates an immediate scan)
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 

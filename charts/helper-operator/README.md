@@ -15,7 +15,7 @@
   A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
 
 This chart can be used to install Operators in OpenShift.
-It is best used with a GitOps approach such as Argo CD does. For example: https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example: https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 This chart will create the objects: Namespace, Subscription, OperatorGroup and a Job, that will enable additional console plugins, if enabled.
 

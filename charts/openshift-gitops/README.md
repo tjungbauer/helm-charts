@@ -5,7 +5,7 @@
 
 Install and patch an Argo CD instance, for example when you would like to initialize OpenShift-GitOps for the first time, or would like to deploy another instance fo application deployments. 
 
-It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-cluster-bootstrap
+It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
 ## TL;DR 
 
