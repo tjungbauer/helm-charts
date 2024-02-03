@@ -503,7 +503,7 @@
 
 
       <p>These Charts are used to make my life easier when I need to install a Demo-Environment. Anyone is free to use them and make suggestions.<br />
-      Mainly used by: <a href="https://github.com/tjungbauer/openshift-cluster-bootstrap">https://github.com/tjungbauer/openshift-cluster-bootstrap</a>
+      Mainly used by: <a href="https://github.com/tjungbauer/openshift-clusterconfig-gitops">https://github.com/tjungbauer/openshift-clusterconfig-gitops</a>
       </p>
 
 
