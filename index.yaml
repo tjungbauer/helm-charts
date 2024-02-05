@@ -1378,6 +1378,44 @@ entries:
       artifacthub.io/changes: |
         - kind: fixed
           description: Signing Chart
+        - kind: added
+          description: README.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-02-05T06:03:31.409510077Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 635515f11b1621f775d70c2753ab91b8b3c02fb99382dc6a5787d6d9dd5cb75f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.22/compliance-operator-full-stack-1.0.22.tgz
+    version: 1.0.22
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -1744,6 +1782,40 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.2/compliance-operator-full-stack-1.0.2.tgz
     version: 1.0.2
   cost-management:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-02-05T06:03:31.513888497Z"
+    dependencies:
+    - name: helper-operator
+      repository: file://../helper-operator
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: file://../helper-status-checker
+      version: ~3.0.0
+    description: Setup and configure cost-management Operator
+    digest: ea9bfdb28bd9ce1d255f719840e534d0a0fc5806c5e827af8359296982d87249
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
+    keywords:
+    - configuration
+    - cost-management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: cost-management
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cost-management-1.0.1/cost-management-1.0.1.tgz
+    version: 1.0.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3740,6 +3812,42 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
     version: 1.0.0
   helper-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+        - kind: fixed
+          description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-02-05T06:03:31.618397828Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: 82c4b266b9bc3911a876038944450f961acdd33af4bf996b2b81120bd1a9319b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.22/helper-operator-1.0.22.tgz
+    version: 1.0.22
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -10291,6 +10399,41 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-02-05T06:03:31.730075633Z"
+    dependencies:
+    - condition: sonarqube.enabled
+      name: sonarqube
+      repository: https://SonarSource.github.io/helm-chart-sonarqube
+      version: ~10.1.0
+    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
+      helm chart
+    digest: 2e638c7a0ef0128306c37446df61f3353ffb767e927722b97a90ccd845cfd345
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
+    keywords:
+    - devsecops
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: sonarqube
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.4/sonarqube-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-01-24T06:07:25.923183192Z"
     dependencies:
     - condition: sonarqube.enabled
@@ -10420,4 +10563,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-03T05:17:22.737930357Z"
+generated: "2024-02-05T06:03:31.730883002Z"
