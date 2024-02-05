@@ -17,18 +17,29 @@
 
 {{- end }}
 
+{{ define "doc.maintainer_and_sources" -}}
+
+{{ template "chart.maintainersSection" . }}
+
+## Sources
+Source: {{ template "chart.sourcesList" . }}
+
+Source code: {{ template "chart.homepage" . }}
+
+{{- end }}
+
 
 {{ define "doc.deps" -}}
 
 ## Dependencies
 
-{{ template "chart.requirementsSection" . }}
+This charts has the following dependencies:
+
+{{ template "chart.requirementsTable" . }}
 
 {{- end }}
 
 {{ define "doc.values" -}}
-
-## Parameters
 
 {{ template "chart.valuesSection" . }}
 

@@ -1,36 +1,66 @@
 ---
-
-# Install Operator Compliance Operator
-# Deploys Operator --> Subscription and Operatorgroup
-# Syncwave: 0
+# Using sub-chart helper-operator
 helper-operator:
   operators:
     compliance-operator:
-      enabled: true
+      # -- Enabled yes/no
+      # @default -- false
+      enabled: false
+      # -- Syncwave for the operator deployment
+      # @default -- 0
       syncwave: '0'
       namespace:
+        # -- The Namespace the Operator should be installed in.
+        # The compliance operator should be deployed into **openshift-compliance** Namepsace
+        # that must be created.
         name: openshift-compliance
+        # -- Description of the namespace.
+        # @default -- ""
         create: true
       subscription:
+        # -- Channel of the Subscription
+        # @default -- stable
         channel: stable
+        # -- Update behavior of the Operator. Manual/Automatic
+        # @default -- Automatic
         approval: Automatic
+        # -- Name of the Operator
+        # The name for the compliance operator is **compliance-operator**
+        # @default -- "empty"
         operatorName: compliance-operator
+        # -- Source of the Operator
+        # @default -- redhat-operators
         source: redhat-operators
+        # -- Namespace of the source
+        # @default -- openshift-marketplace
         sourceNamespace: openshift-marketplace
       operatorgroup:
+        # -- Create an Operatorgroup object
+        # @default -- false
         create: true
+        # -- Monitor own Namespace. For some Operators no `targetNamespaces` must be defined
+        # @default -- false
         notownnamespace: true
 
+# Using sub-chart helper-status-checker
 helper-status-checker:
-  enabled: true
+  # -- Enable status checker
+  # @default -- false
+  enabled: false
 
-  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  # -- Define the name of the operator that shall be verified.
+  # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  # For the compliance operator the name should be "**compliance-operator**"
+  # @default -- ""
   operatorName: compliance-operator
 
-  # where operator is installed
+  # -- Define where the operator is installed
+  # For the compliance operator this should be "**openshift-compliance**"
+  # @default -- ""
   namespace:
     name: openshift-compliance
 
+  # -- Set the values of the ServiceAccount that will execute the status checker Job.
   serviceAccount:
     create: true
     name: "sa-compliance"
@@ -41,7 +71,7 @@ compliance:
     syncwave: '0'
     descr: 'Red Hat Compliance'
   scansettingbinding:
-    enabled: true
+    enabled: false
     syncwave: '3'
 
     # Example

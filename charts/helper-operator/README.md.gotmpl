@@ -7,11 +7,10 @@ This chart will create the objects: Namespace, Subscription, OperatorGroup and a
 
 *NOTE*: It is usually used as Subchart for other Charts and it works best with the second subchart [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker)
 
-## Sources
-Source: {{ template "chart.homepage" . }}
 
-Homepage: https://charts.stderr.at
+{{ template "doc.maintainer_and_sources" . }}
 
+## Parameters
 
 {{ template "doc.values" . }}
 

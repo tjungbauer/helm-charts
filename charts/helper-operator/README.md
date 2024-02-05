@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.19](https://img.shields.io/badge/Version-1.0.19-informational?style=flat-square)
+  ![Version: 1.0.22](https://img.shields.io/badge/Version-1.0.22-informational?style=flat-square)
 
  
 
@@ -21,10 +21,19 @@ This chart will create the objects: Namespace, Subscription, OperatorGroup and a
 
 *NOTE*: It is usually used as Subchart for other Charts and it works best with the second subchart [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker)
 
-## Sources
-Source: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+## Maintainers
 
-Homepage: https://charts.stderr.at
+| Name | Email | Url |
+| ---- | ------ | --- |
+| tjungbauer | <tjungbau@redhat.com> |  |
+
+## Sources
+Source:
+* <https://github.com/tjungbauer/helm-charts>
+* <https://charts.stderr.at/>
+* <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
+
+Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 
 ## Parameters
 
@@ -53,9 +62,9 @@ Homepage: https://charts.stderr.at
 | operators.my-operator.subscription.channel | string | stable | Channel of the Subscription |
 | operators.my-operator.subscription.config | object | "" | Optional additional configuration for the Operator subscription. |
 | operators.my-operator.subscription.config.env | list | "" | Additional environment parameter, as a list: name/value |
-| operators.my-operator.subscription.config.nodeSelector | object | ""     | Optionally define a nodeSelector. |
-| operators.my-operator.subscription.config.resources | object | ""     | Optionally set resources (limits/requests) for the Operator. |
-| operators.my-operator.subscription.config.tolerations | list | ""     | Optionally set Tolerations for the Subscription. |
+| operators.my-operator.subscription.config.nodeSelector | object | "" | Optionally define a nodeSelector. |
+| operators.my-operator.subscription.config.resources | object | "" | Optionally set resources (limits/requests) for the Operator. |
+| operators.my-operator.subscription.config.tolerations | list | "" | Optionally set Tolerations for the Subscription. |
 | operators.my-operator.subscription.operatorName | string | "empty" | Name of the Operator |
 | operators.my-operator.subscription.source | string | redhat-operators | Source of the Operator |
 | operators.my-operator.subscription.sourceNamespace | string | openshift-marketplace | Namespace of the source |

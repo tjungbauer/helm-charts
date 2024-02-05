@@ -1,12 +1,12 @@
 apiVersion: v2
 name: compliance-operator-full-stack
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.21
+version: 1.0.22
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
 dependencies:
   - name: helper-operator
-    version: "1.0.15"
+    version: ~1.0.21
     repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~3.0.0
@@ -17,6 +17,8 @@ maintainers:
     email: tjungbau@redhat.com
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - security
   - compliance
@@ -28,3 +30,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: Signing Chart
+    - kind: added
+      description: README.md
