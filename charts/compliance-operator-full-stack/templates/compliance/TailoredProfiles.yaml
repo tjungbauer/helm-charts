@@ -5,7 +5,7 @@ apiVersion: compliance.openshift.io/v1alpha1
 kind: TailoredProfile
 metadata:
   name: {{ $value.name }}
-  namespace: {{ $.Values.compliance.namespace.name }}
+  namespace: {{ $.Values.compliance.namespace.name | default "openshift-compliance" | quote }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $.Values.compliance.scansettingbinding.syncwave | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true

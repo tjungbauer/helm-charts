@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.22](https://img.shields.io/badge/Version-1.0.22-informational?style=flat-square)
+  ![Version: 1.0.23](https://img.shields.io/badge/Version-1.0.23-informational?style=flat-square)
 
  
 
@@ -54,23 +54,24 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| compliance.namespace.descr | string | `"Red Hat Compliance"` |  |
-| compliance.namespace.name | string | `"openshift-compliance"` |  |
-| compliance.namespace.syncwave | string | `"0"` |  |
-| compliance.scansettingbinding.enabled | bool | `false` |  |
-| compliance.scansettingbinding.profiles[0].kind | string | `"Profile"` |  |
-| compliance.scansettingbinding.profiles[0].name | string | `"ocp4-cis-node"` |  |
-| compliance.scansettingbinding.profiles[1].kind | string | `"Profile"` |  |
-| compliance.scansettingbinding.profiles[1].name | string | `"ocp4-cis"` |  |
-| compliance.scansettingbinding.scansetting | string | `"default"` |  |
-| compliance.scansettingbinding.syncwave | string | `"3"` |  |
-| compliance.scansettingbinding.tailored.enabled | bool | `false` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].description | string | `"Modified ocp4-cis profile"` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].disableRule[0].name | string | `"ocp4-scc-limit-container-allowed-capabilities"` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].disableRule[0].rationale | string | `"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].extends | string | `"ocp4-cis"` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].name | string | `"tailoredprofile-ocp4-cis"` |  |
-| compliance.scansettingbinding.tailored.modified_profiles[0].title | string | `"Tailored Profile of ocp4-cis"` |  |
+| compliance.namespace | object | `{"name":"openshift-compliance"}` | Settings for namespace where compliance operator will be installed. |
+| compliance.namespace.name | string | `"openshift-compliance"` | Namespace of the operator |
+| compliance.scansettingbinding | object | `{"enabled":false,"profiles":[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}],"scansetting":"default","syncwave":"3","tailored":{"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRule":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","title":"Tailored Profile of ocp4-cis"}]}}` | Settings for the ScanSettings Here ScanSettingBinding and TailoredProfile can be configured |
+| compliance.scansettingbinding.enabled | bool | false  | Enable ScanSetting cnofiguration |
+| compliance.scansettingbinding.profiles | list | `[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}]` | A list of Profiles that shall be used for scanning |
+| compliance.scansettingbinding.profiles[0] | object | `{"kind":"Profile","name":"ocp4-cis-node"}` | The name of the Profile |
+| compliance.scansettingbinding.profiles[0].kind | string | `"Profile"` | The kind of the profile. This can either be Profile or TailoredProfile |
+| compliance.scansettingbinding.scansetting | string | `"default"` | Use the default ScanSettings that a provided by the Operator. |
+| compliance.scansettingbinding.syncwave | string | `"3"` | Syncwave for the ScanSetting |
+| compliance.scansettingbinding.tailored | object | `{"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRule":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","title":"Tailored Profile of ocp4-cis"}]}` | Example of a TailoredProfile With TailoredProfiles you can disable specific checks |
+| compliance.scansettingbinding.tailored.enabled | bool | false | Enable TailoredProfile |
+| compliance.scansettingbinding.tailored.modified_profiles[0] | object | `{"description":"Modified ocp4-cis profile","disableRule":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","title":"Tailored Profile of ocp4-cis"}` | Name of the TailoredProfile |
+| compliance.scansettingbinding.tailored.modified_profiles[0].description | string | `"Modified ocp4-cis profile"` | Description of the Profile |
+| compliance.scansettingbinding.tailored.modified_profiles[0].disableRule | list | `[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}]` | A list of rules that might be disabled. |
+| compliance.scansettingbinding.tailored.modified_profiles[0].disableRule[0] | object | `{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}` | Name of the rule that shall be disabled |
+| compliance.scansettingbinding.tailored.modified_profiles[0].disableRule[0].rationale | string | `"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"` | A Reason why this rule is excluded. |
+| compliance.scansettingbinding.tailored.modified_profiles[0].extends | string | `"ocp4-cis"` | Which Profile is extended here. Here we are using ocp4-cis as basis. This Profile must exist. |
+| compliance.scansettingbinding.tailored.modified_profiles[0].title | string | `"Tailored Profile of ocp4-cis"` | Title of the profile (visible in the reports) |
 | helper-operator.operators.compliance-operator.enabled | bool | false | Enabled yes/no |
 | helper-operator.operators.compliance-operator.namespace.create | bool | "" | Description of the namespace. |
 | helper-operator.operators.compliance-operator.namespace.name | string | `"openshift-compliance"` | The Namespace the Operator should be installed in. The compliance operator should be deployed into **openshift-compliance** Namepsace that must be created. |
@@ -78,13 +79,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 | helper-operator.operators.compliance-operator.operatorgroup.notownnamespace | bool | false | Monitor own Namespace. For some Operators no `targetNamespaces` must be defined |
 | helper-operator.operators.compliance-operator.subscription.approval | string | Automatic | Update behavior of the Operator. Manual/Automatic |
 | helper-operator.operators.compliance-operator.subscription.channel | string | stable | Channel of the Subscription |
-| helper-operator.operators.compliance-operator.subscription.operatorName | string | "empty" | Name of the Operator |
+| helper-operator.operators.compliance-operator.subscription.operatorName | string | "empty" | Name of the Operator The name for the compliance operator is **compliance-operator** |
 | helper-operator.operators.compliance-operator.subscription.source | string | redhat-operators | Source of the Operator |
 | helper-operator.operators.compliance-operator.subscription.sourceNamespace | string | openshift-marketplace | Namespace of the source |
 | helper-operator.operators.compliance-operator.syncwave | string | 0 | Syncwave for the operator deployment |
 | helper-status-checker.enabled | bool | false | Enable status checker |
 | helper-status-checker.namespace | object | "" | Define where the operator is installed For the compliance operator this should be "**openshift-compliance**" |
-| helper-status-checker.operatorName | string | "" | Define the name of the operator that shall be verified.  Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! For the compliance operator the name should be "**compliance-operator**" |
+| helper-status-checker.operatorName | string | "" | Define the name of the operator that shall be verified. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! For the compliance operator the name should be "**compliance-operator**" |
 | helper-status-checker.serviceAccount | object | `{"create":true,"name":"sa-compliance"}` | Set the values of the ServiceAccount that will execute the status checker Job. |
 
 ## Example values
