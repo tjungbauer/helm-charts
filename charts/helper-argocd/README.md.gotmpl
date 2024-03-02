@@ -1,36 +1,10 @@
-
-
-# helper-argocd
-
-  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-  [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
-  [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
-
-  ![Version: 2.0.24](https://img.shields.io/badge/Version-2.0.24-informational?style=flat-square)
-
- 
-
-  ## Description
-
-  Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
+{{ template "doc.header" . }}
 
 This chart can be used to render Argo CD Applications, ApplicationSets and Appprojects.
-It is usually used by the [App-pf-Apps](https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/base/init_app_of_apps) and the configuration
+It is usually used by the [App-pf-Apps](https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/base/init_app_of_apps) and the configuration 
 that is used is stored at: [Argo CD Resources Manager](https://github.com/tjungbauer/openshift-clusterconfig-gitops/blob/main/base/argocd-resources-manager/values.yaml)
 
-## Maintainers
-
-| Name | Email | Url |
-| ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
-
-## Sources
-Source:
-* <https://github.com/tjungbauer/helm-charts>
-* <https://charts.stderr.at/>
-* <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
-
-Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+{{ template "doc.maintainer_and_sources" . }}
 
 ## Examples
 
@@ -90,8 +64,9 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
 1. A unique key, Argo CD will use this key for the name of the Argo CD Application.
 2. Enabled true/false.
 3. Using Matrix Generator
-4. First generator is "git", which is watching the folder *clusters/management-clusters/* and will take anything that can be find inside this folder, unless it is excluded.
-5. Second generator is the list generator, that is defining the target cluster.
+4. First generator is "git", which is watching the folder *clusters/management-clusters/* and will take anything that can be find inside this folder, unless it is excluded. 
+5. Second generator is the list generator, that is defining the target cluster. 
+
 
 ### Example: ApplicationSet using list generator to deploy on ALL clusters:
 
@@ -108,10 +83,10 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
       autosync_enabled: false # (5)
     targetrevision: "main"
 ```
-1. A unique key, Argo CD will use this key for the name of the Argo CD Application. Argo CD will add the clustername as a prefix to the Application name to distiguish different target cluster.
+1. A unique key, Argo CD will use this key for the name of the Argo CD Application. Argo CD will add the clustername as a prefix to the Application name to distiguish different target cluster. 
 2. Enabled true/false
-3. Using the path as source. In this path the configuration of etcd encryption can be found.
-4. Using the list generator. Since an empty list is used this ApplicationSet will create Applications for ALL clusters that are configured in Argo CD.
+3. Using the path as source. In this path the configuration of etcd encryption can be found. 
+4. Using the list generator. Since an empty list is used this ApplicationSet will create Applications for ALL clusters that are configured in Argo CD. 
 5. Automatic synchronization can be enabled if required.
 
 ### Example: ApplicationSet using list generator and a Helm chart:
@@ -156,32 +131,11 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
     syncPolicy:
       autosync_enabled: false
 ```
-1. A unique key, Argo CD will use this key for the name of the Argo CD Application. Argo CD will add the clustername as a prefix to the Application name to distiguish different target cluster.
+1. A unique key, Argo CD will use this key for the name of the Argo CD Application. Argo CD will add the clustername as a prefix to the Application name to distiguish different target cluster. 
 2. Enabled true/false
 3. This ApplicationSet is using a specific Namespace to deploy the Application.
 4. Configuration of the Helm chart. It is possible to define a values-file per cluster (naming it cluster-name-values.yaml) to distinguish individual configurations between the clusters or define individual parameters are name/value pair.
 5. The name of the Helm Chart, the Helm Chart repository and the version of the Chart.
 6. The list of target clusters (name and api url)
 
-## Installing the Chart
-
-To install the chart with the release name `my-release`:
-
-```console
-helm install my-release tjungbauer/<chart-name>>
-```
-
-The command deploys the chart on the Kubernetes cluster in the default configuration.
-
-## Uninstalling the Chart
-
-To uninstall/delete the my-release deployment:
-
-```console
-helm delete my-release
-```
-
-The command removes all the Kubernetes components associated with the chart and deletes the release.
-
-----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
+{{ template "doc.footer" . }}

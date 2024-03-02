@@ -1,1 +1,87 @@
 ---
+
+cost-management:
+  costmgmt:
+    # -- Enable or disable the configuration of the cost management operator
+    #ldefault -- false 
+    enabled: false
+
+    # -- Name of the cost manager CRD
+    # @default -- costmanagementmetricscfg
+    name: costmanagementmetricscfg
+
+    airgapped: true
+
+    max_reports_to_store: 60
+
+    # must be less or equal to 100
+    # Default: 100
+    # max_size_MB: 100
+    upload_cycle: 360
+
+# Using sub-chart helper-operator
+helper-operator:
+  operators:
+    cost-management-operator:
+      # -- Enabled yes/no
+      # @default -- false
+      enabled: false
+      # -- Syncwave for the operator deployment
+      # @default -- 0
+      syncwave: '0'
+      namespace:
+        # -- The Namespace the Operator should be installed in.
+        # The cost-management operator should be deployed into **costmanagement-metrics-operator** Namepsace
+        # that must be created.
+        name: costmanagement-metrics-operator
+        # -- Description of the namespace.
+        # @default -- ""
+        create: true
+      subscription:
+        # -- Channel of the Subscription
+        # @default -- stable
+        channel: stable
+        # -- Update behavior of the Operator. Manual/Automatic
+        # @default -- Automatic
+        approval: Automatic
+        # -- Name of the Operator
+        # The name for the cost-management operator is **costmanagement-metrics-operator**
+        # @default -- "empty"
+        operatorName: costmanagement-metrics-operator
+        # -- Source of the Operator
+        # @default -- redhat-operators
+        source: redhat-operators
+        # -- Namespace of the source
+        # @default -- openshift-marketplace
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        # -- Create an Operatorgroup object
+        # @default -- false
+        create: false
+        # -- Monitor own Namespace. For some Operators no `targetNamespaces` must be defined
+        # @default -- false
+        notownnamespace: false
+
+
+# Using sub-chart helper-status-checker
+helper-status-checker:
+  # -- Enable status checker
+  # @default -- false
+  enabled: false
+
+  # -- Define the name of the operator that shall be verified.
+  # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  # For the cost management operator the name should be "**costmanagement-metrics-operator**"
+  # @default -- ""
+  operatorName: costmanagement-metrics-operator
+
+  # -- Define where the operator is installed
+  # For the cost management operator this should be "**costmanagement-metrics-operator**"
+  # @default -- ""
+  namespace:
+    name: costmanagement-metrics-operator
+
+  # -- Set the values of the ServiceAccount that will execute the status checker Job.
+  serviceAccount:
+    create: true
+    name: "sa-costmanagement-metrics"
