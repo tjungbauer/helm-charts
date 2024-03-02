@@ -2736,6 +2736,47 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-03-02T11:08:09.288799669Z"
+    description: Takes care of creation of Applications, Appprojects and ApplicationSets
+      (supporting different generators)
+    digest: a89ba857b237da67e384be1dc64c7ce447dd98b310429eaf2d69eb4ac39eef3f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.25/helper-argocd-2.0.25.tgz
+    version: 2.0.25
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: support git GIT generator
+        - kind: added
+          description: Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added support for Matrix Generator (opinionated)
+        - kind: added
+          description: Added support for ignoreDifferences definition in ApplicationSet
+        - kind: added
+          description: Allowing syncwave settings for Application objects
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-02-03T05:17:21.353806062Z"
     description: Takes care of creation of Applications and ApplicationSets
     digest: 298080706a8270749bbd844ca79782ad751145e06b83774a39b79695cdd240d6
@@ -10632,4 +10673,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-02T11:02:48.638750039Z"
+generated: "2024-03-02T11:08:09.289570199Z"
