@@ -65,7 +65,7 @@ aide:
     name: controlplane-fileintegrity
     namespace: openshift-file-integrity
     selector:
-      key: node-role.kubernetes.io/master
+      key: node-role.kubernetes.io/control-plane
       value: ""
     config:
       gracePeriod: 900
@@ -80,7 +80,7 @@ aide:
     # configure tolerations of tainted nodes.
     tolerations:
       - effect: NoSchedule
-        key: node-role.kubernetes.io/master
+        key: node-role.kubernetes.io/control-plane
         operator: Exists
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
