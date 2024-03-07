@@ -1,7 +1,7 @@
 apiVersion: v2
 name: collection-optional-operators
-description: Collection of optional operators, like CodeReadyWorkspaces.
-version: 1.0.25
+description: Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.
+version: 1.0.26
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
 dependencies:
@@ -11,8 +11,11 @@ dependencies:
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - operator
   - deployment
@@ -24,3 +27,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: Signing Chart
+    - kind: fixed
+      description: README.md

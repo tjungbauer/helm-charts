@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.23](https://img.shields.io/badge/Version-1.0.23-informational?style=flat-square)
+  ![Version: 1.0.24](https://img.shields.io/badge/Version-1.0.24-informational?style=flat-square)
 
  
 
@@ -36,7 +36,7 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> |  |
+| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:
@@ -57,7 +57,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 | compliance.namespace | object | `{"name":"openshift-compliance"}` | Settings for namespace where compliance operator will be installed. |
 | compliance.namespace.name | string | `"openshift-compliance"` | Namespace of the operator |
 | compliance.scansettingbinding | object | `{"enabled":false,"profiles":[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}],"scansetting":"default","syncwave":"3","tailored":{"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRule":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","title":"Tailored Profile of ocp4-cis"}]}}` | Settings for the ScanSettings Here ScanSettingBinding and TailoredProfile can be configured |
-| compliance.scansettingbinding.enabled | bool | false  | Enable ScanSetting cnofiguration |
+| compliance.scansettingbinding.enabled | bool | false | Enable ScanSetting cnofiguration |
 | compliance.scansettingbinding.profiles | list | `[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}]` | A list of Profiles that shall be used for scanning |
 | compliance.scansettingbinding.profiles[0] | object | `{"kind":"Profile","name":"ocp4-cis-node"}` | The name of the Profile |
 | compliance.scansettingbinding.profiles[0].kind | string | `"Profile"` | The kind of the profile. This can either be Profile or TailoredProfile |
