@@ -5,7 +5,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ $key | replace "_" "-" }}
-  namespace: {{ $value.namespace | default "openshift-gitops" }}
+  namespace: {{ $value.appsetNamespace | default "openshift-gitops" }}
   annotations:
     argocd.argoproj.io/sync-wave: "5"
   labels:
