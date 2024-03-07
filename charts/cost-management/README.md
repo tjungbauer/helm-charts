@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
+  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
 
  
 
@@ -54,8 +54,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 |-----|------|---------|-------------|
 | costmgmt.airgapped | bool | false | Is the cluster running in an airgapped or disconnected environment, we cannot upload the cost management data. |
 | costmgmt.auth_secret | string | `"mysecret"` | The secret with the user and password used for uploads. |
-| costmgmt.auth_type | string | token | Authentication: Valid values are:   - "basic" (deprecated) : Enables authentication using user and password from authentication secret.   - "service-account" : Enables authentication using client_id and client_secret from the secret containing service account information.   - "token" (default): Uses cluster token for authentication. If the cluster is running in airgapped mode, then these settings can be ignored. |
-| costmgmt.enabled | bool | false  | Enable or disable the configuration of the cost management operator |
+| costmgmt.auth_type | string | token | Authentication: Valid values are:  - "basic" (deprecated) : Enables authentication using user and password from authentication secret.  - "service-account" : Enables authentication using client_id and client_secret from the secret containing service account information.  - "token" (default): Uses cluster token for authentication. If the cluster is running in airgapped mode, then these settings can be ignored. |
+| costmgmt.enabled | bool | false | Enable or disable the configuration of the cost management operator |
 | costmgmt.max_reports_to_store | int | 30 | Represents the maximum number of reports to store. The default is 30 reports which corresponds to approximately 7 days worth of data given the other default values. |
 | costmgmt.max_size_MB | int | 100 | Represents the max file size in megabytes that will be compressed for upload to Ingress. Must be less or euqal 100. |
 | costmgmt.name | string | costmanagementmetricscfg | Name of the cost manager CRD |
@@ -64,7 +64,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 | costmgmt.promconfig_disable_metric_coll_cost_management | string | false | Whether or not the operator will generate reports for cost-management metrics. |
 | costmgmt.promconfig_disable_metric_coll_resource_optimization | string | false | Whether or not the operator will generate reports for resource-optimization metrics. |
 | costmgmt.promconfig_service_address | string | "https://thanos-querier.openshift-monitoring.svc:9091" | Service addess to prometheus. For development only. |
-| costmgmt.promconfig_skip_tls_verification | string | false | Skip TLS verification to thanos-querier endpoint.  |
+| costmgmt.promconfig_skip_tls_verification | string | false | Skip TLS verification to thanos-querier endpoint. |
 | costmgmt.upload_cycle | int | 360 | Represents the number of minutes between each upload schedule. |
 | costmgmt.upload_toggle | bool | true | If `false`, the operator will not upload to console.redhat.com or check/create sources. |
 | helper-operator.operators.cost-management-operator.enabled | bool | false | Enabled yes/no |

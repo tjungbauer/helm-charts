@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.24](https://img.shields.io/badge/Version-1.0.24-informational?style=flat-square)
+  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
 
  
 
@@ -23,7 +23,7 @@ This Helm Chart is installing and configuring the Compliance operator, using the
 
 ## Dependencies
 
-This charts has the following dependencies:
+This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
