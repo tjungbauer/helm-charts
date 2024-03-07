@@ -15,6 +15,11 @@ metadata:
 spec:
   {{- if eq ( .airgapped | toString) "true" }}
   authentication: {}
+  {{- else }}
+  authentication:
+    token_url: "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
+    type: {{ .auth_type | default "token" }}
+    secret_name: {{ .auth_secret }}
   {{- end }}
   packaging:
     max_reports_to_store: {{ .max_reports_to_store | default 30 }}
@@ -24,6 +29,8 @@ spec:
     context_timeout: {{ .promconfig_context_time | default 120 }}
     disable_metrics_collection_cost_management: {{ .promconfig_disable_metric_coll_cost_management | default "false" }}
     disable_metrics_collection_resource_optimization: {{ .promconfig_disable_metric_coll_resource_optimization | default "false" }}
+    service_address: {{ .promconfig_service_address | default "https://thanos-querier.openshift-monitoring.svc:9091" }}
+    skip_tls_verification: {{ .promconfig_skip_tls_verification | default "false" }}
   {{- if eq ( .airgapped | toString) "true" }}
   source: {}
   {{- end }}

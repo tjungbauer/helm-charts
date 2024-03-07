@@ -3,14 +3,14 @@ name: cost-management
 description: Setup and configure cost-management Operator
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
-version: 1.0.2
+version: 1.0.3
 dependencies:
   - name: helper-operator
     version: ~1.0.21
-    repository: file://../helper-operator
+    repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~3.0.0
-    repository: file://../helper-status-checker
+    repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
@@ -28,3 +28,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Initial Release
+    - kind: added
+      description: Added README and additional possible parameters
