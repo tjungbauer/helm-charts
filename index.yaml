@@ -1974,6 +1974,42 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: Initial Release
+        - kind: added
+          description: Added README and additional possible parameters
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-03-07T17:55:35.63174798Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.0
+    description: Setup and configure cost-management Operator
+    digest: 797f2b42e5215fd99b8c2e4d6b93be0b1ab2617ce01b1be0e5788812de1fbd81
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
+    keywords:
+    - configuration
+    - cost-management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: cost-management
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cost-management-1.0.3/cost-management-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -10976,4 +11012,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-07T17:11:39.159720148Z"
+generated: "2024-03-07T17:55:35.632382353Z"
