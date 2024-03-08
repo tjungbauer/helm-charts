@@ -1,0 +1,176 @@
+{{- with .Values }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  limits:
+    global:
+      retention:
+        days: {{ .global_retention_days | default "7" }}
+  size: {{ .size | default "1x.extra-small" | quote }}
+  storage:
+    tls:
+      caKey: service-ca.crt
+      caName: openshift-service-ca.crt
+    {{- if .storage.schemas }}
+    schemas:
+    {{- range .storage.schemas  }}
+    - version: {{ .version }}
+      effectiveDate: {{ .effectiveDate | quote }}
+    {{- end }}
+    {{- else }}
+    schemas:
+    - version: v12
+      effectiveDate: '2022-06-01'
+    {{- end }}
+    secret:
+      name: {{ .storage.secret.name }}
+      type: {{ .storage.secret.type | default "s3" }}
+  storageClassName: {{ .storageclassname | default "gp3-csi" }}
+  tenants:
+    mode: {{ .mode | default "static" }}
+
+  {{- if .podPlacements }}
+  template:
+  
+    {{- if .podPlacements.compactor }}
+    compactor:
+      {{- if .podPlacements.compactor.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.compactor.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.distributor }}
+    distributor:
+      {{- if .podPlacements.distributor.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.distributor.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.gateway }}
+    gateway:
+      {{- if .podPlacements.gateway.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.gateway.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.indexGateway }}
+    indexGateway:
+      {{- if .podPlacements.indexGateway.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.indexGateway.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.ingester }}
+    ingester:
+      {{- if .podPlacements.ingester.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.ingester.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.querier }}
+    querier:
+      {{- if .podPlacements.querier.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.querier.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.queryFrontend }}
+    queryFrontend:
+      {{- if .podPlacements.queryFrontend.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.queryFrontend.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .podPlacements.ruler }}
+    ruler:
+      {{- if .podPlacements.ruler.tolerations }}
+      tolerations:
+        {{- range $key, $value := .podPlacements.ruler.tolerations }}
+        - effect: {{ $value.effect }}
+          key: {{ $value.key }}
+          operator: {{ $value.operator }}
+          value: {{ $value.value }}
+          {{- if $value.tolerationSeconds }}
+          tolerationSeconds: {{ $value.tolerationSeconds }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+  {{- end }}
+
+{{- end }}
+{{- end }}

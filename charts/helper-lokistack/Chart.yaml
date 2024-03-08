@@ -1,9 +1,9 @@
 apiVersion: v2
-name: helper-objectstore
-description: A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently on type PV is supported!
-version: 1.0.1
-home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore
-icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+name: helper-lokistack
+description: The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+version: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -15,7 +15,7 @@ sources:
 keywords:
   - helper
   - subchart
-  - storage
+  - gitops
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/signKey: |

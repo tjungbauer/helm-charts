@@ -56,20 +56,20 @@ applicationsets:
 
     # Definition of Matrix Generator. Only 2 generators are supported at the moment
     generatormatrix:
-          # Git: Walking through the specific folder and take whatever is there.
-          - git:
-              directories:
-                - path: clusters/management-cluster/*
-                - path: clusters/management-cluster/waves
-                  exclude: true
-              repoURL: *repourl
-              revision: *branch
-          # List: simply define the targetCluster. The name of the cluster must be known by Argo CD
-          - list:
-              elements:
-                  # targetCluster is important, this will define on which cluster it will be rolled out.
-                  # The cluster name must be known in Argo CD
-                - targetCluster: *mgmtclustername
+      # Git: Walking through the specific folder and take whatever is there.
+      - git:
+          directories:
+            - path: clusters/management-cluster/*
+            - path: clusters/management-cluster/waves
+              exclude: true
+          repoURL: *repourl
+          revision: *branch
+      # List: simply define the targetCluster. The name of the cluster must be known by Argo CD
+      - list:
+          elements:
+              # targetCluster is important, this will define on which cluster it will be rolled out.
+              # The cluster name must be known in Argo CD
+            - targetCluster: *mgmtclustername
     syncPolicy:
       autosync_enabled: false
 
@@ -125,7 +125,7 @@ applicationsets:
     path: clusters/all/base-operators
     generatorlist: []
     syncPolicy:
-        autosync_enabled: false
+      autosync_enabled: false
     targetrevision: "main"
 
   # separated because autosync enabled for sealed secrets
