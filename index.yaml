@@ -7803,6 +7803,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-03-09T09:09:45.209745031Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~3.0.6
+    description: Deploy and configure OpenShift Logging including Elasticsearch and
+      Kibana
+    digest: 33d4a5c656b33358b3f5044e7bed64b9dbf712c1fb72cf0bed93c6b53a1bd361
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    keywords:
+    - logging
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.26/openshift-logging-1.0.26.tgz
+    version: 1.0.26
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Optimizing Loki configuration for ClusterLogging object.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-02-03T05:17:22.131165657Z"
     dependencies:
     - name: helper-operator
@@ -11297,4 +11333,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-09T08:54:10.207969609Z"
+generated: "2024-03-09T09:09:45.210517057Z"
