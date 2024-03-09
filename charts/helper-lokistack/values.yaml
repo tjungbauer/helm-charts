@@ -2,7 +2,7 @@
 
 # -- Enable or disable LokiStack configuration
 # @default -- false
-enabled: true
+enabled: false
 
 # -- Name of the LokiStack object
 name: logging-loki
