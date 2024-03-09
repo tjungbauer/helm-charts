@@ -4364,6 +4364,37 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-03-09T08:54:10.207387713Z"
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: deca6f4c2cbf8a915a83212c0b65bdebf153a3b5b00aa1fbcfdd1f3b1490a4eb
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.1/helper-lokistack-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-08T08:01:16.810764876Z"
     description: The only purpose of this helper chart is to provide a template for
       the LokiStack Custom Resource, so it must not be re-defined for multiple services.
@@ -11266,4 +11297,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-08T08:01:16.98861546Z"
+generated: "2024-03-09T08:54:10.207969609Z"
