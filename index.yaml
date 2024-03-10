@@ -5805,6 +5805,39 @@ entries:
         - kind: fixed
           description: Signing Chart
         - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-03-10T15:26:15.668651271Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 78f8d6351a0e1fa796f9dae2f62d3dc463740b644458298dc2ddb6adad25a32c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-4.0.2/helper-status-checker-4.0.2.tgz
+    version: 4.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
           description: Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
@@ -11401,4 +11434,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-10T15:19:26.510545121Z"
+generated: "2024-03-10T15:26:15.669599479Z"
