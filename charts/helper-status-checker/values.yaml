@@ -1,5 +1,5 @@
 ---
-# -- Enable or disable LokiStack configuration
+# -- Enable or disable the status-checker configuration
 # @default -- false
 enabled: false
 

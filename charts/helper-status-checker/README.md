@@ -1,31 +1,87 @@
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
-![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
-# Helper SubChart to verify Operator Status version 2.0
 
-This chart is used the check the installation status of an Operator. Whenever a new Operator gets installed, this Chart can be called to verify if the status of the Operator is ready.
-It is best used as a Subchart. For example, https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+# helper-status-checker
 
-It will create a Service Account (incl. a ClusterRole and a ClusterRoleBinding) and a Job that will try to check the status of the Operator. If the Operator is not available after some time, the Job will fail. 
+  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+  [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
+  [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-## TL;DR 
+  ![Version: 4.0.1](https://img.shields.io/badge/Version-4.0.1-informational?style=flat-square)
 
-```console
-helm repo add --force-update tjungbauer https://charts.stderr.at
-helm repo update
+ 
+
+  ## Description
+
+  A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.
+
+This chart is used the check the installation status of an Operator.
+Whenever a new Operator gets installed, this Chart can be called to verify if the status of the Operator is ready.
+This is useful when you want to install an Operator AND configure it in the same Helm Chart. Typically, Argo CD will fail in such case,
+because it would try to configure the CRD that the Operator provides immediately after the Subscription object becomes ready. However,
+the CRD is not available yet, since the Operator is still installing itself.
+
+It is best used as a Subchart, for example, https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+
+helper-status-checker will create a Service Account (incl. a ClusterRole and a ClusterRoleBinding) and a Job that will try to check the status of the Operator. If the Operator is not available after some time (configurable with mx_retries), the Job will fail.
+
+NOTE: This chart can also be used to automatically approve an InstallPlan
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+
+## Sources
+Source:
+* <https://github.com/tjungbauer/helm-charts>
+* <https://charts.stderr.at/>
+* <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
+
+Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+
+## Parameters
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| approver | bool | false | Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps. |
+| checks[0] | object | `{"maxretries":20,"namespace":{"name":"openshift-logging"},"operatorName":"name-of-operator","serviceAccount":{"name":"status-checker"},"sleeptimer":20,"syncwave":3}` | Name of operator to check. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! |
+| checks[0].maxretries | int | 20 | Maximum number of retries before the checks will fail |
+| checks[0].namespace | object | `{"name":"openshift-logging"}` | Namespace where the status-checker Job shall be scheduled. |
+| checks[0].serviceAccount.name | string | `"status-checker"` | Name of the Service Account. |
+| checks[0].sleeptimer | int | 20 | If the Operator is not yet ready wait this amount of seconds. |
+| checks[0].syncwave | int | 0 | Syncwave for the status-check Job |
+| enabled | bool | false | Enable or disable the status-checker configuration |
+
+## Example
+
+```yaml
+---
+enabled: true
+approver: true
+
+checks:
+  - operatorName: name-of-operator
+
+    sleeptimer: 20
+    maxretries: 20
+
+    namespace:
+      name: openshift-logging
+    syncwave: 3
+
+    serviceAccount:
+      name: "status-checker"
 ```
-
-## Prerequisites
-
-* Kubernetes 1.12+
-* Helm 3
 
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release tjungbauer/helper-status-checker
+helm install my-release tjungbauer/<chart-name>>
 ```
 
 The command deploys the chart on the Kubernetes cluster in the default configuration.
@@ -40,39 +96,5 @@ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## Parameters
-The following table lists the configurable parameters of the chart and their default values. In this example it is called as a Subchart
-
-| Parameter                                 | Description                                   | Default                                                 |
-|-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
-| `helper-status-checker.enabled` | Enable the Status Checker | `false` |
-| `helper-status-checker.sleeptimer` | Wait time in seconds for the check-job to verify when the deployments should be ready | `20` |
-| `helper-status-checker.maxretries` | Number of retries for each check | `20` |
-| `helper-status-checker.namespace.name` | The Namespace where the Checker shall operate | `` |
-| `helper-status-checker.serviceaccount.create` | Create a ServiceAccount | `false` |
-| `helper-status-checker.serviceaccount.name` | Name of the ServiceAccount that shall be created | `` |
-| `helper-status-checker.syncwave` | Argo CD Syncwave | `1` |
-
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
-
-## Example
-
-Installing Red Hat Advanced Cluster Management and verifying if a list of Deployments is ready:
-
-```yaml
----
-helper-status-checker:
-  enabled: true
-
-  sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
-  maxretries: 20  # number of retries for each check
-
-  operatorName: my-operator # use currentCSV from packagemanifest.spec.curretncsv but WITHOUT the version number
-
-  namespace:
-    name: open-cluster-management
-
-  serviceAccount:
-    create: true
-    name: "status-checker"
-```
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)

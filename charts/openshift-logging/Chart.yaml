@@ -9,7 +9,7 @@ dependencies:
     version: ~1.0.18
     repository: https://charts.stderr.at/
   - name: helper-status-checker
-    version: ~3.0.6
+    version: ~4.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
@@ -29,3 +29,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: Optimizing Loki configuration for ClusterLogging object.
+    - kind: added
+      description: updated to helper-status-checker 4.0.0

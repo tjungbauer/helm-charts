@@ -95,13 +95,20 @@ helper-operator:
 helper-status-checker:
   enabled: false
 
-  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  operatorName: cluster-logging
+  checks:
 
-  # where operator is installed
-  namespace:
-    name: openshift-logging
+    - operatorName: cluster-logging
+      namespace:
+        name: openshift-logging
+      syncwave: 3
 
-  serviceAccount:
-    create: true
-    name: "status-checker-logging"
+      serviceAccount:
+        name: "status-checker-logging"
+
+    - operatorName: loki-operator
+      namespace:
+        name: openshift-logging
+      syncwave: 3
+
+      serviceAccount:
+        name: "status-checker-loki"
