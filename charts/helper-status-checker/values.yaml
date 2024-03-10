@@ -1,14 +1,32 @@
+---
+# -- Enable or disable LokiStack configuration
+# @default -- false
 enabled: false
+
+# -- Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps.
+# @default -- false
 approver: false
 
-# sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
-# maxretries: 20  # number of retries for each check
+# List of checks that shall be performed.
+checks:
+    # -- Name of operator to check. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+  - operatorName: name-of-operator
 
-operatorName: my-operator
+    # -- If the Operator is not yet ready wait this amount of seconds.
+    # @default -- 20
+    sleeptimer: 20
 
-namespace:
-  name: my-namespace
+    # -- Maximum number of retries before the checks will fail
+    # @default -- 20
+    maxretries: 20
 
-serviceAccount:
-  create: true
-  name: "status-checker"
+    # -- Namespace where the status-checker Job shall be scheduled.
+    namespace:
+      name: openshift-logging
+    # -- Syncwave for the status-check Job
+    # @default -- 0
+    syncwave: 3
+
+    serviceAccount:
+      # -- Name of the Service Account.
+      name: "status-checker"

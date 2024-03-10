@@ -65,9 +65,5 @@ Create the name of the service account to use
 Create the name of the role and rolebinding for the serviceaccount
 */}}
 {{- define "helper.rolename" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "common.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
 {{- default "default" .Values.serviceAccount.name }}
-{{- end }}
 {{- end }}

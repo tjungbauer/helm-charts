@@ -1,5 +1,6 @@
 {{- with .Values }}
 {{ if eq ( .enabled | toString) "true" }}
+{{- range .checks }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -133,6 +134,7 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
-      serviceAccountName: {{ include "helper.serviceAccountName" $ }}
+      serviceAccountName: {{ .serviceAccount.name }}
+{{- end }}
 {{- end }}
 {{- end }}

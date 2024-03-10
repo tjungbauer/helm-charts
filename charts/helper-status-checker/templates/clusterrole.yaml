@@ -1,5 +1,6 @@
 {{- with .Values }}
 {{ if eq ( .enabled | toString) "true" }}
+{{- range .checks }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -8,7 +9,7 @@ metadata:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
-  name: {{ include "helper.rolename" $ }}-clusterrole
+  name: {{ .serviceAccount.name }}-{{ .namespace.name }}
   namespace: {{ .namespace.name | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
@@ -23,5 +24,6 @@ rules:
       - get
       - list
       - patch
+{{- end }}
 {{- end }}
 {{- end }}
