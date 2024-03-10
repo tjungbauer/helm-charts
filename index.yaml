@@ -5804,6 +5804,36 @@ entries:
       artifacthub.io/changes: |
         - kind: fixed
           description: Signing Chart
+        - kind: added
+          description: Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-03-10T05:40:00.03748848Z"
+    description: A helper Chart which creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 826c67139b0afe95c6b6c4579ff61638e271a3477a55f4e6eb8d7bcdf803c6f7
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-4.0.0/helper-status-checker-4.0.0.tgz
+    version: 4.0.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -11333,4 +11363,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-09T09:09:45.210517057Z"
+generated: "2024-03-10T05:40:00.038270627Z"
