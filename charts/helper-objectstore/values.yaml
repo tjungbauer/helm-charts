@@ -47,7 +47,7 @@ storageclass_name: bucket-storage-class
 bucket:
   # -- Shall a new bucket be enabled?
   # @default -- false
-  enabled: true
+  enabled: false
 
   # -- Name of the bucket that shall be created
   name: bucketname
