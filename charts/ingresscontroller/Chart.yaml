@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ingresscontroller
 description: Configures the IngressController object.
-version: 1.0.1
+version: 1.0.2
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
