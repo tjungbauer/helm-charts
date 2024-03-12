@@ -4403,6 +4403,40 @@ entries:
           description: Initial release
         - kind: fixed
           description: removed hardcodedstring logging
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-03-12T14:02:32.531587698Z"
+    description: Loki requires a secret with specific keys. This Chart creates a Job
+      that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+    digest: e09b09fc74d8f0cabbb03c80271f5dd22a8d4580bb9ad8fa477b38dafa45fa22
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-loki-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-loki-bucket-secret-1.0.6/helper-loki-bucket-secret-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: fixed
+          description: removed hardcodedstring logging
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -12339,4 +12373,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-12T13:40:22.046660983Z"
+generated: "2024-03-12T14:02:32.532344663Z"
