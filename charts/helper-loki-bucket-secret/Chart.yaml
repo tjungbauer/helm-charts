@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-loki-bucket-secret
-description: A helper Chart which creates a job to build the Secret in the format LokiStack requires.
-version: 1.0.5
+description: Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+version: 1.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -25,3 +25,5 @@ annotations:
       description: Initial release
     - kind: fixed
       description: removed hardcodedstring logging
+    - kind: added
+      description: added README

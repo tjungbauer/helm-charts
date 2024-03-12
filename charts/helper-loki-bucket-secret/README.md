@@ -1,31 +1,96 @@
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
-![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
-# Helper SubChart to verify Operator Status version 2.0
 
-This chart is used the check the installation status of an Operator. Whenever a new Operator gets installed, this Chart can be called to verify if the status of the Operator is ready.
-It is best used as a Subchart. For example, https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-full-stack
+# helper-loki-bucket-secret
 
-It will create a Service Account (incl. a ClusterRole and a ClusterRoleBinding) and a Job that will try to check the status of the Operator. If the Operator is not available after some time, the Job will fail. 
+  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+  [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
+  [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-## TL;DR 
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
-```console
-helm repo add --force-update tjungbauer https://charts.stderr.at
-helm repo update
+ 
+
+  ## Description
+
+  Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+
+This Helm Chart is required when LokiStack requires a Secret object with specific keys.
+The bucket in our case is created by OpenShift Data Foundation. ODF will create a Secret and a ConfigMap using the name of the Bucket. The Chart will then create a Job, that mounts the Secret and Configmap and creates a new Secret with the required keys for Loki.
+
+The keys are:
+
+1. access_key_id
+2. access_key_secret
+3. bucketnames
+4. endpoint
+5. region
+
+## Dependencies
+
+This chart has the following dependencies:
+
+| Repository | Name | Version |
+|------------|------|---------|
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (see clusters/management-cluster/setup-openshift-logging)
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+
+## Sources
+Source:
+* <https://github.com/tjungbauer/helm-charts>
+* <https://charts.stderr.at/>
+* <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
+
+Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+
+## Parameters
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| bucket.name | string | `"bucket-name"` | Name of the Bucket shall has been created. |
+| enabled | bool | false | Enable Job to create a Secret for LokiStack. |
+| namespace | string | `"namespace-with-lokistack-and-bucket"` | Namespace where LokiStack is deployed and where the Secret shall be created. |
+| secretname | string | `"secretname-to-create"` | Name of Secret that shall be created. |
+| syncwave | int | 3 | Syncwave for Argo CD. |
+
+## Example values
+
+```yaml
+---
+---
+# -- Enable Job to create a Secret for LokiStack.
+# @default -- false
+enabled: true
+
+# -- Syncwave for Argo CD.
+# @default -- 3
+syncwave: 3
+
+# -- Namespace where LokiStack is deployed and where the Secret shall be created.
+namespace: namespace-with-lokistack-and-bucket
+
+# -- Name of Secret that shall be created.
+secretname: secretname-to-create
+
+# Bucket Configuration
+bucket:
+  # -- Name of the Bucket shall has been created.
+  name: bucket-name
 ```
-
-## Prerequisites
-
-* Kubernetes 1.12+
-* Helm 3
 
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release tjungbauer/helper-status-checker
+helm install my-release tjungbauer/<chart-name>>
 ```
 
 The command deploys the chart on the Kubernetes cluster in the default configuration.
@@ -40,39 +105,5 @@ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## Parameters
-The following table lists the configurable parameters of the chart and their default values. In this example it is called as a Subchart
-
-| Parameter                                 | Description                                   | Default                                                 |
-|-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|
-| `helper-status-checker.enabled` | Enable the Status Checker | `false` |
-| `helper-status-checker.sleeptimer` | Wait time in seconds for the check-job to verify when the deployments should be ready | `20` |
-| `helper-status-checker.maxretries` | Number of retries for each check | `20` |
-| `helper-status-checker.namespace.name` | The Namespace where the Checker shall operate | `` |
-| `helper-status-checker.serviceaccount.create` | Create a ServiceAccount | `false` |
-| `helper-status-checker.serviceaccount.name` | Name of the ServiceAccount that shall be created | `` |
-| `helper-status-checker.syncwave` | Argo CD Syncwave | `1` |
-
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
-
-## Example
-
-Installing Red Hat Advanced Cluster Management and verifying if a list of Deployments is ready:
-
-```yaml
----
-helper-status-checker:
-  enabled: true
-
-  sleeptimer: 20  # wait time in seconds for the check-job to verify when the deployments should be ready
-  maxretries: 20  # number of retries for each check
-
-  operatorName: my-operator # use currentCSV from packagemanifest.spec.curretncsv but WITHOUT the version number
-
-  namespace:
-    name: open-cluster-management
-
-  serviceAccount:
-    create: true
-    name: "status-checker"
-```
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
