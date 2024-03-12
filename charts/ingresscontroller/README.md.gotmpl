@@ -1,3 +1,21 @@
+{{ template "doc.header" . }}
+
+This Helm Chart is configuring the IngressController and can set a replica, nodeSelector and tolerations.
+
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (see folder cluster/management-cluster/ingresscontroller)
+
+
+{{ template "doc.maintainer_and_sources" . }}
+
+{{ template "doc.values" . }}
+
+## Example values
+
+```yaml
+---
 ---
 # -- Define ingressControllers
 # Multiple might be defined.
@@ -23,7 +41,7 @@ ingresscontrollers:
         key: node-role.kubernetes.io/infra
         value: ''
 
-      # -- Tolerations, required if the nodes are tainted.
+      # -- Tolerations, required if the nodes are tainted.  
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/infra
@@ -33,3 +51,6 @@ ingresscontrollers:
           key: node-role.kubernetes.io/infra
           operator: Equal
           value: reserved
+```
+
+{{ template "doc.footer" . }}
