@@ -4641,6 +4641,40 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-03-12T13:40:22.045916142Z"
+    description: A helper Chart to create BackingStore, BackingClass, BucketClaim
+      and StorageClass objects, when ODF is used. Currently type PV is supported only
+      (Creating a local Persistent Volume-backed backingstore)!
+    digest: 5084cb9a6ebe2987ed1b4f53cc4e19efb5f86760ec56e84ce329d68a2659e796
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - storage
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-objectstore
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.4/helper-objectstore-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: Added README and did some cleanup
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T13:34:42.29582346Z"
     description: A helper Chart to create BackingStore, BackingClass, BucketClaim
       and StorageClass objects, when ODF is used. Currently type PV is supported only
@@ -12305,4 +12339,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-12T13:34:42.409969468Z"
+generated: "2024-03-12T13:40:22.046660983Z"
