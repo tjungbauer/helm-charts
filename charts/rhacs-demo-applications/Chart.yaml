@@ -2,15 +2,18 @@ apiVersion: v2
 name: rhacs-demo-applications
 description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
 type: application
-version: 1.0.4
+version: 1.0.5
 appVersion: "1.16.0"
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - securitytesting
 annotations:

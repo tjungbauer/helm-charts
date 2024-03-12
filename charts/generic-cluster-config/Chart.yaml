@@ -1,14 +1,17 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible to deploy generic clusterconfiguration, for example etcd encryption, oauth etc.
-version: 1.0.20
+version: 1.0.21
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - generic
   - clusterconfig

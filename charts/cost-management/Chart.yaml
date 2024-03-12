@@ -3,7 +3,7 @@ name: cost-management
 description: Setup and configure cost-management Operator
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
-version: 1.0.5
+version: 1.0.6
 dependencies:
   - name: helper-operator
     version: ~1.0.21
@@ -15,8 +15,11 @@ dependencies:
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - configuration
   - cost-management

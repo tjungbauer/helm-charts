@@ -1,14 +1,17 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.7
+version: 1.0.8
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - helper
   - acm

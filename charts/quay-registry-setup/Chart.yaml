@@ -3,7 +3,7 @@ name: quay-registry-setup
 description: Chart to deploy and configure Quay
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 1.0.9
+version: 1.0.10
 dependencies:
   - name: helper-operator
     version: ~1.0.0
@@ -15,8 +15,11 @@ dependencies:
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - management tool
   - registry

@@ -1,12 +1,9 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.3
+version: 1.0.4
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
-maintainers:
-  - name: tjungbauer
-    email: tjungbau@redhat.com
 dependencies:
   - name: helper-operator
     version: "1.0.14"
@@ -15,8 +12,14 @@ dependencies:
     version: ~3.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - acs
   - security

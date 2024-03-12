@@ -1,7 +1,7 @@
 apiVersion: v2
 name: setup-container-security-operator
 description: Setup the Container Security Operator
-version: 1.0.4
+version: 1.0.5
 dependencies:
   - name: helper-operator
     version: ~1.0.14
@@ -15,8 +15,11 @@ icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-securit
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
   - operator
   - security
