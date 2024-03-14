@@ -2,7 +2,7 @@ apiVersion: v2
 name: sonarqube
 description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
 type: application
-version: 1.0.5
+version: 1.0.6
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
@@ -31,3 +31,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: initial chart
+    - kind: added
+      description: added README

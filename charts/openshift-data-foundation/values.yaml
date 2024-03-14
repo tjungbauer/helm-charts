@@ -3,63 +3,95 @@
 # Enable and configura ODF
 ###########################
 storagecluster:
+
+  # -- Enable or disable StorageCluster
+  # @default -- false
   enabled: false
+
+  # -- Syncwave for the StorageCluster object.
+  # @default -- 3
   syncwave: 3
 
-  # There are two options:
-  # Either install the multigateway only. This is useful if you just need S3 for Quay registry for example.
+  # -- There are two options:
+  # Either install the multicloudgateway only. This is useful if you just need S3 for Quay registry for example or do a full deployment.
   multigateway_only:
+
+    # -- Enable MultiCloudGateway only. This will only install S3 but not the full Ceph storage.
+    # @default -- false
     enabled: false
 
-    # Name of the stroageclass
+    # -- Name of the stroageclass
     # The class must exist upfront and is currently not created by this chart.
     storageclass: gp3-csi
 
-  # Second option is a full deployment, which will provide Block, File and Object Storage
+  # -- Second option is a full deployment, which will provide Block, File and Object Storage
   full_deployment:
+
+    # -- Enable full deployment of ODF (incl. Ceph, S3 etc.)
+    # @default -- false
     enabled: false
 
-    # Enable NFS or not
+    # -- Enable NFS or not
+    # @default -- false
     nfs: enabled
 
-    # The label the nodes should have to allow hosting of ODF services
-    # Default: cluster.ocs.openshift.io/openshift-storage
-    # default_node_label: cluster.ocs.openshift.io/openshift-storage
+    # -- The label the nodes should have to allow hosting of ODF services
+    # @default -- cluster.ocs.openshift.io/openshift-storage
+    default_node_label: cluster.ocs.openshift.io/openshift-storage
 
-    # Define the DeviceSets
+    # -- Define the storage deviceSets
     storageDeviceSets:
-        # Name of the DeviceSet
+
+        # -- Name of the DeviceSet
       - name: ocs-deviceset
-        # Resources for the DeviceSets Pods.
+
+        # -- Resources for the DeviceSets Pods.
         # Limits and Requests can be defined
-        # Default:
-        #   Limit: cpu: 1, memory: 5Gi
-        #   Requests: cpu: 1, memory: 5Gi
         resources:
           requests:
+            # -- CPU requests for the DeviceSets Pods
+            # @default -- 1
             cpu: '1'
+            # -- Memory requests for the DeviceSets Pods
+            # @default -- 5Gi
+            memory: 5Gi
+          limits:
+            # -- CPU limits for the DeviceSets Pods
+            # @default -- 2
+            cpu: '2'
+            # -- Memory limits for the DeviceSets Pods
+            # @default -- 5Gi
             memory: 5Gi
 
-        # Definitions of the PVC Template
+        # -- Definitions of the PVC Template
         dataPVCTemplate:
           spec:
-            # Default AccessModes
-            # Default: ReadWriteOnce
-            # accessModes:
-            #   - ReadWriteOnce
+            # -- Default AccessModes
+            # @efault -- ReadWriteOnce
+            accessModes:
+              - ReadWriteOnce
 
-            # Size of the Storage. Might be 512Gi, 2Ti, 4Ti
-            # Default: 512Gi
+            # -- Size of the Storage. Might be 512Gi, 2Ti, 4Ti
+            # @default -- 512Gi
             resources:
               requests:
                 storage: 512Gi
 
-            # Name of the stroageclass
+            # -- Name of the stroageclass
             # The class must exist upfront and is currently not created by this chart.
             storageClassName: gp3-csi
 
-      # Replicas: Default 3
-      # replica: 3
+            # -- volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+            # @default -- Block
+            volumeMode: Block
+
+        # -- Replicas
+        # @default -- 3
+        replica: 3
+
+        # -- Count is the number of devices in each StorageClassDeviceSet
+        # @default -- 1
+        count: 1
 
     # Resource settings for the different components.
     # ONLY set this if you know what you are doing.
@@ -99,7 +131,7 @@ storagecluster:
       #   Requests: cpu: 1, memory: 4Gi
       # moobaa-core: ...
 
-     # NOOBAA-DB Defaults
+      # NOOBAA-DB Defaults
       #   Limits: cpu 2, memory: 4Gi
       #   Requests: cpu: 1, memory: 4Gi
       # moobaa-DB: ...
@@ -116,7 +148,7 @@ helper-operator:
         name: openshift-storage
         create: false
       subscription:
-        channel: stable-4.13
+        channel: stable-4.14
         approval: Automatic
         operatorName: odf-operator
         source: redhat-operators
@@ -127,13 +159,12 @@ helper-operator:
 helper-status-checker:
   enabled: false
 
-  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  operatorName: odf-operator
+  checks:
 
-  # where operator is installed
-  namespace:
-    name: openshift-storage
+    - operatorName: odf-operator
+      namespace:
+        name: openshift-storage
+      syncwave: 3
 
-  serviceAccount:
-    create: true
-    name: "status-checker-odf"
+      serviceAccount:
+        name: "status-checker-odf"

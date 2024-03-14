@@ -1,27 +1,42 @@
 ep: &endpoint sonarqube.apps.ocp.aws.ispworld.at
 
 namespace:
+  # -- Namespace where Sonarqube shall be deployed
   name: sonarqube
+
+  # -- Shall the namespace be created?
+  # @default -- false
   create: true
 
+# -- Start a Job to set an initial password
+# @default -- false
 set_admin_password: true
 
+# -- Endpoint so that the Job that is configuring the initial password can connect.
 endpoint: *endpoint
 
-# Sonarqube Settings
+# -- Sonarqube Settings
+# These settings are defined by Sonarqube Helm chart.
 sonarqube:
   OpenShift:
+    # -- OpenShift should be enabled
     enabled: true
+    # -- The SCC should be created for OpenShift deployment.
     createSCC: true
+  # -- Keep the data persistent
   persistence:
     enabled: true
+  # -- Enable Network Polocies ... maybe I should set this to true
   networkPolicy:
     enabled: false
+
+  # -- Endable ingress, using the defind endpoint.
   ingress:
     enabled: true
     hosts:
       - name: *endpoint
         path: /
+  # -- additional plugins to install
   plugins:
     install:
       - https://github.com/checkstyle/sonar-checkstyle/releases/download/10.9.3/checkstyle-sonar-plugin-10.9.3.jar
