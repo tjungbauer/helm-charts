@@ -3,7 +3,7 @@ apiVersion: platform.stackrox.io/v1alpha1
 kind: Central
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.central.syncwave | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.central.syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: central
   namespace: {{ .Values.rhacs.namespace.name | quote }}
