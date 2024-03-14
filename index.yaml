@@ -2274,6 +2274,36 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-03-14T11:24:10.669691052Z"
+    description: A Helm chart to deploy CycloneDX to generate SBOM
+    digest: 6dd49889657cb6f37dcb85eb40643247b98e1bf8914b7a2a7b898b6641b714f8
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
+    keywords:
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cyclonedx
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.3/cyclonedx-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-03-12T12:58:49.339918538Z"
     description: A Helm chart to deploy CycloneDX to generate SBOM
     digest: 8ab3396fcb38c3b7b6a57964e43252c3cf0b522bc0d039ffce5981a8651a3ec6
@@ -12460,4 +12490,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-14T11:17:37.924660537Z"
+generated: "2024-03-14T11:24:10.670272815Z"
