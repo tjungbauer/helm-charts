@@ -1,15 +1,15 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.5
+version: 1.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
   - name: helper-operator
-    version: "1.0.14"
+    version: ~1.0.23
     repository: https://charts.stderr.at/
   - name: helper-status-checker
-    version: ~3.0.0
+    version: ~4.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
@@ -34,3 +34,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: added Readme
+    - kind: added
+      description: updated to helper-status-checker v4
