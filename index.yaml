@@ -6916,6 +6916,53 @@ entries:
           description: Spliting storagecluster to full-fletched and standalone for better reasability.
         - kind: fixed
           description: wrong IFs
+        - kind: added
+          description: updated to helper-status-check v4 and added readme
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-03-14T11:17:37.728725828Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Deploys and configures the OpenShift Data Foundation Operator.
+    digest: 27deb0f82098eaf6004a2e89242a5d9c2d2135b529d157174c377b5933f10fd1
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
+    keywords:
+    - storage
+    - odf
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.29/openshift-data-foundation-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Updated to Open Data Foundation v4.13
+        - kind: added
+          description: Added StorageCluster object which automatically spins up the storage.
+        - kind: added
+          description: Spliting storagecluster to full-fletched and standalone for better reasability.
+        - kind: fixed
+          description: wrong IFs
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -12165,6 +12212,46 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: initial chart
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-03-14T11:17:37.923896077Z"
+    dependencies:
+    - condition: sonarqube.enabled
+      name: sonarqube
+      repository: https://SonarSource.github.io/helm-chart-sonarqube
+      version: ~10.1.0
+    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
+      helm chart
+    digest: 77c243f985187a8f54a2da0f11ae21e9f0e58f8a8aa47b4f392f185b3d8d4c14
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
+    keywords:
+    - devsecops
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sonarqube
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.6/sonarqube-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -12373,4 +12460,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-12T14:02:32.532344663Z"
+generated: "2024-03-14T11:17:37.924660537Z"
