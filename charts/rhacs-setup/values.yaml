@@ -108,7 +108,7 @@ rhacs:
     # deployment to resize (grow) the volume (only supported by some storage class
     # controllers).
     # @default -- empty
-    pvc_size: 100
+    pvc_size: 100Gi
 
     # -- The name of the storage class to use for the PVC. If your cluster is not
     # configured with a default storage class, you must select a value here.
@@ -197,7 +197,7 @@ rhacs:
       # deployment to resize (grow) the volume (only supported by some storage
       # class controllers).
       # @default -- empty
-      pvc_size: 100
+      pvc_size: 100Gi
 
       # -- The name of the storage class to use for the PVC. If your cluster is not
       # configured with a default storage class, you must select a value here.
