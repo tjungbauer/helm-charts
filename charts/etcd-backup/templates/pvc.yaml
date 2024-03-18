@@ -1,0 +1,21 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.pvc.name | default "etcd-backup" }}
+  namespace: {{ .Values.namespace.name | default "etcd-backup" }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.pvc.accessMode | default "ReadWriteOnce" }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.size | default "100Gi" }}
+  storageClassName: {{ .Values.pvc.storageClass | default "ReadWriteOnce" | quote }}
+  {{- if eq (.Values.pvc.setVolumeName | toString) "true" }}
+  volumeName: {{ .Values.pvc.volumeName }}
+  {{- end }}
+  volumeMode: Filesystem
+{{- end }}

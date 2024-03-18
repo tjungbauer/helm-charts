@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: check-etcd-backup
+  namespace: etcd-backup
+spec:
+  containers:
+  - name: check-etcd-backup
+    image: registry.redhat.io/openshift4/ose-cli
+    # Just spin & wait forever
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    volumeMounts:
+      - name: etcd-backup
+        mountPath: /etcd-backup
+    resources:
+      limits:
+        cpu: 100m
+        memory: 250Mi
+  serviceAccountName: etcd-backup
+  serviceAccount: etcd-backup
+  volumes:
+    - name: etcd-backup
+      persistentVolumeClaim:
+        claimName: etcd-backup

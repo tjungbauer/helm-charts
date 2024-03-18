@@ -1,0 +1,17 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.clusterrolebinding_name | default "etcd-backup" }}
+  labels:
+    {{- include "common.labels" $ | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.serviceAccount | default "etcd-backup" }}
+    namespace: {{ .Values.namespace.name | default "etcd-backup" }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Values.clusterrolename | default "cluster-etcd-backup" }}
+{{- end }}

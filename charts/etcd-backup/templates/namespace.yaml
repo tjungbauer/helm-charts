@@ -1,0 +1,19 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+{{- if eq (.Values.namespace.create | toString) "true" }}
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: {{ .Values.namespace.name | default "etcd-backup" }}
+  annotations:
+    openshift.io/description: {{ .Values.namespace.description | default "Openshift Backup Automation Tool" | quote }}
+    openshift.io/display-name: {{ .Values.namespace.displayname | default "Backup ETCD Automation" | quote }}
+    openshift.io/node-selector: ''
+  labels:
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/warn: privileged
+    {{- include "common.labels" $ | nindent 4 }}
+spec: {}
+{{- end }}
+{{- end }}

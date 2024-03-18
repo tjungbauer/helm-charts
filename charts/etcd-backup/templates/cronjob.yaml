@@ -1,0 +1,91 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+---
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: {{ .Values.cronjob.name | default "etcd-backup" }}
+  namespace: {{ .Values.namespace.name | default "etcd-backup" }}
+  labels:
+    purpose: etcd-backup
+    {{- include "common.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  startingDeadlineSeconds: 200
+  concurrencyPolicy: Forbid
+  suspend: false
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: ''
+          restartPolicy: Never
+          activeDeadlineSeconds: 200
+          serviceAccountName: {{ .Values.serviceAccount | default "etcd-backup" }}
+          schedulerName: default-scheduler
+          hostNetwork: true
+          hostPID: true
+          terminationGracePeriodSeconds: 30
+          securityContext: {}
+          containers:
+            - resources:
+                requests:
+                  cpu: 300m
+                  memory: 250Mi
+              terminationMessagePath: /dev/termination-log
+              name: etcd-backup
+              command:
+                - /bin/bash
+                - '-c'
+                - >-
+                  printf "Starting backup of ETCD\n";
+                  oc debug node/`hostname -f` -- bash -c 'chroot /host sudo -E /usr/local/bin/cluster-backup.sh /home/core/backup' ; 
+
+                  printf "Moving Local Master Backups to target directory (from /host/home/core/backup to mounted PVC)\n"; 
+
+                  local_cluster=`oc whoami --show-console | awk -F"." '{print $3}'`
+
+                  printf "Create folder for this cluster if not exists: {{ .Values.cronjob.mountpath }}/${local_cluster}\n";
+
+                  mkdir -p -m 777 {{ .Values.cronjob.mountpath }}/${local_cluster};
+                  
+                  mv /host/home/core/backup/* {{ .Values.cronjob.mountpath }}/${local_cluster};
+
+                  printf "We have a backup ... lets zip the files\n";
+
+                  gzip -q {{ .Values.cronjob.mountpath }}/${local_cluster}/*;
+
+                  printf "Deleting files older than {{ .Values.cronjob.retention | default "30" }} days\n" ; 
+                  ls -la {{ .Values.cronjob.mountpath }}/${local_cluster};
+                  find {{ .Values.cronjob.mountpath }}/${local_cluster} -type f -mtime +{{ .Values.cronjob.retention | default "30" }} -exec rm {} \;
+
+                  find /host/home/core/backup/ -type f  -mtime +{{ .Values.cronjob.retention | default "30" }} -exec rm {} \;
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - name: temp-backup
+                  mountPath: /host
+                - name: etcd-backup
+                  mountPath: {{ .Values.cronjob.mountpath }}
+              terminationMessagePolicy: FallbackToLogsOnError
+              image: {{ .Values.cronjob.image | default "registry.redhat.io/openshift4/ose-cli" }}
+          volumes:
+            - name: temp-backup
+              hostPath:
+                path: /
+                type: Directory
+            - name: etcd-backup
+              persistentVolumeClaim:
+                claimName: {{ .Values.pvc.name | default "etcd-backup" }}
+          dnsPolicy: ClusterFirst
+          tolerations:
+            - operator: Exists
+              effect: NoSchedule
+            - operator: Exists
+              effect: NoExecute
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+{{- end }}

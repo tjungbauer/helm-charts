@@ -1,0 +1,113 @@
+name: &bu_name etcd-backup
+backup_storage_size: &backup_storage_size "100Gi"
+
+# -- Enable ETCD backup.
+# @default -- false
+enabled: true
+
+# -- Name of the cluster role
+# @default -- cluster-etcd-backup
+clusterrolename: cluster-etcd-backup
+
+# -- Name of the cluster role binding
+clusterrolebinding_name: *bu_name
+
+# -- Name of the PRIVILEGED cluster role binding
+# @default -- etcd-backup-scc-privileged
+clusterrolebindingPrivileged_name: etcd-backup-scc-privileged
+
+# Variables for the Namespace where ETCD backup shall be executed.
+namespace:
+  # -- Create the Namespace?
+  # @default -- false
+  create: true
+
+  # -- Name of the Namespace
+  # @default -- etcd-backup
+  name: *bu_name
+
+  # -- DisplayName of the Namespace
+  # @default -- "Backup ETCD Automation"
+  displayname: "Backup ETCD Automation"
+
+  # -- Description of the Namespace
+  # @default -- "Openshift Backup Automation Tool"
+  description: "Openshift Backup Automation Tool"
+
+# -- Name of the ServiceAccount
+# @default -- etcd-backup
+serviceAccount: *bu_name
+
+# Settings for the CronJob
+cronjob:
+  # -- Name of the CronJob
+  # @default -- etcd-backup
+  name: *bu_name
+
+  # -- Namespace of the CronJob
+  # @default -- etcd-backup
+
+  # -- Schedule of the Cronjob, for example: Every 4 hours
+  schedule: "0 */4 * * *"
+
+  # Retention period for backup files (in days)
+  # @default -- 30
+  retention: 30
+
+  # -- mount point inside the cronjob pod
+  mountpath: /etcd-backup
+
+  # -- Image to use for the CronJob
+  # @default -- registry.redhat.io/openshift4/ose-cli
+  image: registry.redhat.io/openshift4/ose-cli
+
+# Settings for the PVC
+pvc:
+  # -- Name of the PVC
+  # @default -- etcd-backup
+  name: *bu_name
+
+  # -- using RWO accessMode, which is usually sufficient
+  # @default -- ReadWriteOnce
+  accessMode: "ReadWriteOnce"
+
+  # -- Size of the Storage
+  # @default -- 100Gi
+  size: *backup_storage_size
+
+  # -- StorageClass must be provided as empty value here, since NFS mount is not provided as storageclass.
+  storageClass: "gp3-csi"
+
+  # -- Set the name of the PV, only required if the PV will be created (see below)
+  # @default -- false
+  setVolumeName: false
+
+  # -- Name of the PV
+  # @default -- etcd-backup
+  volumeName: *bu_name
+
+# OPTIONAL: Settings for the PV
+# Only required if the PV must be created and is not created by the CSI.
+pv:
+  # -- Enable PV creation?
+  # @default -- false
+  enabled: false
+
+  # -- Nmae of the PV
+  # @default -- etcd-backup
+  name: *bu_name
+
+  # -- Access mode of the PV
+  # @default -- ReadWriteOnce
+  accessMode: "ReadWriteOnce"
+
+  # -- Size of the Storage
+  # @default -- 100Gi
+  size: *backup_storage_size
+
+  # -- Server address of the NFS share for example
+  server: <ip-address>
+
+  # -- Path of the NFS share for example
+  path: <path>
+  # mountOptions: {}
