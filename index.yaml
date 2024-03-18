@@ -7874,6 +7874,41 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-03-18T14:19:40.379683885Z"
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 01f1b0919ede11bf0c13e8daea3cbbfb9def00b6c4d6b88644a4ed8752d56003
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.34/openshift-gitops-1.0.34.tgz
+    version: 1.0.34
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T12:58:51.085266466Z"
     description: Installs and patches the Red Hat Openshift Gitops Operator
     digest: 6418aea589a2b84e9765563e65c7de2a7bc10e589646ea42bbf2ccd69fe4edd1
@@ -12730,4 +12765,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-18T06:56:38.745747398Z"
+generated: "2024-03-18T14:19:40.38176977Z"
