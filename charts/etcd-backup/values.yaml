@@ -3,7 +3,7 @@ backup_storage_size: &backup_storage_size "100Gi"
 
 # -- Enable ETCD backup.
 # @default -- false
-enabled: true
+enabled: false
 
 # -- Name of the cluster role
 # @default -- cluster-etcd-backup
@@ -20,7 +20,7 @@ clusterrolebindingPrivileged_name: etcd-backup-scc-privileged
 namespace:
   # -- Create the Namespace?
   # @default -- false
-  create: true
+  create: false
 
   # -- Name of the Namespace
   # @default -- etcd-backup
