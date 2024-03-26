@@ -1,7 +1,7 @@
 apiVersion: v2
 name: etcd-backup
-description: Create a CronJob that performs ETCD Backup and stores the backup to a
-version: 1.0.2
+description: Create a CronJob that performs ETCD Backup and stores the backup to a PV.
+version: 1.0.3
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
 maintainers:
