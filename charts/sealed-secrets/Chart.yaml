@@ -1,8 +1,8 @@
 apiVersion: v2
 name: sealed-secrets
-description: A Helm chart to deploy sealed-secrets - epends on Bitnami's helm chart
+description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart
 type: application
-version: 1.0.15
+version: 1.0.16
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
 icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
@@ -33,3 +33,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: updated sealed secrets helm chart version
+    - kinde: added
+      description: new README

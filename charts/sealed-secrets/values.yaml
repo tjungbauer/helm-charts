@@ -1,17 +1,36 @@
+---
+# Parameters for Sealed Secret Subchart
 sealed-secrets:
-  # Disabled by default
+  # -- Enable or disable deployment of Sealed Secrets
+  # @default -- false
   enabled: false
+
+  # -- Overwrite the name
   nameOverride: sealed-secrets
+
+  # -- Overwrite the Full-name
   fullnameOverride: sealed-secrets
+
+  # -- Target Namespace
   namespace: sealed-secrets
-  # Dont touch the security context values, deployment will fail in OpenShift otherwise.
+
+  # -- Dont touch the security context values, deployment will fail in OpenShift otherwise.
   podSecurityContext:
     enabled: false
+
+  # -- Dont touch the security context values, deployment will fail in OpenShift otherwise.
   containerSecurityContext:
     enabled: false
+
+  # -- Additional command arguments
   commandArgs:
     - "--update-status=true"
 
+# Local parameters
 namespace:
+  # -- Namespace where Sealed Secrets shall be installed
   name: sealed-secrets
+
+  # -- Create Namespace or not
+  # @default -- false
   create: true
