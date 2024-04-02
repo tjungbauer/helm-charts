@@ -8,6 +8,9 @@ metadata:
   namespace: {{ $value.namespace | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "10" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   {{- if $value.generic_config.applicationInstanceLabelKey }}
   applicationInstanceLabelKey: {{ $value.generic_config.applicationInstanceLabelKey }}

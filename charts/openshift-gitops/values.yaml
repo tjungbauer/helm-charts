@@ -13,6 +13,10 @@ openshift-gitops:
       # -- Namespace for this application
       namespace: gitops-application
 
+      # -- Syncwave for the Argo CD Object
+      # @default -- 10
+      syncwave: 10
+
       # -- Argo CD Server configuration options.
       server:
         # -- Hostname for the GitOps URL.
