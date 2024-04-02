@@ -7931,6 +7931,53 @@ entries:
           description: typo in health check
         - kind: added
           description: cleaning up chart, added new README and tried to make more options configurable.
+        - kind: added
+          description: allowing configuration of syncwave for Argo CD object.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-02T05:51:32.128628871Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: a0e7d4f4af8b62818b181aeaf430a90863dd07d6d7c786b5f9543a039eed1590
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.36/openshift-gitops-1.0.36.tgz
+    version: 1.0.36
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+        - kind: added
+          description: cleaning up chart, added new README and tried to make more options configurable.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -12952,4 +12999,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-01T05:42:03.148605448Z"
+generated: "2024-04-02T05:51:32.129465332Z"
