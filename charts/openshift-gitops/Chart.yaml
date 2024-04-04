@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.36
+version: 1.0.37
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -41,3 +41,5 @@ annotations:
       description: cleaning up chart, added new README and tried to make more options configurable.
     - kind: added
       description: allowing configuration of syncwave for Argo CD object.
+    - kind: fixed
+      description: updated ArgoCD resource to v1beta1

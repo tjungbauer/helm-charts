@@ -1,7 +1,7 @@
 {{- range $key, $value := .Values.gitopsinstances }}
 {{ if eq ($value.enabled | toString) "true" }}
 ---
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: {{ $key | replace "_" "-" | quote }}
