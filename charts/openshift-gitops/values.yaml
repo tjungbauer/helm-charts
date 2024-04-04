@@ -15,7 +15,7 @@ openshift-gitops:
 
       # -- Enable cluster-admin Rolebinding. Usually only required for the main Argo CD instance.
       # @default -- disabled
-      clusterAdmin: enabled
+      clusterAdmin: disabled
 
       # -- Name of the service account the main argo CD instance is running.
       # @default -- openshift-gitops-app-controller
