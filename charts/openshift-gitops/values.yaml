@@ -13,6 +13,14 @@ openshift-gitops:
       # -- Namespace for this application
       namespace: gitops-application
 
+      # -- Enable cluster-admin Rolebinding. Usually only required for the main Argo CD instance.
+      # @default -- disabled
+      clusterAdmin: enabled
+
+      # -- Name of the service account the main argo CD instance is running.
+      # @default -- openshift-gitops-app-controller
+      argo_serviceaccount: openshift-gitops-app-controller
+
       # -- Syncwave for the Argo CD Object
       # @default -- 10
       syncwave: 10
