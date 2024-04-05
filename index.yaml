@@ -7937,6 +7937,59 @@ entries:
           description: updated ArgoCD resource to v1beta1
         - kind: added
           description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
+        - kind: fixed
+          description: fixing some default Values
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-05T06:35:59.727863687Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 8ee200f472f19ec2fc45bf8f2b27c795e7dbb9199a0c82c96dff632f4c8e1250
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.41/openshift-gitops-1.0.41.tgz
+    version: 1.0.41
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+        - kind: added
+          description: cleaning up chart, added new README and tried to make more options configurable.
+        - kind: added
+          description: allowing configuration of syncwave for Argo CD object.
+        - kind: fixed
+          description: updated ArgoCD resource to v1beta1
+        - kind: added
+          description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -13150,4 +13203,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-04T13:57:56.590517092Z"
+generated: "2024-04-05T06:35:59.728682081Z"
