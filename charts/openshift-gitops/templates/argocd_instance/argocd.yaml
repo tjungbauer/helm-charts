@@ -117,7 +117,7 @@ spec:
     {{- end }} 
     resources:
       limits:
-        cpu: {{ $value.appset.cpu_limits | default "2" }}
+        cpu: {{ $value.appset.cpu_limits | default "2" | quote }}
         memory: {{ $value.appset.memory_limits | default "1Gi" }}
       requests:
         cpu: {{ $value.appset.cpu_requests | default "250m" }}
@@ -130,8 +130,8 @@ spec:
   repo:
     resources:
       limits:
-        cpu: {{ $value.repo.cpu_limits | default "1000m" }}
-        memory: {{ $value.repo.memory_limits | default "1024Mi" }}
+        cpu: {{ $value.repo.cpu_limits | default "1" | quote }}
+        memory: {{ $value.repo.memory_limits | default "1Gi" }}
       requests:
         cpu: {{ $value.repo.cpu_requests | default "250m" }}
         memory: {{ $value.repo.memory_requests | default "256Mi" }}
@@ -338,11 +338,11 @@ spec:
     processors: {}
     resources:
       limits:
-        cpu: {{ $value.controller.cpu_limits | default "2000m" }}
-        memory: {{ $value.controller.memory_limits | default "2048Mi" }}
+        cpu: {{ $value.controller.cpu_limits | default "2" | quote }}
+        memory: {{ $value.controller.memory_limits | default "2Gi" }}
       requests:
         cpu: {{ $value.controller.cpu_requests | default "250m" }}
-        memory: {{ $value.controller.memory_requests | default "1024Mi" }}
+        memory: {{ $value.controller.memory_requests | default "1Gi" }}
     sharding: {}
 {{- end }}
 {{- end }}

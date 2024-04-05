@@ -152,20 +152,20 @@ openshift-gitops:
       # This can set limits and requests
       controller:
         # -- CPU Limits for the controller.
-        # @default -- 2000m
-        cpu_limits: 2000m
+        # @default -- 2
+        cpu_limits: '2'
 
         # -- Memory Limits for the controller.
-        # @default -- 2048Mi
-        memory_limits: 2048Mi
+        # @default -- 2Gi
+        memory_limits: 2Gi
 
         # -- CPU Requests for the controller.
         # @default -- 250m
         cpu_requests: 250m
 
         # -- Memory Requests for the controller.
-        # @default -- 1024Mi
-        memory_requests: 1024Mi
+        # @default -- 1Gi
+        memory_requests: 1Gi
 
       ha:
         # -- Enable HA for Argo CD
@@ -207,12 +207,12 @@ openshift-gitops:
 
       repo:
         # -- CPU Limits for the Repo controller.
-        # @default -- 1000m
-        cpu_limits: 1000m
+        # @default -- 1
+        cpu_limits: '1'
 
         # -- Memory Limits for the Repo controller.
-        # @default -- 1024Mi
-        memory_limits: 1024Mi
+        # @default -- 1Gi
+        memory_limits: 1Gi
 
         # -- CPU Requests for the Repo controller.
         # @default -- 250m
@@ -225,7 +225,7 @@ openshift-gitops:
       appset:
         # -- CPU Limits for the ApplicationSet controller.
         # @default -- 2
-        cpu_limits: 2
+        cpu_limits: '2'
 
         # -- Memory Limits for the ApplicationSet controller.
         # @default -- 1Gi

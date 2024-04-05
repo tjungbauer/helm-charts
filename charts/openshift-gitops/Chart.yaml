@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.40
+version: 1.0.41
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -45,3 +45,5 @@ annotations:
       description: updated ArgoCD resource to v1beta1
     - kind: added
       description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
+    - kind: fixed
+      description: fixing some default Values
