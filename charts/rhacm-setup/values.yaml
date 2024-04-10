@@ -22,22 +22,19 @@ helper-operator:
         create: false
         notownnamespace: false
 
+# Using sub-chart helper-status-checker
 helper-status-checker:
   enabled: false
 
-  operatorName: advanced-cluster-management
+  checks:
 
-  # space separate list of deployments which shall be checked for status
-  deployments: "multicluster-operators-application multicluster-observability-operator multicluster-operators-channel multicluster-operators-hub-subscription multicluster-operators-standalone-subscription multicluster-operators-subscription-report multiclusterhub-operator submariner-addon"
+    - operatorName: advanced-cluster-management
+      namespace:
+        name: open-cluster-management
+      syncwave: 3
 
-  wait_time: 60  # wait time in seconds for the check-job to verify when the deployments should be ready
-
-  namespace:
-    name: open-cluster-management
-
-  serviceAccount:
-    create: false
-    name: "status-checker"
+      serviceAccount:
+        name: "sa-acm-status-checker"
 
 rhacm:
   # Namespace

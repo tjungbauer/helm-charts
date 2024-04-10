@@ -37,16 +37,16 @@ helper-operator:
         create: false
         notownnamespace: true
 
+# Using sub-chart helper-status-checker
 helper-status-checker:
   enabled: false
 
-  # use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  operatorName: quay-operator
+  checks:
 
-  # where operator is installed
-  namespace:
-    name: openshift-operators
+    - operatorName: quay-operator
+      namespace:
+        name: openshift-operators
+      syncwave: 3
 
-  serviceAccount:
-    create: true
-    name: "sa-quay"
+      serviceAccount:
+        name: "sa-quay"

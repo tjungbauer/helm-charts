@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
+  ![Version: 1.0.27](https://img.shields.io/badge/Version-1.0.27-informational?style=flat-square)
 
  
 
@@ -17,7 +17,7 @@
 This Helm Chart is installing and configuring the Compliance operator, using the following workflow:
 
 1. Create required Namespace
-2. Installing the Compliance operator by applying the Subscription and Operatorgroup object. (In addition, the InstallPlan can be approved if required)
+2. Installing the Compliance operator by applying the Subscription and OperatorGroup object. (In addition, the InstallPlan can be approved if required)
 3. Verifying if the operator is ready to use Install and configure the compliance operator.
 4. Apply a ScanSettingBinding and, optionally, a TailoredProfile.
 
@@ -28,7 +28,7 @@ This chart has the following dependencies:
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.21 |
-| https://charts.stderr.at/ | helper-status-checker | ~3.0.0 |
+| https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -83,10 +83,10 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 | helper-operator.operators.compliance-operator.subscription.source | string | redhat-operators | Source of the Operator |
 | helper-operator.operators.compliance-operator.subscription.sourceNamespace | string | openshift-marketplace | Namespace of the source |
 | helper-operator.operators.compliance-operator.syncwave | string | 0 | Syncwave for the operator deployment |
+| helper-status-checker.checks[0] | object | "" | Define the name of the operator that shall be verified. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! For the compliance operator the name should be "**compliance-operator**" |
+| helper-status-checker.checks[0].namespace | object | "" | Define where the operator is installed For the compliance operator this should be "**openshift-compliance**" |
+| helper-status-checker.checks[0].serviceAccount | object | `{"name":"sa-compliance"}` | Set the values of the ServiceAccount that will execute the status checker Job. |
 | helper-status-checker.enabled | bool | false | Enable status checker |
-| helper-status-checker.namespace | object | "" | Define where the operator is installed For the compliance operator this should be "**openshift-compliance**" |
-| helper-status-checker.operatorName | string | "" | Define the name of the operator that shall be verified. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! For the compliance operator the name should be "**compliance-operator**" |
-| helper-status-checker.serviceAccount | object | `{"create":true,"name":"sa-compliance"}` | Set the values of the ServiceAccount that will execute the status checker Job. |
 
 ## Example values
 

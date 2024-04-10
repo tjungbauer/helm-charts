@@ -55,12 +55,16 @@ helper-operator:
 # Using sub-chart helper-status-checker
 helper-status-checker:
   enabled: false
-  operatorName: costmanagement-metrics-operator
-  namespace:
-    name: costmanagement-metrics-operator
-  serviceAccount:
-    create: true
-    name: "sa-costmanagement-metrics"
+
+  checks:
+
+    - operatorName: costmanagement-metrics-operator
+      namespace:
+        name: costmanagement-metrics-operator
+      syncwave: 3
+
+      serviceAccount:
+        name: "sa-costmanagement-metrics"
 ```
 
 {{ template "doc.footer" . }}

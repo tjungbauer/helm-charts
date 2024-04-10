@@ -48,22 +48,23 @@ helper-status-checker:
   # @default -- false
   enabled: false
 
-  # -- Define the name of the operator that shall be verified.
-  # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  # For the compliance operator the name should be "**compliance-operator**"
-  # @default -- ""
-  operatorName: compliance-operator
+  checks:
 
-  # -- Define where the operator is installed
-  # For the compliance operator this should be "**openshift-compliance**"
-  # @default -- ""
-  namespace:
-    name: openshift-compliance
+      # -- Define the name of the operator that shall be verified.
+      # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+      # For the compliance operator the name should be "**compliance-operator**"
+      # @default -- ""
+    - operatorName: compliance-operator
+      # -- Define where the operator is installed
+      # For the compliance operator this should be "**openshift-compliance**"
+      # @default -- ""
+      namespace:
+        name: openshift-compliance
+      syncwave: 3
 
-  # -- Set the values of the ServiceAccount that will execute the status checker Job.
-  serviceAccount:
-    create: true
-    name: "sa-compliance"
+      # -- Set the values of the ServiceAccount that will execute the status checker Job.
+      serviceAccount:
+        name: "sa-compliance"
 
 compliance:
   # -- Settings for namespace where compliance operator will be installed.

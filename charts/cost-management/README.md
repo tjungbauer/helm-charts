@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
  
 
@@ -28,7 +28,7 @@ This chart has the following dependencies:
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.21 |
-| https://charts.stderr.at/ | helper-status-checker | ~3.0.0 |
+| https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -36,11 +36,13 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> |  |
+| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:
 * <https://github.com/tjungbauer/helm-charts>
+* <https://charts.stderr.at/>
+* <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
 
 Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 
@@ -78,10 +80,11 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 | helper-operator.operators.cost-management-operator.subscription.source | string | redhat-operators | Source of the Operator |
 | helper-operator.operators.cost-management-operator.subscription.sourceNamespace | string | openshift-marketplace | Namespace of the source |
 | helper-operator.operators.cost-management-operator.syncwave | string | 0 | Syncwave for the operator deployment |
-| helper-status-checker.enabled | bool | false | Enable status checker |
-| helper-status-checker.namespace | object | "" | Define where the operator is installed For the cost management operator this should be "**costmanagement-metrics-operator**" |
-| helper-status-checker.operatorName | string | "" | Define the name of the operator that shall be verified. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! For the cost management operator the name should be "**costmanagement-metrics-operator**" |
-| helper-status-checker.serviceAccount | object | `{"create":true,"name":"sa-costmanagement-metrics"}` | Set the values of the ServiceAccount that will execute the status checker Job. |
+| helper-status-checker.checks[0].namespace.name | string | `"costmanagement-metrics-operator"` |  |
+| helper-status-checker.checks[0].operatorName | string | `"costmanagement-metrics-operator"` |  |
+| helper-status-checker.checks[0].serviceAccount.name | string | `"sa-costmanagement-metrics"` |  |
+| helper-status-checker.checks[0].syncwave | int | `3` |  |
+| helper-status-checker.enabled | bool | `false` |  |
 
 ## Example values
 
@@ -117,12 +120,16 @@ helper-operator:
 # Using sub-chart helper-status-checker
 helper-status-checker:
   enabled: false
-  operatorName: costmanagement-metrics-operator
-  namespace:
-    name: costmanagement-metrics-operator
-  serviceAccount:
-    create: true
-    name: "sa-costmanagement-metrics"
+
+  checks:
+
+    - operatorName: costmanagement-metrics-operator
+      namespace:
+        name: costmanagement-metrics-operator
+      syncwave: 3
+
+      serviceAccount:
+        name: "sa-costmanagement-metrics"
 ```
 
 ## Installing the Chart

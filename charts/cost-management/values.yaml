@@ -111,23 +111,14 @@ helper-operator:
 
 # Using sub-chart helper-status-checker
 helper-status-checker:
-  # -- Enable status checker
-  # @default -- false
   enabled: false
 
-  # -- Define the name of the operator that shall be verified.
-  # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-  # For the cost management operator the name should be "**costmanagement-metrics-operator**"
-  # @default -- ""
-  operatorName: costmanagement-metrics-operator
+  checks:
 
-  # -- Define where the operator is installed
-  # For the cost management operator this should be "**costmanagement-metrics-operator**"
-  # @default -- ""
-  namespace:
-    name: costmanagement-metrics-operator
+    - operatorName: costmanagement-metrics-operator
+      namespace:
+        name: costmanagement-metrics-operator
+      syncwave: 3
 
-  # -- Set the values of the ServiceAccount that will execute the status checker Job.
-  serviceAccount:
-    create: true
-    name: "sa-costmanagement-metrics"
+      serviceAccount:
+        name: "sa-costmanagement-metrics"
