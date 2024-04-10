@@ -1,3 +1,9 @@
+{{- range $key, $value := .Values.aide }}
+{{- with $value }}
+{{- if eq (.enabled | toString) "true" }}
+{{- if eq (.config.customconfig.enabled | toString) "true" }}
+{{- if eq (.config.customconfig.name | toString) "controlplane-aide-conf" }}
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -55,3 +61,8 @@ data:
 
     # Catch everything else in /etc
     /hostroot/etc/    CONTENT_EX
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: file-integrity-operator
 description: Setup the FileIntegrity Operator (based on AIDE)
-version: 1.0.6
+version: 1.0.7
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
     version: ~1.0.0
     repository: https://charts.stderr.at/
   - name: helper-status-checker
-    version: ~3.0.0
+    version: ~4.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
 maintainers:
@@ -31,3 +31,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Initial release
+    - kind: added
+      description: updated to helper-status-checker v4 and prepared readme file

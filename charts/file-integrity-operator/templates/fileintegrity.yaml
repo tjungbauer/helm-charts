@@ -16,15 +16,15 @@ spec:
   nodeSelector: 
       {{ .selector.key }}: {{ .selector.value | quote }}
   config:
-    gracePeriod: {{ .config.gracePeriod }}
-    maxBackups: {{ .config.maxBackups }}
+    gracePeriod: {{ .config.gracePeriod | default "900" }}
+    maxBackups: {{ .config.maxBackups | default "5" }}
     {{- if eq (.config.customconfig.enabled | toString) "true" }}
     name: {{ .config.customconfig.name }}
     namespace: {{ .config.customconfig.namespace }}
     key: {{ .config.customconfig.key | default "config" }}
     {{- end }}
 
-  {{- /* Set tolerations for the central */}}
+  {{- /* Set tolerations */}}
   {{- if .tolerations }}
   tolerations:
   {{- range $key, $value := .tolerations }}
