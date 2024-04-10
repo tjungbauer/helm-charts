@@ -1,6 +1,4 @@
-
 {{- range $key, $value := .Values.namespaces }}
-{{ if eq ( .enabled | toString) "true" }}
 
 {{ range $key_approject, $value_appproject := $value.argocd_rbac_setup }}
 {{ if eq ($value_appproject.enabled | toString) "true" }}
@@ -14,125 +12,100 @@ metadata:
   namespace: {{ $.Values.global.application_gitops_namespace }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
+    argocd.argoproj.io/project-inherit: global
 spec:
   description: {{ $value_appproject.name | replace "_" "-" }} GitOps Project
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+  clusterResourceWhitelist: []
   roles:
     {{- range $role_key, $role_value := $value_appproject.rbac }}
     - name: {{ .name }}
       description: {{ .description | quote }}
       groups:
-        {{- range .oidc_groups }}
-        - {{ . }}
+        {{- if .overwrite_oidc_groups }}
+          {{- range .overwrite_oidc_groups }}
+          - '{{ . }}'
+          {{- end }}
+        {{- else if $.Values.allowed_oidc_groups }}
+          {{- range $.Values.allowed_oidc_groups }}
+          - '{{ . }}'
+          {{- end }}
+        {{- else  }}
+          - dummy-group
         {{- end }}
       policies:
+      {{- if eq ( .fullaccess |toString) "true" }}
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, *, {{ $value_appproject.name }}/*, allow'
+      {{- else }}
       {{- range .policies }}
+      {{- if eq ($role_value.overwrite_appproject_name | toString) "true" }}
+        - 'p, proj:{{ .namespace }}:{{ $role_value.name }}, {{ .resource | default "applications" }}, {{ .action }}, {{ $value_appproject.name }}/{{ .object | default "*" }}, {{ .permission | default "deny" }}'
+      {{- else }}
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, {{ .resource | default "applications" }}, {{ .action }}, {{ $value_appproject.name }}/{{ .object | default "*" }}, {{ .permission | default "deny" }}'
       {{- end }}
+      {{- end }}
+      {{- end }}
     {{- end }}
-  sourceRepos:
-    {{- range $value_appproject.sourceRepos }}
+  sourceNamespaces:
+    {{- if $value_appproject.overwrite_source_namespaces }}
+      {{- range $value_appproject.overwrite_source_namespaces }}
       - '{{ . }}'
+      {{- end }}
+    {{- else if $.Values.allowed_source_namespace }}
+      {{- range $.Values.allowed_source_namespace }}
+      - '{{ . }}'
+      {{- end }}
+    {{- else if $.Values.global.allowed_source_namespace }}
+      {{- range $.Values.global.allowed_source_namespace }}
+      - '{{ . }}'
+      {{- end }}
+    {{- else }}
+      - '*'
     {{- end }}
-{{- /*
-Get global values and find the URL and name of the cluster
-*/}}
-{{- range $envs_key, $envs_value := $.Values.global.envs }}
-{{- if eq ($envs_value.name | toString) ($.Values.environment | toString) }}
-{{- $cluster_name := $envs_value.name }}
-{{- $cluster_url := $envs_value.url }}
-  destinations:
-      - name: {{ $cluster_name }}
-        namespace: {{ $value.url }}
-        server: {{ $cluster_url }}
-{{- end }}
-{{- end }}
-  {{- if .syncWindows }}
-  syncWindows:
-    {{- range .syncWindows }}
-    - applications:
-        {{- range .applications }}
-        - '{{ . }}'
-        {{- end }}
-      clusters:
-      {{- range .clusters }}
-        - '{{ . }}'
-      {{- end }}
-      duration: {{ .duration | default "1h" }}
-      kind: {{ .kind | default "allow" }}
-      manualSync: {{ .manualSync | default "true" }}
-      namespaces:
-      {{- range .namespaces }}
-        - '{{ . }}'
-      {{- end }}
-      schedule: '{{ .schedule | default "55 0 1 12 *" }}'
-      timeZone: {{ .timezone | default "Europe/Amsterdam" }}
-    {{- end }}
-  {{- end }}
-{{- end }}
-
-{{- /*
-In case not RBAC rules are defined use a default setting - especially usefull for Tshirt-Sized projects 
-*/}}
-
-{{- else }}
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-  name: {{ $value.name | replace "_" "-" }}
-  namespace: {{ $.Values.global.application_gitops_namespace }}
-  labels:
-    {{- include "common.labels" $ | nindent 4 }}
-spec:
-  description: {{ $value.name | replace "_" "-" }} GitOps Project
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
-  roles:
-    - name: "write"
-      description: "Group to deploy on DEV environment"
-      groups:
-        {{- if (.local_admin_group).group_name }}
-        - {{ .local_admin_group.group_name }}
-        {{- else }}
-        - {{ $value.name | replace "_" "-" }}-admins
-        {{- end }}
-      policies:
-      {{- range tuple "get" "create" "update" "delete" "sync" "override" }}
-        - 'p, proj:{{ $value.name }}:write, "applications", {{ . }}, {{ $value.name }}/*, "allow"'
-      {{- end }}
   sourceRepos:
-    {{- if $value.allowed_source_repos }}
-      {{- range $value.allowed_source_repos }}
+    {{- if $value_appproject.sourceRepos }}
+      {{- range $value_appproject.sourceRepos }}
+      - '{{ . }}'
+      {{- end }}
+    {{- else if $.Values.allowed_source_repos }}
+      {{- range $.Values.allowed_source_repos }}
       - '{{ . }}'
       {{- end }}
     {{- else if $.Values.global.allowed_source_repos }}
       {{- range $.Values.global.allowed_source_repos }}
       - '{{ . }}'
       {{- end }}
-    {{- else }}
-      - 'https://dummy-repo-define-allowed_source_repos'
     {{- end }}
 
 {{- /*
 Get global values and find the URL and name of the cluster
 */}}
+  destinations:
+{{- if $value_appproject.overwrite_allowed_envs }}
+{{- range $allowedenv_key, $allowedenv_value := $value_appproject.overwrite_allowed_envs }}
 {{- range $envs_key, $envs_value := $.Values.global.envs }}
-{{- if eq ($envs_value.name | toString) ($.Values.environment | toString) }}
+{{- if eq ($envs_value.name | toString) ($allowedenv_value | toString) }}
 {{- $cluster_name := $envs_value.name }}
 {{- $cluster_url := $envs_value.url }}
-  destinations:
       - name: {{ $cluster_name }}
-        namespace: {{ $value.url }}
+        namespace: {{ $value.name }}
         server: {{ $cluster_url }}
 {{- end }}
 {{- end }}
+{{- end }}
+{{- else }}
 
+{{- range $allowedenv_key, $allowedenv_value := $.Values.allowed_envs }}
+{{- range $envs_key, $envs_value := $.Values.global.envs }}
+{{- if eq ($envs_value.name | toString) ($allowedenv_value | toString) }}
+{{- $cluster_name := $envs_value.name }}
+{{- $cluster_url := $envs_value.url }}
+      - name: {{ $cluster_name }}
+        namespace: {{ $value.name }}
+        server: {{ $cluster_url }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
 
 {{- end }}
 {{- end }}

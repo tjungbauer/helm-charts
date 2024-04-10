@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-proj-onboarding
 description: This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.
-version: 1.0.32
+version: 1.0.34
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -27,3 +27,5 @@ annotations:
       description: changed the if/else definitions for resourcequota for t-shirt sizes
     - kind: fixed
       description: changed the way default network policies are managed
+    - kind: fixed
+      description: streamlined the creation of AppProject
