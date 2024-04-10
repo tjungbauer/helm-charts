@@ -20,7 +20,7 @@ metadata:
     {{- end }}
     {{- end }}
   name: {{ $key | replace "_" "-" }}
-  namespace: openshift-gitops
+  namespace: {{ $value.appNamespace | default "openshift-gitops" }}
 spec:
   destination:
     {{- if .namespace }}

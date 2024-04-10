@@ -6,7 +6,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.24](https://img.shields.io/badge/Version-2.0.24-informational?style=flat-square)
+  ![Version: 2.0.29](https://img.shields.io/badge/Version-2.0.29-informational?style=flat-square)
 
  
 
