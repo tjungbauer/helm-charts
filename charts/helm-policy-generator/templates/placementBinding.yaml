@@ -21,6 +21,8 @@ subjects:
 {{- end }}
 {{- else }}
 {{- range .Values.policies }}
+{{- if eq ( .enabled | toString ) "true" }}
+
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
@@ -50,6 +52,7 @@ subjects:
 - apiGroup: policy.open-cluster-management.io
   kind: Policy
   name: {{ .policyname }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

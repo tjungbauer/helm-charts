@@ -1,5 +1,6 @@
 {{- $policyDefaults := .Values.policyDefaults | default dict }}
 {{- range .Values.policies }}
+{{- if eq ( .enabled | toString ) "true" }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
@@ -233,43 +234,44 @@ spec:
                        END CERTIFICATEPOLICY
                 */}}
 
-      {{- /* Set evaluationInterval
+            {{- /* Set evaluationInterval
              Check time for compliant or noncompliant policies can be defined
-      */}}
-      {{- if $value.evaluationInterval }}
-      {{- if or ($value.evaluationInterval.compliant) ($value.evaluationInterval.noncompliant) }}
-      evaluationInterval:
-        {{- if $value.evaluationInterval.compliant }}
-        compliant: {{ $value.evaluationInterval.compliant }}
-        {{- end }}
-        {{- if $value.evaluationInterval.noncompliant }}
-        noncompliant: {{ $value.evaluationInterval.noncompliant }}
-        {{- end }}
-      {{- end }}
-      {{- end }}
-      {{- /* END of evaluationInterval */}}
-
-      {{- /* Defile extraDependencies for this policy-template */}}
-      {{- if $value.extraDependencies }}
-      extraDependencies:
-        {{- range $value.extraDependencies }}
-        - name: {{ $value.name | quote }}
-          namespace: {{ $value.namespace | quote }}
-          compliance: {{ $value.compliance | default "Compliant" | quote }} 
-          kind: {{ $value.kind | default "Policy" | quote }} 
-          apiVersion: {{ $value.apiVersion | default "policy.open-cluster-management.io/v1" | quote }} 
-        {{- end }}
-      {{- end }}
-      {{- /* END of extraDependencies */}}
+            */}}
+            {{- if $value.evaluationInterval }}
+            {{- if or ($value.evaluationInterval.compliant) ($value.evaluationInterval.noncompliant) }}
+            evaluationInterval:
+              {{- if $value.evaluationInterval.compliant }}
+              compliant: {{ $value.evaluationInterval.compliant }}
+              {{- end }}
+              {{- if $value.evaluationInterval.noncompliant }}
+              noncompliant: {{ $value.evaluationInterval.noncompliant }}
+              {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- /* END of evaluationInterval */}}
+      
+            {{- /* Defile extraDependencies for this policy-template */}}
+            {{- if $value.extraDependencies }}
+            extraDependencies:
+              {{- range $value.extraDependencies }}
+              - name: {{ $value.name | quote }}
+                namespace: {{ $value.namespace | quote }}
+                compliance: {{ $value.compliance | default "Compliant" | quote }} 
+                kind: {{ $value.kind | default "Policy" | quote }} 
+                apiVersion: {{ $value.apiVersion | default "policy.open-cluster-management.io/v1" | quote }} 
+              {{- end }}
+            {{- end }}
+            {{- /* END of extraDependencies */}}
 
     {{- /* END of RANGE policy_templates */}}
     {{- end }}
-    {{- if .ignorePending }}
-    ignorePending: {{ .ignorePending }}
-    {{- end }}
+  {{- if .ignorePending }}
+  ignorePending: {{ .ignorePending }}
+  {{- end }}
   {{- if $policyDefaults.globalRemediationAction }}
   remediationAction: {{ $policyDefaults.globalRemediationAction }}
   {{- else if .remediationAction }}
   remediationAction: {{ .remediationAction }}
   {{- end }}
+{{- end }}
 {{- end }}

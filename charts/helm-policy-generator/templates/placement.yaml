@@ -33,6 +33,7 @@ spec:
 
 {{- else }}
 {{- range .Values.policies }}
+{{- if eq ( .enabled | toString ) "true" }}
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
@@ -60,5 +61,6 @@ spec:
           - {{ . }}
           {{- end }}
         {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
