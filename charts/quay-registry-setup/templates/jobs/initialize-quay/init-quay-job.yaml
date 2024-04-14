@@ -10,7 +10,7 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | quote }}
+    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | default "10" | quote }}
 spec:
   parallelism: 1
   completions: 1
@@ -54,7 +54,7 @@ spec:
               
               sleep_timer={{ .job_init_quay.sleeptimer | default "30" }}
               counter=0
-              max_retries={{ .job_init_quay.sleeptimer | default "20" }}
+              max_retries={{ .job_init_quay.sleeptimer | default "30" }}
 
               printf "\nVerifying if Quay is already up and running\n"
               {{ .job_init_quay.quay_basename }}

@@ -5,7 +5,7 @@ metadata:
   name: quay-registry
   namespace: {{ .Values.quay.namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.quay.syncwave | default "0" | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.quay.syncwave | default "3" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     {{- include "common.labels" $ | nindent 4 }}

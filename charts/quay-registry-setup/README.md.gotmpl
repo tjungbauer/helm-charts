@@ -1,0 +1,82 @@
+{{ template "doc.header" . }}
+
+This Chart is used to configure the Quay Enterprise registry on an OpenShift cluster. While it can be used as a standalone,
+it should actually be called using a full GitOps approach defined at: https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/clusters/management-cluster/setup-quay 
+which also allows you to configure the Quay instance in every detail and will generate the required Secret for you. 
+
+This chart will not configure Quay itself but deploys the Operator and the CRD. Without generating the configuration Secret, 
+this means that Quay will be deployed with all selected components and will expect that either all components are managed by the Operator 
+or that the configuration is already in place. (Therefore, use the link above to configure Quay also :) )
+
+In addition to deploying and configuring the Operator, this Chart also starts a so-called 
+init-Job to configure the initial administrator.
+Again the password for such an initial user is created at https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/clusters/management-cluster/setup-quay. 
+(Did I mention already that you will need that repo? :) )
+
+
+{{ template "doc.deps" . }}
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [helper-operator](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
+* [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
+
+{{ template "doc.values" . }}
+
+## Example values
+
+This will configure the Quay Operator the start/manage Quay Enterprise with all components, except:
+
+. Horizontal Pod Autoscaler (HPA)
+. Objectstorage
+. Mirroring
+
+These components are either not used at all, or must be prepared upfront.
+
+In addition, the replicas of Clair and Quay have been reduced to 1 (default 2) to save resources.
+
+```yaml
+---
+quay:
+  enabled: false
+
+  config_bundle: config-bundle-secret
+
+  namespace:
+    create: true
+
+    # -- Name of the Namespace
+    name: quay-enterprise
+
+  # Quay comes with several components that might be managed by the Operator or managed by the customer.
+  # Some might have an "overrides" settings that can manage the number of replicas. This is useful for for testing purposes.
+  components:
+    clair:
+      overrides:
+        replicas: 1
+    clairpostgres: {}
+    objectstore:
+      managed: "false"
+    redis: {}
+    hpa:
+      managed: "false"
+    route: {}
+    mirror:
+      managed: "false"
+    monitoring: {}
+    tls: {}
+    postgres: {}
+    quay:
+      overrides:
+        replicas: 1
+
+  job_init_quay:
+    enabled: false
+    serviceAccount: quay-initiator
+```
+
+{{ template "doc.footer" . }}

@@ -1,24 +1,127 @@
 ---
-
 quay:
+  # -- Enable configuration of Quay Operator
+  # @default -- false
   enabled: false
-  config_bundle: config-bundle-secret
-  syncwave: 3
-  # public_route: route
 
+  # -- Name of the Secret of the Quay configuration. This should be configured by the chart used by GitOps approach.
+  config_bundle: config-bundle-secret
+
+  # -- Syncwave for the quay CRD
+  # @default -- 3
+  syncwave: 3
+
+  # Namespace for Quay Enterprise
   namespace:
+    # -- Create the Namespace for Quay Enterprise. Should be "true" if it is a new namespace.
+    # @default -- false
     create: false
+
+    # -- Name of the Namespace
     name: quay-enterprise
-    syncwave: 1
+
+    # -- Syncwave to create the Namespace
+    # @default -- 0
+    syncwave: 0
+
+  # Quay comes with several components that might be managed by the Operator or managed by the customer.
+  # Some might have an "overrides" settings that can manage the number of replicas. This is useful for for testing purposes.
+  components:
+    # Clair
+    clair:
+      # -- Let Operator manage clair
+      # @default -- true
+      managed: true
+
+      # -- Override the number of replicas (default: 2)
+      overrides:
+        replicas: 2
+
+    # PostgresDB of Clair
+    clairpostgres:
+      # -- Let Operator manage PostgresDB of Clair
+      # @default -- true
+      managed: "true"
+
+    objectstore:
+      # -- Let Operator manage Objectstorage
+      # @default -- true
+      managed: "true"
+
+    redis:
+      # -- Let Operator manage Redis
+      # @default -- true
+      managed: "true"
+
+    hpa:
+      # -- Let Operator manage Auto Scaling
+      # @default -- true
+      managed: "true"
+
+    route:
+      # -- Let Operator manage Route creation
+      # @default -- true
+      managed: "true"
+
+    mirror:
+      # -- Let Operator manage Mirror instances
+      # @default -- true
+      managed: "true"
+
+      # -- Override the number of replicas (default: 2)
+      overrides:
+        replicas: 2
+
+    monitoring:
+      # -- Let Operator manage Monitoring configuration
+      # @default -- true
+      managed: "true"
+
+    tls:
+      # -- Let Operator manage Certificates
+      # @default -- true
+      managed: "true"
+
+    postgres:
+      # -- Let Operator manage Quay Postgres database
+      # @default -- true
+      managed: true
+
+      # -- Override the number of replicas (default: 1)
+      overrides:
+        replicas: 1
+
+    quay:
+      # -- Let Operator manage the Quay Application
+      # @default -- true
+      managed: "true"
+
+      # -- Override the number of replicas (default: 2)
+      overrides:
+        replicas: 2
 
   job_init_quay:
+    # -- Enable the init-Job
+    # @default -- false
     enabled: false
-    syncwave: 5
+
+    # Syncwave for the init Job that generates the admin account.
+    # @default -- 10
+    syncwave: 10
+
+    # -- Name of the ServiceAccount
     serviceAccount: quay-initiator
+
+    # @default -- quay-registry-quay-app
+    quay_basename: quay-registry-quay-app
+
+    # @default -- 30
+    sleeptimer: 30
 
 # Install Quay Operator
 # Deploys Operator --> Subscription and Operatorgroup
 # Syncwave: 0
+# @ignore
 helper-operator:
   operators:
     quay-operator:
@@ -38,6 +141,7 @@ helper-operator:
         notownnamespace: true
 
 # Using sub-chart helper-status-checker
+# @ignore
 helper-status-checker:
   enabled: false
 
