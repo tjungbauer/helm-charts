@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-data-foundation
 description: Deploys and configures the OpenShift Data Foundation Operator.
-version: 1.0.29
+version: 1.0.30
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
 dependencies:

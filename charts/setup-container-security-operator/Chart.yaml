@@ -1,7 +1,7 @@
 apiVersion: v2
 name: setup-container-security-operator
 description: Setup the Quay Container Security Operator.
-version: 1.0.6
+version: 1.0.7
 dependencies:
   - name: helper-operator
     version: ~1.0.14

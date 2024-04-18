@@ -2,11 +2,12 @@
 
 # sealed-secrets
 
+  [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
+  ![Version: 1.0.17](https://img.shields.io/badge/Version-1.0.17-informational?style=flat-square)
 
  
 
@@ -56,7 +57,7 @@ Verify the full documentation of the Subchart at [Bitnami Sealed Secret](https:/
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | namespace.create | bool | false | Create Namespace or not |
-| namespace.name | string | `"sealed-secrets"` | Namespace where Sealed Secrets shall be installed  |
+| namespace.name | string | `"sealed-secrets"` | Namespace where Sealed Secrets shall be installed |
 | sealed-secrets.commandArgs | list | `["--update-status=true"]` | Additional command arguments |
 | sealed-secrets.containerSecurityContext | object | `{"enabled":false}` | Dont touch the security context values, deployment will fail in OpenShift otherwise. |
 | sealed-secrets.enabled | bool | false | Enable or disable deployment of Sealed Secrets |

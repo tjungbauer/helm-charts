@@ -123,6 +123,19 @@ namespaces:
         - mona
         - peter
 
+    # -- EgressIPs for this Namespace
+    # Be sure that nodes are labells with: k8s.ovn.org/egress-assignable: ""
+    # **NOTE**: Curently only Namespace EgressIPs are supported (not pod)
+    # @default -- '' 
+    egressIPs:
+      # -- Enable or disable egressIPs.
+      # @default -- false
+      enabled: false
+
+      # -- List of IP addresses that you want to assign the namespace
+      ips:
+        - 10.100.60.130
+
     # -- Creation of Argo CD Project
     # @default -- ''
     argocd_rbac_setup:

@@ -2,11 +2,12 @@
 
 # helm-policy-generator
 
+  [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
+  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
 
  
 
@@ -111,7 +112,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policies[0].policy_templates[0].namespaceSelector | object | `{"exclude":[],"include":[],"matchExpressions":[{"key":"name","operator":"In","values":["local-cluster"]}],"matchLabels":{"component":"redis","env":"test"}}` | Determines the list of namespaces to check on the cluster for the given manifest. If a namespace is specified in the manifest, the selector is not necessary. This defaults to no selectors. |
 | policies[0].policy_templates[0].path | string | `"console-banner"` | Path the Kubernetes objects in yaml format. (They must be fully defined) Here the policy object in yaml format is found. |
 | policies[0].policy_templates[0].pruneObjectBehavior | string | None | Determines whether to clean up resources related to the policy when the policy is removed from a managed cluster.  Values:    - DeleteIfCreated: Cleans up any resources created by the policy.    - DeleteAll: Cleans up all resources managed by the policy.    - None: This is the default value and maintains the same behavior            from previous releases, where no related resources are deleted. |
-| policies[0].policy_templates[0].remediationAction | string | inform | Specifies the action to take when the policy is non-compliant. Use the following parameter values:   - inform   - InformOnly   - enforce  Important: the policy-template.spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction (if defined)         |
+| policies[0].policy_templates[0].remediationAction | string | inform | Specifies the action to take when the policy is non-compliant. Use the following parameter values:   - inform   - InformOnly   - enforce  Important: the policy-template.spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction (if defined)  |
 | policies[0].policy_templates[0].severity | string | `"low"` | Specifies the severity when the policy is non-compliant. Use the following parameter values: low, medium, high, or critical.  @efault -- low |
 | policies[0].remediationAction | string | `"inform"` | Specifies the remediation of your policy. The possible parameter values are enforce and inform. If specified, the spec.remediationAction value overrides any remediationAction parameter defined in the child policies in the policy-templates section. For example, if the spec.remediationAction value is set to enforce, then the remediationAction in the policy-templates section is set to enforce during runtime. Important: Some policy kinds might not support the enforce feature.  Optional Values:   - inform   - enforce |
 | policies[0].standards | list | empty | The name or names of security standards the policy is related to. For example, National Institute of Standards and Technology (NIST) and Payment Card Industry (PCI). This is used only when policyDefaults.catagories is not set. |

@@ -213,6 +213,21 @@ namespaces:
         - peter
 ```
 
+#### Define one or more EgressIPs for the namespace
+
+Sometimes it is required that the outgoing connections from a namespace have a specific source IP address. For this egressIPs can be configured.
+To make this work it is required that one or more nodes have the label **k8s.ovn.org/egress-assignable: ""** configured. On these nodes the egressIPs will be configured.
+
+The IP address must be an IP from an appropriate range.
+
+```yaml
+    egressIPs:
+      enabled: true
+
+      ips:
+        - 10.100.60.130
+```
+
 #### Namespace - ResourceQuota
 
 The definition of a ResourceQuota is straightforward. A full example can be found in the values file in this chart. 

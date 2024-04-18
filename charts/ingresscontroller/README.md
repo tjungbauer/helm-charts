@@ -2,11 +2,12 @@
 
 # ingresscontroller
 
+  [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
 
  
 
@@ -14,7 +15,7 @@
 
   Configures the IngressController object.
 
-This Helm Chart is configuring the IngressController and can set a replica, nodeSelector and tolerations.
+This Helm Chart configures the IngressController and can set a replica, nodeSelector and tolerations.
 
 ## Dependencies
 
@@ -43,11 +44,11 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ingresscontrollers | list | `[{"enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
-| ingresscontrollers[0] | object | `{"enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
+| ingresscontrollers | list | `[{"enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
+| ingresscontrollers[0] | object | `{"enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
 | ingresscontrollers[0].enabled | bool | false | Enable the configuration |
 | ingresscontrollers[0].nodePlacement | object | empty | Bind IngressController to specific nodes Here as example for Infrastructure nodes. |
-| ingresscontrollers[0].nodePlacement.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]` | Tolerations, required if the nodes are tainted.   |
+| ingresscontrollers[0].nodePlacement.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]` | Tolerations, required if the nodes are tainted. |
 | ingresscontrollers[0].replicas | int | 2 | Number of replicas for this IngressController |
 
 ## Example values

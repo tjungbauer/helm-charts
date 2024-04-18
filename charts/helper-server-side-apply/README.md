@@ -40,7 +40,7 @@ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 # Parameters
-The following table lists the configurable parameters of the chart and their default values. As example Node Labels are added:
+The following table lists the configurable parameters of the chart and their default values. As an example, Node Labels are added:
 
 | Parameter                                 | Description                                   | Default                                                 |
 |-------------------------------------------|-----------------------------------------------|---------------------------------------------------------|

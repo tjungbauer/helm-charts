@@ -2,7 +2,7 @@ apiVersion: v2
 name: cyclonedx
 description: A Helm chart to deploy CycloneDX to generate SBOM
 type: application
-version: 1.0.3
+version: 1.0.4
 appVersion: 1.0.0
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx

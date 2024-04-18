@@ -2,11 +2,12 @@
 
 # rhacs-setup
 
+  [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
+  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
 
  
 
@@ -36,8 +37,8 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | helper-operator | 1.0.14 |
-| https://charts.stderr.at/ | helper-status-checker | ~3.0.0 |
+| https://charts.stderr.at/ | helper-operator | ~1.0.23 |
+| https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-acs)
 
@@ -86,43 +87,12 @@ Verify the subcharts for additional settings:
 | operatornamespace | string | `"rhacs-operator"` |  |
 | override-rhacs-operator-version | string | `"stable"` |  |
 | rhacs.basic_acs_settings | object | `{"auth_provider":"OpenShift","auth_provider_type":"openshift","min_access_role":"None","syncwave":5}` | Basic settings for ACS authentication This configuration is done by a Job, that will configure the OpenShift oauth for ACS. |
-| rhacs.central.adminPasswordSecret | string | omitted | Specify a secret that contains the administrator password in the "password" data item. If omitted, the operator will auto-generate a password and store it in the "password" item in the "central-htpasswd" secret. The Secret must exist. |
-| rhacs.central.db | object | `{"passwordSecret":"secretname","pvc":"central-db","pvc_size":100,"pvc_storageclass":"storageclass","resources":{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Central DB, which is responsible for data persistence. |
-| rhacs.central.db.passwordSecret | string | omitted | Specify a secret that contains the password in the "password" data item. This can only be used when specifying a connection string manually. When omitted, the operator will auto-generate a DB password and store it in the "password" item in the "central-db-password" secret. |
-| rhacs.central.db.pvc | string | central-db | Configures how Central DB should store its persistent data. The name of the PVC to manage persistent data. If no PVC with the given name exists, it will be created. Defaults to "central-db" if not set. |
-| rhacs.central.db.pvc_size | int | empty | The size of the persistent volume when created through the claim. If a claim was automatically created, this can be used after the initial deployment to resize (grow) the volume (only supported by some storage class controllers). |
-| rhacs.central.db.pvc_storageclass | string | empty | The name of the storage class to use for the PVC. If your cluster is not configured with a default storage class, you must select a value here. |
-| rhacs.central.db.resources | object | `{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}}` | Set Central DB resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.central.db.resources.limits.cpu | int | 4 | CPU limits. |
-| rhacs.central.db.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.central.db.resources.limits.memory | string | 8Gi | Memory limits. |
+| rhacs.central.db | object | `{"resources":{"requests":{"cpu":4}}}` | Settings for Central DB, which is responsible for data persistence. |
+| rhacs.central.db.resources | object | `{"requests":{"cpu":4}}` | Set Central DB resources.requests and resources.limits. Per default this block can be omitted. |
 | rhacs.central.db.resources.requests.cpu | int | 4 | CPU requests. |
-| rhacs.central.db.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.central.db.resources.requests.memory | string | 8Gi | Memory requests. |
-| rhacs.central.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.central.defaultsslsecret | string | `"secretname"` | By default, Central will only serve an internal TLS certificate, which means that you will need to handle TLS termination at the ingress or load balancer level. If you want to terminate TLS in Central and serve a custom server certificate, you can specify a secret containing the certificate and private key here.  Define here the name of the secret If you would like to set it. The secret must exist. |
 | rhacs.central.egress | object | `{"connectivityPolicy":"Online"}` | Configures whether Red Hat Advanced Cluster Security should run in online or offline (disconnected) mode. In offline mode, automatic updates of vulnerability definitions and kernel modules are disabled. This parameter is MANDATORY default -- Online |
 | rhacs.central.enabled | bool | false | Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters. |
-| rhacs.central.loadBalancer | object | `{"enabled":false,"ip":"127.0.0.1","port":443}` | Expose Central through a load balancer service. |
-| rhacs.central.loadBalancer.enabled | bool | false | Enable load balancer services. |
-| rhacs.central.loadBalancer.ip | string | `"127.0.0.1"` | IP Address of the loadbalancer services. |
-| rhacs.central.loadBalancer.port | int | `443` | Port of the load balancer service |
-| rhacs.central.monitoring | string | Disabled | Enables monitoring endpoint for Central to allow other services to collect metrics from the Central. Can be either Enabled of Disabled. |
-| rhacs.central.nodePort | object | `{"enabled":false}` | Expose Central through a node port. |
-| rhacs.central.nodePort.enabled | bool | false | Enable nodePort services. |
-| rhacs.central.pvc | string | stackrox-db | The name of the PVC to manage persistent data. If no PVC with the given name exists, it will be created. Defaults to "stackrox-db" if not set. |
-| rhacs.central.pvc_size | int | empty | The size of the persistent volume when created through the claim. If a claim was automatically created, this can be used after the initial deployment to resize (grow) the volume (only supported by some storage class controllers). |
-| rhacs.central.pvc_storageclass | string | default storage class will be used | The name of the storage class to use for the PVC. If your cluster is not configured with a default storage class, you must select a value here. |
-| rhacs.central.resources | object | `{"limits":{"cpu":4,"ephemeral-storage":"500Mi","memory":"8Gi"},"requests":{"cpu":"500m","ephemeral-storage":"50Mi","memory":"1Gi"}}` | Set resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.central.resources.limits.cpu | int | 4 | CPU limits. |
-| rhacs.central.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.central.resources.limits.memory | string | 8Gi | Memory limits. |
-| rhacs.central.resources.requests.cpu | string | 1500m | CPU requests. |
-| rhacs.central.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.central.resources.requests.memory | string | 4Gi | Memory requests. |
-| rhacs.central.route | object | `{"enabled":true}` | Expose Central through an OpenShift route. This is the default setting |
 | rhacs.central.syncwave | string | 3 | Syncwave for Argo CD to create the Central |
-| rhacs.central.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.consolelink | object | `{"enabled":true,"location":"ApplicationMenu","section":"Observability","syncwave":"3","text":"Advanced Cluster Security"}` | Job that creates a console link in OpenShift |
 | rhacs.consolelink.enabled | bool | false | Enable this Job |
 | rhacs.consolelink.location | string | `"ApplicationMenu"` | Location of the ConsoleLink |
@@ -137,29 +107,14 @@ Verify the subcharts for additional settings:
 | rhacs.namespace.descr | string | `"Red Hat Advanced Cluster Security"` | Description of the Namespace. |
 | rhacs.namespace.name | string | `"stackrox"` | Namespace where ACS shall be deployed. Typicall, this is stackrox. This is not the Operator itself, that is usually deployed in "rhacs-operator". |
 | rhacs.namespace.syncwave | string | 0 | Syncwave to deploy the ACS namespace. |
+| rhacs.scanner.analyzer | object | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. monitoring: Disabled |
 | rhacs.scanner.analyzer.autoscaling | object | `{"max":3,"min":2,"replicas":3,"status":"Enabled"}` | Automatically scale the Scanner |
 | rhacs.scanner.analyzer.autoscaling.max | int | 3 | Max number of Pods |
 | rhacs.scanner.analyzer.autoscaling.min | int | 2 | Minimum number of Pods |
 | rhacs.scanner.analyzer.autoscaling.replicas | int | 3 | When autoscaling is disabled, the number of replicas will always be configured to match this value. |
 | rhacs.scanner.analyzer.autoscaling.status | string | Enabled | Is austoscaling enabled? |
-| rhacs.scanner.analyzer.resources | object | `{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}}` | Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.scanner.analyzer.resources.limits.cpu | int | 8 | CPU limits. |
-| rhacs.scanner.analyzer.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.scanner.analyzer.resources.limits.memory | string | 16Gi | Memory limits. |
-| rhacs.scanner.analyzer.resources.requests.cpu | int | 4 | CPU requests. |
-| rhacs.scanner.analyzer.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.scanner.analyzer.resources.requests.memory | string | 8Gi | Memory requests. |
-| rhacs.scanner.analyzer.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.scanner.db.resources | object | `{"limits":{"cpu":2,"ephemeral-storage":"500Mi","memory":"4Gi"},"requests":{"cpu":"200m","ephemeral-storage":"50Mi","memory":"200Mi"}}` | Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.scanner.db.resources.limits.cpu | int | 2 | CPU limits. |
-| rhacs.scanner.db.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.scanner.db.resources.limits.memory | string | 4Gi | Memory limits. |
-| rhacs.scanner.db.resources.requests.cpu | string | 200m | CPU requests. |
-| rhacs.scanner.db.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.scanner.db.resources.requests.memory | string | 200Mi | Memory requests. |
 | rhacs.scanner.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.scanner.enabled | bool | false | If you do not want to deploy the Red Hat Advanced Cluster Security Scanner, you can disable it here (not recommended). |
-| rhacs.scanner.monitoring | string | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. |
 | rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |
 | rhacs.secured_cluster.admissioncontrol.listenOn.creates | bool | `true` | Set this to true to enable preventive policy enforcement for object creations. |
 | rhacs.secured_cluster.admissioncontrol.listenOn.events | bool | `true` | Set this to 'true' to enable monitoring and enforcement for Kubernetes events (port-forward and exec). |

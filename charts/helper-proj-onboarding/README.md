@@ -2,11 +2,12 @@
 
 # helper-proj-onboarding
 
+  [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.34](https://img.shields.io/badge/Version-1.0.34-informational?style=flat-square)
+  ![Version: 1.0.36](https://img.shields.io/badge/Version-1.0.36-informational?style=flat-square)
 
  
 
@@ -95,7 +96,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-p
 | namespaces[0] | object | '' | Name of the first Namespace |
 | namespaces[0].additional_settings | object | '' | Additional labels for Podsecurity and Monitoring for the Namespace |
 | namespaces[0].additional_settings.podsecurity_audit | string | N/A | Pod Security Standards https://kubernetes.io/docs/concepts/security/pod-security-standards/#restricted Possible values: Privileged, Baseline, Restricted Privileged: Unrestricted policy, providing the widest possible level of permissions. This policy allows for known privilege escalations. Baseline: Minimally restrictive policy which prevents known privilege escalations. Allows the default (minimally specified) Pod configuration. Restricted: Heavily restricted policy, following current Pod hardening best practices. Policy violations will trigger the addition of an audit annotation to the event recorded in the audit log, but are otherwise allowed. |
-| namespaces[0].additional_settings.podsecurity_enforce | string | N/A  | Policy violations will cause the pod to be rejected. |
+| namespaces[0].additional_settings.podsecurity_enforce | string | N/A | Policy violations will cause the pod to be rejected. |
 | namespaces[0].additional_settings.podsecurity_warn | string | N/A | Policy violations will trigger a user-facing warning, but are otherwise allowed. |
 | namespaces[0].argocd_rbac_setup | object | '' | Creation of Argo CD Project |
 | namespaces[0].argocd_rbac_setup.argocd_project_1.name | string | '' | Name of the AppProject. |
@@ -118,6 +119,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-p
 | namespaces[0].default_policies.allow_to_dns | bool | true | Allow traffic to OpenShift DNS services. This should be better allowed |
 | namespaces[0].default_policies.deny_all_egress | bool | false | Per default deny all outgoing traffic. Default would be false, to allow egress traffic without restriction. |
 | namespaces[0].default_policies.deny_all_ingress | bool | false | Deny any ingress connection to this namespace. This is very restrictive and if **allow_from_same_namespace** is set to false it means that also namespace inner connections are not possible unless they are explicitely permitted. |
+| namespaces[0].egressIPs | object | ''  | EgressIPs for this Namespace Be sure that nodes are labells with: k8s.ovn.org/egress-assignable: "" **NOTE**: Curently only Namespace EgressIPs are supported (not pod) |
+| namespaces[0].egressIPs.enabled | bool | false | Enable or disable egressIPs. |
+| namespaces[0].egressIPs.ips | list | `["10.100.60.130"]` | List of IP addresses that you want to assign the namespace |
 | namespaces[0].enabled | bool | false | Is this Namespace configuration enabled or not? |
 | namespaces[0].labels | object | empty | List of additional custom Labels that should be added to the Namespace resource, stored as a key/value pair |
 | namespaces[0].labels.my_additional_label | string | `"my_label"` | Example of an additional label |
@@ -139,7 +143,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-p
 | namespaces[0].limitRanges.pod.min.memory | string | N/A | The minimum amount of memory that a pod can request across all containers. |
 | namespaces[0].limitRanges.pvc.max.storage | string | N/A | The maximum amount of storage that can be requested in a persistent volume claim. |
 | namespaces[0].limitRanges.pvc.min.storage | string | N/A | The minimum amount of storage that can be requested in a persistent volume claim. |
-| namespaces[0].local_admin_group | object | ''  | Create a local Group with Admin users for this project and the required rolebinding If other systems, like LDAP Group sync is used, you will probaably not need this and can either disable it or remove the whole block. |
+| namespaces[0].local_admin_group | object | '' | Create a local Group with Admin users for this project and the required rolebinding If other systems, like LDAP Group sync is used, you will probaably not need this and can either disable it or remove the whole block. |
 | namespaces[0].local_admin_group.clusterrole | string | admin | Set the cluster role for the group. |
 | namespaces[0].local_admin_group.enabled | bool | false | Is creation of local admin group enabled of not. |
 | namespaces[0].local_admin_group.group_name | string | "namespace-name-admins" | Name of the group the shall be created. |
@@ -324,6 +328,21 @@ namespaces:
       users:
         - mona
         - peter
+```
+
+#### Define one or more EgressIPs for the namespace
+
+Sometimes it is required that the outgoing connections from a namespace have a specific source IP address. For this egressIPs can be configured.
+To make this work it is required that one or more nodes have the label **k8s.ovn.org/egress-assignable: ""** configured. On these nodes the egressIPs will be configured.
+
+The IP address must be an IP from an appropriate range.
+
+```yaml
+    egressIPs:
+      enabled: true
+
+      ips:
+        - 10.100.60.130
 ```
 
 #### Namespace - ResourceQuota
@@ -564,9 +583,9 @@ namespaces:
 The RBAC configuration for Argo CD is defined in a resource called AppProject. In this Helm chart, the idea was to create an AppProject per namespace. Some might not like that idea and would like to combine
 the RBAC configuration ... I am working on that.
 
-However, it is already possible to even create multiple AppProject resources for the same tenant. By overwriting settings you can create different configurations.
+However, it is already possible to even create multiple AppProject resources for the same tenant. By overwriting settings, you can create different configurations.
 
-The following is an example. A single AppProject will be created. It **OVERWRITES** the settings that have been defined at the beginning of the values file to define it's own
+The following is an example. A single AppProject will be created. It **OVERWRITES** the settings that have been defined at the beginning of the values file to define its own
 allowed environments, source namespaces or source repositories. It also provides full access to the namespace to manage your workload.
 
 Verify the example values file in this chart and what specific settings might be used.
