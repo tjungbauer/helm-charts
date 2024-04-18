@@ -22,8 +22,8 @@ metadata:
     {{- if .podsecurity_enforce }}
     pod-security.kubernetes.io/enforce: {{ .podsecurity_enforce }}
     {{- end }}
-    {{- if .cluster_monitoring }}
-    openshift.io/cluster-monitoring: {{ .cluster_monitoring | quote }}
+    {{- if .enable_cluster_monitoring }}
+    openshift.io/cluster-monitoring: {{ .enable_cluster_monitoring | quote }}
     {{- end }}
     {{- end }}
     {{- else }}

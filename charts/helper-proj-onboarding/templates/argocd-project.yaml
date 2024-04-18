@@ -62,8 +62,8 @@ spec:
       - '*'
     {{- end }}
   sourceRepos:
-    {{- if $value_appproject.sourceRepos }}
-      {{- range $value_appproject.sourceRepos }}
+    {{- if $value_appproject.overwrite_sourceRepos }}
+      {{- range $value_appproject.overwrite_sourceRepos }}
       - '{{ . }}'
       {{- end }}
     {{- else if $.Values.allowed_source_repos }}
@@ -74,6 +74,8 @@ spec:
       {{- range $.Values.global.allowed_source_repos }}
       - '{{ . }}'
       {{- end }}
+    {{- else }}
+      - '*'
     {{- end }}
 
 {{- /*

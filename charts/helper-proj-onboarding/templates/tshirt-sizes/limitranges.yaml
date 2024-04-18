@@ -1,6 +1,8 @@
 {{- range $key, $value := .Values.namespaces }}
 {{- if eq ( .enabled | toString) "true" }}
 {{- if .project_size }}
+{{- if .resourceQuotas }}
+{{- if eq ( .limitRanges.enabled | toString) "true" }}
 {{- /*
 Get global values and find the URL and name of the cluster
 */}}
@@ -150,6 +152,8 @@ spec:
       {{- end }}
     {{- end }}
 
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
