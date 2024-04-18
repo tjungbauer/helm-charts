@@ -1,7 +1,7 @@
 apiVersion: v2
 name: file-integrity-operator
 description: Setup the FileIntegrity Operator (based on AIDE)
-version: 1.0.8
+version: 1.0.9
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
 dependencies:

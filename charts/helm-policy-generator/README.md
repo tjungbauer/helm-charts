@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
+  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
 
  
 
@@ -116,15 +116,6 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policies[0].policy_templates[0].severity | string | `"low"` | Specifies the severity when the policy is non-compliant. Use the following parameter values: low, medium, high, or critical.  @efault -- low |
 | policies[0].remediationAction | string | `"inform"` | Specifies the remediation of your policy. The possible parameter values are enforce and inform. If specified, the spec.remediationAction value overrides any remediationAction parameter defined in the child policies in the policy-templates section. For example, if the spec.remediationAction value is set to enforce, then the remediationAction in the policy-templates section is set to enforce during runtime. Important: Some policy kinds might not support the enforce feature.  Optional Values:   - inform   - enforce |
 | policies[0].standards | list | empty | The name or names of security standards the policy is related to. For example, National Institute of Standards and Technology (NIST) and Payment Card Industry (PCI). This is used only when policyDefaults.catagories is not set. |
-| policies[1].disabled | bool | `true` |  |
-| policies[1].enabled | bool | `false` |  |
-| policies[1].namespace | string | `"policy-hub"` |  |
-| policies[1].policy_templates[0].kind | string | `"CertificationPolicy"` |  |
-| policies[1].policy_templates[0].name | string | `"cert-checker"` |  |
-| policies[1].policy_templates[0].name_use_template_filename | string | `"true"` |  |
-| policies[1].policy_templates[0].path | string | `"console-banner"` |  |
-| policies[1].policyname | string | `"console-banner"` |  |
-| policies[1].remediationAction | string | `"inform"` |  |
 | policyDefaults | object | `{"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"description":"Console Customizations","globalRemediationAction":"inform","standards":["Baseline 2023v1"]}` | Default annotation settings. These will overwrite the individual settings in the Policy and are used by all policies that are defined here. |
 | policyDefaults.categories | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards.  Optional |
 | policyDefaults.controls | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards.  Optional |

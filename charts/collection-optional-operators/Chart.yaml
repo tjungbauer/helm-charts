@@ -1,7 +1,7 @@
 apiVersion: v2
 name: collection-optional-operators
 description: Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.
-version: 1.0.28
+version: 1.0.29
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
 dependencies:
