@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.31
+version: 2.0.32
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -25,11 +25,11 @@ annotations:
     - kind: added
       description: support git GIT generator
     - kind: added
-      description: Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)
+      description: "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
     - kind: fixed
       description: Signing Chart
     - kind: added
-      description: Added support for Matrix Generator (opinionated)
+      description: "Added support for Matrix Generator (opinionated)"
     - kind: added
       description: Added support for ignoreDifferences definition in ApplicationSet
     - kind: added
