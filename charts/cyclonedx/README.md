@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
  
 
@@ -18,11 +18,11 @@
 CycloneDX provides advanced, supply chain capabilities for cyber risk reduction. We are using the Software Bill of Material (SBOM) parts.
 SBOM is a complete and accurate inventory of all first-party and third-party components is essential for risk identification.
 
-This chart will install CycloneDX BOM Repo server, that enables you to store SBOM inventories on your cluster.
+This chart will install CycloneDX BOM Repo server, which enables you to store SBOM inventories on your cluster.
 
-For detail information check: [CycloneDX SBOM](https://cyclonedx.org/capabilities/sbom/)
+For detailed information check: [CycloneDX SBOM](https://cyclonedx.org/capabilities/sbom/)
 
-And for an example on how to use it during a pipeline run check: [Generating a SBOM](https://blog.stderr.at/securesupplychain/2023-06-22-securesupplychain-step7/)
+For an example of how to use it during a pipeline run check: [Generating an SBOM](https://blog.stderr.at/securesupplychain/2023-06-22-securesupplychain-step7/)
 
 ## Dependencies
 
