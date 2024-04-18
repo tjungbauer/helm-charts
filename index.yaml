@@ -14,6 +14,45 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:56.016767306Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    description: Collection of management Operators which are required as a dependency
+      for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator
+      to deploy all required operators without any configuration of a CRD.
+    digest: 483851bc736f3a917988e0dcd3136af96f9b626b63674220a205077d643fbd44
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.35/collection-management-operators-1.0.35.tgz
+    version: 1.0.35
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: redefined the management operators that shall be installed.
+        - kind: fixed
+          description: README.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-07T17:11:38.392514475Z"
     dependencies:
     - name: helper-operator
@@ -766,6 +805,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:56.228016919Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of Operators which can be deployed on Demo Systems without
+      any configuration of a CRD.
+    digest: d9bdf96ce49a949e6f4d5092da7e8f7bf026e31f17c8393573b5208b104bf502
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: collection-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.25/collection-operators-1.0.25.tgz
+    version: 1.0.25
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: fixed
+          description: README.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-07T17:11:38.566648019Z"
     dependencies:
     - name: helper-operator
@@ -1080,6 +1155,42 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-operators-1.0.0/collection-operators-1.0.0.tgz
     version: 1.0.0
   collection-optional-operators:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: fixed
+          description: README.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:56.420997918Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: 1.0.14
+    description: Collection of optional operators, like CodeReadyWorkspaces without
+      any configuration of a CRD.
+    digest: b13146fdc622ae67734061dbe0692b7906ec211ed81e389e67c6c4172504604e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: collection-optional-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.29/collection-optional-operators-1.0.29.tgz
+    version: 1.0.29
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1521,6 +1632,47 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/collection-optional-operators-1.0.0/collection-optional-operators-1.0.0.tgz
     version: 1.0.0
   compliance-operator-full-stack:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: README.md
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:56.653510754Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 22e7000eab966a4ac4b091eca89064f0dd52173c3bec41485951532ea2b0bc3b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.29/compliance-operator-full-stack-1.0.29.tgz
+    version: 1.0.29
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2138,6 +2290,47 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:56.861059301Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.21
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Setup and configure cost-management Operator
+    digest: 3e299f165b8ec4ce2eea779230c7837ff23245b33c433fb5b8328f2127dc7613
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
+    keywords:
+    - configuration
+    - cost-management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cost-management
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cost-management-1.0.9/cost-management-1.0.9.tgz
+    version: 1.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: Added README and additional possible parameters
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-04-10T15:13:39.631721746Z"
     dependencies:
     - name: helper-operator
@@ -2392,6 +2585,36 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-04-18T09:21:57.050217007Z"
+    description: A Helm chart to deploy CycloneDX to generate SBOM
+    digest: a10f825c77bef4d9915eb651c1c1c403ed6e40e178be94c1845988cfc109637f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
+    keywords:
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cyclonedx
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.5/cyclonedx-1.0.5.tgz
+    version: 1.0.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-03-14T11:24:10.669691052Z"
     description: A Helm chart to deploy CycloneDX to generate SBOM
     digest: 6dd49889657cb6f37dcb85eb40643247b98e1bf8914b7a2a7b898b6641b714f8
@@ -2506,6 +2729,36 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:57.233199089Z"
+    description: Create a CronJob that performs ETCD Backup and stores the backup
+      to a PV.
+    digest: d4e161222c390a371d51397c26285b3a5225b05a428901198205e1b86f47084d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
+    keywords:
+    - security
+    - backup
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: etcd-backup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/etcd-backup-1.0.5/etcd-backup-1.0.5.tgz
+    version: 1.0.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-26T15:18:45.137104841Z"
     description: Create a CronJob that performs ETCD Backup and stores the backup
       to a PV.
@@ -2588,6 +2841,45 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/etcd-backup-1.0.0/etcd-backup-1.0.0.tgz
     version: 1.0.0
   file-integrity-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: updated to helper-status-checker v4 and prepared readme file
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:57.42223109Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Setup the FileIntegrity Operator (based on AIDE)
+    digest: b4ab9acd54d189866c54ca4ad9b67001d37c399361829f8ee9f2a7be1c0a3587
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
+    keywords:
+    - security
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: file-integrity-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/file-integrity-operator-1.0.9/file-integrity-operator-1.0.9.tgz
+    version: 1.0.9
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2801,6 +3093,38 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/file-integrity-operator-1.0.2/file-integrity-operator-1.0.2.tgz
     version: 1.0.2
   generic-cluster-config:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:57.616750131Z"
+    description: This Chart is responsible to deploy generic clusterconfiguration,
+      for example etcd encryption, oauth etc.
+    digest: 53fa550e8b446ae29a8a2ac2a95e2acdd6cefc19fac09eecd0b3bac6e37e8e5e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.22/generic-cluster-config-1.0.22.tgz
+    version: 1.0.22
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3243,6 +3567,50 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:57.823158072Z"
+    description: This Chart shall help to generate policies for Advanced Cluster Management
+    digest: 4efa46b1477c4452f0d5763739a860960c59402cef092f562fba6bac3dd5d175
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - acm
+    - policy
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helm-policy-generator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.11/helm-policy-generator-1.0.11.tgz
+    version: 1.0.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: descriptions in example values-files and some minor changes for optional parameters
+        - kind: added
+          description: added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder
+        - kind: fixed
+          description: put Namespaceselector for policies into the right place
+        - kind: added
+          description: added additional example, Placement and PlacementBinding are correctly created when using PolicySets
+        - kind: added
+          description: added example for cluster health checks
+        - kind: added
+          description: added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-04-13T18:31:59.986398762Z"
     description: This Chart shall help to generate policies for Advanced Cluster Management
     digest: 8228f828233a92c727707e63b430fd0692ed668e9593910c550658ef09727e68
@@ -3589,6 +3957,49 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.0/helm-policy-generator-1.0.0.tgz
     version: 1.0.0
   helper-argocd:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: support git GIT generator
+        - kind: added
+          description: Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added support for Matrix Generator (opinionated)
+        - kind: added
+          description: Added support for ignoreDifferences definition in ApplicationSet
+        - kind: added
+          description: Allowing syncwave settings for Application objects
+        - kind: added
+          description: Allowing configuration of namespace for Application objects
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:58.008500743Z"
+    description: Takes care of creation of Applications, Appprojects and ApplicationSets
+      (supporting different generators)
+    digest: 935cf16c7c306a36bc054e3364654e567489f2da96100f8dddacde99657861cd
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.31/helper-argocd-2.0.31.tgz
+    version: 2.0.31
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4775,6 +5186,40 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:58.200498351Z"
+    description: Loki requires a secret with specific keys. This Chart creates a Job
+      that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+    digest: fc3a3bea3593ed21f9d73e1292475eda347576f0af30914b139ff2507d5f1b34
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-loki-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-loki-bucket-secret-1.0.8/helper-loki-bucket-secret-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: fixed
+          description: removed hardcodedstring logging
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T14:02:32.531587698Z"
     description: Loki requires a secret with specific keys. This Chart creates a Job
       that will create such a secret based on the OpenShift Data Foundation BucketClaim.
@@ -4975,6 +5420,37 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:58.413863965Z"
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: d7cbcf6422778490fd208331019350f18f513ef3ae4187972c4db4fd892fccf6
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.3/helper-lokistack-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-09T08:54:10.207387713Z"
     description: The only purpose of this helper chart is to provide a template for
       the LokiStack Custom Resource, so it must not be re-defined for multiple services.
@@ -5029,6 +5505,40 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.0/helper-lokistack-1.0.0.tgz
     version: 1.0.0
   helper-objectstore:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: Added README and did some cleanup
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:58.58830545Z"
+    description: A helper Chart to create BackingStore, BackingClass, BucketClaim
+      and StorageClass objects, when ODF is used. Currently type PV is supported only
+      (Creating a local Persistent Volume-backed backingstore)!
+    digest: e4bc08b5adfda83c49166d4795828dd28320fb299ca1621e3d81085a00a61fd2
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - storage
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-objectstore
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.6/helper-objectstore-1.0.6.tgz
+    version: 1.0.6
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -5157,6 +5667,43 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
     version: 1.0.0
   helper-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+        - kind: fixed
+          description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:58.804716848Z"
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: dd50ef76aae71106a7935448db2fe7aae3d2f5075f82616add1b8dca2002731a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.25/helper-operator-1.0.25.tgz
+    version: 1.0.25
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -5582,6 +6129,46 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.2/helper-operator-1.0.2.tgz
     version: 1.0.2
   helper-proj-onboarding:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: fixed
+          description: changed the if/else definitions for resourcequota for t-shirt sizes
+        - kind: fixed
+          description: changed the way default network policies are managed
+        - kind: fixed
+          description: streamlined the creation of AppProject
+        - kind: added
+          description: added README and did some fixed
+        - kind: added
+          description: possibility to define egressIPs
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:58.981568969Z"
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: 52a4e85b21a3955c7aaa34008b7761065b056559ea2e8e51637b0d10722146f5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.37/helper-proj-onboarding-1.0.37.tgz
+    version: 1.0.37
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -6459,6 +7046,36 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:59.158080026Z"
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: e43a37ba3e73ad310789097cdee77657713d2237fc36ccee33e6c6a21177e379
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-server-side-apply
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.10/helper-server-side-apply-1.0.10.tgz
+    version: 1.0.10
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T12:58:50.472138009Z"
     description: Using Server Side Apply to create for example node labelling, requires
       openshift-gitops 1.6+
@@ -6617,6 +7234,39 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.0/helper-server-side-apply-1.0.0.tgz
     version: 1.0.0
   helper-status-checker:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:59.335465836Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: ecbe45942ab516fb3082deb8eb430b83fb4733ee5e4625831158217de7c4ff86
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-4.0.5/helper-status-checker-4.0.5.tgz
+    version: 4.0.5
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -7087,6 +7737,39 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:21:59.546459068Z"
+    description: Configures the IngressController object.
+    digest: cfef85f5c5a6a1e509443e4d808af6d4ef514df69f9534e55dee49f3a2eb5cd2
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: ingresscontroller
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.4/ingresscontroller-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T13:34:42.409239184Z"
     description: Configures the IngressController object.
     digest: c2d480a99b6d271e1128b041244f193362a1ecc8081a68733774f1cb3cfb8263
@@ -7169,6 +7852,52 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.0/ingresscontroller-1.0.0.tgz
     version: 1.0.0
   network-observability:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: fixed
+          description: fixing icon
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:59.751681334Z"
+    dependencies:
+    - condition: helper-loki-bucket-secret.enabled
+      name: helper-loki-bucket-secret
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    - condition: helper-objectstore.enabled
+      name: helper-objectstore
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Installs and configures OpenShift Network Observability.
+    digest: 5634bd914bbe60dbb20dbac44df412b5781267c1bea8ce1b2e3b31111137d299
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
+    keywords:
+    - security
+    - network
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: network-observability
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-1.0.8/network-observability-1.0.8.tgz
+    version: 1.0.8
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -7389,6 +8118,53 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-1.0.2/network-observability-1.0.2.tgz
     version: 1.0.2
   openshift-data-foundation:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Updated to Open Data Foundation v4.13
+        - kind: added
+          description: Added StorageCluster object which automatically spins up the storage.
+        - kind: added
+          description: Spliting storagecluster to full-fletched and standalone for better reasability.
+        - kind: fixed
+          description: wrong IFs
+        - kind: added
+          description: updated to helper-status-check v4 and added readme
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:21:59.968003597Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Deploys and configures the OpenShift Data Foundation Operator.
+    digest: 89d4b5a7b630b6d023760fa48bccfd2f9e3a606d017c7d5b5d0c1c86d12f35c0
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
+    keywords:
+    - storage
+    - odf
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-data-foundation
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.31/openshift-data-foundation-1.0.31.tgz
+    version: 1.0.31
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -8283,6 +9059,59 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-data-foundation-1.0.0/openshift-data-foundation-1.0.0.tgz
     version: 1.0.0
   openshift-gitops:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+        - kind: added
+          description: cleaning up chart, added new README and tried to make more options configurable.
+        - kind: added
+          description: allowing configuration of syncwave for Argo CD object.
+        - kind: fixed
+          description: updated ArgoCD resource to v1beta1
+        - kind: added
+          description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
+        - kind: fixed
+          description: fixing some default Values
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:22:00.152962846Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: d2ad863e4deac57d0929335976b3ac815bf7f6634b0908e71e5ccafc9f4bfd60
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.43/openshift-gitops-1.0.43.tgz
+    version: 1.0.43
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -9334,6 +10163,47 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:22:00.35126844Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Deploy and configure OpenShift Logging including Elasticsearch and
+      Kibana
+    digest: 36f47c3197096bbcd32fbf452acc5eb40d16ca99caece0a0e20754ec5bc1a7ea
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    keywords:
+    - logging
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.29/openshift-logging-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Optimizing Loki configuration for ClusterLogging object.
+        - kind: added
+          description: updated to helper-status-checker 4.0.0
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-12T12:58:51.27005808Z"
     dependencies:
     - name: helper-operator
@@ -10079,6 +10949,38 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-04-18T09:22:00.654263895Z"
+    description: Create an example Pipeline which does a linting of openshift-clusterconfig-gitops
+      using kubelinter, yamllin, yamlscore ....
+    digest: 490883d364552284729f64d4c8dffb7ae11306f830d8873a11e85b5ea3ff9db2
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
+    keywords:
+    - pipelines
+    - cicd
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: pipeline-example
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.7/pipeline-example-1.0.7.tgz
+    version: 1.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-03-12T12:58:51.46188333Z"
     description: Create an example Pipeline which does a linting of openshift-clusterconfig-gitops
       using kubelinter, yamllin, yamlscore ....
@@ -10241,6 +11143,47 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz
     version: 0.1.0
   quay-registry-setup:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-04-18T09:22:00.86077691Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Chart to deploy and configure Quay
+    digest: 8e2aa6c1d85c6ad95a0a3926127ea94b07f2d6703f6ed38dc11ebda1b72f3f28
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.14/quay-registry-setup-1.0.14.tgz
+    version: 1.0.14
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -11085,6 +12028,49 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:22:01.037822959Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Setup and configure Advanced Cluster Managerment. Replaces the Chart
+      rhacm-full-stack.
+    digest: 8f582ef090156fff34eda05f9ba655153ff136eeca03229b949df319ffcedcc4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
+    keywords:
+    - clustermanagement
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacm-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.12/rhacm-setup-1.0.12.tgz
+    version: 1.0.12
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: support for tolerations in MultiClusterHub CRD
+        - kind: added
+          description: updated to helper-status-chcker v4
+        - kind: added
+          description: README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-04-10T15:31:19.936133413Z"
     dependencies:
     - name: helper-operator
@@ -11484,6 +12470,38 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.0/rhacm-setup-1.0.0.tgz
     version: 1.0.0
   rhacs-demo-applications:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-04-18T09:22:01.393695903Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: f1b91463410ae129f098e851c0dc8ffe692f94ffefb2f210709d3650d2f96619
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png
+    keywords:
+    - securitytesting
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-demo-applications
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.6/rhacs-demo-applications-1.0.6.tgz
+    version: 1.0.6
   - annotations:
       artifacthub.io/category: security
       artifacthub.io/changes: |
@@ -12478,6 +13496,49 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:22:01.656888297Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.23
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 2c24c878c7d06eb065135ff2ba522535604de36d656488e17a02ff9dd5dd02f7
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.10/rhacs-setup-1.0.10.tgz
+    version: 1.0.10
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added Readme
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-14T15:27:10.620061114Z"
     dependencies:
     - name: helper-operator
@@ -12818,6 +13879,48 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.0/rhacs-setup-1.0.0.tgz
     version: 1.0.0
   sealed-secrets:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated sealed secrets helm chart version
+        - kinde: added
+          description: new README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-04-18T09:22:01.856946388Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.14.2
+    description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm
+      chart
+    digest: eabfa45f2257115854dfb3c6050af087dad94105034a19bf2f159c43d3e61260
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    keywords:
+    - secretmanagement
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.18/sealed-secrets-1.0.18.tgz
+    version: 1.0.18
   - annotations:
       artifacthub.io/category: security
       artifacthub.io/changes: |
@@ -13266,6 +14369,46 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-04-18T09:22:02.066461358Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.14
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Setup the Quay Container Security Operator.
+    digest: 086bb5759a8f96904b7d302bf3453ed561733bdaae6706d8118e3acd5e7707e8
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png
+    keywords:
+    - operator
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: setup-container-security-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.8/setup-container-security-operator-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4 and added new README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-03-27T06:38:04.31058759Z"
     dependencies:
     - name: helper-operator
@@ -13478,6 +14621,46 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
   sonarqube:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial chart
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-04-18T09:22:02.37843531Z"
+    dependencies:
+    - condition: sonarqube.enabled
+      name: sonarqube
+      repository: https://SonarSource.github.io/helm-chart-sonarqube
+      version: ~10.1.0
+    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
+      helm chart
+    digest: 1c5a80fdcf60533e87b8f18c73227f6ce6f82267fa2e1b27c0d154caa08fc494
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
+    keywords:
+    - devsecops
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sonarqube
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.8/sonarqube-1.0.8.tgz
+    version: 1.0.8
   - annotations:
       artifacthub.io/category: security
       artifacthub.io/changes: |
@@ -13731,4 +14914,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-18T09:07:45.509585414Z"
+generated: "2024-04-18T09:22:02.380517642Z"
