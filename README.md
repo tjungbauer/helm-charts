@@ -20,9 +20,11 @@ The Charts in this repository contain workflows for easy deploy and configure fo
 
 Each Helm Chart has a detailed README that (I hope) explains all possible settings and how they can be used.
 
+The generate the READMEs (well most of them) I am using using [helm-doc](https://github.com/norwoodj/helm-docs)
+
 ## Contribute/Questions
 
-Feel free to open issues and pull requests if you find anything that should be added or does not work as it should.
+Feel free to open issues and pull requests if you find anything that should be added or does not work as it should. I am happy if someone finds these charts usefull.
 
 ## Linting
 All Charts in this repository must pass the linting process. Use [`helm lint`](https://helm.sh/docs/helm/helm_lint/) and [`chart testing`](https://github.com/helm/chart-testing/blob/master/doc/ct_lint.md) tools.

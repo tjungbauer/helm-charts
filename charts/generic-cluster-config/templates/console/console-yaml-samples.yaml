@@ -10,7 +10,7 @@ metadata:
 spec:
   targetResource:
     kind: {{ title $value.targetresource.kind }}
-    apiVersion: {{ $value.targetResource.apiv }}
+    apiVersion: {{ $value.targetresource.apiversion }}
   title: {{ $value.title }}
   description: {{ $value.descr }}
   yaml: |
