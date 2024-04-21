@@ -6,7 +6,7 @@ kind: FlowCollector
 metadata:
   name: cluster
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     {{- include "common.labels" $ | nindent 4 }}
@@ -81,23 +81,23 @@ spec:
     statusTls:
       caCert:
         certFile: service-ca.crt
-        name: {{ .lokistack.name }}-ca-bundle
+        name: {{ .lokistack_name }}-ca-bundle
         type: configmap
       enable: true
       insecureSkipVerify: true
-    url: 'https://{{ .lokistack.name }}-gateway-http.openshift-netobserv-operator.svc:8080/api/logs/v1/network'
+    url: 'https://{{ .lokistack_name }}-gateway-http.openshift-netobserv-operator.svc:8080/api/logs/v1/network'
     batchWait: 1s
     authToken: FORWARD
     minBackoff: 1s
     tls:
       caCert:
         certFile: service-ca.crt
-        name: {{ .lokistack.name }}-gateway-ca-bundle
+        name: {{ .lokistack_name }}-gateway-ca-bundle
         type: configmap
       enable: true
       insecureSkipVerify: true
     batchSize: 10485760
-    statusUrl: 'https://{{ .lokistack.name }}-distributor-http.openshift-netobserv-operator.svc:3100/'
+    statusUrl: 'https://{{ .lokistack_name }}-distributor-http.openshift-netobserv-operator.svc:3100/'
   processor:
     logLevel: info
     port: 2055

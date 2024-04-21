@@ -1,0 +1,42 @@
+{{ template "doc.header" . }}
+
+This Helm Chart is installing and configuring the Network Observability Operator.
+This operator requires Loki to store the traffic information. The possible values are currently limited, but it is easy to extend if required.
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (for example in the folder clusters/management-cluster/setup-network-observability)
+
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [helper-operator](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
+* [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
+* [helper-lokistack](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack)
+* [helper-objectstore](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore)
+* [helper-helper-loki-bucket-secret](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-helper-loki-bucket-secret)
+
+{{ template "doc.values" . }}
+
+## Example values
+
+The following shows the values for the Network Pbservability operator itself. Since there are multiple sub-charts, verify the example values-file for a complete example.
+
+```yaml
+---
+namespace: &namespace openshift-netobserv-operator
+
+netobserv:
+  enabled: true
+  namespace:
+    name: *namespace
+  syncwave: 10
+  lokistack_name: netobserv-loki
+  ...
+```
+
+{{ template "doc.footer" . }}

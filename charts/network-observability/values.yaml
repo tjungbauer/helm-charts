@@ -4,81 +4,25 @@ bucketname: &bucketname netobserv-bucket
 lokisecret: &loki-secret-name netobserv-loki-s3
 storageclassname: &storageclassname netobserv-bucket-storage-class
 
-# Local values.
+# Network Observability settings.
 netobserv:
-  enabled: false
+  # -- Enable Network Observability configuration?
+  # This will also create the reader/writer rolebanding for multi-tenancy
+  # @default -- false
+  enabled: true
+
+  # -- Namespace where Network Observability FlowCollector shall be installed.
+  # @default -- ''
   namespace:
     name: *namespace
+
+  # -- Syncwave for the FlowCollector resource.
+  # @default -- 10
   syncwave: 10
 
-  # Bucket that shall be created
-  bucket:
-    enabled: false
-    name: *bucketname
-
-    # Syncwave for bucketclaim creation. This should be done very early, but it depends on ODF.
-    # Default: 1
-    syncwave: 1
-
-    # is_secure: true
-    # port: 443
-
-    # Name of the storageclass
-    # Default: openshift-storage.noobaa.io
-    storageclass: *storageclassname
-
-  lokistack:
-    # name of the Lokistack object and its syncwave (should be after bucket and secret generation)
-    name: netobserv-loki
-    syncwave: 3
-
-    # storage settings
-    storage:
-
-      # Size defines one of the support Loki deployment scale out sizes.
-      # Can be either:
-      #   - 1x.extra-small (Default)
-      #   - 1x.small
-      #   - 1x.medium
-      size: 1x.extra-small
-
-      # Secret for object storage authentication. Name of a secret in the same namespace as the LokiStack custom resource.
-      secret:
-
-        # Name of a secret in the namespace configured for object storage secrets.
-        name: *loki-secret-name
-
-        # Type of object storage that should be used
-        # Can bei either:
-        #  - swift
-        #  - azure
-        #  - s3 (default)
-        #  - alibabacloud
-        #  - gcs
-        # type: s3
-
-      # Schemas for reading and writing logs.
-      # schemas:
-      #  # Version for writing and reading logs.
-      #  # Can be v11 or v12
-      #  #
-      #  # Default: v12
-      #  - version: v12
-
-      #    # EffectiveDate is the date in UTC that the schema will be applied on. To ensure readibility of logs, this date should be before the current date in UTC.
-      #    # Default: 2022-06-01
-      #    effectiveDate: "2022-06-01"
-
-    # Storage class name defines the storage class for ingester/querier PVCs.
-    storageclassname: gp3-csi
-
-    # Mode defines the mode in which lokistack-gateway component will be configured.
-    # Can be either:
-    #   - static (default)
-    #   - dynamic
-    #   - openshift-logging
-    #   - openshift-network
-    mode: openshift-network
+  # -- Name of the LokiStack resource.
+  # @default -- netobserv-loki
+  lokistack_name: netobserv-loki
 
 # A helper chart that simply creates another backingstore for quay.
 # This is a chart in a very early state, and not everything can be customized for now.
@@ -88,6 +32,7 @@ netobserv:
 #  - StorageClass
 
 # NOTE: Currently only PV type is supported
+# @ ignore
 helper-objectstore:
   enabled: false
   # syncwave: 1
@@ -126,6 +71,7 @@ helper-objectstore:
 # SubChart to create the loki secret if required.
 # The Secret must contain all required bucket information, while ODF creates a secret and a configmap for example.
 # A Kubernetes Job is created, that reads the data from the Secret and ConfigMap and creates a new secret for loki.
+# @ ignore
 helper-loki-bucket-secret:
   # Enable Job creation
   enabled: false
@@ -145,6 +91,7 @@ helper-loki-bucket-secret:
 
 # The operators are installed in a separate way in this case.
 # sub subchart
+# @ ignore
 helper-operator:
 
   operators:
