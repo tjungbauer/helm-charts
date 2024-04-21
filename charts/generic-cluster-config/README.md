@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.23](https://img.shields.io/badge/Version-1.0.23-informational?style=flat-square)
+  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
 
  
 
@@ -123,8 +123,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.alertmanagerMain.nodeSelector | object | empty | nodeSelector for Alertmanager Pods |
 | monitoring.alertmanagerMain.resources | object | empty | Resources set for the Alertmanager. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.alertmanagerMain.secrets | list | empty | Add a list of secrets that are mounted to Alertmanager. These can have credentials or certificates to authenticat against the alert receiver |
-| monitoring.alertmanagerMain.storage.class | string | `"gp2-csi"` |  |
-| monitoring.alertmanagerMain.storage.size | string | `"40Gi"` |  |
+| monitoring.alertmanagerMain.storage.class | string | gp2-csi | StorageClass for persistent volume |
+| monitoring.alertmanagerMain.storage.size | string | 40Gi | Size for the storage |
 | monitoring.alertmanagerMain.tolerations | list | empty | Tolerations for Alertmanager Pods. The configuration is handed over as YAML to the template. |
 | monitoring.enableUserWorkload | bool | false | Enable user workload monitoring |
 | monitoring.enabled | bool | false | Enable cluster monitoring configuration |
@@ -145,8 +145,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.prometheusK8s.resources | object | empty | Resources set for the Prometheus. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.prometheusK8s.retention | string | 15d | The retention time: a number directly followed by ms (milliseconds), s (seconds), m (minutes), h (hours), d (days), w (weeks), or y (years). You can also combine time values for specific times, such as 1h30m15s. A value of 0 means the cluster default value which is 15 days. |
 | monitoring.prometheusK8s.retentionSize | int | not set | The retention size: a number directly followed by B (bytes), KB (kilobytes), MB (megabytes), GB (gigabytes), TB (terabytes), PB (petabytes), and EB (exabytes). If the value is set to 0, then the cluster default setting will be used. |
-| monitoring.prometheusK8s.storage.class | string | `"gp2-csi"` |  |
-| monitoring.prometheusK8s.storage.size | string | `"100Gi"` |  |
+| monitoring.prometheusK8s.storage.class | string | gp2-csi | StorageClass for persistent volume |
+| monitoring.prometheusK8s.storage.size | string | 100Gi | Size for the storage |
 | monitoring.prometheusK8s.tolerations | list | empty | Tolerations for Prometheus Pods. The configuration is handed over as YAML to the template. |
 | monitoring.prometheusOperator.nodeSelector | object | empty | nodeSelector for Prometheus Operator Pods |
 | monitoring.prometheusOperator.resources | object | empty | Resources set for the Prometheus Operator. Set these with care. If nothing is set, then no limits or requests will be configured. |
@@ -179,8 +179,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | user_workload_monitoring.thanosRuler.nodeSelector | object | empty | nodeSelector for Prometheus Adapter Pods |
 | user_workload_monitoring.thanosRuler.resources | object | empty | Resources set for the Prometheus Adapter. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | user_workload_monitoring.thanosRuler.retention | string | 24h | The retention time: a number directly followed by ms (milliseconds), s (seconds), m (minutes), h (hours), d (days), w (weeks), or y (years). You can also combine time values for specific times, such as 1h30m15s. A value of 0 means the default value which is 24h. |
-| user_workload_monitoring.thanosRuler.storage.class | string | `"gp2-csi"` |  |
-| user_workload_monitoring.thanosRuler.storage.size | string | `"100Gi"` |  |
+| user_workload_monitoring.thanosRuler.storage.class | string | gp2-csi | StorageClass for persistent volume |
+| user_workload_monitoring.thanosRuler.storage.size | string | 100Gi | Size for the storage |
 | user_workload_monitoring.thanosRuler.tolerations | list | empty | Tolerations for Prometheus Adapter Pods. The configuration is handed over as YAML to the template. |
 
 ## Example ETCD Encryption & Disabling Self-Provisioner

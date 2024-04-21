@@ -351,11 +351,11 @@ monitoring:
 
     # Add storage to Alertmanager to keep the data.
     storage:
-      # StorageClass for persistent volume
+      # -- StorageClass for persistent volume
       # @default -- gp2-csi
       class: gp2-csi
 
-      # Size for the storage
+      # -- Size for the storage
       # @default -- 40Gi
       size: 40Gi
 
@@ -432,11 +432,11 @@ monitoring:
 
     # Add storage to Prometheus to keep the data.
     storage:
-      # StorageClass for persistent volume
+      # -- StorageClass for persistent volume
       # @default -- gp2-csi
       class: gp2-csi
 
-      # Size for the storage
+      # -- Size for the storage
       # @default -- 100Gi
       size: 100Gi
 
@@ -770,8 +770,8 @@ user_workload_monitoring:
 
     # Add storage to Prometheus to keep the data.
     storage:
-      # StorageClass for persistent volume
-      # @default -- gp2-csi
+      # -- StorageClass for persistent volume
+      # -- @default -- gp2-csi
       class: gp2-csi
 
       # Size for the storage
@@ -833,11 +833,11 @@ user_workload_monitoring:
 
     # Add storage to Thanos Ruler to keep the data.
     storage:
-      # StorageClass for persistent volume
+      # -- StorageClass for persistent volume
       # @default -- gp2-csi
       class: gp2-csi
 
-      # Size for the storage
+      # -- Size for the storage
       # @default -- 100Gi
       size: 100Gi
 
