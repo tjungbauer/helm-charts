@@ -83,7 +83,7 @@ spec:
     {{- end }}
 
   {{- end }}
-  size: {{ .size | default "1x.extra-small" | quote }}
+  size: {{ .storage.size | default "1x.extra-small" | quote }}
   storage:
     tls:
       caKey: service-ca.crt
