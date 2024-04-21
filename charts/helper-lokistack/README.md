@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
+  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
 
  
 
@@ -46,8 +46,23 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| admin_groups | list | `["cluster-admins"]` | AdminGroups defines a list of groups, whose members are considered to have admin-privileges by the Loki Operator. Setting this to an empty array disables admin groups. By default the following groups are considered admin-groups: - system:cluster-admins - cluster-admin - dedicated-admin  @default -- none |
 | enabled | bool | false | Enable or disable LokiStack configuration |
-| global_retention_days | int | `4` | This is for log streams only, not the retention of the object store. Data retention must be configured on the bucket. |
+| limits.global.retention_days | int | 7 | This is for log streams only, not the retention of the object store. Data retention must be configured on the bucket. |
+| limits.global.streams | list | N/A | Sets retention policy for all log streams. Note: This field does not impact the retention period for stored logs in object storage. Be sure to keep the correct syntax to the selector |
+| limits.tenants | object | N/A | Sets retention policy by tenant. Valid tenant types are application, audit, and infrastructure. |
+| limits.tenants.application | object | N/A | Type Application |
+| limits.tenants.application.retention | object | none | Set retention time for application logs |
+| limits.tenants.application.retention.streams | list | N/A | Set specific streams for the applications logs |
+| limits.tenants.application.retention.streams[0] | object | `{"days":4,"selector":"'{kubernetes_namespace_name=~\"test.+\"}'"}` | Retention time for the selector namespace =~test. Be sure to keep the correct syntax to the selector |
+| limits.tenants.audit | object | N/A | Type Audit |
+| limits.tenants.audit.retention | object | none | Set retention time for audit logs |
+| limits.tenants.audit.retention.streams | list | N/A | Set specific streams for the audit logs |
+| limits.tenants.audit.retention.streams[0] | object | `{"days":1,"selector":"'{kubernetes_namespace_name=~\"openshift-cluster.+\"}'"}` | Retention time for the selector namespace starting with openshift-cluster. Be sure to keep the correct syntax to the selector |
+| limits.tenants.infrastructure | object | N/A | Type Infrastructure |
+| limits.tenants.infrastructure.retention | object | none | Set retention time for infrastructure logs |
+| limits.tenants.infrastructure.retention.streams | list | N/A | Set specific streams for the infrastructure logs |
+| limits.tenants.infrastructure.retention.streams[0] | object | `{"days":1,"selector":"'{kubernetes_namespace_name=~\"openshift-cluster.+\"}'"}` | Retention time for the selector namespace starting with openshift-cluster. Be sure to keep the correct syntax to the selector |
 | mode | string | static | Mode defines the mode in which lokistack-gateway component will be configured. Can be either: static (default), dynamic, openshift-logging, openshift-network |
 | name | string | `"logging-loki"` | Name of the LokiStack object |
 | namespace | string | `"openshift-logging"` | Namespace of the LokiStack object |

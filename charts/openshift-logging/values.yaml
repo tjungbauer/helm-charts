@@ -2,7 +2,7 @@
 loggingConfig:
   # -- Enable openshift logging configuration
   # @default -- false
-  enabled: true
+  enabled: false
 
   # -- Syncwave for the ClusterLogging resource
   # @default -- 4
@@ -13,7 +13,7 @@ loggingConfig:
   managementState: Managed
 
   logStore:
-    # -- The Type of Log Storage to configure. 
+    # -- The Type of Log Storage to configure.
     # The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store.
     # However, Elasticsearch is deprecated and should not be used here ... it would result in an error
     type: lokistack
@@ -43,7 +43,7 @@ loggingConfig:
         - effect: NoSchedule
           key: infra
           operator: Equal
-          value: 'reserved'        
+          value: 'reserved'
 
     collection:
       # -- The type of Log Collection to configure

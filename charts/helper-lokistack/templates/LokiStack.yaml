@@ -12,10 +12,77 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
+  {{- if .limits }}
   limits:
+    {{- if .limits.global }}
     global:
       retention:
-        days: {{ .global_retention_days | default "7" }}
+        {{- if .limits.global.retention_days }}
+        days: {{ .limits.global.retention_days | default "7" }}
+        {{- end }}
+        {{- if .limits.global.streams }}
+        streams:
+          {{- range .limits.global.streams }}
+          - days: {{ .days }}
+            priority: {{ .priority }}
+            selector: {{ .days }}
+          {{- end }}
+        {{- end }}
+    {{- end }}
+
+    {{- if .limits.tenants }}
+    tenants:
+      {{- if .limits.tenants.application }}
+      application:
+        retention:
+          {{- if .limits.tenants.application.retention }}
+          days: {{ .limits.tenants.application.retention.days | default "7" }}
+         {{- end }}
+          {{- if .limits.tenants.application.retention.streams }}
+          streams:
+            {{- range .limits.tenants.application.retention.streams }}
+            - days: {{ .days }}
+              priority: {{ .priority }}
+              selector: {{ .selector }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+      {{- if .limits.tenants.infrastructure }}
+      infrastructure:
+        retention:
+          {{- if .limits.tenants.infrastructure.retention }}
+          days: {{ .limits.tenants.infrastructure.retention.days | default "7" }}
+         {{- end }}
+          {{- if .limits.tenants.infrastructure.retention.streams }}
+          streams:
+            {{- range .limits.tenants.infrastructure.retention.streams }}
+            - days: {{ .days }}
+              priority: {{ .priority }}
+              selector: {{ .selector }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+      {{- if .limits.tenants.audit }}
+      audit:
+        retention:
+          {{- if .limits.tenants.audit.retention }}
+          days: {{ .limits.tenants.audit.retention.days | default "7" }}
+         {{- end }}
+          {{- if .limits.tenants.audit.retention.streams }}
+          streams:
+            {{- range .limits.tenants.audit.retention.streams }}
+            - days: {{ .days }}
+              priority: {{ .priority }}
+              selector: {{ .selector }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+    {{- end }}
+
+  {{- end }}
   size: {{ .size | default "1x.extra-small" | quote }}
   storage:
     tls:
@@ -38,6 +105,13 @@ spec:
   storageClassName: {{ .storageclassname | default "gp3-csi" }}
   tenants:
     mode: {{ .mode | default "static" }}
+    {{- if .admin_groups }}
+    openshift:
+      adminGroups:
+        {{- range .admin_groups }}
+        - {{ . }}
+        {{- end }}
+    {{- end }}
 
   {{- if .podPlacements }}
   template:
