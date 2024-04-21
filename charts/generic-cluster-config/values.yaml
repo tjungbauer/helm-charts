@@ -680,7 +680,7 @@ monitoring:
 user_workload_monitoring:
   # -- Enable user workload monitoring configuration
   # @default -- false
-  enabled: true
+  enabled: false
 
   ################
   # ALERTMANAGER #
