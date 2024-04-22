@@ -49,14 +49,12 @@ jobs:
             cd $chart
             helm-docs -t ../../_templates.gotmpl -t README.md.gotmpl -o README.md
             cd -
+            if [[ -n "$(git status --porcelain --untracked-files=no)" ]]
+            then
+              echo "Documentation of $chart is not up to date. Please run helm-docs and commit changes!" >&2
+              exit 1
+            fi
           done
-
-          #helm-docs
-          if [[ -n "$(git status --porcelain --untracked-files=no)" ]]
-          then
-            echo "Documentation not up to date. Please run helm-docs and commit changes!" >&2
-            exit 1
-          fi
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.1
