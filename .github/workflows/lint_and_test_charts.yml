@@ -44,11 +44,14 @@ jobs:
           #!/usr/bin/env bash
           set -euo pipefail
 
-          for charts in `find . -name 'Chart.yaml' -type f | xargs -I{} dirname {}`; do
-            printf "\n\n##### CHECKING $charts #####\n";
+          for chart in `find . -name 'Chart.yaml' -type f | xargs -I{} dirname {}`; do
+            printf "\n\n##### CHECKING $chart #####\n";
+            cd $chart
+            helm-docs -t ../../_templates.gotmpl -t README.md.gotmpl -o README.md
+            cd ..
           done
 
-          helm-docs
+          #helm-docs
           if [[ -n "$(git status --porcelain --untracked-files=no)" ]]
           then
             echo "Documentation not up to date. Please run helm-docs and commit changes!" >&2
