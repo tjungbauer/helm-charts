@@ -46,12 +46,9 @@ jobs:
 
           for chart in `find . -name 'Chart.yaml' -type f | xargs -I{} dirname {}`; do
             printf "\n\n##### CHECKING $chart #####\n";
-            pwd
             cd $chart
             helm-docs -t ../../_templates.gotmpl -t README.md.gotmpl -o README.md
-            pwd
             cd -
-            pdw
           done
 
           #helm-docs
