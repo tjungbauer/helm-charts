@@ -51,6 +51,7 @@ jobs:
             cd -
             if [[ -n "$(git status --porcelain --untracked-files=no)" ]]
             then
+              git status
               echo "Documentation of $chart is not up to date. Please run helm-docs and commit changes!" >&2
               exit 1
             fi
