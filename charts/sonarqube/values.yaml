@@ -30,7 +30,7 @@ sonarqube:
   networkPolicy:
     enabled: false
 
-  # -- Endable ingress, using the defind endpoint.
+  # -- Enable ingress, using the defind endpoint.
   ingress:
     enabled: true
     hosts:

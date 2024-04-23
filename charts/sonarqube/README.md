@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square)
+  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
 
  
 
@@ -77,7 +77,7 @@ Verify the subcharts for additional settings:
 | sonarqube | object | `{"OpenShift":{"createSCC":true,"enabled":true},"ingress":{"enabled":true,"hosts":[{"name":"sonarqube.apps.ocp.aws.ispworld.at","path":"/"}]},"networkPolicy":{"enabled":false},"persistence":{"enabled":true},"plugins":{"install":["https://github.com/checkstyle/sonar-checkstyle/releases/download/10.9.3/checkstyle-sonar-plugin-10.9.3.jar","https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/3.1.0/sonar-dependency-check-plugin-3.1.0.jar","https://github.com/sbaudoin/sonar-yaml/releases/download/v1.7.0/sonar-yaml-plugin-1.7.0.jar","https://github.com/sbaudoin/sonar-shellcheck/releases/download/v2.5.0/sonar-shellcheck-plugin-2.5.0.jar"]}}` | Sonarqube Settings These settings are defined by Sonarqube Helm chart. |
 | sonarqube.OpenShift.createSCC | bool | `true` | The SCC should be created for OpenShift deployment. |
 | sonarqube.OpenShift.enabled | bool | `true` | OpenShift should be enabled |
-| sonarqube.ingress | object | `{"enabled":true,"hosts":[{"name":"sonarqube.apps.ocp.aws.ispworld.at","path":"/"}]}` | Endable ingress, using the defind endpoint. |
+| sonarqube.ingress | object | `{"enabled":true,"hosts":[{"name":"sonarqube.apps.ocp.aws.ispworld.at","path":"/"}]}` | Enable ingress, using the defind endpoint. |
 | sonarqube.networkPolicy | object | `{"enabled":false}` | Enable Network Polocies ... maybe I should set this to true |
 | sonarqube.persistence | object | `{"enabled":true}` | Keep the data persistent |
 | sonarqube.plugins | object | `{"install":["https://github.com/checkstyle/sonar-checkstyle/releases/download/10.9.3/checkstyle-sonar-plugin-10.9.3.jar","https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/3.1.0/sonar-dependency-check-plugin-3.1.0.jar","https://github.com/sbaudoin/sonar-yaml/releases/download/v1.7.0/sonar-yaml-plugin-1.7.0.jar","https://github.com/sbaudoin/sonar-shellcheck/releases/download/v2.5.0/sonar-shellcheck-plugin-2.5.0.jar"]}` | additional plugins to install |
