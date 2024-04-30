@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.31](https://img.shields.io/badge/Version-2.0.31-informational?style=flat-square)
+  ![Version: 2.0.33](https://img.shields.io/badge/Version-2.0.33-informational?style=flat-square)
 
  
 
@@ -79,6 +79,21 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
                 - targetCluster: *mgmtclustername
     syncPolicy:
       autosync_enabled: false
+
+    # Retrying in case the sync failed.
+    retries:
+      # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      limit: 5
+      backoff:
+        # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        # Default: 5s
+        duration: 5s
+        # a factor to multiply the base duration after each failed retry
+        # Default: 2
+        factor: 2
+        # the maximum amount of time allowed for the backoff strategy
+        # Default: 3m
+        maxDuration: 3m
 
     # Ignore specific differences in obhects. For example: the randomly generated password string in the secret for Quay.
     ignoreDifferences:

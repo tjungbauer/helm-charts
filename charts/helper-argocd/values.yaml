@@ -73,6 +73,21 @@ applicationsets:
     syncPolicy:
       autosync_enabled: false
 
+    # Retrying in case the sync failed.
+    retries:
+      # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      limit: 5
+      backoff:
+        # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        # Default: 5s
+        duration: 5s
+        # a factor to multiply the base duration after each failed retry
+        # Default: 2
+        factor: 2
+        # the maximum amount of time allowed for the backoff strategy
+        # Default: 3m
+        maxDuration: 3m
+
     # Ignore specific differences in obhects. For example: the randomly generated password string in the secret for Quay.
     ignoreDifferences:
       - kind: Secret

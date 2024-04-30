@@ -220,6 +220,14 @@ spec:
           - {{ .name }}={{ .value }}
           {{- end }}
         {{- end }}
+        {{- if .retries }}
+        retry:
+          limit: {{ .retries.limit | default "5" }}
+          backoff:
+            duration: {{ .retries.backoff.duration | default "5s" }}
+            factor: {{ .retries.backoff.factor | default "2" }}
+            maxDuration: {{ .retries.backoff.maxDuration | default "3m" }}
+        {{- end }}
       {{- end }}
       destination:
       {{- if .generatormatrix }}
