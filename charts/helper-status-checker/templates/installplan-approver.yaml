@@ -5,7 +5,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: installplan-approver-{{ randAlphaNum 5 | lower}}
+  name: installplan-approver
   namespace: {{ .namespace.name | quote }}
   annotations:
     argocd.argoproj.io/hook: Sync
@@ -33,22 +33,28 @@ spec:
                  SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
 
+              {{- if .subscriptionName }}
+              subscription={{ .subscriptionName }}
+              {{- else }}
               subscription={{ .operatorName }}
-              echo "Processing subscription '$subscription'"
+              {{- end }}
+
+              printf "\n\nProcessing subscription '$subscription'\n"
 
               installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
 
-              echo "Check installplan approved status"
+              printf "\nCheck installplan approved status\n"
+
               oc get installplan $installplan -o jsonpath="{.spec.approved}"
 
               if [ "`oc get installplan $installplan -o jsonpath="{.spec.approved}"`" == "false" ]; then
 
-                echo "Approving Subscription $subscription with install plan $installplan"
+                printf "\nApproving Subscription $subscription with install plan $installplan\n"
 
                 oc patch installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
 
               else
-                echo "Install Plan '$installplan' already approved"
+                printf "\nInstall Plan '$installplan' already approved\n"
               fi
           imagePullPolicy: Always
           name: installplan-approver

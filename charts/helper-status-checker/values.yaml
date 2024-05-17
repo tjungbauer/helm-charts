@@ -12,6 +12,10 @@ checks:
     # -- Name of operator to check. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
   - operatorName: name-of-operator
 
+    # -- OPTIONAL: Name of subscription that shall be approved. In some cases the name of the Subscription is different to the name of the operator.
+    # @default --operatorName
+    subscriptionName: name-of-subscription
+
     # -- If the Operator is not yet ready wait this amount of seconds.
     # @default -- 20
     sleeptimer: 20
@@ -23,9 +27,10 @@ checks:
     # -- Namespace where the status-checker Job shall be scheduled.
     namespace:
       name: openshift-logging
-    # -- Syncwave for the status-check Job
+
+    # -- Syncwave for the status-check Job. 0 is the recommended value.
     # @default -- 0
-    syncwave: 3
+    syncwave: 0
 
     serviceAccount:
       # -- Name of the Service Account.
