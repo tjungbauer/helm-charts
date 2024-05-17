@@ -7529,6 +7529,41 @@ entries:
         - kind: added
           description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
         - kind: added
+          description: added new option subscriptionName in case the subscription name is different to the operator name
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-05-17T12:18:01.828107958Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: ea6ee0202c5900718793802c847cbf1a1ff2ebaebfbf61fe9c8539b4542d2df4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-4.0.7/helper-status-checker-4.0.7.tgz
+    version: 4.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        - kind: added
           description: added new option subscriptionName, in case the subscription name is different to the operator name.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
@@ -8175,6 +8210,37 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.0/ingresscontroller-1.0.0.tgz
     version: 1.0.0
   minio-configurator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-05-17T12:18:01.928918038Z"
+    description: A Chart to automate the bucket creation and configuration for MINIO
+      Object Storage
+    digest: ee17bd6cd4aad646a6fc72dd4f0fa71d1e6016afd187e3afab4b6c5fe2de3158
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
+    keywords:
+    - minio
+    - storage
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: minio-configurator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/minio-configurator-1.0.1/minio-configurator-1.0.1.tgz
+    version: 1.0.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -15441,4 +15507,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-17T10:27:12.734141697Z"
+generated: "2024-05-17T12:18:01.930212226Z"
