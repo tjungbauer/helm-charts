@@ -1,13 +1,13 @@
 apiVersion: v2
 name: minio-configurator
 description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
-version: 1.0.0
+version: 1.0.1
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
     url: https://blog.stderr.at/
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
-icon: https://github.com/tjungbauer/helm-charts/blob/gh-pages/images/minio.png
+icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
 sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
