@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
 
  
 
@@ -24,11 +24,11 @@ added some additional features, like Bucket replication and the option to ignore
 It should help to overcome the requirement that manual configurations are required before gitops can perform certain steps.
 The main use cases are:
 
-. create a bucket
-. configure the bucket (ie. quota or lifecycle)
-. create a user 
-. create a policy and assign it to the user
-. enable bucket replication
+- create a bucket
+- configure the bucket (ie. quota or lifecycle)
+- create a user 
+- create a policy and assign it to the user
+- enable bucket replication
 
 To achieve this, a provisioning Job is created in order to use an MC command line tool
 
