@@ -8174,6 +8174,38 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.0/ingresscontroller-1.0.0.tgz
     version: 1.0.0
+  minio-configurator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-05-17T10:27:12.733362038Z"
+    description: A Chart to automate the bucket creation and configuration for MINIO
+      Object Storage
+    digest: 63fdcf8a9cd76a7c8cd0c30ea039f57dd3416a50ec0c35535cc092d90e29c2b4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+    icon: https://github.com/tjungbauer/helm-charts/blob/gh-pages/images/minio.png
+    keywords:
+    - minio
+    - storage
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: minio-configurator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/minio-configurator-1.0.0/minio-configurator-1.0.0.tgz
+    version: 1.0.0
   network-observability:
   - annotations:
       artifacthub.io/changes: |
@@ -15409,4 +15441,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-17T09:21:50.448670311Z"
+generated: "2024-05-17T10:27:12.734141697Z"
