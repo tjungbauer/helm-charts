@@ -1,0 +1,26 @@
+apiVersion: v2
+name: minio-configurator
+description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
+version: 1.0.0
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+icon: https://github.com/tjungbauer/helm-charts/blob/gh-pages/images/minio.png
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+  - minio
+  - storage
+  - clusterconfig
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: initial release
