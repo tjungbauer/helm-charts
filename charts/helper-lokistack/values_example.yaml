@@ -84,6 +84,7 @@ storage:
 
   # -- Size defines one of the supported Loki deployment scale out sizes.
   # Can be either:
+  #   - 1x.demo
   #   - 1x.extra-small (Default)
   #   - 1x.small
   #   - 1x.medium

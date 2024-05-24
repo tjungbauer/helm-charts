@@ -1,7 +1,7 @@
 apiVersion: v2
 name: minio-configurator
 description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
-version: 1.0.2
+version: 1.0.3
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com

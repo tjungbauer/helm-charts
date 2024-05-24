@@ -4,7 +4,7 @@ name: minio-provisioner
 
 # -- Namespace where the provisioner should be scheduled
 # @default -- ""
-namespace: minio-operator
+namespace: minio-tenant-namespace
 
 # -- Argo CD Sync wave for the Minio provisioner
 # @default -- 5

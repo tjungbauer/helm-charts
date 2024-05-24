@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
  
 
@@ -46,7 +46,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| admin_groups | list | `["cluster-admins"]` | AdminGroups defines a list of groups, whose members are considered to have admin-privileges by the Loki Operator. Setting this to an empty array disables admin groups. By default the following groups are considered admin-groups: - system:cluster-admins - cluster-admin - dedicated-admin  @default -- none |
+| admin_groups | list | none | AdminGroups defines a list of groups, whose members are considered to have admin-privileges by the Loki Operator. Setting this to an empty array disables admin groups. By default the following groups are considered admin-groups: - system:cluster-admins - cluster-admin - dedicated-admin |
 | enabled | bool | false | Enable or disable LokiStack configuration |
 | limits.global.retention_days | int | 7 | This is for log streams only, not the retention of the object store. Data retention must be configured on the bucket. |
 | limits.global.streams | list | N/A | Sets retention policy for all log streams. Note: This field does not impact the retention period for stored logs in object storage. Be sure to keep the correct syntax to the selector |
@@ -71,7 +71,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 | storage.schemas[0].effectiveDate | string | 2022-06-01 | EffectiveDate is the date in UTC that the schema will be applied on. To ensure readibility of logs, this date should be before the current date in UTC. |
 | storage.secret.name | string | `"logging-loki-s3"` | Name of a secret in the namespace configured for object storage secrets. |
 | storage.secret.type | string | s3 | Type of object storage that should be used |
-| storage.size | string | 1x.extra-small | Size defines one of the supported Loki deployment scale out sizes. Can be either:   - 1x.extra-small (Default)   - 1x.small   - 1x.medium |
+| storage.size | string | 1x.extra-small | Size defines one of the supported Loki deployment scale out sizes. Can be either:   - 1x.demo   - 1x.extra-small (Default)   - 1x.small   - 1x.medium |
 | storageclassname | string | gp3-csi | Storage class name defines the storage class for ingester/querier PVCs. |
 | syncwave | int | 3 | Syncwave for the LokiStack object. |
 
