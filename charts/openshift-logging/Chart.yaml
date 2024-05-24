@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging based on LokiStack
-version: 2.0.1
+version: 2.0.2
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
@@ -36,3 +36,5 @@ annotations:
       description: updated to helper-status-checker 4.0.0
     - kind: added
       description: v2.0 added README and removed Elasticsearch configuration as it is considered as deprecated.
+    - kind: fixed
+      description: moved values.yaml to values-examples.yaml to be sure that not default values interefere with any setting.
