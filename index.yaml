@@ -10726,6 +10726,50 @@ entries:
           description: updated to helper-status-checker 4.0.0
         - kind: added
           description: v2.0 added README and removed Elasticsearch configuration as it is considered as deprecated.
+        - kind: fixed
+          description: moved values.yaml to values-examples.yaml to be sure that not default values interefere with any setting.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-05-24T03:49:06.119754293Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Deploy and configure OpenShift Logging based on LokiStack
+    digest: 1bfa331a9696e93cec7d2e890c2ba240910f280eca114c7badf8e7912014fb58
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    keywords:
+    - logging
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-2.0.2/openshift-logging-2.0.2.tgz
+    version: 2.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Optimizing Loki configuration for ClusterLogging object.
+        - kind: added
+          description: updated to helper-status-checker 4.0.0
+        - kind: added
+          description: v2.0 added README and removed Elasticsearch configuration as it is considered as deprecated.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -15604,4 +15648,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-24T03:43:25.752147439Z"
+generated: "2024-05-24T03:49:06.120813706Z"
