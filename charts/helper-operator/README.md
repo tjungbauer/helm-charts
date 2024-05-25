@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
+  ![Version: 1.0.26](https://img.shields.io/badge/Version-1.0.26-informational?style=flat-square)
 
  
 
@@ -52,7 +52,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 | console_plugins.syncwave | int | 5 | Optional: Syncwave for console plugin configuration. |
 | operators | object | "" | Define operators that you want to deploy. A key/value setup is used here. Each new operator is a new key (in this example "my-operator") |
 | operators.my-operator.enabled | bool | false | Enabled yes/no |
-| operators.my-operator.namespace.create | bool | false | Create the Namesoace yes/no. |
+| operators.my-operator.namespace.create | bool | false | Create the Namespace yes/no. |
 | operators.my-operator.namespace.descr | string | "" | Description of the namespace. |
 | operators.my-operator.namespace.displayname | string | "" | Displayname of the namespace. |
 | operators.my-operator.namespace.name | string | `"openshift-operators-redhat"` | The Namespace the Operator should be installed in. |

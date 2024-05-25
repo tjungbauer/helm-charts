@@ -57,7 +57,7 @@ operators:
       # @default -- ""
       displayname:
 
-      # -- Create the Namesoace yes/no.
+      # -- Create the Namespace yes/no.
       # @default -- false
       create: true
 
