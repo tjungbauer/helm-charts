@@ -15685,4 +15685,33 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-25T02:42:36.543657681Z"
+  update-clusterversion:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-07T12:56:45.714408677Z"
+    description: A Helm chart to update OpenShift ClusterVersion
+    digest: b75bfcea6e0f4928e72f5d2c2f3c5675b7b5896614c96fa0c29fb56c23606201
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
+    keywords:
+    - configuration
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: update-clusterversion
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-06-07T12:56:45.715227428Z"
