@@ -126,7 +126,7 @@ namespaces:
     # -- EgressIPs for this Namespace
     # Be sure that nodes are labells with: k8s.ovn.org/egress-assignable: ""
     # **NOTE**: Curently only Namespace EgressIPs are supported (not pod)
-    # @default -- '' 
+    # @default -- ''
     egressIPs:
       # -- Enable or disable egressIPs.
       # @default -- false
