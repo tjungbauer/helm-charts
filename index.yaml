@@ -1,5 +1,35 @@
 apiVersion: v1
 entries:
+  cert-manager:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-14T04:08:29.093494286Z"
+    description: Install and configure the Cert-Manager
+    digest: ab3852853c3a7f4d685d98507cd4349b501bdbf72c87bb5b8fdcd65bb357f969
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cert-manager
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cert-manager-1.0.1/cert-manager-1.0.1.tgz
+    version: 1.0.1
   collection-management-operators:
   - annotations:
       artifacthub.io/changes: |
@@ -8206,6 +8236,39 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-06-14T04:08:29.206613991Z"
+    description: Configures the IngressController object.
+    digest: 7242d8987b6c4d74dfd58edb25666a4f041569f0bd988a773e8e758d4360a5a9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: ingresscontroller
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.6/ingresscontroller-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-04-18T09:21:59.546459068Z"
     description: Configures the IngressController object.
     digest: cfef85f5c5a6a1e509443e4d808af6d4ef514df69f9534e55dee49f3a2eb5cd2
@@ -15753,4 +15816,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-14T04:06:03.458344877Z"
+generated: "2024-06-14T04:08:29.207483717Z"
