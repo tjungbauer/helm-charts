@@ -1,0 +1,110 @@
+---
+certManager:
+  # -- Enable pathing of the certManager resource, for the ACME provider. This is required, when the recusrive nameserver shall be changed. For example, when private and public define-domains in AWS Route 53 are
+  # used, then the DNS server must be set.
+  # Verify the documentation at: https://docs.openshift.com/container-platform/4.15/security/cert_manager_operator/cert-manager-operator-issuer-acme.html
+  # The resource itself it created automatically and is therefor patched.
+  # @default -- false
+  enable_patch: false
+
+  # -- List of arguments that should be overwritten.
+  overrideArgs:
+    - '--dns01-recursive-nameservers-only'
+    - --dns01-recursive-nameservers=ns-362.awsdns-45.com:53,ns-930.awsdns-52.net:53
+
+# List of issuers that shall be created
+issuer:
+    # Name of first issuer
+    # Multiple can be defined
+  - name: acme
+    # -- Type can be either ClusterIssuer or Issuer
+    type: ClusterIssuer
+    # -- Enable this issuer.
+    # @default -- false
+    enabled: false
+    # -- Syncewave to create this issuer
+    syncwave: 20
+
+    # -- Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for.
+    acme:
+      # -- Email address, Let's Encrypt will use this to contact you about expiring
+      # certificates, and issues related to your account.
+      email: your@email.com
+
+      # -- add a challenge solver. This coulr be DNS01 or HTTP01
+      # The yaml specification will be used as is
+      # Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/
+      solvers:
+        - dns01:
+            route53:
+              accessKeyIDSecretRef:
+                key: access-key-id
+                name: prod-route53-credentials-secret
+              region: your-region
+              secretAccessKeySecretRef:
+                key: secret-access-key
+                name: prod-route53-credentials-secret
+          selector:
+            dnsZones:
+              - define-domains
+
+    # Name of issuer
+  - name: selfsigned
+    # -- Type can be either ClusterIssuer or Issuer
+    type: ClusterIssuer
+    # -- Enable this issuer.
+    # @default -- false
+    enabled: false
+
+    # -- Create a selfSigned issuer. The SelfSigned issuer doesn't represent a certificate authority as such, but instead denotes that certificates will "sign themselves" using a given private key.
+    # Detailed information can be found at: https://cert-manager.io/docs/configuration/selfsigned/
+    selfSigned: true
+
+    # Name of issuer
+  - name: ca
+    # -- Type can be either ClusterIssuer or Issuer
+    type: ClusterIssuer
+    # -- Enable this issuer.
+    # @default -- false
+    enabled: false
+
+    # -- Create CA issuer, CA issuers are generally either for trying cert-manager out or else for advanced users with a good idea of how to run a PKI.
+    # Detailed information can be found at: https://cert-manager.io/docs/configuration/ca/
+    ca:
+      secretName: ca-key-pair
+
+    # Name of issuer
+  - name: vault
+    # -- Type can be either ClusterIssuer or Issuer
+    type: ClusterIssuer
+    # -- Enable this issuer.
+    # @default -- false
+    enabled: false
+
+    # -- Enable Vault issuer. The Vault Issuer represents the certificate authority Vault.
+    # Detailed information can be found at: https://cert-manager.io/docs/configuration/vault/
+    vault:
+      path: pki_int/sign/example-dot-com
+      server: https://vault.local
+      caBundle: <base64 encoded caBundle PEM file>
+      auth:
+        tokenSecretRef:
+          name: cert-manager-vault-token
+          key: token
+
+    # Name of issuer
+  - name: venafi
+    # -- Type can be either ClusterIssuer or Issuer
+    type: ClusterIssuer
+    # -- Enable this issuer.
+    # @default -- false
+    enabled: false
+
+    # -- The Venafi Issuer types allows you to obtain certificates from Venafi as a Service (VaaS) and Venafi Trust Protection Platform (TPP) instances.
+    # Detailed information can be found at: https://cert-manager.io/docs/configuration/venafi/
+    venafi:
+      zone: "My Application\\My CIT"
+      cloud:
+        apiTokenSecretRef:
+          name: vaas-secret
+          key: apikey

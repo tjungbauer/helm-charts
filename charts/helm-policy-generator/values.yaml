@@ -1,3 +1,4 @@
+---
 namespace: &namespace policy-hub
 
 # -- Create Namespace for the policy Yes/No
