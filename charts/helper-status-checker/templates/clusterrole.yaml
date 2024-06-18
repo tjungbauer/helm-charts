@@ -20,6 +20,7 @@ rules:
       - clusterserviceversions
       - installplans
       - subscription
+      - subscriptions
     verbs:
       - get
       - list
