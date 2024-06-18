@@ -23,12 +23,19 @@ spec:
             - |
               export HOME=/tmp/approver
 
-              echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
+              echo "Approving operator install.  Waiting a few seconds ({{ .sleeptimer | default 20 }}) to make sure the InstallPlan gets created first."
               sleep_timer={{ .sleeptimer | default 20 }}
 
-              SLEEPER_TMP=0
-               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
-                 echo -n "."
+              SLEEPER_TMP=1
+              SLEEPER_MOD=10
+               while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do   
+                 if (( $SLEEPER_TMP % 10 == 0 ))
+                 then
+                   echo -n "$SLEEPER_MOD"
+                   SLEEPER_MOD=$(($SLEEPER_MOD+10))
+                 else
+                   echo -n "."
+                 fi
                  sleep 1
                  SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
@@ -43,7 +50,7 @@ spec:
 
               installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
 
-              printf "\nCheck installplan approved status\n"
+              printf "\nCheck installplan approved status: "
 
               oc get installplan $installplan -o jsonpath="{.spec.approved}"
 
