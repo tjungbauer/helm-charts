@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
+  ![Version: 1.0.20](https://img.shields.io/badge/Version-1.0.20-informational?style=flat-square)
 
  
 
@@ -120,6 +120,7 @@ Verify the subcharts for additional settings:
 | rhacs.secured_cluster.admissioncontrol.listenOn.events | bool | `true` | Set this to 'true' to enable monitoring and enforcement for Kubernetes events (port-forward and exec). |
 | rhacs.secured_cluster.admissioncontrol.listenOn.updates | bool | `true` | Set this to 'true' to enable preventive policy enforcement for object updates. Note: this will not have any effect unless 'Listen On Creates' is set to 'true' as well. |
 | rhacs.secured_cluster.admissioncontrol.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
+| rhacs.secured_cluster.centralEndpoint | string | empty | URL of the Central (without https://, with port :443) |
 | rhacs.secured_cluster.clustername | string | local-cluster" | Name of the cluster |
 | rhacs.secured_cluster.enabled | bool | false | Enable SecuredCluster yes or no ... typically yes |
 | rhacs.secured_cluster.sensor | object | `{"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Sensor |

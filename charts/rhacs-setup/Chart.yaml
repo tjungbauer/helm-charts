@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.10
+version: 1.0.20
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -36,3 +36,5 @@ annotations:
       description: added Readme
     - kind: added
       description: updated to helper-status-checker v4
+    - kind: fixed
+      description: documented missing centralEndpoint setting
