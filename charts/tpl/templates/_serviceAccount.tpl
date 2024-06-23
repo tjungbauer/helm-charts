@@ -1,6 +1,7 @@
-
 {{/*
-Create the name of the service account to use
+Create the name of the service account to use.
+If not set use "temp-serviceaccount" to ensure 
+that templating works and does not break at some point
 */}}
 {{- define "rhacs.serviceAccountName" -}}
   {{- if .Values.serviceAccount.create }}
