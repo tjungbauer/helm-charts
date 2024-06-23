@@ -530,6 +530,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br />
 See the License for the specific language governing permissions and<br />
 limitations under the License.<br />
 </p>
+
+<h2>Icons</h2>
+<a href="https://www.flaticon.com/free-icons/" title="">Various Artists Flaticon</a>
+
     </section>
     <time class="time" datetime="{{ .Generated.Format "2006-01-02T15:04:05" }}" pubdate id="generated">{{ .Generated.Format "Mon Jan 2 2006 03:04:05PM MST-07:00" }}</time>
   </body>
