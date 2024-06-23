@@ -3,7 +3,7 @@ Create the name of the service account to use.
 If not set use "temp-serviceaccount" to ensure 
 that templating works and does not break at some point
 */}}
-{{- define "rhacs.serviceAccountName" -}}
+{{- define "tpl.serviceAccountName" -}}
   {{- if .Values.serviceAccount.create }}
     {{- default .Values.serviceAccount.name }}
   {{- else }}

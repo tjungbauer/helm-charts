@@ -64,6 +64,6 @@ spec:
           name: create-cluster-init-bundle
       dnsPolicy: ClusterFirst
       restartPolicy: Never
-      serviceAccountName: {{ include "rhacs.serviceAccountName" $ }}
+      serviceAccountName: {{ include "tpl.serviceAccountName" $ }}
       terminationGracePeriodSeconds: 30
 {{- end }}
