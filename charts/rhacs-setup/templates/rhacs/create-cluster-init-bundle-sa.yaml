@@ -6,8 +6,7 @@ metadata:
   name: {{ include "rhacs.serviceAccountName" $ }}-role
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 rules:
   - apiGroups:
       - ""
@@ -41,8 +40,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "rhacs.serviceAccountName" $ }}-check-operator-status
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 rules:
   - verbs:
       - get
@@ -66,8 +64,7 @@ metadata:
   name: {{ include "rhacs.serviceAccountName" $ }}-rb
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -82,8 +79,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "rhacs.serviceAccountName" $ }}-check-operator-status
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 subjects:
   - kind: ServiceAccount
     name: {{ include "rhacs.serviceAccountName" $ }}
@@ -99,8 +95,7 @@ metadata:
   name: {{ include "rhacs.serviceAccountName" $ }}
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 ---
 # required so that stackrox can check if deployment of operator is ready
 # could be removed if the job is running directly in the rhacs-operator namespace
@@ -112,8 +107,7 @@ metadata:
   name: view
   namespace: {{ $value.namespace | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

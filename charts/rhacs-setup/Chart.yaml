@@ -1,17 +1,13 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.20
+version: 1.0.21
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
-  - name: helper-operator
-    version: ~1.0.23
+  - name: tpl
+    version: ~1.0.0
     repository: https://charts.stderr.at/
-  - name: helper-status-checker
-    version: ~4.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -38,3 +34,5 @@ annotations:
       description: updated to helper-status-checker v4
     - kind: fixed
       description: documented missing centralEndpoint setting
+    - kind: added
+      decsription: using common tpl chart for reusablility

@@ -8,8 +8,7 @@ metadata:
   name: create-cluster-init-bundle
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   template:
     spec:

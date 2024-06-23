@@ -8,4 +8,4 @@ metadata:
   name: {{ .Values.rhacs.namespace.name }}
   labels:
     openshift.io/cluster-monitoring: "true"
-    {{- include "rhacs.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
