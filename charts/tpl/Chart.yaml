@@ -1,7 +1,7 @@
 apiVersion: v2
 name: tpl
 description: A library that shall collect certain templats to reuse them among different charts.
-version: 1.0.4
+version: 1.0.5
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
 maintainers:
