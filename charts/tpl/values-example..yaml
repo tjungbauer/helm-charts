@@ -1,4 +1,6 @@
 ---
+# Examples values file
+
 # -- If you want this component to only run on specific nodes, you can
 # configure tolerations of tainted nodes.
 # <br />
