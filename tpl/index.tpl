@@ -353,7 +353,13 @@
       <div>
         <p>
           Welcome to my Helm Repository. I am using these Charts as a central storage for my GitOps approach. <br />
-          Whenever I spin up a new cluster, these Charts help me to configure it. <br /><br />
+          Whenever I spin up a new cluster, these Charts help me to configure it. <br />
+          
+          The Charts are mainly used by <a href="https://github.com/tjungbauer/openshift-clusterconfig-gitops">https://github.com/tjungbauer/openshift-clusterconfig-gitops</a><br /><br />
+
+          For further information and some examples, please check the blog: <a href="https://blog.stderr.at/gitopscollection/">https://blog.stderr.at/gitopscollection</a>
+
+          <br /><br />
           Feel free to test them and let me know if there are any issues.
        </p>
       </div>
