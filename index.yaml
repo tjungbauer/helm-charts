@@ -3768,6 +3768,50 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-06-23T03:37:48.248864657Z"
+    description: This Chart shall help to generate policies for Advanced Cluster Management
+    digest: 1d526dfa0eec9597b68fda83f65de1d43a1e46c17de90c6de75cc41a6efbb690
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - helper
+    - acm
+    - policy
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helm-policy-generator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.13/helm-policy-generator-1.0.13.tgz
+    version: 1.0.13
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: descriptions in example values-files and some minor changes for optional parameters
+        - kind: added
+          description: added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder
+        - kind: fixed
+          description: put Namespaceselector for policies into the right place
+        - kind: added
+          description: added additional example, Placement and PlacementBinding are correctly created when using PolicySets
+        - kind: added
+          description: added example for cluster health checks
+        - kind: added
+          description: added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind
+        - kind: added
+          description: added README
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-06-14T05:03:36.771818588Z"
     description: This Chart shall help to generate policies for Advanced Cluster Management
     digest: 1220af8403e3e36bd991f2a714867a6c37d8c030d4748bb00ab535e07b836051
@@ -16102,6 +16146,38 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
+  tpl:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-06-23T03:37:48.334473741Z"
+    description: A library that shall collect certain templats to reuse them among
+      different charts.
+    digest: 8372a2fee9fef96c38fca3fe8eda161f91d5296f17ece81628b5638b10310b72
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.0/tpl-1.0.0.tgz
+    version: 1.0.0
   update-clusterversion:
   - annotations:
       artifacthub.io/changes: |
@@ -16131,4 +16207,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-22T15:03:18.129772745Z"
+generated: "2024-06-23T03:37:48.335382972Z"
