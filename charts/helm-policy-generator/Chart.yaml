@@ -1,8 +1,8 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.12
-icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+version: 1.0.13
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
   - name: tjungbauer
