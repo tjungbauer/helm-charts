@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
+  ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
 
  
 
@@ -23,6 +23,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (see folder cluster/management-cluster/ingresscontroller)
 
@@ -38,14 +39,14 @@ Source:
 * <https://charts.stderr.at/>
 * <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
 
-Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ingresscontrollers | list | `[{"enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
-| ingresscontrollers[0] | object | `{"enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
+| ingresscontrollers | list | `[{"enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
+| ingresscontrollers[0] | object | `{"enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
 | ingresscontrollers[0].enabled | bool | false | Enable the configuration |
 | ingresscontrollers[0].nodePlacement | object | empty | Bind IngressController to specific nodes Here as example for Infrastructure nodes. |
 | ingresscontrollers[0].nodePlacement.tolerations | list | `[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]` | Tolerations, required if the nodes are tainted. |

@@ -6,32 +6,24 @@ kind: IngressController
 metadata:
   name: {{ .name }}
   namespace: openshift-ingress-operator
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   replicas: {{ .replicas | default "2" }}
   {{- if .nodePlacement }}
   {{- with .nodePlacement }}
   nodePlacement:
-    {{- if .nodeSelector }}
-    nodeSelector:
-      matchLabels:
-        {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
-    {{- end }}
 
-    {{- if .tolerations }}
-    tolerations:
-      {{- range $key, $value := .tolerations }}
-      - effect: {{ $value.effect }}
-        key: {{ $value.key }}
-        operator: {{ $value.operator }}
-        value: {{ $value.value }}
-        {{- if $value.tolerationSeconds }}
-        tolerationSeconds: {{ $value.tolerationSeconds }}
-        {{- end }}
-      {{- end }}
-    {{- end }}
+{{- if .nodeSelector }}
+{{- include "tpl.nodeSelector" . | indent 2 }}
+{{- end }}
+
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+
   {{- end }}
   {{- end }}
-
 
 {{- end }}
 {{- end }}

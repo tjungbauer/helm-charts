@@ -1,9 +1,13 @@
 apiVersion: v2
 name: ingresscontroller
 description: Configures the IngressController object.
-version: 1.0.6
+version: 1.0.7
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -27,3 +31,5 @@ annotations:
       description: added new type of etcd encryption, monitoring stack configuration etc.
     - kind: added
       description: added README
+    - kind: added
+      description: added tpl chart
