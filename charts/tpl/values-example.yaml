@@ -35,4 +35,7 @@ resources:
     cpu: 8
     memory: 16
     ephemeral-storage: 500
-     
+
+nodeSelector:
+  key: node-role.kubernetes.io/infra
+  value: ''

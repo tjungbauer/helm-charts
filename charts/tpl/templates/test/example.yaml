@@ -7,3 +7,8 @@
 {{- if .Values.resources }}
 {{ include "tpl.resources" .Values.resources  | indent 0 }}
 {{- end }}
+
+{{- /* Set nodeSelector */}}
+{{- if .Values.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values  | indent 0 }}
+{{- end }}
