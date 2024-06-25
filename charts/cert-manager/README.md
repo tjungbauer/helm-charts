@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
 
  
 
@@ -32,6 +32,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (see folder cluster/management-cluster/cert-manager)
 
@@ -53,8 +54,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-man
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| certManager.enable_patch | bool | false | Enable pathing of the certManager resource, for the ACME provider. This is required, when the recusrive nameserver shall be changed. For example, when private and public define-domains in AWS Route 53 are used, then the DNS server must be set.  Verify the documentation at: https://docs.openshift.com/container-platform/4.15/security/cert_manager_operator/cert-manager-operator-issuer-acme.html The resource itself it created automatically and is therefor patched. |
-| certManager.overrideArgs | list | `["--dns01-recursive-nameservers-only","--dns01-recursive-nameservers=ns-362.awsdns-45.com:53,ns-930.awsdns-52.net:53"]` | List of arguments that should be overwritten.  |
+| certManager.enable_patch | bool | false | Enable pathing of the certManager resource, for the ACME provider. This is required, when the recusrive nameserver shall be changed. For example, when private and public define-domains in AWS Route 53 are used, then the DNS server must be set. Verify the documentation at: https://docs.openshift.com/container-platform/4.15/security/cert_manager_operator/cert-manager-operator-issuer-acme.html The resource itself it created automatically and is therefor patched. |
+| certManager.overrideArgs | list | `["--dns01-recursive-nameservers-only","--dns01-recursive-nameservers=ns-362.awsdns-45.com:53,ns-930.awsdns-52.net:53"]` | List of arguments that should be overwritten. |
 | issuer[0].acme | object | `{"email":"your@email.com","solvers":[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]}` | Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for. |
 | issuer[0].acme.email | string | `"your@email.com"` | Email address, Let's Encrypt will use this to contact you about expiring certificates, and issues related to your account. |
 | issuer[0].acme.solvers | list | `[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]` | add a challenge solver. This coulr be DNS01 or HTTP01 The yaml specification will be used as is Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/ |

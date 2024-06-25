@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   namespace: {{ .Values.compliance.namespace.name | default "openshift-compliance" | quote }}
   labels:
-    {{- include "compliance.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 profiles:
 {{- range $key, $value := .Values.compliance.scansettingbinding.profiles }}
   - name: {{ $value.name }} 

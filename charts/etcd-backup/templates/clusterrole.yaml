@@ -5,7 +5,7 @@ kind: ClusterRole
 metadata:
   name: {{ .Values.clusterrolename | default "cluster-etcd-backup" }}
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources:

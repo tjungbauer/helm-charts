@@ -3,6 +3,8 @@ apiVersion: apps/v1
 metadata:
   name: cyclonedx-bom-repo-server
   namespace: {{ .Values.namespace.name | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   replicas: 1
   selector:

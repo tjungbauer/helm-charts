@@ -6,7 +6,7 @@ metadata:
   name: {{ .Values.pvc.name | default "etcd-backup" }}
   namespace: {{ .Values.namespace.name | default "etcd-backup" }}
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode | default "ReadWriteOnce" }}

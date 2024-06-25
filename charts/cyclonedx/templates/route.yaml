@@ -3,6 +3,8 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: cyclonedx-bom-repo-server
   namespace: {{ .Values.namespace.name | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   to:
     kind: Service
