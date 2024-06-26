@@ -5,7 +5,7 @@ aide:
   worker:
     # -- Enable worker node fileintegrity check
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave when this object is created
     syncwave: 5
