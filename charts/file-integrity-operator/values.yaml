@@ -1,38 +1,4 @@
 ---
-
-# Deploy operator using helper-operator sub chart
-helper-operator:
-  operators:
-    quay-operator:
-      enabled: false
-      syncwave: '0'
-      namespace:
-        name: openshift-file-integrity
-        create: true
-      subscription:
-        channel: stable
-        approval: Automatic
-        operatorName: file-integrity-operator
-        source: redhat-operators
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: true
-        notownnamespace: true
-
-# Verify if operator has been deployed using helper-status-checker sub-chart
-helper-status-checker:
-  enabled: false
-
-  checks:
-
-    - operatorName: file-integrity-operator
-      namespace:
-        name: openshift-file-integrity
-      syncwave: 3
-
-      serviceAccount:
-        name: "sa-file-integrity-checker"
-
 # Settings for File Integrity Operator
 aide:
   # Settings the are applicable for Worker nodes.
@@ -52,6 +18,9 @@ aide:
 
     # -- nodeSelector as key/value
     selector:
+      key: node-role.kubernetes.io/worker
+      value: ""
+    nodeSelector:
       key: node-role.kubernetes.io/worker
       value: ""
 

@@ -1,17 +1,13 @@
 apiVersion: v2
 name: file-integrity-operator
 description: Setup the FileIntegrity Operator (based on AIDE)
-version: 1.0.9
+version: 1.0.10
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
 dependencies:
-  - name: helper-operator
+  - name: tpl
     version: ~1.0.0
     repository: https://charts.stderr.at/
-  - name: helper-status-checker
-    version: ~4.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -33,3 +29,5 @@ annotations:
       description: Initial release
     - kind: added
       description: updated to helper-status-checker v4 and prepared readme file
+    - kind: added
+      description: added dependency tp tpl library

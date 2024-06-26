@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
+  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
 
  
 
@@ -24,8 +24,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | helper-operator | ~1.0.0 |
-| https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (for example in the folder clusters/management-cluster/setup-file-integrity-operator)
 
@@ -78,22 +77,6 @@ Verify the subcharts for additional settings:
 | aide.worker.selector | object | `{"key":"node-role.kubernetes.io/worker","value":""}` | nodeSelector as key/value |
 | aide.worker.syncwave | int | `5` | Syncwave when this object is created |
 | aide.worker.tolerations | list | empty | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| helper-operator.operators.quay-operator.enabled | bool | `false` |  |
-| helper-operator.operators.quay-operator.namespace.create | bool | `true` |  |
-| helper-operator.operators.quay-operator.namespace.name | string | `"openshift-file-integrity"` |  |
-| helper-operator.operators.quay-operator.operatorgroup.create | bool | `true` |  |
-| helper-operator.operators.quay-operator.operatorgroup.notownnamespace | bool | `true` |  |
-| helper-operator.operators.quay-operator.subscription.approval | string | `"Automatic"` |  |
-| helper-operator.operators.quay-operator.subscription.channel | string | `"stable"` |  |
-| helper-operator.operators.quay-operator.subscription.operatorName | string | `"file-integrity-operator"` |  |
-| helper-operator.operators.quay-operator.subscription.source | string | `"redhat-operators"` |  |
-| helper-operator.operators.quay-operator.subscription.sourceNamespace | string | `"openshift-marketplace"` |  |
-| helper-operator.operators.quay-operator.syncwave | string | `"0"` |  |
-| helper-status-checker.checks[0].namespace.name | string | `"openshift-file-integrity"` |  |
-| helper-status-checker.checks[0].operatorName | string | `"file-integrity-operator"` |  |
-| helper-status-checker.checks[0].serviceAccount.name | string | `"sa-file-integrity-checker"` |  |
-| helper-status-checker.checks[0].syncwave | int | `3` |  |
-| helper-status-checker.enabled | bool | `false` |  |
 
 ## Example values
 
