@@ -10,6 +10,9 @@ metadata:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   replicas: {{ .replicas | default "2" }}
+  {{- if .defaultCertificate }}
+  defaultCertificate: {{ .cert }}
+  {{- end }}
   {{- if .nodePlacement }}
   {{- with .nodePlacement }}
   nodePlacement:

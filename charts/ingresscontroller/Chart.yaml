@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ingresscontroller
 description: Configures the IngressController object.
-version: 1.0.7
+version: 1.0.8
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 dependencies:
@@ -33,3 +33,5 @@ annotations:
       description: added README
     - kind: added
       description: added tpl chart
+    - kind: added
+      description: added defaultCertificate option to use a valid certificate for the ingresscontroller
