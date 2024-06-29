@@ -1,13 +1,17 @@
 apiVersion: v2
 name: helper-lokistack
 description: The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.
-version: 1.0.7
+version: 1.0.8
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
     url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
@@ -28,3 +32,5 @@ annotations:
       description: finalizing README and added possibility to configure culster-admin list and retention
     - kind: fixed
       description: fixed value .size to .storage.size
+    - kind: added
+      description: added dependency tp tpl library

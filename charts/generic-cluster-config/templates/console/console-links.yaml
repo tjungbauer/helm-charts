@@ -6,7 +6,7 @@ kind: ConsoleLink
 metadata:
   name: {{ $key | replace "_" "-" | quote }}
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   text: {{ $value.text | quote }}
   location: {{ $value.location | quote }} 

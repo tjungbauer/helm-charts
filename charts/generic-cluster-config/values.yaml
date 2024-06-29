@@ -3,25 +3,52 @@
 ###################
 # ETCD ENCRYPTION #
 ###################
-etcd_encryption:
-  # -- Enable ETCD encryption in OpenShift
-  # @default -- false
-  enabled: false
+apiserver:
+  # -- Enable APIServer configuration in general
+  enabled: true
 
-  # -- The Namespace where the Pod that verifies the status of the encryption will be started.
-  # If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system"
-  namespace: openshift-gitops
+  # audit configuration
+  audit:
+    # -- Set to Default, WriteRequestBodies, AllRequestBodies, or None. The default profile is Default
+    # @default -- Default
+    profile: Default
 
-  # -- The service account that is used to verify the status of the encryption
-  serviceAccount: etcd-encryption-checker
+  # Configure a custom certificate for the API server
+  custom_cert:
+    # -- custom certificate enabled?
+    # @default -- false
+    enabled: true
 
-  # -- Type of encryption. This can either be: <br />
-  # <ul>
-  # <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li>
-  # <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li>
-  # <ul>
-  # @default -- aesgcm
-  encryption_type: aesgcm
+    # -- List of names the certificate is valid
+    # @default -- N/A
+    cert_names:
+      - api.ocp.aws.ispworld.at
+
+    # -- Name of the secret that holds the certificate
+    # @default -- api-certificate
+    secretname: api-certificate
+
+  etcd_encryption:
+    # -- Enable ETCD encryption in OpenShift
+    # @default -- false
+    enabled: false
+
+    # -- The Namespace where the Pod that verifies the status of the encryption will be started.
+    # If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system"
+    namespace: openshift-gitops
+
+    # -- The service account that is used to verify the status of the encryption
+    serviceAccount:
+      create: true
+      name: "etcd-encryption-checker"
+
+    # -- Type of encryption. This can either be: <br />
+    # <ul>
+    # <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li>
+    # <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li>
+    # <ul>
+    # @default -- aesgcm
+    encryption_type: aesgcm
 
 ############################
 # DISABLE SELF PROVISIONER #

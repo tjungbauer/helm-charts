@@ -7,7 +7,7 @@ metadata:
   name: {{ . }}
   namespace: openshift-gitops
   labels:
-    {{- include "argo.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   clusterResourceWhitelist:
     - group: '*'

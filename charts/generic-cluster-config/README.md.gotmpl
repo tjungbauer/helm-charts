@@ -33,14 +33,28 @@ None
 
 ## Example ETCD Encryption & Disabling Self-Provisioner
 
-The following example will encrypt the ETCD database and disable the self-provisioner. For the ETCD encryption, a Job will be started, that will check and verify the status of the encryption. This might run very long.
+The following example will encrypt the ETCD database, configure the audit-profile, set a custom certificate and disable the self-provisioner. For the ETCD encryption, a Job will be started, that will check and verify the status of the encryption. This might run very long.
 
 ```yaml
-etcd_encryption:
+apiserver:
   enabled: false
-  namespace: openshift-gitops
-  serviceAccount: etcd-encryption-checker
-  encryption_type: aesgcm
+
+  audit:
+    profile: Default
+
+  custom_cert:
+    enabled: true
+    cert_names:
+      - api.ocp.aws.ispworld.at    
+    secretname: api-certificate
+
+  etcd_encryption:
+    enabled: false
+    namespace: openshift-gitops
+    serviceAccount:
+      create: true
+      name: "etcd-encryption-checker"
+    encryption_type: aesgcm  
 
 self_provisioner:
   deactivate: false

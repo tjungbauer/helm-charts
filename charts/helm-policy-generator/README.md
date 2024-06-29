@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
+  ![Version: 1.0.14](https://img.shields.io/badge/Version-1.0.14-informational?style=flat-square)
 
  
 
@@ -54,6 +54,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -81,7 +82,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 |-----|------|---------|-------------|
 | create_policy_namespace | bool | false | Create Namespace for the policy Yes/No |
 | namespace | string | `"policy-hub"` |  |
-| policies[0] | object | `{"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"dependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"description":"","disabled":"false","enabled":false,"ignorePending":false,"namespace":"policy-hub","placement":{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]},"policy_templates":[{"allowedSANPattern":"","complianceType":"musthave","disallowedSANPattern":"","evaluationInterval":{"compliant":"45m","noncompliant":"45s"},"extraDependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"kind":"ConfigurationPolicy","maximumCADuration":"100h","maximumDuration":"100h","minimumCADuration":"400h","minimumDuration":"100h","name":"console-banner","name_use_template_filename":"true","namespaceSelector":{"exclude":[],"include":[],"matchExpressions":[{"key":"name","operator":"In","values":["local-cluster"]}],"matchLabels":{"component":"redis","env":"test"}},"path":"console-banner","pruneObjectBehavior":"DeleteIfCreated","remediationAction":"enforce","severity":"low"}],"policyname":"console-banner","remediationAction":"inform","standards":["Baseline 2023v1"]}` | The name for identifying the policy resource. |
+| policies[0] | object | `{"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"dependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"description":"","disabled":"false","enabled":true,"ignorePending":false,"namespace":"policy-hub","placement":{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]},"policy_templates":[{"allowedSANPattern":"","complianceType":"musthave","disallowedSANPattern":"","evaluationInterval":{"compliant":"45m","noncompliant":"45s"},"extraDependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"kind":"ConfigurationPolicy","maximumCADuration":"100h","maximumDuration":"100h","minimumCADuration":"400h","minimumDuration":"100h","name":"console-banner","name_use_template_filename":"true","namespaceSelector":{"exclude":[],"include":[],"matchExpressions":[{"key":"name","operator":"In","values":["local-cluster"]}],"matchLabels":{"component":"redis","env":"test"}},"path":"console-banner","pruneObjectBehavior":"DeleteIfCreated","remediationAction":"enforce","severity":"low"}],"policyname":"console-banner","remediationAction":"inform","standards":["Baseline 2023v1"]}` | The name for identifying the policy resource. |
 | policies[0].categories | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards. This is used only when policyDefaults.catagories is not set. |
 | policies[0].controls | list | empty | The name of the security control that is being checked. For example, Access Control or System and Information Integrity. This is used only when policyDefaults.catagories is not set. |
 | policies[0].dependencies | list | `[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}]` | Dependencies are used to create a list of dependency objects detailed with extra considerations for compliance. |
@@ -127,7 +128,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policySet.sets[0].description | string | `"Contains console customizations"` | The descrption for identifying the policySet resource. |
 | policySet.sets[0].namespace | string | `"policy-hub"` | The namespace of policySet resource. |
 | policySet.sets[0].placement | object | `{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]}` | Places a policySET to a cluster with selected labels and or clusterSet |
-| policySet.sets[0].placement.clusterSets | list | empty | a clusterSet the policy to bind to. The clusterSet must exist. Optional |
+| policySet.sets[0].placement.clusterSets | list | N/A | a clusterSet the policy to bind to. The clusterSet must exist. Optional |
 | policySet.sets[0].placement.lableSelectors | list | `[{"key":"name","operator":"In","values":["local-cluster"]}]` | multiple selectors can be defined, which must all be true |
 | policySet.sets[0].policies | list | empty | The list of policies that you want to group together in the policy set. If defined, it will take the list. If Not defined it will automatically take the names of the policies defined below. |
 

@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
+  ![Version: 1.0.26](https://img.shields.io/badge/Version-1.0.26-informational?style=flat-square)
 
  
 
@@ -38,6 +38,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 None
 
@@ -63,6 +64,15 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| apiserver.audit.profile | string | Default | Set to Default, WriteRequestBodies, AllRequestBodies, or None. The default profile is Default |
+| apiserver.custom_cert.cert_names | list | N/A | List of names the certificate is valid |
+| apiserver.custom_cert.enabled | bool | false | custom certificate enabled? |
+| apiserver.custom_cert.secretname | string | api-certificate | Name of the secret that holds the certificate |
+| apiserver.enabled | bool | `true` | Enable APIServer configuration in general |
+| apiserver.etcd_encryption.enabled | bool | false | Enable ETCD encryption in OpenShift |
+| apiserver.etcd_encryption.encryption_type | string | aesgcm | Type of encryption. This can either be: <br /> <ul> <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <ul> |
+| apiserver.etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |
+| apiserver.etcd_encryption.serviceAccount | object | `{"create":true,"name":"etcd-encryption-checker"}` | The service account that is used to verify the status of the encryption |
 | config_allowed_registries.allowedRegistriesForImport | list | empty | limits the container image registries that normal users may import images from. |
 | config_allowed_registries.allowedRegistriesForImport[0] | object | `{"domain":"quay.io","insecure":false}` | Domainname of the registry |
 | config_allowed_registries.allowedRegistriesForImport[0].insecure | bool | false | Validate the vertificate of not |
@@ -95,10 +105,6 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | console.yamlsamples.secret-yaml-sample.targetresource | object | `{"apiversion":"v1","kind":"secret"}` | Define the target resource and the api version. |
 | console.yamlsamples.secret-yaml-sample.title | string | '' | Title for the ConsoleYAMLSample |
 | console.yamlsamples.secret-yaml-sample.yamlDef | string | '' | The actual example as it will be shown in the UI. This is gives as a valid YAML and will be bypassed to the template. |
-| etcd_encryption.enabled | bool | false | Enable ETCD encryption in OpenShift |
-| etcd_encryption.encryption_type | string | aesgcm | Type of encryption. This can either be: <br /> <ul> <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <ul> |
-| etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |
-| etcd_encryption.serviceAccount | string | `"etcd-encryption-checker"` | The service account that is used to verify the status of the encryption |
 | idp.customloginpage | object | '' | Besides IDP configuration, custom Login pages can be defined here as well. This requires secrets with the actual HTML. |
 | idp.customloginpage.enabled | bool | false | Enable custom Login pages? |
 | idp.customloginpage.secretname | string | '' | Name of the secret for the custom Login page. |
@@ -185,14 +191,28 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 
 ## Example ETCD Encryption & Disabling Self-Provisioner
 
-The following example will encrypt the ETCD database and disable the self-provisioner. For the ETCD encryption, a Job will be started, that will check and verify the status of the encryption. This might run very long.
+The following example will encrypt the ETCD database, configure the audit-profile, set a custom certificate and disable the self-provisioner. For the ETCD encryption, a Job will be started, that will check and verify the status of the encryption. This might run very long.
 
 ```yaml
-etcd_encryption:
+apiserver:
   enabled: false
-  namespace: openshift-gitops
-  serviceAccount: etcd-encryption-checker
-  encryption_type: aesgcm
+
+  audit:
+    profile: Default
+
+  custom_cert:
+    enabled: true
+    cert_names:
+      - api.ocp.aws.ispworld.at   
+    secretname: api-certificate
+
+  etcd_encryption:
+    enabled: false
+    namespace: openshift-gitops
+    serviceAccount:
+      create: true
+      name: "etcd-encryption-checker"
+    encryption_type: aesgcm 
 
 self_provisioner:
   deactivate: false

@@ -1,4 +1,5 @@
-{{- with .Values.etcd_encryption }}
+{{ if eq ( .Values.apiserver.enabled | toString) "true" }}
+{{- with .Values.apiserver.etcd_encryption }}
 {{ if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: batch/v1
@@ -11,7 +12,7 @@ metadata:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   template:
     spec:
@@ -85,6 +86,7 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
-      serviceAccountName: {{ .serviceAccount }}
+      serviceAccountName: {{ include "tpl.serviceAccount" .serviceAccount }}
+{{- end }}
 {{- end }}
 {{- end }}

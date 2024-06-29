@@ -3,7 +3,7 @@ namespace: &namespace policy-hub
 
 # -- Create Namespace for the policy Yes/No
 # @default -- false
-create_policy_namespace: false
+create_policy_namespace: true
 
 # -- Default annotation settings. These will overwrite the individual settings in the Policy
 # and are used by all policies that are defined here.
@@ -64,7 +64,7 @@ policySet:
     # -- Enable of disable policySets.
     # If disabled, the PlaceMentBinding will use the name of the policy
     # @default -- false
-    enabled: false
+    enabled: true
 
     # Define PolicySets
     sets:
@@ -109,7 +109,7 @@ policies:
 
   # -- Enable this policy in this Chart or not.
   # @default -- false
-  enabled: false
+  enabled: true
 
   # -- Namespace of the policy. This namespace must exist!
   namespace: *namespace

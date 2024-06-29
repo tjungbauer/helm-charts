@@ -8,7 +8,7 @@ metadata:
   name: user-workload-monitoring-config
   namespace: openshift-user-workload-monitoring
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 data:
   config.yaml: |
     {{- /* ALERTMANAGER CONFIGURATION */}}

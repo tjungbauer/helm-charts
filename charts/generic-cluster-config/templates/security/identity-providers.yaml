@@ -6,7 +6,7 @@ kind: OAuth
 metadata:
   name: cluster
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 spec:
 {{- if eq ( .customloginpage.enabled | toString) "true" }}
   templates:

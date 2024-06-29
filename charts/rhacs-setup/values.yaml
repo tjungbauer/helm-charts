@@ -3,6 +3,47 @@ override-rhacs-operator-version: &rhacsversion stable
 operatornamespace: &operatornamespace rhacs-operator
 clustername: &clustername local-cluster
 
+
+###########################################################
+# Decleraive Settings or RBAC of Advanced Cluster Security
+###########################################################
+# rbac:
+#  enabled: false
+#
+#  permissionSet:
+#    name: A sample permission set
+#    description: A sample permission set created declaratively
+#    resources:
+#      - resource: Integration
+#        access: READ_ACCESS
+#      - resource: Administration
+#        access: READ_WRITE_ACCESS
+## add example for all
+#
+#  accessScope:
+#    name: A sample access scope
+#    description: A sample access scope created declaratively
+#    rules:
+#      included:
+#        - cluster: secured-cluster-A
+#          namespaces:
+#            - namespaceA
+#        - cluster: secured-cluster-B
+#      clusterLabelSelectors:
+#        - requirements:
+#            key: kubernetes.io/metadata.name
+#            operator: IN
+#            values:
+#              - production
+#              - staging
+#              - environment
+#
+#  role:
+#    name: A sample role
+#    description: A sample role created declaratively
+#    permissionSet: A sample permission set
+#    accessScope: A sample access scope
+#
 #########################################
 # Settings for Advanced Cluster Security
 #########################################
@@ -463,7 +504,7 @@ rhacs:
   job_init_bundle:
     # -- Enable this Job
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave for Argo CD to create this Job.
     # @default -- 3
@@ -473,7 +514,7 @@ rhacs:
   consolelink:
     # -- Enable this Job
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave for Argo CD to create this Job.
     # @default -- 3

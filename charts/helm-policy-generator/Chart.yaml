@@ -1,13 +1,17 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.13
+version: 1.0.14
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
     url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
@@ -38,3 +42,5 @@ annotations:
       description: added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind
     - kind: added
       description: added README
+    - kind: added
+      description: added dependency tp tpl library
