@@ -11,7 +11,7 @@ metadata:
 spec:
   replicas: {{ .replicas | default "2" }}
   {{- if .defaultCertificate }}
-  defaultCertificate: {{ .cert }}
+  defaultCertificate: {{ .defaultCertificate }}
   {{- end }}
   {{- if .nodePlacement }}
   {{- with .nodePlacement }}
