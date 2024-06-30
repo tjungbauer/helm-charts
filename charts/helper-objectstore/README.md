@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
+  ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
 
  
 
@@ -28,6 +28,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 This chart has no dependencies to other charts, but OpenShift Data Foundation must be deployed in order to use it. Or in other words: The CRDs like BackingStore or BucketClaim must exist on your cluster.
 

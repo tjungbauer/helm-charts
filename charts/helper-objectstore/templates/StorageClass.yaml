@@ -6,7 +6,7 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: {{ .storageclass_name }}
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default "1" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true

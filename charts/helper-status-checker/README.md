@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 4.0.5](https://img.shields.io/badge/Version-4.0.5-informational?style=flat-square)
+  ![Version: 4.0.10](https://img.shields.io/badge/Version-4.0.10-informational?style=flat-square)
 
  
 
@@ -48,12 +48,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-s
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | approver | bool | false | Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps. |
-| checks[0] | object | `{"maxretries":20,"namespace":{"name":"openshift-logging"},"operatorName":"name-of-operator","serviceAccount":{"name":"status-checker"},"sleeptimer":20,"syncwave":3}` | Name of operator to check. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! |
+| checks[0] | object | `{"maxretries":20,"namespace":{"name":"openshift-logging"},"operatorName":"name-of-operator","serviceAccount":{"name":"status-checker"},"sleeptimer":20,"subscriptionName":"name-of-subscription","syncwave":0}` | Name of operator to check. Use the value of the currentCSV (packagemanifest) but WITHOUT the version !! |
 | checks[0].maxretries | int | 20 | Maximum number of retries before the checks will fail |
 | checks[0].namespace | object | `{"name":"openshift-logging"}` | Namespace where the status-checker Job shall be scheduled. |
 | checks[0].serviceAccount.name | string | `"status-checker"` | Name of the Service Account. |
 | checks[0].sleeptimer | int | 20 | If the Operator is not yet ready wait this amount of seconds. |
-| checks[0].syncwave | int | 0 | Syncwave for the status-check Job |
+| checks[0].subscriptionName | string | `"name-of-subscription"` | OPTIONAL: Name of subscription that shall be approved. In some cases the name of the Subscription is different to the name of the operator. @default --operatorName |
+| checks[0].syncwave | int | 0 | Syncwave for the status-check Job. 0 is the recommended value. |
 | enabled | bool | false | Enable or disable the status-checker configuration |
 
 ## Example

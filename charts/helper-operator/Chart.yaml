@@ -1,13 +1,17 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
-version: 1.0.26
+version: 1.0.27
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
     url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
@@ -30,3 +34,5 @@ annotations:
       description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
     - kind: fixed
       description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+    - kind: added
+      description: added dependency tp tpl library

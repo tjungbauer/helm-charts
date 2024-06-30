@@ -1,13 +1,17 @@
 apiVersion: v2
 name: helper-status-checker
 description: A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.
-version: 4.0.9
+version: 4.0.10
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
     url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
@@ -31,3 +35,5 @@ annotations:
       description: Wrong clusterrole for the installplan approver.
     - kind: added
       description: improved output for the installplan approver
+    - kind: added
+      description: added dependency tp tpl library
