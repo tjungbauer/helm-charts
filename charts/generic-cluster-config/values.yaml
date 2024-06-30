@@ -5,7 +5,7 @@
 ###################
 apiserver:
   # -- Enable APIServer configuration in general
-  enabled: true
+  enabled: false
 
   # audit configuration
   audit:
@@ -17,7 +17,7 @@ apiserver:
   custom_cert:
     # -- custom certificate enabled?
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- List of names the certificate is valid
     # @default -- N/A
