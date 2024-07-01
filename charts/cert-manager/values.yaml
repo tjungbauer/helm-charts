@@ -141,8 +141,8 @@ certificates:
       # Minimum value for spec.duration is 1 hour<br />
       # It is required that spec.duration > spec.renewBefore
       # Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
-      # @default -- 2160h (90d)
-      duration: 2160h  # 90d
+      # @default -- 2160h0m0s (90d)
+      duration: 2160h0m0s  # 90d
 
       # -- How long before the currently issued certificate's expiry cert-manager should renew the
       # certificate. For example, if a certificate is valid for 60 minutes, and `renewBefore=10m`,
@@ -151,7 +151,7 @@ certificates:
       # Minimum accepted value is 5 minutes.<br />
       # Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
       # @default -- 1/3 of duration if not set
-      renewBefore: 360h  # 15d
+      renewBefore: 360h0m0s  # 15d
 
       # -- secretTemplate is optional. If set, these annotations and labels will be
       # copied to the Secret created by this Certificate.

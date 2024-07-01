@@ -52,7 +52,7 @@ spec:
     {{- end }}
     {{- end }}
     rotationPolicy: {{ $privKey.rotationPolicy | default "Always" }}
-  duration: {{ .duration | default "2160h" }}
+  duration: {{ .duration | default "2160h0m0s" }}
   {{- if .renewBefore }}
   renewBefore: {{ .renewBefore }}
   {{- end }}
