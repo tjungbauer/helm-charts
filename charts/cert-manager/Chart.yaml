@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager
 description: Install and configure the Cert-Manager
-version: 1.0.2
+version: 1.0.3
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
 maintainers:
@@ -29,3 +29,5 @@ annotations:
       description: initial release
     - kind: added
       description: added dependency tp tpl library
+    - kind: added
+      description: added Certificate resource so this chart can be used to order any certificate

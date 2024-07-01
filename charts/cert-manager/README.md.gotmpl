@@ -1,7 +1,7 @@
 {{ template "doc.header" . }}
 
 This Helm Chart installs and configures the Cert-Manager Operator. It can patch the ClusterManager resource in order to override arguments (for example the list of recursive nameservers)
- and to configure ClusterIssuer or Issuers.
+ and to configure ClusterIssuer or Issuers. Moreover, it is possible to order a certificate by creating a Certificate resource.
 
 Currently, the built-in in-tree issuers are supported: https://cert-manager.io/docs/configuration/selfsigned/ 
 
@@ -21,7 +21,7 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 {{ template "doc.values" . }}
 
-## Example values
+## Example values - for the cert manager
 
 ```yaml
 ---
@@ -54,6 +54,31 @@ issuer:
           selector:
             dnsZones:
               - <list of domain zones>
+```
+
+## Example values - to order a certificate
+
+```yaml
+---
+certificates:
+  enabled: true
+
+  # List of certificates
+  certificate:
+    - name: router-certificate
+      enabled: true
+      namespace: openshift-ingress
+      syncwave: "0"
+      secretName: router-certificate
+
+      dnsNames:
+        - apps.ocp.aws.ispworld.at 
+        - '*.apps.ocp.aws.ispworld.at'
+
+      # Reference to the issuer that shall be used.
+      issuerRef:
+        name: letsencrypt-prod
+        kind: ClusterIssuer
 ```
 
 {{ template "doc.footer" . }}

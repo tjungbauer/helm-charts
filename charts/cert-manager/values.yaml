@@ -108,3 +108,162 @@ issuer:
         apiTokenSecretRef:
           name: vaas-secret
           key: apikey
+
+# Define a list of Certificates that shall be issues
+certificates:
+  # -- Enable ordering of certificates
+  # @default -- false
+  enabled: false
+
+  # List of certificates
+  certificate:
+      # -- Name of the certificate resource. This is not the dnsName of commonName.
+    - name: example-cert
+
+      # -- Enable ordering of this certificate
+      # @default -- false
+      enabled: false
+
+      # -- Namespace for this certificate
+      namespace: example
+
+      # -- Syncwave when the certificate shall be ordered.
+      # @default -- 1
+      syncwave: "0"
+
+      # -- Name of the Secret resource that will be created and managed by the Certificate.
+      # It will be populated with a private key and certificate, signed by the denoted issuer.
+      secretName: example-cert-tls
+
+
+      # -- The duration of the certificated (X.509 certificate's duration)
+      # Some issuers might be configured to only issue certificates with a set durationt<br />
+      # Minimum value for spec.duration is 1 hour<br />
+      # It is required that spec.duration > spec.renewBefore
+      # Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
+      # @default -- 2160h (90d)
+      duration: 2160h  # 90d
+
+      # -- How long before the currently issued certificate's expiry cert-manager should renew the
+      # certificate. For example, if a certificate is valid for 60 minutes, and `renewBefore=10m`,
+      # cert-manager will begin to attempt to renew the certificate 50 minutes after it was issued
+      # If unset, this defaults to 1/3 of the issued certificate's lifetime.<br />
+      # Minimum accepted value is 5 minutes.<br />
+      # Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
+      # @default -- 1/3 of duration if not set
+      renewBefore: 360h  # 15d
+
+      # -- secretTemplate is optional. If set, these annotations and labels will be
+      # copied to the Secret created by this Certificate.
+      # @default -- N/A
+      secretTemplate:
+        annotations:
+          my-secret-annotation-1: "foo"
+          my-secret-annotation-2: "bar"
+        labels:
+          my-secret-label: foo
+
+      # At least one of commonName (possibly through literalSubject), dnsNames, uris, emailAddresses,
+      # ipAddresses or otherNames is required.
+
+      # -- Requested set of X509 certificate subject attributes.
+      # More info: https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.6
+      # Might be replaced in the future by literalSubject
+      # @default -- N/A
+      subject:
+        # -- Countries to be used on the Certificate.
+        # @default -- N/A
+        countries:
+          - Country
+        # -- Cities to be used on the Certificate.
+        # @default -- N/A
+        localities:
+          - Cities
+        # -- Organizational Units to be used on the Certificate.
+        # @default -- N/A
+        organizationalUnits:
+          - OrganizationalUnit
+        # -- Organizations to be used on the Certificate.
+        # @default -- N/A
+        organizations:
+          - Organization
+        # -- Postal Codes to be used on the Certificate.
+        # @default -- N/A
+        postalCodes:
+          - 'PostalCode'
+        # -- States/Provinces to be used on the Certificate.
+        # @default -- N/A
+        provinces:
+          - 'State'
+        # -- Street addresses to be used on the Certificate.
+        # @default -- N/A
+        streetAddresses:
+          - StreetAddress
+        # -- Serial number to be used on the Certificate.
+        # @default -- N/A
+        serialNumber: 'SerialNumber'
+
+      # -- Requested DNS subject alternative names.
+      dnsNames:
+        - example.com
+        - www.example.com
+
+      # -- Requested URI subject alternative names.
+      uris:
+        - spiffe://cluster.local/ns/sandbox/sa/example
+
+      # -- Requested email subject alternative names.
+      emailAddresses:
+        - john.doe@cert-manager.io
+
+      # -- Requested IP address subject alternative names.
+      ipAddresses:
+        - 192.168.0.5
+
+      privateKey:
+
+        # -- Algorithm of the private key. Possible values (with default sizes if size is not provided):
+        # <br />RSA (2048), ECDSA (256) or Ed25519 (ignored)<br /><br />
+        # @default -- RSA
+        algorithm: RSA
+
+        # -- Size is the key bit size of the corresponding private key for this certificate.<br />
+        # If `algorithm` is set to `RSA`, valid values are `2048`, `4096` or `8192`, and will default to `2048` if not specified.<br />
+        # If `algorithm` is set to `ECDSA`, valid values are `256`, `384` or `521`, and will default to `256` if not specified.<br />
+        # If `algorithm` is set to `Ed25519`, Size is ignored. No other values are allowed.
+        size: 2048
+
+        # -- The private key cryptography standards (PKCS) encoding for this certificate's private key to be encoded in.
+        # Allowed values are PKCS1 an dPKCS8.
+        # @default -- PKSC1
+        encoding: PKCS1
+
+        # -- RotationPolicy controls how private keys should be regenerated when a re-issuance is being processed.
+        # Possible values are 'Never' (the private key will only be generated if it does not already exist) or
+        # 'Always' (the private key will aleays be generated whenever a re-issuance occurs.
+        # @default -- Always
+        rotationPolicy: Always
+
+      # -- Requested basic constraints isCA value.
+      # If true, this will automatically add the `cert sign` usage to the list of requested `usages`.
+      isCA: false
+
+      # -- Set usages for the certificate
+      # full list https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage
+      # default if not set, cert manager will set: digital signature, key encipherment, and server auth
+      usages:
+        - server auth
+        - client auth
+
+      # Reference to the issuer that shall be used.
+      issuerRef:
+        # -- Name of the Issuer that shall be used.
+        name: ca-issuer
+
+        # -- The reference can either be ClusterIssuers or Issuer
+        # @default -- Issuer
+        kind: Issuer
+
+        # -- Optional parameter that is only required when external issuers are used.
+        # @default -- UNSET (cert-manager.io)
+        group: cert-manager.io
