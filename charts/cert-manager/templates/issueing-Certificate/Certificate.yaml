@@ -76,7 +76,7 @@ spec:
   {{- if .dnsNames }}
   dnsNames:
   {{- range .dnsNames }}
-    - {{ . }}
+    - {{ . | quote }}
   {{- end }}
   {{- end }}
 

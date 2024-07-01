@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager
 description: Install and configure the Cert-Manager
-version: 1.0.3
+version: 1.0.4
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
 maintainers:
