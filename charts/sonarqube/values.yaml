@@ -18,6 +18,8 @@ endpoint: *endpoint
 # -- Sonarqube Settings
 # These settings are defined by Sonarqube Helm chart.
 sonarqube:
+  fullnameOverride: sonarqube
+
   OpenShift:
     # -- OpenShift should be enabled
     enabled: true
@@ -31,11 +33,11 @@ sonarqube:
     enabled: false
 
   # -- Enable ingress, using the defind endpoint.
-  ingress:
+  route:
     enabled: true
-    hosts:
-      - name: *endpoint
-        path: /
+    host: *endpoint
+    tls: edge
+
   # -- additional plugins to install
   plugins:
     install:
