@@ -28,13 +28,13 @@ spec:
             - |
              #!/usr/bin/env bash
 
-             ENDPOINT=http://{{ .Values.endpoint }}
+             ENDPOINT=https://{{ .Values.endpoint }}
              STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ENDPOINT)
              while [ $STATUS_CODE -ne 200 ] && [ $STATUS_CODE -ne 403 ]; do
                sleep 5s
                echo $STATUS_CODE
                echo $ENDPOINT
-               ENDPOINT=http://{{ .Values.endpoint }}
+               ENDPOINT=https://{{ .Values.endpoint }}
                STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" -u "admin:admin" $ENDPOINT/api/users/groups?login=admin&password=admin)
              done
              curl -X POST -u "admin:admin" "$ENDPOINT/api/users/change_password?login=admin&password=$PASSWORD&previousPassword=admin" -H "Content-Type: application/json"
