@@ -36,7 +36,8 @@ sonarqube:
   route:
     enabled: true
     host: *endpoint
-    tls: edge
+    tls: 
+      termination: edge
 
   # -- additional plugins to install
   plugins:
