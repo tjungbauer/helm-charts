@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-status-checker
 description: A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.
-version: 4.0.10
+version: 4.0.11
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -37,3 +37,5 @@ annotations:
       description: improved output for the installplan approver
     - kind: added
       description: added dependency tp tpl library
+    - kind: added
+      description: using tpl.sleeptimer now to prevent code repetition

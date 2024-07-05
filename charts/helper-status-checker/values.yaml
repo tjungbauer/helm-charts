@@ -1,7 +1,7 @@
 ---
 # -- Enable or disable the status-checker configuration
 # @default -- false
-enabled: false
+enabled: true
 
 # -- Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps.
 # @default -- false
