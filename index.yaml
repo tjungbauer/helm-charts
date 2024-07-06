@@ -3586,6 +3586,48 @@ entries:
           description: README and adding possibility to configure userworkload monitoring and complete check and fixing issues
         - kind: added
           description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
+        - kind: added
+          description: using some templates
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:06:43.509664454Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: This Chart is responsible for deploying generic cluster configuration,
+      for example, etcd encryption, OAuth etc.
+    digest: 1aae23db5b10ab92b7c5fc3f5bb858cedb1e376377a0ad7038f95d4ea3cfdd6f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.28/generic-cluster-config-1.0.28.tgz
+    version: 1.0.28
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: README and adding possibility to configure userworkload monitoring and complete check and fixing issues
+        - kind: added
+          description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -13643,6 +13685,47 @@ entries:
           description: README
         - kind: added
           description: added tpl chart
+        - kind: added
+          description: using some templates
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:06:43.653414572Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Chart to deploy and configure Quay
+    digest: f3bffe92700e3e53bc6cdadd0291a92ece05da20554dd47a438bd0fa7412cb4f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.16/quay-registry-setup-1.0.16.tgz
+    version: 1.0.16
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -18626,4 +18709,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-06T09:55:36.127016533Z"
+generated: "2024-07-06T13:06:43.65457717Z"
