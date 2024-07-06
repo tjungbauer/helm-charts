@@ -3588,6 +3588,50 @@ entries:
           description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
         - kind: added
           description: using some templates
+        - kind: added
+          description: switching some snippets to use global tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:34.948192271Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: This Chart is responsible for deploying generic cluster configuration,
+      for example, etcd encryption, OAuth etc.
+    digest: 9f3374afd61f6af2bd98764ae04c60c94df87b30336fcf3b247fb0b869ea4e88
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.29/generic-cluster-config-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: README and adding possibility to configure userworkload monitoring and complete check and fixing issues
+        - kind: added
+          description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
+        - kind: added
+          description: using some templates
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -6445,6 +6489,49 @@ entries:
           description: fixed value .size to .storage.size
         - kind: added
           description: added dependency tp tpl library
+        - kind: added
+          description: using global template to build tolerations
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:35.046358323Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: 4dd4a66379b226e412a18ac1b0317789b6100c56abd7b92b64d510a4237dbd70
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.9/helper-lokistack-1.0.9.tgz
+    version: 1.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: finalizing README and added possibility to configure culster-admin list and retention
+        - kind: fixed
+          description: fixed value .size to .storage.size
+        - kind: added
+          description: added dependency tp tpl library
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -6910,6 +6997,51 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
     version: 1.0.0
   helper-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+        - kind: fixed
+          description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: switching some snippets to use global tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:35.137513601Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: d4eb759bb476c90adc6225c5ce0f7a3d3cbb6a073ee148969d73bf93af511799
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.28/helper-operator-1.0.28.tgz
+    version: 1.0.28
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -11303,6 +11435,66 @@ entries:
           description: fixing some default Values
         - kind: added
           description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:35.239701558Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 32864e3676da61ed02719994a0de332f8f38a1a946418003543d4d274d6f44d7
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.45/openshift-gitops-1.0.45.tgz
+    version: 1.0.45
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+        - kind: added
+          description: cleaning up chart, added new README and tried to make more options configurable.
+        - kind: added
+          description: allowing configuration of syncwave for Argo CD object.
+        - kind: fixed
+          description: updated ArgoCD resource to v1beta1
+        - kind: added
+          description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
+        - kind: fixed
+          description: fixing some default Values
+        - kind: added
+          description: added tpl chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -12430,6 +12622,50 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.0.0/openshift-gitops-1.0.0.tgz
     version: 1.0.0
   openshift-logging:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Optimizing Loki configuration for ClusterLogging object.
+        - kind: added
+          description: updated to helper-status-checker 4.0.0
+        - kind: added
+          description: v2.0 added README and removed Elasticsearch configuration as it is considered as deprecated.
+        - kind: fixed
+          description: moved values.yaml to values-examples.yaml to be sure that not default values interefere with any setting.
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:35.329381477Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Deploy and configure OpenShift Logging based on LokiStack
+    digest: 6276f1c002e913df4e2882aac884d6e72e8ab2c39a02d1bc00fbac9ae22de654
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    keywords:
+    - logging
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-2.0.5/openshift-logging-2.0.5.tgz
+    version: 2.0.5
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -14625,6 +14861,49 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-full-stack-1.0.0/rhacm-full-stack-1.0.0.tgz
     version: 1.0.0
   rhacm-setup:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: support for tolerations in MultiClusterHub CRD
+        - kind: added
+          description: updated to helper-status-chcker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-06T13:53:35.413469886Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Setup and configure Advanced Cluster Managerment. Replaces the Chart
+      rhacm-full-stack.
+    digest: 7253cfb0230223de41a2785eda7c569998bd107f20385843e84b031913615905
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
+    keywords:
+    - clustermanagement
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacm-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.14/rhacm-setup-1.0.14.tgz
+    version: 1.0.14
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -18709,4 +18988,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-06T13:06:43.65457717Z"
+generated: "2024-07-06T13:53:35.415319533Z"
