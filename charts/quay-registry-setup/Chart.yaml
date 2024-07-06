@@ -3,15 +3,11 @@ name: quay-registry-setup
 description: Chart to deploy and configure Quay
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 1.0.14
+version: 1.0.15
 dependencies:
-  - name: helper-operator
+  - name: tpl
     version: ~1.0.0
     repository: https://charts.stderr.at/
-  - name: helper-status-checker
-    version: ~4.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -35,3 +31,5 @@ annotations:
       description: updated to helper-status-checker v4
     - kind: added
       description: README
+    - kind: added
+      description: added tpl chart

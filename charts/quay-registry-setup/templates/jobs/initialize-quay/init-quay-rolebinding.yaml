@@ -6,6 +6,8 @@ kind: RoleBinding
 metadata:
   name: {{ .job_init_quay.serviceAccount }}-rb
   namespace: {{ .namespace.name | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

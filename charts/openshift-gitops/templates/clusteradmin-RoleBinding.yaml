@@ -7,7 +7,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ $key | replace "_" "-" }}-crb
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 subjects:
   - kind: ServiceAccount
     name: {{ $value.argo_serviceaccount | default "openshift-gitops-app-controller" }}

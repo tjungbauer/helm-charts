@@ -1,17 +1,13 @@
 apiVersion: v2
 name: rhacm-setup
 description: Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
-version: 1.0.12
+version: 1.0.13
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
 dependencies:
-  - name: helper-operator
-    version: ~1.0.14
+  - name: tpl
+    version: ~1.0.0
     repository: https://charts.stderr.at/
-  - name: helper-status-checker
-    version: ~4.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -36,3 +32,5 @@ annotations:
       description: updated to helper-status-chcker v4
     - kind: added
       description: README
+    - kind: added
+      description: added tpl chart

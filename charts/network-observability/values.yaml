@@ -9,7 +9,7 @@ netobserv:
   # -- Enable Network Observability configuration?
   # This will also create the reader/writer rolebanding for multi-tenancy
   # @default -- false
-  enabled: true
+  enabled: false
 
   # -- Namespace where Network Observability FlowCollector shall be installed.
   # @default -- ''

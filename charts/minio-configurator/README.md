@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
 
  
 
@@ -75,7 +75,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-co
 | provisioning.users | list | [] | Users provisioning. Can be used in addition to provisioning.usersExistingSecrets. e.g. users:   - username: test-username     password: test-password     disabled: false     policies:       - readwrite       - consoleAdmin       - diagnostics     # When set to true, it will replace all policies with the specified.     # When false, the policies will be added to the existing.     setPolicies: false |
 | provisioning.usersExistingSecrets | list | [] | Instead of configuring users inside values.yaml, referring to existing Kubernetes secrets containing user configurations is possible. e.g. usersExistingSecrets:   - centralized-minio-users  All provided Kubernetes secrets require a specific data structure. The same data from the provisioning.users example above  can be defined via secrets with the following data structure. The secret keys have no meaning to the provisioning job         except that they are used as filenames.   ## apiVersion: v1   ## kind: Secret   ## metadata:   ##   name: centralized-minio-users   ## type: Opaque   ## stringData:   ##   username1: |   ##     username=test-username   ##     password=test-password   ##     disabled=false   ##     policies=readwrite,consoleAdmin,diagnostics   ##     setPolicies=false |
 | serviceAccount.automountServiceAccountToken | bool | false | Enable/disable auto mounting of the service account token |
-| serviceAccount.create | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | '' | Name of the created ServiceAccount |
 | skip_tls_verification | bool | false | Skip TLS verification for Minio. This set the variable MC_INSECURE to true Can be used when you are using self-signed certificates for example. |
 | synwave | int | 5 | Argo CD Sync wave for the Minio provisioner |

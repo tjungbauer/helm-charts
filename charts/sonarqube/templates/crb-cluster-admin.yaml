@@ -6,7 +6,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cluster-admin-sonarqube
   labels:
-    {{- include "common.labels" $ | nindent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
 subjects:
   - kind: ServiceAccount
     name: default

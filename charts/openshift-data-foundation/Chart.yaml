@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-data-foundation
 description: Deploys and configures the OpenShift Data Foundation Operator.
-version: 1.0.31
+version: 1.0.32
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
 dependencies:
@@ -12,6 +12,9 @@ dependencies:
     version: ~4.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -41,3 +44,5 @@ annotations:
       description: wrong IFs
     - kind: added
       description: updated to helper-status-check v4 and added readme
+    - kind: added
+      description: added tpl chart

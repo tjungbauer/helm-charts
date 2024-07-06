@@ -207,7 +207,7 @@ provisioning:
   #       key1: value1
   # @default -- ''
   buckets:
-    - testbucket
+    - name: testbucket
 
   # Config provisioning
   # e.g.

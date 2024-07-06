@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square)
+  ![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square)
 
  
 
@@ -28,8 +28,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | helper-operator | ~1.0.18 |
-| https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (for example in the folder clusters/management-cluster/setup-openshift-logging)
 
@@ -66,7 +65,7 @@ Verify the subcharts for additional settings:
 | loggingConfig.logStore.collection.tolerations | list | N/A | Define the tolerations the collector Pods will accept |
 | loggingConfig.logStore.collection.type | string | vector | The type of Log Collection to configure Vector in case of Loki. |
 | loggingConfig.logStore.lokistack | string | logging-loki | Name of the LokiStack resource. |
-| loggingConfig.logStore.type | string | `"lokistack"` | The Type of Log Storage to configure.  The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store. However, Elasticsearch is deprecated and should not be used here ... it would result in an error |
+| loggingConfig.logStore.type | string | `"lokistack"` | The Type of Log Storage to configure. The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store. However, Elasticsearch is deprecated and should not be used here ... it would result in an error |
 | loggingConfig.logStore.visualization.ocpConsole.logsLimit | int | none | LogsLimit is the max number of entries returned for a query. |
 | loggingConfig.logStore.visualization.ocpConsole.timeout | string | none | Timeout is the max duration before a query timeout |
 | loggingConfig.logStore.visualization.tolerations | list | N/A | Define the tolerations the visualisation Pod will accept |

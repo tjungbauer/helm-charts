@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.43
+version: 1.0.44
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -13,6 +13,9 @@ sources:
   - https://charts.stderr.at/
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 dependencies:
+  - name: tpl
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
   - name: helper-operator
     version: ~1.0.18
     repository: https://charts.stderr.at/
@@ -47,3 +50,5 @@ annotations:
       description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
     - kind: fixed
       description: fixing some default Values
+    - kind: added
+      description: added tpl chart
