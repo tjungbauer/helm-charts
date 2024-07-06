@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.26](https://img.shields.io/badge/Version-1.0.26-informational?style=flat-square)
+  ![Version: 1.0.28](https://img.shields.io/badge/Version-1.0.28-informational?style=flat-square)
 
  
 
@@ -68,7 +68,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | apiserver.custom_cert.cert_names | list | N/A | List of names the certificate is valid |
 | apiserver.custom_cert.enabled | bool | false | custom certificate enabled? |
 | apiserver.custom_cert.secretname | string | api-certificate | Name of the secret that holds the certificate |
-| apiserver.enabled | bool | `true` | Enable APIServer configuration in general |
+| apiserver.enabled | bool | `false` | Enable APIServer configuration in general |
 | apiserver.etcd_encryption.enabled | bool | false | Enable ETCD encryption in OpenShift |
 | apiserver.etcd_encryption.encryption_type | string | aesgcm | Type of encryption. This can either be: <br /> <ul> <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <ul> |
 | apiserver.etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |

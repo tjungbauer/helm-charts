@@ -44,13 +44,7 @@ spec:
 
               printf "Give quay some time to start. Waiting for 60 seconds\n"
 
-              SLEEPER_TMP=0
-
-              while [[ $SLEEPER_TMP -le "60" ]]; do
-                echo -n "."
-                sleep 1
-                SLEEPER_TMP=$(($SLEEPER_TMP+1))
-              done
+              {{ include "tpl.sleeptimer"  (dict "sleeptimer" "60") | nindent 14 }}
               
               sleep_timer={{ .job_init_quay.sleeptimer | default "30" }}
               counter=0
@@ -72,12 +66,8 @@ spec:
                 printf "Quay Application is not yet ready. Sleeping for $sleep_timer\n"
                 printf "Trying to reach: http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance"
 
-                TIMER_TMP=0
-                while [[ $TIMER_TMP -le $sleep_timer ]]; do
-                  echo -n "."
-                  sleep 1
-                  TIMER_TMP=$(($TIMER_TMP+1))
-                done
+                {{ include "tpl.sleeptimer" (dict "sleeptimer" .job_init_quay.sleeptimer | default "30" ) | nindent 16 }}
+
                 get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
                 
               done

@@ -61,15 +61,10 @@ spec:
              }
              
              # wait before start checking
-             SLEEPER_TMP=0
 
              printf "Waiting 60 seconds before I first check if etcd encryption is finished\n"
-             
-             while [[ $SLEEPER_TMP -le "60" ]]; do
-               echo -n "."
-               sleep 1
-               SLEEPER_TMP=$(($SLEEPER_TMP+1))
-             done
+
+             {{ include "tpl.sleeptimer" (dict "sleeptimer" "60" ) | nindent 14 }}
 
              attempt_counter=0
              check_apiserver_status "openshiftapiserver"
