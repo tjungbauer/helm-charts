@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging based on LokiStack
-version: 2.0.4
+version: 2.0.5
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
@@ -36,3 +36,5 @@ annotations:
       description: moved values.yaml to values-examples.yaml to be sure that not default values interefere with any setting.
     - kind: added
       description: added tpl chart
+    - kind: added
+      description: switching some snippets to use global tpl

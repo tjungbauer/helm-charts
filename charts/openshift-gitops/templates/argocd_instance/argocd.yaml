@@ -27,15 +27,8 @@ spec:
   {{- /* Set tolerations */}}
   {{- if $value.tolerations }}  
   nodePlacement:
-    tolerations:
-    {{- range $key_tol, $value_tol := $value.tolerations }}
-      - effect: {{ $value_tol.effect }}
-        key: {{ $value_tol.key }}
-        operator: {{ $value_tol.operator }}
-        value: {{ $value_tol.value }}
-        {{- if $value_tol.tolerationSeconds }}
-        tolerationSeconds: {{ $value_tol.tolerationSeconds }}
-        {{- end }}
+    {{- if $value.tolerations }}
+{{ include "tpl.tolerations" $value.tolerations | indent 4 }}
     {{- end }}
     {{- end }}
   server:

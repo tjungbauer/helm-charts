@@ -30,8 +30,7 @@ spec:
 
     {{- /* Define required tolerations */}}
     {{- if $value.subscription.config.tolerations }}
-    tolerations:
-      {{- toYaml $value.subscription.config.tolerations | nindent 6 }}
+{{ include "tpl.tolerations" $value.subscription.config.tolerations | indent 4 }}
     {{- end }}
     {{- if $value.subscription.config.env }}
 
@@ -39,29 +38,12 @@ spec:
     env:
       {{- toYaml $value.subscription.config.env | nindent 6 }}
     {{- end }}
-    {{- if $value.subscription.config.resources }}
 
     {{- /* Define resource limits and requests for the Operator */}}
-    resources:
-      {{- if $value.subscription.config.resources.requests }}
-      requests:
-        {{- if $value.subscription.config.resources.requests.memory }}
-        memory: {{ $value.subscription.config.resources.requests.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}
-        {{- end }}
-        {{- if $value.subscription.config.resources.requests.cpu }}
-        cpu: {{ $value.subscription.config.resources.requests.cpu | quote }}
-        {{- end }}
-      {{- end }}
-      {{- if $value.subscription.config.resources.limits }}
-      limits:
-        {{- if $value.subscription.config.resources.limits.memory }}
-        memory: {{ $value.subscription.config.resources.limits.memory | replace "gi" "Gi" | replace "mi" "Mi" | quote }}
-        {{- end }}
-        {{- if $value.subscription.config.resources.limits.cpu }}
-        cpu: {{ $value.subscription.config.resources.limits.cpu | quote }}
-        {{- end }}
-      {{- end }}
+    {{- if $value.subscription.config.resources }}
+{{ include "tpl.resources" $value.subscription.config.resources | indent 4 }}
     {{- end }}
+
   {{- end }}
 {{- if $value.subscription.csv }}
   startingCSV: {{ $value.subscription.csv }}

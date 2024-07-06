@@ -33,8 +33,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-      tolerations:
-        {{- toYaml .tolerations | nindent 8 }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .storage }}
@@ -47,15 +46,7 @@ data:
       {{- end }}
 
       {{- if .resources }}
-      resources:
-        {{- if .resources.limits }}
-        limits:
-          {{- toYaml .resources.limits | nindent 10 }}
-        {{- end }}
-        {{- if .resources.requests }}
-        requests:
-          {{- toYaml .resources.requests | nindent 10 }}
-        {{- end }}
+{{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
 
@@ -68,8 +59,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-      tolerations:
-        {{- toYaml .tolerations | nindent 8 }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
       {{- if eq (.retentionSize | toString) "0"}}
@@ -87,15 +77,7 @@ data:
       {{- end }}
 
       {{- if .resources }}
-      resources:
-        {{- if .resources.limits }}
-        limits:
-          {{- toYaml .resources.limits | nindent 10 }}
-        {{- end }}
-        {{- if .resources.requests }}
-        requests:
-          {{- toYaml .resources.requests | nindent 10 }}
-        {{- end }}
+{{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
 
@@ -108,20 +90,11 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-      tolerations:
-        {{- toYaml .tolerations | nindent 8 }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
-      resources:
-        {{- if .resources.limits }}
-        limits:
-          {{- toYaml .resources.limits | nindent 10 }}
-        {{- end }}
-        {{- if .resources.requests }}
-        requests:
-          {{- toYaml .resources.requests | nindent 10 }}
-        {{- end }}
+{{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
 
@@ -134,8 +107,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-      tolerations:
-        {{- toYaml .tolerations | nindent 8 }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
 
@@ -149,15 +121,7 @@ data:
       {{- end }}
 
       {{- if .resources }}
-      resources:
-        {{- if .resources.limits }}
-        limits:
-          {{- toYaml .resources.limits | nindent 10 }}
-        {{- end }}
-        {{- if .resources.requests }}
-        requests:
-          {{- toYaml .resources.requests | nindent 10 }}
-        {{- end }}
+{{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
 {{- end }}

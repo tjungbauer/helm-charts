@@ -24,47 +24,12 @@ spec:
 
     {{- /* Set tolerations for the COLLECTOR */}}
     {{- if .collection.tolerations }}
-    tolerations:
-      {{- range $key, $value := .collection.tolerations }}
-      - effect: {{ $value.effect }}
-        key: {{ $value.key }}
-        operator: {{ $value.operator }}
-        value: {{ $value.value }}
-        {{- if $value.tolerationSeconds }}
-        tolerationSeconds: {{ $value.tolerationSeconds }}
-        {{- end }}
-      {{- end }}
+{{ include "tpl.tolerations" .collection.tolerations | indent 4 }}
     {{- end }}
 
     {{- /* Set resources for the COLLECTOR */}}
     {{- if .collection.resources }}
-    {{- with .collection.resources }}
-    resources:
-      {{- if .requests }}
-      requests:
-        {{- if .requests.cpu }}
-        cpu: {{ .requests.cpu }}
-        {{- end }}
-        {{- if .requests.memory }}
-        memory: {{ .requests.memory }}
-        {{- end }}
-        {{- if index  "ephemeral-storage" }}
-        ephemeral-storage: {{ index .requests "ephemeral-storage" }}
-        {{- end }}
-      {{- end }}
-      {{- if .limits }}
-      limits:
-        {{- if .limits.cpu }}
-        cpu: {{ .limits.cpu }}
-        {{- end }}
-        {{- if .limits.memory }}
-        memory: {{ .limits.memory }}
-        {{- end }}
-        {{- if index .limits "ephemeral-storage" }}
-        ephemeral-storage: {{ index .limits "ephemeral-storage" }}
-        {{- end }}
-      {{- end }}
-    {{- end }}
+{{ include "tpl.resources" .collection.resources | indent 4 }}
     {{- end }}
   visualization:
     type: {{ .visualization.type | default "ocp-console" }}
@@ -79,16 +44,7 @@ spec:
 
     {{- /* Set tolerations for the VISUALISATION */}}
     {{- if .visualization.tolerations }}
-    tolerations:
-      {{- range $key, $value := .visualization.tolerations }}
-      - effect: {{ $value.effect }}
-        key: {{ $value.key }}
-        operator: {{ $value.operator }}
-        value: {{ $value.value }}
-        {{- if $value.tolerationSeconds }}
-        tolerationSeconds: {{ $value.tolerationSeconds }}
-        {{- end }}
-      {{- end }}
+{{ include "tpl.tolerations" .visualization.tolerations | indent 4 }}
     {{- end }}
 
   {{- end }}

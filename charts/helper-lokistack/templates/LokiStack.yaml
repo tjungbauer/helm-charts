@@ -115,132 +115,67 @@ spec:
 
   {{- if .podPlacements }}
   template:
-  
+    {{- /* Set tolerations for the compactor */}}
     {{- if .podPlacements.compactor }}
     compactor:
       {{- if .podPlacements.compactor.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.compactor.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.compactor.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the distributor */}}
     {{- if .podPlacements.distributor }}
     distributor:
       {{- if .podPlacements.distributor.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.distributor.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.distributor.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the gateway */}}
     {{- if .podPlacements.gateway }}
     gateway:
       {{- if .podPlacements.gateway.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.gateway.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.gateway.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the indexGateway */}}
     {{- if .podPlacements.indexGateway }}
     indexGateway:
       {{- if .podPlacements.indexGateway.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.indexGateway.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.indexGateway.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the ingester */}}
     {{- if .podPlacements.ingester }}
     ingester:
       {{- if .podPlacements.ingester.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.ingester.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.ingester.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the querier */}}
     {{- if .podPlacements.querier }}
     querier:
       {{- if .podPlacements.querier.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.querier.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.querier.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the queryFrontend */}}
     {{- if .podPlacements.queryFrontend }}
     queryFrontend:
       {{- if .podPlacements.queryFrontend.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.queryFrontend.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.queryFrontend.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
+    {{- /* Set tolerations for the ruler */}}
     {{- if .podPlacements.ruler }}
     ruler:
       {{- if .podPlacements.ruler.tolerations }}
-      tolerations:
-        {{- range $key, $value := .podPlacements.ruler.tolerations }}
-        - effect: {{ $value.effect }}
-          key: {{ $value.key }}
-          operator: {{ $value.operator }}
-          value: {{ $value.value }}
-          {{- if $value.tolerationSeconds }}
-          tolerationSeconds: {{ $value.tolerationSeconds }}
-          {{- end }}
-        {{- end }}
+{{ include "tpl.tolerations" .podPlacements.ruler.tolerations | indent 6 }}
       {{- end }}
     {{- end }}
 
