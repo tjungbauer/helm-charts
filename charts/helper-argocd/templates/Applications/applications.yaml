@@ -34,10 +34,10 @@ spec:
   syncPolicy:
     {{- if .syncPolicy.autosync_enabled }}
     automated:
-      {{ if eq (.syncPolicy.syncpolicy_prune | toString) "true" }}
+      {{- if eq (.syncPolicy.syncpolicy_prune | toString) "true" }}
       prune: {{ .syncPolicy.syncpolicy_prune  }}
       {{- end }}
-      {{ if eq (.syncPolicy.syncpolicy_selfheal | toString) "true" }}
+      {{- if eq (.syncPolicy.syncpolicy_selfheal | toString) "true" }}
       selfHeal: {{ .syncPolicy.syncpolicy_selfheal }}
       {{- end }}
     {{- end }}
@@ -48,6 +48,45 @@ spec:
     {{- end }}
     {{- end }}
   {{- end }}
+  {{- if .multiple_sources }}
+  sources:
+    {{- range $source_key, $source_value := .multiple_sources }}
+    - repoURL: {{ .repoUrl }}
+      {{- if .path }}
+      path: {{ .path }}
+      {{- end }}
+      targetRevision: {{ .targetRevision }}
+      {{- if .ref }}
+      ref: {{ .ref | default "values" }}
+      {{- end }}
+      {{- if .chart }}
+      chart: {{ .chart }}
+      {{- end }}
+      {{- if .helm }}
+      helm:
+        valueFiles:
+          - {{ .helm.default_values_file }}
+        {{- range .helm.additional_values_files }}
+          - {{ . }}
+        {{- end }}
+        {{- if $value.helm }}
+        {{- if $value.helm.per_cluster_helm_values }}
+          - '{{ printf "%s/{{ cluster }}-values.yaml" $value.helm.per_cluster_helm_values_path }}'
+        {{- end }}
+        {{- end }}      
+        {{- if .helm.helmvalues }}
+        parameters:
+        {{- range .helm.helmvalues }}
+        - name: {{ .name }}
+          value: '{{ .value }}' 
+        {{- end }}
+        {{- end }}
+        {{- if .helm.releaseName }}
+        releaseName: {{ .helm.releaseName }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- else }}
   source:
     {{- if .source.path }}
     path: {{ .source.path }}
@@ -73,6 +112,7 @@ spec:
     {{- end }}
     repoURL: {{ .source.repourl | default $.Values.general.source.repourl }}
     targetRevision: {{ .source.targetrevision | default $.Values.general.branch }}
+  {{- end }}
   info:
     - name: Description
       value: {{ .description | default "No Description" }}
