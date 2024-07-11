@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.34
+version: 2.0.35
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -44,3 +44,5 @@ annotations:
       description: Allowing configuration of retries in ApplicationSets
     - kind: added
       description: added dependency tp tpl library
+    - kind: fixed
+      description: AppProject has been extended to that the namespace can be defined as well.
