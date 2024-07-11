@@ -18090,6 +18090,51 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-07-11T06:24:18.944167931Z"
+    dependencies:
+    - condition: sonarqube.enabled
+      name: sonarqube
+      repository: https://SonarSource.github.io/helm-chart-sonarqube
+      version: ~10.6.0
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
+      helm chart
+    digest: 416538aaad14391e6c33040cf5d7e6cee8378bf66939a10fadb6af5d9e2cab3f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
+    keywords:
+    - devsecops
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sonarqube
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.18/sonarqube-1.0.18.tgz
+    version: 1.0.18
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial chart
+        - kind: added
+          description: added README
+        - kind: added
+          description: added tpl chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-07-06T09:55:36.125640205Z"
     dependencies:
     - condition: sonarqube.enabled
@@ -18988,4 +19033,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-06T13:53:35.415319533Z"
+generated: "2024-07-11T06:24:18.94501255Z"
