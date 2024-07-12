@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.16](https://img.shields.io/badge/Version-1.0.16-informational?style=flat-square)
+  ![Version: 1.0.17](https://img.shields.io/badge/Version-1.0.17-informational?style=flat-square)
 
  
 
@@ -70,7 +70,6 @@ Verify the subcharts for additional settings:
 | quay.components.monitoring.managed | string | true | Let Operator manage Monitoring configuration |
 | quay.components.objectstore.managed | string | true | Let Operator manage Objectstorage |
 | quay.components.postgres.managed | bool | true | Let Operator manage Quay Postgres database |
-| quay.components.postgres.overrides | object | `{"replicas":1}` | Override the number of replicas (default: 1) |
 | quay.components.quay.managed | string | true | Let Operator manage the Quay Application |
 | quay.components.quay.overrides | object | `{"replicas":2}` | Override the number of replicas (default: 2) |
 | quay.components.redis.managed | string | true | Let Operator manage Redis |

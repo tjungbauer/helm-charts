@@ -3,7 +3,7 @@ name: quay-registry-setup
 description: Chart to deploy and configure Quay
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 1.0.16
+version: 1.0.17
 dependencies:
   - name: tpl
     version: ~1.0.0
@@ -35,3 +35,5 @@ annotations:
       description: added tpl chart
     - kind: added
       description: using some templates
+    - kind: fixed
+      description: Postgres does not allow replica override.

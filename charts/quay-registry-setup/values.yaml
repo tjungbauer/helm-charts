@@ -87,10 +87,6 @@ quay:
       # @default -- true
       managed: true
 
-      # -- Override the number of replicas (default: 1)
-      overrides:
-        replicas: 1
-
     quay:
       # -- Let Operator manage the Quay Application
       # @default -- true
