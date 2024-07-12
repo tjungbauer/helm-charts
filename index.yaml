@@ -14101,6 +14101,49 @@ entries:
           description: added tpl chart
         - kind: added
           description: using some templates
+        - kind: fixed
+          description: Postgres does not allow replica override.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-12T04:55:59.283931515Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Chart to deploy and configure Quay
+    digest: 359163321634f38e756fd5f97b0147ab6cb2cc6e6313d3871d11b3d063a81933
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.17/quay-registry-setup-1.0.17.tgz
+    version: 1.0.17
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: using some templates
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -19211,4 +19254,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-11T08:10:06.278661426Z"
+generated: "2024-07-12T04:55:59.285127626Z"
