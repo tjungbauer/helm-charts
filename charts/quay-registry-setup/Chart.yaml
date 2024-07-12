@@ -3,7 +3,7 @@ name: quay-registry-setup
 description: Chart to deploy and configure Quay
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 1.0.17
+version: 1.0.18
 dependencies:
   - name: tpl
     version: ~1.0.0
@@ -37,3 +37,5 @@ annotations:
       description: using some templates
     - kind: fixed
       description: Postgres does not allow replica override.
+    - kind: fixed
+      description: Removed hardcoded nodeSelector from Namespace resource. This might be added later as variable
