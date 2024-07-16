@@ -19053,6 +19053,43 @@ entries:
           description: tpl nodeSelector
         - kind: added
           description: tpl for sleeptimer that can be used in jobs
+        - kind: added
+          description: tpl to set nodeSelector and tolartion annoations for a namespace
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-07-16T07:14:37.059485849Z"
+    description: A library that shall collect certain templates to reuse them among
+      different charts.
+    digest: 3edae57cfb1b93c6faf88cbcac17a799735aeee997a23db19a0fb7464b703591
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.9/tpl-1.0.9.tgz
+    version: 1.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: tpl nodeSelector
+        - kind: added
+          description: tpl for sleeptimer that can be used in jobs
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -19334,4 +19371,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-12T11:13:37.47158281Z"
+generated: "2024-07-16T07:14:37.060451915Z"
