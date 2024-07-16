@@ -39,3 +39,16 @@ resources:
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+
+# -- If you want to annotate a namespace to run on a specific node configure the following annotations
+# <br />
+# Example include:
+#    {{- if .Values.namespace.bindtoNode }}
+#    {{- if .Values.namespace.bindtoNode.role }}
+#    {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 4 }}
+#    {{- end }}
+#    {{- end }}
+
+namespace:
+  bindtoNode:
+    role: infra

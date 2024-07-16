@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
+  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
 
  
 
@@ -47,6 +47,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| namespace | object | `{"bindtoNode":{"role":"infra"}}` | If you want to annotate a namespace to run on a specific node configure the following annotations <br /> Example include:    {{- if .Values.namespace.bindtoNode }}    {{- if .Values.namespace.bindtoNode.role }}    {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 4 }}    {{- end }}    {{- end }} |
 | nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
 | nodeSelector.value | string | `""` |  |
 | resources | object | `{"limits":{"cpu":8,"ephemeral-storage":500,"memory":16},"requests":{"cpu":4,"ephemeral-storage":50,"memory":8}}` | If you want to define resources <br /> Example include: {{- if .Values.resources }} {{ include "tpl.resources" .Values.resources  | indent 0 }} {{- end }} |
@@ -83,6 +84,11 @@ resources:
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+
+namespace:
+  bindtoNode:
+    role: infra
+
 ```
 
 ## Installing the Chart

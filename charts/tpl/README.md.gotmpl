@@ -44,6 +44,11 @@ resources:
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+
+namespace:
+  bindtoNode:
+    role: infra
+
 ```
 
 {{ template "doc.footer" . }}

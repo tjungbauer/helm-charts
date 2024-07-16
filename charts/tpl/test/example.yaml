@@ -12,3 +12,9 @@
 {{- if .Values.nodeSelector }}
 {{- include "tpl.nodeSelector" .Values  | indent 0 }}
 {{- end }}
+
+{{- if .Values.namespace.bindtoNode }}
+  {{- if .Values.namespace.bindtoNode.role }}
+  {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 0 }}
+{{- end }}
+{{- end }}
