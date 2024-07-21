@@ -15,3 +15,7 @@ openshift.io/node-selector: node-role.kubernetes.io/{{ .role }}=
 scheduler.alpha.kubernetes.io/defaultTolerations: >-
   [{"operator": "{{ .operator | default "Equal" }}", "effect": "{{ .effect | default "NoSchedule" }}", "key":"{{ .role }}", "value": "{{ .value | default "reserverd" }}"}]
 {{- end }}
+
+{{- define "tpl.namespaceDescr" -}}
+openshift.io/display-name: {{ . | default "" | quote }}
+{{- end }}

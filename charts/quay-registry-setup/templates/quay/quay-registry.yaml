@@ -10,24 +10,28 @@ metadata:
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
-  configBundleSecret: {{ .Values.quay.config_bundle }}
+  configBundleSecret: {{ .Values.quay.config_bundle | default "quay-generated-configuration" }}
   components:
   {{- with .Values.quay.components }}
     - kind: clair
       managed: {{ .clair.managed | default "true" }}
+      {{- if eq ( .clair.managed | toString) "true" }}
       {{- if .clair.overrides }}
       overrides:
         {{- if .clair.overrides.replicas }}
         replicas: {{ .clair.overrides.replicas }}
         {{- end }}
       {{- end }}
+      {{- end }}
     - kind: postgres
       managed: {{ .postgres.managed | default "true" }}
+      {{- if eq ( .postgres.managed | toString) "true" }}
       {{- if .postgres.overrides }}
       overrides:
         {{- if .postgres.overrides.replicas }}
         replicas: {{ .postgres.overrides.replicas }}
         {{- end }}
+      {{- end }}
       {{- end }}
     - kind: objectstorage
       managed: {{ .objectstore.managed | default "true" }}
@@ -39,11 +43,13 @@ spec:
       managed: {{ .route.managed | default "true" }}
     - kind: mirror
       managed: {{ .mirror.managed | default "true" }}
+      {{- if eq ( .mirror.managed | toString) "true" }}
       {{- if .mirror.overrides }}
       overrides:
         {{- if .mirror.overrides.replicas }}
         replicas: {{ .mirror.overrides.replicas }}
         {{- end }}
+      {{- end }}
       {{- end }}
     - kind: monitoring
       managed: {{ .monitoring.managed | default "true" }}
@@ -51,11 +57,13 @@ spec:
       managed: {{ .tls.managed | default "true" }}
     - kind: quay
       managed: {{ .quay.managed | default "true" }}
+      {{- if eq ( .quay.managed | toString) "true" }}
       {{- if .quay.overrides }}
       overrides:
         {{- if .quay.overrides.replicas }}
         replicas: {{ .quay.overrides.replicas }}
         {{- end }}
+      {{- end }}
       {{- end }}
     - kind: clairpostgres
       managed: {{ .clairpostgres.managed | default "true" }}

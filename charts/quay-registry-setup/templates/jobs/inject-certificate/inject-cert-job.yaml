@@ -1,0 +1,169 @@
+{{- if .Values.quay }}
+{{- if eq ( .Values.quay.enabled | toString) "true" }}
+{{- with .Values.quay }}
+{{ if eq ( .job_inject_route_cert.enabled | toString) "true" }}
+---
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: {{ .job_inject_route_cert.name | default "inject-certificate" }}
+  namespace: {{ $.Values.quay.namespace.name | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: {{ .job_inject_route_cert.syncwave | default "5" | quote }}
+spec:
+  parallelism: 1
+  completions: 1
+  backoffLimit: 6
+  template:
+    spec:
+      containers:
+        - name: inject-certificate
+          image: registry.redhat.io/openshift4/ose-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+
+              printf "Verifying if Config-Bundle has been injected with the certificate already\n"
+
+              check_config_bundle=`oc describe secret {{ $.Values.quay.config_bundle }} | egrep "ssl.cert|ssl.key|extra_ca_cert_ca-bundle.crt"`
+
+              if [[ $check_config_bundle =~ .*"ssl.cert".* && $check_config_bundle =~ .*"ssl.key".* ]]; then
+                printf "Key and Cert are already injected into {{ $.Values.quay.config_bundle }}\n"
+                exit 0
+              else
+                printf "Certificate is not yet injected. Continuing\n"
+              fi
+
+              if [[ $check_config_bundle =~ "extra_ca_cert_ca-bundle.crt" ]]; then
+                printf "Trusted CA has been already injected into {{ $.Values.quay.config_bundle }}\n"
+              else
+                printf "Additional CA is not yet injected. Continuing\n"
+              fi
+              
+              {{- if eq ( .job_inject_route_cert.certificate.enabled | toString) "true" }}
+              printf "Give certificate some time to be created. Waiting for 20 seconds\n"
+
+              {{ include "tpl.sleeptimer" . | nindent 14 }}
+              
+              sleep_timer={{ .job_inject_route_cert.sleeptimer | default "30" }}
+              counter=0
+              max_retries={{ .job_inject_route_cert.sleeptimer | default "30" }}
+
+              printf "\nVerifying if Certificate secret is already present\n"
+
+              get_quay_check_cert=`oc get secret {{ .job_inject_route_cert.certificate.name }}`
+
+              until [ $? -eq "0" ]; do
+                let "counter=counter+1"
+                printf "\nAttempt $counter of $max_retries\n"
+                if [[ $counter -eq $max_retries ]]
+                then
+                  echo "Giving up. Certificate is not available"
+                  exit 3
+                fi
+              
+                printf "Certificate is not ready, secret {{ .job_inject_route_cert.certificate.name }} could not be found. Sleeping for $sleep_timer\n"
+                
+                TIMER_TMP=0
+                while [[ $TIMER_TMP -le $sleep_timer ]]; do
+                  echo -n "."
+                  sleep 1
+                  TIMER_TMP=$(($TIMER_TMP+1))
+                done
+                get_quay_check_cert=`oc get secret {{ .job_inject_route_cert.certificate.name }}`
+                
+              done
+              
+              printf "Certificate is available. Injecting it into {{ $.Values.quay.config_bundle }}\n"
+              oc extract secret/{{ .job_inject_route_cert.certificate.name }} --keys=tls.crt --to=/tmp/.
+              oc extract secret/{{ .job_inject_route_cert.certificate.name }} --keys=tls.key --to=/tmp/.
+
+              KEY=`cat /tmp/tls.key | base64 -w 0`
+              CRT=`cat /tmp/tls.crt | base64 -w 0`
+
+              if [ -f "/tmp/tls.key" ];then
+                if [ -s "/tmp/tls.key" ];then
+                  echo "File /tmp/tls.key exists and is not empty"
+                else
+                  echo "File /tmp/tls.key exists but is empty"
+                  exit 3
+                fi
+              else
+                echo "File /tmp/tls.key not exists"
+                exit 3
+              fi
+
+              if [ -f "/tmp/tls.crt" ];then
+                if [ -s "/tmp/tls.crt" ];then
+                  echo "File /tmp/tls.crt exists and is not empty"
+                else
+                  echo "File /tmp/tls.crt exists but is empty"
+                  exit 3
+                fi
+              else
+                echo "File /tmp/tls.crt not exists"
+                exit 3
+              fi
+
+              printf "Patching ssl.key\n"
+              oc patch secret {{ $.Values.quay.config_bundle }} --patch="{\"data\": { \"ssl.key\": \"${KEY}\" }}" -o yaml
+              
+              printf "Patching ssl.cert\n"
+              oc patch secret {{ $.Values.quay.config_bundle }} --patch="{\"data\": { \"ssl.cert\": \"${CRT}\" }}" -o yaml
+
+              printf "Verifying if Config-Bundle has been patched with the certificate\n"
+
+              check_config_bundle=`oc describe secret {{ $.Values.quay.config_bundle }} | egrep "ssl.cert|ssl.key"`
+              if [[ $check_config_bundle =~ .*"ssl.cert".* && $check_config_bundle =~ .*"ssl.key".* ]]; then
+                printf "Key and Cert are already injected into {{ $.Values.quay.config_bundle }}\n"
+              else
+                printf "Some error happened\n"
+                exit 3
+              fi
+              {{- end }}
+
+              {{- if eq ( .job_inject_route_cert.additional_ca.enabled | toString) "true" }}
+              printf "Inject trusted CA\n"
+
+              get_extra_certs=`oc get configmap {{ .job_inject_route_cert.additional_ca.configmap }} -o jsonpath='{ {{ .job_inject_route_cert.additional_ca.configmap_key }} }' | base64 -w0`
+
+              oc patch secret {{ $.Values.quay.config_bundle }} --patch="{\"data\": { \"extra_ca_cert_ca-bundle.crt\": \"${get_extra_certs}\" }}" -o yaml
+
+              printf "Verifying if EXTRA CA-Bundle has been patched into the config\n"
+
+              check_config_bundle=`oc describe secret {{ $.Values.quay.config_bundle }} | egrep "extra_ca_cert_ca-bundle.crt"`
+              if [[ $check_config_bundle =~ "extra_ca_cert_ca-bundle.crt" ]]; then
+                printf "Extra Cert has been injected into {{ $.Values.quay.config_bundle }}\n"
+              else
+                printf "Some error happened\n"
+                exit 3
+              fi
+
+              exit 0;
+
+              {{- end }}
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      serviceAccountName: {{ .job_inject_route_cert.serviceAccount | default "quay-ca-injector" }}
+      serviceAccount: {{ .job_inject_route_cert.serviceAccount | default "quay-ca-injector" }}
+      securityContext: {}
+      schedulerName: default-scheduler
+      tolerations:
+        - key: infra
+          operator: Equal
+          value: reserved
+          effect: NoSchedule
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

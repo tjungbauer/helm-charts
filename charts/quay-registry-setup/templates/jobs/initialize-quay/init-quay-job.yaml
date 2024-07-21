@@ -10,7 +10,7 @@ metadata:
     {{- include "tpl.labels" $ | nindent 4 }}
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | default "10" | quote }}
+    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | default "200" | quote }}
 spec:
   parallelism: 1
   completions: 1
@@ -24,17 +24,17 @@ spec:
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: init-user
+                  name: {{ .init_user.secretName | default "init-user" | quote }}
                   key: password
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: init-user
+                  name: {{ .init_user.secretName | default "init-user" | quote }}
                   key: username
             - name: MAIL
               valueFrom:
                 secretKeyRef:
-                  name: init-user
+                  name: {{ .init_user.secretName | default "init-user" | quote }}
                   key: mail
           command:
             - /bin/bash
@@ -47,12 +47,12 @@ spec:
               {{ include "tpl.sleeptimer"  (dict "sleeptimer" "60") | nindent 14 }}
               
               sleep_timer={{ .job_init_quay.sleeptimer | default "30" }}
-              counter=0
+              counter="0"
               max_retries={{ .job_init_quay.sleeptimer | default "30" }}
 
               printf "\nVerifying if Quay is already up and running\n"
-              {{ .job_init_quay.quay_basename }}
-              get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
+
+              get_quay_deployment=`curl -k --connect-timeout 2.5 --write-out '%{http_code}' --silent --output /dev/null http://{{ .job_init_quay.quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance`
 
               until [ "$get_quay_deployment" -eq "200" ]; do
                 let "counter=counter+1"
@@ -64,7 +64,7 @@ spec:
                 fi
               
                 printf "Quay Application is not yet ready. Sleeping for $sleep_timer\n"
-                printf "Trying to reach: http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance"
+                printf "Trying to reach: http://{{ .quay_basename | default "quay-registry-quay-app" }}.{{ .namespace.name }}.svc.cluster.local/health/instance\n"
 
                 {{ include "tpl.sleeptimer" (dict "sleeptimer" .job_init_quay.sleeptimer | default "30" ) | nindent 16 }}
 
@@ -72,7 +72,7 @@ spec:
                 
               done
               
-              printf "Quay is running. Injecting first User (Admin)\n"
+              printf "\nQuay is running. Injecting first User (Admin)\n"
 
               data() 
               {  
@@ -92,7 +92,7 @@ spec:
               
               create_user=`curl -Ss --connect-timeout 10 -X POST -k https://{{ $.Values.quay.public_route }}/api/v1/user/initialize --header 'Content-Type: application/json' --data  "$(data)" | python3 -c "import sys, json; print(json.load(sys.stdin))"`
               
-              printf "Got the following response: $create_user\n"
+              printf "Got the following response: $create_user\n\n"
 
               if [[ $create_user == "" ]]; then
                 printf "Something went wrong during user creation\n"
@@ -113,8 +113,8 @@ spec:
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
-      serviceAccountName: {{ .job_init_quay.serviceAccount }}
-      serviceAccount: {{ .job_init_quay.serviceAccount }}
+      serviceAccountName: {{ .job_init_quay.serviceAccount | default "quay-initiator" }}
+      serviceAccount: {{ .job_init_quay.serviceAccount | default "quay-initiator" }}
       securityContext: {}
       schedulerName: default-scheduler
       tolerations:

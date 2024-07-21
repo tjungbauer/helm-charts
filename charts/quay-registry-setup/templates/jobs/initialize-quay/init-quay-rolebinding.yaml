@@ -8,6 +8,9 @@ metadata:
   namespace: {{ .namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: {{ .job_init_quay.syncwave | quote }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

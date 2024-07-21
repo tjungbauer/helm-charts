@@ -1,152 +1,822 @@
 ---
 quay:
-  # -- Enable configuration of Quay Operator
+  # -- Enable configuration of the Quay Operator. This will setup the Namespace and the Operator isntance.
+  # @section -- Generic Settings
   # @default -- false
   enabled: false
 
   # -- Name of the Secret of the Quay configuration. This should be configured by the chart used by GitOps approach.
+  # @section -- Generic Settings
+  # @default -- quay-generated-configuration
   config_bundle: config-bundle-secret
 
   # -- Syncwave for the quay CRD
+  # @section -- Generic Settings
   # @default -- 3
   syncwave: 3
+
+  # -- The public route that shall be used for the registry. This setting is required to initialize quay.
+  # @section -- Generic Settings
+  # @default -- N/A
+  public_route: quay.apps.clustername
 
   # Namespace for Quay Enterprise
   namespace:
     # -- Create the Namespace for Quay Enterprise. Should be "true" if it is a new namespace.
+    # @section -- Generic Settings
     # @default -- false
     create: false
 
     # -- Name of the Namespace
+    # @section -- Generic Settings
+    # @default -- N/A
     name: quay-enterprise
 
     # -- Syncwave to create the Namespace
+    # @section -- Generic Settings
     # @default -- 0
     syncwave: 0
 
-  # Quay comes with several components that might be managed by the Operator or managed by the customer.
+    # -- When you want to schedule Quay on a specific node (role), for example infrastructure nodes, you can define the role here.
+    # Technically, it will add specific annotations onto the Namespace object.
+    # @section -- Generic Settings
+    # @default -- N/A
+    bindtoNode:
+      # -- Role where Quay shall be scheduled
+      # @section -- Generic Settings
+      # @default: N/A
+      role: infra
+
+  # -- Create a BucketClaim. To use this the ObjectBucketClaim resource must be available on the cluster.
+  # If this resource is not available, then a bucket must be created in a different way (prepared before Quay is deployed.)
+  # This usually goes together with helper-objectstore, that can create a new BucketClass.
+  # @section -- Bucket Configuration
+  bucketClaim:
+    # -- Enable creation of bucket Claim.
+    # @section -- Bucket Configuration
+    # @default -- false
+    enabled: false
+
+    # Name of the bucket.
+    # @default -- N/A
+    name: quay-bucketname
+
+    # -- Name of the storageclass.
+    # A separate StorageClass with BackingStore and BackingClass can be created.
+    # @section -- Bucket Configuration
+    # @ default -- openshift-storage.noobaa.io
+    storageclass:
+
+    # -- Syncwave for bucketclaim creation. This should be done very early, but it depends on ODF.
+    # @section -- Bucket Configuration
+    # @default -- 2
+    syncwave: 2
+
+  # -- Quay comes with several components that might be managed by the Operator or managed by the customer.
   # Some might have an "overrides" settings that can manage the number of replicas. This is useful for for testing purposes.
+  # @section -- Quay Components
+  # @default -- all components are installed in managed mode. Where possible multiple replicas (2) will be used.
   components:
     # Clair
+    # @section -- Quay Components
     clair:
       # -- Let Operator manage clair
+      # @section -- Quay Components
       # @default -- true
       managed: true
 
       # -- Override the number of replicas (default: 2)
+      # @section -- Quay Components
       overrides:
         replicas: 2
 
     # PostgresDB of Clair
     clairpostgres:
       # -- Let Operator manage PostgresDB of Clair
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     objectstore:
       # -- Let Operator manage Objectstorage
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     redis:
       # -- Let Operator manage Redis
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     hpa:
       # -- Let Operator manage Auto Scaling
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     route:
       # -- Let Operator manage Route creation
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     mirror:
       # -- Let Operator manage Mirror instances
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
       # -- Override the number of replicas (default: 2)
+      # @section -- Quay Components
       overrides:
         replicas: 2
 
     monitoring:
       # -- Let Operator manage Monitoring configuration
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     tls:
       # -- Let Operator manage Certificates
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
     postgres:
       # -- Let Operator manage Quay Postgres database
+      # @section -- Quay Components
       # @default -- true
       managed: true
 
     quay:
       # -- Let Operator manage the Quay Application
+      # @section -- Quay Components
       # @default -- true
       managed: "true"
 
       # -- Override the number of replicas (default: 2)
+      # @section -- Quay Components
       overrides:
         replicas: 2
 
+  # -- Initialize Quay and configure the first user. This was start a Job, that will connect to the public route and configure the first (admin) user.
+  # @section -- Job Initialize Quay
   job_init_quay:
     # -- Enable the init-Job
+    # @section -- Job Initialize Quay
     # @default -- false
     enabled: false
 
-    # Syncwave for the init Job that generates the admin account.
-    # @default -- 10
-    syncwave: 10
+    # -- Syncwave for the init Job that generates the admin account.
+    # @section -- Job Initialize Quay
+    # @default -- 200
+    syncwave: 200
 
     # -- Name of the ServiceAccount
+    # @section -- Job Initialize Quay
+    # @default -- quay-initiator
     serviceAccount: quay-initiator
 
+    # -- Base name of quay URL. This is the internal service URL that is used to verify if Quay is up and running.
+    # @section -- Job Initialize Quay
     # @default -- quay-registry-quay-app
     quay_basename: quay-registry-quay-app
 
+    # -- Used to define the sleeptimer.
+    # @section -- Job Initialize Quay
     # @default -- 30
     sleeptimer: 30
 
-# Install Quay Operator
-# Deploys Operator --> Subscription and Operatorgroup
-# Syncwave: 0
-# @ignore
-helper-operator:
-  operators:
-    quay-operator:
-      enabled: false
-      syncwave: '0'
-      namespace:
-        name: openshift-operators
-        create: false
-      subscription:
-        channel: stable-3.9
-        approval: Manual
-        operatorName: quay-operator
-        source: redhat-operators
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: false
-        notownnamespace: true
+  # -- Creating initial admin account.<br />
+  # The password for this user can be GENERATED or set in the values file (not recommended) and can be found in the secret.
+  # Defaults for username and mail:
+  #   - username: admin
+  #   - mail: admin@company.com
+  # @section -- Job Initialize Quay
+  init_user:
+    # -- Enable user account initialization.
+    # @section -- Job Initialize Quay
+    # @default -- false
+    enabled: false
 
-# Using sub-chart helper-status-checker
-# @ignore
-helper-status-checker:
+    # -- Name of the Secret for the initialize user.
+    # @section -- Job Initialize Quay
+    # @default -- init-user
+    secretName: initial-user
+
+    # -- Default Username
+    # @section -- Job Initialize Quay
+    # @default -- admin
+    username: admin
+
+    # -- Email Address for that username
+    # @section -- Job Initialize Quay
+    # @default admin@company.com
+    mail: admin@company.com
+
+    # -- OPTIONAL: Password in CLEARTEXT.
+    # If set then this is used as password. (not recommended)
+    # If not set, then a password will be randomly generated.
+    # @section -- Job Initialize Quay
+    # @default -- generated randomly
+    password: ''
+
+  # -- Inject the route certificate into the generated configuration Secret
+  # @section -- Job Inject Certificate into Quay Configuration
+  job_inject_route_cert:
+    # -- Enable certificate inject Job
+    # @section -- Job Inject Certificate into Quay Configuration
+    # @default -- false
+    enabled: false
+
+    # -- Name of the Job
+    # @section -- Job Inject Certificate into Quay Configuration
+    # @default -- inject-certificate
+    name: inject-certificate
+
+    # -- Name of the ServiceAccount for the injector Job
+    # @section -- Job Inject Certificate into Quay Configuration
+    # @default -- quay-ca-injector
+    serviceAccount: quay-ca-injector
+
+    # -- Synvwave for this Job
+    # @section -- Job Inject Certificate into Quay Configuration
+    # @default -- 5
+    syncwave: 5
+
+    # -- Sleeptime to wait before the certificate is ready
+    # @section -- Job Inject Certificate into Quay Configuration
+    # @default -- 30
+    sleeptimer: 30
+
+    # -- Name of the certificate secret that shall be injected.
+    # @section -- Job Inject Certificate into Quay Configuration
+    certificate:
+      # -- Enable Certificate injection
+      # @section -- Job Inject Certificate into Quay Configuration
+      # @default -- false
+      enabled: false
+
+      # -- Name of the secret that contains the certificate. It must contain tls.crt and tls.key.
+      # @section -- Job Inject Certificate into Quay Configuration
+      # @default -- None
+      name: certificate-name
+
+    # -- Name of additional certificates to trust that shall be injected.
+    # @section -- Job Inject Certificate into Quay Configuration
+    additional_ca:
+      # -- Enable additional certificate injection
+      # @section -- Job Inject Certificate into Quay Configuration
+      # @default -- false
+      enabled: false
+
+      # -- Name of the configmap that has the additional certificates
+      # @section -- Job Inject Certificate into Quay Configuration
+      # @default -- none
+      configmap: kube-root-ca.crt
+
+      # -- Name of the key inside the Configmap that holds the additional certificates.
+      # Be aware of escaping!
+      # @section -- Job Inject Certificate into Quay Configuration
+      # @default -- None
+      configmap_key: '.data.ca\.crt'
+
+##############################################################
+# Generate the configuration secret for quay.
+# This consists of numerous settings, Object storage settings
+# and initial user configuration.
+# Quay requires verify specific settings and a very specific
+# layout of the configuration to be able to ready all settings
+#
+# NOTE: The configuration of Quay stores sensitive information
+# Therefore a ConfigMap is used as a skeleton and a Job will
+# then generate the Secret based on the ConfigMap and other
+# settings.
+##############################################################
+quay_configuration:
+  # -- Enable Quay configuration
+  # @section -- Quay Configuration Generic
+  # @default -- false
   enabled: false
 
-  checks:
+  # -- Syncwave for generating the quay configuration
+  # @section -- Quay Configuration Generic
+  # @default -- 3
+  syncwave: 3
 
-    - operatorName: quay-operator
-      namespace:
-        name: openshift-operators
-      syncwave: 3
+  # -- Name of the config map skeleton
+  # @section -- Quay Configuration Generic
+  # @default -- quay-configuration-skeleton
+  configmapName: quay-configuration-skeleton
 
-      serviceAccount:
-        name: "sa-quay"
+
+  # -- Storage Settings. Verify the Quay documentation about the object storage configuration: <a href=https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-storage-noobaa>Quay Storage Configuration</a>
+  # @section -- Quay Configuration Generic
+  storage:
+    # -- Instance of storage that shall be used. Dependent on the instance type, different parameters are used in the configuration. There are some types Quay supports:<br />
+    # <ul>
+    #   <li>LocalStorage</li>
+    #   <li>RHOCSStorage</li>
+    #   <li>RadosGWStorage (default) - Ceph/RadosGW and Nutanix</li>
+    #   <li>S3Storage</li>
+    #   <li>STSS3Storage</li>
+    #   <li>GoogleCloudStorage</li>
+    #   <li>AzureStorage</li>
+    #   <li>SwiftStorage</li>
+    #   <li>IBMCloudStorage</li>
+    # </ul>
+    # @section -- Quay Configuration Generic
+    # @default -- RadosGWStorage
+    instance: RadosGWStorage
+
+    # -- Defines the maximum chunk size in MB for the final copy. Has no effect if server_side_assembly is set to false.
+    # Used by RadosGWStorage, RHOCSStorage, IBMCloudStorage
+    # @section -- Quay Configuration Generic
+    # @default -- 100Mb
+    maximum_chunk_size_mb: 100
+
+    # -- Whether Red Hat Quay should try and use server side assembly and the final chunked copy instead of client assembly. Defaults to true.
+    # @section -- Quay Configuration Generic
+    # @default -- true
+    server_side_assembly: true
+
+  bucket:
+    # -- S3 Bucket name
+    # @section -- Quay Configuration Generic
+    # @default -- N/A
+    name: quay-bucketname
+
+    # -- Is the bucket connection secured (TLS)
+    # @section -- Quay Configuration Generic
+    # @default -- true
+    is_secure: true
+
+    # -- Port to access the bucket
+    # @section -- Quay Configuration Generic
+    # @default -- 443
+    port: 443
+
+    # -- Region of the bucket. Used for object storage S3Storage or STSS3Storage
+    # @section -- Quay Configuration Generic
+    # @default -- us-east-1
+    region: us-east-1
+
+    # -- The unique Amazon Resource Name (ARN). Used by STSS3Storage.
+    # @section -- Quay Configuration Generic
+    # @default -- None
+    sts_role_arn: ''
+
+    # -- Optional. The time, in seconds, until a timeout exception is thrown when attempting to read from a connection. The default is 60 seconds. Used by GoogleCloudStorage.
+    # @section -- Quay Configuration Generic
+    # @default -- 60
+    boto_timeout: 60
+
+    # -- SAS Token for Azure. Used by AzureStorage.
+    # @section -- Quay Configuration Generic
+    # @default -- some/path/
+    sas_token: some/path/
+
+    # -- CA Path for Swift storage. Used by SwiftStorage.
+    # @section -- Quay Configuration Generic
+    # @default -- /conf/stack/swift.cert
+    swift_ca_path: /conf/stack/swift.cert
+
+  # @section -- Quay Configuration Generic
+  s3_hostname:
+    # -- Overwrite the hostname for the object storage.
+    # This might be required to use a public URL for example, instead
+    # of the name that is storaged by ODF.
+    # @section -- Quay Configuration Generic
+    # @default -- false
+    overwrite: true
+
+    # -- Hostname of the object storage. This is coming from a ConfigMap that is generated by ODF
+    # which is then mounted into /tmp/quay-bucket/BUCKET_HOST
+    # @section -- Quay Configuration Generic
+    # @default -- N/A
+    hostname: s3-openshift-storage.apps.clustername
+
+  #####################
+  # QUAY CONFIGURATION
+  #####################
+  # Any setting here is OPTIONAL and will overwrite or append the default setting.
+  # ATTN: Helm does not work very well with booleans and the Quay configuration settings must have boolean types (strings with quotes are not accepted)
+  # Therefore it is a bit tricky to make this configurable.
+  # Inside the template the settings are verified like this:
+  #     {{ .feature.anonymous_access | quote | default "true" | trimAll "\"" }}
+  #
+  # 1. Quote them, to make them strings and compare them, then using trimAll to remove the quotes again.
+  # For the ConfigMap this should be good enough.
+  #
+  # If you miss any value simply define it here and in the skeleton for the configMap - I did not test any possibility
+  # For example mail od LDAP configurations are currently missing, but can be extended.
+
+  # -- Additional SUPER_USERS besides the initial administraor as defined at init_user.username (default admin)
+  # @section -- Quay Configuration Settings
+  # @default -- admin
+  super_user_list:
+    - second_admin
+
+  # -- The authentication engine to use for credential authentication.<br />
+  # Values: One of<br />
+  #    <ul><li>Database</li>
+  #        <li>LDAP</li>
+  #        <li>JWT</li>
+  #        <li>Keystone</li>
+  #        <li>OIDC</li></ul>
+  # @section -- Quay Configuration Settings
+  # @default -- Database
+  authentication_type: Database
+
+  # -- If enabled, only API calls marked as being made by an XHR will be allowed from browsers
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  browser_api_calls_xhr_only: false
+
+  # Additional features that can be activated or deactivated
+  # @section -- Quay Configuration Settings
+  feature:
+    # -- To create the first user, users need to set the FEATURE_USER_INITIALIZE parameter to true
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    user_initialize: true
+
+    # -- Enabling log rotation and archival will move all logs older than 30 days to storage.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    action_log_rotation: false
+
+    # -- Whether to allow retrieval of aggregated log counts
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    aggregated_log_count_retrieval: true
+
+    # -- Whether to allow anonymous users to browse and pull public repositories
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    anonymous_access: false
+
+    # -- If enabled, users can create tokens for use by the Docker CLI
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    app_specific_tokens: true
+
+    # -- Whether to support Bitbucket build triggers.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    bitbucket_build: false
+
+    # -- If set to true, no new User accounts may be created if their email domain is blacklisted
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    blacklisted_emails: false
+
+    # -- Whether to support Dockerfile build.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    build_support: false
+
+    # -- Whether users and organizations are allowed to change the tag expiration for tags in their namespace.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    change_tag_expiration: true
+
+    # -- Whether users can directly login to the UI
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    direct_login: true
+
+    # -- Enable support for nested repositories
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    extended_repository_names: true
+
+    # -- If set to true, Red Hat Quay will run using FIPS-compliant hash functions
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    fips: false
+
+    # -- Whether garbage collection of repositories is enabled.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    garbage_collection: true
+
+    # -- Enable support for OCI artifacts.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    general_oci_support: true
+
+    # -- Whether to support GitHub build triggers.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    github_build: false
+
+    # -- Whether GitHub login is supported
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    github_login: false
+
+    # -- Whether to support GitLab build triggers.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    gitlab_build: false
+
+    # -- Whether Google login is supported.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    google_login: false
+
+    # -- Enable support for Helm artifacts.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    helm_oci_support: true
+
+    # -- Whether users being created must be invited by another user
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    invite_only_user_creation: false
+
+    # -- Whether to allow for "namespace-less" repositories when pulling and pushing from Docker
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    library_support: true
+
+    # -- Whether to allow exporting of action logs.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    log_export: true
+
+    # -- Whether emails are enabled
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    mailing: false
+
+    # -- If enabled, non-superusers can setup syncing on teams using LDAP.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    nonsuperuser_team_syncing_setup: false
+
+    # -- If set to true, autocompletion will apply to partial usernames
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    partial_user_autocomplete: true
+
+    # -- Whether to proxy all direct download URLs in storage through NGINX.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    proxy_storage: true
+
+    # -- If set to true, the _catalog endpoint returns public repositories. Otherwise, only private repositories can be returned.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    public_catalog: false
+
+    # -- Enables configuration, caching, and validation for quota management feature.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    quota_management: false
+
+    # -- Whether to enable rate limits on API and registry endpoints. Setting FEATURE_RATE_LIMITS to true causes nginx to
+    # limit certain API calls to 30 per second. If that feature is not set, API calls are limited to 300 per second (effectively unlimited).
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    rate_limits: false
+
+    # -- If set to true, build logs can be read by those with read access to the repository, rather than only write access or admin access.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    reader_build_logs: false
+
+    # -- Whether Recaptcha is necessary for user login and recovery
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    recaptcha: false
+
+    # -- If set to true, enables repository mirroring.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    repo_mirror: true
+
+    # -- If set to true, only namespaces listed in V1_PUSH_WHITELIST support V1 push
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    restricted_v1_push: true
+
+    # -- If the security scanner is enabled, turn on or turn off security notifications
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    security_notifications: false
+
+    # -- Whether to automatically replicate between storage engines.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    storage_replication: false
+
+    # -- Whether superusers are supported
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    super_users: true
+
+    # -- Whether to allow for team membership to be synced from a backing group in the authentication engine (LDAP or Keystone).
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    team_syncing: true
+
+    # -- When set, allows users to try the beta UI environment.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    ui_v2: true
+
+    # -- Enables repository settings in the beta UI Environment
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    ui_v2_repo_settings: false
+
+    # -- Whether users can be created (by non-superusers)
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    user_creation: true
+
+    # -- Whether to record the last time a user was accessed
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    user_last_accessed: true
+
+    # -- If set to true, users will have access to audit logs for their namespace
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    user_log_access: false
+
+    # -- Whether to collect and support user metadata
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    user_metadata: false
+
+    # -- If set to true, users can rename their own namespace
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    user_rename: false
+
+    # -- If set to true, users can confirm and modify their initial usernames when logging in via OpenID Connect (OIDC) or a non-database internal authentication provider like LDAP.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    username_confirmation: false
+
+    # -- Whether garbage collection is enabled for repositories.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    repository_garbage_collection: true
+
+    # -- Whether to support signing
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    signing: false
+
+  # -- The time after which a fresh login requires users to re-enter their password
+  # @section -- Quay Configuration Settings
+  # @default -- 5m
+  fresh_login_timeout: 5m
+
+  # -- Maximum allowed size of an image layer.
+  # Pattern: ^[0-9]+(G\|M)$
+  # @section -- Quay Configuration Settings
+  # @default -- 20G
+  maximum_layer_size: 20G
+
+  # -- One of http or https. Note that users only set their PREFERRED_URL_SCHEME to http
+  # when there is no TLS encryption in the communication path from the client to Quay.
+  # @section -- Quay Configuration Settings
+  # @default -- http
+  preferred_url_scheme: https
+
+  # -- The state of the registry.
+  # Either: normal or read-only
+  # @section -- Quay Configuration Settings
+  # @default -- normal
+  registry_state: normal
+
+  # -- If specified, the long-form title for the registry. Displayed in frontend of your Red Hat Quay deployment,
+  # for example, at the sign in page of your organization. Should not exceed 35 characters.
+  # @section -- Quay Configuration Settings
+  # @default -- Red Hat Quay
+  registry_title: Red Hat Quay
+
+  # -- If specified, the short-form title for the registry. Title is displayed on various pages of your organization,
+  # for example, as the title of the tutorial on your organization’s Tutorial page.
+  # @section -- Quay Configuration Settings
+  # @default -- Red Hat Quay
+  registry_title_short: Red Hat Quay
+
+  # -- The number of seconds between checking for repository mirror candidates
+  # @section -- Quay Configuration Settings
+  # @default -- 30
+  repo_mirror_interval: 30
+
+  # -- When set to true, the repository rolls back after a failed mirror attempt.
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  repo_mirror_rollback: false
+
+  # -- Require HTTPS and verify certificates of Quay registry during mirror.
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  repo_mirror_tls_verify: false
+
+  # -- Maximum number of pages the user can paginate in search before they are limited
+  # @section -- Quay Configuration Settings
+  # @default -- 10
+  search_max_result_page_count: 10
+
+  # -- Number of results returned per page by search page
+  # @section -- Quay Configuration Settings
+  # @default -- 10
+  search_results_per_page: 30
+
+  # -- Whether the secure property should be set on session cookies
+  # Set to True for all installations using SSL
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  session_cookie_secure: false
+
+  # -- If specified, nginx is configured to enabled a list of SSL protocols defined in the list.
+  # Removing an SSL protocol from the list disables the protocol during Red Hat Quay startup.
+  # ['TLSv1','TLSv1.1','TLSv1.2', `TLSv1.3]
+  # @section -- Quay Configuration Settings
+  # @default -- TLSv1.3
+  ssl_protocols:
+    - TLSv1.3
+
+  # -- If not set to None, the number of successive failures that can occur before a build trigger is automatically disabled.
+  # @section -- Quay Configuration Settings
+  # @default -- 100
+  successive_trigger_failure_disable_threshold: 100
+
+  # -- If not set to None, the number of successive internal errors that can occur before a build trigger is automatically disabled
+  # @section -- Quay Configuration Settings
+  # @default -- 5
+  successive_trigger_internal_error_disable_threshold: 5
+
+  # -- The length of time a token for recovering a user accounts is valid
+  # Pattern: ^[0-9]+(w\|m\|d\|h\|s)$
+  # @section -- Quay Configuration Settings
+  # @default -- 30m
+  user_recovery_token_lifetime: 30m
+
+  # -- Path under storage in which to place user-uploaded files
+  # Example: userfiles
+  # @section -- Quay Configuration Settings
+  # @default -- userfiles
+  userfiles_path: userfiles/
+
+  # -- The number of results returned per page in V2 registry APIs
+  # @section -- Quay Configuration Settings
+  # @default -- 50
+  v2_pagination_size: 100
+
+  # -- If team syncing is enabled for a team, how often to check its membership and resync if necessary.<br />
+  # Pattern: ^[0-9]+(w\|m\|d\|h\|s)$<br />
+  # Example: 2h
+  # @section -- Quay Configuration Settings
+  # @default -- 30m
+  team_resync_stale_time: 30m
+
+  # -- If enabled, the options that users can select for expiration of tags in their namespace.<br />
+  # <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$
+  #
+  # @section -- Quay Configuration Settings
+  tag_expiration_options:
+    - 0s
+    - 1d
+    - 1w
+    - 2w
+    - 4w
+
+  # -- The default, configurable tag expiration time for time machine.
+  # <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$
+  # @section -- Quay Configuration Settings
+  # @default -- 2w
+  default_tag_expiration: 2w
+
+  # -- If true, pulls will still succeed even if the pull audit log entry cannot be written.
+  # This is useful if the database is in a read-only state and it is desired for pulls to continue during that time.
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  allow_pulls_without_strict_logging: false
+
+  # -- The types of avatars to display, either generated inline (local) or Gravatar (gravatar)
+  # @section -- Quay Configuration Settings
+  # @default -- local
+  avatar_kind: local
+
+  # -- Whether new repositories created by push are set to private visibility
+  # @section -- Quay Configuration Settings
+  # @default -- true
+  create_private_repo_on_push: true
+
+  # -- Enables system default quota reject byte allowance for all organizations.
+  # By default, no limit is set. --> 1.073741824e+11
+  # @section -- Quay Configuration Settings
+  # @default -- no limit is set (== 1.073741824e+11)
+  default_system_reject_quota_bytes: 1.073741824e+11
