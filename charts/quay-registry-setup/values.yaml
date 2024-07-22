@@ -456,7 +456,7 @@ quay_configuration:
     # -- Whether to allow anonymous users to browse and pull public repositories
     # @section -- Quay Configuration Settings
     # @default -- true
-    anonymous_access: false
+    anonymous_access: true
 
     # -- If enabled, users can create tokens for use by the Docker CLI
     # @section -- Quay Configuration Settings
@@ -566,7 +566,7 @@ quay_configuration:
     # -- Whether to proxy all direct download URLs in storage through NGINX.
     # @section -- Quay Configuration Settings
     # @default -- false
-    proxy_storage: true
+    proxy_storage: false
 
     # -- If set to true, the _catalog endpoint returns public repositories. Otherwise, only private repositories can be returned.
     # @section -- Quay Configuration Settings
@@ -773,7 +773,7 @@ quay_configuration:
   # -- The number of results returned per page in V2 registry APIs
   # @section -- Quay Configuration Settings
   # @default -- 50
-  v2_pagination_size: 100
+  v2_pagination_size: 50
 
   # -- If team syncing is enabled for a team, how often to check its membership and resync if necessary.<br />
   # Pattern: ^[0-9]+(w\|m\|d\|h\|s)$<br />

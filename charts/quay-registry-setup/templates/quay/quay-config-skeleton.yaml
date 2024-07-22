@@ -156,6 +156,7 @@ data:
     FEATURE_MAILING: {{ .feature.mailing | quote | default "false" | trimAll "\"" }}
     FEATURE_NONSUPERUSER_TEAM_SYNCING_SETUP: {{ .feature.nonsuperuser_team_syncing_setup | quote | default "false" | trimAll "\"" }}
     FEATURE_PARTIAL_USER_AUTOCOMPLETE: {{ .feature.partial_user_autocomplete | quote | default "true" | trimAll "\"" }}
+    FEATURE_PROXY_STORAGE: {{ .feature.proxy_storage | quote | default "false" | trimAll "\"" }}
     FEATURE_PUBLIC_CATALOG: {{ .feature.public_catalog | quote | default "false" | trimAll "\"" }}
     FEATURE_QUOTA_MANAGEMENT: {{ .feature.quota_management | quote | default "false" | trimAll "\"" }}
     FEATURE_RATE_LIMITS: {{ .feature.rate_limits | quote | default "false" | trimAll "\"" }}
@@ -178,7 +179,6 @@ data:
     FEATURE_USER_RENAME: {{ .feature.user_rename | quote | default "false" | trimAll "\"" }}
     FEATURE_USERNAME_CONFIRMATION: {{ .feature.username_confirmation | quote | default "false" | trimAll "\"" }}
     FRESH_LOGIN_TIMEOUT: {{ .fresh_login_timeout | quote | default "5m" | trimAll "\"" }}
-    FEATURE_PROXY_STORAGE: {{ .proxy_storage | quote | default "false" | trimAll "\"" }}
     GITHUB_LOGIN_CONFIG: {}
     GITHUB_TRIGGER_CONFIG: {}
     GITLAB_TRIGGER_CONFIG: {}
