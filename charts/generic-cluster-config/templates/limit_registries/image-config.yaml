@@ -10,7 +10,7 @@ spec:
   {{- if .Values.config_allowed_registries.allowedRegistriesForImport }}
   allowedRegistriesForImport:
     {{- range $key, $value :=.Values.config_allowed_registries.allowedRegistriesForImport }}
-    - domainName: {{ $value.domain }}
+    - domainName: {{ $value.domainName }}
       insecure: {{ $value.insecure | default false }}
     {{- end }}
   {{- end }}

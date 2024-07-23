@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.28](https://img.shields.io/badge/Version-1.0.28-informational?style=flat-square)
+  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
 
  
 
@@ -74,7 +74,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | apiserver.etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |
 | apiserver.etcd_encryption.serviceAccount | object | `{"create":true,"name":"etcd-encryption-checker"}` | The service account that is used to verify the status of the encryption |
 | config_allowed_registries.allowedRegistriesForImport | list | empty | limits the container image registries that normal users may import images from. |
-| config_allowed_registries.allowedRegistriesForImport[0] | object | `{"domain":"quay.io","insecure":false}` | Domainname of the registry |
+| config_allowed_registries.allowedRegistriesForImport[0] | object | `{"domainName":"quay.io","insecure":false}` | Domainname of the registry |
 | config_allowed_registries.allowedRegistriesForImport[0].insecure | bool | false | Validate the vertificate of not |
 | config_allowed_registries.enabled | bool | false | Enable configuration to limit the registries |
 | config_allowed_registries.registry_sources.allowed_registries | list | empty | When pulling or pushing images, the container runtime searches the registries listed here |

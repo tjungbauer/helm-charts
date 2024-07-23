@@ -78,12 +78,12 @@ config_allowed_registries:
   # @default -- empty
   allowedRegistriesForImport:
   # -- Domainname of the registry
-  - domain: quay.io
+  - domainName: quay.io
     # -- Validate the vertificate of not
     # @default -- false
     insecure: false
-  - domain: registry.connect.redhat.com
-  - domain: registry.redhat.io
+  - domainName: registry.connect.redhat.com
+  - domainName: registry.redhat.io
 
 ######################
 # IDENTITY PROVIDERS #
