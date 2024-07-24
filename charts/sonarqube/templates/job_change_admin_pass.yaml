@@ -35,9 +35,9 @@ spec:
                echo $STATUS_CODE
                echo $ENDPOINT
                ENDPOINT=https://{{ .Values.endpoint }}
-               STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" -u "admin:admin" $ENDPOINT/api/users/groups?login=admin&password=admin)
+               STATUS_CODE=$(curl -k -s -o /dev/null -w "%{http_code}" -u "admin:admin" $ENDPOINT/api/users/groups?login=admin&password=admin)
              done
-             curl -X POST -u "admin:admin" "$ENDPOINT/api/users/change_password?login=admin&password=$PASSWORD&previousPassword=admin" -H "Content-Type: application/json"
+             curl -k -X POST -u "admin:admin" "$ENDPOINT/api/users/change_password?login=admin&password=$PASSWORD&previousPassword=admin" -H "Content-Type: application/json"
           name: check-operator
       dnsPolicy: ClusterFirst
       restartPolicy: Never
