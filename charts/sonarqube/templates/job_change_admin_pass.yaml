@@ -29,7 +29,7 @@ spec:
              #!/usr/bin/env bash
 
              ENDPOINT=https://{{ .Values.endpoint }}
-             STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ENDPOINT)
+             STATUS_CODE=$(curl -s -k -o /dev/null -w "%{http_code}" $ENDPOINT)
              while [ $STATUS_CODE -ne 200 ] && [ $STATUS_CODE -ne 403 ]; do
                sleep 5s
                echo $STATUS_CODE
