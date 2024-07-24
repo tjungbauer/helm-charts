@@ -38,6 +38,7 @@ sonarqube:
     host: *endpoint
     tls:
       termination: edge
+      insecureEdgeTerminationPolicy: Allow
 
   # -- additional plugins to install
   plugins:
