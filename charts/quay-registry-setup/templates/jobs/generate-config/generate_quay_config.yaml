@@ -30,15 +30,15 @@ spec:
               SLEEPER_TMP=0
 
               printf "Waiting 30 seconds before I start with the generation of the configuration\n"
-             
-              while [[ $SLEEPER_TMP -le "30" ]]; do
-                echo -n "."
-                sleep 1
-                SLEEPER_TMP=$(($SLEEPER_TMP+1))
-              done
+
+              {{ include "tpl.sleeptimer" (dict "sleeptimer" "30")  | nindent 14 }}
 
               printf "\nUsing the following skeleton file\n"
               cat /tmp/quay-config-skeleton/properties
+
+              #################
+              # Obecjt Storage
+              #################
 
               bucket_user=`cat /tmp/bucket-secret/AWS_ACCESS_KEY_ID`
 
@@ -52,19 +52,45 @@ spec:
                 bucket_host=`cat /tmp/quay-bucket/BUCKET_HOST`
               fi
 
+              #######
+              # LDAP
+              #######
+              
+              {{- if eq ( .authentication_type | toString) "LDAP" }}
+              ldap_user=`cat /tmp/ldap-secret/LDAP_ADMIN_DN`
+
+              ldap_password=`cat /tmp/ldap-secret/LDAP_ADMIN_PASSWD`       
+              {{- end }}
+
               mode="replace"
               check=$(oc get secret quay-generated-configuration 2>&1)
               if [ $? == 1 ]
               then
-                printf "Secret does not exist, creating a new one.\n"
-                mode="create"
+                if [[ $check == *"forbidden"* ]] 
+                then
+                  echo $check;
+                  exit 1
+                else
+                  printf "Secret does not exist, creating a new one.\n"
+                  mode="create"
+                fi
               else
                 printf "Secret does exist already, replacing it.\n"
                 mode="replace"
               fi
               
-              printf "\nReplacing required information\n"
-              sed "s|PATCH_BUCKET_USER|${bucket_user}|g; s|PATCH_BUCKET_SECRET|${bucket_secret}|g; s|PATCH_BUCKET_NAME|${bucket_name}|g; s|PATCH_BUCKET_HOST|${bucket_host}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic quay-generated-configuration --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              printf "\nReplacing required information for S3 bucket\n"
+              sed "s|PATCH_BUCKET_USER|${bucket_user}|g; s|PATCH_BUCKET_SECRET|${bucket_secret}|g; s|PATCH_BUCKET_NAME|${bucket_name}|g; s|PATCH_BUCKET_HOST|${bucket_host}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
+              # Set mode to "replace" for possible further string replacements
+              mode="replace"
+
+              {{- if eq ( .authentication_type | toString) "LDAP" }}
+              printf "\nReplacing required information for LDAP Authentication\n"
+
+              sed "s|PATCH_LDAP_ADMIN_DN$|: ${ldap_user}|g; s|PATCH_LDAP_ADMIN_PASSWD$|: ${ldap_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              {{- end }}
+
           volumeMounts:
             - name: bucket-secret
               mountPath: "/tmp/bucket-secret"
@@ -73,10 +99,19 @@ spec:
               mountPath: /tmp/quay-config-skeleton
             - name: quay-bucket
               mountPath: /tmp/quay-bucket
+            {{- if eq ( .authentication_type | toString) "LDAP" }}
+            - name: ldap-secret
+              mountPath: "/tmp/ldap-secret"
+            {{- end }}
       volumes:
         - name: bucket-secret
           secret:
             secretName: {{ .bucket.name }}
+        {{- if eq ( .authentication_type | toString) "LDAP" }}
+        - name: ldap-secret
+          secret:
+            secretName: {{ .ldap_auth_secret }}
+        {{- end }}
         - name: quay-bucket
           configMap:
             name: {{ .bucket.name }}

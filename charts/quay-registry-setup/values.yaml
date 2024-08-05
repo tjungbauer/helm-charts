@@ -342,6 +342,11 @@ quay_configuration:
     # @default -- true
     server_side_assembly: true
 
+  # -- When LDAP authentication is used, a secret with the keys LDAP_ADMIN_DN and LDAP_ADMIN_PASSWD must be created
+  # @section -- Quay Configuration Generic
+  # @default -- N/A
+  ldap_auth_secret: ldap-authentication
+
   bucket:
     # -- S3 Bucket name
     # @section -- Quay Configuration Generic
@@ -568,6 +573,10 @@ quay_configuration:
     # @default -- false
     proxy_storage: false
 
+    # -- Enables Red Hat Quay to act as a pull through cache for upstream registries.
+    # @default -- false
+    proxy_cache: false
+
     # -- If set to true, the _catalog endpoint returns public repositories. Otherwise, only private repositories can be returned.
     # @section -- Quay Configuration Settings
     # @default -- false
@@ -775,13 +784,6 @@ quay_configuration:
   # @default -- 50
   v2_pagination_size: 50
 
-  # -- If team syncing is enabled for a team, how often to check its membership and resync if necessary.<br />
-  # Pattern: ^[0-9]+(w\|m\|d\|h\|s)$<br />
-  # Example: 2h
-  # @section -- Quay Configuration Settings
-  # @default -- 30m
-  team_resync_stale_time: 30m
-
   # -- If enabled, the options that users can select for expiration of tags in their namespace.<br />
   # <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$
   #
@@ -815,8 +817,121 @@ quay_configuration:
   # @default -- true
   create_private_repo_on_push: true
 
+  # -- When set to true, robot accounts are prevented from all interactions, as well as from being created
+  # @default -- false
+  robots_disallow: false
+
+  #######################################################
+  # Quota Management
+  #######################################################
   # -- Enables system default quota reject byte allowance for all organizations.
   # By default, no limit is set. --> 1.073741824e+11
   # @section -- Quay Configuration Settings
+  # @section -- Quay Configuration Settings QUOTA
   # @default -- no limit is set (== 1.073741824e+11)
   default_system_reject_quota_bytes: 1.073741824e+11
+
+  # -- Enables the quota backfill worker to calculate the size of pre-existing blobs.
+  # @default -- true
+  quota_backfill: true
+
+  # -- The time delay for starting the quota backfill. Rolling deployments can cause incorrect totals.
+  # This field must be set to a time longer than it takes for the rolling deployment to complete.
+  # @section -- Quay Configuration Settings QUOTA
+  # @default -- 1800
+  quota_total_delay_seconds: 1800
+
+  # -- Enables functionality related to the removal of tags from the time machine window.
+  # @section -- Quay Configuration Settings QUOTA
+  # @default -- false
+  permanently_delete_tags: false
+
+  # -- Resets the expirations of temporary tags targeting the child manifests.
+  # With this feature set to True, child manifests are immediately garbage collected.
+  # @section -- Quay Configuration Settings QUOTA
+  # @default -- false
+  reset_child_manifest_expiration: false
+
+  #######################################################
+  # LDAP Authentication
+  # When enabled, authentication_type must be set to LDAP
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-ldap
+  #######################################################
+
+  # -- Whether to allow for team membership to be synced from a backing group in the authentication engine (OIDC, LDAP, or Keystone).
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- true
+  feature_team_syncing: true
+
+  # -- If enabled, non-superusers can setup team syncrhonization.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- false
+  feature_nonsuperuser_team_syncing_setup: false
+
+  # -- Whether or not to allow SSL insecure fallback for LDAP authentication.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- false
+  ldap_allow_insecure_fallback: false
+
+  # -- The base DN for LDAP authentication. (Array of Strings)
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- N/A
+  ldap_base_dn: []
+
+  # -- The email attribute for LDAP authentication.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- N/A
+  ldap_email_attr: 'mail'
+
+  # -- The uid attribute for LDAP authentication.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- uid
+  ldap_uid_attr: uid
+
+  # -- The LDAP URI
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- ''
+  ldap_uri: ''
+
+  # -- The user filter for LDAP authentication
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- ''
+  ldap_user_filter: ''
+
+  # -- The user RDN for LDAP authentication.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- N/A
+  ldap_user_rdn: []
+
+  # -- If team syncing is enabled for a team, how often to check its membership and resync if necessary.<br />
+  # <b>Pattern</b>: ^[0-9]+(w\|m\|d\|h\|s)$ <br/>
+  # <b>Example</b: 2h
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- 30m
+  team_resync_stale_time: 30m
+
+  # -- Subset of the LDAP_USER_FILTER configuration field. When configured, allows Red Hat Quay administrators the ability to configure
+  # Lightweight Directory Access Protocol (LDAP) users as superusers when Red Hat Quay uses LDAP as its authentication provider.<br /><br />
+  # With this field, administrators can add or remove superusers without having to update the Red Hat Quay configuration file and restart their deployment.<br /><br />
+  # This field requires that your AUTHENTICATION_TYPE is set to LDAP.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- n/a
+  ldap_superuser_filter: ''
+
+  # -- Subset of the LDAP_USER_FILTER configuration field. When configured, allows Red Hat Quay administrators the ability to configure
+  # Lightweight Directory Access Protocol (LDAP) users as restricted users when Red Hat Quay uses LDAP as its authentication provider.<br /><br />
+  # This field requires that your AUTHENTICATION_TYPE is set to LDAP
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- n/a
+  ldap_restricted_user_filter: ''
+
+  # -- Determines the maximum time period. in seconds, allowed for establishing a connection to the Lightweight Directory Access Protocol (LDAP) server.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- 10
+  ldap_timeout: 10
+
+  # -- Defines the maximum time duration, in seconds, that Red Hat Quay waits for a response from the Lightweight Directory Access Protocol (LDAP)
+  # server during network operations.
+  # @section -- Quay Configuration Settings LDAP
+  # @default -- 10
+  ldap_network_timeout: 10

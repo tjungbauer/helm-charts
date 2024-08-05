@@ -19,6 +19,10 @@ data:
     BROWSER_API_CALLS_XHR_ONLY: {{ .browser_api_calls_xhr_only | quote | default "false" | trimAll "\"" }}
     CREATE_PRIVATE_REPO_ON_PUSH: {{ .create_private_repo_on_push | quote | default "true" | trimAll "\"" }}
     DEFAULT_SYSTEM_REJECT_QUOTA_BYTES: {{ .default_system_reject_quota_bytes | quote | default "1.073741824e+11" | trimAll "\"" }}
+    QUOTA_BACKFILL: {{ .quota_backfill | quote | default "true" | trimAll "\"" }}
+    QUOTA_TOTAL_DELAY_SECONDS: {{ .quota_total_delay_seconds | quote | default "1800" | trimAll "\"" }}
+    PERMANENTLY_DELETE_TAGS: {{ .permanently_delete_tags | quote | default "false" | trimAll "\"" }}
+    RESET_CHILD_MANIFEST_EXPIRATION: {{ .reset_child_manifest_expiration | quote | default "false" | trimAll "\"" }}
     DEFAULT_TAG_EXPIRATION: {{ .default_tag_expiration | quote | default "2w" | trimAll "\"" }}
     DISTRIBUTED_STORAGE_CONFIG:
         {{- if .storage }}
@@ -157,6 +161,7 @@ data:
     FEATURE_NONSUPERUSER_TEAM_SYNCING_SETUP: {{ .feature.nonsuperuser_team_syncing_setup | quote | default "false" | trimAll "\"" }}
     FEATURE_PARTIAL_USER_AUTOCOMPLETE: {{ .feature.partial_user_autocomplete | quote | default "true" | trimAll "\"" }}
     FEATURE_PROXY_STORAGE: {{ .feature.proxy_storage | quote | default "false" | trimAll "\"" }}
+    FEATURE_PROXY_CACHE: {{ .feature.proxy_cache | quote | default "false" | trimAll "\"" }}
     FEATURE_PUBLIC_CATALOG: {{ .feature.public_catalog | quote | default "false" | trimAll "\"" }}
     FEATURE_QUOTA_MANAGEMENT: {{ .feature.quota_management | quote | default "false" | trimAll "\"" }}
     FEATURE_RATE_LIMITS: {{ .feature.rate_limits | quote | default "false" | trimAll "\"" }}
@@ -185,10 +190,46 @@ data:
     GITLAB_TRIGGER_KIND: {}
     GLOBAL_PROMETHEUS_STATS_FREQUENCY: 60
     GOOGLE_LOGIN_CONFIG: {}
-    LDAP_ALLOW_INSECURE_FALLBACK: false
-    LDAP_EMAIL_ATTR: mail
-    LDAP_UID_ATTR: uid
-    LDAP_URI: ldap://localhost
+    {{- /* LDAP CONFIGURATION */}}
+    {{- if eq ( .authentication_type | toString) "LDAP" }}
+    LDAP_ADMIN_DN: PATCH_LDAP_ADMIN_DN
+    LDAP_ADMIN_PASSWD: PATCH_LDAP_ADMIN_PASSWD
+    {{- end }}
+    LDAP_ALLOW_INSECURE_FALLBACK: {{ .ldap_allow_insecure_fallback | quote | default "false" | trimAll "\"" }}
+    {{- if .ldap_base_dn }}
+    LDAP_BASE_DN:
+      {{- range .ldap_base_dn }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
+    LDAP_EMAIL_ATTR: {{ .ldap_email_attr | quote | default "mail" | trimAll "\"" }}
+    LDAP_UID_ATTR: {{ .ldap_uid_attr | quote | default "uid" | trimAll "\"" }}
+    LDAP_URI: {{ .ldap_uri | quote | default "ldap://localhost" | trimAll "\"" }}
+    {{- if .ldap_base_dn }}
+    LDAP_USER_FILTER: {{ .ldap_base_dn | quote | trimAll "\"" }}
+    {{- end }}
+    {{- if .ldap_user_rdn }}
+    LDAP_USER_RDN:
+      {{- range .ldap_user_rdn }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
+    {{- if .team_resync_stale_time }}
+    TEAM_RESYNC_STALE_TIME: {{ .team_resync_stale_time | quote | default "30m" | trimAll "\"" }}
+    {{- end }}
+    {{- if .ldap_superuser_filter }}
+    LDAP_SUPERUSER_FILTER: {{ .ldap_superuser_filter | quote | trimAll "\"" }}
+    {{- end }}
+    {{- if .ldap_restricted_user_filter }}
+    LDAP_RESTRICTED_USER_FILTER: {{ .ldap_restricted_user_filter | quote | trimAll "\"" }}
+    {{- end }}
+    {{- if .ldap_timeout }}
+    LDAP_TIMEOUT: {{ .ldap_timeout | quote | default "10" | trimAll "\"" }}
+    {{- end }}
+    {{- if .ldap_network_timeout }}
+    LDAP_NETWORK_TIMEOUT: {{ .ldap_network_timeout | quote | default "10" | trimAll "\"" }}
+    {{- end }}
+    {{- /* END LDAP CONFIGURATION */}}
     LOG_ARCHIVE_LOCATION: default
     LOGS_MODEL: database
     LOGS_MODEL_CONFIG: {}
@@ -233,7 +274,6 @@ data:
       - 2w
       - 4w
     {{- end }}
-    TEAM_RESYNC_STALE_TIME: {{ .team_resync_stale_time | quote | default "30m" | trimAll "\"" }}
     SUPER_USERS:
       - {{ $.Values.quay.init_user.username | default "admin" }}
       {{- if .super_user_list }}
@@ -246,6 +286,7 @@ data:
     USER_RECOVERY_TOKEN_LIFETIME: {{ .user_recovery_token_lifetime | quote | default "30m" | trimAll "\"" }}
     USERFILES_PATH: {{ .userfiles_path | quote | default "userfiles" | trimAll "\"" }}
     V2_PAGINATION_SIZE: {{ .v2_pagination_size | quote | default "50" | trimAll "\"" }}
+    ROBOTS_DISALLOW: {{ .robots_disallow | quote | default "false" | trimAll "\"" }}
     {{- end }}
 {{- end }}
 {{- end }}
