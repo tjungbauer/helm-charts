@@ -62,6 +62,43 @@ spec:
               ldap_password=`cat /tmp/ldap-secret/LDAP_ADMIN_PASSWD`       
               {{- end }}
 
+              #######
+              # OIDC
+              #######
+              
+              {{- if eq ( .authentication_type | toString) "ODIC" }}
+              oidc_user=`cat /tmp/oidc-secret/OIDC_CLIENT_ID`
+
+              oidc_password=`cat /tmp/oidc-secret/OIDC_CLIENT_SECRET`       
+              {{- end }}
+
+              ##############
+              # Github OAUTH
+              ##############
+              {{- if eq (.github_login_config.enabled | toString) "true" }}
+              gh_oauth_user=`cat /tmp/ghoauth-secret/GH_CLIENT_ID`
+
+              gh_oauth_password=`cat /tmp/ghoauth-secret/GH_CLIENT_SECRET` 
+              {{- end }}
+
+              ##############
+              # Google OAUTH
+              ##############
+              {{- if eq (.google_login_config.enabled | toString) "true" }}
+              google_oauth_user=`cat /tmp/google-oauth-secret/GOOGLE_CLIENT_ID`
+
+              google_oauth_password=`cat /tmp/google-oauth-secret/GOOGLE_CLIENT_SECRET` 
+              {{- end }}
+
+              ##############
+              # MAIL CONFIG
+              ##############
+              {{- if eq (.mailing_config.enabled | toString) "true" }}
+              mail_user=`cat /tmp/mail-auth-secret/MAIL_USERNAME`
+
+              mail_password=`cat /tmp/mail-auth-secret/MAIL_PASSWORD` 
+              {{- end }}
+
               mode="replace"
               check=$(oc get secret quay-generated-configuration 2>&1)
               if [ $? == 1 ]
@@ -85,10 +122,54 @@ spec:
               # Set mode to "replace" for possible further string replacements
               mode="replace"
 
+              #######
+              # LDAP
+              #######
+
               {{- if eq ( .authentication_type | toString) "LDAP" }}
               printf "\nReplacing required information for LDAP Authentication\n"
 
               sed "s|PATCH_LDAP_ADMIN_DN$|: ${ldap_user}|g; s|PATCH_LDAP_ADMIN_PASSWD$|: ${ldap_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              {{- end }}
+
+              #######
+              # OIDC
+              #######
+
+              {{- if eq ( .authentication_type | toString) "OIDC" }}
+              printf "\nReplacing required information for ODIC Authentication\n"
+
+              sed "s|PATCH_OIDC_CLIENT_ID$|: ${oidc_user}|g; s|PATCH_OIDC_CLIENT_SECRET$|: ${oidc_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              {{- end }}
+              
+              ##############
+              # Google OAUTH
+              ##############
+              {{- if eq (.google_login_config.enabled | toString) "true" }}
+              printf "\nReplacing required information for Google OAUTH\n"
+
+              sed "s|PATCH_GOOGLE_CLIENT_ID$|: ${google_oauth_user}|g; s|PATCH_GOOGLE_CLIENT_SECRET$|: ${google_oauth_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
+              {{- end }}
+
+              ##############
+              # Github OAUTH
+              ##############
+              {{- if eq (.github_login_config.enabled | toString) "true" }}
+              printf "\nReplacing required information for Github OAUTH\n"
+
+              sed "s|PATCH_GITHUB_CLIENT_ID$|: ${gh_oauth_user}|g; s|PATCH_GITHUB_CLIENT_SECRET$|: ${gh_oauth_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
+              {{- end }}
+
+              ##############
+              # MAIL CONFIG
+              ##############
+              {{- if eq (.mailing_config.enabled | toString) "true" }}
+              printf "\nReplacing required information for Github OAUTH\n"
+
+              sed "s|PATCH_MAIL_USER$|: ${mail_user}|g; s|PATCH_MAIL_PASSWORD$|: ${mail_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
               {{- end }}
 
           volumeMounts:
@@ -103,6 +184,22 @@ spec:
             - name: ldap-secret
               mountPath: "/tmp/ldap-secret"
             {{- end }}
+            {{- if eq ( .authentication_type | toString) "OIDC" }}
+            - name: oidc-secret
+              mountPath: "/tmp/oidc-secret"
+            {{- end }}
+            {{- if eq (.github_login_config.enabled | toString) "true" }}
+            - name: github-oauth
+              mountPath: "/tmp/ghoauth-secret"
+            {{- end }}
+            {{- if eq (.google_login_config.enabled | toString) "true" }}
+            - name: google-oauth
+              mountPath: "/tmp/google-oauth-secret"
+            {{- end }}
+            {{- if eq (.mailing_config.enabled | toString) "true" }}
+            - name: mail-auth
+              mountPath: "/tmp/mail-auth-secret"
+            {{- end }}
       volumes:
         - name: bucket-secret
           secret:
@@ -111,6 +208,26 @@ spec:
         - name: ldap-secret
           secret:
             secretName: {{ .ldap_auth_secret }}
+        {{- end }}
+        {{- if eq ( .authentication_type | toString) "OIDC" }}
+        - name: oidc-secret
+          secret:
+            secretName: {{ .oidc_login_config.oidc_auth_secret }}
+        {{- end }}
+        {{- if eq ( .github_login_config.enabled | toString) "true" }}
+        - name: github-oauth
+          secret:
+            secretName: {{ .github_login_config.github_oauth_secret }}
+        {{- end }}
+        {{- if eq ( .google_login_config.enabled | toString) "true" }}
+        - name: google-oauth
+          secret:
+            secretName: {{ .google_login_config.google_oauth_secret }}
+        {{- end }}
+        {{- if eq ( .mailing_config.enabled | toString) "true" }}
+        - name: mail-auth
+          secret:
+            secretName: {{ .mailing_config.mail_auth_secret }}
         {{- end }}
         - name: quay-bucket
           configMap:

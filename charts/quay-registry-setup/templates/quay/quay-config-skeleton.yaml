@@ -184,12 +184,49 @@ data:
     FEATURE_USER_RENAME: {{ .feature.user_rename | quote | default "false" | trimAll "\"" }}
     FEATURE_USERNAME_CONFIRMATION: {{ .feature.username_confirmation | quote | default "false" | trimAll "\"" }}
     FRESH_LOGIN_TIMEOUT: {{ .fresh_login_timeout | quote | default "5m" | trimAll "\"" }}
+    {{- /* GITHUB OAUTH CONFIGURATION */}}
+    {{- if .github_login_config }}
+    {{- if eq (.github_login_config.enabled | toString) "true" }}
+    GITHUB_LOGIN_CONFIG:
+      {{- with .github_login_config }}
+      {{- if .allowed_organizations }}
+      ALLOWED_ORGANIZATIONS:
+        {{- range .allowed_organizations }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .api_enpoint }}
+      API_ENDPOINT: {{ .api_enpoint | quote | default "" | trimAll "\"" }}
+      {{- end }}
+      CLIENT_ID: PATCH_GITHUB_CLIENT_ID
+      CLIENT_SECRET: PATCH_GITHUB_CLIENT_SECRET
+      {{- if .github_endpoint }}
+      GITHUB_ENDPOINT: {{ .github_endpoint | quote | default "" | trimAll "\"" }}
+      {{- end }}
+      {{- if .org_restrict }}
+      ORG_RESTRICT: {{ .org_restrict | quote | default "false" | trimAll "\"" }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- else }}
     GITHUB_LOGIN_CONFIG: {}
+    {{- end }}
+    {{- /* END GITHUB OAUTH CONFIGURATION */}}
     GITHUB_TRIGGER_CONFIG: {}
     GITLAB_TRIGGER_CONFIG: {}
     GITLAB_TRIGGER_KIND: {}
     GLOBAL_PROMETHEUS_STATS_FREQUENCY: 60
+    {{- /* END GOOGLE OAUTH CONFIGURATION */}}
+    {{- if .google }}
+    {{- if eq (.google.enabled | toString) "true" }}    
+    GOOGLE_LOGIN_CONFIG:
+      CLIENT_ID: PATCH_GOOGLE_CLIENT_ID
+      CLIENT_SECRET: PATCH_GOOGLE_CLIENT_SECRET
+    {{- end }}
+    {{- else }}
     GOOGLE_LOGIN_CONFIG: {}
+    {{- end }}
+    {{- /* END GOOGLE OAUTH CONFIGURATION */}}
     {{- /* LDAP CONFIGURATION */}}
     {{- if eq ( .authentication_type | toString) "LDAP" }}
     LDAP_ADMIN_DN: PATCH_LDAP_ADMIN_DN
@@ -213,7 +250,6 @@ data:
       {{- range .ldap_user_rdn }}
       - {{ . }}
       {{- end }}
-    {{- end }}
     {{- if .team_resync_stale_time }}
     TEAM_RESYNC_STALE_TIME: {{ .team_resync_stale_time | quote | default "30m" | trimAll "\"" }}
     {{- end }}
@@ -230,13 +266,65 @@ data:
     LDAP_NETWORK_TIMEOUT: {{ .ldap_network_timeout | quote | default "10" | trimAll "\"" }}
     {{- end }}
     {{- /* END LDAP CONFIGURATION */}}
+    {{- /* OIDC CONFIGURATION */}}
+    {{- end }}
+    {{- if .oidc_login_config }}
+    {{- if eq (.oidc_login_config.enabled | toString) "true" }}
+    {{- if eq ( .authentication_type | toString) "OIDC" }}
+    {{- with .oidc_login_config }}
+    {{ .oidc_name | upper }}_LOGIN_CONFIG:
+      CLIENT_ID: PATCH_OIDC_CLIENT_ID
+      CLIENT_SECRET: PATCH_OIDC_CLIENT_SECRET
+      OIDC_SERVER: {{ .oidc_server | quote | default "" | trimAll "\"" }}
+      SERVICE_NAME: {{ .oidc_service_name | quote | default "" | trimAll "\"" }}
+      DEBUGLOG: {{ .oidc_debuglog | quote | default "false" | trimAll "\"" }}
+      {{- if .oidc_login_binding_fields }}
+      LOGIN_BINDING_FIELDS: {{ .oidc_login_binding_fields | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_login_scopes }}
+      LOGIN_SCOPES: {{ .oidc_login_scopes | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_endpoint_custom_params }}
+      OIDC_ENDPOINT_CUSTOM_PARAMS: {{ .oidc_endpoint_custom_params | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_issuer }}
+      OIDC_ISSUER: {{ .oidc_issuer | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_preferred_username_claim_name }}
+      PREFERRED_USERNAME_CLAIM_NAME: {{ .oidc_preferred_username_claim_name | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_service_icon }}
+      SERVICE_ICON: {{ .oidc_service_icon | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_verified_email_claim_name }}
+      VERIFIED_EMAIL_CLAIM_NAME: {{ .oidc_verified_email_claim_name | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .oidc_preferred_group_claim_name }}
+      PREFERRED_GROUP_CLAIM_NAME: {{ .oidc_preferred_group_claim_name | quote | trimAll "\"" }}
+      {{- end }}
+      OIDC_DISABLE_USER_ENDPOINT: {{ .oidc_disable_user_endpoint | quote | default "false" | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* END OIDC CONFIGURATION */}}
     LOG_ARCHIVE_LOCATION: default
     LOGS_MODEL: database
     LOGS_MODEL_CONFIG: {}
-    MAIL_DEFAULT_SENDER: support@example.com
-    MAIL_PORT: 587
-    MAIL_USE_AUTH: false
-    MAIL_USE_TLS: true
+    {{- /* MAIL CONFIGURATION */}}
+    {{- if eq (.mailing_config.enabled | toString) "true" }}
+    {{- if eq ( .feature.mailing| toString) "true" }}
+    {{- with .mailing_config }}
+    MAIL_PASSWORD: PATCH_MAIL_PASSWORD
+    MAIL_USERNAME: PATCH_MAIL_USER
+    MAIL_SERVER: {{ .mail_server | quote | trimAll "\"" }}
+    MAIL_DEFAULT_SENDER: {{ .mail_default_sender | quote | default "support@quay.io" | trimAll "\"" }}
+    MAIL_PORT: {{ .mail_port | quote | default "587" | trimAll "\"" }}
+    MAIL_USE_TLS: {{ .mail_use_tls | quote | default "true" | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* END MAIL CONFIGURATION */}}
     MAXIMUM_LAYER_SIZE: {{ .maximum_layer_size | quote | default "20G" | trimAll "\"" }}
     PREFERRED_URL_SCHEME: {{ .preferred_url_scheme | quote | default "http" | trimAll "\"" }}
     QUEUE_WORKER_METRICS_REFRESH_SECONDS: 30

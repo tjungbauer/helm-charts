@@ -605,8 +605,8 @@ quay_configuration:
 
     # -- If set to true, enables repository mirroring.
     # @section -- Quay Configuration Settings
-    # @default -- true
-    repo_mirror: true
+    # @default -- false
+    repo_mirror: false
 
     # -- If set to true, only namespaces listed in V1_PUSH_WHITELIST support V1 push
     # @section -- Quay Configuration Settings
@@ -635,8 +635,8 @@ quay_configuration:
 
     # -- When set, allows users to try the beta UI environment.
     # @section -- Quay Configuration Settings
-    # @default -- true
-    ui_v2: true
+    # @default -- false
+    ui_v2: false
 
     # -- Enables repository settings in the beta UI Environment
     # @section -- Quay Configuration Settings
@@ -935,3 +935,190 @@ quay_configuration:
   # @section -- Quay Configuration Settings LDAP
   # @default -- 10
   ldap_network_timeout: 10
+
+  #######################################################
+  # GITHUB OAuth
+  # Configuration for using GitHub (Enterprise) as an external login provider.
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#github-oauth-config-fields
+  #######################################################
+
+  # -- Configuration for using GitHub (Enterprise) as an external login provider.
+  # @section -- GitHub Oauth
+  github_login_config:
+
+    # -- Enable GitHub Oauth
+    # @section -- GitHub Oauth
+    # @default -- false
+    enabled: false
+
+    # -- When GitHub OAuth is used, a secret with the keys GH_CLIENT_ID and GH_CLIENT_SECRET must be created
+    # @section -- GitHub Oauth
+    # @default -- N/A
+    github_oauth_secret: github-oauth
+
+    # -- The names of the GitHub (Enterprise) organizations whitelisted to work with the ORG_RESTRICT option.
+    # @section -- GitHub Oauth
+    # @default -- N/A
+    allowed_organizations: []
+
+    # -- The endpoint of the GitHub (Enterprise) API to use. Must be overridden for github.com
+    # <b>Example<b>: https://api.github.com/
+    # @section -- GitHub Oauth
+    # @default -- N/A
+    api_enpoint: ''
+
+    # -- The endpoint for GitHub (Enterprise).
+    # <b>Example<b>: https://github.com/
+    # @section -- GitHub Oauth
+    # @default -- N/A
+    github_endpoint: ''
+
+    # -- If true, only users within the organization whitelist can login using this provider.
+    # @section -- GitHub Oauth
+    # @default -- false
+    org_restrict: false
+
+  #######################################################
+  # GOOGLE OAuth
+  # Configuration for using Google Oauth login provider.
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#google-oauth-config-fields
+  #######################################################
+
+  # -- Configuration for using Google as OAuth provider.
+  # @section -- Google Oauth
+  google_login_config:
+
+    # -- Enable Google Oauth
+    # @section -- Google Oauth
+    # @default -- false
+    enabled: false
+
+    # -- When Google OAuth is used, a secret with the keys GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be created
+    # @section -- Google Oauth
+    # @default -- N/A
+    google_oauth_secret: google-oauth
+
+  #######################################################
+  # OIDC Authentication
+  # Configuration OIDC Authentication
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#oidc-config-fields
+  #######################################################
+  oidc_login_config:
+
+    # -- Enable OIDC Oauth
+    # @section -- OIDC Oauth
+    # @default -- false
+    enabled: false
+
+    # -- The parent key that holds the OIDC configuration settings. Typically the name of the OIDC provider, for example, AZURE_LOGIN_CONFIG, however any arbitrary string is accepted.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_name: ''
+
+    # -- When OIDC OAuth is used, a secret with the keys OIDC_CLIENT_ID and OIDC_CLIENT_SECRET must be created
+    # @section -- OIDC Oauth
+    # @default -- ''
+    github_oauth_secret: github-oauth
+
+    # -- Whether to enable debugging.
+    # @section -- OIDC Oauth
+    # @default -- false
+    oidc_debuglog: false
+
+    # -- Used when the internal authorization is set to LDAP. Red Hat Quay reads this parameter and tries to
+    # search through the LDAP tree for the user with this username. If it exists, it automatically creates a link to that LDAP account.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_login_binding_fields: ''
+
+    # -- Adds additional scopes that Red Hat Quay uses to communicate with the OIDC provider.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_login_scopes: ''
+
+    # -- Support for custom query parameters on OIDC endpoints. The following endpoints are supported: authorization_endpoint, token_endpoint, and user_endpoint.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_endpoint_custom_params: ''
+
+    # -- Allows the user to define the issuer to verify. For example, JWT tokens container a parameter known as iss which defines who issued the token.
+    # By default, this is read from the .well-know/openid/configuration endpoint, which is exposed by every OIDC provider. If this verification fails, there is no login.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_issuer: ''
+
+    # -- The address of the OIDC server that is being used for authentication.<br />
+    # Example: https://sts.windows.net/6c878…​/
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_server: https://server
+
+    # -- Sets the preferred username to a parameter from the token.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_preferred_username_claim_name: ''
+
+    # -- Changes the icon on the login screen.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_service_icon: ''
+
+    # -- The name of the service that is being authenticated.<br />
+    # Example: Microsoft Entra ID
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_service_name: ''
+
+    # -- The name of the claim that is used to verify the email address of the user.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_verified_email_claim_name: ''
+
+    # -- The key name within the OIDC token payload that holds information about the user’s group memberships.
+    # @section -- OIDC Oauth
+    # @default -- N/A
+    oidc_preferred_group_claim_name: ''
+
+    # -- Whether to allow or disable the /userinfo endpoint. If using Azure Entra ID, this field must be set to true because Azure obtains the user’s information from the token instead of calling the /userinfo endpoint.
+    # @section -- OIDC Oauth
+    # @default -- false
+    oidc_disable_user_endpoint: false
+
+  #######################################################
+  # Mailing Configuration
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-mail
+  #######################################################
+  # -- Configuration for using Google as OAuth provider.
+  # @section -- Mailing Configuration
+  mailing_config:
+
+    # -- Enable Mailing Configuration
+    # @section -- Mailing Configuration
+    # @default -- false
+    enabled: false
+
+    # -- When Mailing is used and the server required authentication, a secret with the keys MAIL_USERNAME and MAIL_PASSWORD must be created
+    # @section -- Mailing Configuration
+    # @default -- N/A
+    mail_auth_secret: mail-auth
+
+    # -- If specified, the e-mail address used as the from when Red Hat Quay sends e-mails. If none, defaults to support@quay.io<br />
+    # Example: support@example.com
+    # @section -- Mailing Configuration
+    # @default -- support@quay.io
+    mail_default_sender: 'support@quay.io'
+
+    # -- The SMTP port to use. If not specified, defaults to 587.
+    # @section -- Mailing Configuration
+    # @default -- 587
+    mail_port: 587
+
+    # -- The SMTP server to use for sending e-mails. Only required if FEATURE_MAILING is set to true.
+    # @section -- Mailing Configuration
+    # @default -- ''
+    mail_server: ''
+
+    # -- If specified, whether to use TLS for sending e-mails.
+    # @section -- Mailing Configuration
+    # @default -- true
+    mail_use_tls: true
