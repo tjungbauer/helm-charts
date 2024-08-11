@@ -16,6 +16,18 @@ data:
     ALLOW_PULLS_WITHOUT_STRICT_LOGGING: {{ .allow_pulls_without_strict_logging | quote | default "false" | trimAll "\"" }}
     AUTHENTICATION_TYPE: {{ .authentication_type | quote | default "Database" | trimAll "\"" }}
     AVATAR_KIND: {{ .avatar_kind | quote | default "local" | trimAll "\"" }}
+    {{- if .branding }}
+    BRANDING:
+      {{- if .branding.logo }}
+      logo: {{ .branding.logo | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .branding.footer_img }}
+      footer_img: {{ .branding.footer_img | quote | trimAll "\"" }}
+      {{- end }}
+      {{- if .branding.footer_url }}
+      footer_url: {{ .branding.footer_url | quote | trimAll "\"" }}
+      {{- end }}
+    {{- end }}
     BROWSER_API_CALLS_XHR_ONLY: {{ .browser_api_calls_xhr_only | quote | default "false" | trimAll "\"" }}
     CREATE_PRIVATE_REPO_ON_PUSH: {{ .create_private_repo_on_push | quote | default "true" | trimAll "\"" }}
     DEFAULT_SYSTEM_REJECT_QUOTA_BYTES: {{ .default_system_reject_quota_bytes | quote | default "1.073741824e+11" | trimAll "\"" }}
@@ -133,9 +145,8 @@ data:
     DISTRIBUTED_STORAGE_PREFERENCE:
       - default
     {{- end }}
-    USERFILES_LOCATION: default
     ENTERPRISE_LOGO_URL: /static/img/RH_Logo_Quay_Black_UX-horizontal.svg
-    EXTERNAL_TLS_TERMINATION: false
+    EXTERNAL_TLS_TERMINATION: {{ .external_tls_termination | quote | default "false" | trimAll "\"" }}
     FEATURE_ACTION_LOG_ROTATION: {{ .feature.action_log_rotation | quote | default "false" | trimAll "\"" }}
     FEATURE_AGGREGATED_LOG_COUNT_RETRIEVAL: {{ .feature.aggregated_log_count_retrieval | quote | default "true" | trimAll "\"" }}
     FEATURE_ANONYMOUS_ACCESS: {{ .feature.anonymous_access | quote | default "true" | trimAll "\"" }}
@@ -168,11 +179,14 @@ data:
     FEATURE_READER_BUILD_LOGS: {{ .feature.reader_build_logs | quote | default "false" | trimAll "\"" }}
     FEATURE_RECAPTCHA: {{ .feature.recaptcha | quote | default "false" | trimAll "\"" }}
     FEATURE_REPO_MIRROR: {{ .feature.repo_mirror | quote | default "true" | trimAll "\"" }}
+    FEATURE_RESTRICTED_USERS: {{ .feature.restricted_users | quote | default "false" | trimAll "\"" }}
     FEATURE_RESTRICTED_V1_PUSH: {{ .feature.restricted_v1_push | quote | default "true" | trimAll "\"" }}
     FEATURE_SECURITY_NOTIFICATIONS: {{ .feature.security_notifications | quote | default "false" | trimAll "\"" }}
     FEATURE_SIGNING: {{ .feature.signing | quote | default "false" | trimAll "\"" }} <<
     FEATURE_STORAGE_REPLICATION: {{ .feature.storage_replication | quote | default "false" | trimAll "\"" }}
     FEATURE_SUPER_USERS: {{ .feature.super_users | quote | default "true" | trimAll "\"" }}
+    FEATURE_SUPERUSERS_FULL_ACCESS: {{ .feature.superusers_full_access | quote | default "false" | trimAll "\"" }}
+    FEATURE_SUPERUSERS_ORG_CREATION_ONLY: {{ .feature.superusers_org_creation_only | quote | default "false" | trimAll "\"" }}
     FEATURE_TEAM_SYNCING: {{ .feature.team_syncing | quote | default "true" | trimAll "\"" }}
     FEATURE_UI_V2: {{ .feature.ui_v2 | quote | default "true" | trimAll "\"" }}
     FEATURE_UI_V2_REPO_SETTINGS: {{ .feature.ui_v2_repo_settings | quote | default "false" | trimAll "\"" }}
@@ -308,9 +322,80 @@ data:
     {{- end }}
     {{- end }}
     {{- /* END OIDC CONFIGURATION */}}
-    LOG_ARCHIVE_LOCATION: default
-    LOGS_MODEL: database
+    {{- /* BUILD LOG CONFIGURATION */}}
+    {{- if eq ( .feature.reader_build_logs| toString) "true" }}
+    LOG_ARCHIVE_LOCATION: {{ .log_archive_location | quote | default "default" | trimAll "\"" }}
+    LOG_ARCHIVE_PATH: {{ .log_archive_path | quote | default "" | trimAll "\"" }}
+    {{- end }}
+    {{- /* END BUILD LOG CONFIGURATION */}}
+    {{- /* ACTION LOG CONFIGURATION */}}
+    {{- if eq ( .feature.log_export| toString) "true" }}
+    LOGS_MODEL: {{ .logs_model | quote | default "database" | trimAll "\"" }}
+    {{- end }}
+    {{- if eq ( .feature.log_export| toString) "true" }}
+    {{- if eq ( .logs_model | toString) "elasticsearch" }}
+    {{- if eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true" }}
+    LOGS_MODEL_CONFIG:
+      producer: elasticsearch
+      elasticsearch_config:
+        access_key: PATCH_ACCESS_KEY
+        secret_key: PATH_SECRET_KEY
+        host: {{ .logs_model_config.elasticsearch_config.host | quote | trimAll "\"" }}
+        port: {{ .logs_model_config.elasticsearch_config.port | quote | trimAll "\"" }}
+        use_ssl: {{ .logs_model_config.elasticsearch_config.use_ssl | quote | default "true" | trimAll "\"" }}
+        aws_region: {{ .logs_model_config.elasticsearch_config.aws_region | quote | trimAll "\"" }}
+        index_prefix: {{ .logs_model_config.elasticsearch_config.index_prefix | quote | trimAll "\"" }}
+        index_settings: {{ .logs_model_config.elasticsearch_config.index_settings | quote | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- if eq ( .logs_model | toString) "elasticsearch" }}
+    {{- if eq ( .logs_model_config.kinesis_steam_config.enabled| toString) "true" }}
+    LOGS_MODEL_CONFIG:
+      producer: kinesis_stream
+      kinesis_stream_config:
+        access_key: PATCH_ACCESS_KEY
+        secret_key: PATH_SECRET_KEY
+        stream_name: {{ .logs_model_config.kinesis_stream_config.stream_name | quote | trimAll "\"" }}
+        retries: {{ .logs_model_config.kinesis_stream_config.retries | quote | trimAll "\"" }}
+        read_timeout: {{ .logs_model_config.kinesis_stream_config.read_timeout | quote | default "true" | trimAll "\"" }}
+        max_pool_connections: {{ .logs_model_config.kinesis_stream_config.max_pool_connections | quote | trimAll "\"" }}
+        aws_region: {{ .logs_model_config.kinesis_stream_config.aws_region | quote | trimAll "\"" }}
+        connect_timeout: {{ .logs_model_config.kinesis_stream_config.connect_timeout | quote | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- if eq ( .logs_model | toString) "kafka" }}
+    {{- if eq ( .logs_model_config.kafka_config.enabled| toString) "true" }}
+    LOGS_MODEL_CONFIG:
+      producer: kafka
+      kafka_config:
+        topic: {{ .logs_model_config.kafka_config.topic | quote | trimAll "\"" }}
+        bootstrap_servers: {{ .logs_model_config.kafka_config.bootstrap_servers | quote | trimAll "\"" }}
+        max_block_seconds: {{ .logs_model_config.kafka_config.max_block_seconds | quote | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- if eq ( .logs_model | toString) "splunk" }}
+    {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+    LOGS_MODEL_CONFIG:
+      producer: splunk
+      splunk_config:
+        host: {{ .logs_model_config.splunk_config.host | quote | trimAll "\"" }}
+        port: {{ .logs_model_config.splunk_config.port | quote | trimAll "\"" }}
+        bearer_token: PATH_SPLUNK_TOKEN
+        verify_ssl: {{ .logs_model_config.splunk_config.verify_ssl | quote | default "true" | trimAll "\"" }}
+        index_prefix: {{ .logs_model_config.splunk_config.index_prefix | quote | trimAll "\"" }}
+        ssl_ca_path: {{ .logs_model_config.splunk_config.ssl_ca_path | quote | trimAll "\"" }}
+    {{- end }}
+    {{- end }}
+    {{- else }}
     LOGS_MODEL_CONFIG: {}
+    {{- end }}
+    {{- if eq ( .feature.action_log_rotation| toString) "true" }}
+    ACTION_LOG_ARCHIVE_LOCATION: {{ .action_log_archive_location | quote | default "" | trimAll "\"" }}
+    ACTION_LOG_ARCHIVE_PATH: {{ .action_log_archive_path | quote | default "" | trimAll "\"" }}
+    ACTION_LOG_ROTATION_THRESHOLD: {{ .action_log_rotation_threshold | quote | default "30d" | trimAll "\"" }}
+    {{- end }}
+    ACTION_LOG_AUDIT_LOGINS: {{ .action_log_audit_logins | quote | default "true" | trimAll "\"" }}
+    {{- /* END ACTION LOG CONFIGURATION */}}
     {{- /* MAIL CONFIGURATION */}}
     {{- if eq (.mailing_config.enabled | toString) "true" }}
     {{- if eq ( .feature.mailing| toString) "true" }}
@@ -327,13 +412,24 @@ data:
     {{- /* END MAIL CONFIGURATION */}}
     MAXIMUM_LAYER_SIZE: {{ .maximum_layer_size | quote | default "20G" | trimAll "\"" }}
     PREFERRED_URL_SCHEME: {{ .preferred_url_scheme | quote | default "http" | trimAll "\"" }}
-    QUEUE_WORKER_METRICS_REFRESH_SECONDS: 30
     REGISTRY_STATE: {{ .registry_state | quote | default "normal" | trimAll "\"" }}
     REGISTRY_TITLE: {{ .registry_title | quote | default "Red Hat Quay" | trimAll "\"" }}
     REGISTRY_TITLE_SHORT: {{ .registry_title_short | quote | default "Red Hat Quay" | trimAll "\"" }}
     REPO_MIRROR_INTERVAL: {{ .repo_mirror_interval | quote | default "30" | trimAll "\"" }}
     REPO_MIRROR_ROLLBACK: {{ .repo_mirror_rollback | quote | default "false" | trimAll "\"" }}
     REPO_MIRROR_TLS_VERIFY: {{ .repo_mirror_tls_verify | quote | default "false" | trimAll "\"" }}
+    {{- if .restricted_users_whitelist }}
+    RESTRICTED_USERS_WHITELIST:
+      {{- range .restricted_users_whitelist }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
+    {{- if .global_readonly_super_users }}
+    GLOBAL_READONLY_SUPER_USERS:
+      {{- range .global_readonly_super_users }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
     SEARCH_MAX_RESULT_PAGE_COUNT: {{ .search_max_result_page_count | quote | default "10" | trimAll "\"" }}
     SEARCH_RESULTS_PER_PAGE: {{ .search_results_per_page | quote | default "10" | trimAll "\"" }}
     SECRET_KEY: 386de725-b366-4dc1-b30a-93de7e1f15a7
@@ -369,9 +465,9 @@ data:
       - {{ . }}
       {{- end }}
       {{- end }}
-    TEAM_SYNC_WORKER_FREQUENCY: 60
     TESTING: false
     USER_RECOVERY_TOKEN_LIFETIME: {{ .user_recovery_token_lifetime | quote | default "30m" | trimAll "\"" }}
+    USERFILES_LOCATION: {{ .userfiles_location | quote | default "default" | trimAll "\"" }}
     USERFILES_PATH: {{ .userfiles_path | quote | default "userfiles" | trimAll "\"" }}
     V2_PAGINATION_SIZE: {{ .v2_pagination_size | quote | default "50" | trimAll "\"" }}
     ROBOTS_DISALLOW: {{ .robots_disallow | quote | default "false" | trimAll "\"" }}

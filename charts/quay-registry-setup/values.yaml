@@ -435,10 +435,41 @@ quay_configuration:
   # @default -- Database
   authentication_type: Database
 
+  # -- Custom branding for logos and URLs in the Red Hat Quay UI.
+  # @section -- Quay Configuration Settings
+  branding:
+
+    # -- Main logo image URL.<br />
+    # The header logo defaults to 205x30 PX. The form logo on the Red Hat Quay sign in screen of the web UI defaults to 356.5x39.7 PX.<br />
+    # Example:<br />
+    # /static/img/quay-horizontal-color.svg
+    # @section -- Quay Configuration Settings
+    # @default -- N/A
+    logo: ''
+
+    # -- Logo for UI footer. Defaults to 144x34 PX.<br />
+    # Example:<br />
+    # /static/img/RedHat.svg
+    # @section -- Quay Configuration Settings
+    # @default -- N/A
+    footer_img: ''
+
+    # -- Link for footer image.<br />
+    # Example:<br />
+    # https://redhat.com
+    # @section -- Quay Configuration Settings
+    # @default -- N/A
+    footer_url: ''
+
   # -- If enabled, only API calls marked as being made by an XHR will be allowed from browsers
   # @section -- Quay Configuration Settings
   # @default -- false
   browser_api_calls_xhr_only: false
+
+  # -- Set to true if TLS is supported, but terminated at a layer before Quay. Set to false when Quay is running with its own SSL certificates and receiving TLS traffic directly.
+  # @section -- Quay Configuration Settings
+  # @default -- false
+  external_tls_termination: false
 
   # Additional features that can be activated or deactivated
   # @section -- Quay Configuration Settings
@@ -613,6 +644,12 @@ quay_configuration:
     # @default -- true
     restricted_v1_push: true
 
+    # -- When set with RESTRICTED_USERS_WHITELIST, restricted users cannot create organizations or content in their own namespace.
+    # Normal permissions apply for an organization’s membership, for example, a restricted user will still have normal permissions in organizations based on the teams that they are members of.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    restricted_users: false
+
     # -- If the security scanner is enabled, turn on or turn off security notifications
     # @section -- Quay Configuration Settings
     # @default -- false
@@ -627,6 +664,16 @@ quay_configuration:
     # @section -- Quay Configuration Settings
     # @default -- true
     super_users: true
+
+    # -- Grants superusers the ability to read, write, and delete content from other repositories in namespaces that they do not own or have explicit permissions for.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    superusers_full_access: false
+
+    # -- Whether to only allow superusers to create organizations.
+    # @section -- Quay Configuration Settings
+    # @default -- false
+    superusers_org_creation_only: false
 
     # -- Whether to allow for team membership to be synced from a backing group in the authentication engine (LDAP or Keystone).
     # @section -- Quay Configuration Settings
@@ -733,6 +780,16 @@ quay_configuration:
   # @default -- false
   repo_mirror_tls_verify: false
 
+  # -- When set with FEATURE_RESTRICTED_USERS: true, specific users are excluded from the FEATURE_RESTRICTED_USERS setting.
+  # @section -- Quay Configuration Settings
+  # @default -- []
+  restricted_users_whitelist: []
+
+  # -- When set, grants users of this list read access to all repositories, regardless of whether they are public repositories.
+  # @section -- Quay Configuration Settings
+  # @default -- []
+  global_readonly_super_users: []
+
   # -- Maximum number of pages the user can paginate in search before they are limited
   # @section -- Quay Configuration Settings
   # @default -- 10
@@ -772,6 +829,12 @@ quay_configuration:
   # @section -- Quay Configuration Settings
   # @default -- 30m
   user_recovery_token_lifetime: 30m
+
+  # -- ID of the storage engine in which to place user-uploaded files<br />
+  # Example: s3_us_east
+  # @section -- Quay Configuration Settings
+  # @default -- default
+  userfiles_location: default
 
   # -- Path under storage in which to place user-uploaded files
   # Example: userfiles
@@ -1122,3 +1185,208 @@ quay_configuration:
     # @section -- Mailing Configuration
     # @default -- true
     mail_use_tls: true
+
+  #######################################################
+  # Build Log Configuration
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-build-logs
+  #######################################################
+
+  # -- The storage location, defined in DISTRIBUTED_STORAGE_CONFIG, in which to place the archived build logs.<br/>
+  # Example: s3_us_east
+  # @section -- Build Log Configuration
+  # @default -- default
+  log_archive_location: default
+
+  # -- The path under the configured storage engine in which to place the archived build logs in .JSON format.<br/>
+  # Example: archives/buildlogs
+  # @section -- Build Log Configuration
+  # @default -- N/A
+  log_archive_path: ''
+
+  #######################################################
+  # Action Log Configuration
+  # see: https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-actionlog
+  #######################################################
+
+  # -- Specifies the preferred method for handling log data.
+  # Values: One of database, transition_reads_both_writes_es, elasticsearch, splunk
+  # @section -- Action Log Configuration
+  # @default -- database
+  logs_model: database
+
+  # Logs model config for action logs.
+  # @section -- Action Log Configuration
+  # @default -- empty
+  logs_model_config:
+
+    # -- Elasticsearch cluster configuration
+    # @section -- Action Log Configuration
+    elasticsearch_config:
+
+      # -- Enable Elasticsearch Log configuration
+      # @section -- Action Log Configuration
+      # @default -- false
+      enabled: false
+
+      # -- To authenticate at Elasticsearch a Secret with the keys ACCESS_KEY and SECRET_KEY must be created
+      # @section -- Action Log Configuration
+      # @default -- N/A
+      log_model_auth: log_model_auth
+
+      #  -- Elasticsearch cluster endpoint.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      host: ''
+
+      # -- Elasticsearch cluster endpoint port.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      port: ''
+
+      # -- Amazon web service region.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      aws_region: ''
+
+      # -- Elasticsearch’s index prefix.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      index_prefix: ''
+
+      # -- Elasticsearch’s index settings
+      # @section -- Action Log Configuration
+      # @default -- ''
+      index_settings: ''
+
+      # -- Use ssl for Elasticsearch.
+      # @section -- Action Log Configuration
+      # @default -- true
+      use_ssl: true
+
+    kinesis_steam_config:
+
+      # -- Enable Kinesis Stream configuration
+      # @section -- Action Log Configuration
+      # @default -- false
+      enabled: false
+
+      # -- To authenticate at AWS_Kinesis Stream a Secret with the keys ACCESS_KEY and SECRET_KEY must be created
+      # @section -- Action Log Configuration
+      # @default -- N/A
+      log_model_auth: log_model_auth
+
+      # -- Kinesis stream to send action logs to.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      stream_name: ''
+
+      # -- Max number of attempts made on a single request.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      retries: ''
+
+      # -- Number of seconds before timeout when reading from a connection.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      read_timeout: ''
+
+      # -- The maximum number of connections to keep in a connection pool.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      max_pool_connections: ''
+
+      # -- AWS region.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      aws_region: ''
+
+      # -- Number of seconds before timeout when attempting to make a connection.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      connect_timout: ''
+
+    # -- Kafka cluster configuration
+    # @section -- Action Log Configuration
+    kafka_config:
+
+      # -- Enable Kafka onfiguration
+      # @section -- Action Log Configuration
+      # @default -- false
+      enabled: false
+
+      # -- Kafka topic to publish log entries to.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      topic: ''
+
+      # -- List of Kafka brokers to bootstrap the client from.
+      # @section -- Action Log Configuration
+      # @default -- []
+      bootstrap_servers: []
+
+      # -- Max number of seconds to block during a send(), either because the buffer is full or metadata unavailable.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      max_block_seconds: ''
+
+    # -- Splunk cluster configuration
+    # @section -- Action Log Configuration
+    splunk_config:
+
+      # -- Enable Splunk onfiguration
+      # @section -- Action Log Configuration
+      # @default -- false
+      enabled: false
+
+      # -- To authenticate at Splunk a Secret with the key TOKEN must be created
+      # @section -- Action Log Configuration
+      # @default -- N/A
+      log_model_auth: log_model_auth
+
+      # -- Splunk cluster endpoint.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      host: ''
+
+      # -- Splunk management cluster endpoint port.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      port: ''
+
+      # -- Enable (True) or disable (False) TLS/SSL verification for HTTPS connections.
+      # @section -- Action Log Configuration
+      # @default -- true
+      verify_ssl: true
+
+      # -- Splunk’s index prefix.
+      # @section -- Action Log Configuration
+      # @default -- ''
+      index_prefix: ''
+
+      # -- The relative container path to a single .pem file containing a certificate authority (CA) for SSL validation
+      # @section -- Action Log Configuration
+      # @default -- ''
+      ssl_ca_path: ''
+
+  # -- If action log archiving is enabled, the storage engine in which to place the archived data.<br >
+  # Example: s3_us_east
+  # @section -- Action Log Configuration
+  # @default -- N/A
+  action_log_archive_location: ''
+
+  # -- If action log archiving is enabled, the path in storage in which to place the archived data.<br />
+  # Example: archives/actionlogs
+  # @section -- Action Log Configuration
+  # @default -- N/A
+  action_log_archive_path: ''
+
+  # -- The time interval after which to rotate logs.<br />
+  # Example: 30d
+  # @section -- Action Log Configuration
+  # @default -- 30d
+  action_log_rotation_threshold: 30d
+
+  # -- When set to True, tracks advanced events such as logging into, and out of, the UI, and logging in using Docker for regular users, robot accounts, and for application-specific token accounts.
+  # @section -- Action Log Configuration
+  # @default -- true
+  action_log_audit_logins: true

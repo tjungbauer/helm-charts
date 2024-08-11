@@ -99,6 +99,36 @@ spec:
               mail_password=`cat /tmp/mail-auth-secret/MAIL_PASSWORD` 
               {{- end }}
 
+              ###########################
+              # Elasticsearch LOG CONFIG
+              ###########################
+
+              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if eq ( .logs_model | toString) "elasticsearch" }}
+              {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+
+              log_access_key=`cat /tmp/log_model_auth/ACCESS_KEY`
+
+              log_secret_key=`cat/tmp/log_model_auth/SECRET_KEY` 
+              {{- end }}
+              {{- end }}
+              {{- end }}
+
+
+              ###########################
+              # Splunk LOG CONFIG
+              ###########################
+
+              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if eq ( .logs_model | toString) "splunk" }}
+              {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+
+              bearer_token=`cat /tmp/log_model_auth/TOKEN`
+
+              {{- end }}
+              {{- end }}
+              {{- end }}
+
               mode="replace"
               check=$(oc get secret quay-generated-configuration 2>&1)
               if [ $? == 1 ]
@@ -172,6 +202,36 @@ spec:
 
               {{- end }}
 
+              ###########################
+              # Elasticsearch LOG CONFIG
+              ###########################
+
+              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if eq ( .logs_model | toString) "elasticsearch" }}
+              {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+              printf "\nReplacing required information for Elasticsearch Log configuration\n"
+
+              sed "s|PATCH_ACCESS_KEY$|: ${log_access_key}|g; s|PATH_SECRET_KEY$|: ${log_secret_key}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
+              {{- end }}
+              {{- end }}
+              {{- end }}
+
+              ###########################
+              # Splunk LOG CONFIG
+              ###########################
+
+              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if eq ( .logs_model | toString) "splunk" }}
+              {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+              printf "\nReplacing required information for Splunk Log configuration\n"
+
+              sed "s|PATH_SPLUNK_TOKEN$|: ${bearer_token}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+
+              {{- end }}
+              {{- end }}
+              {{- end }}
+
           volumeMounts:
             - name: bucket-secret
               mountPath: "/tmp/bucket-secret"
@@ -199,6 +259,22 @@ spec:
             {{- if eq (.mailing_config.enabled | toString) "true" }}
             - name: mail-auth
               mountPath: "/tmp/mail-auth-secret"
+            {{- end }}
+            {{- if eq ( .feature.log_export| toString) "true" }}
+            {{- if eq ( .logs_model | toString) "elasticsearch" }}
+            {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+            - name: log_model_auth
+              mountPath: "/tmp/log_model_auth"
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if eq ( .feature.log_export| toString) "true" }}
+            {{- if eq ( .logs_model | toString) "splunk" }}
+            {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+            - name: log_model_auth
+              mountPath: "/tmp/log_model_auth"
+            {{- end }}
+            {{- end }}
             {{- end }}
       volumes:
         - name: bucket-secret
@@ -228,6 +304,29 @@ spec:
         - name: mail-auth
           secret:
             secretName: {{ .mailing_config.mail_auth_secret }}
+        {{- end }}
+        {{- if eq ( .feature.log_export| toString) "true" }}
+        {{- if eq ( .logs_model | toString) "elasticsearch" }}
+        {{- if eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true" }}
+        - name: log_model_auth
+          secret:
+            secretName: {{ .logs_model_config.elasticsearch_config.log_model_auth }}
+        {{- end }}
+        {{- if eq ( .logs_model_config.kinesis_steam_config.enabled| toString) "true" }}
+        - name: log_model_auth
+          secret:
+            secretName: {{ .logs_model_config.kinesis_steam_config.log_model_auth }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- if eq ( .feature.log_export| toString) "true" }}
+        {{- if eq ( .logs_model | toString) "splunk" }}
+        {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+        - name: log_model_auth
+          secret:
+            secretName: {{ .logs_model_config.splunk_config.log_model_auth }}
+        {{- end }}
+        {{- end }}
         {{- end }}
         - name: quay-bucket
           configMap:

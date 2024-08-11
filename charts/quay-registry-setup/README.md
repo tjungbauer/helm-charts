@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.2](https://img.shields.io/badge/Version-2.0.2-informational?style=flat-square)
+  ![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square)
 
  
 
@@ -141,6 +141,45 @@ Verify the possible sub-charts for additional settings:
 | quay.job_inject_route_cert.sleeptimer | int | 30 | Sleeptime to wait before the certificate is ready |
 | quay.job_inject_route_cert.syncwave | int | 5 | Synvwave for this Job |
 
+### Action Log Configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.action_log_archive_location | string | N/A | If action log archiving is enabled, the storage engine in which to place the archived data.<br > Example: s3_us_east |
+| quay_configuration.action_log_archive_path | string | N/A | If action log archiving is enabled, the path in storage in which to place the archived data.<br /> Example: archives/actionlogs |
+| quay_configuration.action_log_audit_logins | bool | true | When set to True, tracks advanced events such as logging into, and out of, the UI, and logging in using Docker for regular users, robot accounts, and for application-specific token accounts. |
+| quay_configuration.action_log_rotation_threshold | string | 30d | The time interval after which to rotate logs.<br /> Example: 30d |
+| quay_configuration.logs_model | string | database | Specifies the preferred method for handling log data. Values: One of database, transition_reads_both_writes_es, elasticsearch, splunk |
+| quay_configuration.logs_model_config.elasticsearch_config | object | `{"aws_region":"","enabled":false,"host":"","index_prefix":"","index_settings":"","log_model_auth":"log_model_auth","port":"","use_ssl":true}` | Elasticsearch cluster configuration |
+| quay_configuration.logs_model_config.elasticsearch_config.aws_region | string | '' | Amazon web service region. |
+| quay_configuration.logs_model_config.elasticsearch_config.enabled | bool | false | Enable Elasticsearch Log configuration |
+| quay_configuration.logs_model_config.elasticsearch_config.index_prefix | string | '' | Elasticsearch’s index prefix. |
+| quay_configuration.logs_model_config.elasticsearch_config.index_settings | string | '' | Elasticsearch’s index settings |
+| quay_configuration.logs_model_config.elasticsearch_config.log_model_auth | string | N/A | To authenticate at Elasticsearch a Secret with the keys ACCESS_KEY and SECRET_KEY must be created |
+| quay_configuration.logs_model_config.elasticsearch_config.port | string | '' | Elasticsearch cluster endpoint port. |
+| quay_configuration.logs_model_config.elasticsearch_config.use_ssl | bool | true | Use ssl for Elasticsearch. |
+| quay_configuration.logs_model_config.kafka_config | object | `{"bootstrap_servers":[],"enabled":false,"max_block_seconds":"","topic":""}` | Kafka cluster configuration |
+| quay_configuration.logs_model_config.kafka_config.bootstrap_servers | list | [] | List of Kafka brokers to bootstrap the client from. |
+| quay_configuration.logs_model_config.kafka_config.enabled | bool | false | Enable Kafka onfiguration |
+| quay_configuration.logs_model_config.kafka_config.max_block_seconds | string | '' | Max number of seconds to block during a send(), either because the buffer is full or metadata unavailable. |
+| quay_configuration.logs_model_config.kafka_config.topic | string | '' | Kafka topic to publish log entries to. |
+| quay_configuration.logs_model_config.kinesis_steam_config.aws_region | string | '' | AWS region. |
+| quay_configuration.logs_model_config.kinesis_steam_config.connect_timout | string | '' | Number of seconds before timeout when attempting to make a connection. |
+| quay_configuration.logs_model_config.kinesis_steam_config.enabled | bool | false | Enable Kinesis Stream configuration |
+| quay_configuration.logs_model_config.kinesis_steam_config.log_model_auth | string | N/A | To authenticate at AWS_Kinesis Stream a Secret with the keys ACCESS_KEY and SECRET_KEY must be created |
+| quay_configuration.logs_model_config.kinesis_steam_config.max_pool_connections | string | '' | The maximum number of connections to keep in a connection pool. |
+| quay_configuration.logs_model_config.kinesis_steam_config.read_timeout | string | '' | Number of seconds before timeout when reading from a connection. |
+| quay_configuration.logs_model_config.kinesis_steam_config.retries | string | '' | Max number of attempts made on a single request. |
+| quay_configuration.logs_model_config.kinesis_steam_config.stream_name | string | '' | Kinesis stream to send action logs to. |
+| quay_configuration.logs_model_config.splunk_config | object | `{"enabled":false,"host":"","index_prefix":"","log_model_auth":"log_model_auth","port":"","ssl_ca_path":"","verify_ssl":true}` | Splunk cluster configuration |
+| quay_configuration.logs_model_config.splunk_config.enabled | bool | false | Enable Splunk onfiguration |
+| quay_configuration.logs_model_config.splunk_config.host | string | '' | Splunk cluster endpoint. |
+| quay_configuration.logs_model_config.splunk_config.index_prefix | string | '' | Splunk’s index prefix. |
+| quay_configuration.logs_model_config.splunk_config.log_model_auth | string | N/A | To authenticate at Splunk a Secret with the key TOKEN must be created |
+| quay_configuration.logs_model_config.splunk_config.port | string | '' | Splunk management cluster endpoint port. |
+| quay_configuration.logs_model_config.splunk_config.ssl_ca_path | string | '' | The relative container path to a single .pem file containing a certificate authority (CA) for SSL validation |
+| quay_configuration.logs_model_config.splunk_config.verify_ssl | bool | true | Enable (True) or disable (False) TLS/SSL verification for HTTPS connections. |
+
 ### Quay Configuration Settings
 
 | Key | Type | Default | Description |
@@ -148,9 +187,14 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.allow_pulls_without_strict_logging | bool | false | If true, pulls will still succeed even if the pull audit log entry cannot be written. This is useful if the database is in a read-only state and it is desired for pulls to continue during that time. |
 | quay_configuration.authentication_type | string | Database | The authentication engine to use for credential authentication.<br /> Values: One of<br />    <ul><li>Database</li>        <li>LDAP</li>        <li>JWT</li>        <li>Keystone</li>        <li>OIDC</li></ul> |
 | quay_configuration.avatar_kind | string | local | The types of avatars to display, either generated inline (local) or Gravatar (gravatar) |
+| quay_configuration.branding | object | `{"footer_img":"","footer_url":"","logo":""}` | Custom branding for logos and URLs in the Red Hat Quay UI. |
+| quay_configuration.branding.footer_img | string | N/A | Logo for UI footer. Defaults to 144x34 PX.<br /> Example:<br /> /static/img/RedHat.svg |
+| quay_configuration.branding.footer_url | string | N/A | Link for footer image.<br /> Example:<br /> https://redhat.com |
+| quay_configuration.branding.logo | string | N/A | Main logo image URL.<br /> The header logo defaults to 205x30 PX. The form logo on the Red Hat Quay sign in screen of the web UI defaults to 356.5x39.7 PX.<br /> Example:<br /> /static/img/quay-horizontal-color.svg |
 | quay_configuration.browser_api_calls_xhr_only | bool | false | If enabled, only API calls marked as being made by an XHR will be allowed from browsers |
 | quay_configuration.create_private_repo_on_push | bool | true | Whether new repositories created by push are set to private visibility |
 | quay_configuration.default_tag_expiration | string | 2w | The default, configurable tag expiration time for time machine. <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$ |
+| quay_configuration.external_tls_termination | bool | false | Set to true if TLS is supported, but terminated at a layer before Quay. Set to false when Quay is running with its own SSL certificates and receiving TLS traffic directly. |
 | quay_configuration.feature.action_log_rotation | bool | false | Enabling log rotation and archival will move all logs older than 30 days to storage. |
 | quay_configuration.feature.aggregated_log_count_retrieval | bool | true | Whether to allow retrieval of aggregated log counts |
 | quay_configuration.feature.anonymous_access | bool | true | Whether to allow anonymous users to browse and pull public repositories |
@@ -181,15 +225,18 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.feature.rate_limits | bool | false | Whether to enable rate limits on API and registry endpoints. Setting FEATURE_RATE_LIMITS to true causes nginx to limit certain API calls to 30 per second. If that feature is not set, API calls are limited to 300 per second (effectively unlimited). |
 | quay_configuration.feature.reader_build_logs | bool | false | If set to true, build logs can be read by those with read access to the repository, rather than only write access or admin access. |
 | quay_configuration.feature.recaptcha | bool | false | Whether Recaptcha is necessary for user login and recovery |
-| quay_configuration.feature.repo_mirror | bool | true | If set to true, enables repository mirroring. |
+| quay_configuration.feature.repo_mirror | bool | false | If set to true, enables repository mirroring. |
 | quay_configuration.feature.repository_garbage_collection | bool | true | Whether garbage collection is enabled for repositories. |
+| quay_configuration.feature.restricted_users | bool | false | When set with RESTRICTED_USERS_WHITELIST, restricted users cannot create organizations or content in their own namespace. Normal permissions apply for an organization’s membership, for example, a restricted user will still have normal permissions in organizations based on the teams that they are members of. |
 | quay_configuration.feature.restricted_v1_push | bool | true | If set to true, only namespaces listed in V1_PUSH_WHITELIST support V1 push |
 | quay_configuration.feature.security_notifications | bool | false | If the security scanner is enabled, turn on or turn off security notifications |
 | quay_configuration.feature.signing | bool | false | Whether to support signing |
 | quay_configuration.feature.storage_replication | bool | false | Whether to automatically replicate between storage engines. |
 | quay_configuration.feature.super_users | bool | true | Whether superusers are supported |
+| quay_configuration.feature.superusers_full_access | bool | false | Grants superusers the ability to read, write, and delete content from other repositories in namespaces that they do not own or have explicit permissions for. |
+| quay_configuration.feature.superusers_org_creation_only | bool | false | Whether to only allow superusers to create organizations. |
 | quay_configuration.feature.team_syncing | bool | true | Whether to allow for team membership to be synced from a backing group in the authentication engine (LDAP or Keystone). |
-| quay_configuration.feature.ui_v2 | bool | true | When set, allows users to try the beta UI environment. |
+| quay_configuration.feature.ui_v2 | bool | false | When set, allows users to try the beta UI environment. |
 | quay_configuration.feature.ui_v2_repo_settings | bool | false | Enables repository settings in the beta UI Environment |
 | quay_configuration.feature.user_creation | bool | true | Whether users can be created (by non-superusers) |
 | quay_configuration.feature.user_initialize | bool | false | To create the first user, users need to set the FEATURE_USER_INITIALIZE parameter to true |
@@ -199,6 +246,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.feature.user_rename | bool | false | If set to true, users can rename their own namespace |
 | quay_configuration.feature.username_confirmation | bool | true | If set to true, users can confirm and modify their initial usernames when logging in via OpenID Connect (OIDC) or a non-database internal authentication provider like LDAP. |
 | quay_configuration.fresh_login_timeout | string | 5m | The time after which a fresh login requires users to re-enter their password |
+| quay_configuration.global_readonly_super_users | list | [] | When set, grants users of this list read access to all repositories, regardless of whether they are public repositories. |
 | quay_configuration.maximum_layer_size | string | 20G | Maximum allowed size of an image layer. Pattern: ^[0-9]+(G\|M)$ |
 | quay_configuration.preferred_url_scheme | string | http | One of http or https. Note that users only set their PREFERRED_URL_SCHEME to http when there is no TLS encryption in the communication path from the client to Quay. |
 | quay_configuration.registry_state | string | normal | The state of the registry. Either: normal or read-only |
@@ -207,6 +255,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.repo_mirror_interval | int | 30 | The number of seconds between checking for repository mirror candidates |
 | quay_configuration.repo_mirror_rollback | bool | false | When set to true, the repository rolls back after a failed mirror attempt. |
 | quay_configuration.repo_mirror_tls_verify | bool | false | Require HTTPS and verify certificates of Quay registry during mirror. |
+| quay_configuration.restricted_users_whitelist | list | [] | When set with FEATURE_RESTRICTED_USERS: true, specific users are excluded from the FEATURE_RESTRICTED_USERS setting. |
 | quay_configuration.search_max_result_page_count | int | 10 | Maximum number of pages the user can paginate in search before they are limited |
 | quay_configuration.search_results_per_page | int | 10 | Number of results returned per page by search page |
 | quay_configuration.session_cookie_secure | bool | false | Whether the secure property should be set on session cookies Set to True for all installations using SSL |
@@ -216,6 +265,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.super_user_list | list | admin | Additional SUPER_USERS besides the initial administraor as defined at init_user.username (default admin) |
 | quay_configuration.tag_expiration_options | list | `["0s","1d","1w","2w","4w"]` | If enabled, the options that users can select for expiration of tags in their namespace.<br /> <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$  |
 | quay_configuration.user_recovery_token_lifetime | string | 30m | The length of time a token for recovering a user accounts is valid Pattern: ^[0-9]+(w\|m\|d\|h\|s)$ |
+| quay_configuration.userfiles_location | string | default | ID of the storage engine in which to place user-uploaded files<br /> Example: s3_us_east |
 | quay_configuration.userfiles_path | string | userfiles | Path under storage in which to place user-uploaded files Example: userfiles |
 | quay_configuration.v2_pagination_size | int | 50 | The number of results returned per page in V2 registry APIs |
 
@@ -269,6 +319,65 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.ldap_user_filter | string | '' | The user filter for LDAP authentication |
 | quay_configuration.ldap_user_rdn | list | N/A | The user RDN for LDAP authentication. |
 | quay_configuration.team_resync_stale_time | string | 30m | If team syncing is enabled for a team, how often to check its membership and resync if necessary.<br /> <b>Pattern</b>: ^[0-9]+(w\|m\|d\|h\|s)$ <br/> <b>Example</b: 2h |
+
+### GitHub Oauth
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.github_login_config | object | `{"allowed_organizations":[],"api_enpoint":"","enabled":false,"github_endpoint":"","github_oauth_secret":"github-oauth","org_restrict":false}` | Configuration for using GitHub (Enterprise) as an external login provider. |
+| quay_configuration.github_login_config.allowed_organizations | list | N/A | The names of the GitHub (Enterprise) organizations whitelisted to work with the ORG_RESTRICT option. |
+| quay_configuration.github_login_config.api_enpoint | string | N/A | The endpoint of the GitHub (Enterprise) API to use. Must be overridden for github.com <b>Example<b>: https://api.github.com/ |
+| quay_configuration.github_login_config.enabled | bool | false | Enable GitHub Oauth |
+| quay_configuration.github_login_config.github_endpoint | string | N/A | The endpoint for GitHub (Enterprise). <b>Example<b>: https://github.com/ |
+| quay_configuration.github_login_config.github_oauth_secret | string | N/A | When GitHub OAuth is used, a secret with the keys GH_CLIENT_ID and GH_CLIENT_SECRET must be created |
+| quay_configuration.github_login_config.org_restrict | bool | false | If true, only users within the organization whitelist can login using this provider. |
+
+### Google Oauth
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.google_login_config | object | `{"enabled":false,"google_oauth_secret":"google-oauth"}` | Configuration for using Google as OAuth provider. |
+| quay_configuration.google_login_config.enabled | bool | false | Enable Google Oauth |
+| quay_configuration.google_login_config.google_oauth_secret | string | N/A | When Google OAuth is used, a secret with the keys GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be created |
+
+### Build Log Configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.log_archive_location | string | default | The storage location, defined in DISTRIBUTED_STORAGE_CONFIG, in which to place the archived build logs.<br/> Example: s3_us_east |
+| quay_configuration.log_archive_path | string | N/A | The path under the configured storage engine in which to place the archived build logs in .JSON format.<br/> Example: archives/buildlogs |
+
+### Mailing Configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.mailing_config | object | `{"enabled":false,"mail_auth_secret":"mail-auth","mail_default_sender":"support@quay.io","mail_port":587,"mail_server":"","mail_use_tls":true}` | Configuration for using Google as OAuth provider. |
+| quay_configuration.mailing_config.enabled | bool | false | Enable Mailing Configuration |
+| quay_configuration.mailing_config.mail_auth_secret | string | N/A | When Mailing is used and the server required authentication, a secret with the keys MAIL_USERNAME and MAIL_PASSWORD must be created |
+| quay_configuration.mailing_config.mail_default_sender | string | support@quay.io | If specified, the e-mail address used as the from when Red Hat Quay sends e-mails. If none, defaults to support@quay.io<br /> Example: support@example.com |
+| quay_configuration.mailing_config.mail_port | int | 587 | The SMTP port to use. If not specified, defaults to 587. |
+| quay_configuration.mailing_config.mail_server | string | '' | The SMTP server to use for sending e-mails. Only required if FEATURE_MAILING is set to true. |
+| quay_configuration.mailing_config.mail_use_tls | bool | true | If specified, whether to use TLS for sending e-mails. |
+
+### OIDC Oauth
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.oidc_login_config.enabled | bool | false | Enable OIDC Oauth |
+| quay_configuration.oidc_login_config.github_oauth_secret | string | '' | When OIDC OAuth is used, a secret with the keys OIDC_CLIENT_ID and OIDC_CLIENT_SECRET must be created |
+| quay_configuration.oidc_login_config.oidc_debuglog | bool | false | Whether to enable debugging. |
+| quay_configuration.oidc_login_config.oidc_disable_user_endpoint | bool | false | Whether to allow or disable the /userinfo endpoint. If using Azure Entra ID, this field must be set to true because Azure obtains the user’s information from the token instead of calling the /userinfo endpoint. |
+| quay_configuration.oidc_login_config.oidc_endpoint_custom_params | string | N/A | Support for custom query parameters on OIDC endpoints. The following endpoints are supported: authorization_endpoint, token_endpoint, and user_endpoint. |
+| quay_configuration.oidc_login_config.oidc_issuer | string | N/A | Allows the user to define the issuer to verify. For example, JWT tokens container a parameter known as iss which defines who issued the token. By default, this is read from the .well-know/openid/configuration endpoint, which is exposed by every OIDC provider. If this verification fails, there is no login. |
+| quay_configuration.oidc_login_config.oidc_login_binding_fields | string | N/A | Used when the internal authorization is set to LDAP. Red Hat Quay reads this parameter and tries to search through the LDAP tree for the user with this username. If it exists, it automatically creates a link to that LDAP account. |
+| quay_configuration.oidc_login_config.oidc_login_scopes | string | N/A | Adds additional scopes that Red Hat Quay uses to communicate with the OIDC provider. |
+| quay_configuration.oidc_login_config.oidc_name | string | N/A | The parent key that holds the OIDC configuration settings. Typically the name of the OIDC provider, for example, AZURE_LOGIN_CONFIG, however any arbitrary string is accepted. |
+| quay_configuration.oidc_login_config.oidc_preferred_group_claim_name | string | N/A | The key name within the OIDC token payload that holds information about the user’s group memberships. |
+| quay_configuration.oidc_login_config.oidc_preferred_username_claim_name | string | N/A | Sets the preferred username to a parameter from the token. |
+| quay_configuration.oidc_login_config.oidc_server | string | N/A | The address of the OIDC server that is being used for authentication.<br /> Example: https://sts.windows.net/6c878…​/ |
+| quay_configuration.oidc_login_config.oidc_service_icon | string | N/A | Changes the icon on the login screen. |
+| quay_configuration.oidc_login_config.oidc_service_name | string | N/A | The name of the service that is being authenticated.<br /> Example: Microsoft Entra ID |
+| quay_configuration.oidc_login_config.oidc_verified_email_claim_name | string | N/A | The name of the claim that is used to verify the email address of the user. |
 
 ### Other Values
 

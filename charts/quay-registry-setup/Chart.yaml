@@ -3,7 +3,7 @@ name: quay-registry-setup
 description: Deploy and configure Red Hat Quay Registry.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 2.0.3
+version: 2.0.4
 dependencies:
   - name: tpl
     version: ~1.0.0
@@ -49,3 +49,5 @@ annotations:
       description: Added support for LDAP authentication, added possibility to set proxy_cache and several settings for Quotas
     - kind: added
       description: Added support for Github, Google, OIDC oauth, added option for Mailing configuration
+    - kind: added
+      description: Added support to configure different logging options and some additional parameters
