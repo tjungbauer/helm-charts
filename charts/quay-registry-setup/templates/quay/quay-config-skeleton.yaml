@@ -182,7 +182,7 @@ data:
     FEATURE_RESTRICTED_USERS: {{ .feature.restricted_users | quote | default "false" | trimAll "\"" }}
     FEATURE_RESTRICTED_V1_PUSH: {{ .feature.restricted_v1_push | quote | default "true" | trimAll "\"" }}
     FEATURE_SECURITY_NOTIFICATIONS: {{ .feature.security_notifications | quote | default "false" | trimAll "\"" }}
-    FEATURE_SIGNING: {{ .feature.signing | quote | default "false" | trimAll "\"" }} <<
+    FEATURE_SIGNING: {{ .feature.signing | quote | default "false" | trimAll "\"" }}
     FEATURE_STORAGE_REPLICATION: {{ .feature.storage_replication | quote | default "false" | trimAll "\"" }}
     FEATURE_SUPER_USERS: {{ .feature.super_users | quote | default "true" | trimAll "\"" }}
     FEATURE_SUPERUSERS_FULL_ACCESS: {{ .feature.superusers_full_access | quote | default "false" | trimAll "\"" }}
@@ -257,7 +257,7 @@ data:
     LDAP_UID_ATTR: {{ .ldap_uid_attr | quote | default "uid" | trimAll "\"" }}
     LDAP_URI: {{ .ldap_uri | quote | default "ldap://localhost" | trimAll "\"" }}
     {{- if .ldap_base_dn }}
-    LDAP_USER_FILTER: {{ .ldap_base_dn | quote | trimAll "\"" }}
+    LDAP_USER_FILTER: {{ .ldap_base_dn | quote | default "" | trimAll "\"" }}
     {{- end }}
     {{- if .ldap_user_rdn }}
     LDAP_USER_RDN:

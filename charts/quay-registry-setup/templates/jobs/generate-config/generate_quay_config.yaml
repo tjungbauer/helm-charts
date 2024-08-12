@@ -147,11 +147,15 @@ spec:
               fi
               
               printf "\nReplacing required information for S3 bucket\n"
-              sed "s|PATCH_BUCKET_USER|${bucket_user}|g; s|PATCH_BUCKET_SECRET|${bucket_secret}|g; s|PATCH_BUCKET_NAME|${bucket_name}|g; s|PATCH_BUCKET_HOST|${bucket_host}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+   
+              sed -e "s|PATCH_BUCKET_USER|${bucket_user}|g;" \
+                  -e "s|PATCH_BUCKET_SECRET|${bucket_secret}|g;" \
+                  -e "s|PATCH_BUCKET_SECRET|${bucket_secret}|g;" \
+                  -e "s|PATCH_BUCKET_NAME|${bucket_name}|g;" \
+                  -e "s|PATCH_BUCKET_HOST|${bucket_host}|g;" /tmp/quay-config-skeleton/properties > /tmp/quay-config-skeleton-set-Storage
 
-              # Set mode to "replace" for possible further string replacements
-              mode="replace"
-
+              current_config_file="/tmp/quay-config-skeleton-set-Storage"
+     
               #######
               # LDAP
               #######
@@ -159,7 +163,10 @@ spec:
               {{- if eq ( .authentication_type | toString) "LDAP" }}
               printf "\nReplacing required information for LDAP Authentication\n"
 
-              sed "s|PATCH_LDAP_ADMIN_DN$|: ${ldap_user}|g; s|PATCH_LDAP_ADMIN_PASSWD$|: ${ldap_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_LDAP_ADMIN_DN$|: ${ldap_user}|g;" \ 
+                  -e "s|PATCH_LDAP_ADMIN_PASSWD$|: ${ldap_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-LDAP
+
+              current_config_file="/tmp/quay-config-skeleton-set-LDAP"
               {{- end }}
 
               #######
@@ -169,7 +176,10 @@ spec:
               {{- if eq ( .authentication_type | toString) "OIDC" }}
               printf "\nReplacing required information for ODIC Authentication\n"
 
-              sed "s|PATCH_OIDC_CLIENT_ID$|: ${oidc_user}|g; s|PATCH_OIDC_CLIENT_SECRET$|: ${oidc_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_OIDC_CLIENT_ID$|: ${oidc_user}|g;" \
+                  -e "s|PATCH_OIDC_CLIENT_SECRET$|: ${oidc_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-OIDC
+
+              current_config_file="/tmp/quay-config-skeleton-set-OIDC"              
               {{- end }}
               
               ##############
@@ -178,7 +188,10 @@ spec:
               {{- if eq (.google_login_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Google OAUTH\n"
 
-              sed "s|PATCH_GOOGLE_CLIENT_ID$|: ${google_oauth_user}|g; s|PATCH_GOOGLE_CLIENT_SECRET$|: ${google_oauth_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_GOOGLE_CLIENT_ID$|: ${google_oauth_user}|g;" \
+                  -e "s|PATCH_GOOGLE_CLIENT_SECRET$|: ${google_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GoogleAuth
+
+              current_config_file="/tmp/quay-config-skeleton-set-GoogleAuth"
 
               {{- end }}
 
@@ -188,7 +201,10 @@ spec:
               {{- if eq (.github_login_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Github OAUTH\n"
 
-              sed "s|PATCH_GITHUB_CLIENT_ID$|: ${gh_oauth_user}|g; s|PATCH_GITHUB_CLIENT_SECRET$|: ${gh_oauth_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_GITHUB_CLIENT_ID$|: ${gh_oauth_user}|g;" \
+                  -e "s|PATCH_GITHUB_CLIENT_SECRET$|: ${gh_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GithubOAuth
+
+              current_config_file="/tmp/quay-config-skeleton-set-GithubOAuth"
 
               {{- end }}
 
@@ -198,7 +214,10 @@ spec:
               {{- if eq (.mailing_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Github OAUTH\n"
 
-              sed "s|PATCH_MAIL_USER$|: ${mail_user}|g; s|PATCH_MAIL_PASSWORD$|: ${mail_password}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_MAIL_USER$|: ${mail_user}|g;" \
+                  -e "s|PATCH_MAIL_PASSWORD$|: ${mail_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-MailConfig
+
+              current_config_file="/tmp/quay-config-skeleton-set-MailConfig"
 
               {{- end }}
 
@@ -211,7 +230,10 @@ spec:
               {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
               printf "\nReplacing required information for Elasticsearch Log configuration\n"
 
-              sed "s|PATCH_ACCESS_KEY$|: ${log_access_key}|g; s|PATH_SECRET_KEY$|: ${log_secret_key}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATCH_ACCESS_KEY$|: ${log_access_key}|g;" \
+                  -e "s|PATH_SECRET_KEY$|: ${log_secret_key}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Elasticsearch
+
+              current_config_file="/tmp/quay-config-skeleton-set-Elasticsearch"
 
               {{- end }}
               {{- end }}
@@ -226,12 +248,16 @@ spec:
               {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
               printf "\nReplacing required information for Splunk Log configuration\n"
 
-              sed "s|PATH_SPLUNK_TOKEN$|: ${bearer_token}|g;" /tmp/quay-config-skeleton/properties | oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=/dev/stdin --dry-run=client -o yaml -n quay-enterprise | oc $mode -f -
+              sed -e "s|PATH_SPLUNK_TOKEN$|: ${bearer_token}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Splunk
 
+              current_config_file="/tmp/quay-config-skeleton-set-Splunk"
               {{- end }}
               {{- end }}
               {{- end }}
 
+              printf "\nCreating or Replacing the quay configuration file\n"
+
+              oc create secret generic {{ $.Values.quay.config_bundle | default "quay-generated-configuration" }} --from-file=config.yaml=${current_config_file} --dry-run=client -o yaml -n {{ $.Values.quay.namespace.name }} | oc $mode -f -
           volumeMounts:
             - name: bucket-secret
               mountPath: "/tmp/bucket-secret"
