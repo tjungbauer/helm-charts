@@ -163,8 +163,8 @@ spec:
               {{- if eq ( .authentication_type | toString) "LDAP" }}
               printf "\nReplacing required information for LDAP Authentication\n"
 
-              sed -e "s|PATCH_LDAP_ADMIN_DN$|: ${ldap_user}|g;" \ 
-                  -e "s|PATCH_LDAP_ADMIN_PASSWD$|: ${ldap_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-LDAP
+              sed -e "s|PATCH_LDAP_ADMIN_DN$|${ldap_user}|g;" \ 
+                  -e "s|PATCH_LDAP_ADMIN_PASSWD$|${ldap_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-LDAP
 
               current_config_file="/tmp/quay-config-skeleton-set-LDAP"
               {{- end }}
@@ -176,8 +176,8 @@ spec:
               {{- if eq ( .authentication_type | toString) "OIDC" }}
               printf "\nReplacing required information for ODIC Authentication\n"
 
-              sed -e "s|PATCH_OIDC_CLIENT_ID$|: ${oidc_user}|g;" \
-                  -e "s|PATCH_OIDC_CLIENT_SECRET$|: ${oidc_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-OIDC
+              sed -e "s|PATCH_OIDC_CLIENT_ID$|${oidc_user}|g;" \
+                  -e "s|PATCH_OIDC_CLIENT_SECRET$|${oidc_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-OIDC
 
               current_config_file="/tmp/quay-config-skeleton-set-OIDC"              
               {{- end }}
@@ -188,8 +188,8 @@ spec:
               {{- if eq (.google_login_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Google OAUTH\n"
 
-              sed -e "s|PATCH_GOOGLE_CLIENT_ID$|: ${google_oauth_user}|g;" \
-                  -e "s|PATCH_GOOGLE_CLIENT_SECRET$|: ${google_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GoogleAuth
+              sed -e "s|PATCH_GOOGLE_CLIENT_ID$|${google_oauth_user}|g;" \
+                  -e "s|PATCH_GOOGLE_CLIENT_SECRET$|${google_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GoogleAuth
 
               current_config_file="/tmp/quay-config-skeleton-set-GoogleAuth"
 
@@ -201,8 +201,8 @@ spec:
               {{- if eq (.github_login_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Github OAUTH\n"
 
-              sed -e "s|PATCH_GITHUB_CLIENT_ID$|: ${gh_oauth_user}|g;" \
-                  -e "s|PATCH_GITHUB_CLIENT_SECRET$|: ${gh_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GithubOAuth
+              sed -e "s|PATCH_GITHUB_CLIENT_ID$|${gh_oauth_user}|g;" \
+                  -e "s|PATCH_GITHUB_CLIENT_SECRET$|${gh_oauth_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-GithubOAuth
 
               current_config_file="/tmp/quay-config-skeleton-set-GithubOAuth"
 
@@ -214,8 +214,8 @@ spec:
               {{- if eq (.mailing_config.enabled | toString) "true" }}
               printf "\nReplacing required information for Github OAUTH\n"
 
-              sed -e "s|PATCH_MAIL_USER$|: ${mail_user}|g;" \
-                  -e "s|PATCH_MAIL_PASSWORD$|: ${mail_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-MailConfig
+              sed -e "s|PATCH_MAIL_USER$|${mail_user}|g;" \
+                  -e "s|PATCH_MAIL_PASSWORD$|${mail_password}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-MailConfig
 
               current_config_file="/tmp/quay-config-skeleton-set-MailConfig"
 
@@ -230,8 +230,8 @@ spec:
               {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
               printf "\nReplacing required information for Elasticsearch Log configuration\n"
 
-              sed -e "s|PATCH_ACCESS_KEY$|: ${log_access_key}|g;" \
-                  -e "s|PATH_SECRET_KEY$|: ${log_secret_key}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Elasticsearch
+              sed -e "s|PATCH_ACCESS_KEY$|${log_access_key}|g;" \
+                  -e "s|PATH_SECRET_KEY$|${log_secret_key}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Elasticsearch
 
               current_config_file="/tmp/quay-config-skeleton-set-Elasticsearch"
 
@@ -248,7 +248,7 @@ spec:
               {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
               printf "\nReplacing required information for Splunk Log configuration\n"
 
-              sed -e "s|PATH_SPLUNK_TOKEN$|: ${bearer_token}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Splunk
+              sed -e "s|PATH_SPLUNK_TOKEN$|${bearer_token}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Splunk
 
               current_config_file="/tmp/quay-config-skeleton-set-Splunk"
               {{- end }}

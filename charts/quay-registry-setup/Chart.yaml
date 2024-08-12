@@ -3,7 +3,7 @@ name: quay-registry-setup
 description: Deploy and configure Red Hat Quay Registry.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 2.0.5
+version: 2.0.6
 dependencies:
   - name: tpl
     version: ~1.0.0
