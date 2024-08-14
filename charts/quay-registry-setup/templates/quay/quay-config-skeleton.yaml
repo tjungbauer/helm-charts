@@ -17,6 +17,7 @@ data:
     AUTHENTICATION_TYPE: {{ .authentication_type | quote | default "Database" | trimAll "\"" }}
     AVATAR_KIND: {{ .avatar_kind | quote | default "local" | trimAll "\"" }}
     {{- if .branding }}
+    {{- if or (.branding.logo) (.branding.footer_img) (.branding.footer_url) }}
     BRANDING:
       {{- if .branding.logo }}
       logo: {{ .branding.logo | quote | trimAll "\"" }}
@@ -27,6 +28,7 @@ data:
       {{- if .branding.footer_url }}
       footer_url: {{ .branding.footer_url | quote | trimAll "\"" }}
       {{- end }}
+    {{- end }}
     {{- end }}
     BROWSER_API_CALLS_XHR_ONLY: {{ .browser_api_calls_xhr_only | quote | default "false" | trimAll "\"" }}
     CREATE_PRIVATE_REPO_ON_PUSH: {{ .create_private_repo_on_push | quote | default "true" | trimAll "\"" }}
@@ -255,7 +257,9 @@ data:
     {{- end }}
     LDAP_EMAIL_ATTR: {{ .ldap_email_attr | quote | default "mail" | trimAll "\"" }}
     LDAP_UID_ATTR: {{ .ldap_uid_attr | quote | default "uid" | trimAll "\"" }}
+    {{- if .ldap_uri }}
     LDAP_URI: {{ .ldap_uri | quote | default "ldap://localhost" | trimAll "\"" }}
+    {{- end }}
     {{- if .ldap_base_dn }}
     LDAP_USER_FILTER: {{ .ldap_base_dn | quote | default "" | trimAll "\"" }}
     {{- end }}
