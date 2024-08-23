@@ -8,6 +8,10 @@ metadata:
   namespace: openshift-ingress-operator
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+  {{- if .annotations }}
+  annotations:
+{{ toYaml .annotations | indent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .replicas | default "2" }}
   {{- if .defaultCertificate }}

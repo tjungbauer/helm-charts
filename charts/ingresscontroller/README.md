@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square)
+  ![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square)
 
  
 
@@ -45,8 +45,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingressc
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ingresscontrollers | list | `[{"defaultCertificate":"my-certificate","enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
-| ingresscontrollers[0] | object | `{"defaultCertificate":"my-certificate","enabled":false,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
+| ingresscontrollers | list | `[{"annotations":"","defaultCertificate":"my-certificate","enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}]` | Define ingressControllers Multiple might be defined. |
+| ingresscontrollers[0] | object | `{"annotations":"","defaultCertificate":"my-certificate","enabled":true,"name":"default","nodePlacement":{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"},{"effect":"NoExecute","key":"node-role.kubernetes.io/infra","operator":"Equal","value":"reserved"}]},"replicas":3}` | Name of the IngressController. OpenShift initial IngressController is called 'default'. |
+| ingresscontrollers[0].annotations | string | N/A | Additional annotations for the IngressController For example to enable HTTP/2 add the following: ingress.operator.openshift.io/default-enable-http2: true |
 | ingresscontrollers[0].defaultCertificate | string | N/A | The name of the secret that stores the certificate information for the IngressController |
 | ingresscontrollers[0].enabled | bool | false | Enable the configuration |
 | ingresscontrollers[0].nodePlacement | object | empty | Bind IngressController to specific nodes Here as example for Infrastructure nodes. |
