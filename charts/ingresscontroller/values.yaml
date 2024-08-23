@@ -7,7 +7,7 @@ ingresscontrollers:
 
     # -- Enable the configuration
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Number of replicas for this IngressController
     # @default -- 2
