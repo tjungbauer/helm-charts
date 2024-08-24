@@ -422,6 +422,9 @@ data:
     REPO_MIRROR_INTERVAL: {{ .repo_mirror_interval | quote | default "30" | trimAll "\"" }}
     REPO_MIRROR_ROLLBACK: {{ .repo_mirror_rollback | quote | default "false" | trimAll "\"" }}
     REPO_MIRROR_TLS_VERIFY: {{ .repo_mirror_tls_verify | quote | default "false" | trimAll "\"" }}
+    {{- if .repo_mirror_server_hostname }}
+    REPO_MIRROR_SERVER_HOSTNAME: {{ .repo_mirror_server_hostname | quote | default "" | trimAll "\"" }}
+    {{- end }}
     {{- if .restricted_users_whitelist }}
     RESTRICTED_USERS_WHITELIST:
       {{- range .restricted_users_whitelist }}

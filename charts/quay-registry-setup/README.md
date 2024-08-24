@@ -254,6 +254,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.registry_title_short | string | Red Hat Quay | If specified, the short-form title for the registry. Title is displayed on various pages of your organization, for example, as the title of the tutorial on your organization’s Tutorial page. |
 | quay_configuration.repo_mirror_interval | int | 30 | The number of seconds between checking for repository mirror candidates |
 | quay_configuration.repo_mirror_rollback | bool | false | When set to true, the repository rolls back after a failed mirror attempt. |
+| quay_configuration.repo_mirror_server_hostname | string | none | Replaces the SERVER_HOSTNAME as the destination for mirroring. |
 | quay_configuration.repo_mirror_tls_verify | bool | false | Require HTTPS and verify certificates of Quay registry during mirror. |
 | quay_configuration.restricted_users_whitelist | list | [] | When set with FEATURE_RESTRICTED_USERS: true, specific users are excluded from the FEATURE_RESTRICTED_USERS setting. |
 | quay_configuration.search_max_result_page_count | int | 10 | Maximum number of pages the user can paginate in search before they are limited |

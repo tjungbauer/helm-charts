@@ -780,6 +780,11 @@ quay_configuration:
   # @default -- false
   repo_mirror_tls_verify: false
 
+  # -- Replaces the SERVER_HOSTNAME as the destination for mirroring.
+  # @section -- Quay Configuration Settings
+  # @default -- none
+  repo_mirror_server_hostname: ''
+
   # -- When set with FEATURE_RESTRICTED_USERS: true, specific users are excluded from the FEATURE_RESTRICTED_USERS setting.
   # @section -- Quay Configuration Settings
   # @default -- []
