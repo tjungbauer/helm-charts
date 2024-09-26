@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.47
+version: 1.0.48
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -49,3 +49,5 @@ annotations:
       description: switching some snippets to use global tpl
     - kind: added
       description: it is now possible to define a global AppProject
+    - kind: added
+      description: it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod

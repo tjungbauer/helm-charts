@@ -244,6 +244,11 @@ gitopsinstances:
       # @default -- 256Mi
       memory_requests: 256Mi
 
+      # -- To enable additional trusted CA for the repo container, create a ConfifMap with the key ca-bundle.crt and the certificates in the OpenShift GitOps namespace.
+      # https://access.redhat.com/solutions/7000863
+      # @default -- empty
+      additional_trusted_ca:
+
     appset:
       # -- CPU Limits for the ApplicationSet controller.
       # @default -- 2

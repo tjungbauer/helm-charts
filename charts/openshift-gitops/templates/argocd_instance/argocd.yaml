@@ -128,6 +128,18 @@ spec:
       requests:
         cpu: {{ $value.repo.cpu_requests | default "250m" }}
         memory: {{ $value.repo.memory_requests | default "256Mi" }}
+
+    {{- if $value.repo.additional_trusted_ca }}
+    volumeMounts:
+      - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+        name: cluster-root-ca-bundle
+        subPath: ca-bundle.crt
+    volumes:
+      - configMap:
+          name: {{ $value.repo.additional_trusted_ca }}
+        name: cluster-root-ca-bundle
+    {{- end }}
+
   resourceExclusions: |
     {{ $value.resourceExclusions | nindent 4 }}
   {{- if or (eq ($value.default_resourceHealthChecks | toString) "true") ($value.custom_resourceHealthChecks) }}
