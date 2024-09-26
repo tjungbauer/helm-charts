@@ -24,6 +24,29 @@ gitopsinstances:
     # @default -- 10
     syncwave: 10
 
+    # Define a Global Project
+    global_project:
+      # -- Global Project enabled
+      # @default -- false
+      enabled: false
+
+      # -- Description of the Global Project
+      description: "Global Configuration"
+
+      # -- Cluster Resources Backlist ... these are not allowed.
+      clusterResourceBlacklist:
+        - kind: '*'
+          group: '*'
+
+      # -- Namespace Resources Blacklist ... these are not allowed
+      namespaceResourceBlacklist:
+        - kind: 'ResourceQuota'
+          group: ''
+        - kind: 'NetworkPolicy'
+          group: ''
+        - kind: 'Namespace'
+          group: ''
+
     # -- Argo CD Server configuration options.
     server:
       # -- Hostname for the GitOps URL.
