@@ -64,7 +64,7 @@ gitopsinstances:
         tls:
           # -- Enable TLS settings.
           # @default -- false
-          enabled: true
+          enabled: false
 
           # -- Select the termination type.
           # @default -- edfe
@@ -111,7 +111,7 @@ gitopsinstances:
     sourceNamespaces:
       # -- Enable sourceNamespaces.
       # @default -- false
-      enabled: true
+      enabled: false
 
       # -- A list Namespaces where Argo CD will look for Applications and ApplicationSets
       observedNamesapces:
@@ -129,7 +129,7 @@ gitopsinstances:
       #  Argo CD identifies resources it manages by setting the application instance label
       #  to the name of the managing Application on all resources that are managed
       #  @default -- argocd.argoproj.io/<<name of the gitopsinstance>>
-      applicationInstanceLabelKey: argocd.argoproj.io/application-instance
+      applicationInstanceLabelKey: argocd.argoproj.io/gitops-application
 
       #  -- Object tracking method.
       # This could either be:
