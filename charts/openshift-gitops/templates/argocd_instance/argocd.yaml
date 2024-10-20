@@ -129,17 +129,59 @@ spec:
         cpu: {{ $value.repo.cpu_requests | default "250m" }}
         memory: {{ $value.repo.memory_requests | default "256Mi" }}
 
-    {{- if $value.repo.additional_trusted_ca }}
+    {{- if $value.repo.additionalSidecars }}
+    sidecarContainers:
+      {{- range $value.repo.additionalSidecars }}
+      {{- if eq (.enabled | toString) "true" }}
+      - name: {{ .name | default "post-render" }}
+        command:
+          - {{ .command | default "/var/run/argocd/argocd-cmp-server" }}
+        {{- if .env }}
+        env:
+          {{- range .env }}
+          - name: {{ .name }}
+            value: {{ .value }}
+          {{- end }}
+        {{- end }}
+        image: {{ .image | default "quay.io/gnunn/tools:latest" | quote }}
+        imagePullPolicy: Always
+{{ include "tpl.resources" .resources | indent 8 }}
+        securityContext:
+          runAsNonRoot: true
+        volumeMounts:
+          - mountPath: /var/run/argocd
+            name: var-files
+          - mountPath: /home/argocd/cmp-server/plugins
+            name: plugins
+          - mountPath: /tmp
+            name: tmp
+          - mountPath: /home/argocd/cmp-server/config/{{ .configMapPath | default "plugin.yaml" }}
+            name: {{ .configMapName | default "post-render" }}
+            subPath: {{ .configMapPath | default "plugin.yaml" }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
     volumeMounts:
+    {{- if $value.repo.additional_trusted_ca }}
       - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
         name: cluster-root-ca-bundle
         subPath: ca-bundle.crt
+    {{- end }}
     volumes:
+    {{- if $value.repo.additional_trusted_ca }}
       - configMap:
           name: {{ $value.repo.additional_trusted_ca }}
         name: cluster-root-ca-bundle
     {{- end }}
-
+    {{- if $value.repo.additionalSidecars }}
+    {{- range $value.repo.additionalSidecars }}
+      {{- if eq (.enabled | toString) "true" }}
+      - configMap:
+          name: {{ .configMapName | default "post-render" }}
+        name: {{ .configMapName | default "post-render" }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
   resourceExclusions: |
     {{ $value.resourceExclusions | nindent 4 }}
   {{- if or (eq ($value.default_resourceHealthChecks | toString) "true") ($value.custom_resourceHealthChecks) }}

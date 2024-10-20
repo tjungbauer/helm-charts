@@ -249,6 +249,48 @@ gitopsinstances:
       # @default -- empty
       additional_trusted_ca:
 
+      # Add SideCar specification, for example when a post-renderer shall be used.
+      additionalSidecars:
+          # -- Name of the sidecar container
+          # @default -- post-render
+        - name: post-render
+
+          # -- Enable this sidecar
+          # @default -- false
+          enabled: false
+
+          # -- Name of the ConfigMap that defines what the sidecar shall do.
+          # @default -- post-render
+          configMapName: post-render
+
+          # -- Name of the key inside the ConfigMap
+          # @default -- plugin.yaml
+          configMapPath: plugin.yaml
+
+          # -- Image the Sidecar should use.
+          # @default -- quay.io/gnunn/tools:latest
+          image: quay.io/gnunn/tools:latest
+
+          # -- List of environment variables
+          # @default -- empty
+          env:
+            - name: APP_ENV
+              value: prod
+
+          # -- Command that shall be executed the the Sidecar
+          # @default -- /var/run/argocd/argocd-cmp-server
+          command: /var/run/argocd/argocd-cmp-server
+
+          # -- Resources the Sidecar should request/limit
+          # @default - N/A
+          resources: {}
+          #  limits:
+          #    cpu: 500m
+          #    memory: 1Gi
+          #  requests:
+          #    cpu: 200m
+          #    memory: 500Mi
+
     appset:
       # -- CPU Limits for the ApplicationSet controller.
       # @default -- 2
