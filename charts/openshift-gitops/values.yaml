@@ -269,7 +269,7 @@ gitopsinstances:
 
           # -- Image the Sidecar should use.
           # @default -- quay.io/gnunn/tools:latest
-          image: quay.io/gnunn/tools:latest
+          image: quay.io/gnunn/tools:latest@sha256:eae19b41f7a6803a95fca4be69e14aa6a96c43bfb9d50a9f4d16e42429585f52
 
           # -- List of environment variables
           # @default -- empty
