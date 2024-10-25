@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-lokistack
 description: The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.
-version: 1.0.9
+version: 1.0.10
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
 maintainers:
@@ -36,3 +36,5 @@ annotations:
       description: added dependency tp tpl library
     - kind: added
       description: using global template to build tolerations
+    - kind: fixed
+      description: changed default schema

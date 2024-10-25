@@ -96,8 +96,8 @@ spec:
     {{- end }}
     {{- else }}
     schemas:
-    - version: v12
-      effectiveDate: '2022-06-01'
+    - version: v13
+      effectiveDate: '2020-10-01'
     {{- end }}
     secret:
       name: {{ .storage.secret.name }}
