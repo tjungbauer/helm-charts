@@ -86,8 +86,8 @@ spec:
   size: {{ .storage.size | default "1x.extra-small" | quote }}
   storage:
     tls:
-      caKey: service-ca.crt
-      caName: openshift-service-ca.crt
+      caKey: {{ .storage.tls_caKey | default "service-ca.crt" }}
+      caName: {{ .storage.tls_caName | default "openshift-service-ca.crt" }}
     {{- if .storage.schemas }}
     schemas:
     {{- range .storage.schemas  }}

@@ -2,7 +2,7 @@
 
 # -- Enable or disable LokiStack configuration
 # @default -- false
-enabled: false
+enabled: true
 
 # -- Name of the LokiStack object
 name: logging-loki
@@ -107,6 +107,14 @@ storage:
     # -- Type of object storage that should be used
     # @default -- s3
     type: s3
+
+  # -- Key of Configmap that contains the CAs
+  # @default -- service-ca.crt
+  tls_caKey: service-ca.crt
+
+  # -- Name of Configmap that contains the CAs
+  # @default -- openshift-service-ca.crt
+  tls_caName: openshift-service-ca.crt
 
   # Schemas for reading and writing logs.
   schemas:
