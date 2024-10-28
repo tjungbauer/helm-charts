@@ -6768,6 +6768,53 @@ entries:
           description: using global template to build tolerations
         - kind: fixed
           description: changed default schema
+        - kind: added
+          description: possibility to configure the CA configmap
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-10-28T16:59:32.154690738Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: 21c7778d618285c57d31ade8699ec25ed9d2a4181579a2c322c7f0e925b1733b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.11/helper-lokistack-1.0.11.tgz
+    version: 1.0.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: finalizing README and added possibility to configure culster-admin list and retention
+        - kind: fixed
+          description: fixed value .size to .storage.size
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: using global template to build tolerations
+        - kind: fixed
+          description: changed default schema
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -20641,4 +20688,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-10-28T07:40:12.687365921Z"
+generated: "2024-10-28T16:59:32.15567907Z"
