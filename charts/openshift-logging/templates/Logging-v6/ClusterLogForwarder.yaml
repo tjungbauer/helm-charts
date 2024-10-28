@@ -1,0 +1,42 @@
+{{- with .Values.loggingConfig }}
+{{ if eq ( .operatorVersion | toString) "6.0" }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: "observability.openshift.io/v1"
+kind: "ClusterLogForwarder"
+metadata:
+  name: "instance" 
+  namespace: "openshift-logging"
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if .collectorLogLevel }}
+    observability.openshift.io/log-level: {{ .collectorLogLevel | default "off" }}
+    {{- end }}
+spec:
+  managementState: {{ .managementState | default "Managed" | quote }}
+  serviceAccount:
+    name: {{ .collectorServiceAccount.name | default "cluster-logging-operator" }}
+  outputs:
+{{ toYaml .outputs | indent 4 }}
+  pipelines:
+{{ toYaml .pipelines | indent 4 }}
+  filters:
+{{ toYaml .filters | indent 4 }}
+  collector:
+    {{- /* Set tolerations for the COLLECTOR */}}
+    {{- if .collector.tolerations }}
+{{ include "tpl.tolerations" .collector.tolerations | indent 4 }}
+    {{- end }}
+
+    {{- /* Set resources for the COLLECTOR */}}
+    {{- if .collector.resources }}
+{{ include "tpl.resources" .collector.resources | indent 4 }}
+    {{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
+ 

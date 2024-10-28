@@ -1,0 +1,384 @@
+---
+loggingConfig:
+  # -- Enable openshift logging configuration
+  # @section -- Generic Parameters
+  # @default -- false
+  enabled: true
+
+  # -- Syncwave for the ClusterLogging resource
+  # @section -- Generic Parameters
+  # @default -- 4
+  syncwave: '4'
+
+  # -- Defines if we are going to deploy openshift logging verison 6.x. This changes the possible settings and resources.
+  # @section -- Generic Parameters
+  # @default -- N/A
+  operatorVersion: '6.0'
+
+  # -- Indicator if the resource is 'Managed' or 'Unmanaged' by the operator. This allows administrators to temporarily pause log forwarding by setting.
+  # @section -- Generic Parameters
+  # @default -- Managed
+  managementState: Managed
+
+  # -- Service Account that shall be used for logging and is used by the collector pods
+  # @section -- OpenShift Logging 6.0
+  collectorServiceAccount:
+    # -- Name of the ServiceAccount for the collector
+    # @section -- OpenShift Logging 6.0
+    # @default -- cluster-logging-operator
+    name: cluster-logging-operator
+
+    # -- Shall we create the ServiceAccount. cluster-logging-operator is typically deployed by the OpenShift Logging operator once it has been deployed.
+    # @section -- OpenShift Logging 6.0
+    # @default -- false
+    create: false
+
+    # -- List of default bindings for this ServiceAccount. Administrators have to explicitly grant log collection permissions to the ServiceAccount.
+    # Three base roles that can be bound to exist:<br />
+    # <ul>
+    # <li>collect-audit-logs ... To collect audit logs</li>
+    # <li>collect-application-logs ... To collector application logs</li>
+    # <li>collect-infrastructure-logs ... To collect infrastructure logs</li>
+    # </ul>
+    # @section -- OpenShift Logging 6.0
+    # @default -- N/A
+    bindings:
+      - collect-audit-logs
+      - collect-application-logs
+      - collect-infrastructure-logs
+
+  # -- Additional ClusterRoles and ClusterRoleBindings that shall be created. These Roles and Bindings allow the ServiceAccount to write logs into Loki
+  # @section -- OpenShift Logging 6.0
+  # @default -- N/A
+  additionalClusterRoles:
+      # Grants permissions to write application logs to the Loki logging application.
+      # @section -- OpenShift Logging 6.0
+    - type: application
+      name: cluster-logging-write-application-logs
+      enabled: true
+      # Grants permissions to write audit logs to the Loki logging application.
+      # @section -- OpenShift Logging 6.0
+    - type: audit
+      name: cluster-logging-write-audit-logs
+      enabled: true
+      # Grants permissions to write infrastructure logs to the Loki logging application.
+      # @section -- OpenShift Logging 6.0
+    - type: infrastructure
+      name: cluster-logging-write-infrastructure-logs
+      enabled: true
+      #  Allows users to manage ClusterLogForwarders in OpenShift.
+      # @section -- OpenShift Logging 6.0
+    - type: editor
+      name: clusterlogforwarder-editor-role
+      enabled: true
+
+  # -- Specify the log level of the collector. Valid values are: trace, debug, info, warn, error and off
+  # @section -- OpenShift Logging 6.0
+  # @default -- off
+  collectorLogLevel: off
+
+  # -- Define destinations to forward logs to. Each output has a unique name and type-specific configuration. The outputs sections will be handed-over 1:1 to the Helm tamplte.<br />
+  # Each output must have a unique name and a type. Supported types are:<br />
+  # <ul>
+  # <li> azureMonitor
+  # <li> Forwards logs to Azure Monitor.
+  # <li> cloudwatch: Forwards logs to AWS CloudWatch. </li>
+  # <li> elasticsearch: Forwards logs to an external Elasticsearch instance. </li>
+  # <li> googleCloudLogging: Forwards logs to Google Cloud Logging. </li>
+  # <li> http: Forwards logs to a generic HTTP endpoint. </li>
+  # <li> kafka: Forwards logs to a Kafka broker. </li>
+  # <li> loki: Forwards logs to a Loki logging backend. </li>
+  # <li> lokistack: Forwards logs to the logging supported combination of Loki and web proxy with OpenShift Container Platform authentication integration. LokiStack’s proxy uses OpenShift Container Platform authentication to enforce multi-tenancy </li>
+  # <li> otlp: Forwards logs using the OpenTelemetry Protocol. </li>
+  # <li> splunk: Forwards logs to Splunk. </li>
+  # <li> syslog: Forwards logs to an external syslog server. </li>
+  # </ul>
+  # Each output type has its own configuration fields.
+  # @section -- OpenShift Logging 6.0 - Outputs
+  # @default -- N/A
+  outputs:
+      # -- EXAMPLE: LokiStack inside OpenShift
+      # Name used to refer to the output from a `pipeline`.
+      # @section -- OpenShift Logging 6.0
+      # @default -- empty
+    - name: default-lokistack
+
+      # -- Type of output sink.
+      # @section -- OpenShift Logging 6.0 - Outputs
+      type: lokiStack
+
+      # -- Define TLS to connect to the (internal) Loki store.
+      # @section -- OpenShift Logging 6.0 - Outputs
+      tls:
+        ca:
+          configMapName: openshift-service-ca.crt
+          key: service-ca.crt
+
+      # @section -- OpenShift Logging 6.0 - Outputs
+      lokiStack:
+
+        # -- Authentication sets credentials for authenticating the requests.
+        # @section -- OpenShift Logging 6.0 - Outputs
+        authentication:
+          # -- Token specifies a bearer token to be used for authenticating requests.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          token:
+
+            # -- From is the source from where to find the token. Either serviceAccount or secret.
+            # @section -- OpenShift Logging 6.0 - Outputs
+            from: serviceAccount
+
+            # -- Use Secret if the value should be sourced from a Secret in the same namespace. Define key and secret name.
+            # @section -- OpenShift Logging 6.0 - Outputs
+            # secret:
+            #  key: SecretKey
+            #  name: SecretName
+            # from: secret
+
+        # -- Target points to the LokiStack resources that should be used as a target for the output.
+        # @section -- OpenShift Logging 6.0 - Outputs
+        target:
+
+          # -- Name of the in-cluster LokiStack resource.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          name: logging-loki
+
+          # -- Namespace of the in-cluster LokiStack resource.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          # @default -- openshift-logging
+          namespace: openshift-logging
+
+        # -- Tuning specs tuning for the output
+        # @section -- OpenShift Logging 6.0 - Outputs
+        tuning:
+          # -- The compression algorithm to use to compress the data before sending over the network.<br />
+          # *NOTE*: An output type may not support all available compression options or compression.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          compression: gzip
+
+          # -- The mode for log forwarding.<br />
+          # <b>AtLeastOnce</b> (default): The forwarder will block in an attempt to deliver all messages. When the tuning spec is added to an output, this additionally configures an internal, durable buffer so the collector can attempt to forward any logs read before it restarted<br />
+          # <b>AtMostOnce</b>: The forwarder may provide better throughput but also may drop logs in the event of spikes in volume and backpressure from the output. Undelivered, collected logs will be lost on collector restart.<br />
+          # <b>NOTE</b>: Log collection and forwarding is best effort. AtLeastOnce delivery mode does not guarantee logs will not be lost.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          deliveryMode: AtLeastOnce
+
+          # -- The maximum time to wait between retry attempts after a delivery failure.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          maxRetryDuration: 5
+
+          # -- The minimum time to wait between attempts to retry after a delivery failure.
+          # @section -- OpenShift Logging 6.0 - Outputs
+          minRetryDuration: 5
+
+      # Example for Elasticsearch forwarder
+      # @ignore
+    - name: elasticsearch
+      type: elasticsearch
+      elasticsearch:
+        authentication:
+          password:
+            secretName: SecretName
+            key: SecretKey
+          token:
+            secret:
+              key: SecretKey
+              name: SecretName
+            from: serviceAccount
+          username:
+            secretName: SecretName
+            key: SecretKey
+        tuning:
+          compression: gzip
+          deliveryMode: AtLeastOnce
+          maxRetryDuration: 4
+          minRetryDuration: 4
+        index: 'foo.{.bar.baz||.qux.quux.corge||.grault||"nil"}-waldo.fred{.plugh||"none"}'
+        # URL of Elasticsearch endpoint
+        url: url
+        # Elasticsearch VErsion, must be 6, 7 or 8
+        version: 8
+
+      # Example for Open Telemetry forwarder
+      # @ignore
+    - name: open-telemetry
+      type: otlp
+
+      otlp:
+        # URL of OLTP endpoint
+        url: url
+
+        authentication:
+          password:
+            secretName: SecretName
+            key: SecretKey
+          token:
+            secret:
+              key: SecretKey
+              name: SecretName
+            from: serviceAccount
+          username:
+            secretName: SecretName
+            key: SecretKey
+
+        tuning:
+          compression: gzip
+          deliveryMode: AtLeastOnce
+          maxRetryDuration: 4
+          minRetryDuration: 4
+
+  # -- Define the path logs take from inputs, through filters, to outputs. Pipelines have a unique name and consist of a list of input, output and filter names.
+  # @section -- OpenShift Logging 6.0 - Pipelines
+  pipelines:
+
+      # -- Name of the pipeline
+      # @section -- OpenShift Logging 6.0 - Pipelines
+    - name: default-lokistack
+
+      # --  InputRefs lists the names (`input.name`) of inputs to this pipeline.
+      # The following built-in input names are always available:<br/>
+      # <ul>
+      # <li>`application` selects all logs from application pods.</li>
+      # <li>`infrastructure` selects logs from openshift and kubernetes pods and some node logs.</li>
+      # <li>`audit` selects node logs related to security audits.</li>
+      # @section -- OpenShift Logging 6.0 - Pipelines
+      inputRefs:
+        - application
+        - infrastructure
+        - audit
+
+      # -- OutputRefs lists the names (`output.name`) of outputs from this pipeline.
+      # @section -- OpenShift Logging 6.0 - Pipelines
+      outputRefs:
+        - default-lokistack
+
+      # -- Filters lists the names of filters to be applied to records going through this pipeline.
+      # @section -- OpenShift Logging 6.0 - Pipelines
+      filterRefs:
+        - detectexception
+        - parse-json
+
+  # -- Transform or drop log messages in the pipeline. Users can define filters that match certain log fields and drop or modify the messages. Filters are applied in the order specified in the pipeline.
+  # @section -- OpenShift Logging 6.0 - Filters
+  filters:
+
+    # -- Name used to refer to the filter from a "pipeline".
+    # @section -- OpenShift Logging 6.0 - Filters
+  - name: detectexception
+
+    # -- Type of filter.
+    # @section -- OpenShift Logging 6.0 - Filters
+    type: detectMultilineException
+
+    # -- Name used to refer to the filter from a "pipeline".
+    # @section -- OpenShift Logging 6.0 - Filters
+  - name: parse-json
+
+    # -- Type of filter.
+    # @section -- OpenShift Logging 6.0 - Filters
+    type: parse
+
+  # Collector settings
+  # @section -- OpenShift Logging 6.0
+  collector:
+    resources:
+      # -- LIMITS for CPU, memory and storage
+      # @section -- OpenShift Logging 6.0
+      # @default -- N/A
+      limits:
+        cpu: '500m'
+        memory: '1Gi'
+        ephemeral-storage: '50Mi'
+      # -- REQUESTS for CPU, memory and storage
+      # @section -- OpenShift Logging 6.0
+      # @default -- N/A
+      requests:
+        cpu: '500m'
+        memory: '1Gi'
+        ephemeral-storage: '500Mi'
+
+    # -- Define the tolerations the collector Pods will accept
+    # @section -- OpenShift Logging 6.0
+    # @default -- N/A
+    tolerations:
+      - effect: NoSchedule
+        key: infra
+        operator: Equal
+        value: 'reserved'
+
+  # -- Parameters that are required for OpenShift Logging Version 5.x
+  # @section -- OpenShift Logging 5.0
+  # @default -- N/A
+  logStore:
+    # -- The Type of Log Storage to configure.
+    # The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store.
+    # However, Elasticsearch is deprecated and should not be used here ... it would result in an error
+    # @section -- OpenShift Logging 5.0
+    type: lokistack
+
+    # -- Name of the LokiStack resource.
+    # @default -- logging-loki
+    # @section -- OpenShift Logging 5.0
+    lokistack: logging-loki
+
+    visualization:
+      # -- The type of Visualization to configure
+      # Could be either Kibana (deprecated) or ocp-console
+      # @section -- OpenShift Logging 5.0
+      # @default -- ocp-console
+      type: ocp-console
+
+      ocpConsole:
+        # -- LogsLimit is the max number of entries returned for a query.
+        # @section -- OpenShift Logging 5.0
+        # @default -- none
+        logsLimit: 1000
+
+        # -- Timeout is the max duration before a query timeout
+        # @section -- OpenShift Logging 5.0
+        # @default -- none
+        timeout: 10s
+
+      # -- Define the tolerations the visualisation Pod will accept
+      # @section -- OpenShift Logging 5.0
+      # @default -- N/A
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: 'reserved'
+
+    collection:
+      # -- The type of Log Collection to configure
+      # Vector in case of Loki.
+      # @section -- OpenShift Logging 5.0
+      # @default -- vector
+      type: vector
+
+      # -- The resource requirements for the collector. Set this only when you know what you are doing
+      # @section -- OpenShift Logging 5.0
+      # @default -- N/A
+      resources:
+        # -- LIMITS for CPU, memory and storage
+        # @section -- OpenShift Logging 5.0
+        # @default -- N/A
+        limits:
+          cpu: '500m'
+          memory: '1Gi'
+          ephemeral-storage: '50Mi'
+        # -- REQUESTS for CPU, memory and storage
+        # @section -- OpenShift Logging 5.0
+        # @default -- N/A
+        requests:
+          cpu: '500m'
+          memory: '1Gi'
+          ephemeral-storage: '500Mi'
+
+      # -- Define the tolerations the collector Pods will accept
+      # @section -- OpenShift Logging 5.0
+      # @default -- N/A
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: 'reserved'

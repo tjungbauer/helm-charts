@@ -1,0 +1,87 @@
+{{- with .Values.loggingConfig }}
+{{- if and (eq ( .operatorVersion | toString) "6.0") (eq ( .enabled | toString) "true") }}
+{{- range .additionalClusterRoles }}
+
+{{- if and (eq ( .type | toString) "application") (eq ( .enabled | toString) "true") }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .name | default "cluster-logging-write-application-logs" }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .name | default "cluster-logging-write-application-logs" }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
+    namespace: openshift-logging
+{{- end }}
+
+{{- if and (eq ( .type | toString) "audit") (eq ( .enabled | toString) "true") }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .name | default "cluster-logging-write-audit-logs" }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .name | default "cluster-logging-write-audit-logs" }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
+    namespace: openshift-logging
+{{- end }}
+
+{{- if and (eq ( .type | toString) "infrastructure") (eq ( .enabled | toString) "true") }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .name | default "cluster-logging-write-infrastructure-logs" }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .name | default "cluster-logging-write-infrastructure-logs" }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
+    namespace: openshift-logging
+{{- end }}
+
+{{- if and (eq ( .type | toString) "editor") (eq ( .enabled | toString) "true") }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .name | default "clusterlogforwarder-editor-role" }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .name | default "clusterlogforwarder-editor-role" }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
+    namespace: openshift-logging
+{{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,23 @@
+{{- with .Values.loggingConfig }}
+{{- if and (eq ( .operatorVersion | toString) "6.0") (eq ( .enabled | toString) "true") }}
+{{- if .collectorServiceAccount.bindings }}
+{{- range .collectorServiceAccount.bindings }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ . }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
+    namespace: openshift-logging
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

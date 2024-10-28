@@ -1,11 +1,18 @@
 {{ template "doc.header" . }}
 
-This Helm Chart is installing and configuring OpenShift Logging
+This Helm Chart is installing and configuring OpenShift Logging.
+
+**WARNING**: With the chart version 3, OpenShift Logging Version 6 is supported and should be used for new deployments. It drops the old ClusterLogging and ClusterLogForwarder resources and instead, 
+defines a ClusterlogForwarder resource, where everything can be configured. Moreover, the UI Plugin has been shifted to the *Cluster Observability Operator* which means that an additional Operator
+has to be deployed and configured to enable the UI Plugin.
+
+The values file *values-v5.0.yaml* provides an example for (old) version 5.x.
+
+The values file *values-v6.0.yaml* provides an example for (new) version 6.x.
+
 
 **NOTE**: OpenShift Logging using EFK stack (Elasticsearch, Kibana and Fluentd) is considered as deprecated and has been removed from this Chart. Instead, LokiStack with Vector 
 should be used.
-
-**NOTE**: ClusterLogForwarder is currently not configured with this Chart. This can be set using in the GitOps Chart/Kustomize that is using this chart as a dependency.
 
 {{ template "doc.deps" . }}
 
@@ -24,7 +31,79 @@ Verify the subcharts for additional settings:
 
 {{ template "doc.values" . }}
 
-## Example values
+
+## Example values OpenShift Logging 6.0
+
+```yaml
+---
+loggingConfig:
+  enabled: true
+
+  syncwave: '4'
+
+  operatorVersion: '6.0'
+
+  managementState: Managed
+
+  collectorServiceAccount:
+    name: cluster-logging-operator
+    create: false
+    bindings:
+      - collect-audit-logs
+      - collect-application-logs
+      - collect-infrastructure-logs
+
+  additionalClusterRoles:
+    - type: application
+      name: cluster-logging-write-application-logs
+      enabled: true
+    - type: audit
+      name: cluster-logging-write-audit-logs
+      enabled: true
+    - type: infrastructure
+      name: cluster-logging-write-infrastructure-logs
+      enabled: true
+    - type: editor
+      name: clusterlogforwarder-editor-role
+      enabled: true
+
+  outputs:
+    - name: default-lokistack
+      type: lokiStack
+      tls:
+        ca:
+          configMapName: openshift-service-ca.crt
+          key: service-ca.crt
+      
+      lokiStack:
+        authentication:
+          token:
+            from: serviceAccount
+
+        target:
+          name: logging-loki
+          namespace: openshift-logging
+
+  pipelines:
+    - name: default-lokistack
+      inputRefs:
+        - application
+        - infrastructure
+        - audit
+      outputRefs:
+        - default-lokistack
+      filterRefs:
+        - detectexception
+        - parse-json
+
+  filters:
+  - name: detectexception
+    type: detectMultilineException
+  - name: parse-json
+    type: parse
+```
+
+## Example values OpenShift Logging 5.0
 
 ```yaml
 ---
