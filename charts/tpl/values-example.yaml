@@ -52,3 +52,52 @@ nodeSelector:
 namespace:
   bindtoNode:
     role: infra
+
+# -- Define a NamespaceSelector and the required labels
+# <br />
+# Example include (used in chart admin-networkpolicies)
+#
+#spec:
+#  subject:
+#    {{- if .subject.namespaces }}
+#    namespaces:
+#      {{- if .subject.namespaces.matchExpressions }}
+#      matchExpressions:
+#        {{- range .subject.namespaces.matchExpressions }}
+#        {{- include "tpl.matchExpressions" . | indent 4 }}
+#        {{- end }}
+#      {{- end }}
+#      {{- if .subject.namespaces.matchLabels }}
+#      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}
+#      {{- end }}
+#    {{- end }}
+namespaceSelector:          
+  matchLabels:
+    kubernetes.io/metadata.name: "openshift-dns"
+
+# -- Deine a metchExpression to use key, oeprator, value pairs.
+# <br />
+# Example include (used in chart admin-networkpolicies)
+#
+#spec:
+#  subject:
+#    {{- if .subject.namespaces }}
+#    namespaces:
+#      {{- if .subject.namespaces.matchExpressions }}
+#      matchExpressions:
+#        {{- range .subject.namespaces.matchExpressions }}
+#        {{- include "tpl.matchExpressions" . | indent 4 }}
+#        {{- end }}
+#      {{- end }}
+#      {{- if .subject.namespaces.matchLabels }}
+#      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}
+#      {{- end }}
+#    {{- end }}
+matchExpressions:    
+  - key: kubernetes.io/metadata.name
+    operator: NotIn
+    values:
+      - "kube-system"
+      - "openshift*"
+      - "default"
+      - "kubde-info" 

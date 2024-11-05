@@ -49,6 +49,19 @@ namespace:
   bindtoNode:
     role: infra
 
+namespaceSelector:          
+  matchLabels:
+    kubernetes.io/metadata.name: "openshift-dns"
+
+matchExpressions:    
+  - key: kubernetes.io/metadata.name
+    operator: NotIn
+    values:
+      - "kube-system"
+      - "openshift*"
+      - "default"
+      - "kubde-info"  
+
 ```
 
 {{ template "doc.footer" . }}
