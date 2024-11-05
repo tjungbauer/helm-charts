@@ -439,7 +439,7 @@ data:
     {{- end }}
     SEARCH_MAX_RESULT_PAGE_COUNT: {{ .search_max_result_page_count | quote | default "10" | trimAll "\"" }}
     SEARCH_RESULTS_PER_PAGE: {{ .search_results_per_page | quote | default "10" | trimAll "\"" }}
-    SECRET_KEY: 386de725-b366-4dc1-b30a-93de7e1f15a7
+    SECRET_KEY: SuperSecretHERE # notsecret,  just test data
     SESSION_COOKIE_SECURE: {{ .session_cookie_secure | quote | default "false" | trimAll "\"" }}
     SETUP_COMPLETE: true
     {{- if .ssl_protocols }}
