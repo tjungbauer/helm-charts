@@ -20342,6 +20342,45 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-11-05T10:44:17.083929314Z"
+    description: A library that shall collect certain templates to reuse them among
+      different charts.
+    digest: 1ecfed42731712342c09ce4c499757a8a018aa60bd7eb2b4c6e9205190bee01a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.13/tpl-1.0.13.tgz
+    version: 1.0.13
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: tpl nodeSelector
+        - kind: added
+          description: tpl for sleeptimer that can be used in jobs
+        - kind: added
+          description: tpl to set nodeSelector and tolartion annoations for a namespace
+        - kind: added
+          description: new TPLs to create matchExpressions and matchLabels blocks
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-11-05T10:42:19.400327878Z"
     description: A library that shall collect certain templates to reuse them among
       different charts.
@@ -20727,4 +20766,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-11-05T10:42:19.402009776Z"
+generated: "2024-11-05T10:44:17.084787821Z"
