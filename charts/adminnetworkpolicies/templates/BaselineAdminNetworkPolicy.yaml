@@ -1,0 +1,91 @@
+{{- range .Values.bnp }}
+{{ if eq ( .enabled | toString) "true" }}
+---
+apiVersion: policy.networking.k8s.io/v1alpha1
+kind: BaselineAdminNetworkPolicy
+metadata:
+  name: {{ .name | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 10 | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  priority: {{ .priority | default "50" }}
+  subject:
+    {{- if .subject.namespaces }}
+    namespaces:
+      {{- if .subject.namespaces.matchExpressions }}
+      matchExpressions:
+        {{- range .subject.namespaces.matchExpressions }}
+        {{- include "tpl.matchExpressions" . | indent 4 }}
+        {{- end }}
+      {{- end }}
+      {{- if .subject.namespaces.matchLabels }}
+      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}
+      {{- end }}
+    {{- end }}
+
+{{- if .subject.pods }}
+{{- range .subject }}
+  {{- include "include.podsConfig" .pods }}
+{{- end }}
+{{- end }}
+
+  {{- /* EGRESS RULES */}}
+  {{- if .egress }}
+  egress:
+    {{- range .egress }}
+    {{- if eq ( .enabled | toString) "true" }}
+    - name: {{ .name | quote }} 
+      action: {{ .action | quote }}
+      to:
+      {{- /* RENDER RULES */}}
+      {{- range .peers }}
+        {{- include "include.rule" . }}
+      {{- end }}
+
+      {{- /* PORT RESTRICTION */}}
+      {{- if .ports }}
+      ports:
+        {{- range .ports }}
+          {{- include "include.ports" . | indent 4 }}
+        {{- end }}
+      {{- end }}
+
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- /* END EGRESS RULES */}}
+  {{- /* INGRESS RULES */}}
+  {{- if .ingress }}
+  ingress:
+  {{- range .ingress }}
+  {{- if eq ( .enabled | toString) "true" }}
+    - name: {{ .name | quote }} 
+      action: {{ .action | quote }}
+      from:
+      {{- /* RENDER RULES */}}
+      {{- if .peers }}
+      {{- range .peers }}
+        {{- include "include.rule" . }}
+      {{- end }}
+      {{- else  }}
+        - namespaces: {}
+      {{- end }}
+
+      {{- /* PORT RESTRICTION */}}
+      {{- if .ports }}
+      ports:
+        {{- range .ports }}
+          {{- include "include.ports" . | indent 4 }}
+        {{- end }}
+      {{- end }}
+
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- /* END INGRESS RULES */}}
+
+{{- end }}
+{{- end }}

@@ -1,0 +1,144 @@
+---
+anp:
+  - name: sample-anp-deny-pass-rules
+    enabled: false
+    syncwave: 10
+    priority: 50
+
+    subject:
+      namespaces:
+        matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: NotIn
+            values:
+              - kube-system
+              - openshift*
+              - default
+              - kubde-info
+
+        matchLabels:
+          apps: my-apps
+          tenant: my-tenant
+
+      # - pods:
+      #     namespaceSelector:
+      #       labels:
+      #         - key: kubernetes.io/metadata.name
+      #           value: openshift-dns
+      #     podSelector:
+      #       labels:
+      #         - key: app
+      #           value: dns
+
+    ingress:
+      - name: allow-ingress-from-monitoring
+        enabled: true
+        action: Allow
+        peers:
+          - type: namespaces
+            labels:
+              kubernetes.io/metadata.name: monitoring
+      - name: allow-ingress-from-route
+        enabled: true
+        action: Allow
+        peers:
+          - type: namespaces
+            labels:
+              policy-group.network.openshift.io/ingress: ""
+
+      - name: allow-from-open-tenants
+        enabled: true
+        action: Allow
+        peers:
+          - type: namespaces
+            labels:
+              tenant: open
+      - name: ass-from-restricted-tenants
+        enabled: true
+        action: Pass
+        peers:
+          - type: namespaces
+            labels:
+              tenant: restricted
+      - name: default-deny
+        enabled: true
+        action: Deny
+
+    egress:
+      - name: pass-all-egress-to-tenant-1
+        enabled: true
+        action: Allow
+        peers:
+          - type: namespaces
+            labels:
+              tenant: splunk
+              foo: bar
+        ports:
+          - protocol: TCP
+            portNumber: 80
+          - portName: https
+
+      - name: allow-to-kapi-server
+        enabled: true
+        action: Allow
+        peers:
+          - type: nodes
+            expr:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
+        ports:
+          - protocol: TCP
+            portNumber: 6443
+
+      - name: allow-to-dns
+        enabled: true
+        action: Allow
+        peers:
+          - type: pods
+            namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: openshift-dns
+
+            podSelector:
+              matchLabels:
+                app: dns
+
+        ports:
+          - protocol: UDP
+            portNumber: 5353
+
+      - name: allow-to-open-tenants-and-intranet-and-worker-nodes
+        enabled: true
+        action: Allow
+        peers:
+          - type: nodes
+            expr:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
+          - type: networks
+            ips:
+              - 172.29.0.0/30
+              - 10.0.54.0/19
+              - 10.0.56.38/32
+              - 10.0.69.0/24
+          - type: namespaces
+            labels:
+              tenant: open
+
+      - name: allow-to-specific-domainnames
+        enabled: true
+        action: Allow
+        peers:
+          - type: domainNames
+            domains:
+              - '*.kubernetes.io'
+              - kubernetes.io
+
+
+      - name: default-deny
+        enabled: true
+        action: Deny
+        peers:
+          - type: networks
+            ips:
+              - 0.0.0.0/0
