@@ -1,17 +1,17 @@
-{{- define "include.podsConfig" }}
+{{- define "helper.podsConfig" }}
     - pods:
         {{- if .namespaceSelector }}
         namespaceSelector:
           matchLabels:
-            {{- range .namespaceSelector.labels }}
-            {{ .key }}: {{ .value }}
+            {{- range $key, $value := .namespaceSelector.labels }}
+            {{ $key }}: {{ $value }}
             {{- end }}
         {{- end }}
         {{- if .podSelector }}
         podSelector:
           matchLabels:
-            {{- range .podSelector.labels }}
-            {{ .key }}: {{ .value }}
+            {{- range $key, $value := .podSelector.labels }}
+            {{ $key }}: {{ $value }}
             {{- end }}
         {{- end }}
 {{- end }}
@@ -20,7 +20,7 @@
   Define rules based on namespace labels
   If a match is found, then the Namespace will be allowed, denied or passed to project Networkpolcies
 */}}
-{{- define "include.namespaceRule" }}
+{{- define "helper.namespaceRule" }}
   - namespaces:
       {{- include "tpl.matchLabels" .labels | indent 4 }}
 {{- end }}
@@ -29,7 +29,7 @@
   Define rules based on IP addresses
   A list of CIDRs can be defined here
 */}}
-{{- define "include.networkRule" }}
+{{- define "helper.networkRule" }}
   - networks:
       {{- range .ips }}
       - {{ . }}
@@ -39,7 +39,7 @@
 {{- /* 
   Define rules the will match to certain nodes using matchExpression
 */}}
-{{- define "include.nodeRule" }}
+{{- define "helper.nodeRule" }}
   - nodes:
       matchExpressions:
         {{- range .expr }}
@@ -50,7 +50,7 @@
 {{- /* 
   Define rules to match pods and or namespaces
 */}}
-{{- define "include.podRule" }}
+{{- define "helper.podRule" }}
   - pods:
       {{- if .podSelector }}
       {{- if .podSelector.matchLabels }}
@@ -73,7 +73,7 @@
   Define rules based on domainnames
   Only ALLOW action is possible for domainnames
 */}}
-{{- define "include.domainRule" }}
+{{- define "helper.domainRule" }}
   - domainNames:
       {{- range .domains }}
       - {{ . | quote }}
@@ -83,33 +83,33 @@
 {{- /* 
   Knitting the rules together
 */}}
-{{- define "include.rule" }}
+{{- define "helper.rule" }}
     {{- /* NAMESPACE RULE */}}
     {{- if eq ( .type | toString ) "namespaces" }}
-    {{- include "include.namespaceRule" . | indent 4 }}
+    {{- include "helper.namespaceRule" . | indent 4 }}
     {{- end }}
     {{- /* NODE RULE */}}
     {{- if eq ( .type | toString ) "nodes" }}
-    {{- include "include.nodeRule" . | indent 4 }}
+    {{- include "helper.nodeRule" . | indent 4 }}
     {{- end }}
     {{- /* NETWORK-IP RULE */}}
     {{- if eq ( .type | toString ) "networks" }}
-    {{- include "include.networkRule" . | indent 4 }}
+    {{- include "helper.networkRule" . | indent 4 }}
     {{- end }}
     {{- /* DOMAINNAMES RULE */}}
     {{- if eq ( .type | toString ) "domainNames" }}
-    {{- include "include.domainRule" . | indent 4 }}
+    {{- include "helper.domainRule" . | indent 4 }}
     {{- end }}
     {{- /* PODS RULE */}}
     {{- if eq ( .type | toString ) "pods" }}
-    {{- include "include.podRule" . | indent 4 }}
+    {{- include "helper.podRule" . | indent 4 }}
     {{- end }}
 {{- end }}
 
 {{- /* 
   The port specification
 */}}
-{{- define "include.ports" }}
+{{- define "helper.ports" }}
   {{- /* PORT BY NUMBER */}}
   {{- if .portNumber }}    
   - portNumber:

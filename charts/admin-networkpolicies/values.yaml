@@ -1,43 +1,119 @@
 ---
+# -- AdminNetworkPolicy
+# @section -- Generic - ANP
+# @default -- ''
 anp:
-  - name: sample-anp-deny-pass-rules
+    # -- Name of the AdminNetworkPolicy. Only Applicable for ANP.
+    # @section -- Generic - ANP
+    # @default -- N/A
+  - name: sample-anp-rules
+
+    # -- Enable this ANP or not. You must explicitly set this to "true"
+    # @section -- Generic - ANP
+    # @default -- false
     enabled: false
+
+    # -- Syncwave for Argo CD
+    # @section -- Generic - ANP
+    # @default -- 10
     syncwave: 10
+
+    # -- Priority is a value from 0 to 1000 (0-99 according to OpenShift documentation).
+    # Policies with lower priority values have higher precedence, and are checked before policies with higher priority values.
+    # Any ANP should have a unique priority
+    # @section -- Generic - ANP
+    # @default -- 50
     priority: 50
 
+    # -- Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection.
+    # Can be namespaces or pods that are selected.
+    # If subject is empty (subject: {}, then ALL namespaces, including OpenShift namespaces are selected. Use this with caution.<br />
+    # *NOTE*: Below is a full example used for documentation only. Choose which subject works best for you.
+    # @section -- Subject
+    # @default -- N/A
     subject:
-      namespaces:
-        matchExpressions:
-          - key: kubernetes.io/metadata.name
-            operator: NotIn
-            values:
-              - kube-system
-              - openshift*
-              - default
-              - kubde-info
 
+    #  # -- matchNamespaces is used to select pods via namespace selectors.
+    #  # @section -- Subject
+    #  # @default -- N/A
+      matchNamespaces:
+    #    # -- Select Namespaces using matchExpressions. The expression must be true.
+    #    # @section -- Subject
+    #    # @default -- N/A
+    #    matchExpressions:
+    #      - key: kubernetes.io/metadata.name
+    #        operator: NotIn
+    #        values:
+    #          - kube-system
+    #          - openshift*
+    #          - default
+    #          - kubde-info
+#
+        # -- Select Namespaces using matchLabels. The labels must exist on the Namespace
+        # @section -- Subject
+        # @default -- N/A
         matchLabels:
-          apps: my-apps
-          tenant: my-tenant
+          anp: cluster-control-anp
 
-      # - pods:
-      #     namespaceSelector:
-      #       labels:
-      #         - key: kubernetes.io/metadata.name
-      #           value: openshift-dns
-      #     podSelector:
-      #       labels:
-      #         - key: app
-      #           value: dns
+      # -- matchPods is used to select pods via namespace selectors and pod selectors.
+      # @section -- Subject
+      # @default -- N/A
+      # matchPods:
+      #   # -- Pods is used to select pods via namespace AND pod selectors.
+      #   # @section -- Subject
+      #   # @default -- N/A
+      #   - pods:
 
+      #       # -- Select Pods for Namespaces using Namespace labels
+      #       # @section -- Subject
+      #       # @default -- N/A
+      #       namespaceSelector:
+      #         labels:
+      #           kubernetes.io/metadata.name: openshift-dns
+      #       # -- Select Pods for Pod labels
+      #       # @section -- Subject
+      #       # @default -- N/A
+      #       podSelector:
+      #         labels:
+      #           app: dns
+
+    # -- Ingress is the list of Ingress rules to be applied to the selected pods.
+    # A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written.
+    # Therefore, the first rule will have the highest precedence.
+    # @section -- Ingress Rules
+    # @default -- []
     ingress:
+        # -- Name of the ingress rule
+        # @section -- Ingress Rules
+        # @default -- N/A
       - name: allow-ingress-from-monitoring
+
+        # -- Enable of disable this specific rule
+        # @section -- Ingress Rules
+        # @default -- false
         enabled: true
+
+        # -- Action for this rule, can be *Allow*, *Pass* or *Deny* for ANPs. For BANP only *Allow* and *Deny* are possible.
+        # @section -- Ingress Rules
+        # @default -- Deny
         action: Allow
+
+        # -- Peers is a list of matching rules. This can be: <br />
+        # <ul>
+        #  <li> - namespaces: Select namespaces using labels or names</li>  <br />
+        #  <li> - pods: Select pods using labels for pods and namespaces </li> <br />
+        #  <li> - nodes: Select Nodes using match expressions</li>  <br />
+        #  <li> - networks: Select IP addresses using CIDR notation</li>  <br />
+        #  <li> - domainNames: Select domains using DNS notation</li>  <br />
+        # </ul>
+        # See values.yaml for exmples
+        # @section -- Ingress Rules
+        # @default -- N/A
         peers:
           - type: namespaces
             labels:
               kubernetes.io/metadata.name: monitoring
+
       - name: allow-ingress-from-route
         enabled: true
         action: Allow
@@ -53,26 +129,71 @@ anp:
           - type: namespaces
             labels:
               tenant: open
-      - name: ass-from-restricted-tenants
+
+        # -- Ports is a list of matching rules. This can be: <br />
+        # portNumber: Select a specific port number <br />
+        # portName: Select a specific port name <br />
+        # @section -- Ingress Rules
+        # @default -- N/A
+        ports:
+          - protocol: TCP
+            portNumber: 8080
+          - portName: https
+
+      - name: pass-from-restricted-tenants
         enabled: true
         action: Pass
         peers:
           - type: namespaces
             labels:
               tenant: restricted
+
       - name: default-deny
         enabled: true
         action: Deny
 
+    # -- Egress is the list of Egress rules to be applied to the selected pods.
+    # A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written.
+    # Therefore, the first rule will have the highest precedence.
+    # @section -- Egress Rules
+    # @default -- []
     egress:
+        # -- Name of the egress rule
+        # @section -- Egress Rules
+        # @default -- N/A
       - name: pass-all-egress-to-tenant-1
+
+        # -- Enable of disable this specific rule
+        # @section -- Egress Rules
+        # @default -- false
         enabled: true
+
+        # -- Action for this rule, can be *Allow*, *Pass* or *Deny* for ANPs. For BANP only *Allow* and *Deny* are possible.
+        # @section -- Ingress Rules
+        # @default -- Deny
         action: Allow
+
+        # -- Peers is a list of matching rules. This can be: <br />
+        # <ul>
+        #  <li> - namespaces: Select namespaces using labels or names</li>  <br />
+        #  <li> - pods: Select pods using labels for pods and namespaces </li> <br />
+        #  <li> - nodes: Select Nodes using match expressions</li>  <br />
+        #  <li> - networks: Select IP addresses using CIDR notation</li>  <br />
+        #  <li> - domainNames: Select domains using DNS notation</li>  <br />
+        # </ul>
+        # See values.yaml for exmples
+        # @section -- Egress Rules
+        # @default -- N/A
         peers:
           - type: namespaces
             labels:
               tenant: splunk
-              foo: bar
+
+        # -- Ports is a list of matching rules. This can be: <br />
+        # portNumber: Select a specific port number <br />
+        # portName: Select a specific port name <br />
+        # @section -- Egress Rules
+        # @default -- N/A
         ports:
           - protocol: TCP
             portNumber: 80
@@ -142,3 +263,106 @@ anp:
           - type: networks
             ips:
               - 0.0.0.0/0
+
+# -- BaselineAdminNetworkPolicy
+# NOTE: BANP cannot set an object name
+# @section -- Generic - BANP
+# @default -- ''
+banp:
+    # -- Enable this ANP or not. You must explicitly set this to "true"
+    # @section -- Generic - BANP
+    # @default -- false
+  - enabled: false
+
+    # -- Syncwave for Argo CD
+    # @section -- Generic - BANP
+    # @default -- 10
+    syncwave: 10
+
+    # -- Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection.
+    # Can be namespaces or pods that are selected.
+    # If subject is empty (subject: {}, then ALL namespaces, including OpenShift namespaces are selected. Use this with caution.<br />
+    # *NOTE*: Below is a full example used for documentation only. Choose which subject works best for you.
+    # @section -- Subject
+    # @default -- N/A
+    subject:
+
+      # -- matchNamespaces is used to select pods via namespace selectors.
+      # @section -- Subject
+      # @default -- N/A
+      matchNamespaces:
+      #   # -- Select Namespaces using matchExpressions. The expression must be true.
+      #   # @section -- Subject
+      #   # @default -- N/A
+      #   matchExpressions:
+      #     - key: kubernetes.io/metadata.name
+      #       operator: NotIn
+      #       values:
+      #         - kube-system
+      #         - openshift*
+      #         - default
+      #         - kubde-info
+
+        # -- Select Namespaces using matchLabels. The labels must exist on the Namespace
+        # @section -- Subject
+        # @default -- N/A
+        matchLabels:
+          kubernetes.io/metadata.name: example.name
+
+      # -- matchPods is used to select pods via namespace selectors and pod selectors.
+      # @section -- Subject
+      # @default -- N/A
+      # matchPods:
+      #   # -- Pods is used to select pods via namespace AND pod selectors.
+      #   # @section -- Subject
+      #   # @default -- N/A
+      #   - pods:
+
+      #       # -- Select Pods for Namespaces using Namespace labels
+      #       # @section -- Subject
+      #       # @default -- N/A
+      #       namespaceSelector:
+      #         labels:
+      #           kubernetes.io/metadata.name: openshift-dns
+      #       # -- Select Pods for Pod labels
+      #       # @section -- Subject
+      #       # @default -- N/A
+      #       podSelector:
+      #         labels:
+      #           app: dns
+
+    # -- Ingress is the list of Ingress rules to be applied to the selected pods.
+    # Therefore, the first rule will have the highest precedence.
+    # @section -- Ingress Rules
+    # @default -- []
+    ingress:
+      - name: "deny-all-ingress-from-tenant-1"
+        enabled: true
+        action: Deny
+        peers:
+          - type: pods
+            namespaceSelector:
+              matchLabels:
+                custom-banp: tenant-1
+
+            podSelector:
+              matchLabels:
+                custom-banp: tenant-1
+
+    # -- Egress is the list of Egress rules to be applied to the selected pods.
+    # Therefore, the first rule will have the highest precedence.
+    # @section -- Egress Rules
+    # @default -- []
+    egress:
+      - name: allow-all-egress-to-tenant-1
+        enabled: true
+        action: Allow
+        peers:
+          - type: pods
+            namespaceSelector:
+              matchLabels:
+                custom-banp: tenant-1
+
+            podSelector:
+              matchLabels:
+                custom-banp: tenant-1

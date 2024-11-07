@@ -13,24 +13,28 @@ metadata:
 spec:
   priority: {{ .priority | default "50" }}
   subject:
-    {{- if .subject.namespaces }}
+    {{- if .subject.matchNamespaces }}
     namespaces:
-      {{- if .subject.namespaces.matchExpressions }}
+      {{- if .subject.matchNamespaces.matchExpressions }}
       matchExpressions:
-        {{- range .subject.namespaces.matchExpressions }}
+        {{- range .subject.matchNamespaces.matchExpressions }}
         {{- include "tpl.matchExpressions" . | indent 4 }}
         {{- end }}
       {{- end }}
-      {{- if .subject.namespaces.matchLabels }}
-      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}
+      {{- if .subject.matchNamespaces.matchLabels }}
+      {{- include "tpl.matchLabels" .subject.matchNamespaces.matchLabels | indent 4 }}
       {{- end }}
     {{- end }}
 
-{{- if .subject.pods }}
-{{- range .subject }}
-  {{- include "include.podsConfig" .pods }}
-{{- end }}
-{{- end }}
+    {{- if .subject.matchPods }}
+    {{- range .subject.matchPods }}
+  {{- include "helper.podsConfig" .pods }}
+    {{- end }}
+    {{- end }}
+
+  {{- if and (not .subject.matchNamespaces) (not .subject.matchPods) }}
+    namespaces: {}
+  {{- end }}
 
   {{- /* EGRESS RULES */}}
   {{- if .egress }}
@@ -38,18 +42,18 @@ spec:
     {{- range .egress }}
     {{- if eq ( .enabled | toString) "true" }}
     - name: {{ .name | quote }} 
-      action: {{ .action | quote }}
+      action: {{ .action | default "Deny" | quote }}
       to:
       {{- /* RENDER RULES */}}
       {{- range .peers }}
-        {{- include "include.rule" . }}
+        {{- include "helper.rule" . }}
       {{- end }}
 
       {{- /* PORT RESTRICTION */}}
       {{- if .ports }}
       ports:
         {{- range .ports }}
-          {{- include "include.ports" . | indent 4 }}
+          {{- include "helper.ports" . | indent 4 }}
         {{- end }}
       {{- end }}
 
@@ -63,12 +67,12 @@ spec:
   {{- range .ingress }}
   {{- if eq ( .enabled | toString) "true" }}
     - name: {{ .name | quote }} 
-      action: {{ .action | quote }}
+      action: {{ .action | default "Deny" | quote }}
       from:
       {{- /* RENDER RULES */}}
       {{- if .peers }}
       {{- range .peers }}
-        {{- include "include.rule" . }}
+        {{- include "helper.rule" . }}
       {{- end }}
       {{- else  }}
         - namespaces: {}
@@ -78,7 +82,7 @@ spec:
       {{- if .ports }}
       ports:
         {{- range .ports }}
-          {{- include "include.ports" . | indent 4 }}
+          {{- include "helper.ports" . | indent 4 }}
         {{- end }}
       {{- end }}
 

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: admin-networkpolicies
 description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.
-version: 1.0.1
+version: 1.0.2
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 dependencies:
@@ -16,6 +16,7 @@ sources:
   - https://github.com/tjungbauer/helm-charts
   - https://charts.stderr.at/
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+  - https://blog.stderr.at/openshift/2024/11/introducting-adminnetworkpolicies/
 keywords:
   - security
   - clusterconfig
@@ -27,3 +28,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: initial release
+    - kind: added
+      description: fixes and adding README
