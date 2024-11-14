@@ -12,7 +12,6 @@ Example for resources in the values-file:
 {{- define "tpl.nodeSelector" -}}
   {{- if .nodeSelector }}
   nodeSelector:
-    matchLabels:
-      {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
+    {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
   {{- end }}
 {{- end -}}
