@@ -85,6 +85,10 @@ config_allowed_registries:
   - domainName: registry.connect.redhat.com
   - domainName: registry.redhat.io
 
+  # -- When Registry are limited the Samples Operator requires an additional configuration in order to know from where it can fetch its images
+  # @default -- registry.redhat.io
+  sampleOperatorRegistry: registry.redhat.io
+
 ######################
 # IDENTITY PROVIDERS #
 ######################
