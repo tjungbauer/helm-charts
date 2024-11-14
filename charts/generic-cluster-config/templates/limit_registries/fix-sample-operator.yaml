@@ -5,5 +5,5 @@ kind: Config
 metadata:
   name: cluster
 spec:
-  samplesRegistry: registry.redhat.io
+  samplesRegistry: {{ .Values.config_allowed_registries.sampleOperatorRegistry | default "registry.redhat.io" }}
 {{- end }}

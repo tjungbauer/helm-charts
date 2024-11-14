@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
+  ![Version: 1.0.31](https://img.shields.io/badge/Version-1.0.31-informational?style=flat-square)
 
  
 
@@ -78,6 +78,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | config_allowed_registries.allowedRegistriesForImport[0].insecure | bool | false | Validate the vertificate of not |
 | config_allowed_registries.enabled | bool | false | Enable configuration to limit the registries |
 | config_allowed_registries.registry_sources.allowed_registries | list | empty | When pulling or pushing images, the container runtime searches the registries listed here |
+| config_allowed_registries.sampleOperatorRegistry | string | registry.redhat.io | When Registry are limited the Samples Operator requires an additional configuration in order to know from where it can fetch its images |
 | console.console_banners | object | '' | Configure banners for the WebUI. This can either be: topbanner or bottombanner |
 | console.console_banners.bottombanner | object | '' | Configure BOTTOM-banner |
 | console.console_banners.bottombanner.backgroundcolor | string | '' | Define the background colour for the banner |
