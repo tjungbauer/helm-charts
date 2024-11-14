@@ -18,18 +18,44 @@ spec:
   defaultCertificate:
     name: {{ .defaultCertificate }}
   {{- end }}
+  {{- if .domain }}
+  domain: {{ .domain }}
+  {{- end }}
+
+  {{- if .endpointPublishingStrategy }}
+  endpointPublishingStrategy:
+    type: {{ .endpointPublishingStrategy.type | default "HostNetwork" }}
+    {{- if .endpointPublishingStrategy.hostNetwork }}
+    hostNetwork:
+      httpPort: {{ .endpointPublishingStrategy.hostNetwork.httpPort }}
+      httpsPort: {{ .endpointPublishingStrategy.hostNetwork.httpsPort }}
+      statsPort: {{ .endpointPublishingStrategy.hostNetwork.statsPort }}
+    {{- end }}
+  {{- end }}
+  {{- if .tlsSecurityProfile }}
+  tlsSecurityProfile: 
+    {{- toYaml .tlsSecurityProfile | nindent 4 }}
+  {{- end }}
+  {{- if .namespaceSelector }}
+  namespaceSelector:
+    matchExpressions:
+      {{- range .namespaceSelector.matchExpressions }}
+      {{- include "tpl.matchExpressions" . }}
+      {{- end }}
+  {{- end }}
+
   {{- if .nodePlacement }}
   {{- with .nodePlacement }}
   nodePlacement:
+    {{- if .nodeSelector }}
+    nodeSelector:
+      matchLabels: 
+        {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
+    {{- end }}
 
-{{- if .nodeSelector }}
-{{- include "tpl.nodeSelector" . | indent 2 }}
-{{- end }}
-
-{{- if .tolerations }}
+  {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 4 }}
-{{- end }}
-
+  {{- end }}
   {{- end }}
   {{- end }}
 

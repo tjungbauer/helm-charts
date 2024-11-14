@@ -6,7 +6,7 @@ home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroll
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 dependencies:
   - name: tpl
-    version: ~1.0.0
+    version: ~1.0.14
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -37,3 +37,5 @@ annotations:
       description: added defaultCertificate option to use a valid certificate for the ingresscontroller
     - kind: added
       description: added possibility to define annotations for the IngressController. For example to enable HTTP/2
+    - kind: added
+      description: added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain
