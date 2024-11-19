@@ -415,13 +415,13 @@ monitoring:
 
     # -- Resources set for the Alertmanager. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ##############
   # PROMETHEUS #
@@ -473,13 +473,13 @@ monitoring:
 
     # -- Resources set for the Prometheus. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ######################
   # PROMETHEUSOPERATOR #
@@ -505,13 +505,13 @@ monitoring:
 
     # -- Resources set for the Prometheus Operator. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ######################
   # PROMETHEUS ADAPTER #
@@ -537,13 +537,13 @@ monitoring:
 
     # -- Resources set for the Prometheus Adapter. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   #####################
   # KUBE-STATEMETRICS #
@@ -569,13 +569,13 @@ monitoring:
 
     # -- Resources set for the Kube StateMetrics. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ###################
   # TELEMETERCLIENT #
@@ -601,13 +601,13 @@ monitoring:
 
     # -- Resources set for the Telemter Client. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ################
   # STATEMETRICS #
@@ -633,13 +633,13 @@ monitoring:
 
     # -- Resources set for the OpenShift State Metrics. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ####################
   # MONITORINGPLUGIN #
@@ -665,13 +665,13 @@ monitoring:
 
     # -- Resources set for the Monitoring Plugin. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   #################
   # THANOSQUERIER #
@@ -697,13 +697,13 @@ monitoring:
 
     # -- Resources set for the Thanos Querier. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
 ############################
 # USER WORKLOAD MONITORING #
@@ -757,13 +757,13 @@ user_workload_monitoring:
 
     # -- Resources set for the Alertmanager. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ##############
   # PROMETHEUS #
@@ -811,13 +811,13 @@ user_workload_monitoring:
 
     # -- Resources set for the Prometheus. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ######################
   # PROMETHEUSOPERATOR #
@@ -843,13 +843,13 @@ user_workload_monitoring:
 
     # -- Resources set for the Prometheus Operator. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
 
   ################
   # THANOS RULER #
@@ -892,10 +892,10 @@ user_workload_monitoring:
 
     # -- Resources set for the Prometheus Adapter. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 3Gi
+      requests:
+        cpu: 200m
+        memory: 500Mi
