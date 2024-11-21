@@ -17,6 +17,8 @@ spec:
   {{- end }}
   {{- /* SCANNER */}}
   {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+  {{- if eq (.Values.rhacs.scanner.is_central | toString ) "true" }}
+  {{- else }}
   scanner:
     {{- if .Values.rhacs.scanner.analyzer }}
     analyzer:
@@ -69,6 +71,8 @@ spec:
     {{- else }}
     scannerComponent: Disabled
     {{- end }}
+
+{{- end }}
 
   admissionControl:
     {{- if .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}

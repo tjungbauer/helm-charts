@@ -276,6 +276,10 @@ rhacs:
     # @default -- false
     enabled: true
 
+    # -- If the Scanner is running on the Central node, the SecuredCluster will not configure a 2nd Scanner.
+    # @default -- false
+    is_central: false
+
     # -- Expose the monitoring endpoint. A new service, "monitoring", with port 9090,
     # will be created as well as a network policy allowing inbound connections to
     # the port.
