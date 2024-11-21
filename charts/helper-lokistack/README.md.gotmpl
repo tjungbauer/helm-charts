@@ -76,6 +76,9 @@ mode: openshift-logging
 # Control pod placement for LokiStack components
 podPlacements:
   compactor:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -86,6 +89,9 @@ podPlacements:
         operator: Equal
         value: reserved
   distributor:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -96,6 +102,9 @@ podPlacements:
         operator: Equal
         value: reserved
   gateway:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -106,6 +115,9 @@ podPlacements:
         operator: Equal
         value: reserved
   indexGateway:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -116,6 +128,9 @@ podPlacements:
         operator: Equal
         value: reserved
   ingester:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -126,6 +141,9 @@ podPlacements:
         operator: Equal
         value: reserved
   querier:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -136,6 +154,9 @@ podPlacements:
         operator: Equal
         value: reserved
   queryFrontend:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -146,6 +167,9 @@ podPlacements:
         operator: Equal
         value: reserved
   ruler:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra

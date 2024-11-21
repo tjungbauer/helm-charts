@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
+  ![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square)
 
  
 
@@ -68,11 +68,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 | name | string | `"logging-loki"` | Name of the LokiStack object |
 | namespace | string | `"openshift-logging"` | Namespace of the LokiStack object |
 | podPlacements | object | `{}` | Control pod placement for LokiStack components. You can define a list of tolerations for the following components: compactor, distributer, gateway, indexGateway, ingester, querier, queryFrontend, ruler |
-| storage.schemas[0] | object | v12 | Version for writing and reading logs. Can be v11 or v12 |
-| storage.schemas[0].effectiveDate | string | 2022-06-01 | EffectiveDate is the date in UTC that the schema will be applied on. To ensure readibility of logs, this date should be before the current date in UTC. |
+| storage.schemas[0] | object | v13 | Version for writing and reading logs. Can be v11, v12 or v13 |
+| storage.schemas[0].effectiveDate | string | 2020-10-11 | EffectiveDate is the date in UTC that the schema will be applied on. To ensure readibility of logs, this date should be before the current date in UTC. |
 | storage.secret.name | string | `"logging-loki-s3"` | Name of a secret in the namespace configured for object storage secrets. |
 | storage.secret.type | string | s3 | Type of object storage that should be used |
 | storage.size | string | 1x.extra-small | Size defines one of the supported Loki deployment scale out sizes. Can be either:   - 1x.demo   - 1x.extra-small (Default)   - 1x.small   - 1x.medium |
+| storage.tls_caKey | string | service-ca.crt | Key of Configmap that contains the CAs |
+| storage.tls_caName | string | openshift-service-ca.crt | Name of Configmap that contains the CAs |
 | storageclassname | string | gp3-csi | Storage class name defines the storage class for ingester/querier PVCs. |
 | syncwave | int | 3 | Syncwave for the LokiStack object. |
 
@@ -139,6 +141,9 @@ mode: openshift-logging
 # Control pod placement for LokiStack components
 podPlacements:
   compactor:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -149,6 +154,9 @@ podPlacements:
         operator: Equal
         value: reserved
   distributor:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -159,6 +167,9 @@ podPlacements:
         operator: Equal
         value: reserved
   gateway:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -169,6 +180,9 @@ podPlacements:
         operator: Equal
         value: reserved
   indexGateway:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -179,6 +193,9 @@ podPlacements:
         operator: Equal
         value: reserved
   ingester:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -189,6 +206,9 @@ podPlacements:
         operator: Equal
         value: reserved
   querier:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -199,6 +219,9 @@ podPlacements:
         operator: Equal
         value: reserved
   queryFrontend:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra
@@ -209,6 +232,9 @@ podPlacements:
         operator: Equal
         value: reserved
   ruler:
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/infra

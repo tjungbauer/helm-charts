@@ -148,6 +148,9 @@ podPlacements: {}
 # podPlacements:
 #  # Pod placement of compactor
 #  compactor:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -159,6 +162,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of distributor
 #  distributor:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -170,6 +176,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of gateway
 #  gateway:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -181,6 +190,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of indexGateway
 #  indexGateway:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -192,6 +204,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of ingester
 #  ingester:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -203,6 +218,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of querier
 #  querier:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -214,6 +232,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of queryFrontend
 #  queryFrontend:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
@@ -225,6 +246,9 @@ podPlacements: {}
 #        value: reserved
 #  # Pod placement of ruler
 #  ruler:
+#    nodeSelector:
+#      key: node-role.kubernetes.io/infra
+#      value: ''
 #    tolerations:
 #      - effect: NoSchedule
 #        key: node-role.kubernetes.io/infra
