@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
+  ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
 
  
 
@@ -71,6 +71,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 This chart has no dependencies on other charts.
 
@@ -117,6 +118,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-bac
 | pv.path | string | `"<path>"` | Path of the NFS share for example |
 | pv.server | string | `"<ip-address>"` | Server address of the NFS share for example |
 | pv.size | string | 100Gi | Size of the Storage |
+| pv.storageClass | string | `"gp3-csi"` | StorageClass must be provided as empty value here, since NFS mount is not provided as storageclass. |
 | pvc.accessMode | string | ReadWriteOnce | using RWO accessMode, which is usually sufficient |
 | pvc.name | string | etcd-backup | Name of the PVC |
 | pvc.setVolumeName | bool | false | Set the name of the PV, only required if the PV will be created (see below) |

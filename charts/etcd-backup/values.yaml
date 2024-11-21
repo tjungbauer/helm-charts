@@ -97,6 +97,9 @@ pv:
   # @default -- etcd-backup
   name: *bu_name
 
+  # -- StorageClass must be provided as empty value here, since NFS mount is not provided as storageclass.
+  storageClass: "gp3-csi"
+
   # -- Access mode of the PV
   # @default -- ReadWriteOnce
   accessMode: "ReadWriteOnce"

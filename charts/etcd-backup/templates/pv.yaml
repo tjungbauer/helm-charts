@@ -13,6 +13,7 @@ spec:
     storage:  {{ .Values.pv.size| default "100Gi"  }}
   accessModes:
     - {{ .Values.pv.accessMode | default "ReadWriteOnce" }}
+  storageClassName: {{ .Values.pv.storageClass | default "ReadWriteOnce" | quote }}
   nfs:
     path: {{ .Values.pv.path }}
     server: {{ .Values.pv.server }}
