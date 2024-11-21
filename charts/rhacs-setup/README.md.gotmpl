@@ -62,6 +62,11 @@ rhacs-setup:
       enabled: true
       syncwave: '3'
 
+      # -- Define ConfigMaps with DeclerativeConfiguration
+      # @default -- emtpy
+      declarativeConfiguration:
+        configMaps: []
+
       # Configures monitoring endpoint for Central.
       # The monitoring endpoint allows other services to collect metrics from
       # Central, provided in Prometheus compatible format.

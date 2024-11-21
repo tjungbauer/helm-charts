@@ -16,6 +16,13 @@ spec:
       enabled: true
   {{- end }}
   central:
+    declarativeConfiguration:
+      {{- if .Values.rhacs.central.declarativeConfiguration }}
+      configMaps:
+      {{- range .Values.rhacs.central.declarativeConfiguration.configMaps }}
+        - name: {{ . }}
+      {{- end }}
+    {{- end }}
     exposure:
     {{- /* exposure settings. per default OpenShift route will be set */}}
       loadBalancer:

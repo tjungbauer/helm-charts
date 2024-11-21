@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
+  ![Version: 1.0.31](https://img.shields.io/badge/Version-1.0.31-informational?style=flat-square)
 
  
 
@@ -101,6 +101,7 @@ Verify the subcharts for additional settings:
 | rhacs.central.db.resources.requests.ephemeral-storage | string | empty | Storage requests |
 | rhacs.central.db.resources.requests.memory | string | 8Gi | Memory requests. |
 | rhacs.central.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
+| rhacs.central.declarativeConfiguration | object | emtpy | Define ConfigMaps with DeclerativeConfiguration |
 | rhacs.central.defaultsslsecret | string | `"secretname"` | By default, Central will only serve an internal TLS certificate, which means that you will need to handle TLS termination at the ingress or load balancer level. If you want to terminate TLS in Central and serve a custom server certificate, you can specify a secret containing the certificate and private key here.  Define here the name of the secret If you would like to set it. The secret must exist. |
 | rhacs.central.egress | object | `{"connectivityPolicy":"Online"}` | Configures whether Red Hat Advanced Cluster Security should run in online or offline (disconnected) mode. In offline mode, automatic updates of vulnerability definitions and kernel modules are disabled. This parameter is MANDATORY default -- Online |
 | rhacs.central.enabled | bool | false | Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters. |
@@ -207,6 +208,11 @@ rhacs-setup:
       # Enabled yes or no ... typically yes
       enabled: true
       syncwave: '3'
+
+      # -- Define ConfigMaps with DeclerativeConfiguration
+      # @default -- emtpy
+      declarativeConfiguration:
+        configMaps: []
 
       # Configures monitoring endpoint for Central.
       # The monitoring endpoint allows other services to collect metrics from
