@@ -3811,6 +3811,52 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-11-21T14:56:27.354591912Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: This Chart is responsible for deploying generic cluster configuration,
+      for example, etcd encryption, OAuth etc.
+    digest: 931221a6fac9bea61569612e8868843ec947678f576146acb6e51762dfa70cac
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.34/generic-cluster-config-1.0.34.tgz
+    version: 1.0.34
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: README and adding possibility to configure userworkload monitoring and complete check and fixing issues
+        - kind: added
+          description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
+        - kind: added
+          description: using some templates
+        - kind: added
+          description: switching some snippets to use global tpl
+        - kind: added
+          description: Allowing configuration of Samples operator
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-11-21T12:34:44.469317647Z"
     dependencies:
     - name: tpl
@@ -18324,6 +18370,51 @@ entries:
           description: documented missing centralEndpoint setting
         - kind: added
           description: using common tpl chart for reusablility
+        - kind: added
+          description: added option to define nodeSelector for all components
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2024-11-21T14:56:27.462416243Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 24e14d70abdb28a2e0cc599d110010088fc5ac2646885101ff280ea66fbc189c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.29/rhacs-setup-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added Readme
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: fixed
+          description: documented missing centralEndpoint setting
+        - kind: added
+          description: using common tpl chart for reusablility
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -21330,4 +21421,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-11-21T13:10:34.426150467Z"
+generated: "2024-11-21T14:56:27.463522944Z"
