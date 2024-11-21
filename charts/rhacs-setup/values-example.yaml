@@ -27,7 +27,7 @@ rhacs:
 
     # -- Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Syncwave for Argo CD to create the Central
     # @default -- 3
@@ -39,7 +39,7 @@ rhacs:
 
     # -- Enables monitoring endpoint for Central to allow other services to collect metrics from the Central. Can be either Enabled of Disabled.
     # @default -- Disabled
-    # monitoring: Disabled
+    monitoring: Disabled
 
     # EXPOSURE
     # Here you can configure if you want to expose central through a node port,
@@ -47,27 +47,27 @@ rhacs:
     # Per default OpenShift route will be used.
 
     # -- Expose Central through a load balancer service.
-    # loadBalancer:
-    #  # -- Enable load balancer services.
-    #  # @default -- false
-    #  enabled: false
+    loadBalancer:
+      # -- Enable load balancer services.
+      # @default -- false
+      enabled: false
 
-    #  # -- Port of the load balancer service
-    #  port: 443
+      # -- Port of the load balancer service
+      port: 443
 
-    #  # -- IP Address of the loadbalancer services.
-    #  ip: 127.0.0.1
+      # -- IP Address of the loadbalancer services.
+      ip: 127.0.0.1
 
     # -- Expose Central through a node port.
-    # nodePort:
+    nodePort:
     #  # -- Enable nodePort services.
     #  # @default -- false
-    #  enabled: false
+      enabled: false
 
     # -- Expose Central through an OpenShift route.
     # This is the default setting
-    # route:
-    #  enabled: true
+    route:
+      enabled: true
 
     # DEFAULTTLSSECRET
     # -- By default, Central will only serve an internal TLS certificate,
@@ -79,14 +79,14 @@ rhacs:
     #
     # Define here the name of the secret If you would like to set it.
     # The secret must exist.
-    # defaultsslsecret: secretname
+    defaultsslsecret: secretname
 
     # ADMINISTRATOR PASSWORD
     # -- Specify a secret that contains the administrator password in the
     # "password" data item. If omitted, the operator will auto-generate a
     # password and store it in the "password" item in the "central-htpasswd" secret. The Secret must exist.
     # @default -- omitted
-    # adminPasswordSecret: secretname
+    adminPasswordSecret: secretname
 
     # -- Configures whether Red Hat Advanced Cluster Security should run in online or
     # offline (disconnected) mode. In offline mode, automatic updates of
@@ -101,19 +101,19 @@ rhacs:
     # -- The name of the PVC to manage persistent data. If no PVC with the given name
     # exists, it will be created. Defaults to "stackrox-db" if not set.
     # @default -- stackrox-db
-    # pvc: stackrox-db
+    pvc: stackrox-db
 
     # -- The size of the persistent volume when created through the claim.
     # If a claim was automatically created, this can be used after the initial
     # deployment to resize (grow) the volume (only supported by some storage class
     # controllers).
     # @default -- empty
-    # pvc_size: 100Gi
+    pvc_size: 100Gi
 
     # -- The name of the storage class to use for the PVC. If your cluster is not
     # configured with a default storage class, you must select a value here.
     # @default -- default storage class will be used
-    # pvc_storageclass: storageclass
+    pvc_storageclass: storageclass
 
     # CENTRAL RESOURCES
     # Allows overriding the default resource settings for the central
@@ -131,44 +131,50 @@ rhacs:
     # ONLY set this if you know what you are doing.
 
     # -- Set resources.requests and resources.limits. Per default this block can be omitted.
-    # resources:
-    #   requests:
-    #     # -- CPU requests.
-    #     # @default -- 1500m
-    #     cpu: 500m
+    resources:
+      requests:
+        # -- CPU requests.
+        # @default -- 1500m
+        cpu: 500m
 
-    #     # -- Memory requests.
-    #     # @default -- 4Gi
-    #     memory: 1Gi
+        # -- Memory requests.
+        # @default -- 4Gi
+        memory: 1Gi
 
-    #     # -- Storage requests
-    #     # @default -- empty
-    #     ephemeral-storage: 50Mi
+        # -- Storage requests
+        # @default -- empty
+        ephemeral-storage: 50Mi
 
-    #   limits:
-    #     # -- CPU limits.
-    #     # @default -- 4
-    #     cpu: 4
+      limits:
+        # -- CPU limits.
+        # @default -- 4
+        cpu: 4
 
-    #     # -- Memory limits.
-    #     # @default -- 8Gi
-    #     memory: 8Gi
+        # -- Memory limits.
+        # @default -- 8Gi
+        memory: 8Gi
 
-    #     # -- Storage limits
-    #     # @default -- empty
-    #     ephemeral-storage: 500Mi
+        # -- Storage limits
+        # @default -- empty
+        ephemeral-storage: 500Mi
+
+    # -- Define nodeSelector for Sensor.
+    # @default -- empty
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
 
     # -- If you want this component to only run on specific nodes, you can
     # configure tolerations of tainted nodes.
-    # tolerations:
-    #   - effect: NoSchedule
-    #     key: infra
-    #     operator: Equal
-    #     value: reserved
-    #   - effect: NoSchedule
-    #     key: infra
-    #     operator: Equal
-    #     value: reserved
+    tolerations:
+      - effect: NoSchedule
+        key: infra
+        operator: Equal
+        value: reserved
+      - effect: NoSchedule
+        key: infra
+        operator: Equal
+        value: reserved
 
     ###############
     # CENTRAL DB
@@ -182,7 +188,7 @@ rhacs:
       # When omitted, the operator will auto-generate a DB password and store it
       # in the "password" item in the "central-db-password" secret.
       # @default -- omitted
-      # passwordSecret: secretname
+      passwordSecret: secretname
 
       # PERSISTENCE
       # -- Configures how Central DB should store its persistent data.
@@ -190,19 +196,19 @@ rhacs:
       # If no PVC with the given name exists, it will be created. Defaults
       # to "central-db" if not set.
       # @default -- central-db
-      # pvc: central-db
+      pvc: central-db
 
       # -- The size of the persistent volume when created through the claim.
       # If a claim was automatically created, this can be used after the initial
       # deployment to resize (grow) the volume (only supported by some storage
       # class controllers).
       # @default -- empty
-      # pvc_size: 100Gi
+      pvc_size: 100Gi
 
       # -- The name of the storage class to use for the PVC. If your cluster is not
       # configured with a default storage class, you must select a value here.
       # @default -- empty
-      # pvc_storageclass: storageclass
+      pvc_storageclass: storageclass
 
       # resources for Central DB ...
       # Default values are:
@@ -217,38 +223,44 @@ rhacs:
           # @default -- 4
           cpu: 4
 
-      #     # -- Memory requests.
-      #     # @default -- 8Gi
-      #     memory: 8Gi
+          # -- Memory requests.
+          # @default -- 8Gi
+          memory: 8Gi
 
-      #     # -- Storage requests
-      #     # @default -- empty
-      #     ephemeral-storage: 50Mi
+          # -- Storage requests
+          # @default -- empty
+          ephemeral-storage: 50Mi
 
-      #   limits:
-      #     # -- CPU limits.
-      #     # @default -- 4
-      #     cpu: 8
+        limits:
+          # -- CPU limits.
+          # @default -- 4
+          cpu: 8
 
-      #     # -- Memory limits.
-      #     # @default -- 8Gi
-      #     memory: 16Gi
+          # -- Memory limits.
+          # @default -- 8Gi
+          memory: 16Gi
 
-      #     # -- Storage limits
-      #     # @default -- empty
-      #     ephemeral-storage: 500Mi
+          # -- Storage limits
+          # @default -- empty
+          ephemeral-storage: 500Mi
+
+      # -- Define nodeSelector for Sensor.
+      # @default -- empty
+      nodeSelector:
+        key: node-role.kubernetes.io/infra
+        value: ''
 
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
-      # tolerations:
-      #   - effect: NoSchedule
-      #     key: infra
-      #     operator: Equal
-      #     value: reserved
-      #   - effect: NoSchedule
-      #     key: infra
-      #     operator: Equal
-      #     value: reserved
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: reserved
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: reserved
 
   ###############
   # SCANNER
@@ -257,13 +269,13 @@ rhacs:
     # -- If you do not want to deploy the Red Hat Advanced Cluster Security Scanner,
     # you can disable it here (not recommended).
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Expose the monitoring endpoint. A new service, "monitoring", with port 9090,
     # will be created as well as a network policy allowing inbound connections to
     # the port.
     # @default -- Disabled
-    # monitoring: Disabled
+    monitoring: Disabled
 
     analyzer:
       # Controls the number of analyzer replicas and autoscaling.
@@ -293,17 +305,23 @@ rhacs:
         # @default -- 3
         replicas: 3
 
+      # -- Define nodeSelector for Sensor.
+      # @default -- empty
+      nodeSelector:
+        key: node-role.kubernetes.io/infra
+        value: ''
+
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
-      # tolerations:
-      #   - effect: NoSchedule
-      #     key: infra
-      #     operator: Equal
-      #     value: reserved
-      #   - effect: NoSchedule
-      #     key: infra
-      #     operator: Equal
-      #     value: reserved
+      tolerations:
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: reserved
+        - effect: NoSchedule
+          key: infra
+          operator: Equal
+          value: reserved
 
       # ONLY set this if you know what you are doing.
       # per default this block can be omitted.
@@ -312,38 +330,44 @@ rhacs:
       #   - requests: cpu: 1, memory 1500Mi
 
       # -- Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted.
-      # resources:
-      #   requests:
-      #     # -- CPU requests.
-      #     # @default -- 4
-      #     cpu: 4
+      resources:
+        requests:
+          # -- CPU requests.
+          # @default -- 4
+          cpu: 4
 
-      #     # -- Memory requests.
-      #     # @default -- 8Gi
-      #     memory: 8Gi
+          # -- Memory requests.
+          # @default -- 8Gi
+          memory: 8Gi
 
-      #     # -- Storage requests
-      #     # @default -- empty
-      #     ephemeral-storage: 50Mi
+          # -- Storage requests
+          # @default -- empty
+          ephemeral-storage: 50Mi
 
-      #   limits:
-      #     # -- CPU limits.
-      #     # @default -- 8
-      #     cpu: 8
+        limits:
+          # -- CPU limits.
+          # @default -- 8
+          cpu: 8
 
-      #     # -- Memory limits.
-      #     # @default -- 16Gi
-      #     memory: 16Gi
+          # -- Memory limits.
+          # @default -- 16Gi
+          memory: 16Gi
 
-      #     # -- Storage limits
-      #     # @default -- empty
-      #     ephemeral-storage: 500Mi
+          # -- Storage limits
+          # @default -- empty
+          ephemeral-storage: 500Mi
 
 
     ###############
     # SCANNER DB
     ###############
     db:
+      # -- Define nodeSelector for Sensor.
+      # @default -- empty
+      nodeSelector:
+        key: node-role.kubernetes.io/infra
+        value: ''
+
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
       tolerations:
@@ -363,32 +387,32 @@ rhacs:
       #   - requests: cpu: 200m, memory 200Mi
 
       # -- Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted.
-      # resources:
-      #   requests:
-      #     # -- CPU requests.
-      #     # @default -- 200m
-      #     cpu: 200m
+      resources:
+        requests:
+          # -- CPU requests.
+          # @default -- 200m
+          cpu: 200m
 
-      #     # -- Memory requests.
-      #     # @default -- 200Mi
-      #     memory: 200Mi
+          # -- Memory requests.
+          # @default -- 200Mi
+          memory: 200Mi
 
-      #     # -- Storage requests
-      #     # @default -- empty
-      #     ephemeral-storage: 50Mi
+          # -- Storage requests
+          # @default -- empty
+          ephemeral-storage: 50Mi
 
-      #   limits:
-      #     # -- CPU limits.
-      #     # @default -- 2
-      #     cpu: 2
+        limits:
+          # -- CPU limits.
+          # @default -- 2
+          cpu: 2
 
-      #     # -- Memory limits.
-      #     # @default -- 4Gi
-      #     memory: 4Gi
+          # -- Memory limits.
+          # @default -- 4Gi
+          memory: 4Gi
 
-      #     # -- Storage limits
-      #     # @default -- empty
-      #     ephemeral-storage: 500Mi
+          # -- Storage limits
+          # @default -- empty
+          ephemeral-storage: 500Mi
 
   #################
   # SECURED CLUSTER
@@ -412,6 +436,13 @@ rhacs:
 
     # -- Settings for Sensor
     sensor:
+
+      # -- Define nodeSelector for Sensor.
+      # @default -- empty
+      nodeSelector:
+        key: node-role.kubernetes.io/infra
+        value: ''
+
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
       tolerations:
@@ -436,6 +467,12 @@ rhacs:
         # -- Set this to 'true' to enable preventive policy enforcement for object updates.
         # Note: this will not have any effect unless 'Listen On Creates' is set to 'true' as well.
         updates: true
+
+      # -- Define nodeSelector for AdmissionControl
+      # @default -- empty
+      nodeSelector:
+        key: node-role.kubernetes.io/infra
+        value: ''
 
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.

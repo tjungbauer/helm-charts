@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.28
+version: 1.0.29
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -36,3 +36,5 @@ annotations:
       description: documented missing centralEndpoint setting
     - kind: added
       description: using common tpl chart for reusablility
+    - kind: added
+      description: added option to define nodeSelector for all components

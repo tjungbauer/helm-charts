@@ -71,6 +71,10 @@ spec:
 {{- end }}
 
 {{- /* Set tolerations for the central */}}
+{{- if .Values.rhacs.central.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.central | indent 2 }}
+{{- end }}
+
 {{- if .Values.rhacs.central.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.central.tolerations | indent 4 }}
 {{- end }}
@@ -104,6 +108,10 @@ spec:
 {{- end }}
 
 {{- /* Set tolerations for the central database */}}
+{{- if .nodeSelector }}
+{{- include "tpl.nodeSelector" . | indent 4 }}
+{{- end }}
+
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 6 }}
 {{- end }}
@@ -136,6 +144,10 @@ spec:
       {{- end }}
 
 {{- /* Set tolerations for the scanner */}}
+{{- if .Values.rhacs.scanner.analyzer.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.analyzer | indent 4 }}
+{{- end }}
+
 {{- if .Values.rhacs.scanner.analyzer.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.scanner.analyzer.tolerations | indent 6 }}
 {{- end }}
@@ -157,6 +169,10 @@ spec:
 
 
 {{- /* Set tolerations for the SCANNER DB */}}
+{{- if .Values.rhacs.scanner.db.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.db | indent 4 }}
+{{- end }}
+
 {{- if .Values.rhacs.scanner.db.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.scanner.db.tolerations  | indent 6 }}
 {{- end }}

@@ -37,14 +37,18 @@ spec:
     {{- end }}
     {{- end }}
     {{- end }}
-
+{{- if .Values.rhacs.secured_cluster.admissioncontrol.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.admissioncontrol | indent 2 }}
+{{- end }}
 {{- if .Values.rhacs.secured_cluster.admissioncontrol.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.secured_cluster.admissioncontrol.tolerations | indent 4 }}
 {{- end }}
 
   {{- if .Values.rhacs.secured_cluster.sensor }}
   sensor:
-
+{{- if .Values.rhacs.secured_cluster.sensor.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.sensor | indent 2 }}
+{{- end }}
 {{- if .Values.rhacs.secured_cluster.sensor.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.secured_cluster.sensor.tolerations | indent 4 }}
 {{- end }}
