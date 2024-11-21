@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.32](https://img.shields.io/badge/Version-1.0.32-informational?style=flat-square)
+  ![Version: 1.0.33](https://img.shields.io/badge/Version-1.0.33-informational?style=flat-square)
 
  
 
@@ -163,7 +163,6 @@ Verify the subcharts for additional settings:
 | rhacs.scanner.db.resources.requests.memory | string | 200Mi | Memory requests. |
 | rhacs.scanner.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.scanner.enabled | bool | false | If you do not want to deploy the Red Hat Advanced Cluster Security Scanner, you can disable it here (not recommended). |
-| rhacs.scanner.is_central | bool | false | If the Scanner is running on the Central node, the SecuredCluster will not configure a 2nd Scanner. |
 | rhacs.scanner.monitoring | string | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. |
 | rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |
 | rhacs.secured_cluster.admissioncontrol.listenOn.creates | bool | `true` | Set this to true to enable preventive policy enforcement for object creations. |
@@ -384,10 +383,6 @@ rhacs-setup:
       # you can disable it here (not recommended). By default, the scanner is enabled.
       # If you do so, all the settings in this section will have no effect.
       enabled: true
-
-      # -- If the Scanner is running on the Central node, the SecuredCluster will not configure a 2nd Scanner.
-      # @default -- false
-      is_central: false
 
       # Expose the monitoring endpoint. A new service, "monitoring", with port 9090,
       # will be created as well as a network policy allowing inbound connections to

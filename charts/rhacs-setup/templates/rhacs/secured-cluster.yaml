@@ -17,7 +17,7 @@ spec:
   {{- end }}
   {{- /* SCANNER */}}
   {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
-  {{- if eq (.Values.rhacs.scanner.is_central | toString ) "true" }}
+  {{- if eq (.Values.rhacs.central.enabled | toString ) "true" }}
   {{- else }}
   scanner:
     {{- if .Values.rhacs.scanner.analyzer }}
@@ -66,10 +66,13 @@ spec:
 
     {{- end }}
     {{- end }}
+    {{- if eq (.Values.rhacs.central.enabled | toString ) "true" }}
+    {{- else }}
     {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
     scannerComponent: AutoSense
     {{- else }}
     scannerComponent: Disabled
+    {{- end }}
     {{- end }}
 
 {{- end }}
