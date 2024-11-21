@@ -15,6 +15,61 @@ spec:
   {{ if .Values.rhacs.secured_cluster.centralEndpoint }}
   centralEndpoint: {{ .Values.rhacs.secured_cluster.centralEndpoint }}
   {{- end }}
+  {{- /* SCANNER */}}
+  {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+  scanner:
+    {{- if .Values.rhacs.scanner.analyzer }}
+    analyzer:
+      {{- if .Values.rhacs.scanner.analyzer.autoscaling }}
+      scaling:
+        autoScaling: {{ .Values.rhacs.scanner.analyzer.autoscaling.status | default "Enabled" }}
+        maxReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.max | default "5" }}
+        minReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.min | default "2" }}
+        replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3"}}
+      {{- end }}
+
+{{- /* Set tolerations for the scanner */}}
+{{- if .Values.rhacs.scanner.analyzer.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.analyzer | indent 4 }}
+{{- end }}
+
+{{- if .Values.rhacs.scanner.analyzer.tolerations }}
+{{ include "tpl.tolerations" .Values.rhacs.scanner.analyzer.tolerations | indent 6 }}
+{{- end }}
+
+{{- /* Set resources for the SCANNER */}}
+{{- if .Values.rhacs.scanner.analyzer.resources }}
+{{ include "tpl.resources" .Values.rhacs.scanner.analyzer.resources | indent 6 }}
+{{- end }}
+
+    {{- end }}
+
+    {{- /* SCANNER  DB*/}}
+    {{- if .Values.rhacs.scanner.db }}
+    db:
+{{- /* Set resources for the SCANNER  DB*/}}
+{{- if .Values.rhacs.scanner.db.resources  }}
+{{ include "tpl.resources" .Values.rhacs.scanner.db.resources  | indent 6 }}
+{{- end }}
+
+
+{{- /* Set tolerations for the SCANNER DB */}}
+{{- if .Values.rhacs.scanner.db.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.db | indent 4 }}
+{{- end }}
+
+{{- if .Values.rhacs.scanner.db.tolerations }}
+{{ include "tpl.tolerations" .Values.rhacs.scanner.db.tolerations  | indent 6 }}
+{{- end }}
+
+    {{- end }}
+    {{- end }}
+    {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+    scannerComponent: AutoSense
+    {{- else }}
+    scannerComponent: Disabled
+    {{- end }}
+
   admissionControl:
     {{- if .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}
     {{- with .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}

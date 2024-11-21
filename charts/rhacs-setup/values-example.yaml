@@ -27,7 +27,7 @@ rhacs:
 
     # -- Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters.
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave for Argo CD to create the Central
     # @default -- 3
@@ -420,7 +420,7 @@ rhacs:
   secured_cluster:
     # -- Enable SecuredCluster yes or no ... typically yes
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Syncwave for Argo CD to deploy the SecureCluster
     # @default -- 4
