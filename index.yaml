@@ -3282,6 +3282,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2024-11-21T08:24:23.343982786Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Create a CronJob that performs ETCD Backup and stores the backup
+      to a PV.
+    digest: 6358dce4463d28e9ad341713d46890ea1f946a70a73e620e4a257dd5d694b5d3
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
+    keywords:
+    - security
+    - backup
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: etcd-backup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/etcd-backup-1.0.7/etcd-backup-1.0.7.tgz
+    version: 1.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: added dependency tp tpl library
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-06-25T04:50:14.74632355Z"
     dependencies:
     - name: tpl
@@ -21111,4 +21147,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2024-11-19T15:58:59.485603984Z"
+generated: "2024-11-21T08:24:23.345032989Z"
