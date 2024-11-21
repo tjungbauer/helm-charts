@@ -17,13 +17,13 @@ Example for infrastructure nodes in the values-file:
 
 {{- define "tpl.tolerations" -}}
 tolerations:
-  {{- range . }}
-  - key: "{{ .key }}"
-    operator: "{{ .operator }}"
-    value: "{{ .value }}"
-    effect: "{{ .effect }}"
-    {{- if .tolerationSeconds }}
-    tolerationSeconds: {{ .tolerationSeconds }}
-    {{- end }}
+{{- range . }}
+- key: "{{ .key }}"
+  operator: "{{ .operator }}"
+  value: "{{ .value }}"
+  effect: "{{ .effect }}"
+  {{- if .tolerationSeconds }}
+  tolerationSeconds: {{ .tolerationSeconds }}
   {{- end }}
+{{- end }}
 {{- end -}}
