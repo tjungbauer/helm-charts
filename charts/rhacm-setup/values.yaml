@@ -13,7 +13,7 @@ rhacm:
 
     # -- Enable MultiClusterHub object
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Syncwave for the MultiClusterHub
     # @default -- 3
@@ -23,14 +23,20 @@ rhacm:
     # @efault: -- Basic
     availabilityConfig: Basic
 
+    # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
+    # @default -- empty
+    nodeSelector: {}
+    #  key: node-role.kubernetes.io/infra
+    #  value: ""
+
     # -- If you want this component to only run on specific nodes, you can
     # configure tolerations of tainted nodes.
     # @default -- empty
-    tolerations:
-      - effect: NoSchedule
-        key: infra
-        operator: Equal
-        value: reserved
+    tolerations: []
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
 
 # Install Operator RHACM
 # Deploys Operator --> Subscription and Operatorgroup

@@ -13,6 +13,10 @@ metadata:
 spec:
   availabilityConfig: {{ .Values.rhacm.multiclusterhub.availabilityConfig | default ("Basic") }}
 
+{{- if .Values.rhacm.multiclusterhub.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacm.multiclusterhub }}
+{{- end }}
+
   {{- if .Values.rhacm.multiclusterhub.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacm.multiclusterhub.tolerations| indent 2 }}
   {{- end }}

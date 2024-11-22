@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.13](https://img.shields.io/badge/Version-1.0.13-informational?style=flat-square)
+  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
 
  
 
@@ -71,6 +71,7 @@ Verify the subcharts for additional settings:
 | override-rhacm-operator-version | string | `"release-2.10"` | Anchor for the operator version |
 | rhacm.multiclusterhub.availabilityConfig | string | `"Basic"` | Specifies deployment replication for improved availability. Options are: Basic and High @efault: -- Basic |
 | rhacm.multiclusterhub.enabled | bool | false | Enable MultiClusterHub object |
+| rhacm.multiclusterhub.nodeSelector | object | empty | Specify a nodeSelector for example to move the Pods to infrastructure nodes. |
 | rhacm.multiclusterhub.syncwave | string | 3 | Syncwave for the MultiClusterHub |
 | rhacm.multiclusterhub.tolerations | list | empty | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacm.namespace.name | string | `"open-cluster-management"` |  |
