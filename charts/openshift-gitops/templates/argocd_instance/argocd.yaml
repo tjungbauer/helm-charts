@@ -25,11 +25,14 @@ spec:
   disableAdmin: true
   {{- end }}
   {{- /* Set tolerations */}}
-  {{- if $value.tolerations }}  
   nodePlacement:
+
+{{- if $value.nodeSelector }}
+{{- include "tpl.nodeSelector" $value| indent 2 }}
+{{- end }}
+
     {{- if $value.tolerations }}
 {{ include "tpl.tolerations" $value.tolerations | indent 4 }}
-    {{- end }}
     {{- end }}
   server:
     {{- if $value.server.host }}

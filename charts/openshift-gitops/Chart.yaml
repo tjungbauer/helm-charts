@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.49
+version: 1.0.50
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -53,3 +53,5 @@ annotations:
       description: it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod
     - kind: added
       description: It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example.
+    - kind: added
+      description: Added option to define nodeSelector for ArgoCD resource

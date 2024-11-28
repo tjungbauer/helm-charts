@@ -7,7 +7,7 @@ gitopsinstances:
   gitops_application:
     # -- Create the instance or not.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Namespace for this application
     namespace: gitops-application
@@ -335,16 +335,22 @@ gitopsinstances:
         # @default -- 128Mi
         memory_requests: 128Mi
 
+    # -- NodePlacement ... Define nodeSelector for Argo CD Pods.
+    # @default -- empty
+    nodeSelector: {}
+    #  key: node-role.kubernetes.io/infra
+    #  value: ""
+
     # -- Nodeplacement ... Define tolerators for Argo CD Pods.
-    tolerations:
-      - effect: NoSchedule
-        key: infra
-        operator: Equal
-        value: reserved
-      - effect: NoSchedule
-        key: infra
-        operator: Equal
-        value: reserved
+    tolerations: {}
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
 
     # -- RBAC settings for the Argo CD instance
     # This will set the default role to "none" and denies access to any resource.
