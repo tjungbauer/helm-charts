@@ -22,10 +22,6 @@ sealed-secrets:
   containerSecurityContext:
     enabled: false
 
-  # -- Additional command arguments
-  commandArgs:
-    - "--update-status=true"
-
 # Local parameters
 namespace:
   # -- Namespace where Sealed Secrets shall be installed
