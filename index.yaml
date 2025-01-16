@@ -17697,6 +17697,43 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.0/rhacm-setup-1.0.0.tgz
     version: 1.0.0
+  rhacs-backup:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-01-16T11:09:19.16353507Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Chart to create a CronJoc to backup Advanced Cluster Security for
+      Kubernetes to a PerstistentVolume.
+    digest: 6176955c16993a797e7da361292f59b18b847e55b955544ef66626b8ebb7e28e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
+    keywords:
+    - acs
+    - security
+    - backup
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-backup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-backup-1.0.0/rhacs-backup-1.0.0.tgz
+    version: 1.0.0
   rhacs-demo-applications:
   - annotations:
       artifacthub.io/category: security
@@ -21968,4 +22005,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-16T05:10:14.687629821Z"
+generated: "2025-01-16T11:09:19.164678015Z"
