@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
 
  
 
@@ -23,6 +23,11 @@ This Helm Chart installs a CronJob that will periodically create a backup of Adv
 4. Optional PerstistentVolume - if you want to use a specific NFS share
 
 Verify the official documentation: https://docs.openshift.com/acs/4.6/backup_and_restore/backing-up-acs.html
+
+To authenticate against ACS a token with *ADMIN* permissions must be created. This token must be stored in a Kubernetes Secret called rox-backup with the keys:
+
+1. rox_token: Token that is created
+2. rox_endpoint: Endpoint of ACS (without https://, but with the port 443)
 
 ## Dependencies
 

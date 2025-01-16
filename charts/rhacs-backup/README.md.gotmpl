@@ -9,6 +9,11 @@ This Helm Chart installs a CronJob that will periodically create a backup of Adv
 
 Verify the official documentation: https://docs.openshift.com/acs/4.6/backup_and_restore/backing-up-acs.html
 
+To authenticate against ACS a token with *ADMIN* permissions must be created. This token must be stored in a Kubernetes Secret called rox-backup with the keys:
+
+1. rox_token: Token that is created
+2. rox_endpoint: Endpoint of ACS (without https://, but with the port 443)
+
 {{ template "doc.deps" . }}
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
