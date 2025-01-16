@@ -1,0 +1,34 @@
+{{ if eq (.Values.enabled | toString) "true" }}
+{{ if .Values.pv }}
+{{ if eq (.Values.pv.enabled | toString) "true" }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.pv.syncwave | default "2" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if .Values.pv.annotations }}
+    {{- toYaml .Values.pv.annotations | nindent 4 }}
+    {{- end }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  name: {{ .Values.pv.name | default "acs-backup" }}
+spec:
+  persistentVolumeReclaimPolicy: {{ .Values.pv.reclaimPolicy | default "Retain" }}
+  capacity:
+    storage:  {{ .Values.pv.size | default "100Gi" }}
+  accessModes:
+    - {{ .Values.pv.accessMode | default "ReadWriteOnce" | quote }}
+  nfs:
+    path: {{ .Values.pv.path }}
+    server: {{ .Values.pv.server }}
+  {{- if .Values.pv.mountOptions }}
+  mountOptions:
+  {{- range .Values.pv.mountOptions }} 
+     - {{ . }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,29 @@
+{{ if eq (.Values.enabled | toString) "true" }}
+{{ if .Values.pvc }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.pvc.syncwave | default "5" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if .Values.pvc.annotations }}
+    {{- toYaml .Values.pvc.annotations | nindent 4 }}
+    {{- end }}
+  name: {{ .Values.pvc.name | default "acs-backup" }}
+  namespace: stackrox
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.pvc.accessMode | default "ReadWriteOnce" | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.size | default "100Gi" }}
+  storageClassName: {{ .Values.pvc.storageClass | quote }}
+  {{- if .Values.pvc.volumeName }} 
+  volumeName: {{ .Values.pvc.volumeName }}
+  {{- end }}
+  volumeMode: Filesystem
+{{- end }}
+{{- end }}

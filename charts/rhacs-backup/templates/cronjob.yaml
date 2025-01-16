@@ -1,0 +1,106 @@
+{{ if eq (.Values.enabled | toString) "true" }}
+---
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: {{ .Values.cronjob.name }}
+  namespace: stackrox
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.cronjob.syncwave | default "5" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if .Values.cronjob.annotations }}
+    {{- toYaml .Values.cronjob.annotations | nindent 4 }}
+    {{- end }}
+  labels:
+    purpose: acs-backup
+    {{- include "tpl.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - resources:
+                requests:
+                  cpu: 300m
+                  memory: 250Mi
+              terminationMessagePath: /dev/termination-log
+              name: acs-backup
+              command:
+                - /bin/bash
+                - '-c'
+                - >-
+                  printf "Starting backup of RHACS\n";
+
+                  printf "Create folder for this ACS if not exists: {{ .Values.cronjob.nfs_mountpath }}/acs-backup/\n";
+
+                  mkdir -p -m 700 {{ .Values.cronjob.nfs_mountpath }}/acs-backup/;
+
+                  export ROX_API_TOKEN=`cat /etc/rox-secret/rox_token`;
+
+                  export ROX_ENDPOINT=`cat /etc/rox-secret/rox_endpoint`;
+
+                  printf "Download roxctl binary from Central\n";
+
+                  cd /tmp;
+
+                  curl -k -L -H "Authorization: Bearer $ROX_API_TOKEN" "https://$ROX_ENDPOINT/api/cli/download/roxctl-linux" --output ./roxctl > /dev/null;
+
+                  chmod +x ./roxctl  > /dev/null;
+
+                  printf "Creating backup of Central database - This will take a while\n";
+
+                  ./roxctl central backup --output={{ .Values.cronjob.nfs_mountpath }}/acs-backup --insecure-skip-tls-verify;
+
+                  printf "Database backup has been done\n";
+
+                  printf "Copying Secrets\n";
+
+                  mkdir -p {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
+
+                  cp -r /etc/central-tls {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
+
+                  cp -r /etc/central-htpasswd {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
+
+                  printf "Done\n"
+
+                  printf "Deleting files older than {{ .Values.cronjob.retention }} days\n" ; 
+                  ls -la {{ .Values.cronjob.nfs_mountpath }}/;
+                  find {{ .Values.cronjob.nfs_mountpath }}/ -type f -mtime +{{ .Values.cronjob.retention }} -exec rm {} \;
+
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                - name: acs-backup
+                  mountPath: {{ .Values.cronjob.nfs_mountpath }}
+                - name: rox-volume
+                  mountPath: /etc/rox-secret
+                  readOnly: true
+                - name: central-tls
+                  readOnly: true
+                  mountPath: /etc/central-tls
+                - name: central-htpasswd
+                  readOnly: true
+                  mountPath: /etc/central-htpasswd
+              terminationMessagePolicy: FallbackToLogsOnError
+              image: registry.redhat.io/openshift4/ose-cli
+          serviceAccount: {{ .Values.serviceAccount.name | default "default" }}
+          serviceAccountName: {{ .Values.serviceAccount.name | default "default" }}
+          volumes:
+            - name: acs-backup
+              persistentVolumeClaim:
+                claimName: {{ .Values.pvc.name }}
+            - name: rox-volume
+              secret:
+                secretName: rox-backup
+            - name: central-tls
+              secret:
+                secretName: central-tls
+                defaultMode: 420
+            - name: central-htpasswd
+              secret:
+                secretName: central-htpasswd
+                defaultMode: 420
+          dnsPolicy: ClusterFirst
+{{- end }}

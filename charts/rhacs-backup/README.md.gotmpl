@@ -1,0 +1,58 @@
+{{ template "doc.header" . }}
+
+This Helm Chart installs a CronJob that will periodically create a backup of Advanced Cluster Security. The following objects must be considered:
+
+1. CronJob
+2. ServiceAccount to run the CronJob 
+3. PerstistentVolumeClaim to store the backup
+4. Optional PerstistentVolume - if you want to use a specific NFS share
+
+Verify the official documentation: https://docs.openshift.com/acs/4.6/backup_and_restore/backing-up-acs.html
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+{{ template "doc.values" . }}
+
+## Example
+
+```yaml
+---
+name: &bu_name acs-backup
+backup_storage_size: &backup_storage_size "100Gi"
+
+enabled: true
+namespace: stackrox
+
+serviceAccount: 
+  name: *bu_name
+  create: true
+
+# Settings for the CronJob
+cronjob:
+  name: *bu_name
+  schedule: "0 4 * * *"
+  retention: 30
+  nfs_mountpath: /acs-backup
+
+# Settings for the PVC
+pvc:
+  # -- Name of the PVC
+  # @default -- acs-backup
+  name: *bu_name
+
+  # -- Size of the Storage
+  # @default -- 100Gi
+  size: *backup_storage_size
+
+  # -- StorageClass must be provided as empty value here, since NFS mount is not provided as storageclass.
+  # @default -- N/A
+  storageClass: "gp3-csi"
+```
+
+{{ template "doc.footer" . }}
