@@ -60,9 +60,9 @@ spec:
 
                   mkdir -p {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
 
-                  cp -r /etc/central-tls {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
+                  cp -r /etc/central-tls/..data/ {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
 
-                  cp -r /etc/central-htpasswd {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
+                  cp -r /etc/central-htpasswd/..data/ {{ .Values.cronjob.nfs_mountpath }}/acs-backup/secrets;
 
                   printf "Done\n"
 

@@ -32,9 +32,7 @@ spec:
     type: EBPF
   consolePlugin:
     logLevel: info
-    port: 9001
     enable: true
-    register: true
     portNaming:
       enable: true
       portNames:
@@ -74,9 +72,7 @@ spec:
   exporters: []
   loki:
     timeout: 10s
-    maxRetries: 2
     enable: true
-    maxBackoff: 5s
     tenantID: netobserv
     statusTls:
       caCert:
@@ -88,7 +84,6 @@ spec:
     url: 'https://{{ .lokistack_name }}-gateway-http.openshift-netobserv-operator.svc:8080/api/logs/v1/network'
     batchWait: 1s
     authToken: FORWARD
-    minBackoff: 1s
     tls:
       caCert:
         certFile: service-ca.crt
@@ -100,20 +95,11 @@ spec:
     statusUrl: 'https://{{ .lokistack_name }}-distributor-http.openshift-netobserv-operator.svc:3100/'
   processor:
     logLevel: info
-    port: 2055
     metrics:
       disableAlerts: []
-      ignoreTags:
-        - egress
-        - packets
-        - nodes-flows
-        - namespaces-flows
-        - workloads-flows
-        - namespaces
       server:
         port: 9102
         tls:
-          insecureSkipVerify: false
           type: DISABLED
     resources:
       limits:
@@ -121,17 +107,10 @@ spec:
       requests:
         cpu: 100m
         memory: 100Mi
-    conversationTerminatingTimeout: 5s
-    conversationEndTimeout: 10s
     kafkaConsumerQueueCapacity: 1000
     imagePullPolicy: IfNotPresent
-    enableKubeProbes: true
     logTypes: FLOWS
     kafkaConsumerReplicas: 3
-    healthPort: 8080
-    dropUnusedFields: true
-    conversationHeartbeatInterval: 30s
     kafkaConsumerBatchSize: 10485760
-    profilePort: 6060
 {{- end }}
 {{- end }}
