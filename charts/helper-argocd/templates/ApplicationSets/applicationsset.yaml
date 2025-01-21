@@ -114,17 +114,19 @@ spec:
           {{- end }}
         {{- end }}
       {{- end }}
-      {{- if .generatorlist }}
+    {{- if .argocd_project }}
+      project: {{ .argocd_project }}
+    {{- else }}
+      {{- if .generatorlist }}      
       project: >-
         {{ printf "{{ cluster }}" }}
       {{- else if .generatorgit }}
       project: default
-      {{- else if .argocd_project }}
-      project: {{ .argocd_project }}
       {{- else }}
       project:  >-
           {{ printf "{{ name }}" }}
       {{- end }}
+    {{- end }}
       {{- if .multiple_sources }}
       sources:
         {{- range $source_key, $source_value := .multiple_sources }}
