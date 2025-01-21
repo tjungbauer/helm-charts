@@ -11084,6 +11084,56 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-01-21T10:03:22.176984486Z"
+    dependencies:
+    - condition: helper-loki-bucket-secret.enabled
+      name: helper-loki-bucket-secret
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - condition: helper-objectstore.enabled
+      name: helper-objectstore
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Installs and configures OpenShift Network Observability.
+    digest: ca176bca9602ade70194e06f1f8ce2a7af80db7967535b9404b9541995ef18ee
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
+    keywords:
+    - security
+    - network
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: network-observability
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-1.0.12/network-observability-1.0.12.tgz
+    version: 1.0.12
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: fixed
+          description: fixing icon
+        - kind: added
+          description: added README and did some cleanup
+        - kind: added
+          description: added tpl chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-12-07T05:55:18.912368639Z"
     dependencies:
     - condition: helper-loki-bucket-secret.enabled
@@ -17708,6 +17758,42 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-01-21T10:03:22.282733503Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Chart to create a CronJoc to backup Advanced Cluster Security for
+      Kubernetes to a PerstistentVolume.
+    digest: 9be0b0f4d87de3eba08921737a8393893fdb276be6e3b5e85f7897e0b2db5ceb
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
+    keywords:
+    - acs
+    - security
+    - backup
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-backup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-backup-1.0.3/rhacs-backup-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2025-01-16T11:21:22.864472556Z"
     dependencies:
     - name: tpl
@@ -22077,4 +22163,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-16T11:21:22.86610972Z"
+generated: "2025-01-21T10:03:22.28521578Z"
