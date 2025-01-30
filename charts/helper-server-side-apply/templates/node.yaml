@@ -19,7 +19,26 @@ metadata:
     {{- range $key_custom_label, $value_custom_label := $value.custom_labels }}
     {{ $key_custom_label }}: {{ $value_custom_label | quote }}
     {{- end }}
+    {{- if $value.roles }}
+    {{- range $key_roles, $value_roles := $value.roles }}
+    node-role.kubernetes.io/{{ $key_roles }}: ''
+    {{- end }}
+    {{- end }}
   finalizers:
     - kubernetes
+{{- if $value.spec }}
+spec:
+  {{- if $value.spec.taints }}
+  taints:
+  {{- range $taintkey, $taintvalue := $value.spec.taints }}
+  - effect: {{ $taintvalue.effect }}
+    key: {{ $taintvalue.key }}
+    value: {{ $taintvalue.value }}
+    {{- if $taintvalue.operator }}
+    operator: {{ $taintvalue.operator }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}

@@ -1,5 +1,19 @@
----
+{{ template "doc.header" . }}
 
+Using Server Side Apply to create for example node labelling, taints and roles. requires openshift-gitops 1.6+
+
+**Homepage:** <https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply>
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+{{ template "doc.values" . }}
+
+## Example
+
+```yaml
+---
 # -- List of nodes based on the hostname
 nodes:
   # -- Hostname node1
@@ -38,17 +52,6 @@ nodes:
         value: reserved
         # -- Operator of the taint
         operator: Equal
-  - name: node2
-    enabled: true
-    ignore_argocd_labels: true
-    custom_labels:
-      environment: 'Test'
-      gpu: 'true'
-    roles:
-      infra: true
-      worker: true
-    spec:
-      taints:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/infra
-        value: reserved
+```
+
+{{ template "doc.footer" . }}
