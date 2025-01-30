@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacm-setup
 description: Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
-version: 1.0.15
+version: 1.0.16
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
 dependencies:
