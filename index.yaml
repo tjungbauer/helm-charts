@@ -9430,6 +9430,44 @@ entries:
           description: Signing Chart
         - kind: added
           description: added dependency tp tpl library
+        - kind: added
+          description: added possibility to configure roles and tains for nodes
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-01-30T13:52:59.337939709Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: aa84427adf74c617742e7da614af4ae45acd0037d36481a22f042c943e4bcfbb
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-server-side-apply
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.12/helper-server-side-apply-1.0.12.tgz
+    version: 1.0.12
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added dependency tp tpl library
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -22218,4 +22256,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-21T12:37:04.800353563Z"
+generated: "2025-01-30T13:52:59.340388094Z"
