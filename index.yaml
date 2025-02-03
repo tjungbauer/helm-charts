@@ -120,6 +120,43 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-02-03T08:54:59.113874457Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Install and configure the Cert-Manager
+    digest: 8648994a0eeef75502449068a39a0cae7bad8622cac2f90d451bbc3cb3c39c68
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cert-manager
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cert-manager-1.0.6/cert-manager-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: added Certificate resource so this chart can be used to order any certificate
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2024-07-01T09:47:44.220664283Z"
     dependencies:
     - name: tpl
@@ -22301,4 +22338,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-30T14:10:28.141134921Z"
+generated: "2025-02-03T08:54:59.114884419Z"
