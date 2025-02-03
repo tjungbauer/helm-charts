@@ -31,6 +31,14 @@ issuer:
       # certificates, and issues related to your account.
       email: your@email.com
 
+      # -- Name of the Secret resource that will be used to store the ACME account private key.
+      # @default -- letsencrypt-account-key
+      privKeyRef: letsencrypt-account-key
+
+      # -- URL of PKI server
+      # @default -- https://acme-v02.api.letsencrypt.org/directory
+      server: "https://acme-v02.api.letsencrypt.org/directory"
+
       # -- add a challenge solver. This coulr be DNS01 or HTTP01
       # The yaml specification will be used as is
       # Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/

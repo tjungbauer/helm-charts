@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
  
 
@@ -87,8 +87,10 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-man
 | certificates.certificate[0].uris | list | `["spiffe://cluster.local/ns/sandbox/sa/example"]` | Requested URI subject alternative names. |
 | certificates.certificate[0].usages | list | `["server auth","client auth"]` | Set usages for the certificate full list https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.KeyUsage default if not set, cert manager will set: digital signature, key encipherment, and server auth |
 | certificates.enabled | bool | false | Enable ordering of certificates |
-| issuer[0].acme | object | `{"email":"your@email.com","solvers":[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]}` | Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for. |
+| issuer[0].acme | object | `{"email":"your@email.com","privKeyRef":"letsencrypt-account-key","server":{"":null},"solvers":[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]}` | Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for. |
 | issuer[0].acme.email | string | `"your@email.com"` | Email address, Let's Encrypt will use this to contact you about expiring certificates, and issues related to your account. |
+| issuer[0].acme.privKeyRef | string | letsencrypt-account-key | Name of the Secret resource that will be used to store the ACME account private key. |
+| issuer[0].acme.server | object | https://acme-v02.api.letsencrypt.org/directory | URL of PKI server |
 | issuer[0].acme.solvers | list | `[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]` | add a challenge solver. This coulr be DNS01 or HTTP01 The yaml specification will be used as is Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/ |
 | issuer[0].enabled | bool | false | Enable this issuer. |
 | issuer[0].name | string | `"acme"` |  |

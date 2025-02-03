@@ -30,6 +30,12 @@ spec:
   {{- with .acme }}
   acme:
     email: {{ .email }}
+    {{ if eq (.skipTLSVerify | toString) "true" }}
+    skipTLSVerify: true
+    {{- else }}
+    skipTLSVerify: false
+    {{- end }}
+    preferredChain: {{ .preferredChain | default "" }}
     privateKeySecretRef:
       name: {{ .privKeyRef | default "letsencrypt-account-key" }}
     server: {{ .server | default "https://acme-v02.api.letsencrypt.org/directory" }}
