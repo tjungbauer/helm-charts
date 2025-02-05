@@ -1,5 +1,6 @@
 {{- with .Values.loggingConfig }}
-{{- if and (eq ( .operatorVersion | toString) "6.0") (eq ( .enabled | toString) "true") }}
+{{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
+{{- if eq ( .enabled | toString) "true" }}
 {{- if .collectorServiceAccount.bindings }}
 {{- range .collectorServiceAccount.bindings }}
 ---
@@ -17,6 +18,7 @@ subjects:
   - kind: ServiceAccount
     name: {{ $.Values.loggingConfig.collectorServiceAccount.name | default "cluster-logging-operator" }}
     namespace: openshift-logging
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square)
+  ![Version: 3.0.2](https://img.shields.io/badge/Version-3.0.2-informational?style=flat-square)
 
  
 
@@ -83,7 +83,7 @@ Verify the subcharts for additional settings:
 |-----|------|---------|-------------|
 | loggingConfig.enabled | bool | false | Enable openshift logging configuration |
 | loggingConfig.managementState | string | Managed | Indicator if the resource is 'Managed' or 'Unmanaged' by the operator. This allows administrators to temporarily pause log forwarding by setting. |
-| loggingConfig.operatorVersion | string | N/A | Defines if we are going to deploy openshift logging verison 6.x. This changes the possible settings and resources. |
+| loggingConfig.operatorVersion | string | 6 | Defines if we are going to deploy openshift logging verison 6.x. This changes the possible settings and resources. Possible values are: 5 or 6. |
 | loggingConfig.syncwave | string | 4 | Syncwave for the ClusterLogging resource |
 
 ### OpenShift Logging 6.0 - Filters
@@ -100,11 +100,11 @@ Verify the subcharts for additional settings:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | loggingConfig.logStore | object | N/A | Parameters that are required for OpenShift Logging Version 5.x |
-| loggingConfig.logStore.collection.resources | object | N/A | The resource requirements for the collector. Set this only when you know what you are doing |
-| loggingConfig.logStore.collection.resources.limits | object | N/A | LIMITS for CPU, memory and storage |
-| loggingConfig.logStore.collection.resources.requests | object | N/A | REQUESTS for CPU, memory and storage |
-| loggingConfig.logStore.collection.tolerations | list | N/A | Define the tolerations the collector Pods will accept |
-| loggingConfig.logStore.collection.type | string | vector | The type of Log Collection to configure Vector in case of Loki. |
+| loggingConfig.logStore.collector.resources | object | N/A | The resource requirements for the collector. Set this only when you know what you are doing |
+| loggingConfig.logStore.collector.resources.limits | object | N/A | LIMITS for CPU, memory and storage |
+| loggingConfig.logStore.collector.resources.requests | object | N/A | REQUESTS for CPU, memory and storage |
+| loggingConfig.logStore.collector.tolerations | list | N/A | Define the tolerations the collector Pods will accept |
+| loggingConfig.logStore.collector.type | string | vector | The type of Log Collection to configure Vector in case of Loki. |
 | loggingConfig.logStore.lokistack | string | logging-loki | Name of the LokiStack resource. |
 | loggingConfig.logStore.type | string | `"lokistack"` | The Type of Log Storage to configure. The operator currently supports either using ElasticSearch managed by elasticsearch-operator or Loki managed by loki-operator (LokiStack) as a default log store. However, Elasticsearch is deprecated and should not be used here ... it would result in an error |
 | loggingConfig.logStore.visualization.ocpConsole.logsLimit | int | none | LogsLimit is the max number of entries returned for a query. |
@@ -138,10 +138,10 @@ Verify the subcharts for additional settings:
 | loggingConfig.pipelines | list | `[{"filterRefs":["detectexception","parse-json"],"inputRefs":["application","infrastructure","audit"],"name":"default-lokistack","outputRefs":["default-lokistack"]}]` | Define the path logs take from inputs, through filters, to outputs. Pipelines have a unique name and consist of a list of input, output and filter names. |
 | loggingConfig.pipelines[0] | object | `{"filterRefs":["detectexception","parse-json"],"inputRefs":["application","infrastructure","audit"],"name":"default-lokistack","outputRefs":["default-lokistack"]}` | Name of the pipeline |
 | loggingConfig.pipelines[0].filterRefs | list | `["detectexception","parse-json"]` | Filters lists the names of filters to be applied to records going through this pipeline. |
-| loggingConfig.pipelines[0].inputRefs | list | `["application","infrastructure","audit"]` | InputRefs lists the names (`input.name`) of inputs to this pipeline.  The following built-in input names are always available:<br/> <ul> <li>`application` selects all logs from application pods.</li> <li>`infrastructure` selects logs from openshift and kubernetes pods and some node logs.</li> <li>`audit` selects node logs related to security audits.</li> |
+| loggingConfig.pipelines[0].inputRefs | list | `["application","infrastructure","audit"]` | InputRefs lists the names (`input.name`) of inputs to this pipeline. The following built-in input names are always available:<br/> <ul> <li>`application` selects all logs from application pods.</li> <li>`infrastructure` selects logs from openshift and kubernetes pods and some node logs.</li> <li>`audit` selects node logs related to security audits.</li> |
 | loggingConfig.pipelines[0].outputRefs | list | `["default-lokistack"]` | OutputRefs lists the names (`output.name`) of outputs from this pipeline. |
 
-## Example values OpenShift Logging 6.0
+## Example values OpenShift Logging 6.x
 
 ```yaml
 ---
@@ -150,7 +150,7 @@ loggingConfig:
 
   syncwave: '4'
 
-  operatorVersion: '6.0'
+  operatorVersion: '6'
 
   managementState: Managed
 
@@ -218,6 +218,8 @@ loggingConfig:
 ---
 loggingConfig:
   enabled: true
+
+  operatorVersion: '5'
 
   logStore:
     type: lokistack

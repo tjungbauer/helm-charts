@@ -1,5 +1,5 @@
 {{- with .Values.loggingConfig }}
-{{ if ne ( .operatorVersion | toString) "6.0" }}
+{{ if eq ( .operatorVersion | toString) "5" }}
 {{ if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: "logging.openshift.io/v1"

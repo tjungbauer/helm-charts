@@ -1,5 +1,6 @@
 {{- with .Values.loggingConfig }}
-{{- if and (eq ( .operatorVersion | toString) "6.0") (eq ( .enabled | toString) "true") }}
+{{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
+{{- if eq ( .enabled | toString) "true" }}
 {{- range .additionalClusterRoles }}
 
 {{- if and (eq ( .type | toString) "application") (eq ( .enabled | toString) "true") }}
@@ -82,6 +83,7 @@ subjects:
     namespace: openshift-logging
 {{- end }}
 
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

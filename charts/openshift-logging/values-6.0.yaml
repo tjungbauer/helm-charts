@@ -3,7 +3,7 @@ loggingConfig:
   # -- Enable openshift logging configuration
   # @section -- Generic Parameters
   # @default -- false
-  enabled: true
+  enabled: false
 
   # -- Syncwave for the ClusterLogging resource
   # @section -- Generic Parameters
@@ -11,9 +11,10 @@ loggingConfig:
   syncwave: '4'
 
   # -- Defines if we are going to deploy openshift logging verison 6.x. This changes the possible settings and resources.
+  # Possible values are: 5 or 6.
   # @section -- Generic Parameters
-  # @default -- N/A
-  operatorVersion: '6.0'
+  # @default -- 6
+  operatorVersion: '6'
 
   # -- Indicator if the resource is 'Managed' or 'Unmanaged' by the operator. This allows administrators to temporarily pause log forwarding by setting.
   # @section -- Generic Parameters

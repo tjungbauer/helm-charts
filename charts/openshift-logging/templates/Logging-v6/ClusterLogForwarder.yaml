@@ -1,6 +1,6 @@
 {{- with .Values.loggingConfig }}
-{{ if eq ( .operatorVersion | toString) "6.0" }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
+{{- if eq ( .enabled | toString) "true" }}
 ---
 apiVersion: "observability.openshift.io/v1"
 kind: "ClusterLogForwarder"

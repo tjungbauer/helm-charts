@@ -32,7 +32,7 @@ Verify the subcharts for additional settings:
 {{ template "doc.values" . }}
 
 
-## Example values OpenShift Logging 6.0
+## Example values OpenShift Logging 6.x
 
 ```yaml
 ---
@@ -41,7 +41,7 @@ loggingConfig:
 
   syncwave: '4'
 
-  operatorVersion: '6.0'
+  operatorVersion: '6'
 
   managementState: Managed
 
@@ -109,6 +109,8 @@ loggingConfig:
 ---
 loggingConfig:
   enabled: true
+
+  operatorVersion: '5'
 
   logStore:
     type: lokistack
