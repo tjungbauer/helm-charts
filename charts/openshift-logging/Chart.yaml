@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging based on LokiStack
-version: 3.0.0
+version: 3.0.1
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
@@ -40,3 +40,5 @@ annotations:
       description: switching some snippets to use global tpl
     - kind: added
       description: major update to openshift logging version 6.0. This changes the cutom resources and possibilities completely. The parameter operatorVersion indicates which version should be used. Version 6 should be used for any new deployment. Keep in mind that an upgrade from 5 to 6 ist not easy and should be prepared accordingly.
+    - kind: added
+      description: afixed typo in values file

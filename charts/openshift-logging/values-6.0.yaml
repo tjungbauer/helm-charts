@@ -348,7 +348,7 @@ loggingConfig:
           operator: Equal
           value: 'reserved'
 
-    collection:
+    collector:
       # -- The type of Log Collection to configure
       # Vector in case of Loki.
       # @section -- OpenShift Logging 5.0
