@@ -34,7 +34,16 @@ spec:
         {{- end }}
       policies:
       {{- if eq ( .fullaccess |toString) "true" }}
-        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, *, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, get, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, create, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, update, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, delete, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, sync, {{ $value_appproject.name }}*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, override, {{ $value_appproject.name }}/*, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, repositories, create, *, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, repositories, get, *, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, repositories, update, *, allow'
+        - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, repositories, delete, *, allow'
       {{- else }}
       {{- range .policies }}
       {{- if eq ($role_value.overwrite_appproject_name | toString) "true" }}

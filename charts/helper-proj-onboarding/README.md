@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.37](https://img.shields.io/badge/Version-1.0.37-informational?style=flat-square)
+  ![Version: 1.0.40](https://img.shields.io/badge/Version-1.0.40-informational?style=flat-square)
 
  
 
@@ -63,6 +63,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.0 |
 
 None
 
@@ -119,7 +120,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-p
 | namespaces[0].default_policies.allow_to_dns | bool | true | Allow traffic to OpenShift DNS services. This should be better allowed |
 | namespaces[0].default_policies.deny_all_egress | bool | false | Per default deny all outgoing traffic. Default would be false, to allow egress traffic without restriction. |
 | namespaces[0].default_policies.deny_all_ingress | bool | false | Deny any ingress connection to this namespace. This is very restrictive and if **allow_from_same_namespace** is set to false it means that also namespace inner connections are not possible unless they are explicitely permitted. |
-| namespaces[0].egressIPs | object | ''  | EgressIPs for this Namespace Be sure that nodes are labells with: k8s.ovn.org/egress-assignable: "" **NOTE**: Curently only Namespace EgressIPs are supported (not pod) |
+| namespaces[0].egressIPs | object | '' | EgressIPs for this Namespace Be sure that nodes are labells with: k8s.ovn.org/egress-assignable: "" **NOTE**: Curently only Namespace EgressIPs are supported (not pod) |
 | namespaces[0].egressIPs.enabled | bool | false | Enable or disable egressIPs. |
 | namespaces[0].egressIPs.ips | list | `["10.100.60.130"]` | List of IP addresses that you want to assign the namespace |
 | namespaces[0].enabled | bool | false | Is this Namespace configuration enabled or not? |

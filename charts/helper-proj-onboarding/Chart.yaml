@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-proj-onboarding
 description: This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.
-version: 1.0.39
+version: 1.0.40
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -39,3 +39,5 @@ annotations:
       description: possibility to define egressIPs
     - kind: added
       description: added dependency tp tpl library
+    - kind fixed
+      description: fullaccess of argocd project now also allows to define the own repository for a developer
