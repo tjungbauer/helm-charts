@@ -130,8 +130,8 @@ spec:
     {{- /* Set tolerations for the distributor */}}
     {{- if .podPlacements.distributor }}
     distributor:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.distributor.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.distributor | indent 4 }}
       {{- end }}
       {{- if .podPlacements.distributor.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.distributor.tolerations | indent 6 }}
@@ -141,8 +141,8 @@ spec:
     {{- /* Set tolerations for the gateway */}}
     {{- if .podPlacements.gateway }}
     gateway:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.gateway.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.gateway | indent 4 }}
       {{- end }}
       {{- if .podPlacements.gateway.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.gateway.tolerations | indent 6 }}
@@ -152,8 +152,8 @@ spec:
     {{- /* Set tolerations for the indexGateway */}}
     {{- if .podPlacements.indexGateway }}
     indexGateway:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.indexGateway.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.indexGateway | indent 4 }}
       {{- end }}
       {{- if .podPlacements.indexGateway.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.indexGateway.tolerations | indent 6 }}
@@ -163,8 +163,8 @@ spec:
     {{- /* Set tolerations for the ingester */}}
     {{- if .podPlacements.ingester }}
     ingester:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.ingester.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.ingester | indent 4 }}
       {{- end }}
       {{- if .podPlacements.ingester.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.ingester.tolerations | indent 6 }}
@@ -174,8 +174,8 @@ spec:
     {{- /* Set tolerations for the querier */}}
     {{- if .podPlacements.querier }}
     querier:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.querier.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.querier | indent 4 }}
       {{- end }}
       {{- if .podPlacements.querier.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.querier.tolerations | indent 6 }}
@@ -185,8 +185,8 @@ spec:
     {{- /* Set tolerations for the queryFrontend */}}
     {{- if .podPlacements.queryFrontend }}
     queryFrontend:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.queryFrontend.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.queryFrontend | indent 4 }}
       {{- end }}
       {{- if .podPlacements.queryFrontend.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.queryFrontend.tolerations | indent 6 }}
@@ -196,8 +196,8 @@ spec:
     {{- /* Set tolerations for the ruler */}}
     {{- if .podPlacements.ruler }}
     ruler:
-      {{- if .podPlacements.compactor.nodeSelector }}
-        {{- include "tpl.nodeSelector" .podPlacements.compactor | indent 4 }}
+      {{- if .podPlacements.ruler.nodeSelector }}
+        {{- include "tpl.nodeSelector" .podPlacements.ruler | indent 4 }}
       {{- end }}
       {{- if .podPlacements.ruler.tolerations }}
 {{ include "tpl.tolerations" .podPlacements.ruler.tolerations | indent 6 }}
