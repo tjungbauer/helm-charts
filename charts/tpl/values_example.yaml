@@ -48,10 +48,18 @@ nodeSelector:
 #    {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 4 }}
 #    {{- end }}
 #    {{- end }}
+#    {{- include "tpl.additionalAnnotations" .Values.namespace.additionalAnnotations | indent 4 }}
+#    {{- include "tpl.additionalLabels" .Values.namespace.additionalLabels | indent 4 }}
 
 namespace:
   bindtoNode:
     role: infra
+  additionalAnnotations:
+    additionalAnnotation1: "My Annotation"
+    additionalAnnotation2: "My Annotation 2"
+  additionalLabels:
+    myLabel1: "My Label"
+    myLabel2: "My Labe 2"
 
 # -- Define a NamespaceSelector and the required labels
 # <br />
@@ -100,4 +108,4 @@ matchExpressions:
       - "kube-system"
       - "openshift*"
       - "default"
-      - "kubde-info" 
+      - "kubde-info"

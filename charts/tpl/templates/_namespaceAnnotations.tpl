@@ -17,5 +17,9 @@ scheduler.alpha.kubernetes.io/defaultTolerations: >-
 {{- end }}
 
 {{- define "tpl.namespaceDescr" -}}
+openshift.io/description: {{ . | default "" | quote }}
+{{- end }}
+
+{{- define "tpl.namespaceDisplay" -}}
 openshift.io/display-name: {{ . | default "" | quote }}
 {{- end }}

@@ -18,3 +18,17 @@
   {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 0 }}
 {{- end }}
 {{- end }}
+
+{{- if .Values.namespace.bindtoNode }}
+  {{- if .Values.namespace.bindtoNode.role }}
+  {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 0 }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.namespace.binddescrtoNode }}
+  {{- include "tpl.namespaceDescr" .Values.namespace.descr | nindent 0 }}
+{{- end }}
+
+{{- if .Values.namespace.display }}
+  {{- include "tpl.namespaceDisplay" .Values.namespace.display | nindent 0 }}
+{{- end }}

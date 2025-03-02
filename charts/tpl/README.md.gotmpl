@@ -48,6 +48,12 @@ nodeSelector:
 namespace:
   bindtoNode:
     role: infra
+  additionalAnnotations:
+    additionalAnnotation1: "My Annotation"
+    additionalAnnotation2: "My Annotation 2"
+  additionalLabels:
+    myLabel1: "My Label"
+    myLabel2: "My Labe 2"
 
 namespaceSelector:          
   matchLabels:
