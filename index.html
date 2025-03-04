@@ -8,36 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQFUKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+      .body {
         background-color: #303030;
-         
       }
-    
-      header {
-        background: #333;
-        color: white;
-        padding: 1rem;
-      }
-   
-      .chart-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 3rem 5rem; 
-        padding: 2rem;
-      }
-    
-     .chart {
-         
-         
-        width: 46%;
-        min-width: 200px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     }
-      
       .markdown-body {
         box-sizing: border-box;
         min-width: 200px;
@@ -124,11 +97,11 @@
       overflow: hidden;
       border: 1px solid #676869;
       transition: 0.25s ease box-shadow, 0.25s ease transform;
-       
+      max-width: 48%!important;
       min-width: 48%!important;
       min-height: 215px;
       position: relative;
-       
+      margin-bottom: 20px;
       background-color: #232529;
     }
 
@@ -248,7 +221,7 @@
     }
 
     .chart-title-right {
-      padding-left: 1.25rem;
+      padding-left: 2.25rem;
     }
  
     .ms-auto {
@@ -372,8 +345,8 @@
   </head>
 
   <body class="body">
-      <section class="markdown-body">
-        <header>
+
+    <section class="markdown-body">
 
       <h1>Helm Charts</h1>
 
@@ -390,11 +363,8 @@
           Feel free to test them and let me know if there are any issues.
        </p>
       </div>
-    </header>
-    <main>
-      <section class="chart-container">
-        <div class="chart">
-    
+
+    <div class="d-flex flex-wrap justify-content-between">
       
       
       <div class="cardbox">
@@ -718,7 +688,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><style>svg{fill:#cbd3da}</style><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
                     </div>
                     <div class="ms-1"> 
-                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.36/collection-management-operators-1.0.36.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.36/collection-management-operators-1.0.36.tgz">Download</a>
+                      <a class="download-link" href="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.38/collection-management-operators-1.0.38.tgz" title="https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.38/collection-management-operators-1.0.38.tgz">Download</a>
                     </div>
                   </div>
                 </button>
@@ -729,7 +699,7 @@
 
               <div clas="mt-1">
                 <small class="additional-info">
-                  Last update: 2024-06-14
+                  Last update: 2025-03-04
                 </small>
               </div>
               <div class="mt-1">
@@ -740,7 +710,7 @@
 
               <div class="mt-1">
                 <small class="additional-info">
-                  Version: 1.0.36
+                  Version: 1.0.38
                 </small>
               </div>
 
@@ -5444,8 +5414,7 @@
       
 
     </div>
-            </section>
-        </main>
+
 
       <h2>Usage</h2>
       <pre lang="no-highlight"><code>
@@ -5482,7 +5451,6 @@ limitations under the License.<br />
 <a href="https://www.flaticon.com/free-icons/" title="">Various Artists Flaticon</a>
 
     </section>
-    <time class="time" datetime="2025-03-04T09:31:32" pubdate id="generated">Tue Mar 4 2025 09:31:32AM UTC&#43;00:00</time>
-    </section>
+    <time class="time" datetime="2025-03-04T16:04:19" pubdate id="generated">Tue Mar 4 2025 04:04:19PM UTC&#43;00:00</time>
   </body>
 </html>
