@@ -17223,6 +17223,41 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: initial release
+        - kind: added
+          description: added a small example config to the readme
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-03-04T09:31:32.414229217Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Configure the operator Red Hat Build of Keycloak
+    digest: 9e64092826f1f5be519b58e4fcf20699707bb1add70f5b81ab3fc698c4856d9b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
+    keywords:
+    - sso
+    - keycloak
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rh-build-keycloak
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rh-build-keycloak-1.0.1/rh-build-keycloak-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -22711,4 +22746,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-04T09:28:52.238906988Z"
+generated: "2025-03-04T09:31:32.415704934Z"
