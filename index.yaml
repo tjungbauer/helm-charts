@@ -17218,6 +17218,40 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-1.0.0/quay-registry-setup-1.0.0.tgz
     version: 1.0.0
+  rh-build-keycloak:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-03-04T09:28:52.237838Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Configure the operator Red Hat Build of Keycloak
+    digest: ddc4459c99c0f1add149c6021eace45667501461834f9d76a2b3bf05224dfdd5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
+    keywords:
+    - sso
+    - keycloak
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rh-build-keycloak
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rh-build-keycloak-1.0.0/rh-build-keycloak-1.0.0.tgz
+    version: 1.0.0
   rhacm-full-stack:
   - annotations:
       artifacthub.io/changes: |
@@ -22677,4 +22711,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-02T08:57:47.918746398Z"
+generated: "2025-03-04T09:28:52.238906988Z"
