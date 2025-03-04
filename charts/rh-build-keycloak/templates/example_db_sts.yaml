@@ -1,0 +1,60 @@
+{{ if eq (.Values.keycloak.db.use_example_db_sta | toString) "true" }}
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: keycloak-db-secret
+  namespace: {{ .Values.keycloak.namespace | default "keycloak" }}
+stringData:
+  password: {{ .Values.keycloak.db.example_db_pass | default "thisisonly4testingNOT4prod" }}
+  username: {{ .Values.keycloak.db.example_db_user | default "testuser" }}
+type: Opaque
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql-db
+  namespace: {{ .Values.keycloak.namespace | default "keycloak" }}
+spec:
+  serviceName: postgresql-db-service
+  selector:
+    matchLabels:
+      app: postgresql-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgresql-db
+    spec:
+      containers:
+        - name: postgresql-db
+          image: postgres:15
+          volumeMounts:
+            - mountPath: /data
+              name: cache-volume
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.keycloak.db.example_db_user | default "testuser" }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.keycloak.db.example_db_pass | default "thisisonly4testingNOT4prod" }}
+            - name: PGDATA
+              value: /data/pgdata
+            - name: POSTGRES_DB
+              value: keycloak
+      volumes:
+        - name: cache-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db
+  namespace: {{ .Values.keycloak.namespace | default "keycloak" }}
+spec:
+  selector:
+    app: postgresql-db
+  type: LoadBalancer
+  ports:
+  - port: 5432
+    targetPort: 5432
+{{- end }}

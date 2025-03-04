@@ -1,0 +1,291 @@
+---
+# -- Enable RH Build of Keycloak.
+# @default -- false
+enabled: true
+
+# -- The namespace that shall be created for the Operator and the instance.
+# @section -- namespace
+namespace:
+
+  # -- The name of the namespace.
+  # @section -- namespace
+  name: keycloak
+
+  # -- Create the namespace if it does not exist.
+  # @section -- namespace
+  # @default -- false
+  create: true
+
+  # -- Description of the namespace.
+  # @section -- namespace
+  # @default -- ""
+  descr: ""
+
+  # -- Displayname of the namespace.
+  # @section -- namespace
+  # @default -- ""
+  display: ""
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
+
+# -- Configuration of the Keycloak instance
+# @section -- keycloak
+keycloak:
+
+  # -- The name of the Keycloak instance.
+  # @section -- keycloak
+  # @default -- example-keycloak
+  name: example-keycloak
+
+  # -- The namespace in which the Keycloak instance is deployed.
+  # @section -- keycloak
+  # @default -- keycloak
+  namespace: keycloak
+
+  # -- Custom Keycloak image to be used.
+  # @section -- keycloak
+  # @@default -- ""
+  image: ""
+
+  # -- Number of Keycloak instances in HA mode. Default is 1.
+  # @section -- keycloak
+  # @default -- 1
+  instance: 1
+
+  # -- Additional annotations to add to the Keycloak instance as key: value pairs.
+  # @section -- keycloak
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- keycloak
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
+
+  # -- In this section you can configure Keycloak hostname and related properties.
+  # @section -- keycloak
+  hostname:
+    # -- Address for accessing the administration console.
+    # Use this option if you are exposing the administration console using a reverse proxy on a different address than specified in the hostname option.
+    # @section -- keycloak
+    # @default -- ""
+    admin: ""
+
+    # -- Set the base URL for accessing the administration console, including scheme, host, port and path
+    # @section -- keycloak
+    # @default -- ""
+    adminUrl: ""
+
+    # -- Hostname at which is the server exposed.
+    # @section -- keycloak
+    # @default -- ""
+    hostname: myhostname
+
+    # -- Disables dynamically resolving the hostname from request headers.
+    # @section -- keycloak
+    # @default -- false
+    strict: false
+
+    # -- By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications.
+    # @section -- keycloak
+    # @default -- false
+    strictBackchannel: false
+
+  # -- In this section you can configure Keycloak features related to HTTP and HTTPS
+  # @section -- keycloak
+  http:
+    # -- Enables the HTTP listener.
+    # @section -- keycloak
+    # @default -- false
+    httpEnabled: false
+
+    # -- The used HTTP port.
+    # @section -- keycloak
+    # @default -- ""
+    httpPort: ""
+
+    # -- The used HTTPS port.
+    # @section -- keycloak
+    # @default -- ""
+    httpsPort: ""
+
+    # -- tlsSecret for Keycloak <br />
+    # Can be a valid secret with tls.crt and tls.key<br/>
+    # To create a self-signed simply use the following commands:<br/>
+    # `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=test.keycloak.org/O=Test Keycloak./C=US`<br/>
+    # `oc create secret tls example-tls-secret --cert=tls.crt --key=tls.key`
+    # @section -- keycloak
+    # @default -- ""
+    tlsSecret: ""
+
+  # -- Secret(s) that might be used when pulling an image from a private container image registry or repository.
+  # @section -- keycloak
+  # @default -- []
+  imagePullSecrets: []
+
+  # -- The deployment is, by default, exposed through a basic ingress.
+  # @section -- keycloak
+  ingress:
+
+    # -- Enable Ingress for Keycloak.
+    # @section -- keycloak
+    # @default -- false
+    enabled: false
+
+    # -- Define classname for Ingress
+    # @section -- keycloak
+    # @default -- ""
+    className: ""
+
+  # -- Define database settings for Keycloak<br />
+  # If omitted then keycloak will use an internal/ephemeral database
+  # It is possible to create an example postgres instance for testing purposes
+  # @section -- db
+  db:
+    # -- Creates and example Statefulset<br />
+    # This is a ready-to-go-testing service with hardcoded values and no need for further configuration.<br />
+    # This is not intended for production use.
+    # @section -- db
+    # @default -- false
+    use_example_db_sta: false
+
+    # -- The database user to be used.
+
+    # @section -- db
+    # @default -- testuser
+    exmple_db_user: testuser
+
+    # -- The database password to be used.
+    # @section -- db
+    # @default -- thisisonly4testingNOT4prod
+    example_db_pass: ""
+
+    # -- In this section you can find all properties related to connect to a database.
+    # @section -- db
+    settings:
+
+      # -- Enable custom db
+      # @section -- db
+      # @default -- false
+      custom_database: false
+
+      # -- Sets the port of the default JDBC URL of the chosen vendor. If the `url` option is set, this option is ignored.
+      # @section -- db
+      # @default -- ""
+      port: ""
+
+      # -- The database schema to be used.
+      # @section -- db
+      # @default -- ""
+      schema: ""
+
+      # -- The database vendor, for example 'postgres'.
+      # @section -- db
+      # @default -- ""
+      vendor: ""
+
+      # -- Sets the hostname of the default JDBC URL of the chosen vendor. If the `url` option is set, this option is ignored.
+      # @section -- db
+      # @default -- ""
+      host: ""
+
+      # -- The reference to a secret holding the username of the database user.<br />
+      # The secret must contain a key with the name of the username.
+      # @section -- db
+      usernameSecret:
+        # -- The name of the secret holding the username of the database user.
+        # @section -- db
+        # @default -- ""
+        name: ""
+
+        # -- The key of the secret holding the username of the database user.
+        # @section -- db
+        # @default -- ""
+        key: ""
+
+      # -- The reference to a secret holding the password of the database user.<br />
+      # The secret must contain a key with the name of the password.
+      # @section -- db
+      passwordSecret:
+        # -- The name of the secret holding the password of the database user.
+        # @section -- db
+        # @default -- ""
+        name: ""
+
+        # -- The key of the secret holding the password of the database user.
+        # @section -- db
+        # @default -- ""
+        key: ""
+
+      # -- The full database JDBC URL. If not provided, a default URL is set based on the selected database vendor.<br />
+      # For instance, if using 'postgres', the default JDBC URL would be 'jdbc:postgresql://localhost/keycloak'.
+      # @section -- db
+      # @default -- ""
+      url: ""
+
+      # --  The initial size of the connection pool.
+      # @section -- db
+      # @default -- ''
+      poolInitialSize: ''
+
+      # -- The minimal size of the connection pool.
+      # @section -- db
+      # @default -- ''
+      poolMinSize: ''
+
+      # -- The maximum size of the connection pool.
+      # @section -- db
+      # @default -- ''
+      poolMaxSize: ''
+
+      # -- Sets the database name of the default JDBC URL of the chosen vendor. If the `url` option is set, this option is ignored.
+      # @section -- db
+      # @default -- ''
+      database: ""
+
+  # -- The additionalOptions field of the Keycloak CR enables Red Hat build of Keycloak to accept any available configuration in the form <br />
+  # of key-value pairs. You can use this field to include any option that is omitted in the Keycloak CR. For details on configuring options, see <br />
+  # [All configurations](https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/server_configuration_guide/#all-config)
+  # @section -- keycloak
+  # @default -- {}
+  additionalOptions: {}
+
+  # -- In this section you can find all properties related to the settings of transaction behavior.
+  # @section -- keycloak
+  transaction:
+
+    # -- Determine whether Keycloak should use a non-XA datasource in case the database does not support XA transactions.
+    # @section -- keycloak
+    # @default -- false
+    xaEnabled: false
+
+  # -- Red Hat build of Keycloak has packed some functionality in features, including some disabled features, such as<br />
+  # Technology Preview and deprecated features. Other features are enabled by default, but you can disable them if they<br />
+  # do not apply to your use of Red Hat build of Keycloak.
+  # See [Features](https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/server_configuration_guide/#features)
+  # @section -- keycloak
+  features:
+    # Disable features
+    # @section -- keycloak
+    # @default -- []
+    disabled: []
+    # -- Some supported features, and all preview features, are disabled by default. Here you can enable them.
+    # @section -- keycloak
+    # @default -- []
+    enabled: []

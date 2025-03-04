@@ -1,0 +1,123 @@
+{{- with .Values.keycloak }}
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  labels:
+    app: sso
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+  name: {{ .name | default "example-keycloak" }}
+  namespace: {{ .namespace | default "keycloak" }}
+spec:
+  hostname:
+    admin: {{ .hostname.admin | default "" }}
+    adminUrl: {{ .hostname.adminUrl | default "" }}
+    hostname: {{ .hostname.hostname | default "" }}
+    {{- if eq (.hostname.strict | toString) "true" }}
+    strict: true
+    {{- end }}
+    {{- if eq (.hostname.strictBackchannel | toString) "true" }}
+    strictBackchannel: true
+    {{- end }}
+  instances: {{ .instance | default "1" }}
+  image: {{ .image | default "" }}
+  http:
+    {{- if eq (.http.httpEnabled | toString) "true" }}
+    httpEnabled: true
+    {{- end }}
+    httpPort: {{ .http.httpPort | default "" }}
+    httpsPort: {{ .http.httpsPort | default "" }}
+    tlsSecret: {{ .http.tlsSecret | default "" }}
+  
+  {{- if .imagePullSecrets }}
+  imagePullSecrets:
+  {{- range .imagePullSecrets }}
+    - name: {{ . }}
+  {{- end }}
+  {{- end }}
+
+  {{- if eq (.ingress.enabled | toString) "true" }}
+  ingress:
+    enabled: {{ .ingress.enabled }}
+    className: {{ .ingress.className }}
+  {{- end }}
+
+
+  {{- if eq (.db.use_example_db_sta | toString) "true" }}
+  db:
+    vendor: postgres
+    host: postgres-db
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+  {{- else if .db.settings }}
+  {{- with .db.settings }}
+  {{- if eq (.custom_database | toString) "true" }}
+  db:
+    {{- if .usernameSecret }}
+    usernameSecret:
+      key: {{ .usernameSecret.key }}
+      name: {{ .usernameSecret.name }}
+    {{- end }}
+    {{- if .passwordSecret }}
+    passwordSecret:
+      key: {{ .passwordSecret.key }}
+      name: {{ .passwordSecret.name }}
+    {{- end }}
+    port: {{ .port }}
+    schema: {{ .schema }}
+    vendor: {{ .vendor }}
+    host: {{ .host }}
+    poolMaxSize: {{ .poolInitialSize }}
+    url: {{ .url }}
+    poolMinSize: {{ .poolMinSize }}
+    database: {{ .database }}
+    poolInitialSize: {{ .poolInitialSize }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+
+  {{- if .additionalOptions }}
+  additionalOptions:
+    {{- range .additionalOptions }}
+    - name: {{ .name }}
+      {{- if .secret }}
+      secret:
+        key: {{ .secret.key }}
+        name: {{ .secret.name }}
+      {{- end }}
+      {{- if .value }}
+      value: {{ .value }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .transaction }}
+  transaction:
+  {{- if eq (.transaction.xaEnabled | toString) "true" }}
+    xaEnabled: true
+  {{- end }}
+  {{- end }}
+
+  {{- if .features }}
+  features:
+    {{- if .features.disabled }}
+    disabled:
+    {{- range .features.disabled }}
+      - {{ . }}
+    {{- end }}
+    {{- end }}
+    {{- if .features.enabled }}
+    enabled:
+    {{- range .features.enabled }}
+      - {{ . }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+
+
+{{- end }}

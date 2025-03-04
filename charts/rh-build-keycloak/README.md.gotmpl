@@ -1,0 +1,45 @@
+{{ template "doc.header" . }}
+
+This Helm Chart is configuring Red Hat build of Keycloak instance.
+It can be used be the built in database, or an example and hardcoded postgres instance, or with your very own configuration. 
+
+Be sure to create a secret containing the certificate for the keycloak instance and use them in the settings. 
+
+A self-signed certificate can be created with the following commands for example:
+
+```bash
+`openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=test.keycloak.org/O=Test Keycloak./C=US`<br/>
+`oc create secret tls example-tls-secret --cert=tls.crt --key=tls.key`
+```
+
+It is then used in the values file at:
+
+```yaml
+http:
+  tlsSecret:
+```
+
+Check out the latest documentation for additional settings, supported features and more at, for example: https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/server_configuration_guide/
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-rh-build-of-keycloak)
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [tpl](https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl)
+
+{{ template "doc.values" . }}
+
+## Example minimal settings
+
+```yaml
+---
+
+```
+
+{{ template "doc.footer" . }}

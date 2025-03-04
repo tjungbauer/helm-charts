@@ -1,0 +1,15 @@
+{{ if eq (.Values.namespace.create | toString) "true" }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace.name | quote }}
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .Values.namespace.additionalLabels | indent 4 }}
+  annotations:
+    {{- include "tpl.namespaceDescr" .Values.namespace.descr | nindent 4 }}
+    {{- include "tpl.namespaceDisplay" .Values.namespace.display | nindent 4 }}
+    {{- include "tpl.additionalAnnotations" .Values.namespace.additionalAnnotations | indent 4 }}
+{{- end }}
