@@ -35,11 +35,25 @@ Verify the subcharts for additional settings:
 
 {{ template "doc.values" . }}
 
-## Example minimal settings
+## Example settings
 
 ```yaml
 ---
+enabled: true
 
+namespace:
+  name: <yournamespace>
+  create: true
+
+keycloak:
+  name: example-keycloak
+  namespace: <yournamespace>
+
+  hostname:
+    hostname: <yourhostname>>
+
+  http:
+    tlsSecret: "keycloak-certificate"
 ```
 
 {{ template "doc.footer" . }}

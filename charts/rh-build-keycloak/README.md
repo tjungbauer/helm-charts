@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
 
  
 
@@ -144,11 +144,25 @@ Verify the subcharts for additional settings:
 |-----|------|---------|-------------|
 | enabled | bool | false | Enable RH Build of Keycloak. |
 
-## Example minimal settings
+## Example settings
 
 ```yaml
 ---
+enabled: true
 
+namespace:
+  name: <yournamespace>
+  create: true
+
+keycloak:
+  name: example-keycloak
+  namespace: <yournamespace>
+
+  hostname:
+    hostname: <yourhostname>>
+
+  http:
+    tlsSecret: "keycloak-certificate"
 ```
 
 ## Installing the Chart

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rh-build-keycloak
 description: Configure the operator Red Hat Build of Keycloak
-version: 1.0.0
+version: 1.0.1
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
 maintainers:
@@ -27,3 +27,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: initial release
+    - kind: added
+      description: added a small example config to the readme
