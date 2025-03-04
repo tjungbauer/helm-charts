@@ -8,38 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/brands.min.css" integrity="sha512-nS1/hdh2b0U8SeA8tlo7QblY6rY6C+MgkZIeRzJQQvMsFfMQFUKp+cgMN2Uuy+OtbQ4RoLMIlO2iF7bIEY3Oyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+      .body {
         background-color: #303030;
-        /*text-align: center;*/
       }
-    
-      header {
-        background: #333;
-        color: white;
-        padding: 1rem;
-      }
-   
-      .chart-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 3rem 5rem; 
-        padding: 2rem;
-      }
-    
-     .chart {
-        /* background: white; */
-        /*padding: 2rem;*/
-        width: 46%;
-        min-width: 200px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     }
-     /* .body {
-        background-color: #303030;
-      } */
       .markdown-body {
         box-sizing: border-box;
         min-width: 200px;
@@ -126,11 +97,11 @@
       overflow: hidden;
       border: 1px solid #676869;
       transition: 0.25s ease box-shadow, 0.25s ease transform;
-      /*max-width: 48%!important;*/
+      max-width: 48%!important;
       min-width: 48%!important;
       min-height: 215px;
       position: relative;
-      /*margin-bottom: 20px;*/
+      margin-bottom: 20px;
       background-color: #232529;
     }
 
@@ -141,7 +112,7 @@
 
     .cardbody {
       padding: 1.75rem!important;
-       
+      /*height: 100%!important; */
       display: flex!important;
     }
 
@@ -250,7 +221,7 @@
     }
 
     .chart-title-right {
-      padding-left: 1.25rem;
+      padding-left: 2.25rem;
     }
  
     .ms-auto {
@@ -374,8 +345,8 @@
   </head>
 
   <body class="body">
-      <section class="markdown-body">
-        <header>
+
+    <section class="markdown-body">
 
       <h1>Helm Charts</h1>
 
@@ -392,11 +363,8 @@
           Feel free to test them and let me know if there are any issues.
        </p>
       </div>
-    </header>
-    <main>
-      <section class="chart-container">
-        <div class="chart">
-    <!-- <div class="d-flex flex-wrap justify-content-between"> -->
+
+    <div class="d-flex flex-wrap justify-content-between">
       {{ range $key, $chartEntry := .Entries }}
       <!-- chart box -->
       <div class="cardbox">
@@ -530,8 +498,7 @@
       {{end}}
 
     </div>
-            </section>
-        </main>
+
 
       <h2>Usage</h2>
       <pre lang="no-highlight"><code>
@@ -569,6 +536,5 @@ limitations under the License.<br />
 
     </section>
     <time class="time" datetime="{{ .Generated.Format "2006-01-02T15:04:05" }}" pubdate id="generated">{{ .Generated.Format "Mon Jan 2 2006 03:04:05PM MST-07:00" }}</time>
-    </section>
   </body>
 </html>
