@@ -363,7 +363,24 @@ spec:
         requests:
           cpu: {{ $value.sso.dex.cpu_requests | default "250m" }}
           memory: {{ $value.sso.dex.memory_requests | default "128Mi" }} 
-    {{- end }}   
+    {{- end }}
+    {{- if $value.sso.keycloak }}
+    {{- if eq ($value.sso.keycloak.enabled | toString) "true" }}
+    keycloak:
+      {{- if $value.sso.keycloak.claims }}
+      {{- range $value.sso.keycloak.claims }}
+      - name: {{ . }}
+      {{- end }}
+      {{- end }}
+      host: {{ $value.sso.keycloak.host }}
+      rootCA: {{ $value.sso.keycloak.rootCA }}
+      {{- if eq ($value.sso.keycloak.verifyTLS | toString) "true" }}
+      verifyTLS: true
+      {{- end }}  
+      version: {{ $value.sso.keycloak.version }}
+      image: {{ $value.sso.keycloak.image }}
+    {{- end }}
+    {{- end }} 
     provider: {{ $value.sso.provider | default "dex" }} 
   ha:
     enabled: {{ $value.ha.enabled | default "false" }}

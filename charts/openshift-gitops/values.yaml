@@ -311,8 +311,9 @@ gitopsinstances:
     # Settings for SSO.
     sso:
       # -- Set the provider for SSO. Can be "dex" or "keycloak".
-      # Currently this Helm chart supports "dex" only.
+      # @default -- dex
       provider: dex
+
       # Settings for DEX.
       dex:
         # -- Enable OpenShift Authentication
@@ -334,6 +335,37 @@ gitopsinstances:
         # -- Memory Requests for the ApplicationSet controller.
         # @default -- 128Mi
         memory_requests: 128Mi
+
+      # Settings for KEYCLOAK
+      keycloak:
+
+        # -- Enable Keycloak configuration
+        # @default -- false
+        enabled: false
+
+        # -- Host is the hostname to use for Ingress/Route resources.
+        # @default -- ''
+        host: ''
+
+        # -- Custom root CA certificate for communicating with the Keycloak OIDC provider
+        # @default -- ''
+        rootCA: ''
+
+        # -- VerifyTLS set to false disables strict TLS validation.
+        # @default -- false
+        verifyTLS: false
+
+        # -- Version is the Keycloak container image tag.
+        # @default -- ''
+        version: ''
+
+        # -- Image is the Keycloak container image.
+        # @default -- ''
+        image: ''
+
+        # -- Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+        # @default -- empty
+        claims: []
 
     # -- NodePlacement ... Define nodeSelector for Argo CD Pods.
     # @default -- empty
