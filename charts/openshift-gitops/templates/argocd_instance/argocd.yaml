@@ -352,6 +352,10 @@ spec:
             - /status/ingress
         group: route.openshift.io
         kind: Route
+  {{- if $value.oidcConfig }}
+  oidcConfig: |
+    {{- $value.oidcConfig | toYaml | nindent 4 }}
+  {{- end }}
   {{- if eq ($value.sso.enabled | toString) "true" }}
   sso:
     {{- if $value.sso.dex }}

@@ -308,6 +308,17 @@ gitopsinstances:
       # @default -- 512Mi
       memory_requests: 512Mi
 
+    # -- Settings for oidcConfig - The OIDC configuration as an alternative to Dex.
+    # Be sure that a secret with the key oidc.keycloak.clientSecret exists
+    # @default -- empty
+    oidcConfig: {}
+      # For example:
+      # name: OpenShift Single Sign-On
+      # issuer: https://<your Keycloak server URL>/realms/<your realm>
+      # clientID: argocd
+      # clientSecret: $oidc.keycloak.clientSecret
+      # requestedScopes: ["openid", "profile", "email", "groups"]
+
     # Settings for SSO.
     sso:
       # -- Enable SSO configuration

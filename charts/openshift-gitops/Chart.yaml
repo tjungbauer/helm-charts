@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.0.56
+version: 1.0.57
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -66,3 +66,5 @@ annotations:
       description: Added option to configure keycloak as SSO for argo cd
     - kind: added
       description: Added possibility to completely enable/disable the sso configuration.
+    - kind: added
+      description: Added possibility to configure oidcConfig for argo cd
