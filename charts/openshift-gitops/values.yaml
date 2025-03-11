@@ -310,12 +310,20 @@ gitopsinstances:
 
     # Settings for SSO.
     sso:
+      # -- Enable SSO configuration
+      # @default -- false
+      enabled: true
+
       # -- Set the provider for SSO. Can be "dex" or "keycloak".
       # @default -- dex
       provider: dex
 
       # Settings for DEX.
       dex:
+        # -- Enable DEV configuration
+        # @default -- true
+        enabled: true
+
         # -- Enable OpenShift Authentication
         # @default -- true
         openShiftOAuth: true

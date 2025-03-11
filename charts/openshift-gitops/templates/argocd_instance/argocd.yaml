@@ -352,8 +352,10 @@ spec:
             - /status/ingress
         group: route.openshift.io
         kind: Route
+  {{- if eq ($value.sso.enabled | toString) "true" }}
   sso:
     {{- if $value.sso.dex }}
+    {{- if ne ($value.sso.dex.enabled | toString) "false" }}
     dex:
       openShiftOAuth: {{ $value.sso.dex.openShiftOAuth | default "true" }} 
       resources:
@@ -363,6 +365,7 @@ spec:
         requests:
           cpu: {{ $value.sso.dex.cpu_requests | default "250m" }}
           memory: {{ $value.sso.dex.memory_requests | default "128Mi" }} 
+    {{- end }}
     {{- end }}
     {{- if $value.sso.keycloak }}
     {{- if eq ($value.sso.keycloak.enabled | toString) "true" }}
@@ -382,6 +385,7 @@ spec:
     {{- end }}
     {{- end }} 
     provider: {{ $value.sso.provider | default "dex" }} 
+  {{- end }}
   ha:
     enabled: {{ $value.ha.enabled | default "false" }}
     resources:
