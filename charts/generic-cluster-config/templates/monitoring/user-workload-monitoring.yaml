@@ -20,6 +20,12 @@ data:
       {{- end }}
       {{- end }}
 
+      {{- if .enableAlertmanagerConfig }}
+      {{- if or ( eq (.enableAlertmanagerConfig | toString) "true") (eq (.enableAlertmanagerConfig | toString) "false") }}
+      enableAlertmanagerConfig: {{.enableAlertmanagerConfig }}
+      {{- end }}
+      {{- end }}
+
       {{- if .secrets }}
       secrets:
         {{- range .secrets }}

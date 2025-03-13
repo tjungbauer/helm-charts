@@ -722,6 +722,10 @@ user_workload_monitoring:
     # @default -- false
     disable_local_alertmanager: true
 
+    # -- Enable user-defined namespaces to be selected for AlertmanagerConfig lookup
+    # @default -- false
+    enableAlertmanagerConfig: false
+
     # Add storage to Alertmanager to keep the data.
     storage:
       # StorageClass for persistent volume
