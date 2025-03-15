@@ -11,7 +11,6 @@ metadata:
     {{- include "tpl.labels" $ | nindent 4 }}
 data:
   config.yaml: |
-    enableUserWorkload: {{ ( .enableUserWorkload | toString) | default "false" }}
 
     {{- /* ALERTMANAGER CONFIGURATION */}}
     {{- with .alertmanagerMain }}  
@@ -35,24 +34,26 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .storage }}
       volumeClaimTemplate:
+        metadata: {}
         spec:
-          storageClassName: {{ .storage.class | default "gp2-csi" }}
           resources:
             requests:
-              storage: {{ .storage.size | quote | default "40Gi" }}
+              storage: {{ .storage.size | default "40Gi" }}
       {{- end }}
-
+          storageClassName: {{ .storage.class | default "gp2-csi" }}
+        status: {}
+    
       {{- if .resources }}
 {{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
-
-
     {{- end }}
+
+    enableUserWorkload: {{ ( .enableUserWorkload | toString) | default "false" }}
 
     {{- /* PROMETHEUS CONFIGURATION */}}
     {{- with .prometheusK8s }}
