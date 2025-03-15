@@ -1,3 +1,5 @@
+
+
 # generic-cluster-config
 
   [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
@@ -5,17 +7,15 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.35](https://img.shields.io/badge/Version-1.0.35-informational?style=flat-square) 
+  ![Version: 1.0.36](https://img.shields.io/badge/Version-1.0.36-informational?style=flat-square)
 
-  
+ 
 
   ## Description
 
   This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
 
-
-
-Configure your cluster with basic settings. Any generic and repeatable configuration goes in here. This helps me to quickly deploy Lab environments and demonstrate features. 
+Configure your cluster with basic settings. Any generic and repeatable configuration goes in here. This helps me to quickly deploy Lab environments and demonstrate features.
 
 It is best used with a GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -38,7 +38,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.17 |
 
 None
 
@@ -58,7 +58,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 
 ## Parameters
 
-*TIP*: Verify the values.yaml to see possible additional settings. 
+*TIP*: Verify the values.yaml to see possible additional settings.
 
 ## Values
 
@@ -205,7 +205,7 @@ apiserver:
   custom_cert:
     enabled: true
     cert_names:
-      - api.ocp.aws.ispworld.at    
+      - api.ocp.aws.ispworld.at   
     secretname: api-certificate
 
   etcd_encryption:
@@ -214,7 +214,7 @@ apiserver:
     serviceAccount:
       create: true
       name: "etcd-encryption-checker"
-    encryption_type: aesgcm  
+    encryption_type: aesgcm 
 
 self_provisioner:
   deactivate: false
@@ -242,13 +242,13 @@ config_allowed_registries:
   - domain: registry.connect.redhat.com
   - domain: registry.redhat.io
 ```
-## Example Console Customizations 
+## Example Console Customizations
 
 ### Adding Banners
 
 ### Example Console Modifications
 
-#### Banners 
+#### Banners
 
 Banner in the WebUI can be added to the top (topbanner) and bottom (bottombanner).
 
@@ -277,7 +277,7 @@ console:
 
 ### Adding YAML Samples
 
-YAML Samples can be added to specific Kubernetes manifests, to allow customization of the help that will be shown in the WebUI. 
+YAML Samples can be added to specific Kubernetes manifests, to allow customization of the help that will be shown in the WebUI.
 
 The following example will add such a Sample for the Secret resource:
 
@@ -378,7 +378,6 @@ The Application menu is the next place where a custom link can be added. In this
 
 ![ConsoleLink ApplicationMenu](images/ConsoleLink-ApplicationMenu.png "ApplicationMenu")
 
-
 ## Identity Provider and Custom Login Page
 
 In the IDP section, it is possible to configure IdentityProviders (currently **HTPasswd** and **LDAP**) as well as a custom login page.
@@ -390,7 +389,7 @@ The following example configures everything:
 ```yaml
 idp:
   enabled: true
-  
+ 
   customloginpage:
     enabled: true
     secretname: customlogin
@@ -412,7 +411,7 @@ idp:
         binddn: your-bindDN
         secretname: ldap-secret
         cmname: ca-config-map
-        preferredusername: 
+        preferredusername:
           - sAMAccountName
 ```
 
@@ -438,7 +437,7 @@ monitoring:
       class: gp2-csi
       size: 40Gi
 
-    secrets: 
+    secrets:
       - secret_with_credentials
 
     nodeSelector:
@@ -598,9 +597,9 @@ monitoring:
 ## Example USER-WORKLOAD Monitoring
 
 The configuration of the **USER WORKLOAD monitoring** works identically as for the cluster monitoring, except that there are fewer and renamed components, plus the new component ThanosRuler.
-The following configuration will configure OpenShift **USER-WORKLOAD** monitoring. It will assign 40Gi of storage to the Alertmanager, 100Gi of storage to the ThanosRuler 
+The following configuration will configure OpenShift **USER-WORKLOAD** monitoring. It will assign 40Gi of storage to the Alertmanager, 100Gi of storage to the ThanosRuler
 and 100Gi of storage to Prometheus.
-Also, ALL components are configured with a nodeSelector and with tolerations to move the workload to infrastructure nodes. 
+Also, ALL components are configured with a nodeSelector and with tolerations to move the workload to infrastructure nodes.
 As retention for Prometheus and ThanosRuler, the default value (24h) is used.
 No resource limits are configured.
 
@@ -617,7 +616,7 @@ metadata:
     app.kubernetes.io/instance: release-name
     app.kubernetes.io/managed-by: Helm
 data:
-  config.yaml: |  
+  config.yaml: | 
     alertmanager:
       enabled: true
       secrets:
@@ -739,17 +738,5 @@ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
-
-
-
-
-
-
-
-
-
-
-
+Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
