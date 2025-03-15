@@ -18,10 +18,10 @@ Example for infrastructure nodes in the values-file:
 {{- define "tpl.tolerations" -}}
 tolerations:
 {{- range . }}
-- key: "{{ .key }}"
+- effect: "{{ .effect }}"
+  key: "{{ .key }}"
   operator: "{{ .operator }}"
   value: "{{ .value }}"
-  effect: "{{ .effect }}"
   {{- if .tolerationSeconds }}
   tolerationSeconds: {{ .tolerationSeconds }}
   {{- end }}
