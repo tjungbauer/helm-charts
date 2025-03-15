@@ -145,7 +145,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.toler.override" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
