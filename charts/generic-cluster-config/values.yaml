@@ -513,38 +513,6 @@ monitoring:
     #    cpu: 200m
     #    memory: 500Mi
 
-  ######################
-  # PROMETHEUS ADAPTER #
-  ######################
-  k8sPrometheusAdapter:
-    # -- nodeSelector for Prometheus Adapter Pods
-    # @default -- empty
-    nodeSelector:
-      node-role.kubernetes.io/infra: ""
-
-    # -- Tolerations for Prometheus Adapter Pods.
-    # The configuration is handed over as YAML to the template.
-    # @default -- empty
-    tolerations:
-      - effect: NoSchedule
-        key: infra
-        operator: Equal
-        value: reserved
-      - effect: NoSchedule
-        key: infra
-        operator: Equal
-        value: reserved
-
-    # -- Resources set for the Prometheus Adapter. Set these with care. If nothing is set, then no limits or requests will be configured.
-    # @default -- empty
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 3Gi
-    #  requests:
-    #    cpu: 200m
-    #    memory: 500Mi
-
   #####################
   # KUBE-STATEMETRICS #
   #####################

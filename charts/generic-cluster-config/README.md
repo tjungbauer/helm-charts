@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.38](https://img.shields.io/badge/Version-1.0.38-informational?style=flat-square)
+  ![Version: 1.0.39](https://img.shields.io/badge/Version-1.0.39-informational?style=flat-square)
 
  
 
@@ -135,9 +135,6 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.alertmanagerMain.tolerations | list | empty | Tolerations for Alertmanager Pods. The configuration is handed over as YAML to the template. |
 | monitoring.enableUserWorkload | bool | false | Enable user workload monitoring |
 | monitoring.enabled | bool | false | Enable cluster monitoring configuration |
-| monitoring.k8sPrometheusAdapter.nodeSelector | object | empty | nodeSelector for Prometheus Adapter Pods |
-| monitoring.k8sPrometheusAdapter.resources | object | empty | Resources set for the Prometheus Adapter. Set these with care. If nothing is set, then no limits or requests will be configured. |
-| monitoring.k8sPrometheusAdapter.tolerations | list | empty | Tolerations for Prometheus Adapter Pods. The configuration is handed over as YAML to the template. |
 | monitoring.kubeStateMetrics.nodeSelector | object | empty | nodeSelector for Kube StateMetrics Pods |
 | monitoring.kubeStateMetrics.resources | object | empty | Resources set for the Kube StateMetrics. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.kubeStateMetrics.tolerations | list | empty | Tolerations for Kube StateMetrics Pods. The configuration is handed over as YAML to the template. |

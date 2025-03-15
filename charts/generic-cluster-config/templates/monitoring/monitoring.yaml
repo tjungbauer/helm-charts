@@ -52,9 +52,7 @@ data:
 {{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
-
     enableUserWorkload: {{ ( .enableUserWorkload | toString) | default "false" }}
-
     {{- /* PROMETHEUS CONFIGURATION */}}
     {{- with .prometheusK8s }}
     prometheusK8s:
@@ -64,7 +62,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
       retention: {{ .retention | default "15d" }}
       collectionProfile: {{ .collectionProfile | default "full" }}
@@ -86,23 +84,6 @@ data:
 {{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
-    
-    {{- /* K8SPROMETHEUS ADAPTER CONFIGURATION */}}
-    {{- with .k8sPrometheusAdapter }}
-    k8sPrometheusAdapter:
-      {{- if .nodeSelector }}
-      nodeSelector:
-        {{- toYaml .nodeSelector | nindent 8 }}
-      {{- end }}
-
-      {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
-      {{- end }}
-
-      {{- if .resources }}
-{{ include "tpl.resources" .resources | indent 6 }}
-      {{- end }}
-    {{- end }}
 
     {{- /* KUBE STATE METRIC CONFIGURATION */}}
     {{- with .kubeStateMetrics }}
@@ -113,7 +94,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -130,7 +111,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -147,7 +128,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -164,7 +145,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.toler.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -181,7 +162,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -197,7 +178,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
