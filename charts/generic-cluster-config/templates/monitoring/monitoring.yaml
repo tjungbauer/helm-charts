@@ -53,6 +53,57 @@ data:
       {{- end }}
     {{- end }}
     enableUserWorkload: {{ ( .enableUserWorkload | toString) | default "false" }}
+    {{- /* KUBE STATE METRIC CONFIGURATION */}}
+    {{- with .kubeStateMetrics }}
+    kubeStateMetrics:
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- toYaml .nodeSelector | nindent 8 }}
+      {{- end }}
+
+      {{- if .tolerations }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
+      {{- end }}
+
+      {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 6 }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* MONITORING PLUGIN CONFIGURATION */}}
+    {{- with .monitoringPlugin }}
+    monitoringPlugin:
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- toYaml .nodeSelector | nindent 8 }}
+      {{- end }}
+
+      {{- if .tolerations }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
+      {{- end }}
+
+      {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 6 }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* OPENSHIFT STATE METRIC CONFIGURATION */}}
+    {{- with .openshiftStateMetrics }}
+    openshiftStateMetrics:
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- toYaml .nodeSelector | nindent 8 }}
+      {{- end }}
+
+      {{- if .tolerations }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
+      {{- end }}
+
+      {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 6 }}
+      {{- end }}
+    {{- end }}
+
     {{- /* PROMETHEUS CONFIGURATION */}}
     {{- with .prometheusK8s }}
     prometheusK8s:
@@ -85,9 +136,8 @@ data:
       {{- end }}
     {{- end }}
 
-    {{- /* KUBE STATE METRIC CONFIGURATION */}}
-    {{- with .kubeStateMetrics }}
-    kubeStateMetrics:
+    {{- with .prometheusOperator }}
+    prometheusOperator:
       {{- if .nodeSelector }}
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
@@ -119,59 +169,9 @@ data:
       {{- end }}
     {{- end }}
 
-    {{- /* OPENSHIFT STATE METRIC CONFIGURATION */}}
-    {{- with .openshiftStateMetrics }}
-    openshiftStateMetrics:
-      {{- if .nodeSelector }}
-      nodeSelector:
-        {{- toYaml .nodeSelector | nindent 8 }}
-      {{- end }}
-
-      {{- if .tolerations }}
-{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
-      {{- end }}
-
-      {{- if .resources }}
-{{ include "tpl.resources" .resources | indent 6 }}
-      {{- end }}
-    {{- end }}
-
-    {{- /* MONITORING PLUGIN CONFIGURATION */}}
-    {{- with .monitoringPlugin }}
-    monitoringPlugin:
-      {{- if .nodeSelector }}
-      nodeSelector:
-        {{- toYaml .nodeSelector | nindent 8 }}
-      {{- end }}
-
-      {{- if .tolerations }}
-{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
-      {{- end }}
-
-      {{- if .resources }}
-{{ include "tpl.resources" .resources | indent 6 }}
-      {{- end }}
-    {{- end }}
-
     {{- /* THANOS QUERIER CONFIGURATION */}}
     {{- with .thanosQuerier }}
     thanosQuerier:
-      {{- if .nodeSelector }}
-      nodeSelector:
-        {{- toYaml .nodeSelector | nindent 8 }}
-      {{- end }}
-
-      {{- if .tolerations }}
-{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
-      {{- end }}
-
-      {{- if .resources }}
-{{ include "tpl.resources" .resources | indent 6 }}
-      {{- end }}
-    {{- end }}
-
-    {{- with .prometheusOperator }}
-    prometheusOperator:
       {{- if .nodeSelector }}
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
