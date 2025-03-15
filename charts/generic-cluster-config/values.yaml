@@ -479,7 +479,30 @@ monitoring:
     #    memory: 3Gi
     #  requests:
     #    cpu: 200m
-    #    memory: 500Mi
+    #    memory:
+
+    # -- Configures additional Alertmanager instances that receive alerts from the Prometheus component. By default, no additional Alertmanager instances are configured.
+    # Advanced Cluster Manager is an external resource and configures itself automatically
+    # Example setup for ACM<br>
+    # additionalAlertmanagerConfigs
+    #   apiVersion: v2
+    #    bearerToken:
+    #      key: token
+    #      name: observability-alertmanager-accessor
+    #    scheme: https
+    #    staticConfigs:
+    #    - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at
+    #    tlsConfig:
+    #      ca:
+    #        key: service-ca.crt
+    #        name: hub-alertmanager-router-ca
+    #      insecureSkipVerify: false
+    # @default -- ''
+    additionalAlertmanagerConfigs: {}
+
+    # External labels do make sense when you let multiple cluster use one alertmanager.
+    # @default -- empty
+    externalLabels: {}
 
   ######################
   # PROMETHEUSOPERATOR #

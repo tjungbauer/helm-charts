@@ -107,16 +107,23 @@ data:
     {{- /* PROMETHEUS CONFIGURATION */}}
     {{- with .prometheusK8s }}
     prometheusK8s:
+      {{- if .additionalAlertmanagerConfigs }}
+      additionalAlertmanagerConfigs:
+        {{- toYaml .additionalAlertmanagerConfigs | nindent 8 }}
+      {{- end }}
+      collectionProfile: {{ .collectionProfile | default "full" }}
+      {{- if .externalLabels }}
+      externalLabels:
+        {{- toYaml .externalLabels | nindent 8 }}
+      {{- end }}
       {{- if .nodeSelector }}
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
       {{- end }}
-
+      retention: {{ .retention | default "15d" }}
       {{- if .tolerations }}
 {{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
-      retention: {{ .retention | default "15d" }}
-      collectionProfile: {{ .collectionProfile | default "full" }}
       {{- if eq (.retentionSize | toString) "0"}}
       {{- else }}
       retentionSize: {{ .retentionSize }}
@@ -124,11 +131,13 @@ data:
 
       {{- if .storage }}
       volumeClaimTemplate:
+        metadata: {}
         spec:
-          storageClassName: {{ .storage.class | default "gp2-csi" }}
           resources:
             requests:
-              storage: {{ .storage.size | quote | default "100Gi" }}
+              storage: {{ .storage.size | default "100Gi" }}
+          storageClassName: {{ .storage.class | default "gp2-csi" }}
+        status: {}
       {{- end }}
 
       {{- if .resources }}
