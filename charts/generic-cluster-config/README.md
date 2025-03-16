@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.43](https://img.shields.io/badge/Version-1.0.43-informational?style=flat-square)
+  ![Version: 1.0.44](https://img.shields.io/badge/Version-1.0.44-informational?style=flat-square)
 
  
 
@@ -157,7 +157,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.openshiftStateMetrics.nodeSelector | object | empty | nodeSelector for OpenShift State Metrics Pods |
 | monitoring.openshiftStateMetrics.resources | object | empty | Resources set for the OpenShift State Metrics. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.openshiftStateMetrics.tolerations | list | empty | Tolerations for OpenShift State Metrics Pods. The configuration is handed over as YAML to the template. |
-| monitoring.prometheusK8s.additionalAlertmanagerConfigs | object | '' | Configures additional Alertmanager instances that receive alerts from the Prometheus component. By default, no additional Alertmanager instances are configured. Advanced Cluster Manager is an external resource and configures itself automatically Example setup for ACM<br> additionalAlertmanagerConfigs   apiVersion: v2    bearerToken:      key: token      name: observability-alertmanager-accessor    scheme: https    staticConfigs:    - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at    tlsConfig:      ca:        key: service-ca.crt        name: hub-alertmanager-router-ca      insecureSkipVerify: false |
+| monitoring.prometheusK8s.additionalAlertmanagerConfigs | object | '' | Configures additional Alertmanager instances that receive alerts from the Prometheus component. By default, no additional Alertmanager instances are configured. Advanced Cluster Manager is an external resource and configures itself automatically Example setup for ACM<br> additionalAlertmanagerConfigs   - apiVersion: v2     bearerToken:       key: token       name: observability-alertmanager-accessor     scheme: https     staticConfigs:     - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at     tlsConfig:       ca:         key: service-ca.crt         name: hub-alertmanager-router-ca       insecureSkipVerify: false |
 | monitoring.prometheusK8s.collectionProfile | string | full | The name of the metrics collection profile. The available values are full or minimal |
 | monitoring.prometheusK8s.externalLabels | object | `{}` |  |
 | monitoring.prometheusK8s.nodeSelector | object | empty | nodeSelector for Prometheus Pods |

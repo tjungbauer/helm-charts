@@ -11,6 +11,19 @@ tolerations:
 {{- end }}
 {{- end -}}
 
+{{- define "tpl.tolerations.uwm_override" -}}
+tolerations:
+{{- range . }}
+- key: {{ .key }}
+  operator: {{ .operator }}
+  value: {{ .value }}
+  effect: {{ .effect }}
+  {{- if .tolerationSeconds }}
+  tolerationSeconds: {{ .tolerationSeconds }}
+  {{- end }}
+{{- end }}
+{{- end -}}
+
 {{- define "tpl.nodeExporter.collectors" -}}
 collectors:
   buddyinfo:

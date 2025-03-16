@@ -39,7 +39,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .storage }}
@@ -65,7 +65,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
       {{- if eq (.retentionSize | toString) "0"}}
@@ -96,7 +96,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .resources }}
@@ -113,7 +113,7 @@ data:
       {{- end }}
 
       {{- if .tolerations }}
-{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
 
