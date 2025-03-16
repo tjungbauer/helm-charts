@@ -19,6 +19,8 @@ Currently, the following settings can be done:
 - Add Console Links
 - Add YAML Samples into the console
 
+NOTE: About openshift-monitoring ConfigMaps: These must follow a strict order, otherwise Argo CD thinks the resource is out of sync. If you find anything that is not working, please open an issue and I will try to fix it.
+
 {{ template "doc.deps" . }}
 
 None

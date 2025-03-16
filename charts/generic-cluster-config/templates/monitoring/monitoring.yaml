@@ -87,6 +87,15 @@ data:
       {{- end }}
     {{- end }}
 
+    {{- /* NODEEXPORTER CONFIGURATION */}}
+    {{- with .nodeExporter }}
+    nodeExporter:
+{{ include "tpl.nodeExporter.collectors" .collectors | indent 6  }}
+      {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 6 }}
+      {{- end }}
+    {{- end }}
+
     {{- /* OPENSHIFT STATE METRIC CONFIGURATION */}}
     {{- with .openshiftStateMetrics }}
     openshiftStateMetrics:
@@ -109,7 +118,7 @@ data:
     prometheusK8s:
       {{- if .additionalAlertmanagerConfigs }}
       additionalAlertmanagerConfigs:
-        {{- toYaml .additionalAlertmanagerConfigs | nindent 8 }}
+        {{- toYaml .additionalAlertmanagerConfigs | nindent 6 }}
       {{- end }}
       collectionProfile: {{ .collectionProfile | default "full" }}
       {{- if .externalLabels }}

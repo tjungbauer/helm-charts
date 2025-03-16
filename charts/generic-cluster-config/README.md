@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.42](https://img.shields.io/badge/Version-1.0.42-informational?style=flat-square)
+  ![Version: 1.0.43](https://img.shields.io/badge/Version-1.0.43-informational?style=flat-square)
 
  
 
@@ -31,6 +31,8 @@ Currently, the following settings can be done:
 - Add Console Banner (Top and Bottom)
 - Add Console Links
 - Add YAML Samples into the console
+
+NOTE: About openshift-monitoring ConfigMaps: These must follow a strict order, otherwise Argo CD thinks the resource is out of sync. If you find anything that is not working, please open an issue and I will try to fix it.
 
 ## Dependencies
 
@@ -141,10 +143,21 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.monitoringPlugin.nodeSelector | object | empty | nodeSelector for Monitoring Plugin Pods |
 | monitoring.monitoringPlugin.resources | object | empty | Resources set for the Monitoring Plugin. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.monitoringPlugin.tolerations | list | empty | Tolerations for Monitoring Plugin Pods. The configuration is handed over as YAML to the template. |
+| monitoring.nodeExporter.collectors | object | empty | Defines which collectors are enabled and their additional configuration parameters. Further information at: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/monitoring/config-map-reference-for-the-cluster-monitoring-operator#description-9 |
+| monitoring.nodeExporter.collectors.buddyinfo | object | disabled | Defines the configuration of the buddyinfo collector, which collects statistics about memory fragmentation from the node_buddyinfo_blocks metric. This metric collects data from /proc/buddyinfo. Disabled by default. |
+| monitoring.nodeExporter.collectors.cpufreq | object | disabled | Defines the configuration of the cpufreq collector, which collects CPU frequency statistics. Disabled by default. |
+| monitoring.nodeExporter.collectors.ksmd | object | disabled | Defines the configuration of the ksmd collector, which collects statistics from the kernel same-page merger daemon. Disabled by default. |
+| monitoring.nodeExporter.collectors.mountstats | object | disabled | Defines the configuration of the mountstats collector, which collects statistics about NFS volume I/O activities. Disabled by default. |
+| monitoring.nodeExporter.collectors.netclass | object | enabled | Defines the configuration of the netclass collector, which collects information about network devices. Enabled by default. |
+| monitoring.nodeExporter.collectors.netdev | object | enabled | Defines the configuration of the netdev collector, which collects network devices statistics. Enabled by default. |
+| monitoring.nodeExporter.collectors.processes | object | disabled | Defines the configuration of the processes collector, which collects statistics from processes and threads running in the system. Disabled by default. |
+| monitoring.nodeExporter.collectors.systemd | object | disabled | Defines the configuration of the systemd collector, which collects statistics on the systemd daemon and its managed services. Disabled by default. |
+| monitoring.nodeExporter.collectors.tcpstat | object | disabled | Defines the configuration of the tcpstat collector, which collects TCP connection statistics. Disabled by default. |
+| monitoring.nodeExporter.resources | object | empty | Resources set for the nodeExporter. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.openshiftStateMetrics.nodeSelector | object | empty | nodeSelector for OpenShift State Metrics Pods |
 | monitoring.openshiftStateMetrics.resources | object | empty | Resources set for the OpenShift State Metrics. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.openshiftStateMetrics.tolerations | list | empty | Tolerations for OpenShift State Metrics Pods. The configuration is handed over as YAML to the template. |
-| monitoring.prometheusK8s.additionalAlertmanagerConfigs | object | ''     | Configures additional Alertmanager instances that receive alerts from the Prometheus component. By default, no additional Alertmanager instances are configured. Advanced Cluster Manager is an external resource and configures itself automatically Example setup for ACM<br> additionalAlertmanagerConfigs   apiVersion: v2	    bearerToken:	      key: token	      name: observability-alertmanager-accessor	    scheme: https	    staticConfigs:	    - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at	    tlsConfig:	      ca:	        key: service-ca.crt	        name: hub-alertmanager-router-ca	      insecureSkipVerify: false |
+| monitoring.prometheusK8s.additionalAlertmanagerConfigs | object | '' | Configures additional Alertmanager instances that receive alerts from the Prometheus component. By default, no additional Alertmanager instances are configured. Advanced Cluster Manager is an external resource and configures itself automatically Example setup for ACM<br> additionalAlertmanagerConfigs   apiVersion: v2    bearerToken:      key: token      name: observability-alertmanager-accessor    scheme: https    staticConfigs:    - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at    tlsConfig:      ca:        key: service-ca.crt        name: hub-alertmanager-router-ca      insecureSkipVerify: false |
 | monitoring.prometheusK8s.collectionProfile | string | full | The name of the metrics collection profile. The available values are full or minimal |
 | monitoring.prometheusK8s.externalLabels | object | `{}` |  |
 | monitoring.prometheusK8s.nodeSelector | object | empty | nodeSelector for Prometheus Pods |

@@ -485,18 +485,18 @@ monitoring:
     # Advanced Cluster Manager is an external resource and configures itself automatically
     # Example setup for ACM<br>
     # additionalAlertmanagerConfigs
-    #   apiVersion: v2
-    #    bearerToken:
-    #      key: token
-    #      name: observability-alertmanager-accessor
-    #    scheme: https
-    #    staticConfigs:
-    #    - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at
-    #    tlsConfig:
-    #      ca:
-    #        key: service-ca.crt
-    #        name: hub-alertmanager-router-ca
-    #      insecureSkipVerify: false
+    #   - apiVersion: v2
+    #     bearerToken:
+    #       key: token
+    #       name: observability-alertmanager-accessor
+    #     scheme: https
+    #     staticConfigs:
+    #     - alertmanager-open-cluster-management-observability.apps.ocemgmt01.wien.at
+    #     tlsConfig:
+    #       ca:
+    #         key: service-ca.crt
+    #         name: hub-alertmanager-router-ca
+    #       insecureSkipVerify: false
     # @default -- ''
     additionalAlertmanagerConfigs: {}
 
@@ -687,6 +687,61 @@ monitoring:
         value: reserved
 
     # -- Resources set for the Thanos Querier. Set these with care. If nothing is set, then no limits or requests will be configured.
+    # @default -- empty
+    resources: {}
+    #  limits:
+    #    cpu: 500m
+    #    memory: 3Gi
+    #  requests:
+    #    cpu: 200m
+    #    memory: 500Mi
+
+  ################
+  # NODEEXPORTER #
+  ################
+  nodeExporter:
+
+    # -- Defines which collectors are enabled and their additional configuration parameters.
+    # Further information at: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/monitoring/config-map-reference-for-the-cluster-monitoring-operator#description-9
+    # @default -- empty
+    collectors:
+      # -- Defines the configuration of the buddyinfo collector, which collects statistics about memory fragmentation from the node_buddyinfo_blocks metric. This metric collects data from /proc/buddyinfo. Disabled by default.
+      # @default -- disabled
+      buddyinfo: {}
+
+      # -- Defines the configuration of the cpufreq collector, which collects CPU frequency statistics. Disabled by default.
+      # @default -- disabled
+      cpufreq: {}
+
+      # -- Defines the configuration of the ksmd collector, which collects statistics from the kernel same-page merger daemon. Disabled by default.
+      # @default -- disabled
+      ksmd: {}
+
+      # -- Defines the configuration of the mountstats collector, which collects statistics about NFS volume I/O activities. Disabled by default.
+      # @default -- disabled
+      mountstats: {}
+
+      # -- Defines the configuration of the netclass collector, which collects information about network devices. Enabled by default.
+      # @default -- enabled
+      netclass: {}
+
+      # -- Defines the configuration of the netdev collector, which collects network devices statistics. Enabled by default.
+      # @default -- enabled
+      netdev: {}
+
+      # -- Defines the configuration of the processes collector, which collects statistics from processes and threads running in the system. Disabled by default.
+      # @default -- disabled
+      processes: {}
+
+      # -- Defines the configuration of the systemd collector, which collects statistics on the systemd daemon and its managed services. Disabled by default.
+      # @default -- disabled
+      systemd: {}
+
+      # -- Defines the configuration of the tcpstat collector, which collects TCP connection statistics. Disabled by default.
+      # @default -- disabled
+      tcpstat: {}
+
+    # -- Resources set for the nodeExporter. Set these with care. If nothing is set, then no limits or requests will be configured.
     # @default -- empty
     resources: {}
     #  limits:
