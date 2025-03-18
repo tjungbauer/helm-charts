@@ -64,7 +64,7 @@ data:
         {{- toYaml .nodeSelector | nindent 8 }}
       {{- end }}
       {{- if .remoteWriteConfig }}
-      remoteWriteConfig:
+      remoteWrite:
         {{- toYaml .remoteWriteConfig | nindent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
