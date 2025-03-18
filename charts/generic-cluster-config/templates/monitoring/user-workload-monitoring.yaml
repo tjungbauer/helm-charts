@@ -45,10 +45,10 @@ data:
       {{- if .storage }}
       volumeClaimTemplate:
         spec:
-          storageClassName: {{ .storage.class | default "gp2-csi" }}
           resources:
             requests:
-              storage: {{ .storage.size | quote | default "40Gi" }}
+              storage: {{ .storage.size | default "40Gi" }}
+          storageClassName: {{ .storage.class | default "gp2-csi" }}
       {{- end }}
 
       {{- if .resources }}
@@ -76,10 +76,10 @@ data:
       {{- if .storage }}
       volumeClaimTemplate:
         spec:
-          storageClassName: {{ .storage.class | default "gp2-csi" }}
           resources:
             requests:
-              storage: {{ .storage.size | quote | default "100Gi" }}
+              storage: {{ .storage.size | default "100Gi" }}
+          storageClassName: {{ .storage.class | default "gp2-csi" }}
       {{- end }}
 
       {{- if .resources }}
@@ -111,19 +111,19 @@ data:
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
       {{- end }}
+      retention: {{ .retention | default "24h" }}
 
       {{- if .tolerations }}
 {{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
-      retention: {{ .retention | default "24h" }}
 
       {{- if .storage }}
       volumeClaimTemplate:
         spec:
-          storageClassName: {{ .storage.class | default "gp2-csi" }}
           resources:
             requests:
-              storage: {{ .storage.size | quote | default "100Gi" }}
+              storage: {{ .storage.size | default "100Gi" }}
+          storageClassName: {{ .storage.class | default "gp2-csi" }}
       {{- end }}
 
       {{- if .resources }}

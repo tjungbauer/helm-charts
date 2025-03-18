@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.47
+version: 1.0.48
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
@@ -51,3 +51,5 @@ annotations:
       description: you can now define nodeExporter features and resources
     - kind: fixed
       description: configmap cleanup for user-defined monitoring. fixing order of toleration
+    - kind fixed
+      description: cont cleanup

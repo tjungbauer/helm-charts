@@ -14,10 +14,10 @@ tolerations:
 {{- define "tpl.tolerations.uwm_override" -}}
 tolerations:
 {{- range . }}
-- key: {{ .key }}
+- effect: {{ .effect }}
+  key: {{ .key }}
   operator: {{ .operator }}
   value: {{ .value }}
-  effect: {{ .effect }}
   {{- if .tolerationSeconds }}
   tolerationSeconds: {{ .tolerationSeconds }}
   {{- end }}
