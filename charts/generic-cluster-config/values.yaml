@@ -869,6 +869,10 @@ user_workload_monitoring:
     #    cpu: 200m
     #    memory: 500Mi
 
+    # -- Add your remoteWriteConfig here
+    # @default -- empty
+    remoteWriteConfig: {}
+
   ######################
   # PROMETHEUSOPERATOR #
   ######################

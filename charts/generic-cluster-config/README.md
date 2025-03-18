@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.48](https://img.shields.io/badge/Version-1.0.48-informational?style=flat-square)
+  ![Version: 1.0.49](https://img.shields.io/badge/Version-1.0.49-informational?style=flat-square)
 
  
 
@@ -187,6 +187,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | user_workload_monitoring.alertmanager.tolerations | list | empty | Tolerations for Alertmanager Pods. The configuration is handed over as YAML to the template. |
 | user_workload_monitoring.enabled | bool | false | Enable user workload monitoring configuration |
 | user_workload_monitoring.prometheus.nodeSelector | object | empty | nodeSelector for Prometheus Pods |
+| user_workload_monitoring.prometheus.remoteWriteConfig | object | empty | Add your remoteWriteConfig here |
 | user_workload_monitoring.prometheus.resources | object | empty | Resources set for the Prometheus. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | user_workload_monitoring.prometheus.retention | string | 24h | The retention time: a number directly followed by ms (milliseconds), s (seconds), m (minutes), h (hours), d (days), w (weeks), or y (years). You can also combine time values for specific times, such as 1h30m15s. A value of 0 means the default value which is 24h. |
 | user_workload_monitoring.prometheus.retentionSize | int | not set | The retention size: a number directly followed by B (bytes), KB (kilobytes), MB (megabytes), GB (gigabytes), TB (terabytes), PB (petabytes), and EB (exabytes). If the value is set to 0, then the cluster default setting will be used. |

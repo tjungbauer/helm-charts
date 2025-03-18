@@ -63,14 +63,17 @@ data:
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
       {{- end }}
-
-      {{- if .tolerations }}
-{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
+      {{- if .remoteWriteConfig }}
+      remoteWriteConfig:
+        {{- toYaml .remoteWriteConfig | nindent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
       {{- if eq (.retentionSize | toString) "0"}}
       {{- else }}
       retentionSize: {{ .retentionSize }}
+      {{- end }}
+      {{- if .tolerations }}
+{{ include "tpl.tolerations.uwm_override" .tolerations | indent 6 }}
       {{- end }}
 
       {{- if .storage }}
