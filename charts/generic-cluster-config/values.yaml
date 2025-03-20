@@ -568,6 +568,38 @@ monitoring:
     #    cpu: 200m
     #    memory: 500Mi
 
+  #####################
+  # METRICSSERVER     #
+  #####################
+  metricsServer:
+    # -- nodeSelector for metricsServer Pods
+    # @default -- empty
+    nodeSelector:
+      node-role.kubernetes.io/infra: ""
+
+    # -- Tolerations for metricsServer Pods.
+    # The configuration is handed over as YAML to the template.
+    # @default -- empty
+    tolerations:
+      - effect: NoSchedule
+        key: infra
+        operator: Equal
+        value: reserved
+      - effect: NoSchedule
+        key: infra
+        operator: Equal
+        value: reserved
+
+    # -- Resources set for the Kube StateMetrics. Set these with care. If nothing is set, then no limits or requests will be configured.
+    # @default -- empty
+    resources: {}
+    #  limits:
+    #    cpu: 500m
+    #    memory: 3Gi
+    #  requests:
+    #    cpu: 200m
+    #    memory: 500Mi
+
   ###################
   # TELEMETERCLIENT #
   ###################

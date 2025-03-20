@@ -70,6 +70,24 @@ data:
       {{- end }}
     {{- end }}
 
+
+    {{- /* METRICS SERVER CONFIGURATION */}}
+    {{- with .metricsServer }}
+    metricsServer:
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- toYaml .nodeSelector | nindent 8 }}
+      {{- end }}
+
+      {{- if .tolerations }}
+{{ include "tpl.tolerations.override" .tolerations | indent 6 }}
+      {{- end }}
+
+      {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 6 }}
+      {{- end }}
+    {{- end }}    
+
     {{- /* MONITORING PLUGIN CONFIGURATION */}}
     {{- with .monitoringPlugin }}
     monitoringPlugin:

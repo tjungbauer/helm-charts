@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.50](https://img.shields.io/badge/Version-1.0.50-informational?style=flat-square)
+  ![Version: 1.0.51](https://img.shields.io/badge/Version-1.0.51-informational?style=flat-square)
 
  
 
@@ -140,6 +140,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | monitoring.kubeStateMetrics.nodeSelector | object | empty | nodeSelector for Kube StateMetrics Pods |
 | monitoring.kubeStateMetrics.resources | object | empty | Resources set for the Kube StateMetrics. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.kubeStateMetrics.tolerations | list | empty | Tolerations for Kube StateMetrics Pods. The configuration is handed over as YAML to the template. |
+| monitoring.metricsServer.nodeSelector | object | empty | nodeSelector for metricsServer Pods |
+| monitoring.metricsServer.resources | object | empty | Resources set for the Kube StateMetrics. Set these with care. If nothing is set, then no limits or requests will be configured. |
+| monitoring.metricsServer.tolerations | list | empty | Tolerations for metricsServer Pods. The configuration is handed over as YAML to the template. |
 | monitoring.monitoringPlugin.nodeSelector | object | empty | nodeSelector for Monitoring Plugin Pods |
 | monitoring.monitoringPlugin.resources | object | empty | Resources set for the Monitoring Plugin. Set these with care. If nothing is set, then no limits or requests will be configured. |
 | monitoring.monitoringPlugin.tolerations | list | empty | Tolerations for Monitoring Plugin Pods. The configuration is handed over as YAML to the template. |
