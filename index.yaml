@@ -12324,6 +12324,47 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-03-25T07:31:41.126823258Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Installs and configures OpenShift Network Observability Operator.
+    digest: 8ad6d6476059ad13d48164383f6ad7d534e765389bbfa909bd03bfd3678129a1
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
+    keywords:
+    - security
+    - network
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: network-observability
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-2.0.1/network-observability-2.0.1.tgz
+    version: 2.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: fixed
+          description: fixing icon
+        - kind: added
+          description: added README and did some cleanup
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2025-03-25T07:18:01.607845425Z"
     dependencies:
     - name: tpl
@@ -24002,4 +24043,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-25T07:18:01.608883274Z"
+generated: "2025-03-25T07:31:41.12794794Z"
