@@ -1,112 +1,1274 @@
 ---
-namespace: &namespace openshift-netobserv-operator
-bucketname: &bucketname netobserv-bucket
-lokisecret: &loki-secret-name netobserv-loki-s3
-storageclassname: &storageclassname netobserv-bucket-storage-class
-
 # Network Observability settings.
 netobserv:
   # -- Enable Network Observability configuration?
   # This will also create the reader/writer rolebanding for multi-tenancy
+  # @section -- General
   # @default -- false
   enabled: false
 
   # -- Namespace where Network Observability FlowCollector shall be installed.
-  # @default -- ''
+  # @section -- General
   namespace:
-    name: *namespace
+    # -- Name of the namespace
+    # @section -- General
+    # @default -- netobserv
+    name: netobserv
+
+    # -- Create the namespace if it does not exist.
+    # @section -- General
+    # @default -- true
+    create: true
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- General
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- General
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
 
   # -- Syncwave for the FlowCollector resource.
+  # @section -- General
   # @default -- 10
   syncwave: 10
 
-  # -- Name of the LokiStack resource.
-  # @default -- netobserv-loki
-  lokistack_name: netobserv-loki
+  # -- Defines the desired type of deployment for flow processing.
+  # Possible values: <br />
+  # <ul>
+  # <li>Direct</li>
+  # <li>Kafka</li>
+  # </ul>
+  # @section -- General
+  # @default -- Direct
+  deploymentModel: Direct
 
-# A helper chart that simply creates another backingstore for quay.
-# This is a chart in a very early state, and not everything can be customized for now.
-# It will create the objects:
-#  - BackingStore
-#  - BackingClass
-#  - StorageClass
+  # -- Loki client settings
+  # @section -- loki
+  # @default -- {}
+  loki:
+    # -- Enable storing flows in Loki. Loki and/or Prometheus can be used. However,
+    # not everything is transposable from Loki to Prometheus. Therefor some features of the plugin
+    # are disabled as well, if Loki is disabled.
+    # If Prometheus and Loki are enabled, then Prometheus will take precedence and Loki is used as a fallback.
+    # @section -- loki
+    # @default -- true
+    enable: true
 
-# NOTE: Currently only PV type is supported
-# @ ignore
-helper-objectstore:
-  enabled: false
-  # syncwave: 1
+    # -- Is the maximum console plugin loki query total time limit.
+    # A timeout of zero means no timeout.
+    # @section -- loki
+    # @default -- 30s
+    readTimeout: 30s
 
-  # Name of the BackingStore
-  backingstore_name: netobserv-backingstore
-  # Size of the BackingStore
-  backingstore_size: 100Gi
-  # numOfVolumes: 1
-  # type: py-pool
+    # -- Mode must be set according to the deployment mode of Loki.
+    # Possible values: <br />
+    # <ul>
+    # <li>LokiStack: when Loki is managed using the Loki Operator</li>
+    # <li>Microservices: when Loki is installed as a microservice, but without the Loki Operator</li>
+    # <li>Monolithic: when Loki is installed as a monolithic workload</li>
+    # <li>Manual: if none of the options above match</li>
+    # </ul>
+    # @section -- loki
+    # @default -- Monolithic
+    mode: Monolithic
 
-  # The StorageClass the BackingStore is based on
-  baseStorageClass: gp3-csi
+    # -- Configuration for LOKI STACK MODE
+    # @section -- loki
+    lokiStack:
+      # -- Name of an existing LokiStack resource to use.
+      # @section -- loki
+      # @default -- netobserv-loki
+      name: netobserv-loki
 
-  # Name of the StorageClass that shall be enabled.
-  storageclass_name: *storageclassname
+      # -- Namespace where this `LokiStack` resource is located. If omitted, it is assumed to be the same as `spec.namespace`.
+      # @section -- loki
+      # @default -- ''
+      namespace: ''
 
-  # Bucket that shall be created
-  bucket:
-    enabled: false
-    name: *bucketname
-    namespace: *namespace
+    # -- Configuration for MICROSERVICES MODE
+    # @section -- loki
+    # @default -- {}
+    monolithic:
+      # -- URL of the existing Loki distributor.
+      # @section -- loki
+      # @default -- 'http://loki.netobserv.svc:3100/'
+      url: 'http://loki.netobserv.svc:3100/'
 
-    # is_secure: true
-    # port: 443
+      # -- Tenant ID (X-Scope-OrgID) for Loki.
+      # @section -- loki
+      # @default -- 'netobserv'
+      tenantID: netobserv
 
-    # Name of the storageclass
-    # Default: openshift-storage.noobaa.io
-    # a separate StorageClass with BackingStore and BackingClass can be created.
-    storageclass: *storageclassname
+      # -- TLS configuration for the Loki URL.
+      # @section -- loki
+      # @default -- {}
+      tls:
+        # -- Enable TLS for Loki.
+        # @section -- loki
+        # @default -- false
+        enable: false
 
-    # Syncwave for bucketclaim creation. This should be done very early, but it depends on ODF.
-    # Default: 2
-    syncwave: 2
+        # -- Skip verification of the TLS certificate.
+        # @section -- loki
+        # @default -- false
+        insecureSkipVerify: false
 
-# SubChart to create the loki secret if required.
-# The Secret must contain all required bucket information, while ODF creates a secret and a configmap for example.
-# A Kubernetes Job is created, that reads the data from the Secret and ConfigMap and creates a new secret for loki.
-# @ ignore
-helper-loki-bucket-secret:
-  # Enable Job creation
-  enabled: false
+        # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+        # @section -- loki
+        # @default -- {}
+        userCert:
+          # -- defines the path to the certificate file name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          certFile: ''
 
-  # Syncwave ... best to do after bucket creation
-  syncwave: 2
+          # -- Path to the certificate private key within the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          certKey: ''
 
-  # Namespace for logging
-  namespace: *namespace
+          # -- The name of the secret or configmap containing the certificate and key files.
+          # @section -- loki
+          # @default -- ''
+          name: ''
 
-  # Secretname that shall be created
-  secretname: *loki-secret-name
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
 
-  # Name of the bucket
-  bucket:
-    name: *bucketname
+          # -- The type for the certificate. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
 
-# The operators are installed in a separate way in this case.
-# sub subchart
-# @ ignore
-helper-operator:
+        # -- defines the reference of the certificate for the Certificate Authority.
+        # @section -- loki
+        # @default -- {}
+        caCert:
+          # -- File name within the config map or secret.
+          # @section -- loki
+          # @default -- 'service-ca.crt'
+          file: service-ca.crt
 
-  operators:
-    netobserv-operator:
-      enabled: false
-      syncwave: '0'
-      namespace:
-        name: *namespace
-        create: false
-      subscription:
-        channel: stable
-        source: redhat-operators
-        approval: Automatic
-        operatorName: netobserv-operator
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: false
-        notownnamespace: true
+          # -- The name of the secret or configmap containing the CA file.
+          # @section -- loki
+          # @default -- loki-gateway-ca-bundle
+          name: loki-gateway-ca-bundle
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the CA file. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: configmap
+
+    # -- Configuration for MICROSERVICES MODE
+    # @section -- loki
+    # @default -- {}
+    microservices:
+      # -- URL of the existing Loki distributor.
+      # @section -- loki
+      # @default -- 'http://loki-distributor:3100/'
+      ingesterUrl: 'http://loki-distributor:3100/'
+
+      # -- URL of the Loki query frontend.
+      # @section -- loki
+      # @default -- 'http://loki-query-frontend:3100/'
+      querierUrl: 'http://loki-query-frontend:3100/'
+
+      # -- Tenant ID (X-Scope-OrgID) for Loki.
+      # @section -- loki
+      # @default -- 'netobserv'
+      tenantID: netobserv
+
+      # -- TLS configuration for the Loki URL.
+      # @section -- loki
+      # @default -- {}
+      tls:
+        # -- Enable TLS for Loki.
+        # @section -- loki
+        # @default -- false
+        enable: false
+
+        # -- Skip verification of the TLS certificate.
+        # @section -- loki
+        # @default -- false
+        insecureSkipVerify: false
+
+        # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+        # @section -- loki
+        # @default -- {}
+        userCert:
+          # -- defines the path to the certificate file name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          certFile: ''
+
+          # -- Path to the certificate private key within the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          certKey: ''
+
+          # -- The name of the secret or configmap containing the certificate and key files.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the certificate. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+        # -- defines the reference of the certificate for the Certificate Authority.
+        # @section -- loki
+        # @default -- {}
+        caCert:
+          # -- File name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          file: ''
+
+          # -- The name of the secret or configmap containing the CA file.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the CA file. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+    # -- Configuration for MANUAL MODE
+    # Loki configuration for `Manual` mode. This is the most flexible configuration. It is ignored for other modes.
+    # @section -- loki
+    # @default -- {}
+    manual:
+      # -- Authtoken describes the way to get a token to authenticate to Loki.
+      # Possible values: <br />
+      # <ul>
+      # <li>Disabled: No authentication is used.</li>
+      # <li>Forward: forwards the user token for authorization.</li>
+      # <li>Host: [deprecated] - uses the local pod service account to authenticate to Loki.</li>
+      # </ul>
+      # @section -- loki
+      # @default -- Disabled
+      authtoken: Disabled
+
+      # -- URL of the existing Loki distributor.
+      # @section -- loki
+      # @default -- 'http://loki:3100/'
+      ingesterUrl: 'http://loki:3100/'
+
+      # -- URL of the Loki query frontend.
+      # @section -- loki
+      # @default -- 'http://loki:3100/'
+      querierUrl: 'http://loki:3100/'
+
+      # -- specifies the address of the Loki `/ready`, `/metrics` and `/config` endpoints, in case it is different from the Loki querier URL
+      # @section -- loki
+      # @default -- ''
+      statusUrl: ''
+
+      # -- Tenant ID (X-Scope-OrgID) for Loki.
+      # @section -- loki
+      # @default -- 'netobserv'
+      tenantID: netobserv
+
+      # -- TLS client configuration for Loki status URL.
+      # @section -- loki
+      # @default -- {}
+      statusTls:
+        # -- Enable TLS for Loki.
+        # @section -- loki
+        # @default -- false
+        enable: false
+
+        # -- Skip verification of the TLS certificate.
+        # @section -- loki
+        # @default -- false
+        insecureSkipVerify: false
+
+        # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+        # @section -- loki
+        # @default -- {}
+        userCert:
+          # -- defines the path to the certificate file name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          certFile: ''
+
+          # -- Path to the certificate private key within the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          certKey: ''
+
+          # -- The name of the secret or configmap containing the certificate and key files.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the certificate. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+        # -- defines the reference of the certificate for the Certificate Authority.
+        # @section -- loki
+        # @default -- {}
+        caCert:
+          # -- File name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          file: ''
+
+          # -- The name of the secret or configmap containing the CA file.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the CA file. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+      # -- TLS configuration for the Loki URL.
+      # @section -- loki
+      # @default -- {}
+      tls:
+        # -- Enable TLS for Loki.
+        # @section -- loki
+        # @default -- false
+        enable: false
+
+        # -- Skip verification of the TLS certificate.
+        # @section -- loki
+        # @default -- false
+        insecureSkipVerify: false
+
+        # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+        # @section -- loki
+        # @default -- {}
+        userCert:
+          # -- defines the path to the certificate file name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          certFile: ''
+
+          # -- Path to the certificate private key within the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          certKey: ''
+
+          # -- The name of the secret or configmap containing the certificate and key files.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the certificate. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+        # -- defines the reference of the certificate for the Certificate Authority.
+        # @section -- loki
+        # @default -- {}
+        caCert:
+          # -- File name within the config map or secret.
+          # @section -- loki
+          # @default -- ''
+          file: ''
+
+          # -- The name of the secret or configmap containing the CA file.
+          # @section -- loki
+          # @default -- ''
+          name: ''
+
+          # -- Namespace of the configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          namespace: ''
+
+          # -- The type for the CA file. Can either be configmap or secret.
+          # @section -- loki
+          # @default -- ''
+          type: ''
+
+    # Loki advanced settings
+    # -- The maximum time to wait before sending a Loki batch.
+    # @section -- loki
+    # @default -- 1s
+    writeBatchWait: 1s
+
+    # -- The maximum batch size (in bytes) of Loki logs to accumulate before sending.
+    # @section -- loki
+    # @default -- 10485760
+    writeBatchSize: 10485760
+
+    # -- The maximum Loki time connection / request limit. A timeout of zero means no timeout.
+    # @section -- loki
+    # @default -- 10s
+    writeTimeout: 10s
+
+  # -- Agent configuration for flows extraction
+  # @section -- Agent
+  # @default -- {}
+  agent:
+
+    # -- Type of the agent.
+    # @section -- Agent
+    # @default -- eBPF
+    type: eBPF
+
+    # -- Settings related to the eBPF-based flow reporter.
+    # @section -- Agent
+    # @default -- {}
+    ebpf:
+      # -- Enable privileged mode for the eBPF agent.
+      # @section -- Agent
+      # @default -- false
+      privileged: false
+
+      # -- Features to enable for the eBPF agent.<br />
+      # Possible values: <br />
+      # <ul>
+      # <li>PacketDrop: Enable the packets drop flows logging feature. This feature requires mounting the kernel debug filesystem, so the eBPF agent pods must run as privileged. If the spec.agent.ebpf.privileged parameter is not set, an error is reported.</li>
+      # <li>DNSTracking: Enable the DNS tracking feature.</li>
+      # <li>FlowRTT: Enable flow latency (sRTT) extraction in the eBPF agent from TCP traffic.</li>
+      # <li>NetworkEvents: Enable the network events monitoring feature, such as correlating flows and network policies. This feature requires mounting the kernel debug filesystem, so the eBPF agent pods must run as privileged. It requires using the OVN-Kubernetes network plugin with the Observability feature. IMPORTANT: This feature is available as a Technology Preview.</li>
+      # <li>PacketTranslation: Enable enriching flows with packet translation information, such as Service NAT.</li>
+      # <li>EbpfManager: [Unsupported (*)]. Use eBPF Manager to manage network observability eBPF programs. Pre-requisite: the eBPF Manager operator (or upstream bpfman operator) must be installed.</li>
+      # <li>UDNMapping: [Unsupported (*)]. Enable interfaces mapping to User Defined Networks (UDN). This feature requires mounting the kernel debug filesystem, so the eBPF agent pods must run as privileged. It requires using the OVN-Kubernetes network plugin with the Observability feature.</li>
+      # </ul>
+      # @section -- Agent
+      # @default -- []
+      features: []
+
+      # -- Log level for the eBPF agent. Can be:<br />
+      # <ul>
+      # <li>trace</li>
+      # <li>debug</li>
+      # <li>info</li>
+      # <li>warn</li>
+      # <li>error</li>
+      # <li>fatal</li>
+      # <li>panic</li>
+      # </ul>
+      # @section -- Agent
+      # @default -- info
+      logLevel: info
+
+      # -- Resources for the eBPF agent.
+      # @section -- Agent
+      # @default -- {}
+      resources: {}
+
+      # -- Image pull policy for the eBPF agent.
+      # Can either be:<br />
+      # <ul>
+      # <li>Always</li>
+      # <li>IfNotPresent</li>
+      # <li>Never</li>
+      # </ul>
+      # @section -- Agent
+      # @default -- IfNotPresent
+      imagePullPolicy: IfNotPresent
+
+      # -- Interfaces to exclude from the eBPF agent.
+      # @section -- Agent
+      # @default -- ['lo']
+      excludeInterfaces:
+        - lo
+
+      # -- Batch size for Kafka.
+      # @section -- Agent
+      # @default -- 0
+      kafkaBatchSize: 0
+
+      # -- Active timeout for cache. Is the max period during which the reporter aggregates flows
+      # before sending. Increasing `cacheMaxFlows` and `cacheActiveTimeout` can decrease the network
+      # traffic overhead and the CPU load, however you can expect higher memory consumption and an
+      # increased latency in the flow collection.
+      # @section -- Agent
+      # @default -- 5s
+      cacheActiveTimeout: 5s
+
+      # -- Maximum number of flows to cache. Is the max number of flows in an aggregate; when reached,
+      # the reporter sends the flows. Increasing `cacheMaxFlows` and `cacheActiveTimeout` can decrease
+      # the network traffic overhead and the CPU load, however you can expect higher memory consumption
+      # and an increased latency in the flow collection.
+      # @section -- Agent
+      # @default -- 100000
+      cacheMaxFlows: 100000
+
+      # -- Sampling rate for the eBPF agent. Sampling rate of the flow reporter. 100 means one flow on 100 is sent. 0 or 1 means all flows are sampled.
+      # @section -- Agent
+      # @default -- 50
+      sampling: 50
+
+      # -- Interfaces to include for the eBPF agent. If empty, the agent fetches all the interfaces
+      # @section -- Agent
+      # @default -- []
+      interfaces: []
+
+      # -- Defines the eBPF agent configuration regarding metrics.
+      # @section -- Agent
+      # @default -- {}
+      metrics:
+        # -- Disable alerts for the eBPF agent. Possible values: <br />
+        # <ul>
+        # <li>NetObservDroppedFlows: which is triggered when the eBPF agent is missing packets or flows, such as when the BPF hashmap is busy or full, or the capacity limiter is being triggered.</li>
+        # </ul>
+        # @section -- Agent
+        # @default -- []
+        disableAlerts: []
+
+        # -- Metrics server endpoint configuration for the Prometheus scraper
+        # @section -- Agent
+        # @default -- {}
+        server:
+          # -- The metrics server HTTP port.
+          # @section -- Agent
+          # @default -- 9400
+          port: 9400
+
+          # -- TLS configuration for the metrics server.
+          # @section -- Agent
+          # @default -- {}
+          tls:
+            # -- Skip client-side verification of the provided certificate.
+            # If set to `true`, the `providedCaFile` field is ignored.
+            # @section -- Agent
+            # @default -- false
+            insecureSkipVerify: false
+
+            # -- Select the type of TLS configuration for the metrics server.
+            # Possible values: <br />
+            # <ul>
+            # <li>Disabled: No TLS configuration is provided.</li>
+            # <li>Provided: Manually provide cert and key file</li>
+            # <li>Auto to use OpenShift auto generated certificate using annotations.</li>
+            # </ul>
+            # @section -- Agent
+            # @default -- Disabled
+            type: Disabled
+
+            # -- TLS configuration when `type` is set to `Provided`.
+            # @section -- Agent
+            # @default -- {}
+            provided:
+              # -- Path to the certificate file name within the configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              certFile: ''
+
+              # -- Path to the certificate private key within the configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              certKey: ''
+
+              # -- The name of the secret or configmap containing the certificate and key files.
+              # @section -- Agent
+              # @default -- ''
+              name: ''
+
+              # -- Namespace of the configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              namespace: ''
+
+              # -- The type for the certificate. Can either be configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              type: ''
+
+            # -- Reference to the CA file when `type` is set to `Provided`.
+            # @section -- Agent
+            # @default -- {}
+            providedCaFile:
+              # -- File name within the config map or secret.
+              # @section -- Agent
+              # @default -- ''
+              file: ''
+
+              # -- The name of the secret or configmap containing the CA file.
+              # @section -- Agent
+              # @default -- ''
+              name: ''
+
+              # -- Namespace of the configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              namespace: ''
+
+              # -- The type for the CA file. Can either be configmap or secret.
+              # @section -- Agent
+              # @default -- ''
+              type: ''
+
+  # -- NetworkPolicy defines ingress network policy settings for network observability components isolation.
+  # @section -- Agent
+  networkPolicy:
+    # -- Deploy network polices for the network observability components.
+    # @section -- Agent
+    # @default -- false
+    enable: false
+
+    # -- A list of additional namespaces allowed to connect to the network observability namespace.
+    # @section -- Agent
+    # @default -- []
+    additionalNamespaces: []
+
+  # -- Console Plugin configuration related to the OpenShift Console integration.
+  # @section -- Console Plugin
+  # @default -- {}
+  consolePlugin:
+    # -- Enable the console plugin.
+    # @section -- Console Plugin
+    # @default -- true
+    enabled: true
+
+    # -- Portnameing defines the configuration of the port-to-service name translation
+    # @section -- Console Plugin
+    # @default -- {}
+    portNaming:
+      # -- Enable the console plugin port-to-service name translation
+      # @section -- Console Plugin
+      # @default -- true
+      enable: true
+
+      # -- defines additional port names to use in the console, for example, `portNames: {"3100": "loki"}`.
+      # @section -- Console Plugin
+      # @default -- {'3100': loki}
+      portNames:
+        '3100': loki
+
+    # -- Quick filters configures quick filters presents for the console plugin.
+    # You can define any filter you like, but the following filters are available by default:
+    # <ul>
+    # <li>Applications: filter flows by the application layer</li>
+    # <li>Infrastructure: filter flows by the infrastructure layer</li>
+    # <li>Pods network: filter flows by the source and destination kind of Pod</li>
+    # <li>Services network: filter flows by the destination kind of Service</li>
+    # </ul>
+    # It is not recommended to remove the default filters.
+    # @section -- Console Plugin
+    # @default -- []
+    quickFilters:
+      - default: true
+        filter:
+          flow_layer: '"app"'
+        name: Applications
+      - filter:
+          flow_layer: '"infra"'
+        name: Infrastructure
+      - default: true
+        filter:
+          dst_kind: '"Pod"'
+          src_kind: '"Pod"'
+        name: Pods network
+      - filter:
+          dst_kind: '"Service"'
+        name: Services network
+
+    # -- Resource requirements for the Console Plugin in terms of compute resources, required by this container.
+    # @section -- Console Plugin
+    # @default -- {}
+    resources: {}
+
+    # -- Replicas defines the number of replicas (pods) to start.
+    # @section -- Console Plugin
+    # @default -- 1
+    replicas: 1
+
+    # -- Loglevel for the console plugin backend
+    # @section -- Console Plugin
+    # @default -- info
+    logLevel: info
+
+    # -- Image pull policy
+    # Can either be:<br />
+    # <ul>
+    # <li>Always</li>
+    # <li>IfNotPresent</li>
+    # <li>Never</li>
+    # </ul>
+    # @section -- Console Plugin
+    # @default -- IfNotPresent
+    imagePullPolicy: IfNotPresent
+
+    # -- Autoscaler configuration for Console Plugin
+    # @section -- Console Plugin
+    # @default -- {}
+    autoscaler:
+      # -- Status of the autoscaler, either Disabled or Enabled
+      # @section -- Console Plugin
+      # @default -- Disabled
+      status: Disabled
+
+      # -- Minimum number of replicas for the Console Plugin
+      # @section -- Console Plugin
+      # @default -- 1
+      minReplicas: 1
+
+      # -- Maximum number of replicas for the Console Plugin
+      # @section -- Console Plugin
+      # @default -- 3
+      maxReplicas: 3
+
+      # -- Metrics used by the pod autoscaler.
+      # See: https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/
+      # @section -- Console Plugin
+      # @default -- using CPU utilization
+      metrics:
+        - resource:
+            target:
+              averageUtilization: 50
+              type: Utilization
+            name: cpu
+          type: Resource
+
+    # -- Advanced Parameters for the Console Plugin
+    # @section -- Console Plugin
+    # @default -- {}
+    advanced:
+      # -- Automatically register the Console Plugin with the OpenShift Console
+      # @section -- Console Plugin
+      # @default -- true
+      register: true
+
+      # -- Set placement and tolerations for the consolePlugin
+      # @section -- Console Plugin
+      scheduling:
+        # -- Set nodeSelector to place the consolePlugin on specific nodes<br />
+        # nodeSelector:<br />
+        #   key: node-role.kubernetes.io/infra<br />
+        #   value: ''
+        # @section -- Console Plugin
+        # @default -- {}
+        nodeSelector: {}
+
+        # -- Set tolerations for the consolePlugin<br />
+        # tolerations: []<br />
+        #   - effect: NoSchedule<br />
+        #     key: node-role.kubernetes.io/infra<br />
+        #     operator: Equal<br />
+        #     value: reserved<br />
+        #   - effect: NoExecute<br />
+        #     key: node-role.kubernetes.io/infra<br />
+        #     operator: Equal<br />
+        #     value: reserved<br />
+        # @section -- Console Plugin
+        # @default -- []
+        tolerations: []
+
+  # Processor Configuration of the component that receives the flows from the agent, enriches them, and sends them to the storage.
+  # @section -- Processor
+  # @default -- {}
+  processor:
+    # -- Availability zones allows availability zone awareness by labelling flows with their source and destination zones.
+    # @section -- Processor
+    # @default -- false
+    addZone: false
+
+    # -- Log types defines the desired record types to generate. Possible values are:<br>
+    # <ul>
+    # <li>Flows to export regular network flows. This is the default.</li>
+    # <li>Conversations to generate events for started conversations, ended conversations as well as periodic "tick" updates.</li>
+    # <li>EndedConversations to generate only ended conversations events.</li>
+    # <li>All to generate both network flows and all conversations events. It is not recommended due to the impact on resources footprint.</li>
+    # </ul>
+    # @section -- Processor
+    # @default -- Flows
+    logTypes: Flows
+
+    # -- Metrics define the processor configuration regarding metrics
+    # @section -- Processor
+    # @default -- {}
+    metrics:
+      # -- disableAlerts is a list of alerts that should be disabled.
+      # Possible values are:<br>
+      # <ul>
+      # <li>NetObservNoFlows: triggered when no flows are being observed for a certain period.</li>
+      # <li>NetObservLokiError: triggered when flows are being dropped due to Loki errors.</li>
+      # </ul>
+      # @section -- Processor
+      # @default -- []
+      disableAlerts: []
+
+      # -- s a list of metric names to specify which ones to generate.<br />
+      # The names correspond to the names in Prometheus without the prefix. For example:<br>
+      # <ul>
+      # <li>namespace_egress_packets_total: shows up as netobserv_namespace_egress_packets_total in Prometheus.</li>
+      # </ul>
+      # Note that the more metrics you add, the bigger is the impact on Prometheus workload resources.
+      # Metrics enabled by default are:
+      # `namespace_flows_total`, `node_ingress_bytes_total`, `node_egress_bytes_total`, `workload_ingress_bytes_total`,
+      # `workload_egress_bytes_total`, `namespace_drop_packets_total` (when `PacketDrop` feature is enabled),
+      # `namespace_rtt_seconds` (when `FlowRTT` feature is enabled), `namespace_dns_latency_seconds` (when `DNSTracking` feature is enabled),
+      # `namespace_network_policy_events_total` (when `NetworkEvents` feature is enabled).
+      # @section -- Processor
+      # @default -- []
+      includeList: []
+
+      # -- Metrics server endpoint configuration for the Prometheus scraper
+      # @section -- Processor
+      # @default -- {}
+      server:
+        # -- The metrics server HTTP port.
+        # @section -- Processor
+        # @default -- 9401
+        port: 9401
+
+        # -- TLS configuration for the metrics server.
+        # @section -- Processor
+        # @default -- {}
+        tls:
+          # -- Skip client-side verification of the provided certificate.
+          # If set to `true`, the `providedCaFile` field is ignored.
+          # @section -- Processor
+          # @default -- false
+          insecureSkipVerify: false
+
+          # -- Select the type of TLS configuration for the metrics server.
+          # Possible values: <br />
+          # <ul>
+          # <li>Disabled: No TLS configuration is provided.</li>
+          # <li>Provided: Manually provide cert and key file</li>
+          # <li>Auto to use OpenShift auto generated certificate using annotations.</li>
+          # </ul>
+          # @section -- Processor
+          # @default -- Disabled
+          type: Disabled
+
+          # -- TLS configuration when `type` is set to `Provided`.
+          # @section -- Processor
+          # @default -- {}
+          provided:
+            # -- Path to the certificate file name within the configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            certFile: ''
+
+            # -- Path to the certificate private key within the configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            certKey: ''
+
+            # -- The name of the secret or configmap containing the certificate and key files.
+            # @section -- Processor
+            # @default -- ''
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the certificate. Can either be configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            type: ''
+
+          # -- Reference to the CA file when `type` is set to `Provided`.
+          # @section -- Processor
+          # @default -- {}
+          providedCaFile:
+            # -- File name within the config map or secret.
+            # @section -- Processor
+            # @default -- ''
+            file: ''
+
+            # -- The name of the secret or configmap containing the CA file.
+            # @section -- Processor
+            # @default -- ''
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the CA file. Can either be configmap or secret.
+            # @section -- Processor
+            # @default -- ''
+            type: ''
+    # -- Subnetlabel allows to define custom labels on subnets and IPs or to enable automatic labelling of recognized subnets in OpenShift, which is used to identify cluster external traffic.
+    # When a subnet matches the source or destination IP of a flow, a corresponding field is added: `SrcSubnetLabel` or `DstSubnetLabel`.
+    # @section -- Processor
+    subnetLabels:
+      # --  allows to customize subnets and IPs labelling, such as to identify cluster-external workloads or web services.
+      # If you enable `openShiftAutoDetect`, `customLabels` can override the detected subnets in case they overlap.
+      # <br />Example<br />
+      # - cidrs:
+      #     - "1.2.3.4/32"
+      #   name: some-name
+      # @section -- Processor
+      # @default -- []
+      customLabels: []
+
+    # -- UNSUPPORTED: Filters lets you define custom filters to limit the amount of generated flows.
+    # These filters provide more flexibility than the eBPF Agent filters (in `spec.agent.ebpf.flowFilter`), such as allowing to filter by Kubernetes namespace,
+    # but with a lesser improvement in performance
+    # @section -- Processor
+    # @default -- []
+    filters: []
+      # -- `filters` is a list of matches that must be all satisfied in order to remove a flow.
+      # - allOf:
+      #      # -- Type of matching to apply. Can be either: <br />
+      #      # <ul>
+      #      # <li>Equal: The field must be equal to the value.</li>
+      #      # <li>NotEqual: The field must not be equal to the value.</li>
+      #      # <li>Presence: The field must contain the value.</li>
+      #      # <li>Absense: The field must not contain the value.</li>
+      #      # <li>MatchReges: The field must match the regular expression.</li>
+      #      # <li>NotMatchRegex: The field must not match the regular expression.</li>
+      #      # </ul>
+      #      # @default -- Equal
+      #    - matchType: Equal
+
+      #      # -- Name of the field to filter on.
+      #      field: reert
+
+      #      # -- Value to filter on. When `matchType` is `Equal` or `NotEqual`, you can use field injection with `$(SomeField)` to refer to any other field of the flow.
+      #      value: Equal
+
+      #  # -- Sammpling is an optional sampling rate to apply to this filter.
+      #  # @default -- ''
+      #  sampling: ''
+
+      #  # -- If specified, these filters only target a single output: `Loki`, `Metrics` or `Exporters`. By default, all outputs are targeted.
+      #  # @default -- []
+      #  outputTarget: Metrics
+
+    # -- Resource requirements
+    # @section -- Processor
+    # @default -- {}
+    resources: {}
+
+    # -- Deduper allows you to sample or drop flows identified as duplicates, in order to save on resource usage.
+    # @section -- Processor
+    # @default -- {}
+    deduper:
+      # -- Set the Processor de-duplication mode. It comes in addition to the Agent-based deduplication because the Agent cannot de-duplicate same flows reported from different nodes.<br />
+      # Possible values: <br />
+      # <ul>
+      # <li>Disabled: No de-duplication is performed.</li>
+      # <li>Sample: Randomly sample flows to reduce the flow volume.</li>
+      # <li>Drop: Drop flows identified as duplicates.</li>
+      # </ul>
+      # @section -- Processor
+      # @default -- Disabled
+      mode: Disabled
+
+      # Sampling  is the sampling rate when deduper `mode` is `Sample`.
+      # @section -- Processor
+      # @default -- 50
+      sampling: 50
+
+    # -- Loglevel for the console plugin backend.
+    # Can either be:<br />
+    # <ul>
+    # <li>trace</li>
+    # <li>debug</li>
+    # <li>info</li>
+    # <li>warn</li>
+    # <li>error</li>
+    # <li>fatal</li>
+    # <li>panic</li>
+    # </ul>
+    # @section -- Processor
+    # @default -- info
+    logLevel: info
+
+    # -- Image pull policy
+    # Can either be:<br />
+    # <ul>
+    # <li>Always</li>
+    # <li>IfNotPresent</li>
+    # <li>Never</li>
+    # </ul>
+    # @section -- Processor
+    # @default -- IfNotPresent
+    imagePullPolicy: IfNotPresent
+
+    # -- Multi-cluster deployment. If enabled a clusterName lable will be added to the flow data.
+    # @section -- Processor
+    # @default -- false
+    multiClusterDeployment: false
+
+    # -- Cluster name is the name of the cluster to appear in the flows data. This is useful in a multi-cluster context. When using OpenShift, leave empty to make it automatically determined.
+    # @section -- Processor
+    # @default -- ''
+    clusterName: ''
+
+  # -- Prometheus defines Prometheus settings, such as querier configuration used to fetch metrics from the Console plugin.
+  # @section -- Prometheus
+  # @default -- {}
+  prometheus:
+
+    # -- Prometheus querying configuration, such as client settings, used in the Console plugin.
+    # @section -- Prometheus
+    # @default -- {}
+    querier:
+
+      # -- must be set according to the type of Prometheus installation that stores network observability metrics:
+      # <ul>
+      # <li>Auto: Try to configure it autoamtically</li>
+      # <li>Manual: for manual setup</li>
+      # </ul>
+      # @section -- Prometheus
+      # @default -- Auto
+      mode: Auto
+
+      # -- Timeout  is the read timeout for console plugin queries to Prometheus. A timeout of zero means no timeout.
+      # @section -- Prometheus
+      # @default -- 30s
+      timeout: 30s
+
+      # -- When `enable` is `true`, the Console plugin queries flow metrics from Prometheus instead of Loki whenever possible.
+      # It is enbaled by default: set it to `false` to disable this feature. <br />
+      # The Console plugin can use either Loki or Prometheus as a data source for metrics (see also `spec.loki`), or both.<br />
+      # Not all queries are transposable from Loki to Prometheus. Hence, if Loki is disabled, some features of the plugin are disabled as well,<br />
+      # such as getting per-pod information or viewing raw flows.
+      # If both Prometheus and Loki are enabled, Prometheus takes precedence and Loki is used as a fallback for queries that Prometheus cannot handle.
+      # If they are both disabled, the Console plugin is not deployed.
+      # @section -- Prometheus
+      # @default -- true
+      enable: true
+
+      # -- Prometheus configuration for Manual mode.
+      # @section -- Prometheus
+      # @default -- {}
+      manual:
+        # -- TLS configuration for.
+        # @section -- Prometheus
+        # @default -- {}
+        tls:
+          # -- Enable TLS for Loki.
+          # @section -- Prometheus
+          # @default -- false
+          enable: false
+
+          # -- Skip verification of the TLS certificate.
+          # @section -- Prometheus
+          # @default -- false
+          insecureSkipVerify: false
+
+          # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+          # @section -- Prometheus
+          # @default -- {}
+          userCert:
+            # -- defines the path to the certificate file name within the config map or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            certFile: ''
+
+            # -- Path to the certificate private key within the configmap or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            certKey: ''
+
+            # -- The name of the secret or configmap containing the certificate and key files.
+            # @section -- Prometheus
+            # @default -- ''
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the certificate. Can either be configmap or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            type: ''
+
+          # -- defines the reference of the certificate for the Certificate Authority.
+          # @section -- Prometheus
+          # @default -- {}
+          caCert:
+            # -- File name within the config map or secret.
+            # @section -- Prometheus
+            # @default -- 'service-ca.crt'
+            file: ''
+
+            # -- The name of the secret or configmap containing the CA file.
+            # @section -- Prometheus
+            # @default -- loki-gateway-ca-bundle
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the CA file. Can either be configmap or secret.
+            # @section -- Prometheus
+            # @default -- ''
+            type: ''
+
+        # -- `url` is the address of an existing Prometheus service to use for querying metrics.
+        # @section -- Prometheus
+        # @default -- 'http://prometheus:9090'
+        url: 'http://prometheus:9090'
+
+        # -- Set `true` to forward logged in user token in queries to Prometheus
+        # @section -- Prometheus
+        # @default -- false
+        forwardUserToken: false
+
+  # -- additional optional exporters for custom consumption or storage.
+  # @section -- Exporters
+  # @default -- []
+  exporters:
+    # -- OpenTelemetry configuration, such as the IP address and port to send enriched logs or metrics to.
+    # @section -- Exporters
+    # @default -- {}
+    - openTelemetry:
+        # -- Address of the OpenTelemetry receiver.
+        # @section -- Exporters
+        targetHost: ''
+
+        # -- Port for the OpenTelemetry receiver.
+        # @section -- Exporters
+        targetPort: ''
+
+        # -- Protocol of the OpenTelemetry connection. The available options are `http` and `grpc`.
+        # @section -- Exporters
+        protocol: grpc
+
+        # -- Custom fields mapping to an OpenTelemetry conformant format.
+        # @section -- Exporters
+        # @default -- []
+        fieldsMapping: []
+
+        # -- OpenTelemetry configuration for logs.
+        # @section -- Exporters
+        logs:
+          # -- Set `enable` to `true` to send logs to an OpenTelemetry receiver.
+          # @section -- Exporters
+          # @default -- true
+          enable: true
+
+        # -- OpenTelemetry configuration for metrics.
+        # @section -- Exporters
+        metrics:
+          # -- Set `enable` to `true` to send metrics to an OpenTelemetry receiver.
+          # @section -- Exporters
+          # @default -- true
+          enable: true
+
+          # -- Specify how often metrics are sent to a collector.
+          # @section -- Exporters
+          # @default -- 20s
+          pushTimeInterval: 20s
+
+        # -- TLS configuration for.
+        # @section -- Exporters
+        # @default -- {}
+        tls:
+          # -- Enable TLS for Loki.
+          # @section -- Exporters
+          # @default -- false
+          enable: false
+
+          # -- Skip verification of the TLS certificate.
+          # @section -- Exporters
+          # @default -- false
+          insecureSkipVerify: false
+
+          # -- defines the user certificate reference and is used for mTLS. When you use one-way TLS, you can ignore this property.
+          # @section -- Exporters
+          # @default -- {}
+          userCert:
+            # -- defines the path to the certificate file name within the config map or secret.
+            # @section -- Exporters
+            # @default -- ''
+            certFile: ''
+
+            # -- Path to the certificate private key within the configmap or secret.
+            # @section -- Exporters
+            # @default -- ''
+            certKey: ''
+
+            # -- The name of the secret or configmap containing the certificate and key files.
+            # @section -- Exporters
+            # @default -- ''
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Exporters
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the certificate. Can either be configmap or secret.
+            # @section -- Exporters
+            # @default -- ''
+            type: ''
+
+          # -- defines the reference of the certificate for the Certificate Authority.
+          # @section -- Exporters
+          # @default -- {}
+          caCert:
+            # -- File name within the config map or secret.
+            # @section -- Exporters
+            # @default -- 'service-ca.crt'
+            file: ''
+
+            # -- The name of the secret or configmap containing the CA file.
+            # @section -- Exporters
+            # @default -- loki-gateway-ca-bundle
+            name: ''
+
+            # -- Namespace of the configmap or secret.
+            # @section -- Exporters
+            # @default -- ''
+            namespace: ''
+
+            # -- The type for the CA file. Can either be configmap or secret.
+            # @section -- Exporters
+            # @default -- ''
+            type: ''
+
+      # -- selects the type of exporters.
+      # The available options are `Kafka`, `IPFIX`, and `OpenTelemetry`.
+      # NOTE: This chart currently supports OpenTelemetry ONLY
+      # @section -- Exporters
+      # @default -- OpenTelemetry
+      type: OpenTelemetry

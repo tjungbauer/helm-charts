@@ -16,10 +16,10 @@ roleRef:
   name: netobserv-writer
 subjects:
 - kind: ServiceAccount
-  name: flowlogs-pipeline    
-  namespace: {{ .namespace.name }}
+  name: flowlogs-pipeline
+  namespace: {{ .namespace.name | default "netobserv" }}
 - kind: ServiceAccount
   name: flowlogs-pipeline-transformer
-  namespace: {{ .namespace.name }}
+  namespace: {{ .namespace.name | default "netobserv" }}
 {{- end }}
 {{- end }}

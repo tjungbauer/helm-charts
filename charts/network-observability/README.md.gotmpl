@@ -1,7 +1,8 @@
 {{ template "doc.header" . }}
 
 This Helm Chart is installing and configuring the Network Observability Operator.
-This operator requires Loki to store the traffic information. The possible values are currently limited, but it is easy to extend if required.
+This operator requires some storage to make the logs persistent. This might be Loki (for example using an existing Loki or the Loki Operator) or Kafka.
+This charts currently supports the settings for Loki due to my lack of possibility to test with Kafka. 
 
 {{ template "doc.deps" . }}
 
@@ -12,31 +13,85 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 ## Parameters
 
-Verify the subcharts for additional settings:
-
-* [helper-operator](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
-* [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator)
-* [helper-lokistack](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack)
-* [helper-objectstore](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore)
-* [helper-helper-loki-bucket-secret](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-helper-loki-bucket-secret)
-
 {{ template "doc.values" . }}
 
 ## Example values
 
-The following shows the values for the Network Pbservability operator itself. Since there are multiple sub-charts, verify the example values-file for a complete example.
+The following shows the values for the Network Pbservability operator itself.
 
 ```yaml
 ---
-namespace: &namespace openshift-netobserv-operator
+namespace: &namespace netobserv
 
+# Network Observability settings.
 netobserv:
+  # -- Enable Network Observability configuration?
+  # This will also create the reader/writer rolebanding for multi-tenancy
+  # @default -- false
   enabled: true
-  namespace:
-    name: *namespace
-  syncwave: 10
-  lokistack_name: netobserv-loki
-  ...
+
+  # -- Namespace where Network Observability FlowCollector shall be installed.
+  # @default -- 'netobserv'
+  namespace: *namespace
+
+  # -- Defines the desired type of deployment for flow processing.
+  deploymentModel: Direct
+
+  # -- Loki client settings
+  loki:
+    # -- Enable storing flows in Loki.
+    enable: true
+
+    # -- Mode must be set according to the deployment mode of Loki.
+    mode: LokiStack
+
+    # -- Configuration for LOKI STACK MODE
+    lokiStack:
+      name: netobserv-loki
+
+  # -- Console Plugin configuration related to the OpenShift Console integration.
+  consolePlugin:
+    enable: true
+
+    # -- Quick filters configures quick filters presents for the console plugin.
+    quickFilters:
+      - default: true
+        filter:
+          flow_layer: '"app"'
+        name: Applications
+      - filter:
+          flow_layer: '"infra"'
+        name: Infrastructure
+      - default: true
+        filter:
+          dst_kind: '"Pod"'
+          src_kind: '"Pod"'
+        name: Pods network
+      - filter:
+          dst_kind: '"Service"'
+        name: Services network
+
+    # -- Advanced Parameters for the Console Plugin
+    advanced:
+      # -- Set placement and tolerations for the consolePlugin
+      scheduling:
+        # -- Set nodeSelector to place the consolePlugin on specific nodes
+        # @default -- {}
+        # nodeSelector:
+        #   key: node-role.kubernetes.io/infra
+        #   value: ''
+
+        # -- Set tolerations for the consolePlugin
+        # @default -- []
+        # tolerations:
+        #   - effect: NoSchedule
+        #     key: node-role.kubernetes.io/infra
+        #     operator: Equal
+        #     value: reserved
+        #   - effect: NoExecute
+        #     key: node-role.kubernetes.io/infra
+        #     operator: Equal
+        #     value: reserved
 ```
 
 {{ template "doc.footer" . }}

@@ -1,25 +1,11 @@
 ---
 apiVersion: v2
 name: network-observability
-description: Installs and configures OpenShift Network Observability.
-version: 1.0.12
+description: Installs and configures OpenShift Network Observability Operator.
+version: 2.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
 dependencies:
-  - name: helper-loki-bucket-secret
-    version: ~1.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-loki-bucket-secret.enabled
-  - name: helper-operator
-    version: ~1.0.0
-    repository: https://charts.stderr.at/
-#  - name: helper-status-checker
-#    version: ~4.0.0
-#    repository: https://charts.stderr.at/
-  - name: helper-objectstore
-    version: ~1.0.0
-    repository: https://charts.stderr.at/
-    condition: helper-objectstore.enabled
   - name: tpl
     version: ~1.0.0
     repository: https://charts.stderr.at/
@@ -48,3 +34,5 @@ annotations:
       description: added README and did some cleanup
     - kind: added
       description: added tpl chart
+    - kind: added
+      description: Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports.
