@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.40
+version: 2.0.41
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -50,3 +50,5 @@ annotations:
       description: app_project can now be correctly defined for applicationsets
     - kind: added
       description: merge generator can be used for applicationsets now and additional examples around git Generator
+    - kind: fixed
+      description: fixed an issue with the default namespace for git generator

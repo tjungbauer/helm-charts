@@ -278,8 +278,11 @@ spec:
         namespace: {{ .namespace | default "default" }}
       {{- else if .generatorgit }}
         name: {{ printf "'{{ .environment }}'" }}
+        {{- if eq (.use_configured_namespace | toString) "true"}}
         namespace: {{ printf "'{{ .namespace }}'" }}
-
+        {{- else }}
+        namespace: {{ .namespace | default "default" }}
+        {{- end }}
       {{- else }}
         server:  >-
           {{ printf "{{ server }}" }}
