@@ -6307,6 +6307,65 @@ entries:
           description: app_project can now be correctly defined for applicationsets
         - kind: added
           description: merge generator can be used for applicationsets now and additional examples around git Generator
+        - kind: fixed
+          description: fixed an issue with the default namespace for git generator
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-04-17T12:55:49.200763495Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Takes care of creation of Applications, Appprojects and ApplicationSets
+      (supporting different generators)
+    digest: bba61e7fb45cc16a19d23c17211dabd3821ef2e537bb0d351abcb50b1e8fb939
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-argocd
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-argocd-2.0.41/helper-argocd-2.0.41.tgz
+    version: 2.0.41
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: support git GIT generator
+        - kind: added
+          description: "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Added support for Matrix Generator (opinionated)"
+        - kind: added
+          description: Added support for ignoreDifferences definition in ApplicationSet
+        - kind: added
+          description: Allowing syncwave settings for Application objects
+        - kind: added
+          description: Allowing configuration of namespace for Application objects
+        - kind: added
+          description: Allowing configuration of retries in ApplicationSets
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: fixed
+          description: AppProject has been extended to that the namespace can be defined as well.
+        - kind: fixed
+          description: app_project can now be correctly defined for applicationsets
+        - kind: added
+          description: merge generator can be used for applicationsets now and additional examples around git Generator
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -24100,4 +24159,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-17T12:32:20.964292503Z"
+generated: "2025-04-17T12:55:49.201987883Z"
