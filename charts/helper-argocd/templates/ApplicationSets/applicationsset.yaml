@@ -26,10 +26,17 @@ spec:
     - missingkey=error
   {{- end }}
   generators:
+    {{/* MATRIX GENERATOR */}}
     {{- if .generatormatrix }}
     - matrix:
         generators:
             {{- toYaml .generatormatrix | nindent 10 }}
+    {{/* MERGE GENERATOR */}}
+    {{- else if .generatormerge }}
+    - merge:
+        generators:
+            {{- toYaml .generatormerge | nindent 10 }}
+    {{/* LIST GENERATOR */}}
     {{- else if .generatorlist }}
       - list:
           elements: 
@@ -40,7 +47,7 @@ spec:
               chart_version: {{ .chart_version }}
               {{- end }}
           {{- end }}
-
+    {{/* GIT GENERATOR */}}
     {{- else if .generatorgit }}
       {{- range .generatorgit }}
       - git:
@@ -66,6 +73,7 @@ spec:
   {{- end }}
   template:
     metadata:
+      {{/* MATRIX GENERATOR */}}
       {{- if .generatormatrix }}
         {{- if eq (.omitClustername | toString) "true" }}
           name: >-
@@ -75,6 +83,17 @@ spec:
           name: >-
             {{ printf "{{ .targetCluster }}-{{ .path.basenameNormalized }}" }}
         {{- end }}
+      {{/* MERGE GENERATOR */}}
+      {{- else if .generatormerge }}
+        {{- if eq (.omitClustername | toString) "true" }}
+          name: >-
+          '{{ .targetCluster }}-{{ .path.basenameNormalized }}'
+            {{ printf "{{ .path.basenameNormalized }}" }}
+        {{- else }}
+          name: >-
+            {{ printf "{{ .targetCluster }}-{{ .path.basenameNormalized }}" }}
+        {{- end }}
+      {{/* LIST GENERATOR */}}
       {{- else if .generatorlist }}
         {{- if eq (.omitClustername | toString) "true" }}
           name: >-
@@ -83,9 +102,11 @@ spec:
           name: >-
             {{ printf "{{ cluster }}-%s" $key | replace "_" "-" }}
         {{- end }}
+      {{/* GIT GENERATOR */}}
       {{- else if .generatorgit }}
           name: >-
             {{ printf "{{ index .path.segments 1 | normalize }}-{{ .path.basename }}" }}
+      {{/* ELSE */}}
       {{- else }}
         {{- if eq (.omitClustername | toString) "true" }}
           name: >-
@@ -127,6 +148,7 @@ spec:
           {{ printf "{{ name }}" }}
       {{- end }}
     {{- end }}
+      {{/* MULTIPLE SOURCES */}}
       {{- if .multiple_sources }}
       sources:
         {{- range $source_key, $source_value := .multiple_sources }}
@@ -171,6 +193,7 @@ spec:
             {{- end }}
           {{- end }}
         {{- end }}
+      {{/* SINGLE SOURCE */}}
       {{- else }}
       source:
         repoURL: {{ .repourl | default $.Values.general.source.repourl }}
@@ -198,6 +221,9 @@ spec:
           {{- end }}
         {{- end }}
         {{- if .generatormatrix }}
+        path: '{{ printf "{{ .path.path }}" }}'
+        {{- end }}
+        {{- if .generatormerge }}
         path: '{{ printf "{{ .path.path }}" }}'
         {{- end }}
         {{- if .path }}
@@ -234,16 +260,27 @@ spec:
       destination:
       {{- if .generatormatrix }}
         name: {{ printf "'{{ .targetCluster }}'" }}
+        {{- if eq (.use_configured_namespace | toString) "true"}}
+        namespace: {{ printf "'{{ .namespace }}'" }}
+        {{- else }}
+        namespace: {{ .namespace | default "default" }}
+        {{- end }}
+      {{- else if .generatormerge }}
+        name: {{ printf "'{{ .targetCluster }}'" }}
+        namespace: {{ printf "'{{ .targetNamespace | default .path.basenameNormalized }}'" }}
       {{- else if .generatorlist }}
         server:  >-
           {{ printf "{{ url }}" }}
+        namespace: {{ .namespace | default "default" }}
       {{- else if .generatorgit }}
         name: {{ printf "'{{ .environment }}'" }}
+        namespace: {{ .namespace | default "default" }}
+
       {{- else }}
         server:  >-
           {{ printf "{{ server }}" }}
-      {{- end }}
         namespace: {{ .namespace | default "default" }}
+      {{- end }}
       info:
         - name: Description
           value: {{ .description | default "No Description" }}
