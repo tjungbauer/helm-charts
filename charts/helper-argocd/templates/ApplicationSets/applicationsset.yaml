@@ -220,6 +220,7 @@ spec:
           {{- end }}
           {{- end }}
         {{- end }}
+        {{/* Set the path parameter depending on the generator, or chart */}}
         {{- if .generatormatrix }}
         path: '{{ printf "{{ .path.path }}" }}'
         {{- end }}
@@ -231,10 +232,13 @@ spec:
         {{- else }}
         {{- if .chartname }}
         chart: {{ .chartname }}
+        {{- else }}
+        {{/* last resort for path parameter if nothing else works */}}
+        path: '{{ printf "{{ .path.path }}" }}'
         {{- end }}
         {{- end }}
       {{- end }}
-
+      {{/* SINGLE SOURCE END */}}
       {{- if .syncPolicy }}
       syncPolicy:
         {{- if .syncPolicy.autosync_enabled }}
@@ -274,7 +278,7 @@ spec:
         namespace: {{ .namespace | default "default" }}
       {{- else if .generatorgit }}
         name: {{ printf "'{{ .environment }}'" }}
-        namespace: {{ .namespace | default "default" }}
+        namespace: {{ printf "'{{ .namespace }}'" }}
 
       {{- else }}
         server:  >-

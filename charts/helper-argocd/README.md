@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.39](https://img.shields.io/badge/Version-2.0.38-informational?style=flat-square)
+  ![Version: 2.0.40](https://img.shields.io/badge/Version-2.0.40-informational?style=flat-square)
 
  
 
@@ -109,9 +109,113 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
 4. First generator is "git", which is watching the folder *clusters/management-clusters/* and will take anything that can be find inside this folder, unless it is excluded.
 5. Second generator is the list generator, that is defining the target cluster.
 
+### Example: Using Git Files Generator
+
+```yaml
+  mgmt-cluster-gitgen:
+    enabled: true
+
+    # Description - always usful
+    description: "ApplicationSet that Deploys on Management Cluster Configuration (using Git Generator)"
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
+    labels:
+      category: configuration
+      env: mgmt-cluster
+
+    # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
+    goTemplate: true
+    argocd_project: *mgmtclustername
+
+    # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
+    preserveResourcesOnDeletion: true
+
+    generatorgit:
+      # Git: Walking through the specific folder and take whatever is there.
+      - files:
+          - clusters/management-cluster/**/config.json
+        repourl: *repourl
+        revision: *branch
+
+    syncPolicy:
+      autosync_enabled: false
+
+    # Retrying in case the sync failed.
+    retries:
+      # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      limit: 5
+      backoff:
+        # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        # Default: 5s
+        duration: 5s
+        # a factor to multiply the base duration after each failed retry
+        # Default: 2
+        factor: 2
+        # the maximum amount of time allowed for the backoff strategy
+        # Default: 3m
+        maxDuration: 3m
+```
+
+### Example: ApplicationSet using matrix generator with git files and list
+```yaml
+  mgmt-cluster-matrix-gitfiles:
+    enabled: false
+
+    # Description - always usful
+    description: "ApplicationSet that Deploys on Management Cluster Configuration (using Git Generator)"
+    # Any labels you would like to add to the Application. Good to filter it in the Argo CD UI.
+    labels:
+      category: configuration
+      env: mgmt-cluster
+
+    # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
+    goTemplate: true
+    argocd_project: *mgmtclustername
+
+    environment: *mgmtclustername
+
+    # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
+    preserveResourcesOnDeletion: true
+
+    # Switch to set the namespace to '.namespace' ... must be defined in config.json
+    use_configured_namespace: true
+   
+    # Definition of Matrix Generator. Only 2 generators are supported at the moment
+    generatormatrix:
+      # Git: Walking through the specific folder and take whatever is there.
+      - git:
+          files:
+            - path: clusters/management-cluster/**/config.json
+          repoURL: *repourl
+          revision: *branch
+      # List: simply define the targetCluster. The name of the cluster must be known by Argo CD
+      - list:
+          elements:
+              # targetCluster is important, this will define on which cluster it will be rolled out.
+              # The cluster name must be known in Argo CD
+            - targetCluster: *mgmtclustername
+
+    syncPolicy:
+      autosync_enabled: false
+
+    # Retrying in case the sync failed.
+    retries:
+      # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      limit: 5
+      backoff:
+        # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        # Default: 5s
+        duration: 5s
+        # a factor to multiply the base duration after each failed retry
+        # Default: 2
+        factor: 2
+        # the maximum amount of time allowed for the backoff strategy
+        # Default: 3m
+        maxDuration: 3m
+```
+
 ### Example: ApplicationSet using list generator to deploy on ALL clusters:
 
-```ymal
+```yaml
   # Install ETCD Encryption
   enable-etcd-encryption: # (1)
     enabled: false # (2)

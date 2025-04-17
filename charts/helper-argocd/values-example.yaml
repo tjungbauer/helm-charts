@@ -29,7 +29,7 @@ applicationsets:
   # This is more or less similar as the Matrix generator (see below), but reqires a bit more configuration ... the config.json.
   # The advantage is that you can configure individual namespaces for example in this config.json and provide an additional information
   mgmt-cluster-gitgen:
-    enabled: true
+    enabled: false
 
     # Description - always usful
     description: "ApplicationSet that Deploys on Management Cluster Configuration (using Git Generator)"
@@ -41,8 +41,6 @@ applicationsets:
     # Using go text template. See: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/GoTemplate/
     goTemplate: true
     argocd_project: *mgmtclustername
-
-    environment: *mgmtclustername
 
     # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
     preserveResourcesOnDeletion: true
@@ -75,7 +73,6 @@ applicationsets:
   # END GIT GENERATOR EXAMPLE #
   #############################
 
-
   ######################################
   # MATRIX GENERATOR EXAMPLE Git Files #
   ######################################
@@ -101,13 +98,7 @@ applicationsets:
     # preserve all resources when the application get deleted. This is useful to keep that workload even if Argo CD is removed or severely changed.
     preserveResourcesOnDeletion: true
 
-    #generatorgit:
-    #  # Git: Walking through the specific folder and take whatever is there.
-    #  - files: 
-    #      - clusters/management-cluster/**/config.json
-    #    repourl: *repourl
-    #    revision: *branch
-
+    # Switch to set the namespace to '.namespace' ... must be defined in config.json
     use_configured_namespace: true
     
     # Definition of Matrix Generator. Only 2 generators are supported at the moment
