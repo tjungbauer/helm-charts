@@ -124,6 +124,13 @@ spec:
       {{ $value.rbac.policy | nindent 6 }}
     scopes: '{{ $value.rbac.scopes }}'
   repo:
+    {{- if $value.repo.additional_env }}
+    env:
+      {{- range $value.repo.additional_env }}
+      - name: {{ .name }}
+        value: {{ .value }}
+      {{- end }}
+    {{- end }}
     resources:
       limits:
         cpu: {{ $value.repo.cpu_limits | default "1" | quote }}

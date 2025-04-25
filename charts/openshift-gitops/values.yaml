@@ -7,7 +7,7 @@ gitopsinstances:
   gitops_application:
     # -- Create the instance or not.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Namespace for this application
     namespace: gitops-application
@@ -248,6 +248,20 @@ gitopsinstances:
       # https://access.redhat.com/solutions/7000863
       # @default -- empty
       additional_trusted_ca:
+
+      # -- Define additonal environment variables for the repo container.
+      # This is useful if you want to add variables such as SSL_CERT_DIR <br />
+      # List element with name/values:<br/>
+      # - name: MY_ENV_VAR<br />
+      #   value: my_value
+      # @default -- empty
+      additional_env: []
+        # Name and values of the environment variables
+        # @default -- empty
+        # - name: MY_ENV_VAR
+        #   value: my_value
+        # - name: MY_ENV_VAR2
+        #   value: my_value2
 
       # Add SideCar specification, for example when a post-renderer shall be used.
       additionalSidecars:
