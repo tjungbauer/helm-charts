@@ -417,6 +417,11 @@ gitopsinstances:
     #    operator: Equal
     #    value: reserved
 
+    # -- Allow extra configuration for the Argo CD instance.
+    # @default -- empty
+    extraConfig: {}
+    # value: key
+
     # -- RBAC settings for the Argo CD instance
     # This will set the default role to "none" and denies access to any resource.
     rbac:

@@ -123,6 +123,10 @@ spec:
     policy: |
       {{ $value.rbac.policy | nindent 6 }}
     scopes: '{{ $value.rbac.scopes }}'
+  {{- if $value.extraConfig }}
+  extraConfig:
+{{ toYaml $value.extraConfig | indent 4 }}
+  {{- end }}
   repo:
     {{- if $value.repo.additional_env }}
     env:
