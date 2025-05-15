@@ -13,6 +13,7 @@ metadata:
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
+  resourceProfile: {{ .resourceProfile | default "balanced" }}
   storageDeviceSets:
     {{- range $key, $value := .storageDeviceSets }}
     - name: {{ $value.name | default "ocs-deviceset" }}
