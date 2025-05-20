@@ -21,6 +21,7 @@ while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
   sleep 1
   SLEEPER_TMP=$(($SLEEPER_TMP+1))
 done
+echo ""
 {{- end -}}
 
 

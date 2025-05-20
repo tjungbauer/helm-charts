@@ -1,7 +1,7 @@
 apiVersion: v2
 name: tpl
 description: A library that shall collect certain templates to reuse them among different charts.
-version: 1.0.17
+version: 1.0.18
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
 maintainers:
@@ -36,3 +36,5 @@ annotations:
       description: new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource.
     - kind: added
       description: nswitched order of tolerations
+    - kind: fixed
+      description: fixed issue with newline in tpl.sleeptimer
