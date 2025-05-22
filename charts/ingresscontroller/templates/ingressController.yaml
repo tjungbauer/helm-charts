@@ -21,6 +21,17 @@ spec:
   {{- if .domain }}
   domain: {{ .domain }}
   {{- end }}
+  {{- if .routeAdmission }}
+  routeAdmission:
+    {{- if .routeAdmission.namespaceOwnership }}
+    namespaceOwnership: {{ .routeAdmission.namespaceOwnership }}
+    {{- end }}
+    {{- if .routeAdmission.namespaceSelector }}
+    {{- end }}
+    {{- if .routeAdmission.wildcardPolicy }}
+    wildcardPolicy: {{ .routeAdmission.wildcardPolicy }}
+    {{- end }}
+  {{- end}}
 
   {{- if .endpointPublishingStrategy }}
   endpointPublishingStrategy:
