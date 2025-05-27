@@ -11,14 +11,20 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 10 | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  logLevel: Normal
+  logLevel: {{ .logLevel | default "Normal" }}
+  operatorLogLevel: {{ .operatorLogLevel | default "Normal" }}
   managementState: Managed
   observedConfig: null
-  operatorLogLevel: Normal
   controllerConfig:
+    {{ if eq (.overrideArgs.enabled | toString) "true" }}
     overrideArgs:
-      {{- range .overrideArgs }}
+      {{- range .overrideArgs.args }}
       - {{ . }}
       {{- end }}
+    {{- end }}
+  {{- if .unsupportedConfigOverrides }}
+  unsupportedConfigOverrides:
+{{- toYaml .unsupportedConfigOverrides | nindent 4 }}
+  {{- end }}
 {{- end }}
 {{- end }}

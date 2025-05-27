@@ -9,8 +9,32 @@ certManager:
 
   # -- List of arguments that should be overwritten.
   overrideArgs:
-    - '--dns01-recursive-nameservers-only'
-    - --dns01-recursive-nameservers=ns-362.awsdns-45.com:53,ns-930.awsdns-52.net:53
+    # Enable overriding args.
+    # @default -- false
+    enabled: false
+
+    # -- List of arguments that should be overwritten.
+    # @default -- []
+    args: []
+    #  - '--dns01-recursive-nameservers-only'
+    #  - --dns01-recursive-nameservers=ns-362.awsdns-45.com:53,ns-930.awsdns-52.net:53
+
+  # -- Loglevel of the cert-manager operator.<br />
+  # Possible values are: Debug, Trace, TraceAll, Normal
+  # @default -- Normal
+  logLevel: Normal
+
+  # -- operatorLogLevel of the cert-manager operator.<br />
+  # Possible values are: Debug, Trace, TraceAll, Normal
+  # @default -- Normal
+  operatorLogLevel: Normal
+
+  # -- UNSUPPORTED Config Overrides. For example to disable the automatic certificate approver, because you might want to use policy approver to limit which certificates can be created.
+  # @default -- {}
+  unsupportedConfigOverrides: {}
+  #  controller:
+  #    args:
+  #      - '--controllers=*,-certificaterequests-approver'
 
 # List of issuers that shall be created
 issuer:
@@ -22,7 +46,7 @@ issuer:
     # -- Enable this issuer.
     # @default -- false
     enabled: false
-    # -- Syncewave to create this issuer
+    # -- Syncwave to create this issuer
     syncwave: 20
 
     # -- Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for.
@@ -145,7 +169,7 @@ certificates:
 
 
       # -- The duration of the certificated (X.509 certificate's duration)
-      # Some issuers might be configured to only issue certificates with a set durationt<br />
+      # Some issuers might be configured to only issue certificates with a set duration<br />
       # Minimum value for spec.duration is 1 hour<br />
       # It is required that spec.duration > spec.renewBefore
       # Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration
