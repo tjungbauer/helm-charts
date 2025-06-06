@@ -9,6 +9,47 @@ entries:
           description: fixes and adding README
         - kind: added
           description: added support for portEndNumber
+        - kind: added
+          description: fixing portRange implementation
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-06-06T11:46:03.213395894Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.13
+    description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources
+      for a cluster.
+    digest: 812108eb6f767f339e53415c8c1d7e28104a32050edec101079388d770ce028c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - security
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: admin-networkpolicies
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    - https://blog.stderr.at/openshift/2024/11/introducting-adminnetworkpolicies/
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/admin-networkpolicies-1.0.4/admin-networkpolicies-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: fixes and adding README
+        - kind: added
+          description: added support for portEndNumber
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -24677,4 +24718,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-06T10:09:11.096748844Z"
+generated: "2025-06-06T11:46:03.214527795Z"
