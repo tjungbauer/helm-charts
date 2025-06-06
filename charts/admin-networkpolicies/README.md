@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
+  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
 
  
 
@@ -61,7 +61,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-ne
 | anp[0].egress[0] | object | N/A | Name of the egress rule |
 | anp[0].egress[0].enabled | bool | false | Enable of disable this specific rule |
 | anp[0].egress[0].peers | list | N/A | Peers is a list of matching rules. This can be: <br /> <ul>  <li> - namespaces: Select namespaces using labels or names</li>  <br />  <li> - pods: Select pods using labels for pods and namespaces </li> <br />  <li> - nodes: Select Nodes using match expressions</li>  <br />  <li> - networks: Select IP addresses using CIDR notation</li>  <br />  <li> - domainNames: Select domains using DNS notation</li>  <br /> </ul> See values.yaml for exmples |
-| anp[0].egress[0].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> portEndNumber: if defining a range, set the last port number<br /> |
+| anp[0].egress[0].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> |
 | banp[0].egress | list | [] | Egress is the list of Egress rules to be applied to the selected pods. Therefore, the first rule will have the highest precedence. |
 
 ### Ingress Rules
@@ -74,7 +74,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-ne
 | anp[0].ingress[0].action | string | Deny | Action for this rule, can be *Allow*, *Pass* or *Deny* for ANPs. For BANP only *Allow* and *Deny* are possible. |
 | anp[0].ingress[0].enabled | bool | false | Enable of disable this specific rule |
 | anp[0].ingress[0].peers | list | N/A | Peers is a list of matching rules. This can be: <br /> <ul>  <li> - namespaces: Select namespaces using labels or names</li>  <br />  <li> - pods: Select pods using labels for pods and namespaces </li> <br />  <li> - nodes: Select Nodes using match expressions</li>  <br />  <li> - networks: Select IP addresses using CIDR notation</li>  <br />  <li> - domainNames: Select domains using DNS notation</li>  <br /> </ul> See values.yaml for exmples |
-| anp[0].ingress[2].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> portEndNumber: if defining a range, set the last port number<br /> |
+| anp[0].ingress[2].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> If a port range shall be defined, use portStart and portEnd <br /> portStart: start port<br /> portEnd: End port<br /> |
 | banp[0].ingress | list | [] | Ingress is the list of Ingress rules to be applied to the selected pods. Therefore, the first rule will have the highest precedence. |
 
 ### Subject

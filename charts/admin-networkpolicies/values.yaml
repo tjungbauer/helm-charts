@@ -133,14 +133,19 @@ anp:
         # -- Ports is a list of matching rules. This can be: <br />
         # portNumber: Select a specific port number <br />
         # portName: Select a specific port name <br />
-        # portEndNumber: if defining a range, set the last port number<br />
+        # If a port range shall be defined, use portStart and portEnd <br />
+        # portStart: start port<br />
+        # portEnd: End port<br />
         # @section -- Ingress Rules
         # @default -- N/A
         ports:
           - protocol: TCP
             portNumber: 8080
-            portEndNumber: 8081
           - portName: https
+
+          - protocol: TCP
+            portStart: 30000
+            portEnd: 32767
 
       - name: pass-from-restricted-tenants
         enabled: true
@@ -194,7 +199,6 @@ anp:
         # -- Ports is a list of matching rules. This can be: <br />
         # portNumber: Select a specific port number <br />
         # portName: Select a specific port name <br />
-        # portEndNumber: if defining a range, set the last port number<br />
         # @section -- Egress Rules
         # @default -- N/A
         ports:

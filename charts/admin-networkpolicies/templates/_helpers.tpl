@@ -115,9 +115,12 @@
   - portNumber:
       protocol: {{ .protocol }}
       port: {{ .portNumber }}
-      {{- if .portEndNumber }}
-      endPort: {{ .portEndNumber }}
-      {{- end }}
+  {{- end }}
+  {{- if .portStart }}    
+  - portRange:
+      start: {{ .portStart }}
+      protocol: {{ .protocol }}
+      end: {{ .portEnd }}
   {{- end }}
   {{- /* PORT BY NAME */}}
   {{- if .portName }}
