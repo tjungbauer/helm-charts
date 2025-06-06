@@ -115,6 +115,9 @@
   - portNumber:
       protocol: {{ .protocol }}
       port: {{ .portNumber }}
+      {{- if .portEndNumber }}
+      endPort: {{ .portEndNumber }}
+      {{- end }}
   {{- end }}
   {{- /* PORT BY NAME */}}
   {{- if .portName }}

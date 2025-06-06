@@ -133,11 +133,13 @@ anp:
         # -- Ports is a list of matching rules. This can be: <br />
         # portNumber: Select a specific port number <br />
         # portName: Select a specific port name <br />
+        # portEndNumber: if defining a range, set the last port number<br />
         # @section -- Ingress Rules
         # @default -- N/A
         ports:
           - protocol: TCP
             portNumber: 8080
+            portEndNumber: 8081
           - portName: https
 
       - name: pass-from-restricted-tenants
@@ -192,11 +194,13 @@ anp:
         # -- Ports is a list of matching rules. This can be: <br />
         # portNumber: Select a specific port number <br />
         # portName: Select a specific port name <br />
+        # portEndNumber: if defining a range, set the last port number<br />
         # @section -- Egress Rules
         # @default -- N/A
         ports:
           - protocol: TCP
             portNumber: 80
+
           - portName: https
 
       - name: allow-to-kapi-server

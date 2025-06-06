@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
 
  
 
@@ -57,46 +57,35 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-ne
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| anp[0].egress | list | [] | Egress is the list of Egress rules to be applied to the selected pods.  A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written.  Therefore, the first rule will have the highest precedence. |
+| anp[0].egress | list | [] | Egress is the list of Egress rules to be applied to the selected pods. A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written. Therefore, the first rule will have the highest precedence. |
 | anp[0].egress[0] | object | N/A | Name of the egress rule |
 | anp[0].egress[0].enabled | bool | false | Enable of disable this specific rule |
 | anp[0].egress[0].peers | list | N/A | Peers is a list of matching rules. This can be: <br /> <ul>  <li> - namespaces: Select namespaces using labels or names</li>  <br />  <li> - pods: Select pods using labels for pods and namespaces </li> <br />  <li> - nodes: Select Nodes using match expressions</li>  <br />  <li> - networks: Select IP addresses using CIDR notation</li>  <br />  <li> - domainNames: Select domains using DNS notation</li>  <br /> </ul> See values.yaml for exmples |
-| anp[0].egress[0].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> |
-| banp[0].egress | list | [] | Egress is the list of Egress rules to be applied to the selected pods.  Therefore, the first rule will have the highest precedence. |
+| anp[0].egress[0].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> portEndNumber: if defining a range, set the last port number<br /> |
+| banp[0].egress | list | [] | Egress is the list of Egress rules to be applied to the selected pods. Therefore, the first rule will have the highest precedence. |
 
 ### Ingress Rules
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | anp[0].egress[0].action | string | Deny | Action for this rule, can be *Allow*, *Pass* or *Deny* for ANPs. For BANP only *Allow* and *Deny* are possible. |
-| anp[0].ingress | list | [] | Ingress is the list of Ingress rules to be applied to the selected pods.  A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written.  Therefore, the first rule will have the highest precedence. |
+| anp[0].ingress | list | [] | Ingress is the list of Ingress rules to be applied to the selected pods. A maximum of 100 rules can be defined per ANP. The priority of the rules will be determined by the order the rule is written. Therefore, the first rule will have the highest precedence. |
 | anp[0].ingress[0] | object | N/A | Name of the ingress rule |
 | anp[0].ingress[0].action | string | Deny | Action for this rule, can be *Allow*, *Pass* or *Deny* for ANPs. For BANP only *Allow* and *Deny* are possible. |
 | anp[0].ingress[0].enabled | bool | false | Enable of disable this specific rule |
 | anp[0].ingress[0].peers | list | N/A | Peers is a list of matching rules. This can be: <br /> <ul>  <li> - namespaces: Select namespaces using labels or names</li>  <br />  <li> - pods: Select pods using labels for pods and namespaces </li> <br />  <li> - nodes: Select Nodes using match expressions</li>  <br />  <li> - networks: Select IP addresses using CIDR notation</li>  <br />  <li> - domainNames: Select domains using DNS notation</li>  <br /> </ul> See values.yaml for exmples |
-| anp[0].ingress[2].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> |
-| banp[0].ingress | list | [] | Ingress is the list of Ingress rules to be applied to the selected pods.  Therefore, the first rule will have the highest precedence. |
+| anp[0].ingress[2].ports | list | N/A | Ports is a list of matching rules. This can be: <br /> portNumber: Select a specific port number <br /> portName: Select a specific port name <br /> portEndNumber: if defining a range, set the last port number<br /> |
+| banp[0].ingress | list | [] | Ingress is the list of Ingress rules to be applied to the selected pods. Therefore, the first rule will have the highest precedence. |
 
 ### Subject
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | anp[0].subject | object | N/A | Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection. Can be namespaces or pods that are selected. If subject is empty (subject: {}, then ALL namespaces, including OpenShift namespaces are selected. Use this with caution.<br /> *NOTE*: Below is a full example used for documentation only. Choose which subject works best for you. |
-| anp[0].subject.matchNamespaces | object | N/A | matchNamespaces is used to select pods via namespace selectors. |
-| anp[0].subject.matchNamespaces.matchExpressions | list | N/A | Select Namespaces using matchExpressions. The expression must be true. |
 | anp[0].subject.matchNamespaces.matchLabels | object | N/A | Select Namespaces using matchLabels. The labels must exist on the Namespace |
-| anp[0].subject.matchPods | list | N/A | matchPods is used to select pods via namespace selectors and pod selectors. |
-| anp[0].subject.matchPods[0] | object | N/A | Pods is used to select pods via namespace AND pod selectors. |
-| anp[0].subject.matchPods[0].pods.namespaceSelector | object | N/A | Select Pods for Namespaces using Namespace labels |
-| anp[0].subject.matchPods[0].pods.podSelector | object | N/A | Select Pods for Pod labels |
 | banp[0].subject | object | N/A | Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection. Can be namespaces or pods that are selected. If subject is empty (subject: {}, then ALL namespaces, including OpenShift namespaces are selected. Use this with caution.<br /> *NOTE*: Below is a full example used for documentation only. Choose which subject works best for you. |
 | banp[0].subject.matchNamespaces | object | N/A | matchNamespaces is used to select pods via namespace selectors. |
-| banp[0].subject.matchNamespaces.matchExpressions | list | N/A | Select Namespaces using matchExpressions. The expression must be true. |
 | banp[0].subject.matchNamespaces.matchLabels | object | N/A | Select Namespaces using matchLabels. The labels must exist on the Namespace |
-| banp[0].subject.matchPods | list | N/A | matchPods is used to select pods via namespace selectors and pod selectors. |
-| banp[0].subject.matchPods[0] | object | N/A | Pods is used to select pods via namespace AND pod selectors. |
-| banp[0].subject.matchPods[0].pods.namespaceSelector | object | N/A | Select Pods for Namespaces using Namespace labels |
-| banp[0].subject.matchPods[0].pods.podSelector | object | N/A | Select Pods for Pod labels |
 
 ### Generic - BANP
 
