@@ -118,6 +118,25 @@ spec:
     {{- end }}
     {{- end }}
   {{- end }}
-
-
+  {{- with .resources }}
+  resources:
+    {{- if .limits }}
+    limits:
+      {{- if .limits.cpu }}
+      cpu: {{ .limits.cpu }}
+      {{- end }}
+      {{- if .limits.memory }}
+      memory: {{ .limits.memory }}
+      {{- end }}
+    {{- end }}
+    {{- if .requests }}
+    requests:
+      {{- if .requests.cpu }}
+      cpu: {{ .requests.cpu }}
+      {{- end }}
+      {{- if .requests.memory }}
+      memory: {{ .requests.memory }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
 {{- end }}
