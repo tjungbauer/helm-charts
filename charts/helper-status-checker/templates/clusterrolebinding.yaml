@@ -6,7 +6,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ .serviceAccount.name }}-{{ .namespace.name }}
-  namespace: {{ .namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
   annotations:

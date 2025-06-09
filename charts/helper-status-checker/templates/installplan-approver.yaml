@@ -9,6 +9,7 @@ metadata:
   namespace: {{ .namespace.name | quote }}
   annotations:
     argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
@@ -36,6 +37,12 @@ spec:
               printf "\n\nProcessing subscription '$subscription'\n"
 
               installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
+
+              if [ -z "$installplan" ]; then
+                printf "\nNo InstallPlan found for subscription '$subscription'.\n"
+                printf "Please check if the name of the subscription is correct and if the operator and its installPlan have been created.\n"
+                exit 1
+              fi
 
               printf "\nCheck installplan approved status: "
 
