@@ -11194,6 +11194,55 @@ entries:
           description: added dependency tp tpl library
         - kind: added
           description: using tpl.sleeptimer now to prevent code repetition
+        - kind: fixed
+          description: removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-06-09T03:59:32.477036404Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 7dcc593c078a451bfc01bc7f0807bc1f7f9645ab9a5fa542c56c2d4fd9949f24
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-status-checker-4.0.14/helper-status-checker-4.0.14.tgz
+    version: 4.0.14
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        - kind: added
+          description: added new option subscriptionName in case the subscription name is different to the operator name
+        - kind: fixed
+          description: Wrong clusterrole for the installplan approver.
+        - kind: added
+          description: improved output for the installplan approver
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: using tpl.sleeptimer now to prevent code repetition
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -24718,4 +24767,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-06T11:46:03.214527795Z"
+generated: "2025-06-09T03:59:32.479185665Z"
