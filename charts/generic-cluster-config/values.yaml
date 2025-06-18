@@ -112,7 +112,7 @@ idp:
     # @default -- ''
     secretname_providerpage: customerproviderpage
 
-  # Define provider. Currently htpasswd and LDAP are supported
+  # Define provider. Currently htpasswd, google and LDAP are supported
   providers:
     # -- Enable IDP configuration. You can still disable them individually.
     # @default -- false
@@ -132,6 +132,33 @@ idp:
         # -- The name of the secret that holds the encrypted htpasswd information
         # @default -- htpasswd-secret
         secretname: htpasswd-secret
+
+    # -- Use GOOGLE provider.
+    # @default -- ''
+    google:
+        # -- Provide a name for that provider. This will be visible on the login page.
+        # @default -- sso
+      - name: sso
+
+        # -- Enable htpasswd?
+        # @default -- false
+        enabled: false
+
+        # -- The name of the secret that holds the encrypted google information
+        # @default -- google-secret
+        secretname: google-secret
+
+        # -- Client ID for the Google OAuth2.0
+        # @default -- ''
+        clientID: 'clientID'
+
+        # -- hosted domain that specifies the Google Apps domain that users must belong to in order to log in
+        # @default -- my.com
+        hostedDomain: 'my.com'
+
+        # -- Mapping method for the Google provider.
+        # @default -- claim
+        mappingMethod: claim
 
     # -- User LDAP provider.
     # @default -- ''

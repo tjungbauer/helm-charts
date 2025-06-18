@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.52](https://img.shields.io/badge/Version-1.0.52-informational?style=flat-square)
+  ![Version: 1.0.53](https://img.shields.io/badge/Version-1.0.53-informational?style=flat-square)
 
  
 
@@ -114,6 +114,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | idp.customloginpage.secretname_providerpage | string | '' | Name of the secret for the custom provider page (The page where you select the oauth providers) |
 | idp.enabled | bool | false | Enable IDP configuration |
 | idp.providers.enabled | bool | false | Enable IDP configuration. You can still disable them individually. |
+| idp.providers.google | list | '' | Use GOOGLE provider. |
+| idp.providers.google[0] | object | sso | Provide a name for that provider. This will be visible on the login page. |
+| idp.providers.google[0].clientID | string | '' | Client ID for the Google OAuth2.0 |
+| idp.providers.google[0].enabled | bool | false | Enable htpasswd? |
+| idp.providers.google[0].hostedDomain | string | my.com | hosted domain that specifies the Google Apps domain that users must belong to in order to log in |
+| idp.providers.google[0].mappingMethod | string | claim | Mapping method for the Google provider. |
+| idp.providers.google[0].secretname | string | google-secret | The name of the secret that holds the encrypted google information |
 | idp.providers.htpasswd | list | '' | Use HTPASSWD provider. |
 | idp.providers.htpasswd[0] | object | htpasswd | Provide a name for that provider. This will be visible on the login page. |
 | idp.providers.htpasswd[0].enabled | bool | false | Enable htpasswd? |

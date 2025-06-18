@@ -64,6 +64,21 @@ spec:
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- with .providers }}
+{{- range $key, $value := .google -}}
+{{ if eq ($value.enabled | toString) "true" }}
+  - google:
+      clientID: {{ .clientID | quote }}
+      clientSecret:
+        name: {{ .secretname | default "google-secret" }}
+      hostedDomain: {{ .hostedDomain | default "my.com" | quote }}
+    mappingMethod: {{ .mappingMethod | default "claim" | quote }}
+    name: {{ .name | default "sso" | quote }}
+    type: Google
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
