@@ -289,3 +289,6 @@ keycloak:
     # @section -- keycloak
     # @default -- []
     enabled: []
+
+  # -- specify resource requests and limits here
+  resources: {}
