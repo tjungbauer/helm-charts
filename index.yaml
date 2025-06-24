@@ -21502,6 +21502,57 @@ entries:
           description: alow to configure Scanner for SecuredCluster
         - kind: added
           description: allowing definition of declerativeConfiguration configMaps
+        - kind: added
+          description: added support to enable scanner V4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-06-24T15:25:09.892367265Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: 899dade020c2865bfc7c7b32ed5c38aff3f1950f5b5ae7f73e3cbdc3c70e1736
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.34/rhacs-setup-1.0.34.tgz
+    version: 1.0.34
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added Readme
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: fixed
+          description: documented missing centralEndpoint setting
+        - kind: added
+          description: using common tpl chart for reusablility
+        - kind: added
+          description: added option to define nodeSelector for all components
+        - kind: added
+          description: alow to configure Scanner for SecuredCluster
+        - kind: added
+          description: allowing definition of declerativeConfiguration configMaps
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -25009,4 +25060,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-23T03:34:25.846742109Z"
+generated: "2025-06-24T15:25:09.893430148Z"
