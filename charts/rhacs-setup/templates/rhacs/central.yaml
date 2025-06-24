@@ -131,6 +131,9 @@ spec:
   egress:
     connectivityPolicy: {{ .Values.rhacs.central.egress.connectivityPolicy | default "Online" }}
 
+  scannerV4:
+    scannerComponent: {{ .Values.rhacs.scannerV4 | default "Default" }}
+
   {{- /* SCANNER */}}
   {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
   scanner:

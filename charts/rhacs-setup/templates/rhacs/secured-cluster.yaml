@@ -121,4 +121,7 @@ spec:
       collection: EBPF
       imageFlavor: Regular
     taintToleration: TolerateTaints
+
+  scannerV4:
+    scannerComponent: {{ .Values.rhacs.secured_cluster.scannerV4 | default "Default" }}
 {{- end }}

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.33
+version: 1.0.34
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -42,3 +42,5 @@ annotations:
       description: alow to configure Scanner for SecuredCluster
     - kind: added
       description: allowing definition of declerativeConfiguration configMaps
+    - kind: added
+      description: added support to enable scanner V4
