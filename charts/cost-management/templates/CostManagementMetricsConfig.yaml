@@ -40,7 +40,7 @@ spec:
     check_cycle: {{ .source_check_cycle | default 1440 }}
     create_source: {{ .source_create_source | default "true" }}
     name: {{ .clustername | default "mycluster" }}
-    sources_path: {{ .sources_path | default "/api/sources/v1.0" }}
+    sources_path: {{ .sources_path | default "/api/sources/v1.0/" }}
   {{- end }}
   upload:
     upload_cycle: {{ .upload_cycle | default 360 }}

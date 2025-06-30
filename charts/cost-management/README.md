@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
+  ![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square)
 
  
 
@@ -57,7 +57,6 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | costmgmt.airgapped | bool | false | Is the cluster running in an airgapped or disconnected environment, we cannot upload the cost management data. If set to true upload_toggle will be set to false autoamatically. |
-| costmgmt.auth_secret | string | `"mysecret"` | The secret with the user and password used for uploads. |
 | costmgmt.auth_type | string | token | Authentication: Valid values are:  - "basic" (deprecated) : Enables authentication using user and password from authentication secret.  - "service-account" : Enables authentication using client_id and client_secret from the secret containing service account information.  - "token" (default): Uses cluster token for authentication. If the cluster is running in airgapped mode, then these settings can be ignored. |
 | costmgmt.clustername | string | "mycluster" | The name of the cluster. |
 | costmgmt.enabled | bool | false | Enable or disable the configuration of the cost management operator |
@@ -72,7 +71,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 | costmgmt.promconfig_skip_tls_verification | string | false | Skip TLS verification to thanos-querier endpoint. |
 | costmgmt.source_check_cycle | int | `1440` | The cycle to check the source. @default - 1440 |
 | costmgmt.source_create_source | bool | true | Whether or not the operator will create the source. |
-| costmgmt.sources_path | string | "/api/sources/v1.0" | The path to the sources API. |
+| costmgmt.sources_path | string | "/api/sources/v1.0/" | The path to the sources API. |
 | costmgmt.upload_cycle | int | 360 | Represents the number of minutes between each upload schedule. |
 | costmgmt.upload_toggle | bool | true | If `false`, the operator will not upload to console.redhat.com or check/create sources. |
 | costmgmt.upload_validate_cert | bool | true | Whether or not the operator will validate the certificate of upload target. |

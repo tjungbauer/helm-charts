@@ -46,8 +46,8 @@ costmgmt:
   clustername: "mycluster"
 
   # -- The path to the sources API.
-  # @default -- "/api/sources/v1.0"
-  sources_path: "/api/sources/v1.0"
+  # @default -- "/api/sources/v1.0/"
+  sources_path: "/api/sources/v1.0/"
 
   # -- Authentication: Valid values are:
   #  - "basic" (deprecated) : Enables authentication using user and password from authentication secret.
@@ -58,7 +58,8 @@ costmgmt:
   auth_type: token
 
   # -- The secret with the user and password used for uploads.
-  auth_secret: mysecret
+  # @default -- ''
+  # auth_secret: mysecret
 
   # Prometheus Configuration
   # -- Represents whether or not the operator will gather previous data upon CostManagementMetricsConfig creation.
