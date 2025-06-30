@@ -95,6 +95,24 @@ operators:
           - name: SECOND_ENV_PARAMETER
             value: 'true'
 
+        # -- Optionally set trusted CA bundle for the Operator.
+        trustedCA:
+          # -- Enable or disable the trusted CA bundle for the Operator.
+          # @default -- false
+          enabled: false
+
+          # -- Name of the ConfigMap containing the CA bundle.
+          # @default -- "trusted-ca-bundle"
+          configMap: trusted-ca-bundle
+
+          # -- Key of the CA bundle in the ConfigMap.
+          # @default -- "ca-bundle.crt"
+          configMapKey: ca-bundle.crt
+
+          # -- Path of the CA bundle in the ConfigMap.
+          # @default -- "ca-bundle.crt"
+          configMapPath: ca-bundle.crt
+
         # -- Optionally set resources (limits/requests) for the Operator.
         # @default -- ""
         resources:

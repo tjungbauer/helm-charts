@@ -39,6 +39,23 @@ spec:
       {{- toYaml $value.subscription.config.env | nindent 6 }}
     {{- end }}
 
+    {{- /* mount additional volumes for certificates for the Operator */}}
+    {{- if $value.subscription.config.trustedCA }}
+    {{- if eq ( $value.subscription.config.trustedCA.enabled | toString) "true" }}
+    volumeMounts:
+      - name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
+        mountPath: /etc/pki/ca-trust/extracted/pem
+        readOnly: true
+    volumes:
+      - name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
+        configMap:
+          name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
+          items:
+            - key: {{ $value.subscription.config.trustedCA.configMapKey | default "ca-bundle.crt" }}
+              path: {{ $value.subscription.config.trustedCA.configMapPath | default "ca-bundle.crt" }}
+    {{- end }}
+    {{- end }}
+
     {{- /* Define resource limits and requests for the Operator */}}
     {{- if $value.subscription.config.resources }}
 {{ include "tpl.resources" $value.subscription.config.resources | indent 4 }}

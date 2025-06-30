@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
-version: 1.0.28
+version: 1.0.29
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -38,3 +38,5 @@ annotations:
       description: added dependency tp tpl library
     - kind: added
       description: switching some snippets to use global tpl
+    - kind: added
+      description: added trustedCA configuration for the Operator
