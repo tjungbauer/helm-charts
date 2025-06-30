@@ -19,7 +19,9 @@ spec:
   authentication:
     token_url: "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
     type: {{ .auth_type | default "token" }}
+    {{- if .auth_secret }}
     secret_name: {{ .auth_secret }}
+    {{- end }}
   {{- end }}
   packaging:
     max_reports_to_store: {{ .max_reports_to_store | default 30 }}
@@ -33,14 +35,21 @@ spec:
     skip_tls_verification: {{ .promconfig_skip_tls_verification | default "false" }}
   {{- if eq ( .airgapped | toString) "true" }}
   source: {}
+  {{- else }}
+  source:
+    check_cycle: {{ .source_check_cycle | default 1440 }}
+    create_source: {{ .source_create_source | default "true" }}
+    name: {{ .clustername | default "mycluster" }}
+    sources_path: {{ .sources_path | default "/api/sources/v1.0" }}
   {{- end }}
   upload:
     upload_cycle: {{ .upload_cycle | default 360 }}
     {{- if eq ( .airgapped | toString) "true" }}
     upload_toggle: false
     {{- else }}
-    upload_toggle: true
+    upload_toggle: {{ .upload_toggle | default "true" }}
     {{- end }}
+    validate_cert: {{ .upload_validate_cert | default "true" }}
 {{- end }}
 {{- end }}
 {{- end }}

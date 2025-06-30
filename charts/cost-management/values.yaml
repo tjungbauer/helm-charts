@@ -9,8 +9,9 @@ costmgmt:
   name: costmanagementmetricscfg
 
   # -- Is the cluster running in an airgapped or disconnected environment, we cannot upload the cost management data.
+  # If set to true upload_toggle will be set to false autoamatically.
   # @default -- false
-  airgapped: true
+  airgapped: false
 
   # -- Represents the maximum number of reports to store. The default is 30 reports which corresponds to approximately 7 days worth of data given the other default values.
   # @default -- 30
@@ -26,7 +27,27 @@ costmgmt:
 
   # -- If `false`, the operator will not upload to console.redhat.com or check/create sources.
   # @default -- true
-  upload_toggle: false
+  upload_toggle: true
+
+  # -- Whether or not the operator will validate the certificate of upload target.
+  # @default -- true
+  upload_validate_cert: true
+
+  # -- The cycle to check the source.
+  # @default - 1440
+  source_check_cycle: 1440
+
+  # -- Whether or not the operator will create the source.
+  # @default -- true
+  source_create_source: true
+
+  # -- The name of the cluster.
+  # @default -- "mycluster"
+  clustername: "mycluster"
+
+  # -- The path to the sources API.
+  # @default -- "/api/sources/v1.0"
+  sources_path: "/api/sources/v1.0"
 
   # -- Authentication: Valid values are:
   #  - "basic" (deprecated) : Enables authentication using user and password from authentication secret.
