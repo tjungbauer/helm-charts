@@ -39,3 +39,4 @@ Chart.lock
 
 *.tgz
 
+test-chart/

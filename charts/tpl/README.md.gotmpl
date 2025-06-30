@@ -1,9 +1,21 @@
 {{ template "doc.header" . }}
 
-This Helm Chart is a library of reusable template, like tolerations or resources. 
-Instead of defining them in other Charts multiple times, it is possible to simply include the template.
 
-The template "tpl.sleeptimer" is a simple template that can be used for Job to print our a timer.
+The tpl chart is a Helm library chart that provides reusable templates for common Kubernetes configurations. It currently includes templates for:
+
+* Tolerations
+* Resource requests/limits
+* Node selectors
+* Service accounts
+* Labels and selectors
+* Namespace annotations
+* Additional annotations/labels
+* Match expressions/labels
+* Sleep timer for jobs
+* security context
+* Pod security context
+
+Instead of defining them in other Charts multiple times, it is possible to simply include the template.
 
 {{ template "doc.deps" . }}
 

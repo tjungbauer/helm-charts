@@ -109,3 +109,29 @@ matchExpressions:
       - "openshift*"
       - "default"
       - "kubde-info"
+
+
+# -- Security context configuration for containers
+# <br />
+# Example include:
+# {{- if .Values.securityContext }}
+# {{ include "tpl.securityContext" .Values.securityContext | indent 2 }}
+# {{- end }}
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+
+# -- Pod-level security context
+# <br />
+# Example include:
+# {{- if .Values.podSecurityContext }}
+# {{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 2 }}
+# {{- end }}
+podSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 3001
+  fsGroup: 2001
+  runAsNonRoot: true

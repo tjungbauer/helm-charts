@@ -32,3 +32,12 @@
 {{- if .Values.namespace.display }}
   {{- include "tpl.namespaceDisplay" .Values.namespace.display | nindent 0 }}
 {{- end }}
+
+{{- /* Set securityContext */}}
+{{- if .Values.securityContext }}
+  {{ include "tpl.securityContext" .Values.securityContext | indent 0 }}
+{{- end }}
+
+{{- if .Values.podSecurityContext }}
+{{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 6 }}
+{{- end }}

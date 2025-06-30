@@ -1,5 +1,5 @@
 {{/*
-Set a nodeSelctor
+Set a nodeSelector
 
 Example for resources in the values-file:
       nodeSelector:
