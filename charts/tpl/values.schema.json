@@ -3,6 +3,34 @@
   "type": "object",
   "title": "TPL Library Chart Values Schema",
   "description": "Schema for validating values used with the TPL library chart templates",
+  "definitions": {
+    "kubernetesName": {
+      "type": "string",
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+      "maxLength": 63,
+      "description": "A valid Kubernetes resource name"
+    },
+    "kubernetesNamespace": {
+      "type": "string",
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+      "maxLength": 63,
+      "description": "A valid Kubernetes namespace name"
+    },
+    "availabilityValue": {
+      "oneOf": [
+        { 
+          "type": "integer", 
+          "minimum": 0,
+          "description": "Absolute number of pods"
+        },
+        { 
+          "type": "string", 
+          "pattern": "^[0-9]+%$",
+          "description": "Percentage of pods (e.g., '25%')"
+        }
+      ]
+    }
+  },
   "properties": {
     "tolerations": {
       "type": "array",
@@ -185,6 +213,118 @@
           }
         }
       }
+    },
+    "podDisruptionBudget": {
+      "type": "object",
+      "title": "Pod Disruption Budget Configuration",
+      "description": "Configures a PodDisruptionBudget to limit voluntary disruptions. You must specify either 'minAvailable' OR 'maxUnavailable', but not both.",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/kubernetesName",
+          "description": "Name of the PodDisruptionBudget resource"
+        },
+        "namespace": {
+          "$ref": "#/definitions/kubernetesNamespace",
+          "description": "Namespace for the PodDisruptionBudget resource (defaults to 'default' if not specified)"
+        },
+        "additionalAnnotations": {
+          "type": "object",
+          "description": "Additional annotations to add to the PodDisruptionBudget resource",
+          "patternProperties": {
+            "^[a-zA-Z0-9._/-]+$": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalLabels": {
+          "type": "object",
+          "description": "Additional labels to add to the PodDisruptionBudget resource",
+          "patternProperties": {
+            "^[a-zA-Z0-9._/-]+$": {
+              "type": "string"
+            }
+          }
+        },
+        "minAvailable": {
+          "$ref": "#/definitions/availabilityValue",
+          "description": "Minimum number of pods that must be available during disruption. Cannot be used together with maxUnavailable."
+        },
+        "maxUnavailable": {
+          "$ref": "#/definitions/availabilityValue",
+          "description": "Maximum number of pods that can be unavailable during disruption. Cannot be used together with minAvailable."
+        },
+        "matchLabels": {
+          "type": "object",
+          "description": "Map of {key,value} pairs for pod selection",
+          "patternProperties": {
+            "^[a-zA-Z0-9._/-]+$": {
+              "type": "string"
+            }
+          }
+        },
+        "matchExpressions": {
+          "type": "array",
+          "description": "List of label selector requirements for pod selection",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": { 
+                "type": "string",
+                "description": "Label key that the selector applies to"
+              },
+              "operator": { 
+                "type": "string", 
+                "enum": ["In", "NotIn", "Exists", "DoesNotExist"],
+                "description": "Represents a key's relationship to a set of values"
+              },
+              "values": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Array of string values (required for In and NotIn operators)"
+              }
+            },
+            "required": ["key", "operator"],
+            "if": {
+              "properties": {
+                "operator": { "enum": ["In", "NotIn"] }
+              }
+            },
+            "then": {
+              "required": ["values"],
+              "properties": {
+                "values": {
+                  "minItems": 1,
+                  "description": "Values array is required and must not be empty when using 'In' or 'NotIn' operators"
+                }
+              }
+            }
+          }
+        },
+        "unhealthyPodEvictionPolicy": {
+          "type": "string",
+          "enum": ["IfHealthyBudget", "AlwaysAllow"],
+          "default": "AlwaysAllow",
+          "description": "Policy for evicting unhealthy pods. IfHealthyBudget means that running pods that are not healthy will be evicted only if the guarded application has met the PDB. AlwaysAllow means that all running pods will be evicted."
+        }
+      },
+      "required": ["name"],
+      "allOf": [
+        {
+          "not": {
+            "allOf": [
+              { "required": ["minAvailable"] },
+              { "required": ["maxUnavailable"] }
+            ]
+          }
+        },
+        {
+          "anyOf": [
+            { "required": ["minAvailable"] },
+            { "required": ["maxUnavailable"] }
+          ]
+        }
+      ],
+      "additionalProperties": false
     },
     "namespace": {
       "type": "object",

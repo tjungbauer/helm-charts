@@ -35,6 +35,7 @@ resources:
     cpu: 8
     memory: 16
     ephemeral-storage: 500
+    nvidia: 1
 
 nodeSelector:
   key: node-role.kubernetes.io/infra
@@ -135,3 +136,34 @@ podSecurityContext:
   runAsGroup: 3001
   fsGroup: 2001
   runAsNonRoot: true
+
+# -- PodDisruptionBudget
+# <br />
+# Example include:
+# {{- if .Values.podDisruptionBudget }}
+# {{ include "tpl.podDisruptionBudget" .Values.podDisruptionBudget | indent 2 }}
+# {{- end }}
+podDisruptionBudget:
+  name: "test-pdb"
+  namespace: "test-namespace"
+  additionalAnnotations:
+    test-annotation: "test-annotation"
+  additionalLabels:
+    test-label: "test-label"
+  minAvailable: 1
+# maxUnavailable and minAvailable are mutually exclusive
+#  maxUnavailable: 1
+  matchLabels:
+    app: test-app
+    vendor: test-vendor
+  matchExpressions:
+    - key: app
+      operator: In
+      values:
+        - test-app
+        - test-app-2
+    - key: vendor
+      operator: In
+      values:
+        - test-vendor
+  unhealthyPodEvictionPolicy: "AlwaysAllow"

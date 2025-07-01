@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.19](https://img.shields.io/badge/Version-1.0.19-informational?style=flat-square)
+  ![Version: 1.0.20](https://img.shields.io/badge/Version-1.0.20-informational?style=flat-square)
 
  
 
@@ -63,8 +63,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 | namespaceSelector | object | `{"matchLabels":{"kubernetes.io/metadata.name":"openshift-dns"}}` | Define a NamespaceSelector and the required labels <br /> Example include (used in chart admin-networkpolicies)  spec:  subject:    {{- if .subject.namespaces }}    namespaces:      {{- if .subject.namespaces.matchExpressions }}      matchExpressions:        {{- range .subject.namespaces.matchExpressions }}        {{- include "tpl.matchExpressions" . | indent 4 }}        {{- end }}      {{- end }}      {{- if .subject.namespaces.matchLabels }}      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}      {{- end }}    {{- end }} |
 | nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
 | nodeSelector.value | string | `""` |  |
+| podDisruptionBudget | object | `{"additionalAnnotations":{"test-annotation":"test-annotation"},"additionalLabels":{"test-label":"test-label"},"matchExpressions":[{"key":"app","operator":"In","values":["test-app","test-app-2"]},{"key":"vendor","operator":"In","values":["test-vendor"]}],"matchLabels":{"app":"test-app","vendor":"test-vendor"},"minAvailable":1,"name":"test-pdb","namespace":"test-namespace","unhealthyPodEvictionPolicy":"AlwaysAllow"}` | PodDisruptionBudget <br /> Example include: {{- if .Values.podDisruptionBudget }} {{ include "tpl.podDisruptionBudget" .Values.podDisruptionBudget | indent 2 }} {{- end }} |
 | podSecurityContext | object | `{"fsGroup":2001,"runAsGroup":3001,"runAsNonRoot":true,"runAsUser":1001}` | Pod-level security context <br /> Example include: {{- if .Values.podSecurityContext }} {{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 2 }} {{- end }} |
-| resources | object | `{"limits":{"cpu":8,"ephemeral-storage":500,"memory":16},"requests":{"cpu":4,"ephemeral-storage":50,"memory":8}}` | If you want to define resources <br /> Example include: {{- if .Values.resources }} {{ include "tpl.resources" .Values.resources  | indent 0 }} {{- end }} |
+| resources | object | `{"limits":{"cpu":8,"ephemeral-storage":500,"memory":16,"nvidia":1},"requests":{"cpu":4,"ephemeral-storage":50,"memory":8}}` | If you want to define resources <br /> Example include: {{- if .Values.resources }} {{ include "tpl.resources" .Values.resources  | indent 0 }} {{- end }} |
 | securityContext | object | `{"fsGroup":2000,"readOnlyRootFilesystem":true,"runAsGroup":3000,"runAsNonRoot":true,"runAsUser":1000}` | Security context configuration for containers <br /> Example include: {{- if .Values.securityContext }} {{ include "tpl.securityContext" .Values.securityContext | indent 2 }} {{- end }} |
 | tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","tolerationSeconds":600,"value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","tolerationSeconds":600,"value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. <br /> Example include: {{- if .Values.tolerations }} {{ include "tpl.tolerations" .Values.tolerations  | indent 0 }} {{- end }} |
 

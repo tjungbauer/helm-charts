@@ -23,12 +23,15 @@ resources:
     cpu: {{ .limits.cpu }}
     {{- end }}
     {{- if .limits.memory }}
-    {{- $memory := include "appendUnit" .limits.memory }}
+    {{- $memory := include "tpl.appendUnit" .limits.memory }}
     memory: {{ $memory }}
     {{- end }}
     {{- if index .limits "ephemeral-storage" }}
-    {{- $ephemeral_storage := include "appendUnit" (index .limits "ephemeral-storage") }}
+    {{- $ephemeral_storage := include "tpl.appendUnit" (index .limits "ephemeral-storage") }}
     ephemeral-storage: {{ $ephemeral_storage }}
+    {{- end }}
+    {{- if .limits.nvidia }}
+    nvidia.com/gpu: {{ .limits.nvidia }}
     {{- end }}
   {{- end }}
   {{- if .requests }}
@@ -37,11 +40,11 @@ resources:
     cpu: {{ .requests.cpu }}
     {{- end }}
     {{- if .requests.memory }}
-    {{- $memory := include "appendUnit" .requests.memory }}
+    {{- $memory := include "tpl.appendUnit" .requests.memory }}
     memory: {{ $memory }}
     {{- end }}
     {{- if index .requests "ephemeral-storage" }}
-    {{- $ephemeral_storage := include "appendUnit" (index .requests "ephemeral-storage") }}
+    {{- $ephemeral_storage := include "tpl.appendUnit" (index .requests "ephemeral-storage") }}
     ephemeral-storage: {{ $ephemeral_storage }}
     {{- end }}
   {{- end }}
@@ -50,7 +53,7 @@ resources:
 {{/*
 Append the unit Gi if it is not set for memory or storage
 */}}
-{{- define "appendUnit" -}}
+{{- define "tpl.appendUnit" -}}
 {{/* Treat the value as a string */}}
 {{- $val := printf "%v" . -}}
   {{- if not (hasSuffix "Gi" $val) -}}
