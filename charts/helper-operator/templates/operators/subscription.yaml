@@ -8,9 +8,9 @@ metadata:
   namespace: {{ $value.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "helper-operator.labels" $value | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "0" | quote }}
+    {{- include "helper-operator.annotations" $value | nindent 4 }}
 spec:
   {{- /* Main settings for the Operator */}}
   channel: {{ $value.subscription.channel | default "stable" | quote }}
@@ -20,48 +20,8 @@ spec:
   sourceNamespace: {{ $value.subscription.sourceNamespace | default "openshift-marketplace" | quote }}
 
   {{- /* additional and optional settings for the Operator */}}
-  {{- if $value.subscription.config }}
-  config:
-    {{- /* Define a nodeSelector if required */}}
-    {{- if $value.subscription.config.nodeSelector }}
-    nodeSelector:
-      {{ $value.subscription.config.nodeSelector.key }}: {{ $value.subscription.config.nodeSelector.value | quote }}
-    {{- end }}
+  {{- include "helper-operator.subscription.config" $value.subscription | nindent 2 }}
 
-    {{- /* Define required tolerations */}}
-    {{- if $value.subscription.config.tolerations }}
-{{ include "tpl.tolerations" $value.subscription.config.tolerations | indent 4 }}
-    {{- end }}
-    {{- if $value.subscription.config.env }}
-
-    {{- /* Define additional environment variables, that might configure the Operator */}}
-    env:
-      {{- toYaml $value.subscription.config.env | nindent 6 }}
-    {{- end }}
-
-    {{- /* mount additional volumes for certificates for the Operator */}}
-    {{- if $value.subscription.config.trustedCA }}
-    {{- if eq ( $value.subscription.config.trustedCA.enabled | toString) "true" }}
-    volumeMounts:
-      - name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
-        mountPath: /etc/pki/ca-trust/extracted/pem
-        readOnly: true
-    volumes:
-      - name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
-        configMap:
-          name: {{ $value.subscription.config.trustedCA.configMap | default "trusted-ca-bundle" }}
-          items:
-            - key: {{ $value.subscription.config.trustedCA.configMapKey | default "ca-bundle.crt" }}
-              path: {{ $value.subscription.config.trustedCA.configMapPath | default "ca-bundle.crt" }}
-    {{- end }}
-    {{- end }}
-
-    {{- /* Define resource limits and requests for the Operator */}}
-    {{- if $value.subscription.config.resources }}
-{{ include "tpl.resources" $value.subscription.config.resources | indent 4 }}
-    {{- end }}
-
-  {{- end }}
 {{- if $value.subscription.csv }}
   startingCSV: {{ $value.subscription.csv }}
 {{- end }}

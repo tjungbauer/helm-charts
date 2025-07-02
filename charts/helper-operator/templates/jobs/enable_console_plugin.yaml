@@ -5,13 +5,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: enable-console-plugin-{{ randAlphaNum 5 | lower }}
-  namespace: {{ .Values.console_plugins.job_namespace | default "openshift-gitops" }}
-  annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .Values.console_plugins.syncwave | default 5 | quote }}
+  namespace: {{ .Values.console_plugins.job_namespace | default "kube-system" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "helper-operator.labels" .Values.console_plugins | nindent 4 }}
+  annotations:
+    {{- include "helper-operator.job.annotations" .Values.console_plugins | nindent 4 }}
 spec:
   selector: {}
   template:
@@ -26,30 +25,32 @@ spec:
             - -c
             - |
               #!/usr/bin/env bash
-
-              # Patch console.operator
-              # Be sure to keep the "/-" at the end of the path
-
+          
+              set -euo pipefail  # Add error handling
+              
+              # More efficient plugin check and update
+              
               new_values=({{ join " " .Values.console_plugins.plugins }})
-
+              
+              current_plugins=$(oc get console.operator cluster -o jsonpath='{.spec.plugins}' 2>/dev/null || echo "[]")
+              
               for value in "${new_values[@]}"; do
-
-                verify_if_plugin_is_configured=`oc get console.operator cluster -o jsonpath='{.spec.plugins}' | grep $value`
-
-                if [ $? -eq 0 ]; then
-
-                  echo "Plugin $value is already configured. (Plugins: $verify_if_plugin_is_configured)"
-
+              
+                if echo "$current_plugins" | grep -q "\"$value\""; then
+              
+                  echo "Plugin $value is already configured."
+              
                 else
-
-                  echo "Plugin $value is not yet configured ... adding it to the list"
-
-                  oc patch console.operator cluster --type json -p '[{"op": "add", "path": "/spec/plugins/-", "value": "'$value'" }]'
-
+              
+                  echo "Adding plugin $value..."
+              
+                  oc patch console.operator cluster --type json -p "[{\"op\": \"add\", \"path\": \"/spec/plugins/-\", \"value\": \"$value\"}]"
+              
                   echo "Plugin $value has been added"
-                fi
-              done
 
+                fi
+
+              done
       restartPolicy: Never
       serviceAccountName: enable-console-plugin-sa
 {{- end }}

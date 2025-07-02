@@ -13,11 +13,11 @@ console_plugins:
 
   # -- List of console plugins to configure. Each list item will be added to the OpenShift UI.
   # @default -- empty
-  plugins:
-    - console-plugin-name
+  plugins: []
+  #  - console-plugin-name
 
   # -- Optional: Namespace where kubernetes job shall be executed.
-  # @default -- openshift-gitops
+  # @default -- kube-system
   job_namespace: kube-system
 
   # -- Optional: Name of the service account that will execute the Job.
@@ -32,6 +32,16 @@ console_plugins:
   # @default -- enable-console-plugin-crb
   job_service_account_crb: enable-console-plugin-crb
 
+  # -- Additional labels to add to the instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels to add to the instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalLabels: {}
+
 # -- Define operators that you want to deploy. A key/value setup is used here.
 # Each new operator is a new key (in this example "my-operator")
 # @default -- ""
@@ -44,6 +54,20 @@ operators:
     # -- Syncwave for the operator deployment
     # @default -- 0
     syncwave: 0
+
+    # -- Additional labels to add to the instance as key: value pairs.
+    # @section -- namespace
+    # @default -- {}
+    additionalAnnotations: {}
+    #  additionalAnnotation1: "My Annotation"
+    #  additionalAnnotation2: "My Annotation 2"
+
+    # -- Additional labels to add to the instance as key: value pairs.
+    # @section -- namespace
+    # @default -- {}
+    additionalLabels: {}
+    #  additionalLabel1: "My Label"
+    #  additionalLabel2: "My Label 2"
 
     namespace:
       # -- The Namespace the Operator should be installed in.
@@ -90,8 +114,8 @@ operators:
         # -- Additional environment parameter, as a list: name/value
         # @default -- ""
         env:
-          - name: FIRST_ENV_PARAMENTER
-            value: ThisIsRequierd
+          - name: FIRST_ENV_PARAMETER
+            value: ThisIsRequired
           - name: SECOND_ENV_PARAMETER
             value: 'true'
 

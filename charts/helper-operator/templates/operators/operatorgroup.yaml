@@ -9,9 +9,9 @@ metadata:
   namespace: {{ $value.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "helper-operator.labels" $value | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "0" | quote }}
+    {{- include "helper-operator.annotations" $value | nindent 4 }}
 {{- /* Configure the operatorgroup for all Namespaces or for the "Home" namespace */ -}}
 {{- if $value.operatorgroup.notownnamespace }}
 spec: {}

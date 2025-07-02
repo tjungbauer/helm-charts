@@ -5,12 +5,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ .Values.console_plugins.job_service_account_crb | default "enable-console-plugin-crb" }}
-  annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 5 | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "helper-operator.labels" .Values.console_plugins | nindent 4 }}
+  annotations:
+    {{- include "helper-operator.job.annotations" .Values.console_plugins | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -18,6 +17,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ .Values.console_plugins.job_service_account | default "enable-console-plugin-sa" }}
-    namespace: {{ .Values.console_plugins.job_namespace | default "openshift-gitops" }}
+    namespace: {{ .Values.console_plugins.job_namespace | default "kube-system" }}
 {{- end }}
 {{- end }}

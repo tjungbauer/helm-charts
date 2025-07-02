@@ -5,12 +5,11 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: {{ .Values.console_plugins.job_service_account | default "enable-console-plugin-sa" }}
-  namespace: {{ .Values.console_plugins.job_namespace | default "openshift-gitops" }}
-  annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 5 | quote }}
+  namespace: {{ .Values.console_plugins.job_namespace | default "kube-system" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "helper-operator.labels" .Values.console_plugins | nindent 4 }}
+  annotations:
+    {{- include "helper-operator.job.annotations" .Values.console_plugins | nindent 4 }}
 {{- end }}
 {{- end }}

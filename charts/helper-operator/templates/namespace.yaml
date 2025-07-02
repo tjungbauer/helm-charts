@@ -8,10 +8,10 @@ kind: Namespace
 metadata:
   name: {{ $value.namespace.name | quote }}
   labels:
-    openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
-  {{- if or ($value.namespace.descr) ($value.namespace.displayname) }}
+    {{- include "helper-operator.namespace.labels" $value | nindent 4 }}
   annotations:
+  {{- if or ($value.namespace.descr) ($value.namespace.displayname) }}
     {{- if $value.namespace.descr }}
     openshift.io/description: {{ $value.namespace.descr }}
     {{- end }}
