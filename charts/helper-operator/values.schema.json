@@ -1,0 +1,426 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Helper Operator Chart Values Schema",
+  "description": "Schema for validating values used with the helper-operator chart for deploying OpenShift operators",
+  "definitions": {
+    "kubernetesName": {
+      "type": "string",
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+      "maxLength": 63,
+      "minLength": 1,
+      "description": "A valid Kubernetes resource name (RFC 1123 compliant)"
+    },
+    "kubernetesNamespace": {
+      "type": "string",
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
+      "maxLength": 63,
+      "minLength": 1,
+      "description": "A valid Kubernetes namespace name"
+    },
+    "resourceQuantity": {
+      "type": ["string", "number"],
+      "description": "Kubernetes resource quantity (e.g., '100m', '1Gi', or numeric values)"
+    },
+    "syncwave": {
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100,
+      "description": "ArgoCD sync wave for resource ordering"
+    },
+    "environmentVariable": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Z_][A-Z0-9_]*$",
+          "description": "Environment variable name (uppercase with underscores)"
+        },
+        "value": {
+          "type": "string",
+          "description": "Environment variable value"
+        }
+      },
+      "required": ["name", "value"],
+      "additionalProperties": false
+    },
+    "toleration": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Taint key that the toleration matches"
+        },
+        "operator": {
+          "type": "string",
+          "enum": ["Exists", "Equal"],
+          "default": "Equal",
+          "description": "Operator represents a key's relationship to the value"
+        },
+        "value": {
+          "type": "string",
+          "description": "Taint value that the toleration matches (required if operator is Equal)"
+        },
+        "effect": {
+          "type": "string",
+          "enum": ["NoSchedule", "PreferNoSchedule", "NoExecute"],
+          "description": "Effect indicates the taint effect to match"
+        },
+        "tolerationSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Period of time the toleration tolerates the taint"
+        }
+      },
+      "required": ["key", "operator", "effect"],
+      "if": {
+        "properties": { "operator": { "const": "Equal" } }
+      },
+      "then": {
+        "required": ["value"]
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "console_plugins": {
+      "type": "object",
+      "description": "Configure console plugins for OpenShift UI",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable console plugin configuration"
+        },
+        "syncwave": {
+          "$ref": "#/definitions/syncwave",
+          "default": 5,
+          "description": "Syncwave for console plugin configuration"
+        },
+        "plugins": {
+          "type": "array",
+          "description": "List of console plugins to configure",
+          "items": {
+            "$ref": "#/definitions/kubernetesName",
+            "description": "Console plugin name"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 50
+        },
+        "job_namespace": {
+          "$ref": "#/definitions/kubernetesNamespace",
+          "default": "kube-system",
+          "description": "Namespace where the console plugin job will be executed"
+        },
+        "job_service_account": {
+          "$ref": "#/definitions/kubernetesName",
+          "default": "enable-console-plugin-sa",
+          "description": "Service account name for the console plugin job"
+        },
+        "job_service_account_role": {
+          "$ref": "#/definitions/kubernetesName",
+          "default": "enable-console-plugin-role",
+          "description": "ClusterRole name for the console plugin job"
+        },
+        "job_service_account_crb": {
+          "$ref": "#/definitions/kubernetesName",
+          "default": "enable-console-plugin-crb",
+          "description": "ClusterRoleBinding name for the console plugin job"
+        },
+        "job_resources": {
+          "type": "object",
+          "description": "Resource limits and requests for the console plugin job",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "cpu": { "$ref": "#/definitions/resourceQuantity" },
+                "memory": { "$ref": "#/definitions/resourceQuantity" },
+                "ephemeral-storage": { "$ref": "#/definitions/resourceQuantity" }
+              }
+            },
+            "requests": {
+              "type": "object",
+              "properties": {
+                "cpu": { "$ref": "#/definitions/resourceQuantity" },
+                "memory": { "$ref": "#/definitions/resourceQuantity" },
+                "ephemeral-storage": { "$ref": "#/definitions/resourceQuantity" }
+              }
+            }
+          }
+        }
+      },
+      "if": {
+        "properties": { "enabled": { "const": true } }
+      },
+      "then": {
+        "required": ["plugins"],
+        "properties": {
+          "plugins": {
+            "minItems": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "operators": {
+      "type": "object",
+      "description": "Define operators to deploy with key-value structure",
+      "patternProperties": {
+        "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$": {
+          "type": "object",
+          "description": "Operator configuration",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "description": "Enable this operator deployment"
+            },
+            "syncwave": {
+              "$ref": "#/definitions/syncwave",
+              "default": 0,
+              "description": "Syncwave for the operator deployment"
+            },
+            "namespace": {
+              "type": "object",
+              "description": "Namespace configuration for the operator",
+              "properties": {
+                "name": {
+                  "$ref": "#/definitions/kubernetesNamespace",
+                  "description": "The namespace where the operator should be installed"
+                },
+                "descr": {
+                  "type": "string",
+                  "maxLength": 255,
+                  "description": "Description of the namespace"
+                },
+                "displayname": {
+                  "type": "string",
+                  "maxLength": 255,
+                  "description": "Display name of the namespace"
+                },
+                "create": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether to create the namespace"
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            },
+            "subscription": {
+              "type": "object",
+              "description": "Operator subscription configuration",
+              "properties": {
+                "channel": {
+                  "type": "string",
+                  "default": "stable",
+                  "minLength": 1,
+                  "description": "Subscription channel (e.g., stable, alpha, beta)"
+                },
+                "approval": {
+                  "type": "string",
+                  "enum": ["Automatic", "Manual"],
+                  "default": "Automatic",
+                  "description": "Install plan approval strategy"
+                },
+                "operatorName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 253,
+                  "description": "Name of the operator package"
+                },
+                "source": {
+                  "type": "string",
+                  "default": "redhat-operators",
+                  "minLength": 1,
+                  "description": "Catalog source name"
+                },
+                "sourceNamespace": {
+                  "$ref": "#/definitions/kubernetesNamespace",
+                  "default": "openshift-marketplace",
+                  "description": "Namespace of the catalog source"
+                },
+                "csv": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?\\.[a-z0-9]+(\\.[a-z0-9]+)*$",
+                  "description": "Starting ClusterServiceVersion (CSV) name"
+                },
+                "config": {
+                  "type": "object",
+                  "description": "Additional subscription configuration",
+                  "properties": {
+                    "env": {
+                      "type": "array",
+                      "description": "Environment variables for the operator",
+                      "items": {
+                        "$ref": "#/definitions/environmentVariable"
+                      },
+                      "maxItems": 50
+                    },
+                    "trustedCA": {
+                      "type": "object",
+                      "description": "Trusted CA bundle configuration",
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Enable trusted CA bundle injection"
+                        },
+                        "configMap": {
+                          "$ref": "#/definitions/kubernetesName",
+                          "default": "trusted-ca-bundle",
+                          "description": "ConfigMap name containing the CA bundle"
+                        },
+                        "configMapKey": {
+                          "type": "string",
+                          "default": "ca-bundle.crt",
+                          "minLength": 1,
+                          "description": "Key in the ConfigMap containing the CA bundle"
+                        },
+                        "configMapPath": {
+                          "type": "string",
+                          "default": "ca-bundle.crt",
+                          "minLength": 1,
+                          "pattern": "^[^/].*$",
+                          "description": "Path where the CA bundle will be mounted"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "resources": {
+                      "type": "object",
+                      "description": "Resource constraints for the operator",
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "description": "Resource limits",
+                          "properties": {
+                            "cpu": { "$ref": "#/definitions/resourceQuantity" },
+                            "memory": { "$ref": "#/definitions/resourceQuantity" },
+                            "ephemeral-storage": { "$ref": "#/definitions/resourceQuantity" }
+                          },
+                          "minProperties": 1
+                        },
+                        "requests": {
+                          "type": "object",
+                          "description": "Resource requests",
+                          "properties": {
+                            "cpu": { "$ref": "#/definitions/resourceQuantity" },
+                            "memory": { "$ref": "#/definitions/resourceQuantity" },
+                            "ephemeral-storage": { "$ref": "#/definitions/resourceQuantity" }
+                          },
+                          "minProperties": 1
+                        }
+                      },
+                      "minProperties": 1,
+                      "additionalProperties": false
+                    },
+                    "tolerations": {
+                      "type": "array",
+                      "description": "Node tolerations for the operator pods",
+                      "items": {
+                        "$ref": "#/definitions/toleration"
+                      },
+                      "maxItems": 20
+                    },
+                    "nodeSelector": {
+                      "type": "object",
+                      "description": "Node selector for the operator pods",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Node selector key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Node selector value (empty string for existence check)"
+                        }
+                      },
+                      "required": ["key"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": ["operatorName"],
+              "additionalProperties": false
+            },
+            "operatorgroup": {
+              "type": "object",
+              "description": "OperatorGroup configuration",
+              "properties": {
+                "create": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether to create an OperatorGroup"
+                },
+                "notownnamespace": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether the operator should monitor all namespaces (true) or only its own (false)"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "if": {
+            "properties": { "enabled": { "const": true } }
+          },
+          "then": {
+            "required": ["namespace", "subscription"]
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "global": {
+      "type": "object",
+      "description": "Global configuration values",
+      "properties": {
+        "nameOverride": {
+          "type": "string",
+          "maxLength": 63,
+          "description": "Override the chart name"
+        },
+        "fullnameOverride": {
+          "type": "string",
+          "maxLength": 63,
+          "description": "Override the full resource name"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "console_plugins": {
+          "properties": {
+            "enabled": { "const": true }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "operators": {
+          "patternProperties": {
+            ".*": {
+              "properties": {
+                "enabled": { "const": true }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+} 
