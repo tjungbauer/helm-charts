@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.29](https://img.shields.io/badge/Version-1.0.29-informational?style=flat-square)
+  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
 
  
 
@@ -40,11 +40,22 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 
 ## Values
 
+### namespace
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| console_plugins.additionalAnnotations | object | {} | Additional labels to add to the instance as key: value pairs. |
+| console_plugins.additionalLabels | object | {} | Additional labels to add to the instance as key: value pairs. |
+| operators.my-operator.additionalAnnotations | object | {} | Additional labels to add to the instance as key: value pairs. |
+| operators.my-operator.additionalLabels | object | {} | Additional labels to add to the instance as key: value pairs. |
+
+### Other Values
+
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | console_plugins | object | "" | Configure console plugins for OpenShift. |
 | console_plugins.enabled | bool | false | Enable console plugin configuration. |
-| console_plugins.job_namespace | string | openshift-gitops | Optional: Namespace where kubernetes job shall be executed. |
+| console_plugins.job_namespace | string | kube-system | Optional: Namespace where kubernetes job shall be executed. |
 | console_plugins.job_service_account | string | enable-console-plugin-sa | Optional: Name of the service account that will execute the Job. |
 | console_plugins.job_service_account_crb | string | enable-console-plugin-crb | Optional: Name of the ClusterRoleBinding. |
 | console_plugins.job_service_account_role | string | enable-console-plugin-role | Optional: Name of the role that will be assigned to the service account. |

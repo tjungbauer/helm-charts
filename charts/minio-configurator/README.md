@@ -52,36 +52,10 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-co
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| argoproj.hook | string | Sync | Argo CD Hook phase |
-| argoproj.hook_delete_policy | string | HookSucceeded | Argo CD delete policy for the hook |
-| auth.secretName | string | '' | Name of the Secret that contains the access to Minio Must contain root-password and root-user |
-| auth.useCredentialsFiles | bool | false | Mount credentials as a files instead of using an environment variable. |
-| image.pullPolicy | string | Always | Pull policy for the image. Can be Always or IfNotPresent |
-| image.pullSecrets | list | [] | Optional List of pull secrets for the image |
-| image.url | string | `"docker.io/bitnami/minio:2024.5.1-debian-12-r0"` | Bitnami MinIO&reg; image version.  Specifies the image (by Bitnami) that contains the mc command line tool |
-| miniocluster.port | int | '' | Port of the Minio Cluster |
-| miniocluster.url | string | '' | Name/URL of the Minio Cluster |
-| name | string | "" | Name of the resources (unlike Bitnami I am not using any templating here) |
-| namespace | string | "" | Namespace where the provisioner should be scheduled |
-| provisioning.buckets | list | '' | buckets, versioning, lifecycle, quota and tags provisioning Buckets https://docs.min.io/docs/minio-client-complete-guide.html#mb Lifecycle https://docs.min.io/docs/minio-client-complete-guide.html#ilm Quotas https://docs.min.io/docs/minio-admin-complete-guide.html#bucket Tags https://docs.min.io/docs/minio-client-complete-guide.html#tag Versioning https://docs.min.io/docs/minio-client-complete-guide.html#version e.g. buckets:   - name: test-bucket     region: us-east-1     # Only when mode is 'distributed'     # Allowed values: "Versioned" | "Suspended" | "Unchanged"     # Defaults to "Suspended" if not specified.     # For compatibility, accepts boolean values as well, where true maps     # to "Versioned" and false to "Suspended".     # ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide     versioning: Suspended     # Versioning is automatically enabled if withLock is true     # ref: https://docs.min.io/docs/minio-bucket-versioning-guide.html     withLock: true     # Only when mode is 'distributed'     # ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide     lifecycle:       - id: TestPrefix7dRetention         prefix: test-prefix         disabled: false         expiry:           days: 7           deleteMarker: false           # Days !OR! date           # date: "2021-11-11T00:00:00Z"           nonconcurrentDays: 3      bucketReplication:        enabled: true        targetClusterUrl: name of the target cluster        targetClusterPort: 443        targetBucket: name of the target bucket        replicationSettings:           - existing-objects        credSecretName: secret that contains the keys: username and password to authenticate at the target cluster     # Only when mode is 'distributed'     # ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide     quota:       # set (hard still works as an alias but is deprecated) or clear(+ omit size)       type: set       size: 10GiB     tags:       key1: value1 |
-| provisioning.cleanupAfterFinished | object | disabled | Automatic Cleanup for Finished Jobs @param provisioning.cleanupAfterFinished.enabled Enables Cleanup for Finished Jobs @param provisioning.cleanupAfterFinished.seconds Sets the value of ttlSecondsAfterFinished ref: https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/ |
-| provisioning.config | list | `[]` |  |
-| provisioning.enabled | bool | false | Enable Bucket provisioning |
-| provisioning.extraCommands | list | [] | Optionally specify extra list of additional commands for provisioning |
-| provisioning.groups | list | [] | Provisioning.groups  e.g. groups   - name: test-group     disabled: false     members:       - test-username     policies:       - readwrite     # When set to true, it will replace all policies with the specified.     # When false, the policies will be added to the existing.     setPolicies: false |
-| provisioning.policies | list | [] | Policies provisioning <br /> https://docs.min.io/docs/minio-admin-complete-guide.html#policy e.g. policies:   - name: custom-bucket-specific-policy     statements:       - resources:           - "arn:aws:s3:::my-bucket"         actions:           - "s3:GetBucketLocation"           - "s3:ListBucket"           - "s3:ListBucketMultipartUploads"       - resources:           - "arn:aws:s3:::my-bucket/*"         # Allowed values: "Allow" | "Deny"         # Defaults to "Deny" if not specified         effect: "Allow"         actions:           - "s3:AbortMultipartUpload"           - "s3:DeleteObject"           - "s3:GetObject"           - "s3:ListMultipartUploadParts"           - "s3:PutObject" |
-| provisioning.resources | object | {} | Optionall define resource for the provisioner pod. Simply define typical resources, like limits.cpu; requests.memory etc. |
-| provisioning.tolerations | list | [] | Tolerations for the provisioning Pod |
-| provisioning.users | list | [] | Users provisioning. Can be used in addition to provisioning.usersExistingSecrets. e.g. users:   - username: test-username     password: test-password     disabled: false     policies:       - readwrite       - consoleAdmin       - diagnostics     # When set to true, it will replace all policies with the specified.     # When false, the policies will be added to the existing.     setPolicies: false |
-| provisioning.usersExistingSecrets | list | [] | Instead of configuring users inside values.yaml, referring to existing Kubernetes secrets containing user configurations is possible. e.g. usersExistingSecrets:   - centralized-minio-users  All provided Kubernetes secrets require a specific data structure. The same data from the provisioning.users example above  can be defined via secrets with the following data structure. The secret keys have no meaning to the provisioning job         except that they are used as filenames.   ## apiVersion: v1   ## kind: Secret   ## metadata:   ##   name: centralized-minio-users   ## type: Opaque   ## stringData:   ##   username1: |   ##     username=test-username   ##     password=test-password   ##     disabled=false   ##     policies=readwrite,consoleAdmin,diagnostics   ##     setPolicies=false |
-| serviceAccount.automountServiceAccountToken | bool | false | Enable/disable auto mounting of the service account token |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | '' | Name of the created ServiceAccount |
-| skip_tls_verification | bool | false | Skip TLS verification for Minio. This set the variable MC_INSECURE to true Can be used when you are using self-signed certificates for example. |
-| synwave | int | 5 | Argo CD Sync wave for the Minio provisioner |
-| tls.enabled | bool | `true` | Enable tls in front of the container |
-| tls.mountPath | string | "" | The mount path where the secret will be located Custom mount path where the certificates will be located, if empty will default to /certs |
-| tls.secretName | string | "" | Name of the Secret that contains the TLS information |
+| provisioning.enabled | bool | `false` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
+| serviceAccount.create | bool | `false` |  |
+| serviceAccount.name | string | `"minio-provisioner"` |  |
 
 ## Example
 
@@ -372,4 +346,4 @@ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
