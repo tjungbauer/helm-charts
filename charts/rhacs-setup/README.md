@@ -86,52 +86,19 @@ Verify the subcharts for additional settings:
 | operatornamespace | string | `"rhacs-operator"` |  |
 | override-rhacs-operator-version | string | `"stable"` |  |
 | rhacs.basic_acs_settings | object | `{"auth_provider":"OpenShift","auth_provider_type":"openshift","min_access_role":"None","syncwave":5}` | Basic settings for ACS authentication This configuration is done by a Job, that will configure the OpenShift oauth for ACS. |
-| rhacs.central.adminPasswordSecret | string | omitted | Specify a secret that contains the administrator password in the "password" data item. If omitted, the operator will auto-generate a password and store it in the "password" item in the "central-htpasswd" secret. The Secret must exist. |
-| rhacs.central.db | object | `{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"passwordSecret":"secretname","pvc":"central-db","pvc_size":"100Gi","pvc_storageclass":"storageclass","resources":{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Central DB, which is responsible for data persistence. |
-| rhacs.central.db.nodeSelector | object | empty | Define nodeSelector for Sensor. |
-| rhacs.central.db.passwordSecret | string | omitted | Specify a secret that contains the password in the "password" data item. This can only be used when specifying a connection string manually. When omitted, the operator will auto-generate a DB password and store it in the "password" item in the "central-db-password" secret. |
-| rhacs.central.db.pvc | string | central-db | Configures how Central DB should store its persistent data. The name of the PVC to manage persistent data. If no PVC with the given name exists, it will be created. Defaults to "central-db" if not set. |
-| rhacs.central.db.pvc_size | string | empty | The size of the persistent volume when created through the claim. If a claim was automatically created, this can be used after the initial deployment to resize (grow) the volume (only supported by some storage class controllers). |
-| rhacs.central.db.pvc_storageclass | string | empty | The name of the storage class to use for the PVC. If your cluster is not configured with a default storage class, you must select a value here. |
-| rhacs.central.db.resources | object | `{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}}` | Set Central DB resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.central.db.resources.limits.cpu | int | 4 | CPU limits. |
-| rhacs.central.db.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.central.db.resources.limits.memory | string | 8Gi | Memory limits. |
+| rhacs.central.db | object | `{"resources":{"requests":{"cpu":4}}}` | Settings for Central DB, which is responsible for data persistence. |
+| rhacs.central.db.resources | object | `{"requests":{"cpu":4}}` | Set Central DB resources.requests and resources.limits. Per default this block can be omitted. |
 | rhacs.central.db.resources.requests.cpu | int | 4 | CPU requests. |
-| rhacs.central.db.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.central.db.resources.requests.memory | string | 8Gi | Memory requests. |
-| rhacs.central.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.central.declarativeConfiguration | object | emtpy | Define ConfigMaps with DeclerativeConfiguration |
-| rhacs.central.defaultsslsecret | string | `"secretname"` | By default, Central will only serve an internal TLS certificate, which means that you will need to handle TLS termination at the ingress or load balancer level. If you want to terminate TLS in Central and serve a custom server certificate, you can specify a secret containing the certificate and private key here.  Define here the name of the secret If you would like to set it. The secret must exist. |
 | rhacs.central.egress | object | `{"connectivityPolicy":"Online"}` | Configures whether Red Hat Advanced Cluster Security should run in online or offline (disconnected) mode. In offline mode, automatic updates of vulnerability definitions and kernel modules are disabled. This parameter is MANDATORY default -- Online |
 | rhacs.central.enabled | bool | false | Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters. |
-| rhacs.central.loadBalancer | object | `{"enabled":false,"ip":"127.0.0.1","port":443}` | Expose Central through a load balancer service. |
-| rhacs.central.loadBalancer.enabled | bool | false | Enable load balancer services. |
-| rhacs.central.loadBalancer.ip | string | `"127.0.0.1"` | IP Address of the loadbalancer services. |
-| rhacs.central.loadBalancer.port | int | `443` | Port of the load balancer service |
-| rhacs.central.monitoring | string | Disabled | Enables monitoring endpoint for Central to allow other services to collect metrics from the Central. Can be either Enabled of Disabled. |
-| rhacs.central.nodePort | object | `{"enabled":false}` | Expose Central through a node port. |
-| rhacs.central.nodeSelector | object | empty | Define nodeSelector for Sensor. |
-| rhacs.central.pvc | string | stackrox-db | The name of the PVC to manage persistent data. If no PVC with the given name exists, it will be created. Defaults to "stackrox-db" if not set. |
-| rhacs.central.pvc_size | string | empty | The size of the persistent volume when created through the claim. If a claim was automatically created, this can be used after the initial deployment to resize (grow) the volume (only supported by some storage class controllers). |
-| rhacs.central.pvc_storageclass | string | default storage class will be used | The name of the storage class to use for the PVC. If your cluster is not configured with a default storage class, you must select a value here. |
-| rhacs.central.resources | object | `{"limits":{"cpu":4,"ephemeral-storage":"500Mi","memory":"8Gi"},"requests":{"cpu":"500m","ephemeral-storage":"50Mi","memory":"1Gi"}}` | Set resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.central.resources.limits.cpu | int | 4 | CPU limits. |
-| rhacs.central.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.central.resources.limits.memory | string | 8Gi | Memory limits. |
-| rhacs.central.resources.requests.cpu | string | 1500m | CPU requests. |
-| rhacs.central.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.central.resources.requests.memory | string | 4Gi | Memory requests. |
-| rhacs.central.route | object | `{"enabled":true}` | Expose Central through an OpenShift route. This is the default setting |
 | rhacs.central.syncwave | string | 3 | Syncwave for Argo CD to create the Central |
-| rhacs.central.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.consolelink | object | `{"enabled":true,"location":"ApplicationMenu","section":"Observability","syncwave":"3","text":"Advanced Cluster Security"}` | Job that creates a console link in OpenShift |
+| rhacs.consolelink | object | `{"enabled":false,"location":"ApplicationMenu","section":"Observability","syncwave":"3","text":"Advanced Cluster Security"}` | Job that creates a console link in OpenShift |
 | rhacs.consolelink.enabled | bool | false | Enable this Job |
 | rhacs.consolelink.location | string | `"ApplicationMenu"` | Location of the ConsoleLink |
 | rhacs.consolelink.section | string | `"Observability"` | Section of the ConsoleLink |
 | rhacs.consolelink.syncwave | string | 3 | Syncwave for Argo CD to create this Job. |
 | rhacs.consolelink.text | string | `"Advanced Cluster Security"` | Text of the ConsoleLink |
-| rhacs.job_init_bundle | object | `{"enabled":true,"syncwave":"3"}` | Run the Job to initialze an ACS secrued cluster and creates a init bundle. |
+| rhacs.job_init_bundle | object | `{"enabled":false,"syncwave":"3"}` | Run the Job to initialze an ACS secrued cluster and creates a init bundle. |
 | rhacs.job_init_bundle.enabled | bool | false | Enable this Job |
 | rhacs.job_init_bundle.syncwave | string | 3 | Syncwave for Argo CD to create this Job. |
 | rhacs.job_vars | object | `{"max_attempts":20}` | Variables for Jobs |
@@ -139,44 +106,25 @@ Verify the subcharts for additional settings:
 | rhacs.namespace.descr | string | `"Red Hat Advanced Cluster Security"` | Description of the Namespace. |
 | rhacs.namespace.name | string | `"stackrox"` | Namespace where ACS shall be deployed. Typicall, this is stackrox. This is not the Operator itself, that is usually deployed in "rhacs-operator". |
 | rhacs.namespace.syncwave | string | 0 | Syncwave to deploy the ACS namespace. |
+| rhacs.scanner.analyzer | object | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. monitoring: Disabled |
 | rhacs.scanner.analyzer.autoscaling | object | `{"max":3,"min":2,"replicas":3,"status":"Enabled"}` | Automatically scale the Scanner |
 | rhacs.scanner.analyzer.autoscaling.max | int | 3 | Max number of Pods |
 | rhacs.scanner.analyzer.autoscaling.min | int | 2 | Minimum number of Pods |
 | rhacs.scanner.analyzer.autoscaling.replicas | int | 3 | When autoscaling is disabled, the number of replicas will always be configured to match this value. |
 | rhacs.scanner.analyzer.autoscaling.status | string | Enabled | Is austoscaling enabled? |
-| rhacs.scanner.analyzer.nodeSelector | object | empty | Define nodeSelector for Sensor. |
-| rhacs.scanner.analyzer.resources | object | `{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}}` | Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.scanner.analyzer.resources.limits.cpu | int | 8 | CPU limits. |
-| rhacs.scanner.analyzer.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.scanner.analyzer.resources.limits.memory | string | 16Gi | Memory limits. |
-| rhacs.scanner.analyzer.resources.requests.cpu | int | 4 | CPU requests. |
-| rhacs.scanner.analyzer.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.scanner.analyzer.resources.requests.memory | string | 8Gi | Memory requests. |
-| rhacs.scanner.analyzer.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.scanner.db.nodeSelector | object | empty | Define nodeSelector for Sensor. |
-| rhacs.scanner.db.resources | object | `{"limits":{"cpu":2,"ephemeral-storage":"500Mi","memory":"4Gi"},"requests":{"cpu":"200m","ephemeral-storage":"50Mi","memory":"200Mi"}}` | Set Scanner ANALYZER resources.requests and resources.limits. Per default this block can be omitted. |
-| rhacs.scanner.db.resources.limits.cpu | int | 2 | CPU limits. |
-| rhacs.scanner.db.resources.limits.ephemeral-storage | string | empty | Storage limits |
-| rhacs.scanner.db.resources.limits.memory | string | 4Gi | Memory limits. |
-| rhacs.scanner.db.resources.requests.cpu | string | 200m | CPU requests. |
-| rhacs.scanner.db.resources.requests.ephemeral-storage | string | empty | Storage requests |
-| rhacs.scanner.db.resources.requests.memory | string | 200Mi | Memory requests. |
 | rhacs.scanner.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.scanner.enabled | bool | false | If you do not want to deploy the Red Hat Advanced Cluster Security Scanner, you can disable it here (not recommended). |
-| rhacs.scanner.monitoring | string | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. |
 | rhacs.scannerV4 | string | Default | Enable scanner V4. Valid settings are: Default, Enabled, Disabled NOTE: In ACS 4.8 scannerV4 will be enabled by default. |
-| rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |
+| rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |
 | rhacs.secured_cluster.admissioncontrol.listenOn.creates | bool | `true` | Set this to true to enable preventive policy enforcement for object creations. |
 | rhacs.secured_cluster.admissioncontrol.listenOn.events | bool | `true` | Set this to 'true' to enable monitoring and enforcement for Kubernetes events (port-forward and exec). |
 | rhacs.secured_cluster.admissioncontrol.listenOn.updates | bool | `true` | Set this to 'true' to enable preventive policy enforcement for object updates. Note: this will not have any effect unless 'Listen On Creates' is set to 'true' as well. |
-| rhacs.secured_cluster.admissioncontrol.nodeSelector | object | empty | Define nodeSelector for AdmissionControl |
 | rhacs.secured_cluster.admissioncontrol.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.secured_cluster.centralEndpoint | string | empty | URL of the Central (without https://, with port :443) |
 | rhacs.secured_cluster.clustername | string | local-cluster" | Name of the cluster |
 | rhacs.secured_cluster.enabled | bool | false | Enable SecuredCluster yes or no ... typically yes |
 | rhacs.secured_cluster.scannerV4 | string | Default | Enable Scanner V4 for the Secured Cluster. Valid values are: Default, AutoSense, Disabled NOTE: In ACS 4.8 scannerV4 will be enabled by default. |
-| rhacs.secured_cluster.sensor | object | `{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Sensor |
-| rhacs.secured_cluster.sensor.nodeSelector | object | empty | Define nodeSelector for Sensor. |
+| rhacs.secured_cluster.sensor | object | `{"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Sensor |
 | rhacs.secured_cluster.sensor.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.secured_cluster.syncwave | string | 4 | Syncwave for Argo CD to deploy the SecureCluster |
 | serviceAccount | object | `{"create":false,"name":"create-cluster-init"}` | Service account name used in Jobs |
