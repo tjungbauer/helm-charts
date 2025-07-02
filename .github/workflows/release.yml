@@ -74,8 +74,30 @@ jobs:
         run: |
           echo "Checking for chart changes that warrant a release..."
           
-          # Get all changed files in charts directory
-          changed_files=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" || true)
+          # Find the last commit that actually changed charts (not just docs)
+          # Look back through recent commits to find substantial chart changes
+          last_chart_commit=""
+          for i in {1..10}; do
+            commit_files=$(git diff --name-only HEAD~$i HEAD~$((i+1)) 2>/dev/null | grep "^charts/" || true)
+            if [[ -n "$commit_files" ]]; then
+              # Check if this commit has substantial chart changes (not just docs)
+              substantial_changes=$(echo "$commit_files" | grep -v -E '\.(md|MD)$|\.gitignore$|/\.helm-docs\.yml$|/test/.*\.yaml$' || true)
+              if [[ -n "$substantial_changes" ]]; then
+                last_chart_commit="HEAD~$i"
+                echo "Found substantial chart changes in commit: HEAD~$i"
+                break
+              fi
+            fi
+          done
+          
+          if [[ -z "$last_chart_commit" ]]; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No substantial chart changes found in recent commits"
+            exit 0
+          fi
+          
+          # Get all changed files between the found commit and current HEAD
+          changed_files=$(git diff --name-only $last_chart_commit HEAD | grep "^charts/" || true)
           
           if [[ -z "$changed_files" ]]; then
             echo "changes=false" >> $GITHUB_OUTPUT
@@ -83,7 +105,7 @@ jobs:
             exit 0
           fi
           
-          echo "Files changed in charts directory:"
+          echo "Files changed in charts directory since $last_chart_commit:"
           echo "$changed_files"
           
           # Check each chart directory for significant changes
