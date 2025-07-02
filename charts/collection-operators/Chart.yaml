@@ -1,7 +1,7 @@
 apiVersion: v2
 name: collection-operators
 description: Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.
-version: 1.0.37
+version: 1.0.38
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
 dependencies:
