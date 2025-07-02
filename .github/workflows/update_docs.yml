@@ -1,0 +1,133 @@
+name: Update Chart Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/**/values*.yaml'
+      - 'charts/**/Chart.yaml'
+  pull_request:
+    paths:
+      - 'charts/**/values*.yaml'
+      - 'charts/**/Chart.yaml'
+  workflow_dispatch:
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install helm-docs
+        run: |
+          cd /tmp
+          wget https://github.com/norwoodj/helm-docs/releases/download/v1.13.1/helm-docs_1.13.1_Linux_x86_64.tar.gz
+          tar -xzf helm-docs_1.13.1_Linux_x86_64.tar.gz
+          sudo mv helm-docs /usr/local/bin
+
+      - name: Update documentation for all charts
+        run: |
+          #!/bin/bash
+          set -euo pipefail
+          
+          # Function to determine the correct values file
+          get_values_file() {
+            local chart_dir="$1"
+            
+            # Check for different values file patterns in order of preference
+            if [[ -f "$chart_dir/values.yaml" && -s "$chart_dir/values.yaml" ]]; then
+              echo "$chart_dir/values.yaml"
+            elif [[ -f "$chart_dir/values_example.yaml" ]]; then
+              echo "$chart_dir/values_example.yaml"
+            elif [[ -f "$chart_dir/values-example.yaml" ]]; then
+              echo "$chart_dir/values-example.yaml"
+            else
+              # Look for versioned values files (like values-6.0.yaml)
+              local versioned_values=$(find "$chart_dir" -name "values-*.yaml" -type f | head -1)
+              if [[ -n "$versioned_values" ]]; then
+                echo "$versioned_values"
+              else
+                echo ""
+              fi
+            fi
+          }
+          
+          # Update docs for each chart
+          for chart_dir in charts/*/; do
+            if [[ -f "$chart_dir/Chart.yaml" ]]; then
+              chart_name=$(basename "$chart_dir")
+              echo "Processing chart: $chart_name"
+              
+              values_file=$(get_values_file "$chart_dir")
+              
+              if [[ -n "$values_file" ]]; then
+                echo "  Using values file: $values_file"
+                
+                # Create helm-docs config for this specific chart
+                cat > "$chart_dir/.helm-docs.yml" << EOF
+          chart-search-root: .
+          template-files:
+            - README.md.gotmpl
+          values-file: $(basename "$values_file")
+          EOF
+                
+                # Run helm-docs for this chart
+                helm-docs --chart-search-root="$chart_dir" --template-files="$chart_dir/README.md.gotmpl"
+                
+                # Clean up temporary config file
+                rm -f "$chart_dir/.helm-docs.yml"
+                
+                echo "  ✓ Documentation updated for $chart_name"
+              else
+                echo "  ⚠️  No values file found for $chart_name, skipping..."
+              fi
+            fi
+          done
+
+      - name: Check for documentation changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "The following files were changed:"
+            git status --porcelain
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No documentation changes detected"
+          fi
+
+      - name: Commit documentation updates
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name != 'pull_request'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add charts/*/README.md
+          git commit -m "docs: update chart documentation via helm-docs
+          
+          - Auto-generated documentation updates
+          - Updated by helm-docs workflow
+          
+          [skip ci]"
+
+      - name: Push documentation changes
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name != 'pull_request'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Comment on PR with documentation changes
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@main
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '📚 **Documentation Update Available**\n\nHelm-docs detected changes that would update chart documentation. Please run `make docs` locally or merge this PR to update the documentation automatically.'
+            }) 

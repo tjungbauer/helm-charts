@@ -7,7 +7,10 @@ on:
     paths-ignore:
       - '.github/**'
       - 'README.md'
-
+  workflow_run:
+    workflows: ["Lint and Test Charts"]
+    types:
+      - completed
 jobs:
   release:
     concurrency: staging_environment
@@ -22,15 +25,26 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Install Helm
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4
         with:
           version: latest 
 
+      # Add caching for Helm repositories
+      - name: Cache Helm repositories
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4
+        with:
+          path: ~/.cache/helm/repository
+          key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-helm-
+
       - name: Add dependency chart repos
         run: |
           helm repo add stable https://charts.helm.sh/stable
           helm repo add incubator https://charts.helm.sh/incubator
+          helm repo update
 
       # Optional step if GPG signing is used
       - name: Prepare GPG key

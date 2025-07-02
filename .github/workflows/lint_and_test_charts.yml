@@ -10,6 +10,10 @@ on:
     paths-ignore:
       - '.github/**'
       - 'README.md'
+  workflow_run:
+    workflows: ["Update Chart Documentation"]
+    types:
+      - completed
 
 jobs:
   lint-test:
@@ -17,15 +21,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Helm
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
-          python-version: 3.13.5
+          python-version: '3.13'
+          
+      # Cache Python dependencies
+      - name: Cache Python dependencies
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Cache Helm repositories
+      - name: Cache Helm repositories
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4
+        with:
+          path: ~/.cache/helm/repository
+          key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-helm-
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b # v2.7.0
@@ -35,20 +60,29 @@ jobs:
         run: |
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
-            # echo "::set-output name=changed::true"
-            echo name=changed::true" >> $GITHUB_OUTPUT
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changed charts: $changed"
           else
-            # echo "::set-output name=changed::false"
-            echo name=changed::false" >> $GITHUB_OUTPUT
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No charts changed"
           fi
    
-        # you MUST increase the version of the chart, otherwise chart-releaser will fail
       - name: Run chart-testing (lint)
         run: |
-          #if [ "${{ steps.list-changed.outputs.changed }}" = true ]; then
-          #  echo "checking changed charts only"
+          if [ "${{ steps.list-changed.outputs.changed }}" = "true" ]; then
+            echo "Linting changed charts only"
             ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
-          #else
-          #  echo "checking ALL charts"
-          #  ct lint --all --debug --target-branch ${{ github.event.repository.default_branch }}
-          #fi
+          else
+            echo "No charts to lint"
+          fi
+
+      # Add dependency update step
+      - name: Update chart dependencies
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          for chart in $(ct list-changed --target-branch ${{ github.event.repository.default_branch }}); do
+            if [ -f "$chart/Chart.yaml" ]; then
+              echo "Updating dependencies for $chart"
+              helm dependency update "$chart" || echo "No dependencies to update for $chart"
+            fi
+          done
