@@ -7,16 +7,23 @@ on:
     paths:
       - 'charts/**'
   pull_request:
-    paths-ignore:
-      - '.github/**'
-      - 'README.md'
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+  # Only run when documentation PR is merged (not on every completion)
   workflow_run:
     workflows: ["Update Chart Documentation"]
     types:
       - completed
+    branches:
+      - main
 
 jobs:
   lint-test:
+    # Skip if this is a workflow_run trigger and the previous workflow didn't succeed
+    if: >
+      github.event_name != 'workflow_run' || 
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -55,6 +62,14 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b # v2.7.0
 
+      - name: Add Helm repositories
+        run: |
+          # Add common Helm repositories that charts might depend on
+          helm repo add stable https://charts.helm.sh/stable
+          helm repo add incubator https://charts.helm.sh/incubator
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo update
+
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
@@ -62,19 +77,19 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Changed charts: $changed"
+            echo "charts<<EOF" >> $GITHUB_OUTPUT
+            echo "$changed" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "No charts changed"
           fi
    
       - name: Run chart-testing (lint)
+        if: steps.list-changed.outputs.changed == 'true'
         run: |
-          if [ "${{ steps.list-changed.outputs.changed }}" = "true" ]; then
-            echo "Linting changed charts only"
-            ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
-          else
-            echo "No charts to lint"
-          fi
+          echo "Linting changed charts: ${{ steps.list-changed.outputs.charts }}"
+          ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
 
       # Add dependency update step
       - name: Update chart dependencies
@@ -86,3 +101,14 @@ jobs:
               helm dependency update "$chart" || echo "No dependencies to update for $chart"
             fi
           done
+
+      # Optional: Add chart testing with kind cluster
+      - name: Create kind cluster
+        if: steps.list-changed.outputs.changed == 'true' && github.event_name == 'pull_request'
+        uses: helm/kind-action@v1.10.0
+
+      - name: Run chart-testing (install)
+        if: steps.list-changed.outputs.changed == 'true' && github.event_name == 'pull_request'
+        run: |
+          echo "Testing installation of changed charts: ${{ steps.list-changed.outputs.charts }}"
+          ct install --target-branch ${{ github.event.repository.default_branch }}

@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install helm-docs
         run: |
@@ -100,34 +101,56 @@ jobs:
             echo "No documentation changes detected"
           fi
 
-      - name: Commit documentation updates
+      - name: Create Pull Request for documentation updates
         if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name != 'pull_request'
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add charts/*/README.md
-          git commit -m "docs: update chart documentation via helm-docs
-          
-          - Auto-generated documentation updates
-          - Updated by helm-docs workflow
-          
-          [skip ci]"
-
-      - name: Push documentation changes
-        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name != 'pull_request'
-        uses: ad-m/github-push-action@master
+        uses: peter-evans/create-pull-request@8867c4aba1b742c39f8d0ba35429c2dfa4b6cb20 # v7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            docs: update chart documentation via helm-docs
+            
+            - Auto-generated documentation updates
+            - Updated by helm-docs workflow
+          title: '📚 Update Chart Documentation'
+          body: |
+            ## 📚 Automated Documentation Update
+            
+            This PR contains auto-generated documentation updates for Helm charts.
+            
+            ### Changes
+            - Updated chart documentation using helm-docs
+            - Synchronized with latest values.yaml changes
+            
+            ### Files Modified
+            ```
+            $(git diff --name-only)
+            ```
+            
+            ---
+            🤖 This PR was automatically created by the Update Chart Documentation workflow.
+          branch: docs/update-chart-documentation
+          delete-branch: true
+          draft: false
+          add-paths: |
+            charts/*/README.md
 
-      - name: Comment on PR with documentation changes
-        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
+      - name: Comment on PR with documentation status
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@main
         with:
           script: |
+            const changedFiles = '${{ steps.verify-changed-files.outputs.changed }}';
+            let body = '';
+            
+            if (changedFiles === 'true') {
+              body = '📚 **Documentation Update Needed**\n\nHelm-docs detected changes that would update chart documentation. The documentation will be automatically updated when this PR is merged.';
+            } else {
+              body = '✅ **Documentation Up to Date**\n\nNo documentation changes are needed for this PR.';
+            }
+            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '📚 **Documentation Update Available**\n\nHelm-docs detected changes that would update chart documentation. Please run `make docs` locally or merge this PR to update the documentation automatically.'
+              body: body
             }) 

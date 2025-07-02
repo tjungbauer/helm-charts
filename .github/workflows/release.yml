@@ -1,25 +1,31 @@
 name: Release Charts
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/**'
-      - 'README.md'
+  # Only trigger when lint-test completes successfully on main branch
   workflow_run:
     workflows: ["Lint and Test Charts"]
     types:
       - completed
+    branches:
+      - main
+  # Manual trigger for emergency releases
+  workflow_dispatch:
+
 jobs:
   release:
-    concurrency: staging_environment
+    # Only run if the previous workflow succeeded
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
+    concurrency: 
+      group: release-${{ github.ref }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
+          # Use the SHA from the workflow_run if available, otherwise use the current SHA
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Configure Git
         run: |
@@ -44,10 +50,12 @@ jobs:
         run: |
           helm repo add stable https://charts.helm.sh/stable
           helm repo add incubator https://charts.helm.sh/incubator
+          helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
 
       # Optional step if GPG signing is used
       - name: Prepare GPG key
+        if: env.GPG_KEYRING_BASE64 != ''
         run: |
           gpg_dir=.cr-gpg
           mkdir "$gpg_dir"
@@ -61,9 +69,30 @@ jobs:
           GPG_KEYRING_BASE64: "${{ secrets.GPG_KEYRING_BASE64 }}"
           GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
 
+      - name: Check for chart changes
+        id: check-changes
+        run: |
+          # Check if there are any chart changes since the last release
+          if git diff --name-only HEAD~1 HEAD | grep -q "^charts/"; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Chart changes detected, proceeding with release"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No chart changes detected, skipping release"
+          fi
+
       - name: Run chart-releaser
+        if: steps.check-changes.outputs.changes == 'true'
         uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
         with:
           config: cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Log release status
+        run: |
+          if [ "${{ steps.check-changes.outputs.changes }}" = "true" ]; then
+            echo "✅ Chart release process completed"
+          else
+            echo "ℹ️ No chart changes found, release skipped"
+          fi
