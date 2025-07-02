@@ -40,12 +40,13 @@ jobs:
             local chart_dir="$1"
             
             # Check for different values file patterns in order of preference
-            if [[ -f "$chart_dir/values.yaml" && -s "$chart_dir/values.yaml" ]]; then
-              echo "$chart_dir/values.yaml"
-            elif [[ -f "$chart_dir/values_example.yaml" ]]; then
+            if [[ -f "$chart_dir/values_example.yaml" && -s "$chart_dir/values_example.yaml" ]]; then
               echo "$chart_dir/values_example.yaml"
-            elif [[ -f "$chart_dir/values-example.yaml" ]]; then
+            elif [[ -f "$chart_dir/values-example.yaml" && -s "$chart_dir/values-example.yaml"  ]]; then
               echo "$chart_dir/values-example.yaml"
+            elif [[ -f "$chart_dir/values.yaml" && -s "$chart_dir/values.yaml" ]]; then
+              echo "$chart_dir/values.yaml"
+
             else
               # Look for versioned values files (like values-6.0.yaml)
               local versioned_values=$(find "$chart_dir" -name "values-*.yaml" -type f | head -1)
