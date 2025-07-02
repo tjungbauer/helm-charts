@@ -44,6 +44,12 @@ jobs:
               echo "$chart_dir/values_example.yaml"
             elif [[ -f "$chart_dir/values-example.yaml" && -s "$chart_dir/values-example.yaml"  ]]; then
               echo "$chart_dir/values-example.yaml"
+
+            elif [[ -f "$chart_dir/values_examples.yaml" && -s "$chart_dir/values_examples.yaml" ]]; then
+              echo "$chart_dir/values_examples.yaml"
+            elif [[ -f "$chart_dir/values-examples.yaml" && -s "$chart_dir/values-examples.yaml"  ]]; then
+              echo "$chart_dir/values-examples.yaml"
+
             elif [[ -f "$chart_dir/values.yaml" && -s "$chart_dir/values.yaml" ]]; then
               echo "$chart_dir/values.yaml"
 
