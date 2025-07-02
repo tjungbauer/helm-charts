@@ -74,53 +74,47 @@ jobs:
         run: |
           echo "Checking for chart changes that warrant a release..."
           
-          # Find the last commit that actually changed charts (not just docs)
-          # Look back through recent commits to find substantial chart changes
-          last_chart_commit=""
+          # Look through recent commits to find any substantial chart changes
+          # We'll collect all substantial changes from recent commits
+          substantial_chart_changes=""
+          
+          echo "Analyzing recent commits for chart changes..."
           for i in {1..10}; do
+            commit_sha=$(git rev-parse HEAD~$i 2>/dev/null || echo "")
+            if [[ -z "$commit_sha" ]]; then
+              break
+            fi
+            
             commit_files=$(git diff --name-only HEAD~$i HEAD~$((i+1)) 2>/dev/null | grep "^charts/" || true)
             if [[ -n "$commit_files" ]]; then
               # Check if this commit has substantial chart changes (not just docs)
               substantial_changes=$(echo "$commit_files" | grep -v -E '\.(md|MD)$|\.gitignore$|/\.helm-docs\.yml$|/test/.*\.yaml$' || true)
               if [[ -n "$substantial_changes" ]]; then
-                last_chart_commit="HEAD~$i"
-                echo "Found substantial chart changes in commit: HEAD~$i"
-                break
+                echo "📦 HEAD~$i: Found substantial changes: $substantial_changes"
+                substantial_chart_changes="$substantial_chart_changes $substantial_changes"
+              else
+                echo "📚 HEAD~$i: Only documentation changes: $commit_files"
               fi
             fi
           done
           
-          if [[ -z "$last_chart_commit" ]]; then
+          if [[ -z "$substantial_chart_changes" ]]; then
             echo "changes=false" >> $GITHUB_OUTPUT
             echo "ℹ️ No substantial chart changes found in recent commits"
             exit 0
           fi
           
-          # Get all changed files between the found commit and current HEAD
-          changed_files=$(git diff --name-only $last_chart_commit HEAD | grep "^charts/" || true)
-          
-          if [[ -z "$changed_files" ]]; then
-            echo "changes=false" >> $GITHUB_OUTPUT
-            echo "ℹ️ No files changed in charts directory"
-            exit 0
-          fi
-          
-          echo "Files changed in charts directory since $last_chart_commit:"
-          echo "$changed_files"
+          echo ""
+          echo "📋 All substantial chart changes found:"
+          echo "$substantial_chart_changes"
           
           # Check each chart directory for significant changes
           charts_with_changes=""
           
-          for chart_dir in $(echo "$changed_files" | cut -d'/' -f1-2 | sort -u); do
-            if [[ -d "$chart_dir" ]]; then
-              chart_changes=$(echo "$changed_files" | grep "^$chart_dir/" | grep -v -E '\.(md|MD)$|\.gitignore$|/\.helm-docs\.yml$|/test/.*\.yaml$' || true)
-              
-              if [[ -n "$chart_changes" ]]; then
-                charts_with_changes="$charts_with_changes $chart_dir"
-                echo "✅ $(basename $chart_dir): Significant changes detected"
-              else
-                echo "📚 $(basename $chart_dir): Documentation-only changes"
-              fi
+          for chart_dir in $(echo "$substantial_chart_changes" | tr ' ' '\n' | cut -d'/' -f1-2 | sort -u); do
+            if [[ -d "$chart_dir" && "$chart_dir" =~ ^charts/ ]]; then
+              charts_with_changes="$charts_with_changes $chart_dir"
+              echo "✅ $(basename $chart_dir): Has substantial changes requiring release"
             fi
           done
           
