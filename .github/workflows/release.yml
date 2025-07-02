@@ -69,16 +69,47 @@ jobs:
           GPG_KEYRING_BASE64: "${{ secrets.GPG_KEYRING_BASE64 }}"
           GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
 
-      - name: Check for chart changes
+      - name: Check for chart changes (excluding docs)
         id: check-changes
         run: |
-          # Check if there are any chart changes since the last release
-          if git diff --name-only HEAD~1 HEAD | grep -q "^charts/"; then
+          echo "Checking for chart changes that warrant a release..."
+          
+          # Get all changed files in charts directory
+          changed_files=$(git diff --name-only HEAD~1 HEAD | grep "^charts/" || true)
+          
+          if [[ -z "$changed_files" ]]; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No files changed in charts directory"
+            exit 0
+          fi
+          
+          echo "Files changed in charts directory:"
+          echo "$changed_files"
+          
+          # Check each chart directory for significant changes
+          charts_with_changes=""
+          
+          for chart_dir in $(echo "$changed_files" | cut -d'/' -f1-2 | sort -u); do
+            if [[ -d "$chart_dir" ]]; then
+              chart_changes=$(echo "$changed_files" | grep "^$chart_dir/" | grep -v -E '\.(md|MD)$|\.gitignore$|/\.helm-docs\.yml$|/test/.*\.yaml$' || true)
+              
+              if [[ -n "$chart_changes" ]]; then
+                charts_with_changes="$charts_with_changes $chart_dir"
+                echo "✅ $(basename $chart_dir): Significant changes detected"
+              else
+                echo "📚 $(basename $chart_dir): Documentation-only changes"
+              fi
+            fi
+          done
+          
+          if [[ -n "$charts_with_changes" ]]; then
             echo "changes=true" >> $GITHUB_OUTPUT
-            echo "Chart changes detected, proceeding with release"
+            echo ""
+            echo "🚀 Charts requiring release:$charts_with_changes"
           else
             echo "changes=false" >> $GITHUB_OUTPUT
-            echo "No chart changes detected, skipping release"
+            echo ""
+            echo "📚 All changes are documentation-only - skipping release"
           fi
 
       - name: Run chart-releaser
