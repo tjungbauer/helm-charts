@@ -452,6 +452,45 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-07-02T09:40:53.261168251Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.18
+    description: Collection of management Operators which are required as a dependency
+      for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator
+      to deploy all required operators without any configuration of a CRD.
+    digest: 89024dd20296800b893281d3b0f4833200cf2272a448db83136152a15b16b4a2
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
+    keywords:
+    - operator
+    - deployment
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: collection-management-operators
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/collection-management-operators-1.0.44/collection-management-operators-1.0.44.tgz
+    version: 1.0.44
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: redefined the management operators that shall be installed.
+        - kind: fixed
+          description: README.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2025-05-12T04:05:21.084472996Z"
     dependencies:
     - name: helper-operator
@@ -9458,6 +9497,55 @@ entries:
           description: switching some snippets to use global tpl
         - kind: added
           description: added trustedCA configuration for the Operator
+        - kind: fixed
+          description: fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-07-02T09:40:53.373663462Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: A helper Chart to reduce code repetition. This Chart should be called
+      as a dependency by other charts in order to install Operators.
+    digest: 67fba315224d90bc86ddfb62ac6a00bab2b0593bc404939328f5654f805bb152
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - operator
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-operator-1.0.30/helper-operator-1.0.30.tgz
+    version: 1.0.30
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added Job that will enable Console Plugins if they are defined.
+        - kind: added
+          description: Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README
+        - kind: fixed
+          description: Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it.
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: switching some snippets to use global tpl
+        - kind: added
+          description: added trustedCA configuration for the Operator
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -17867,6 +17955,44 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-07-02T09:40:53.53399307Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.0
+    description: Create an example Pipeline which does a linting of openshift-clusterconfig-gitops
+      using kubelinter, yamllin, yamlscore ....
+    digest: 5d079505d789aef23a7627539b76f59a1b799d4a15ac403e41259d68e656865e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
+    keywords:
+    - pipelines
+    - cicd
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: pipeline-example
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.9/pipeline-example-1.0.9.tgz
+    version: 1.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added tpl chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-07-06T09:55:35.34669466Z"
     dependencies:
     - name: tpl
@@ -20616,6 +20742,38 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-backup-1.0.0/rhacs-backup-1.0.0.tgz
     version: 1.0.0
   rhacs-demo-applications:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-07-02T09:40:53.632344799Z"
+    description: Deploy a demo application with known SECURITY RISKS!!! Used for RHACS
+      Demos
+    digest: 1db6ebb8891230a6329fe6af7c73b941684f38d0fb37807237efaf480806f6b4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png
+    keywords:
+    - securitytesting
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-demo-applications
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-demo-applications-1.0.7/rhacs-demo-applications-1.0.7.tgz
+    version: 1.0.7
   - annotations:
       artifacthub.io/category: security
       artifacthub.io/changes: |
@@ -25301,4 +25459,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-01T04:23:44.714214066Z"
+generated: "2025-07-02T09:40:53.633797368Z"
