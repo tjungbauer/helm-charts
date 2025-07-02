@@ -127,34 +127,34 @@ jobs:
             echo "safety_passed=true" >> $GITHUB_OUTPUT
           fi
 
-      # - name: Commit and push documentation updates
-      #   if: steps.verify-changed-files.outputs.changed == 'true' && steps.safety-check.outputs.safety_passed == 'true' && github.event_name != 'pull_request'
-      #   run: |
-      #     # Configure git
-      #     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #     git config --local user.name "github-actions[bot]"
+      - name: Commit and push documentation updates
+        if: steps.verify-changed-files.outputs.changed == 'true' && steps.safety-check.outputs.safety_passed == 'true' && github.event_name != 'pull_request'
+        run: |
+          # Configure git
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           
-      #     # Add only README.md files in charts directories
-      #     git add charts/*/README.md
+          # Add only README.md files in charts directories
+          git add charts/*/README.md
           
-      #     # Show what will be committed
-      #     echo "Files to be committed:"
-      #     git diff --cached --name-only
+          # Show what will be committed
+          echo "Files to be committed:"
+          git diff --cached --name-only
           
-      #     # Commit the changes
-      #     git commit -m "docs: update chart documentation via helm-docs
+          # Commit the changes
+          git commit -m "docs: update chart documentation via helm-docs
 
-      #     - Auto-generated documentation updates
-      #     - Updated by helm-docs workflow
+          - Auto-generated documentation updates
+          - Updated by helm-docs workflow
           
-      #     [skip ci]" || {
-      #       echo "No changes to commit"
-      #       exit 0
-      #     }
+          [skip ci]" || {
+            echo "No changes to commit"
+            exit 0
+          }
           
-      #     # Force push to main branch (with lease for safety)
-      #     echo "Pushing documentation updates to main branch..."
-      #     git push --force-with-lease origin HEAD:main
+          # Force push to main branch (with lease for safety)
+          echo "Pushing documentation updates to main branch..."
+          git push --force-with-lease origin HEAD:main
 
 
       #     - name: Create Pull Request for documentation updates
