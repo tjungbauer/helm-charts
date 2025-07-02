@@ -77,7 +77,7 @@ jobs:
           EOF
                 
                 # Run helm-docs for this chart
-                helm-docs --chart-search-root="$chart_dir" -t ""$chart_dir/../../_templates.gotmpl" --template-files="$chart_dir/README.md.gotmpl"
+                helm-docs --chart-search-root="$chart_dir" -t "$chart_dir/../../_templates.gotmpl" --template-files="$chart_dir/README.md.gotmpl"
                 
                 # Clean up temporary config file
                 rm -f "$chart_dir/.helm-docs.yml"
