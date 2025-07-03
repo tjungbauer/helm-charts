@@ -1,0 +1,8 @@
+apiVersion: v2
+name: test-tpl-security
+description: Test chart for TPL security context template
+version: 0.1.0
+dependencies:
+  - name: tpl
+    version: "1.0.19"
+    repository: "file://../tpl"

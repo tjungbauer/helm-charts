@@ -1,0 +1,626 @@
+/* Helm Charts Website Styles - Modernized */
+
+/* CSS Custom Properties */
+:root {
+    /* Colors */
+    --bg-primary: #303030;
+    --bg-secondary: #232529;
+    --bg-tertiary: #2c2e31;
+    --text-primary: #dedede;
+    --text-secondary: #a3a3a6;
+    --text-muted: #a0a0a0;
+    --text-description: #a0a0a0;
+    --text-icon: #cbd3da;
+    --text-icon-hov: #a3d0f5;
+    --accent-color: #a3d0f5;
+    --border-color: #676869;
+    --border-button: #737475;
+    --tag-color: #507aa5;
+    --deprecated-color: #b31d28;
+    --code-bg: #282c34;
+    
+    /* Spacing */
+    --card-padding: 1.75rem;
+    --card-margin: 20px;
+    --border-radius: 3px;
+    --card-min-height: 215px;
+    --icon-size: 70px;
+    
+    /* Shadows */
+    --shadow-light: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-hover: 0px 5px 10px rgba(0,0,0,0.3);
+    
+    /* Transitions */
+    --transition-default: 0.25s ease;
+    
+    /* Focus Styles */
+    --focus-color: #507aa5;
+    --animation-duration: 0.2s;
+}
+  
+  /* Base Styles */
+  .body {
+    background-color: var(--bg-primary);
+  }
+  
+  .markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    margin: 0 auto;
+    padding: 45px;
+    color: var(--text-primary);
+    max-width: 1400px;
+  }
+  
+  .markdown-body a {
+    color: var(--accent-color);
+  }
+  
+  .markdown-body pre {
+    background-color: var(--code-bg);
+  }
+  
+  .markdown-body * {
+    box-sizing: unset;
+  }
+  
+  /* Time Display */
+  .time {
+    color: var(--text-primary);
+  }
+  
+  /* GitHub Logo */
+  .githublogo {
+    color: #fff;
+    text-align: right;
+  }
+  
+  /* Tags Styling */
+  div.tags {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  }
+  
+  p.tags {
+    position: absolute;
+    bottom: 0;
+    font-size: 75%;
+  }
+  
+  span.tags {
+    display: inline-block;
+    line-height: 2em;
+    position: relative;
+    padding: 0 10px 0 12px;
+    background: var(--tag-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    color: #fff;
+    margin-right: 5px;
+  }
+  
+  /* Deprecated Badge */
+  span.deprecated {
+    display: inline-block;
+    line-height: 2em;
+    font-size: 0.8em;
+    position: relative;
+    padding: 0 10px 0 12px;
+    background: var(--deprecated-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    color: #fff;
+  }
+  
+  /* Card Container */
+  .cardbox {
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: var(--transition-default) box-shadow, var(--transition-default) transform;
+    max-width: 48%!important;
+    min-width: 48%!important;
+    min-height: var(--card-min-height);
+    position: relative;
+    margin-bottom: var(--card-margin);
+    background-color: var(--bg-secondary);
+    will-change: transform, box-shadow;
+  }
+  
+  .cardbox:hover {
+    box-shadow: var(--shadow-hover);
+    transform: scale(0.98);
+  }
+  
+  /* Card Body */
+  .cardbody {
+    padding: var(--card-padding)!important;
+    display: flex!important;
+  }
+  
+  .card, .cardbody {
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+  }
+  
+  /* Card Icon */
+  .card-iconbox {
+    height: var(--icon-size);
+    min-width: var(--icon-size);
+    width: var(--icon-size);
+    margin-bottom: 0!important;
+    margin-top: 0!important;
+  }
+  
+  .chart-item-logo {
+    background-color: transparent!important;
+    transition: opacity 0.3s ease;
+  }
+  
+  .chart-item-logo:not([src]) {
+    opacity: 0.3;
+  }
+  
+  /* Chart Info Section */
+  .chart-info {
+    background-color: var(--bg-tertiary);
+    width: 600px;
+    min-width: 0;
+    height: 85px;
+    margin-left: 0.75rem;
+    padding: 0.6rem 1rem;
+    flex-direction: column!important;
+  }
+  
+  /* Chart Maintainer */
+  .chart-maintainer {
+    margin-top: -1px;
+    font-size: 0.85rem;
+  }
+  
+  .chart-maintainer-icon {
+    color: var(--text-icon)!important;
+    font-size: .85rem;
+    margin-right: 0.25rem!important;
+    position: relative!important;
+  }
+  
+  /* Utility Classes */
+  .align-items-center {
+    align-items: center!important;
+  }
+  
+  .justify-content-center {
+    justify-content: center!important;
+  }
+  
+  .position-relative {
+    position: relative!important;
+  }
+  
+  .d-flex {
+    display: flex!important;
+  }
+  
+  .overflow-hidden {
+    overflow: hidden!important;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between!important;
+  }
+  
+  .justify-content-evenly {
+    justify-content: space-evenly!important;
+  }
+  
+  .mwidth-100 {
+    min-width: 0;
+  }
+  
+  .align-items-stretch {
+    align-items: stretch!important;
+  }
+  
+  .flex-grow-1 {
+    flex-grow: 1!important;
+  }
+  
+  .h-100 {
+    height: 100%!important;
+  }
+  
+  .mb-0 {
+    margin-bottom: 0!important;
+  }
+  
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .text-descr {
+    overflow: hidden;
+  }
+  
+  .flex-row {
+    flex-direction: row!important;
+  }
+  
+  .mw-100 {
+    max-width: 100%!important;
+  }
+  
+  .ms-auto {
+    margin-left: auto!important;
+  }
+  
+  .mb-auto {
+    margin-bottom: auto!important;
+  }
+  
+  .align-items-end {
+    align-items: flex-end!important;
+  }
+  
+  .flex-wrap {
+    flex-wrap: wrap!important;
+  }
+  
+  .flex-column {
+    flex-direction: column!important;
+  }
+  
+  .mt-1 {
+    margin-top: 0.25rem!important;
+  }
+  
+  .ms-1 {
+    margin-left: 0.25rem!important;
+  }
+  
+  .mt-3 {
+    margin-top: 1rem!important;
+  }
+  
+  .pt-md-2 {
+    padding-top: 0.5rem!important;
+  }
+  
+  .mb-md-1 {
+    margin-bottom: 0.25rem!important;
+  }
+  
+  .mt-md-1rem {
+    margin-top: 1rem!important;
+  }
+  
+  .pt-sm-2 {
+    padding-top: 0.5rem!important;
+  }
+  
+  /* Chart Title */
+  .chart-title {
+    color: var(--text-secondary);
+  }
+  
+  .title {
+    font-size: 1.1rem;
+  }
+  
+  .chart-title-right {
+    padding-left: 2.25rem;
+  }
+  
+  /* Additional Info */
+  .additional-info {
+    font-size: 75%;
+  }
+  
+  /* Description */
+  .description {
+    color: var(--text-description)!important;
+    font-size: .85rem;
+  }
+  
+  /* Download Button - Fixed for anchor elements */
+  .download-button {
+    /* Make anchor behave like button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Original button styling */
+    color: var(--text-icon)!important;
+    background-color: var(--bg-secondary)!important;
+    position: relative;
+    top: -1px;
+    font-size: 75%;
+    height: 19px;
+    text-align: center;
+    text-decoration: none!important;
+    cursor: pointer;
+    outline: none;
+    border: solid 1px var(--border-button);
+    
+    /* Ensure proper spacing and sizing */
+    padding: 2px 6px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    
+    /* Remove any inherited link styling */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .download-button:hover {
+    text-decoration: none!important;
+    color: var(--text-icon-hov)!important;
+    background-color: var(--bg-secondary)!important;
+  }
+  
+  .download-button:visited {
+    color: var(--text-icon)!important;
+  }
+  
+  /* Ensure the inner content displays properly */
+  .download-button .d-flex {
+    align-items: center;
+    height: 100%;
+  }
+  
+  .download-icon {
+    bottom: -1px;
+  }
+  
+  .download-link:hover, .source-link:hover {
+    text-decoration: none!important;
+    color: var(--text-icon)!important;
+  }
+  
+  /* Source Button */
+  .source {
+    margin-right: 7px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 767px) {
+    .markdown-body {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 390px) {
+    .chart-info {
+      background-color: var(--bg-tertiary);
+      padding: 0.6rem 1rem;
+      width: unset!important;
+      flex-direction: column!important;
+      box-sizing: inherit;
+    }
+    
+    .cardbox {
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: var(--transition-default) box-shadow, var(--transition-default) transform;
+      max-width: 100%!important;
+      min-height: var(--card-min-height);
+      position: relative;
+      margin-bottom: var(--card-margin);
+      background-color: var(--bg-secondary);
+    }
+    
+    .cardbody-inner {
+      display: unset!important;
+    }
+    
+    .title {
+      font-size: 0.95rem;
+      display: unset!important;
+    }
+    
+    .hide {
+      display: none!important;
+    }
+    
+    .chart-title {
+      box-sizing: initial;
+    }
+    
+    .download-button {
+      margin-top: 0.25rem!important;
+    }
+  }
+  
+  /* Focus Styles for Accessibility */
+  .download-button:focus,
+  .source-link:focus,
+  .download-link:focus {
+    outline: 2px solid var(--focus-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  
+  /* Print Styles */
+  @media print {
+    .cardbox {
+      break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #000;
+    }
+    
+    .download-button {
+      display: none;
+    }
+  }
+  
+  /* Smoother animations */
+  .cardbox {
+    will-change: transform, box-shadow;
+  }
+  
+  /* Better mobile layout using container queries */
+  .d-flex.flex-wrap.justify-content-between {
+    container-type: inline-size;
+    gap: 1rem;
+  }
+  
+  @container (max-width: 600px) {
+    .cardbox {
+      max-width: 100% !important;
+      min-width: 100% !important;
+    }
+  }
+
+.search-container {
+  margin: 2rem 0;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: 2px solid var(--focus-color);
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 3px rgba(80, 122, 165, 0.3);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--tag-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-hover);
+  transition: all var(--transition-default);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  z-index: 1000;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.scroll-to-top:focus {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better container layout for very large screens */
+.markdown-body {
+  max-width: 1400px;
+}
+
+/* Improve card layout spacing */
+.d-flex.flex-wrap.justify-content-between {
+  gap: 1rem;
+}
+
+/* Better focus indicators */
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(80, 122, 165, 0.3);
+}
+
+/* Loading state for images */
+.chart-item-logo {
+  transition: opacity 0.3s ease;
+}
+
+.chart-item-logo:not([src]) {
+  opacity: 0.3;
+}
+
+/* Better mobile card layout */
+@media (max-width: 480px) {
+  .cardbox {
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  .markdown-body {
+    padding: 20px 10px;
+  }
+  
+  .chart-info {
+    width: auto;
+    height: auto;
+  }
+  
+  .search-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Touch-friendly buttons */
+.download-button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.maintainer-icon {
+  fill: var(--text-icon);
+}
+
+.download-icon-svg {
+  fill: var(--text-icon);
+}

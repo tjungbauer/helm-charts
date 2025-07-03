@@ -1,0 +1,3 @@
+{{- if .Values.podDisruptionBudget }}
+{{ include "tpl.podDisruptionBudget" .Values.podDisruptionBudget }}
+{{- end }}

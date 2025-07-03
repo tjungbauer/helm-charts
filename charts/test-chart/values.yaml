@@ -1,0 +1,49 @@
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+
+# Pod-level security context
+podSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 3001
+  fsGroup: 2001
+  runAsNonRoot: true
+
+podDisruptionBudget:
+  name: "test-pdb"
+  namespace: "test-namespace"
+  additionalAnnotations:
+    test-annotation: "test-annotation"
+  additionalLabels:
+    test-label: "test-label"
+  minAvailable: 1
+#  maxUnavailable: 1
+  matchLabels:
+    app: test-app
+    vendor: test-vendor
+  matchExpressions:
+    - key: app
+      operator: In
+      values:
+        - test-app
+        - test-app-2
+    - key: vendor
+      operator: In
+      values:
+        - test-vendor
+  unhealthyPodEvictionPolicy: "IfHealthyBudget"
+
+
+resources:
+  requests:
+    cpu: 4
+    memory: 8
+    ephemeral-storage: 50
+  limits:
+    cpu: 8
+    memory: 16
+    ephemeral-storage: 500
+    nvidia: 1

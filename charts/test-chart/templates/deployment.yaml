@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+{{- if .Values.podSecurityContext }}
+{{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 6 }}
+{{- end }}
+      containers:
+      - name: test-container
+        image: nginx:latest
+{{- if .Values.resources }}
+{{ include "tpl.resources" .Values.resources  | indent 8 }}
+{{- end }}
+{{- if .Values.securityContext }}
+{{ include "tpl.securityContext" .Values.securityContext | indent 8 }}
+{{- end }}
