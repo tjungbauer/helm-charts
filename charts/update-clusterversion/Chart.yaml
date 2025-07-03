@@ -3,7 +3,7 @@ name: update-clusterversion
 description: A Helm chart to update OpenShift ClusterVersion
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
-version: 1.0.0
+version: 1.0.1
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com

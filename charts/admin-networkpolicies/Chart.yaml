@@ -1,7 +1,7 @@
 apiVersion: v2
 name: admin-networkpolicies
 description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.
-version: 1.0.4
+version: 1.0.5
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 dependencies:
