@@ -1,7 +1,0 @@
-{{- /* Validate configuration before rendering resources */ -}}
-{{- include "helper-operator.validateConsolePlugins" . -}}
-{{- range $key, $value := .Values.operators }}
-{{- if eq ($value.enabled | toString) "true" }}
-{{- include "helper-operator.validateOperator" $value -}}
-{{- end }}
-{{- end }}
