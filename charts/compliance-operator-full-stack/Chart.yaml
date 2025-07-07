@@ -1,19 +1,19 @@
 apiVersion: v2
 name: compliance-operator-full-stack
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.31
+version: 1.0.32
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
 dependencies:
   - name: helper-operator
-    version: ~1.0.21
+    version: ~1.0.36
     repository: https://charts.stderr.at/
   - name: helper-status-checker
     version: ~4.0.0
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
   - name: tpl
-    version: ~1.0.0
+    version: ~1.0.22
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
