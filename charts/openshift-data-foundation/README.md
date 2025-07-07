@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.34](https://img.shields.io/badge/Version-1.0.34-informational?style=flat-square)
+  ![Version: 1.0.35](https://img.shields.io/badge/Version-1.0.35-informational?style=flat-square)
 
  
 
@@ -31,9 +31,9 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | helper-operator | ~1.0.14 |
+| https://charts.stderr.at/ | helper-operator | ~1.0.36 |
 | https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.22 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-openshift-data-foundation)
 

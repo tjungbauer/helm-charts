@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.24](https://img.shields.io/badge/Version-1.0.24-informational?style=flat-square)
+  ![Version: 1.0.25](https://img.shields.io/badge/Version-1.0.25-informational?style=flat-square)
 
  
 
@@ -41,7 +41,7 @@ This chart has the following dependencies:
 | Repository | Name | Version |
 |------------|------|---------|
 | https://SonarSource.github.io/helm-chart-sonarqube | sonarqube | ~2025.3.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.22 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 

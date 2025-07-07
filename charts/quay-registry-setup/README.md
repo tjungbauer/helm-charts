@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.11](https://img.shields.io/badge/Version-2.0.11-informational?style=flat-square)
+  ![Version: 2.0.12](https://img.shields.io/badge/Version-2.0.12-informational?style=flat-square)
 
  
 
@@ -37,7 +37,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.0 |
+| https://charts.stderr.at/ | tpl | ~1.0.22 |
 
 ## Maintainers
 
