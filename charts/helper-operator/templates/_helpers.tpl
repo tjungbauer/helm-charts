@@ -135,34 +135,6 @@ argocd.argoproj.io/sync-wave: {{ .syncwave | default "5" | quote }}
 {{- end }}
 
 {{/*
-Validate required operator fields
-*/}}
-{{- define "helper-operator.validateOperator" -}}
-{{- if not .subscription.operatorName }}
-{{- fail "operators.<name>.subscription.operatorName is required" }}
-{{- end }}
-{{- if not .namespace.name }}
-{{- fail "operators.<name>.namespace.name is required" }}
-{{- end }}
-{{- if .subscription.approval }}
-{{- if and (ne .subscription.approval "Manual") (ne .subscription.approval "Automatic") }}
-{{- fail (printf "operators.<name>.subscription.approval must be either 'Manual' or 'Automatic', got: %s" .subscription.approval) }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{/*
-Validate console plugin configuration
-*/}}
-{{- define "helper-operator.validateConsolePlugins" -}}
-{{- if .Values.console_plugins.enabled }}
-{{- if not .Values.console_plugins.plugins }}
-{{- fail "console_plugins.plugins list cannot be empty when console_plugins.enabled is true" }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{/*
 Console plugin helper functions
 */}}
 {{- define "helper-operator.console.job.name" -}}
