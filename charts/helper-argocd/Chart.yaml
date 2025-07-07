@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.42
+version: 2.0.43
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.0
+    version: ~1.0.22
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts

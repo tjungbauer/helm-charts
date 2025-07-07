@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-server-side-apply
 description: Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+
-version: 1.0.13
+version: 1.0.14
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.0
+    version: ~1.0.22
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
