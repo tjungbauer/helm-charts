@@ -97,7 +97,7 @@ spec:
   {{- if $value.sourceNamespaces }}
   {{- if eq ($value.sourceNamespaces.enabled | toString) "true" }}
   sourceNamespaces:
-  {{- range $value.sourceNamespaces.observedNamesapces }}
+  {{- range $value.sourceNamespaces.observedNamespaces }}
     - {{ . }}
   {{- end }}
   {{- end }}
@@ -106,7 +106,7 @@ spec:
     {{- if $value.sourceNamespaces }}
     {{- if eq ($value.sourceNamespaces.enabled | toString) "true" }}
     sourceNamespaces:
-    {{- range $value.sourceNamespaces.observedNamesapces }}
+    {{- range $value.sourceNamespaces.observedNamespaces }}
       - {{ . }}
     {{- end }}
     {{- end }}

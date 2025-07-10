@@ -129,7 +129,6 @@ gitopsinstances:
           insecureEdgeTerminationPolicy: Redirect
 
     # -- Define Namespace where Application AND ApplicationSets can be stored.
-    # As of March 2024 this is a BETA feature.
     # The list of namespaces will be configured for Applications and ApplicationSets
     sourceNamespaces:
       # -- Enable sourceNamespaces.
@@ -137,7 +136,7 @@ gitopsinstances:
       enabled: false
 
       # -- A list Namespaces where Argo CD will look for Applications and ApplicationSets
-      observedNamesapces:
+      observedNamespaces:
         - app1
         - app2
 
