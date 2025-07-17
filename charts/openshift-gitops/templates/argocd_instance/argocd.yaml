@@ -8,9 +8,11 @@ metadata:
   namespace: {{ $value.namespace | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" $value.additionalLabels | indent 4 }}    
   annotations:
     argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "10" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.additionalAnnotations" $value.additionalAnnotations | indent 4 }}
 spec:
   {{- if $value.generic_config.applicationInstanceLabelKey }}
   applicationInstanceLabelKey: {{ $value.generic_config.applicationInstanceLabelKey }}

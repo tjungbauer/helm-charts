@@ -8,5 +8,8 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" $value.additionalLabels | indent 4 }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" $value.additionalAnnotations | indent 4 }}
 {{- end }}
 {{- end }}

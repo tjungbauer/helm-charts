@@ -12,6 +12,21 @@ gitopsinstances:
     # -- Namespace for this application
     namespace: gitops-application
 
+
+    # -- Additional labels to add to the Keycloak instance as key: value pairs.
+    # @section -- namespace
+    # @default -- {}
+    additionalAnnotations: {}
+    #  additionalAnnotation1: "My Annotation"
+    #  additionalAnnotation2: "My Annotation 2"
+
+    # -- Additional labels to add to the Keycloak instance as key: value pairs.
+    # @section -- namespace
+    # @default -- {}
+    additionalLabels: {}
+    #  additionalLabel1: "My Label"
+    #  additionalLabel2: "My Label 2"
+
     # -- Enable cluster-admin Rolebinding. Usually only required for the main Argo CD instance.
     # @default -- disabled
     clusterAdmin: disabled

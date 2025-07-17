@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.1.0
+version: 1.1.1
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -72,3 +72,5 @@ annotations:
       description: Added possibility to define environment variables for the repo-container
     - kind: added
       description: Added possibility to define extraConfig settings
+    - kind: added
+      description: Added possibility to define additional labels and annotations for the namespace

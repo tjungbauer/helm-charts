@@ -6,11 +6,13 @@ kind: AppProject
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
+    {{- include "tpl.additionalAnnotations" $value.additionalAnnotations | indent 4 }}
   name: global
   namespace: {{ $value.namespace | quote }}
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalAnnotations" $value.additionalAnnotations | indent 4 }}
 spec:
   description: {{ $value.global_project.description | quote }}
   {{- if $value.global_project.clusterResourceBlacklist }}
