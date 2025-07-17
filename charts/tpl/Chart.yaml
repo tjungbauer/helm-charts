@@ -1,7 +1,7 @@
 apiVersion: v2
 name: tpl
 description: A library that shall collect certain templates to reuse them among different charts.
-version: 1.0.22
+version: 1.0.23
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
 maintainers:
@@ -42,3 +42,5 @@ annotations:
       description: new TPLs to set securityContext and podSecurityContext
     - kind: added
       description: new TPLs to set podDisruptionBudget and optimized resources template and schema
+    - kind: added
+      description: new TPLs to create ArgoCD Applications
