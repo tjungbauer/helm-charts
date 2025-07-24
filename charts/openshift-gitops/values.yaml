@@ -203,6 +203,34 @@ gitopsinstances:
       # @default -- 1Gi
       memory_requests: 1Gi
 
+      # -- Sharding settings for the controller.
+      # @default -- empty
+      sharding:
+
+        # -- Enabled defines whether sharding should be enabled on the Application Controller component.
+        # @default -- false
+        enabled: false
+
+        # -- ClustersPerShard defines the maximum number of clusters managed by each argocd shard
+        # @default -- empty
+        clustersPerShard: ''
+
+        # -- DynamicScalingEnabled defines whether the number of shards should be dynamically scaled based on the number of clusters.
+        # @default -- false
+        dynamicScalingEnabled: false
+
+        # -- MaxShards defines the maximum number of shards at any given point
+        # @default -- empty
+        maxShards: ''
+
+        # -- MinShards defines the minimum number of shards at any given point
+        # @default -- empty
+        minShards: ''
+
+        # -- Replicas defines the number of replicas of the Application Controller component
+        # @default -- empty
+        replicas: ''
+
     ha:
       # -- Enable HA for Argo CD
       # @default -- false

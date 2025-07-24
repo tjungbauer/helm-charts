@@ -431,6 +431,29 @@ spec:
       requests:
         cpu: {{ $value.controller.cpu_requests | default "250m" }}
         memory: {{ $value.controller.memory_requests | default "1Gi" }}
+    {{- if $value.controller.sharding }}
+    sharding:
+    {{- if eq ($value.controller.sharding.enabled | toString) "true" }}
+      enabled: {{ $value.controller.sharding.enabled | default "false" }}
+      {{- if $value.controller.sharding.clustersPerShard }}
+      clustersPerShard: {{ $value.controller.sharding.clustersPerShard }}
+      {{- end }}
+      {{- if $value.controller.sharding.dynamicScalingEnabled }}
+      dynamicScalingEnabled: {{ $value.controller.sharding.dynamicScalingEnabled }}
+      {{- end }}
+      {{- if $value.controller.sharding.maxShards }}
+      maxShards: {{ $value.controller.sharding.maxShards }}
+      {{- end }}
+      {{- if $value.controller.sharding.minShards }}
+      minShards: {{ $value.controller.sharding.minShards }}
+      {{- end }}
+      {{- if $value.controller.sharding.replicas }}
+      replicas: {{ $value.controller.sharding.replicas }}
+      {{- end }}
+    {{- end }}
+    {{- else }}
     sharding: {}
+    {{- end }}
+
 {{- end }}
 {{- end }}
