@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.55](https://img.shields.io/badge/Version-1.0.55-informational?style=flat-square)
+  ![Version: 1.0.56](https://img.shields.io/badge/Version-1.0.56-informational?style=flat-square)
 
  
 
@@ -75,6 +75,14 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | apiserver.etcd_encryption.encryption_type | string | aesgcm | Type of encryption. This can either be: <br /> <ul> <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <ul> |
 | apiserver.etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |
 | apiserver.etcd_encryption.serviceAccount | object | `{"create":true,"name":"etcd-encryption-checker"}` | The service account that is used to verify the status of the encryption |
+| clusterproxy.additionalAnnotations | object | {} | Additional labels to add as key: value pairs. |
+| clusterproxy.additionalLabels | object | {} | Additional labels to add to as key: value pairs. |
+| clusterproxy.enabled | bool | false | Enable Cluster Proxy configuration |
+| clusterproxy.http_proxy | string | '' | set clusterwide HTTP Proxy <br /> Must start with http:// or https:// <br /> DO NOT ADD USERNAME AND PASSWORD HERE |
+| clusterproxy.https_proxy | string | '' | set clusterwide HTTPS Proxy <br /> Must start with http:// or https:// <br /> DO NOT ADD USERNAME AND PASSWORD HERE |
+| clusterproxy.no_proxy | list | '' | A comma-separated list of destination domain names, domains, IP addresses or other network CIDRs to exclude proxying. |
+| clusterproxy.trustedCA | string | '' | set clusterwide Trusted CA ConfigMap name. <br /> Name of the ConfigMap that contains additional CA certificates required for proxying HTTPS connections. |
+| clusterproxy.trustedCACerts | object | {} | Trusted CA certificates to include in the ConfigMap <br /> Only PEM formatted certificates are supported. Multiple certificates can be concatenated. |
 | config_allowed_registries.allowedRegistriesForImport | list | empty | limits the container image registries that normal users may import images from. |
 | config_allowed_registries.allowedRegistriesForImport[0] | object | `{"domainName":"quay.io","insecure":false}` | Domainname of the registry |
 | config_allowed_registries.allowedRegistriesForImport[0].insecure | bool | false | Validate the vertificate of not |
