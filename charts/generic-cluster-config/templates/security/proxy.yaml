@@ -1,0 +1,54 @@
+{{/*
+OpenShift Cluster Proxy Configuration
+This template configures cluster-wide proxy settings for OpenShift.
+
+Input validation ensures:
+- Proxy URLs contain valid schemes (http/https)
+- trustedCA references a valid ConfigMap name
+- noProxy accepts both string and list formats (lists are converted to comma-separated strings)
+*/}}
+{{- with .Values.clusterproxy }}
+{{- if .enabled }}
+{{- /* Validate proxy URLs contain valid schemes */ -}}
+{{- if and .http_proxy (not (or (hasPrefix "http://" .http_proxy) (hasPrefix "https://" .http_proxy))) }}
+{{- fail "clusterproxy.http_proxy must start with 'http://' or 'https://'" }}
+{{- end }}
+{{- if and .https_proxy (not (or (hasPrefix "http://" .https_proxy) (hasPrefix "https://" .https_proxy))) }}
+{{- fail "clusterproxy.https_proxy must start with 'http://' or 'https://'" }}
+{{- end }}
+{{- /* Validate trustedCA is a valid Kubernetes name */ -}}
+{{- if .trustedCA }}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" .trustedCA) }}
+{{- fail "clusterproxy.trustedCA must be a valid Kubernetes resource name" }}
+{{- end }}
+{{- end }}
+---
+apiVersion: config.openshift.io/v1
+kind: Proxy
+metadata:
+  name: cluster
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+spec:
+  {{- with .http_proxy }}
+  httpProxy: {{ . | quote }}
+  {{- end }}
+  {{- with .https_proxy }}
+  httpsProxy: {{ . | quote }}
+  {{- end }}
+  {{- if .no_proxy }}
+  {{- if kindIs "slice" .no_proxy }}
+  noProxy: {{ .no_proxy | join "," | quote }}
+  {{- else }}
+  noProxy: {{ .no_proxy | quote }}
+  {{- end }}
+  {{- end }}
+  {{- with .trustedCA }}
+  trustedCA:
+    name: {{ . | quote }}
+  {{- end }}
+{{- end }}
+{{- end }}

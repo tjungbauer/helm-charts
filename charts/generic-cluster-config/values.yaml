@@ -50,6 +50,68 @@ apiserver:
     # @default -- aesgcm
     encryption_type: aesgcm
 
+########################
+# CLUSTER PROXY CONFIG #
+########################
+clusterproxy:
+  # -- Enable Cluster Proxy configuration
+  # @default -- false
+  enabled: false
+
+  # -- set clusterwide HTTP Proxy <br />
+  # Must start with http:// or https:// <br />
+  # DO NOT ADD USERNAME AND PASSWORD HERE
+  # @default -- ''
+  http_proxy: 'http://myproxy:3128'
+
+  # -- set clusterwide HTTPS Proxy <br />
+  # Must start with http:// or https:// <br />
+  # DO NOT ADD USERNAME AND PASSWORD HERE
+  # @default -- ''
+  https_proxy: 'http://myproxy:3128'
+
+  # -- A comma-separated list of destination domain names, domains, IP addresses or other network CIDRs to exclude proxying.
+  # @default -- ''
+  no_proxy:
+    - 127.0.0.1
+    - 1.1.1.1/24
+    - myname.com
+
+  # -- set clusterwide Trusted CA ConfigMap name. <br />
+  # Name of the ConfigMap that contains additional CA certificates required for proxying HTTPS connections.
+  # @default -- ''
+  trustedCA: 'custom-ca'
+
+  # -- Trusted CA certificates to include in the ConfigMap <br />
+  # Only PEM formatted certificates are supported. Multiple certificates can be concatenated.
+  # @default -- {}
+  trustedCACerts:
+    # PEM certificate(s) as multiline string - multiple certificates can be concatenated
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIDXTCCAkWgAwIBAgIJAKoK/heBjcOuMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQwHhcNMTkwNjE5MTAzNDQzWhcNMjkwNjE2MTAzNDQzWjBF
+      MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+      ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+      CgKCAQEAuuM9U9TJzw==
+      -----END CERTIFICATE-----
+      -----BEGIN CERTIFICATE-----
+      MIIE5jCCA86gAwIBAgIQDxcJOQxTGFTUVo...
+      -----END CERTIFICATE-----
+
+  # -- Additional labels to add as key: value pairs.
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to as key: value pairs.
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
+
 ############################
 # DISABLE SELF PROVISIONER #
 ############################
