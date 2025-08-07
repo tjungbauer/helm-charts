@@ -26,7 +26,9 @@ metadata:
   namespace: openshift-config
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- if eq ( .inject_trusted_cabundle | toString) "true" }}
     config.openshift.io/inject-trusted-cabundle: "true"
+    {{- end }}
     {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
   annotations:
     {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}

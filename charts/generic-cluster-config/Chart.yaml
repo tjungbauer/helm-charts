@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.57
+version: 1.0.58
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
@@ -61,3 +61,5 @@ annotations:
       description: added possibility to configure the google openID
     - kind: added
       description: added possibility to configure the proxy and trusted CA (only use when you do not need username/password for the proxy)
+    - kind: fixed
+      description: fixed some issues with the proxy and trusted CA

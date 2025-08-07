@@ -99,6 +99,11 @@ clusterproxy:
     #   MIIE5jCCA86gAwIBAgIQDxcJOQxTGFTUVo...
     #   -----END CERTIFICATE-----
 
+  # -- Inject trusted CA bundle into the cluster proxy<br />
+  # adds the label: config.openshift.io/inject-trusted-cabundle: "true"
+  # @default -- false
+  inject_trusted_cabundle: false
+
   # -- Additional labels to add as key: value pairs.
   # @default -- {}
   additionalAnnotations: {}
