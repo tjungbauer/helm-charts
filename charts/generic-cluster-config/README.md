@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.56](https://img.shields.io/badge/Version-1.0.56-informational?style=flat-square)
+  ![Version: 1.0.57](https://img.shields.io/badge/Version-1.0.57-informational?style=flat-square)
 
  
 
@@ -78,9 +78,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | clusterproxy.additionalAnnotations | object | {} | Additional labels to add as key: value pairs. |
 | clusterproxy.additionalLabels | object | {} | Additional labels to add to as key: value pairs. |
 | clusterproxy.enabled | bool | false | Enable Cluster Proxy configuration |
-| clusterproxy.http_proxy | string | '' | set clusterwide HTTP Proxy <br /> Must start with http:// or https:// <br /> DO NOT ADD USERNAME AND PASSWORD HERE |
-| clusterproxy.https_proxy | string | '' | set clusterwide HTTPS Proxy <br /> Must start with http:// or https:// <br /> DO NOT ADD USERNAME AND PASSWORD HERE |
-| clusterproxy.no_proxy | list | '' | A comma-separated list of destination domain names, domains, IP addresses or other network CIDRs to exclude proxying. |
+| clusterproxy.http_proxy | string | '' | set clusterwide HTTP Proxy <br /> Must start with http:// or https:// <br /> For example: http://myproxy:3128<br /> DO NOT ADD USERNAME AND PASSWORD HERE |
+| clusterproxy.https_proxy | string | '' | set clusterwide HTTPS Proxy <br /> Must start with http:// or https:// <br /> For example: http://myproxy:3128<br /> DO NOT ADD USERNAME AND PASSWORD HERE |
+| clusterproxy.no_proxy | list | [] | A comma-separated list of destination domain names, domains, IP addresses or other network CIDRs to exclude proxying. |
 | clusterproxy.trustedCA | string | '' | set clusterwide Trusted CA ConfigMap name. <br /> Name of the ConfigMap that contains additional CA certificates required for proxying HTTPS connections. |
 | clusterproxy.trustedCACerts | object | {} | Trusted CA certificates to include in the ConfigMap <br /> Only PEM formatted certificates are supported. Multiple certificates can be concatenated. |
 | config_allowed_registries.allowedRegistriesForImport | list | empty | limits the container image registries that normal users may import images from. |
