@@ -60,45 +60,44 @@ clusterproxy:
 
   # -- set clusterwide HTTP Proxy <br />
   # Must start with http:// or https:// <br />
+  # For example: http://myproxy:3128<br />
   # DO NOT ADD USERNAME AND PASSWORD HERE
   # @default -- ''
-  http_proxy: 'http://myproxy:3128'
+  http_proxy: ''
 
   # -- set clusterwide HTTPS Proxy <br />
   # Must start with http:// or https:// <br />
+  # For example: http://myproxy:3128<br />
   # DO NOT ADD USERNAME AND PASSWORD HERE
   # @default -- ''
-  https_proxy: 'http://myproxy:3128'
+  https_proxy: ''
 
   # -- A comma-separated list of destination domain names, domains, IP addresses or other network CIDRs to exclude proxying.
-  # @default -- ''
-  no_proxy:
-    - 127.0.0.1
-    - 1.1.1.1/24
-    - myname.com
+  # @default -- []
+  no_proxy: []
 
   # -- set clusterwide Trusted CA ConfigMap name. <br />
   # Name of the ConfigMap that contains additional CA certificates required for proxying HTTPS connections.
   # @default -- ''
-  trustedCA: 'custom-ca'
+  trustedCA: ''
 
   # -- Trusted CA certificates to include in the ConfigMap <br />
   # Only PEM formatted certificates are supported. Multiple certificates can be concatenated.
   # @default -- {}
-  trustedCACerts:
+  trustedCACerts: {}
     # PEM certificate(s) as multiline string - multiple certificates can be concatenated
-    content: |
-      -----BEGIN CERTIFICATE-----
-      MIIDXTCCAkWgAwIBAgIJAKoK/heBjcOuMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
-      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
-      aWRnaXRzIFB0eSBMdGQwHhcNMTkwNjE5MTAzNDQzWhcNMjkwNjE2MTAzNDQzWjBF
-      MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
-      ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
-      CgKCAQEAuuM9U9TJzw==
-      -----END CERTIFICATE-----
-      -----BEGIN CERTIFICATE-----
-      MIIE5jCCA86gAwIBAgIQDxcJOQxTGFTUVo...
-      -----END CERTIFICATE-----
+    # content: |
+    #   -----BEGIN CERTIFICATE-----
+    #   MIIDXTCCAkWgAwIBAgIJAKoK/heBjcOuMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+    #   BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+    #   aWRnaXRzIFB0eSBMdGQwHhcNMTkwNjE5MTAzNDQzWhcNMjkwNjE2MTAzNDQzWjBF
+    #   MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+    #   ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+    #   CgKCAQEAuuM9U9TJzw==
+    #   -----END CERTIFICATE-----
+    #   -----BEGIN CERTIFICATE-----
+    #   MIIE5jCCA86gAwIBAgIQDxcJOQxTGFTUVo...
+    #   -----END CERTIFICATE-----
 
   # -- Additional labels to add as key: value pairs.
   # @default -- {}
