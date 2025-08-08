@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.61
+version: 1.0.62
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
@@ -42,9 +42,9 @@ annotations:
     - kind: added
       description: "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
     - kind fixed
-      description: cont cleanup
+      description: "cont cleanup"
     - kind fixed
-      description: cont cleanup
+      description: "cont cleanup"
     - kind: added
       description: "You can now define your external AlertManager and external Labels."
     - kind: added
