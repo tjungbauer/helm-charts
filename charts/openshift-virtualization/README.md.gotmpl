@@ -1,0 +1,33 @@
+{{ template "doc.header" . }}
+
+This Helm Chart is configuring OpenShift Virtualization Operator.
+This means is is responsible to configure HyperConverged and HostPathProvisioner resources. 
+
+It does not create new VMs and template configurations. Moreover, additional Operators, such as NMState Operator, might be required for your whole setup.
+It can be used be the built in database, or an example and hardcoded postgres instance, or with your very own configuration. 
+
+NOTE: This is an evolving chart. I am trying to cover most settings, but especially the HyperConverged resource is quite big. If you miss any setting, please let me know or create a PR.
+
+Be sure to follow the documentation for additional settings, supported features and more at, for example: https://docs.redhat.com/
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [tpl](https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl)
+
+{{ template "doc.values" . }}
+
+## Example settings
+
+```yaml
+---
+```
+
+{{ template "doc.footer" . }}

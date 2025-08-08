@@ -1,0 +1,169 @@
+{{/*
+OpenShift Virtualization HostPathProvisioner Configuration
+This template configures the HostPathProvisioner resource for local storage provisioning.
+
+Input validation ensures:
+- Valid resource names follow Kubernetes naming conventions
+- Storage paths are properly formatted
+- Node selectors use valid label syntax
+- Feature gates are boolean values
+*/}}
+{{- with .Values.hostPathProvisioner }}
+{{- if .enabled }}
+{{- /* Validate hostPathProvisioner name is a valid Kubernetes name */ -}}
+{{- if .name }}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" .name) }}
+{{- fail "hostPathProvisioner.name must be a valid Kubernetes resource name" }}
+{{- end }}
+{{- end }}
+---
+apiVersion: hostpathprovisioner.kubevirt.io/v1beta1
+kind: HostPathProvisioner
+metadata:
+  name: {{ .name | default "hostpath-provisioner" | quote }}
+  namespace: {{ .namespace | default "openshift-cnv" | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+spec:
+  {{- with .imagePullPolicy }}
+  {{- /* Validate imagePullPolicy has allowed values */ -}}
+  {{- $allowedPolicies := list "Always" "IfNotPresent" "Never" }}
+  {{- if not (has . $allowedPolicies) }}
+  {{- fail (printf "hostPathProvisioner.imagePullPolicy '%s' is invalid. Allowed values: %s" . (join ", " $allowedPolicies)) }}
+  {{- end }}
+  imagePullPolicy: {{ . | quote }}
+  {{- end }}
+
+  {{- with .pathConfig }}
+  pathConfig:
+    {{- with .path }}
+    {{- /* Validate path is absolute */ -}}
+    {{- if not (hasPrefix "/" .) }}
+    {{- fail "hostPathProvisioner.pathConfig.path must be an absolute path starting with '/'" }}
+    {{- end }}
+    path: {{ . | quote }}
+    {{- end }}
+    
+    {{- with .useNamingPrefix }}
+    useNamingPrefix: {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .storagePool }}
+  {{- if kindIs "string" .storagePool }}
+  storagePool: {{ .storagePool | quote }}
+  {{- else if kindIs "slice" .storagePool }}
+  storagePools:
+    {{- range .storagePool }}
+    {{- /* Validate required fields for storage pools */ -}}
+    {{- if not .name }}
+    {{- fail "hostPathProvisioner.storagePool[].name is required" }}
+    {{- end }}
+    {{- if not .path }}
+    {{- fail "hostPathProvisioner.storagePool[].path is required" }}
+    {{- end }}
+    {{- /* Validate path is absolute */ -}}
+    {{- if not (hasPrefix "/" .path) }}
+    {{- fail (printf "hostPathProvisioner.storagePool[].path '%s' must be an absolute path starting with '/'" .path) }}
+    {{- end }}
+    - name: {{ .name | quote }}
+      path: {{ .path | quote }}
+      {{- with .pvcTemplate }}
+      pvcTemplate:
+        {{- with .volumeMode }}
+        {{- /* Validate volumeMode has allowed values */ -}}
+        {{- $allowedModes := list "Filesystem" "Block" }}
+        {{- if not (has . $allowedModes) }}
+        {{- fail (printf "hostPathProvisioner.storagePool[].pvcTemplate.volumeMode '%s' is invalid. Allowed values: %s" . (join ", " $allowedModes)) }}
+        {{- end }}
+        volumeMode: {{ . | quote }}
+        {{- end }}
+        {{- with .accessModes }}
+        accessModes:
+          {{- range . }}
+          {{- /* Validate accessMode has allowed values */ -}}
+          {{- $allowedAccessModes := list "ReadWriteOnce" "ReadOnlyMany" "ReadWriteMany" "ReadWriteOncePod" }}
+          {{- if not (has . $allowedAccessModes) }}
+          {{- fail (printf "hostPathProvisioner.storagePool[].pvcTemplate.accessModes contains invalid value '%s'. Allowed values: %s" . (join ", " $allowedAccessModes)) }}
+          {{- end }}
+          - {{ . | quote }}
+          {{- end }}
+        {{- end }}
+        {{- with .resources }}
+        resources:
+          {{- with .requests }}
+          requests:
+            {{- with .storage }}
+            storage: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          {{- with .limits }}
+          limits:
+            {{- with .storage }}
+            storage: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- with .storageClassName }}
+        storageClassName: {{ . | quote }}
+        {{- end }}
+        {{- with .volumeName }}
+        volumeName: {{ . | quote }}
+        {{- end }}
+        {{- with .selector }}
+        selector:
+          matchExpressions:
+          {{- range .matchExpressions }}
+{{- include "tpl.matchExpressions" . | nindent 10 }}
+          {{- end }}
+        {{- end }}
+        {{- with .volumeAttributesClassName }}
+        volumeAttributesClassName: {{ . | quote }}
+        {{- end }}
+        {{- with .dataSource }}
+        dataSource:
+          name: {{ .name | quote }}
+          apiGroup: {{ .apiGroup | quote }}
+          kind: {{ .kind | quote }}
+        {{- end }}
+        {{- with .dataSourceRef }}
+        dataSourceRef:
+          name: {{ .name | quote }}
+          apiGroup: {{ .apiGroup | quote }}
+          namespace: {{ .namespace | quote }}
+          kind: {{ .kind | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+  {{- with .workload }}
+  workload:
+    {{- with .nodeSelector }}
+    nodeSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    
+    {{- with .tolerations }}
+{{ include "tpl.tolerations" . | indent 4 }}
+    {{- end }}
+    
+    {{- with .affinity }}
+    affinity:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .featureGates }}
+  featureGates:
+    {{- range . }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+{{- end }}
+{{- end }}

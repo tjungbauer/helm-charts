@@ -1,0 +1,664 @@
+---
+##############################
+# OPENSHIFT VIRTUALIZATION  #
+##############################
+virtualization:
+  # -- Enable OpenShift Virtualization (CNV) configuration. This will configure the HyperConverged resource.
+  # @default -- false
+  enabled: false
+
+  # -- Name of the HyperConverged resource
+  # @default -- kubevirt-hyperconverged
+  name: kubevirt-hyperconverged
+
+  # -- Namespace where OpenShift Virtualization is installed
+  # @default -- openshift-cnv
+  namespace: openshift-cnv
+
+  # -- OvS Opt-In Label - Controls whether Open vSwitch (OvS) Container Network Interface (CNI) is deployed
+  # @default -- false
+  deployOVS: false
+
+  # -- Additional labels to add to the HyperConverged resource
+  # @default -- {}
+  additionalLabels: {}
+  #  environment: production
+  #  team: platform
+
+  # -- Additional annotations to add to the HyperConverged resource
+  # @default -- {}
+  additionalAnnotations: {}
+  #  custom.annotation/key: value
+
+  # -- Feature gates for OpenShift Virtualization
+  featureGates:
+    # -- Enable common boot image import from external registries<br />
+    # Opt-in to automatic delivery/updates of the common data import cron templates.
+    # There are two sources for the data import cron templates: hard coded list of common templates, and custom
+    # templates that can be added to the dataImportCronTemplates field. This feature gates only control the common
+    # templates. It is possible to use custom templates by adding them to the dataImportCronTemplates field.
+    # @default -- true
+    enableCommonBootImageImport: true
+
+    # -- Set the downwardMetrics feature gate in order to allow exposing a limited set of VM and host metrics to the guest.
+    # @default -- false
+    downwardMetrics: false
+
+    # -- Disable mediated device configuration
+    # @default -- false
+    disableMDevConfiguration: false
+
+    # -- EnableApplicationAwareQuota if true, enables the Application Aware Quota feature
+    # @default -- false
+    enableApplicationAwareQuota: false
+
+    # -- Set the deployKubeSecondaryDNS feature gate to true to allow deploying KubeSecondaryDNS by CNAO.
+    # @default -- false
+    deployKubeSecondaryDNS: false
+
+    # -- Set the alignCPUs feature gate to enable KubeVirt to request up to two additional dedicated CPUs in order to complete the total CPU count to an even parity when using emulator thread isolation.
+    # @default -- false
+    alignCPUs: false
+
+    # -- Deploy VM Console Proxy for remote console access.
+    # @default -- true
+    deployVmConsoleProxy: true
+
+    # -- Snable persistent reservation of a LUN through the SCSI Persistent Reserve commands on Kubevirt.
+    # In order to issue privileged SCSI ioctls, the VM requires activation of the persistent reservation flag.
+    # @default -- false
+    persistentReservation: false
+
+    # -- Enable KubeVirt to set automatic limits when they are needed.
+    # If ResourceQuota with set memory limits is associated with a namespace, each pod in that namespace must have memory limits set.
+    # By default, KubeVirt does not set such limits to the virt-launcher pod.
+    # @default -- false
+    autoResourceLimits: false
+
+  # -- infra HyperConvergedConfig influences the pod configuration (currently only placement)
+  # for all the infra components needed on the virtualization enabled cluster
+  # but not necessarily directly on each node running VMs/VMIs.
+  infra:
+    # -- NodePlacement describes node scheduling configuration.
+    nodePlacement:
+      # -- Node selector for infrastructure components
+      # @default -- {}
+      nodeSelector: {}
+      #  node-role.kubernetes.io/infra: ""
+
+      # -- affinity enables pod affinity/anti-affinity placement expanding the types of constraints
+      # that can be expressed with nodeSelector.
+      # affinity is going to be applied to the relevant kind of pods in parallel with nodeSelector
+      # @default -- {}
+      affinity: {}
+      # nodeAffinity:
+      #   requiredDuringSchedulingIgnoredDuringExecution:
+      #     nodeSelectorTerms:
+      #     - matchExpressions:
+      #       - key: nodeType
+      #         operator: In
+      #         values:
+      #         - infra
+
+      # -- Tolerations for infrastructure components
+      # @default -- []
+      tolerations: []
+
+  # workloads HyperConvergedConfig influences the pod configuration (currently only placement) of components
+  # which need to be running on a node where virtualization workloads should be able to run.
+  workloads:
+    nodePlacement:
+      # -- Node selector for VM workloads
+      # @default -- {}
+      nodeSelector: {}
+      #  node-role.kubernetes.io/worker: ""
+
+      # -- Affinity rules for VM workloads
+      # @default -- {}
+      affinity: {}
+      # nodeAffinity:
+      #   requiredDuringSchedulingIgnoredDuringExecution:
+      #     nodeSelectorTerms:
+      #     - matchExpressions:
+      #       - key: nodeType
+      #         operator: In
+      #         values:
+      #         - nested-virtualization
+      #   preferredDuringSchedulingIgnoredDuringExecution:
+      #   - weight: 1
+      #     preference:
+      #       matchExpressions:
+      #       - key: my-cloud.io/num-cpus
+      #         operator: gt
+      #         values:
+      #         - 8
+
+      # -- Tolerations for VM workloads
+      # @default -- []
+      tolerations: []
+
+  # -- StorageImport contains configuration for importing containerized data.
+  storageImport:
+    # -- InsecureRegistries is a list of image registries URLs that are not secured. Setting an insecure registry URL
+    # in this list allows pulling images from this registry.
+    # @default -- []
+    insecureRegistries: []
+    #  - registry.example.com:5000
+
+  # -- DefaultRuntimeClass defines a cluster default for the RuntimeClass to be used for VMIs pods if not set there.
+  # Default RuntimeClass can be changed when kubevirt is running, existing VMIs are not impacted till
+  # the next restart/live-migration when they are eventually going to consume the new default RuntimeClass.
+  # @default -- ""
+  defaultRuntimeClass: ""
+
+  # -- VirtualMachineOptions holds the cluster level information regarding the virtual machine.
+  virtualMachineOptions:
+    # -- DisableFreePageReporting disable the free page reporting of
+    # memory balloon device https://libvirt.org/formatdomain.html#memory-balloon-device.
+    # This will have effect only if AutoattachMemBalloon is not false and the vmi is not
+    # requesting any high performance feature (dedicatedCPU/realtime/hugePages), in which free page reporting is always disabled.
+    # @default -- false
+    disableFreePageReporting: false
+
+    # -- DisableSerialConsoleLog disables logging the auto-attached default serial console.
+    # If not set, serial console logs will be written to a file and then streamed from a container named `guest-console-log`.
+    # The value can be individually overridden for each VM, not relevant if AutoattachSerialConsole is disabled for the VM.
+    # @default -- true
+    disableSerialConsoleLog: true
+
+  # -- HigherWorkloadDensity holds configurataion aimed to increase virtual machine density
+  higherWorkloadDensity:
+    # -- MemoryOvercommitPercentage is the percentage of memory we want to give VMIs compared to the amount
+    # given to its parent pod (virt-launcher). For example, a value of 102 means the VMI will
+    # "see" 2% more memory than its parent pod. Values under 100 are effectively "undercommits".
+    # Overcommits can lead to memory exhaustion, which in turn can lead to crashes. Use carefully.
+    # @default -- 100
+    memoryOvercommitPercentage: 100
+
+  # -- defines a cluster default for CPU model: default CPU model is set when VMI doesn't have any CPU model.
+  # @default -- ""
+  defaultCPUModel: ""
+
+  # -- Live migration limits and timeouts are applied so that migration processes do not overwhelm the cluster.
+  liveMigrationConfig:
+    # -- AllowAutoConverge allows the platform to compromise performance/availability of VMIs to guarantee successful VMI live migrations. Defaults to false
+    # @default -- false
+    allowAutoConverge: false
+
+    # -- When enabled, KubeVirt attempts to use post-copy live-migration in case it
+    # reaches its completion timeout while attempting pre-copy live-migration.
+    # Post-copy migrations allow even the busiest VMs to successfully live-migrate.
+    # However, events like a network failure or a failure in any of the source or
+    # destination nodes can cause the migrated VM to crash or reach inconsistency.
+    # Enable this option when evicting nodes is more important than keeping VMs
+    # alive.
+    # @default -- false
+    allowPostCopy: false
+
+    # -- Bandwidth limit of each migration, the value is quantity of bytes per second (e.g. 2048Mi = 2048MiB/sec)
+    # @default -- ""
+    bandwidthPerMigration: ""
+
+    # -- The migrations will be performed over a dedicated multus network to minimize disruption to tenant workloads due to network saturation when VM live migrations are triggered.
+    # @default -- ""
+    network: ""
+
+    # -- Completion timeout per GiB of VM memory (seconds)
+    # If a migrating VM is big and busy, while the connection to the destination node
+    # is slow, migration may never converge. The completion timeout is calculated
+    # based on completionTimeoutPerGiB times the size of the guest (both RAM and
+    # migrated disks, if any). For example, with completionTimeoutPerGiB set to 800,
+    # a virtual machine instance with 6GiB memory will timeout if it has not
+    # completed migration in 1h20m. Use a lower completionTimeoutPerGiB to induce
+    # quicker failure, so that another destination or post-copy is attempted. Use a
+    # higher completionTimeoutPerGiB to let workload with spikes in its memory dirty
+    # rate to converge.
+    # @default -- 150
+    completionTimeoutPerGiB: 150
+
+    # -- Maximum parallel migrations per cluster
+    # @default -- 5
+    parallelMigrationsPerCluster: 5
+
+    # -- Maximum parallel outbound migrations per node
+    # @default -- 2
+    parallelOutboundMigrationsPerNode: 2
+
+    # -- Progress timeout for migration (seconds)
+    # @default -- 150
+    progressTimeout: 150
+
+  # -- certConfig holds the rotation policy for internal, self-signed certificates
+  certConfig:
+    # -- Certificate Authority configuration
+    ca:
+      # -- CA certificate duration
+      # @default -- 48h0m0s
+      duration: 48h0m0s
+      # -- CA certificate renewal time before expiry
+      # @default -- 24h0m0s
+      renewBefore: 24h0m0s
+
+    # --  Server certificate configuration
+    server:
+      # -- Server certificate duration
+      # @default -- 24h0m0s
+      duration: 24h0m0s
+      # -- Server certificate renewal time before expiry
+      # @default -- 12h0m0s
+      renewBefore: 12h0m0s
+
+  # -- TuningPolicy allows to configure the mode in which the RateLimits of kubevirt are set.
+  # If TuningPolicy is not present the default kubevirt values are used.
+  # It can be set to `annotation` for fine-tuning the kubevirt queryPerSeconds (qps) and burst values.
+  # Qps and burst values are taken from the annotation hco.kubevirt.io/tuningPolicy
+  # <br>
+  # Can either me: empty, annotation or highBurst
+  # @default -- ""
+  tuningPolicy: ""
+
+  # -- MediatedDevicesConfiguration holds information about MDEV types to be defined on nodes, if available
+  # @default -- {}
+  mediatedDevicesConfiguration:
+    # -- List of mediated device types to be created on all nodes
+    # @default -- []
+    mediatedDeviceTypes: []
+    #  - nvidia-222      # NVIDIA vGPU type
+    #  - nvidia-228      # NVIDIA vGPU type
+    #  - i915-GVTg_V5_4  # Intel GVT-g type
+
+    # -- Configure mediated device types for specific nodes using node selectors
+    # @default -- []
+    nodeMediatedDeviceTypes: []
+    #  - nodeSelector:
+    #      node-role.kubernetes.io/worker: ""
+    #      gpu-type: nvidia
+    #    mediatedDeviceTypes:
+    #      - nvidia-222
+    #      - nvidia-226
+    #  - nodeSelector:
+    #      kubernetes.io/hostname: gpu-node-1
+    #    mediatedDeviceTypes:
+    #      - nvidia-228
+    #  - nodeSelector:
+    #      gpu-vendor: intel
+    #    mediatedDeviceTypes:
+    #      - i915-GVTg_V5_4
+
+  # -- Override the storage class used for scratch space during transfer operations. The scratch space storage class
+  # is determined in the following order:
+  # value of scratchSpaceStorageClass, if that doesn't exist, use the default storage class, if there is no default
+  # storage class, use the storage class of the DataVolume, if no storage class specified, use no storage class for
+  # scratch space
+  # @default -- ""
+  scratchSpaceStorageClass: ""
+
+  # -- User can specify namespace in which common templates will be deployed. This will override default openshift namespace.
+  # @default -- "openshift"
+  commonTemplatesNamespace: ""
+
+  # -- TLSSecurityProfile specifies the settings for TLS connections to be propagated to all kubevirt-hyperconverged components.
+  # If unset, the hyperconverged cluster operator will consume the value set on the APIServer CR on OCP/OKD or Intermediate if on vanilla k8s.
+  # Note that only Old, Intermediate and Custom profiles are currently supported, and the maximum available
+  # MinTLSVersions is VersionTLS12.
+  # @default -- {}
+  tlsSecurityProfile:
+    custom:
+
+      # -- ciphers is used to specify the cipher algorithms that are negotiated
+      # during the TLS handshake. Operators may remove entries their operands
+      # do not support. For example, to use DES-CBC3-SHA
+      # @default -- []
+      ciphers: []
+
+      # -- minTLSVersion is used to specify the minimal version of the TLS protocol
+      # that is negotiated during the TLS handshake. For example, to use TLS
+      # VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13
+      # NOTE: currently the highest minTLSVersion allowed is VersionTLS12
+      # @default -- ""
+      minTLSVersion: ""
+
+    # -- type is one of Old, Intermediate, Modern or Custom. Custom provides
+    # the ability to specify individual TLS security profile parameters.
+    # Allowed values: Old, Intermediate, Modern, Custom
+    # @default -- "Intermediate"
+    type: ""
+
+  # -- ApplicationAwareConfig set the AAQ configurations
+  # @default -- {}
+  applicationAwareConfig:
+    # -- AllowApplicationAwareClusterResourceQuota if set to true, allows creation and management of ClusterAppsResourceQuota
+    # @default -- false
+    allowApplicationAwareClusterResourceQuota: false
+
+    # -- NamespaceSelector determines in which namespaces scheduling gate will be added to pods..
+    # @default -- {}
+    namespaceSelector:
+      matchExpressions: []
+      #  - values:
+      #      - 'values'
+      #    key: key
+      #    operator: NotIn
+
+    # -- VmiCalcConfigName determine how resource allocation will be done with ApplicationsResourceQuota.
+    # Allowed values: VmiPodUsage, VirtualResources, DedicatedVirtualResources or IgnoreVmiCalculator
+    # @default -- ""
+    vmiCalcConfigName: ""
+
+  # -- VM eviction strategy (None, LiveMigrate, LiveMigrateIfPossible, External)
+  # -- EvictionStrategy defines at the cluster level if the VirtualMachineInstance should be<br />
+  # migrated instead of shut-off in case of a node drain. If the VirtualMachineInstance specific<br />
+  # field is set it overrides the cluster level one.<br />
+  # Allowed values:<br />
+  # <ul>
+  #  <li>`None` no eviction strategy at cluster level.</li>
+  #  <li>`LiveMigrate` migrate the VM on eviction; a not live migratable VM with no specific strategy will block the drain of the node util manually evicted.</li>
+  #  <li>`LiveMigrateIfPossible` migrate the VM on eviction if live migration is possible, otherwise directly evict.</li>
+  #  <li>`External` block the drain, track eviction and notify an external controller.</li>
+  # </ul>
+  # Defaults to LiveMigrate with multiple worker nodes, None on single worker clusters.
+  # @default -- ""
+  evictionStrategy: ""
+
+  # -- WorkloadUpdateStrategy defines at the cluster level how to handle automated workload updates
+  workloadUpdateStrategy:
+
+    # -- BatchEvictionInterval Represents the interval to wait before issuing the next batch of shutdowns
+    # @default -- 1m0s
+    batchEvictionInterval: 1m0s
+
+    # -- BatchEvictionSize Represents the number of VMIs that can be forced updated per the BatchShutdownInterval interval
+    # @default -- 10
+    batchEvictionSize: 10
+
+    # -- WorkloadUpdateMethods defines the methods that can be used to disrupt workloads
+    # during automated workload updates.
+    # When multiple methods are present, the least disruptive method takes
+    # precedence over more disruptive methods. For example if both LiveMigrate and Evict
+    # methods are listed, only VMs which are not live migratable will be restarted/shutdown.
+    # An empty list defaults to no automated workload updating.
+    # @default -- []
+    workloadUpdateMethods: []
+    #  - LiveMigrate
+
+  # -- UninstallStrategy defines how to proceed on uninstall when workloads (VirtualMachines, DataVolumes) still exist. <br />
+  # BlockUninstallIfWorkloadsExist will prevent the CR from being removed when workloads still exist.<br />
+  # BlockUninstallIfWorkloadsExist is the safest choice to protect your workloads from accidental data loss, so it's strongly advised.<br />
+  # RemoveWorkloads will cause all the workloads to be cascading deleted on uninstallation.<br />
+  # WARNING: please notice that RemoveWorkloads will cause your workloads to be deleted as soon as this CR will be, even accidentally, deleted.<br />
+  # Please correctly consider the implications of this option before setting it.<br />
+  # BlockUninstallIfWorkloadsExist is the default behaviour.<br />
+  # @default -- "BlockUninstallIfWorkloadsExist"
+  uninstallStrategy: "BlockUninstallIfWorkloadsExist"
+
+  # -- VMStateStorageClass is the name of the storage class to use for the PVCs created to preserve VM state, like TPM.
+  # The storage class must support RWX in filesystem mode.
+  # @default -- ""
+  vmStateStorageClass: ""
+
+  # -- KubeSecondaryDNSNameServerIP defines name server IP used by KubeSecondaryDNS
+  # @default -- ""
+  kubeSecondaryDNSNameServerIP: ""
+
+  # -- PermittedHostDevices defines the host devices that are permitted for use by VMs.
+  # @default -- {}
+  permittedHostDevices:
+    # PCI host devices
+    pciHostDevices: []
+    #    # -- a combination of a vendor_id:product_id required to identify a PCI device on a host.
+    #    # @default -- ""
+    #  - pciDeviceSelector: "10de:1db6"
+    #
+    #    # -- name by which a device is advertised and being requested
+    #    # @default -- ""
+    #    resourceName: "nvidia.com/gpu"
+
+    #    # -- HCO enforces the existence of several PciHostDevice objects. Set disabled field to true instead of remove these objects.
+    #    # @default -- false
+    #    disabled: false
+
+    #    # -- indicates that this resource is being provided by an external device plugin
+    #    # @default -- false
+    #    externalResourceProvider: false
+
+    # Mediated devices (like vGPU)
+    mediatedDevices: []
+    #    # -- name of a mediated device type required to identify a mediated device on a host
+    #     # @default -- ""
+    #   - mdevNameSelector: "GRID V100-1Q"
+    #     # -- name by which a device is advertised and being requested
+    #     # @default -- ""
+    #     resourceName: "nvidia.com/vgpu"
+
+    #    # -- HCO enforces the existence of several PciHostDevice objects. Set disabled field to true instead of remove these objects.
+    #    # @default -- false
+    #    disabled: false
+
+    #    # -- indicates that this resource is being provided by an external device plugin
+    #    # @default -- false
+    #    externalResourceProvider: false
+
+    usbHostDevices: []
+    #    # -- Identifies the list of USB host devices.
+    #  - selectors:
+    #      - product: test
+    #        vendor: gggg
+
+    #    # -- Identifies the list of USB host devices.
+    #    #  e.g: kubevirt.io/storage, kubevirt.io/bootable-usb, etc
+    #    # @default -- ""
+    #    resourceName: ""
+
+    #    # -- HCO enforces the existence of several PciHostDevice objects. Set disabled field to true instead of remove these objects.
+    #    # @default -- false
+    #    disabled: true
+
+    #    # -- indicates that this resource is being provided by an external device plugin
+    #    # @default -- false
+    #    externalResourceProvider: true
+
+
+  # -- commonBootImageNamespaceCommonBootImageNamespace override the default namespace of the common boot images, in order to hide them.
+  # If not set, HCO won't set any namespace, letting SSP to use the default. If set, use the namespace to create the
+  # DataImportCronTemplates and the common image streams, with this namespace. This field is not set by default.
+  # @default -- ""
+  commonBootImageNamespace: ""
+
+  # -- CommonInstancetypesDeployment holds the configuration of common-instancetypes deployment within KubeVirt.
+  # Enabled controls the deployment of common-instancetypes resources, defaults to True.
+  # @default -- true
+  commonInstancetypesDeployment: ""
+
+  # -- ResourceRequirements describes the resource requirements for the operand workloads.
+  resourceRequirements:
+    # -- VmiCPUAllocationRatio defines, for each requested virtual CPU,
+    # how much physical CPU to request per VMI from the hosting node. The value is in fraction of a CPU thread (or
+    # core on non-hyperthreaded nodes).
+    # VMI POD CPU request = number of vCPUs * 1/vmiCPUAllocationRatio
+    # For example, a value of 1 means 1 physical CPU thread per VMI CPU thread.
+    # A value of 100 would be 1% of a physical thread allocated for each requested VMI thread.
+    # This option has no effect on VMIs that request dedicated CPUs.
+    # Defaults to 10
+    # @default -- 10
+    vmiCPUAllocationRatio: 10
+
+    # -- When set, AutoCPULimitNamespaceLabelSelector will set a CPU limit on virt-launcher for VMIs running inside
+    # namespaces that match the label selector.
+    # The CPU limit will equal the number of requested vCPUs.
+    # This setting does not apply to VMIs with dedicated CPUs.
+    # @default -- {}
+    autoCPULimitNamespaceLabelSelector: {}
+
+################################
+# HOSTPATH PROVISIONER CONFIG #
+################################
+hostPathProvisioner:
+  # -- Enable HostPathProvisioner for local storage provisioning
+  # @default -- false
+  enabled: false
+
+  # -- Name of the HostPathProvisioner resource
+  # @default -- hostpath-provisioner
+  name: hostpath-provisioner
+
+  # -- Namespace where HostPathProvisioner is installed
+  # @default -- openshift-cnv
+  namespace: openshift-cnv
+
+  # -- Additional labels to add to the HostPathProvisioner resource
+  # @default -- {}
+  additionalLabels: {}
+  #  environment: production
+  #  team: platform
+
+  # -- Additional annotations to add to the HostPathProvisioner resource
+  # @default -- {}
+  additionalAnnotations: {}
+  #  custom.annotation/key: value
+
+  # -- Image pull policy for HostPathProvisioner containers
+  # Allowed values: Always, IfNotPresent, Never
+  # @default -- IfNotPresent
+  imagePullPolicy: IfNotPresent
+
+  # -- PathConfig describes the location and layout of PV storage on nodes. Deprecated
+  pathConfig:
+    # -- The path the directories for the PVs are created under
+    # Must be an absolute path starting with '/'
+    # @default -- /var/hpvolumes
+    path: /var/hpvolumes
+
+    # -- Use the name of the PVC requesting the PV as part of the directory created
+    # @default -- false
+    useNamingPrefix: false
+
+  # -- Storage pool configuration for the provisioner
+  # Can be either a string for simple configuration or a list for advanced configuration with PVC templates
+  # @default -- []
+  storagePool:
+      # -- Name specifies an identifier that is used in the storage class arguments to identify the source to use.
+      # @default -- "local"
+    - name: local
+
+      # -- the path to use on the host, this is a required field
+      # @default -- "/var/hpvolumes"
+      path: /var/hpvolumes
+
+      # -- PVCTemplate is the template of the PVC to create as the source volume
+      # @default -- {}
+      pvcTemplate:
+        # -- volumeMode defines what type of volume is required by the claim.
+        # @default -- ""
+        volumeMode: ""
+
+        # -- accessModes contains the desired access modes the volume should have.
+        # @default -- []
+        accessModes:
+          - ReadWriteOnce
+
+        # -- resources contains the desired resources the volume should have.
+        # @default -- requests.storage: 50Gi
+        resources:
+          requests:
+            storage: 50Gi
+        #  limits:
+        #    storage: 100Gi
+
+        # -- storageClassName is the name of the StorageClass required by the claim.
+        # @default -- ""
+        storageClassName: ""
+
+        # -- selector is a label query over volumes to consider for binding.
+        # @default -- {}
+        selector: {}
+        #  matchExpressions:
+        #    - values:
+        #        - 'val1'
+        #      key: key
+        #      operator: operator
+
+        # -- volumeName is the binding reference to the PersistentVolume backing this claim.
+        # @default -- ""
+        volumeName: ""
+
+        # -- volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim.
+        # @default -- ""
+        volumeAttributesClassName: ""
+
+        # -- dataSource field can be used to specify either:
+        # * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
+        # * An existing PVC (PersistentVolumeClaim)
+        # If the provisioner or an external controller can support the specified data source,
+        # it will create a new volume based on the contents of the specified data source.
+        # When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef,
+        # and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified.
+        # If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+        # @default -- {}
+        dataSource: {}
+         # name:
+         # apiGroup:
+         # kind:
+
+        # -- dataSourceRef specifies the object from which to populate the volume with data, if a non-empty
+        # volume is desired. This may be any object from a non-empty API group (non
+        # core object) or a PersistentVolumeClaim object.
+        # When this field is specified, volume binding will only succeed if the type of
+        # the specified object matches some installed volume populator or dynamic
+        # provisioner.
+        # This field will replace the functionality of the dataSource field and as such
+        # if both fields are non-empty, they must have the same value. For backwards
+        # compatibility, when namespace isn't specified in dataSourceRef,
+        # both fields (dataSource and dataSourceRef) will be set to the same
+        # value automatically if one of them is empty and the other is non-empty.
+        # When namespace is specified in dataSourceRef,
+        # dataSource isn't set to the same value and must be empty.
+        # There are three important differences between dataSource and dataSourceRef:
+        # * While dataSource only allows two specific types of objects, dataSourceRef
+        # allows any non-core object, as well as PersistentVolumeClaim objects.
+        # * While dataSource ignores disallowed values (dropping them), dataSourceRef
+        # preserves all values, and generates an error if a disallowed value is
+        # specified.
+        # * While dataSource only allows local objects, dataSourceRef allows objects
+        # in any namespaces.
+        # (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+        # (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+        # @default -- {}
+        dataSourceRef: {}
+         # name:
+         # apiGroup:
+         # namespace:
+         # kind:
+
+  # -- Workload placement configuration for HostPathProvisioner pods
+  workload:
+    # -- Node selector for HostPathProvisioner pods
+    # @default -- {}
+    nodeSelector: {}
+    #  node-role.kubernetes.io/worker: ""
+    #  storage-type: local
+
+    # -- Tolerations for HostPathProvisioner pods
+    # @default -- []
+    tolerations: []
+    #  - key: storage
+    #    operator: Equal
+    #    value: local
+    #    effect: NoSchedule
+
+    # -- Affinity rules for HostPathProvisioner pods
+    # @default -- {}
+    affinity: {}
+    #  nodeAffinity:
+    #    requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        - key: storage-type
+    #          operator: In
+    #          values:
+    #          - local
+
+  # -- Feature gates for HostPathProvisioner
+  # @default -- []
+  featureGates: []
+  #  - feature1
+  #  - feature2

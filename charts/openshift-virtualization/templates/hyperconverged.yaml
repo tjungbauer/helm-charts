@@ -1,0 +1,332 @@
+{{/*
+OpenShift Virtualization HyperConverged Configuration
+This template configures the HyperConverged resource for OpenShift Virtualization.
+
+Input validation ensures:
+- Valid resource names follow Kubernetes naming conventions
+- Storage classes exist when specified
+- Network configurations are properly formatted
+- Feature gates are boolean values
+*/}}
+{{- with .Values.virtualization }}
+{{- if .enabled }}
+{{- /* Validate hyperconverged name is a valid Kubernetes name */ -}}
+{{- if .name }}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" .name) }}
+{{- fail "virtualization.name must be a valid Kubernetes resource name" }}
+{{- end }}
+{{- end }}
+---
+apiVersion: hco.kubevirt.io/v1beta1
+kind: HyperConverged
+metadata:
+  name: {{ .name | default "kubevirt-hyperconverged" | quote }}
+  namespace: {{ .namespace | default "openshift-cnv" | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+  annotations:
+    deployOVS: {{ .deployOVS | default "false" | quote }}
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+spec:
+  {{- with .certConfig }}
+  certConfig:
+    {{- with .ca }}
+    ca:
+      duration: {{ .duration | default "48h0m0s" | quote }}
+      renewBefore: {{ .renewBefore | default "24h0m0s" | quote }}
+    {{- end }}
+    {{- with .server }}
+    server:
+      duration: {{ .duration | default "24h0m0s" | quote }}
+      renewBefore: {{ .renewBefore | default "12h0m0s" | quote }}
+    {{- end }}
+  {{- end }}
+  
+  {{- with .featureGates }}
+  featureGates:
+    enableCommonBootImageImport: {{ .enableCommonBootImageImport | default true }}
+    downwardMetrics: {{ .downwardMetrics | default false }}
+    disableMDevConfiguration: {{ .disableMDevConfiguration | default false }}
+    enableApplicationAwareQuota: {{ .enableApplicationAwareQuota | default false }}
+    deployKubeSecondaryDNS: {{ .deployKubeSecondaryDNS | default false }}
+    alignCPUs: {{ .alignCPUs | default false }}
+    deployVmConsoleProxy: {{ .deployVmConsoleProxy | default true }}
+    persistentReservation: {{ .persistentReservation | default false }}
+    autoResourceLimits: {{ .autoResourceLimits | default false }}
+  {{- end }}
+
+  {{- with .infra }}
+  infra:
+    {{- with .nodePlacement }}
+    nodePlacement:
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .tolerations }}
+{{ include "tpl.tolerations" . | indent 6 }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .workloads }}
+  workloads:
+    {{- with .nodePlacement }}
+    nodePlacement:
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .tolerations }}
+{{ include "tpl.tolerations" . | indent 6 }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .storageImport }}
+  storageImport:
+    {{- with .insecureRegistries }}
+    insecureRegistries:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .virtualMachineOptions }}
+  virtualMachineOptions:
+    disableFreePageReporting: {{ .disableFreePageReporting | default false }}
+    disableSerialConsoleLog: {{ .disableSerialConsoleLog | default true }}
+  {{- end }}
+
+  {{- with .higherWorkloadDensity }}
+  higherWorkloadDensity:
+    memoryOvercommitPercentage: {{ .memoryOvercommitPercentage | default 100 }}
+  {{- end }}
+
+  {{- with .liveMigrationConfig }}
+  liveMigrationConfig:
+    {{- if .bandwidthPerMigration }}
+    bandwidthPerMigration: {{ .bandwidthPerMigration | quote }}
+    {{- end }}
+    completionTimeoutPerGiB: {{ .completionTimeoutPerGiB | default 150 }}
+    parallelMigrationsPerCluster: {{ .parallelMigrationsPerCluster | default 5 }}
+    parallelOutboundMigrationsPerNode: {{ .parallelOutboundMigrationsPerNode | default 2 }}
+    progressTimeout: {{ .progressTimeout | default 150 }}
+    allowAutoConverge: {{ .allowAutoConverge | default false }}
+    allowPostCopy: {{ .allowPostCopy | default false }}
+    {{- if .network }}
+    network: {{ .network }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .tuningPolicy }}
+  {{- /* Validate tuningPolicy has allowed values */ -}}
+  {{- $allowedPolicies := list "empty" "annotation" "highBurst" }}
+  {{- if not (has . $allowedPolicies) }}
+  {{- fail (printf "virtualization.tuningPolicy '%s' is invalid. Allowed values: %s" . (join ", " $allowedPolicies)) }}
+  {{- end }}
+  tuningPolicy: {{ . | quote }}
+  {{- end }}
+
+  {{- with .mediatedDevicesConfiguration }}
+  mediatedDevicesConfiguration:
+    {{- with .mediatedDeviceTypes }}
+    mediatedDeviceTypes:
+      {{- range . }}
+      - {{ . | quote }}
+      {{- end }}
+    {{- end }}
+    {{- with .nodeMediatedDeviceTypes }}
+    nodeMediatedDeviceTypes:
+      {{- range . }}
+      {{- /* Validate required fields for nodeMediatedDeviceTypes */ -}}
+      {{- if not .nodeSelector }}
+      {{- fail "mediatedDevicesConfiguration.nodeMediatedDeviceTypes[].nodeSelector is required" }}
+      {{- end }}
+      {{- if not .mediatedDeviceTypes }}
+      {{- fail "mediatedDevicesConfiguration.nodeMediatedDeviceTypes[].mediatedDeviceTypes is required" }}
+      {{- end }}
+      - nodeSelector:
+          {{- toYaml .nodeSelector | nindent 10 }}
+        mediatedDeviceTypes:
+          {{- range .mediatedDeviceTypes }}
+          - {{ . | quote }}
+          {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .scratchSpaceStorageClass }}
+  scratchSpaceStorageClass: {{ . | quote }}
+  {{- end }}
+
+  {{- with .commonTemplatesNamespace }}
+  commonTemplatesNamespace: {{ . | quote }}
+  {{- end }}
+
+  {{- with .tlsSecurityProfile }}
+  tlsSecurityProfile:
+    {{- with .custom }}
+    custom:
+      {{- with .ciphers }}
+      ciphers:
+        {{- range . }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- with .minTLSVersion }}
+      minTLSVersion: {{ . | quote }}
+      {{- end }}
+    {{- end }}
+    {{- with .type }}
+    {{- /* Validate type has allowed values */ -}}
+    {{- $allowedTypes := list "Old" "Intermediate" "Modern" "Custom" }}
+    {{- if not (has . $allowedTypes) }}
+    {{- fail (printf "virtualization.tlsSecurityProfile.type '%s' is invalid. Allowed values: %s" . (join ", " $allowedTypes)) }}
+    {{- end }}
+    type: {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .applicationAwareConfig }}
+  applicationAwareConfig:
+    {{- if .allowApplicationAwareClusterResourceQuota }}
+    allowApplicationAwareClusterResourceQuota: {{ .allowApplicationAwareClusterResourceQuota | default false }}
+    {{- end }}
+    {{- with .namespaceSelector }}
+    namespaceSelector:
+      matchExpressions:
+      {{- range .matchExpressions }}
+{{- include "tpl.matchExpressions" . | nindent 4 }}
+    {{- end }}
+    {{- end }}
+    {{- with .vmiCalcConfigName }}
+    {{- /* Validate vmiCalcConfigName has allowed values */ -}}
+    {{- $allowedValues := list "VmiPodUsage" "VirtualResources" "DedicatedVirtualResources" "IgnoreVmiCalculator" }}
+    {{- if not (has . $allowedValues) }}
+    {{- fail (printf "virtualization.applicationAwareConfig.vmiCalcConfigName '%s' is invalid. Allowed values: %s" . (join ", " $allowedValues)) }}
+    {{- end }}
+    vmiCalcConfigName: {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .evictionStrategy }}
+  {{- /* Validate evictionStrategy has allowed values */ -}}
+  {{- $allowedStrategies := list "None" "LiveMigrate" "LiveMigrateIfPossible" "External" }}
+  {{- if not (has . $allowedStrategies) }}
+  {{- fail (printf "virtualization.evictionStrategy '%s' is invalid. Allowed values: %s" . (join ", " $allowedStrategies)) }}
+  {{- end }}
+  evictionStrategy: {{ . | quote }}
+  {{- else }}
+  evictionStrategy: None
+  {{- end }}
+
+  {{- with .workloadUpdateStrategy }}
+  workloadUpdateStrategy:
+    batchEvictionInterval: {{ .batchEvictionInterval | default "1m0s" | quote }}
+    batchEvictionSize: {{ .batchEvictionSize | default 10 }}
+    workloadUpdateMethods:
+      {{- range .workloadUpdateMethods }}
+      - {{ . | quote }}
+      {{- end }}
+  {{- end }}
+
+  {{- with .uninstallStrategy }}
+  {{- /* Validate uninstallStrategy has allowed values */ -}}
+  {{- $allowedStrategies := list "BlockUninstallIfWorkloadsExist" "RemoveWorkloads" }}
+  {{- if not (has . $allowedStrategies) }}
+  {{- fail (printf "virtualization.uninstallStrategy '%s' is invalid. Allowed values: %s" . (join ", " $allowedStrategies)) }}
+  {{- end }}
+  uninstallStrategy: {{ . | quote }}
+  {{- end }}
+
+  {{- with .vmStateStorageClass }}
+  vmStateStorageClass: {{ . | quote }}
+  {{- end }}
+
+  {{- with .kubeSecondaryDNSNameServerIP }}
+  kubeSecondaryDNSNameServerIP: {{ . | quote }}
+  {{- end }}
+
+  {{- with .permittedHostDevices }}
+  permittedHostDevices:
+    {{- with .pciHostDevices }}
+    pciHostDevices:
+      {{- range . }}
+      - pciDeviceSelector: {{ .pciDeviceSelector | quote }}
+        resourceName: {{ .resourceName | quote }}
+        {{- if .externalResourceProvider }}
+        externalResourceProvider: {{ .externalResourceProvider }}
+        {{- end }}
+        {{- if .disabled }}
+        disabled: {{ .disabled }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- with .mediatedDevices }}
+    mediatedDevices:
+      {{- range . }}
+      - mdevNameSelector: {{ .mdevNameSelector | quote }}
+        resourceName: {{ .resourceName | quote }}
+        {{- if .externalResourceProvider }}
+        externalResourceProvider: {{ .externalResourceProvider }}
+        {{- end }}
+        {{- if .disabled }}
+        disabled: {{ .disabled }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- with .usbHostDevices }}
+    usbHostDevices:
+      {{- range . }}
+      - selectors:
+          {{- toYaml .selectors | nindent 10 }}
+        resourceName: {{ .resourceName | quote }}
+        {{- if .disabled }}
+        disabled: {{ .disabled }}
+        {{- end }}
+        {{- if .externalResourceProvider }}
+        externalResourceProvider: {{ .externalResourceProvider }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .commonBootImageNamespace }}
+  commonBootImageNamespace: {{ . | quote }}
+  {{- end }}
+
+  {{- with .commonInstancetypesDeployment }}
+  CommonInstancetypesDeployment:
+    enabled: {{ . | quote }}
+  {{- end }}
+
+  {{- with .defaultCPUModel }}
+  defaultCPUModel: {{ . | quote }}
+  {{- end }}
+
+  {{- with .defaultRuntimeClass }}
+  defaultRuntimeClass: {{ . | quote }}
+  {{- end }}
+
+  {{- with .resourceRequirements }}
+  resourceRequirements:
+    {{- with .vmiCPUAllocationRatio }}
+    vmiCPUAllocationRatio: {{ . }}
+    {{- end }}
+    {{- with .autoCPULimitNamespaceLabelSelector }}
+    autoCPULimitNamespaceLabelSelector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
+
+{{- end }}
+{{- end }}
