@@ -5272,6 +5272,78 @@ entries:
           description: "you can now define nodeExporter features and resources"
         - kind: fixed
           description: "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: added
+          description: "added option to configure remoteWrite"
+        - kind: added
+          description: "added possibility to configure the metricsServer"
+        - kind: added
+          description: "added possibility to configure the google openID"
+        - kind: added
+          description: "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        - kind: fixed
+          description: "fixed some issues with the proxy and trusted CA"
+        - kind: fixed
+          description: "fixing ArtifactHub"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-08-08T14:52:28.839750369Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: This Chart is responsible for deploying generic cluster configuration,
+      for example, etcd encryption, OAuth etc.
+    digest: f76a1b753ad93d76c615cfe6b785f0e415d930e8ad9a8bb78bdea79c33fe89c5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.64/generic-cluster-config-1.0.64.tgz
+    version: 1.0.64
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Possibility to configure allowed registries"
+        - kind: added
+          description: "added new type of etcd encryption, monitoring stack configuration etc."
+        - kind: added
+          description: "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        - kind: added
+          description: "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        - kind: added
+          description: "using some templates"
+        - kind: added
+          description: "switching some snippets to use global tpl"
+        - kind: added
+          description: "Allowing configuration of Samples operator"
+        - kind: added
+          description: "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: added
+          description: "You can now define your external AlertManager and external Labels."
+        - kind: added
+          description: "you can now define nodeExporter features and resources"
+        - kind: fixed
+          description: "configmap cleanup for user-defined monitoring. fixing order of toleration"
         - kind fixed
           description: "cont cleanup"
         - kind: added
@@ -30327,4 +30399,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-08T14:16:40.002923406Z"
+generated: "2025-08-08T14:52:28.84094035Z"
