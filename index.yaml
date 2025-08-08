@@ -21249,6 +21249,43 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.0/openshift-logging-1.0.0.tgz
     version: 1.0.0
+  openshift-virtualization:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-08-08T12:16:18.896709355Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.23
+    description: Configure the operator Openshift Virtualization (HyperConverged and
+      HostPath Provisioner)
+    digest: 360ecbb300d17363f70e15ccafcafe2c71da1eacd2bff0320e37c92fd236044e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png
+    keywords:
+    - openshift
+    - virtualization
+    - hyperconverged
+    - kubevirt
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-virtualization
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-virtualization-1.0.0/openshift-virtualization-1.0.0.tgz
+    version: 1.0.0
   pipeline-example:
   - annotations:
       artifacthub.io/changes: |
@@ -29783,4 +29820,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-07T08:08:48.76306898Z"
+generated: "2025-08-08T12:16:18.89790856Z"
