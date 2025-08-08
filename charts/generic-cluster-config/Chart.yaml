@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.60
+version: 1.0.61
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
@@ -26,42 +26,42 @@ annotations:
     url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
   artifacthub.io/changes: |
     - kind: added
-      description: Possibility to configure allowed registries
+      description: "Possibility to configure allowed registries"
     - kind: added
-      description: added new type of etcd encryption, monitoring stack configuration etc.
+      description: "added new type of etcd encryption, monitoring stack configuration etc."
     - kind: added
-      description: README and adding possibility to configure userworkload monitoring and complete check and fixing issues
+      description: "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
     - kind: added
-      description: added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer.
+      description: "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
     - kind: added
-      description: using some templates
+      description: "using some templates"
     - kind: added
-      description: switching some snippets to use global tpl
+      description: "switching some snippets to use global tpl"
     - kind: added
-      description: Allowing configuration of Samples operator
+      description: "Allowing configuration of Samples operator"
     - kind: added
-      description: Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order
+      description: "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
     - kind fixed
       description: cont cleanup
     - kind fixed
       description: cont cleanup
     - kind: added
-      description:: You can now define your external AlertManager and external Labels.
+      description: "You can now define your external AlertManager and external Labels."
     - kind: added
-      description: you can now define nodeExporter features and resources
+      description: "you can now define nodeExporter features and resources"
     - kind: fixed
-      description: configmap cleanup for user-defined monitoring. fixing order of toleration
+      description: "configmap cleanup for user-defined monitoring. fixing order of toleration"
     - kind fixed
-      description: cont cleanup
+      description: "cont cleanup"
     - kind: added
-      description: added option to configure remoteWrite
+      description: "added option to configure remoteWrite"
     - kind: added
-      description: added possibility to configure the metricsServer
+      description: "added possibility to configure the metricsServer"
     - kind: added
-      description: added possibility to configure the google openID
+      description: "added possibility to configure the google openID"
     - kind: added
-      description: added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy
+      description: "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
     - kind: fixed
-      description: fixed some issues with the proxy and trusted CA
+      description: "fixed some issues with the proxy and trusted CA"
     - kind: fixed
-      description: fixing ArtifactHub
+      description: "fixing ArtifactHub"
