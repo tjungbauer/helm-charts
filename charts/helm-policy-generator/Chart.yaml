@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.16
+version: 1.0.17
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
@@ -31,16 +31,18 @@ annotations:
     - kind: added
       description: descriptions in example values-files and some minor changes for optional parameters
     - kind: added
-      description: added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder
+      description: "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
     - kind: fixed
       description: put Namespaceselector for policies into the right place
     - kind: added
-      description: added additional example, Placement and PlacementBinding are correctly created when using PolicySets
+      description: "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
     - kind: added
       description: added example for cluster health checks
     - kind: added
-      description: added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind
+      description: "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
     - kind: added
       description: added README
     - kind: added
       description: added dependency tp tpl library
+    - kind: fixed
+      description: "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
