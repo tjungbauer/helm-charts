@@ -7976,6 +7976,58 @@ entries:
         - kind: added
           description: descriptions in example values-files and some minor changes for optional parameters
         - kind: added
+          description: "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
+        - kind: fixed
+          description: put Namespaceselector for policies into the right place
+        - kind: added
+          description: "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
+        - kind: added
+          description: added example for cluster health checks
+        - kind: added
+          description: "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
+        - kind: added
+          description: added README
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: fixed
+          description: "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-08-13T10:06:25.989862969Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: This Chart shall help to generate policies for Advanced Cluster Management
+    digest: 651deb87e067950d4cb2d6e79eeb42d6bd5c06e1d39856518158fbef144b129a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - helper
+    - acm
+    - policy
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helm-policy-generator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.17/helm-policy-generator-1.0.17.tgz
+    version: 1.0.17
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: descriptions in example values-files and some minor changes for optional parameters
+        - kind: added
           description: added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder
         - kind: fixed
           description: put Namespaceselector for policies into the right place
@@ -30447,4 +30499,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-08T15:38:30.86011481Z"
+generated: "2025-08-13T10:06:25.992290965Z"
