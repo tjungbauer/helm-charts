@@ -103,11 +103,20 @@ compliance:
         # This Profile must exist.
         extends: ocp4-cis
         # -- A list of rules that might be disabled.
-        disableRule:
+        disableRules:
           # -- Name of the rule that shall be disabled
         - name: ocp4-scc-limit-container-allowed-capabilities
           # -- A Reason why this rule is excluded.
           rationale: Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration
+
+        # -- A list of variables to set, used for tuning rules instead of disabling them.
+        setValues:
+          # -- The name of the variable in the base profile to override.
+        - name: "ocp4-var-sccs-with-allowed-capabilities-regex"
+          # -- The justification for setting this variable.
+          rationale: "To exclude extra SCC's from OCP-CIS rule"
+          # -- The new value for the variable
+          value: ^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$
 
     # -- A list of Profiles that shall be used for scanning
     profiles:
