@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
         with:
           fetch-depth: 0
           # Use the SHA from the workflow_run if available, otherwise use the current SHA
@@ -33,13 +33,13 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
         with:
           version: latest 
 
       # Add caching for Helm repositories
       - name: Cache Helm repositories
-        uses: actions/cache@v4
+        uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809 # v4
         with:
           path: ~/.cache/helm/repository
           key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
@@ -130,7 +130,7 @@ jobs:
 
       - name: Run chart-releaser
         if: steps.check-changes.outputs.changes == 'true'
-        uses: helm/chart-releaser-action@v1.7.0
+        uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
         with:
           config: cr.yaml
         env:
