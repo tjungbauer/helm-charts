@@ -13,11 +13,19 @@ metadata:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
   description: {{ $value.description }}
-  {{ if .disableRule }}
+  {{ if $value.disableRules }}
   disableRules:
-  {{- range $rulekey, $rulevalue := .disableRule }}
-    - name: {{ $rulevalue.name }}
-      rationale: {{ $rulevalue.rationale }}
+  {{- range $rule := $value.disableRules }}
+    - name: {{ $rule.name }}
+      rationale: {{ $rule.rationale | quote }}
+  {{- end }}
+  {{- end }}
+  {{ if $value.setValues }}
+  setValues:
+  {{- range $val := $value.setValues }}
+    - name: {{ $val.name }}
+      rationale: {{ $val.rationale | quote }}
+      value: {{ $val.value | quote }}
   {{- end }}
   {{- end }}
   extends: {{ $value.extends }}
