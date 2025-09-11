@@ -47,7 +47,9 @@ spec:
               {{ include "tpl.sleeptimer"  (dict "sleeptimer" "60") | nindent 14 }}
               
               sleep_timer={{ .job_init_quay.sleeptimer | default "30" }}
+
               counter="0"
+              
               max_retries={{ .job_init_quay.sleeptimer | default "30" }}
 
               printf "\nVerifying if Quay is already up and running\n"
