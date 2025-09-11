@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.14](https://img.shields.io/badge/Version-2.0.14-informational?style=flat-square)
+  ![Version: 2.0.15](https://img.shields.io/badge/Version-2.0.15-informational?style=flat-square)
 
  
 
@@ -263,7 +263,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.ssl_protocols | list | TLSv1.3 | If specified, nginx is configured to enabled a list of SSL protocols defined in the list. Removing an SSL protocol from the list disables the protocol during Red Hat Quay startup. ['TLSv1','TLSv1.1','TLSv1.2', `TLSv1.3] |
 | quay_configuration.successive_trigger_failure_disable_threshold | int | 100 | If not set to None, the number of successive failures that can occur before a build trigger is automatically disabled. |
 | quay_configuration.successive_trigger_internal_error_disable_threshold | int | 5 | If not set to None, the number of successive internal errors that can occur before a build trigger is automatically disabled |
-| quay_configuration.super_user_list | list | admin | Additional SUPER_USERS besides the initial administraor as defined at init_user.username (default admin) |
+| quay_configuration.super_user_list | list | admin | Additional SUPER_USERS besides the initial administrator as defined at init_user.username (default admin) |
 | quay_configuration.tag_expiration_options | list | `["0s","1d","1w","2w","4w"]` | If enabled, the options that users can select for expiration of tags in their namespace.<br /> <b>Pattern:</b> ^[0-9]+(w\|m\|d\|h\|s)$  |
 | quay_configuration.user_recovery_token_lifetime | string | 30m | The length of time a token for recovering a user accounts is valid Pattern: ^[0-9]+(w\|m\|d\|h\|s)$ |
 | quay_configuration.userfiles_location | string | default | ID of the storage engine in which to place user-uploaded files<br /> Example: s3_us_east |
