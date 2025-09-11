@@ -3,10 +3,10 @@ name: quay-registry-setup
 description: Deploy and configure Red Hat Quay Registry.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 2.0.13
+version: 2.0.14
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.24
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -59,3 +59,5 @@ annotations:
       description: Added new option repo_mirror_server_hostname to set hostname for the mirroring service
     - kind: fixed
       description: Fixed some errors in the init-quay job
+    - kind: fixed
+      description: Fixed issue with newline in tpl.sleeptimer
