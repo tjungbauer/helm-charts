@@ -418,7 +418,7 @@ quay_configuration:
   # If you miss any value simply define it here and in the skeleton for the configMap - I did not test any possibility
   # For example mail od LDAP configurations are currently missing, but can be extended.
 
-  # -- Additional SUPER_USERS besides the initial administraor as defined at init_user.username (default admin)
+  # -- Additional SUPER_USERS besides the initial administrator as defined at init_user.username (default admin)
   # @section -- Quay Configuration Settings
   # @default -- admin
   super_user_list:

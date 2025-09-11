@@ -143,6 +143,9 @@ data:
      {{- else if (eq .storage.instance "SwiftStorage") }}
     DISTRIBUTED_STORAGE_PREFERENCE:
       - swiftStorage
+    {{- else if or (eq .storage.instance "RHOCSStorage") }}
+    DISTRIBUTED_STORAGE_PREFERENCE:
+      - rhocsStorage
     {{- else }}
     DISTRIBUTED_STORAGE_PREFERENCE:
       - default
