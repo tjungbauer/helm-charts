@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.16](https://img.shields.io/badge/Version-2.0.16-informational?style=flat-square)
+  ![Version: 2.0.17](https://img.shields.io/badge/Version-2.0.17-informational?style=flat-square)
 
  
 
@@ -199,6 +199,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.feature.aggregated_log_count_retrieval | bool | true | Whether to allow retrieval of aggregated log counts |
 | quay_configuration.feature.anonymous_access | bool | true | Whether to allow anonymous users to browse and pull public repositories |
 | quay_configuration.feature.app_specific_tokens | bool | true | If enabled, users can create tokens for use by the Docker CLI |
+| quay_configuration.feature.auto_prune | bool | true | Whether to enable auto-prune feature. |
 | quay_configuration.feature.bitbucket_build | bool | false | Whether to support Bitbucket build triggers. |
 | quay_configuration.feature.blacklisted_emails | bool | false | If set to true, no new User accounts may be created if their email domain is blacklisted |
 | quay_configuration.feature.build_support | bool | false | Whether to support Dockerfile build. |
