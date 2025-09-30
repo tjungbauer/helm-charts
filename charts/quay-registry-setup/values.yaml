@@ -474,6 +474,11 @@ quay_configuration:
   # Additional features that can be activated or deactivated
   # @section -- Quay Configuration Settings
   feature:
+    # -- Whether to enable auto-prune feature.
+    # @section -- Quay Configuration Settings
+    # @default -- true
+    auto_prune: true
+
     # -- To create the first user, users need to set the FEATURE_USER_INITIALIZE parameter to true
     # @section -- Quay Configuration Settings
     # @default -- false

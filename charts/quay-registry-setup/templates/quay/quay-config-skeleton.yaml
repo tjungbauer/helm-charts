@@ -156,6 +156,7 @@ data:
     FEATURE_AGGREGATED_LOG_COUNT_RETRIEVAL: {{ .feature.aggregated_log_count_retrieval | quote | default "true" | trimAll "\"" }}
     FEATURE_ANONYMOUS_ACCESS: {{ .feature.anonymous_access | quote | default "true" | trimAll "\"" }}
     FEATURE_APP_SPECIFIC_TOKENS: {{ .feature.app_specific_tokens | quote | default "true" | trimAll "\"" }}
+    FEATURE_AUTO_PRUNE: {{ .feature.auto_prune | quote | default "true" | trimAll "\"" }}
     FEATURE_BITBUCKET_BUILD: {{ .feature.bitbucket_build | quote | default "false" | trimAll "\"" }}
     FEATURE_BLACKLISTED_EMAILS: {{ .feature.blacklisted_emails | quote | default "false" | trimAll "\"" }}
     FEATURE_BUILD_SUPPORT: {{ .feature.build_support | quote | default "false" | trimAll "\"" }}
