@@ -54,6 +54,8 @@ spec:
       - customization:
           jsonPointers:
             - /status/ingress
+            - /spec/host
+            - /metadata/annotations/openshift.io~1host.generated
         group: route.openshift.io
         kind: Route
   resourceHealthChecks:
