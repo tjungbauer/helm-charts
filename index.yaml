@@ -16043,6 +16043,43 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: initial release
+        - kind: changed
+          description: changed the image to the new minio-client-tools image
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-10-13T11:54:48.809055083Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: A Chart to automate the bucket creation and configuration for MINIO
+      Object Storage
+    digest: ca976f39eb7034ab7ceeb2e901cb340c671891d2c5dda90cdcda4aed384b1e15
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
+    keywords:
+    - minio
+    - storage
+    - clusterconfig
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: minio-configurator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/minio-configurator-1.0.9/minio-configurator-1.0.9.tgz
+    version: 1.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -31072,4 +31109,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-07T13:08:48.219590941Z"
+generated: "2025-10-13T11:54:48.810602927Z"
