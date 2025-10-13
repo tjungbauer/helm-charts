@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square)
+  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
 
  
 
@@ -82,9 +82,8 @@ argoproj:
   hook_delete_policy: HookSucceeded
 
 image:
-  # -- MinIO Client Tools image version. 
-  # Specifies the image that contains the mc command line tool
-  url: quay.io/tjungbau/minio-client-tools:v1.0.2
+  # -- Specifies the image (by Bitnami) that contains the mc command line tool
+  url: docker.io/bitnami/minio:2024.5.1-debian-12-r0
 
   # -- Pull policy for the image. Can be Always or IfNotPresent
   # @default -- Always
