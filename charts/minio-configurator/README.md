@@ -82,8 +82,9 @@ argoproj:
   hook_delete_policy: HookSucceeded
 
 image:
-  # -- Specifies the image (by Bitnami) that contains the mc command line tool
-  url: docker.io/bitnami/minio:2024.5.1-debian-12-r0
+  # -- MinIO Client Tools image version. 
+  # Specifies the image that contains the mc command line tool
+  url: quay.io/tjungbau/minio-client-tools:v1.0.2
 
   # -- Pull policy for the image. Can be Always or IfNotPresent
   # @default -- Always
