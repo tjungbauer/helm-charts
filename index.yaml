@@ -27988,6 +27988,55 @@ entries:
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-10-23T14:40:24.065416802Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.17.7
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm
+      chart
+    digest: d55d66ebc7a3913a36930db9ba39f20a4d7c48565489b5365e4205f75fb9ff0d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    keywords:
+    - secretmanagement
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.24/sealed-secrets-1.0.24.tgz
+    version: 1.0.24
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated sealed secrets helm chart version
+        - kind: added
+          description: new README
+        - kind: added
+          description: new version of sealed secrets chart 2.16
+        - kind: added
+          description: added tpl chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-07T07:43:41.194177073Z"
     dependencies:
     - condition: sealed-secrets.enabled
@@ -31147,4 +31196,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-23T14:29:45.470186563Z"
+generated: "2025-10-23T14:40:24.066626003Z"
