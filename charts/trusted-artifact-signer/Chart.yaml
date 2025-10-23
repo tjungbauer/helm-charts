@@ -2,8 +2,8 @@ apiVersion: v2
 name: trusted-artifact-signer
 description: Configure Trusted Artifact Signer
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
-icon: https://github.com/tjungbauer/helm-imgs/raw/gh-pages/images/trusted-artifact-signer.png
-version: 1.0.0
+icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png
+version: 1.0.1
 dependencies:
   - name: tpl
     version: ~1.0.24
@@ -31,3 +31,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: First Release
+    - kind: added
+      description: Added icon
