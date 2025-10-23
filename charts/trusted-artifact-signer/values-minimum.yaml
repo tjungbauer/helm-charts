@@ -1,0 +1,27 @@
+---
+##################################################
+# Example Configuration for Red Hat Trusted Artifact Signer
+# This minimum example shows a complete working configuration
+##################################################
+
+securesign:
+  # Enable the Securesign resource
+  enabled: true
+
+  name: securesign
+  namespace: trusted-artifact-signer
+  syncwave: '3'
+
+  # Fulcio Configuration - Certificate Authority for Code Signing
+  fulcio:
+    config:
+      OIDCIssuers:
+        - ClientID: trusted-artifact-signer
+          Issuer: 'https://keycloak-rhsso.apps.cluster.example.com/auth/realms/openshift'
+          IssuerURL: 'https://keycloak-rhsso.apps.cluster.example.com/auth/realms/openshift'
+          Type: email
+
+  # Trillian Configuration
+  trillian:
+    database:
+      create: true

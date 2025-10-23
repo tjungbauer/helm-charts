@@ -1,9 +1,13 @@
 apiVersion: v2
-name: update-clusterversion
-description: A Helm chart to update OpenShift ClusterVersion
-home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
-icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
-version: 1.0.1
+name: trusted-artifact-signer
+description: Configure Trusted Artifact Signer
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
+icon: https://github.com/tjungbauer/helm-imgs/raw/gh-pages/images/trusted-artifact-signer.png
+version: 1.0.0
+dependencies:
+  - name: tpl
+    version: ~1.0.24
+    repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -13,7 +17,12 @@ sources:
   - https://charts.stderr.at/
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 keywords:
-  - configuration
+  - security
+  - rhtas
+  - sigstore
+  - cosign
+  - rekor
+  - fulcio
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/signKey: |
@@ -21,4 +30,4 @@ annotations:
     url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
   artifacthub.io/changes: |
     - kind: added
-      description: Initial Release
+      description: First Release

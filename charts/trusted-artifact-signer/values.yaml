@@ -1,0 +1,896 @@
+---
+##################################################
+# Red Hat Trusted Artifact Signer (RHTAS)
+# Configuration for Securesign CR
+##################################################
+
+securesign:
+  # -- Enable or disable the Securesign resource.
+  # @default -- false
+  enabled: true
+
+  # -- Name of the Securesign resource.
+  # @default -- securesign
+  name: securesign
+
+  # -- Namespace where the Securesign resource will be deployed.
+  # @default -- trusted-artifact-signer
+  namespace: trusted-artifact-signer
+
+  # -- Syncwave for ArgoCD to manage deployment order.
+  # @default -- 3
+  syncwave: '3'
+
+  # -- Additional annotations to add to the Securesign instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to the Securesign instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
+
+  ####################
+  # CT Log Configuration
+  ####################
+  # -- Certificate Transparency Log configuration
+  ctlog:
+    # -- Replicas for CT Log.
+    # @default -- 1
+    replicas: 1
+
+    # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+    # ONLY set this if you know what you are doing.
+    # @default -- {}
+    resources: {}
+      # requests:
+      #   cpu: 4
+      #   memory: 8Gi
+      #   ephemeral-storage: 50Mi
+      # limits:
+      #   cpu: 8
+      #   memory: 16Gi
+      #   ephemeral-storage: 500Mi
+
+    # -- You can configure tolerations of tainted nodes.
+    # @default -- {}
+    tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+    # -- Monitoring configuration for CT Log
+    monitoring:
+      # -- Enable or disable monitoring for CT Log.
+      # @default -- false
+      enabled: false
+
+    # -- Trillian configuration for CT Log
+    trillian:
+      # -- Port for Trillian service.
+      # @default -- 8091
+      port: 8091
+
+      # -- Address of the Trillian server.
+      # @default -- ''
+      address: ''
+
+    # -- MaxCertChainSize sets the maximum size in bytes for the certificate chain. Passed as --max_cert_chain_size.
+    # @default -- 153600
+    maxCertChainSize: 153600
+
+    # -- TLS configuration for CT Log
+    tls:
+      # -- Reference to the secret containing the certificate for TLS encryption.
+      # @default -- {}
+      certificateRef: {}
+        # key: ''
+        # name: ''
+      # -- Reference to the secret containing the private key for TLS encryption.
+      # @default -- {}
+      privateKeyRef: {}
+        # key: ''
+        # name: ''
+
+    # -- Private key password reference for the certificate.
+    # @default -- {}
+    privateKeyPasswordRef: {}
+      # name: ''
+      # key: ''
+
+    # -- Public key reference for the certificate.
+    # @default -- {}
+    publicKeyRef: {}
+      # key: ''
+      # name: ''
+
+    # -- Root certificate references for the certificate.
+    # @default -- []
+    rootCertificates: []
+      # - key: ''
+      #   name: ''
+
+    # -- Tree ID for the CT Log.
+    # @default -- ''
+    treeID: ''
+
+    # -- server config reference for the CT Log
+    # @default -- {}
+    serverConfigRef: {}
+      # name: ''
+
+  ####################
+  # Fulcio Configuration
+  ####################
+  # -- Fulcio is a free Root-CA for code signing certs
+  fulcio:
+    # -- Replicas for Fulcio.
+    # @default -- 1
+    replicas: 1
+
+    # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+    # ONLY set this if you know what you are doing.
+    # @default -- {}
+    resources: {}
+      # requests:
+      #   cpu: 4
+      #   memory: 8Gi
+      #   ephemeral-storage: 50Mi
+      # limits:
+      #   cpu: 8
+      #   memory: 16Gi
+      #   ephemeral-storage: 500Mi
+
+    # -- You can configure tolerations of tainted nodes.
+    # @default -- {}
+    tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+    # -- External access configuration for Fulcio
+    externalAccess:
+      # -- Enable external access to Fulcio.
+      # @default -- true
+      enabled: true
+
+      # -- Host for external access to Fulcio.
+      # @default -- ''
+      host: ''
+
+    # -- Monitoring configuration for Fulcio
+    monitoring:
+      # -- Enable or disable monitoring for Fulcio.
+      # @default -- false
+      enabled: false
+
+    # -- Certificate configuration for Fulcio
+    certificate:
+      # -- Common Name for the Fulcio certificate.
+      # This can use templating, e.g., "{{ .Release.Name }}.example.com"
+      commonName: fulcio.hostname
+
+      # -- Organization email for the certificate.
+      organizationEmail: admin@example.com
+
+      # -- Organization name for the certificate.
+      organizationName: Example Organization
+
+      # -- Private key password reference for the certificate.
+      # @default -- {}
+      privateKeyPasswordRef: {}
+        # name: ''
+        # key: ''
+
+      # -- Private key reference for the certificate.
+      # @default -- {}
+      privateKeyRef: {}
+        # name: ''
+        # key: ''
+
+    # -- Fulcio configuration
+    config:
+      # -- CIIssuerMetadata configuration for Fulcio
+      CIIssuerMetadata:
+        # -- Name of the issuer
+        # @default -- ''
+        - IssuerName: ''
+
+      # -- List of OIDC Issuers for authentication
+      OIDCIssuers:
+          # -- Client ID for the OIDC Issuer.
+          # @default -- trusted-artifact-signer
+        - ClientID: trusted-artifact-signer
+
+          # -- OIDC Issuer URL
+          # @default -- ''
+          Issuer: 'dummy'
+
+          # -- OIDC Issuer URL (alternative field)
+          # @default -- ''
+          IssuerURL: 'dummy'
+
+          # -- Type of authentication. Possible values: email, uri, username
+          # @default -- email
+          Type: email
+
+          # -- Issuer Claim for the OIDC Issuer.
+          # @default -- ''
+          IssuerClaim: ''
+
+          # -- Subject Domain for the OIDC Issuer.
+          # @default -- ''
+          SubjectDomain: ''
+
+          # -- CI Provider for the OIDC Issuer.
+          # @default -- ''
+          CIProvider: ''
+
+          # -- Challenge Claim for the OIDC Issuer.
+          # @default -- ''
+          ChallengeClaim: ''
+
+          # -- SPIFFE Trust Domain for the OIDC Issuer.
+          # @default -- ''
+          SPIFFETrustDomain: ''
+
+    # -- CT Log configuration for Fulcio
+    ctlog:
+      # -- Address of the CT Log service.
+      # @default -- ''
+      address: ''
+
+      # -- Port for CT Log service.
+      # @default -- 80
+      port: 80
+
+      # -- Prefix for CT Log.
+      # @default -- trusted-artifact-signer
+      prefix: trusted-artifact-signer
+
+    # -- ConfigMap with additional bundle of trusted CA
+    # @default -- {}
+    trustedCA: {}
+      # name: ''
+
+  ####################
+  # Rekor Configuration
+  ####################
+  # -- Rekor is a transparency log and timestamping service
+  rekor:
+    # -- Replicas for Rekor.
+    # @default -- 1
+    replicas: 1
+
+    # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+    # ONLY set this if you know what you are doing.
+    # @default -- {}
+    resources: {}
+      # requests:
+      #   cpu: 4
+      #   memory: 8Gi
+      #   ephemeral-storage: 50Mi
+      # limits:
+      #   cpu: 8
+      #   memory: 16Gi
+      #   ephemeral-storage: 500Mi
+
+    # -- You can configure tolerations of tainted nodes.
+    # @default -- {}
+    tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+    # -- Redis backfill configuration
+    backFillRedis:
+      # -- Enable Redis backfill job.
+      # @default -- true
+      enabled: true
+
+      # -- Cron schedule for Redis backfill.
+      # @default -- 0 0 * * * (daily at midnight)
+      schedule: "0 0 * * *"
+
+    # -- External access configuration for Rekor
+    externalAccess:
+      # -- Enable external access to Rekor.
+      # @default -- true
+      enabled: true
+
+      # -- Host for external access to Rekor.
+      # @default -- ''
+      host: ''
+
+    # -- Monitoring configuration for Rekor
+    monitoring:
+      # -- Enable or disable monitoring for Rekor.
+      # @default -- false
+      enabled: false
+
+      # -- Configuration for Rekor transparency log monitoring
+      # @default -- {}
+      tlog:
+        # -- Enable or disable monitoring for TLog.
+        # @default -- false
+
+        enabled: false
+        # -- Interval for TLog monitoring.
+        # @default -- 10m
+        interval: 10m
+
+    # -- Persistent Volume Claim configuration for Rekor
+    pvc:
+      # -- Access modes for the PVC.
+      # @default -- [ReadWriteOnce]
+      accessModes:
+        - ReadWriteOnce
+
+      # -- Retain PVC on deletion.
+      # @default -- true
+      retain: true
+
+      # -- Size of the PVC.
+      # @default -- 5Gi
+      size: 5Gi
+
+      # -- Name of the PVC.
+      # @default -- ''
+      name: ''
+
+      # -- Storage class name for the PVC (optional).
+      # If not specified, the default storage class will be used.
+      # storageClassName: gp3-csi
+
+    # -- Rekor Search UI configuration
+    rekorSearchUI:
+      # -- Enable or disable Rekor Search UI.
+      # @default -- true
+      enabled: true
+
+      # -- Replicas for Rekor Search UI.
+      # @default -- 1
+      replicas: 1
+
+      # -- Host for external access to Rekor Search UI.
+      # @default -- ''
+      host: ''
+
+      # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+      # ONLY set this if you know what you are doing.
+      # @default -- {}
+      resources: {}
+        # requests:
+        #   cpu: 4
+        #   memory: 8Gi
+        #   ephemeral-storage: 50Mi
+        # limits:
+        #   cpu: 8
+        #   memory: 16Gi
+        #   ephemeral-storage: 500Mi
+
+      # -- You can configure tolerations of tainted nodes.
+      # @default -- {}
+      tolerations: {}
+        #  - effect: NoSchedule
+        #    key: infra
+        #    operator: Equal
+        #    value: reserved
+        #  - effect: NoSchedule
+        #    key: infra
+        #    operator: Equal
+        #    value: reserved
+
+    # -- Sharding configuration for Rekor.
+    # @default -- []
+    sharding: []
+    #    # -- ID of Merkle tree in Trillian backend
+    #  - treeID: ''
+    #    # -- The public key for the log shard, encoded in Base64 format
+    #    # @default -- ''
+    #    encodedPublicKey: '123'
+    #    # -- The length of the Merkle tree in Trillian backend
+    #    # @default -- 0
+    #    treeLength: ''
+
+    # -- Signer configuration for Rekor
+    signer:
+      # -- Key Management System type. Possible values: secret, kms
+      # @default -- secret
+      kms: secret
+
+      # -- Reference to the signer private key.
+      # @default -- {}
+      keyRef: {}
+        # name: my-kms-key
+        # key: my-kms-key
+
+      # -- OPTIONAL: Password to decrypt the signer private key.
+      # @default -- {}
+      passwordRef: {}
+        # name: my-kms-key
+        # key: my-kms-key
+
+    # -- Trillian configuration for Rekor
+    trillian:
+      # -- Port for Trillian service.
+      # @default -- 8091
+      port: 8091
+
+      # -- Address of the Trillian server.
+      # @default -- ''
+      address: ''
+
+    # -- MaxRequestBodySize sets the maximum size in bytes for HTTP request body. Passed as --max_request_body_size.
+    # @default -- 10485760
+    maxRequestBodySize: 10485760
+
+    # -- Trusted Certificate Authority configuration for Trillian
+    # @default -- {}
+    trustedCA: {}
+      # name: ''
+
+    # -- Attestations configuration
+    attestations:
+      # -- Enable attestations.
+      # @default -- true
+      enabled: true
+
+      # -- Url specifies the storage location for attestations, supporting go-cloud blob URLs.
+      # url: 'file:///var/run/attestations?no_tmp_dir=true'
+      # Url specifies the storage location for attestations, supporting go-cloud blob URLs.
+      # The "file:///var/run/attestations" path is specifically for local storage
+      # that relies on a mounted Persistent Volume Claim (PVC) for data persistence.
+      # Other valid protocols include s3://, gs://, azblob://, and mem://.
+      # Examples of valid URLs:
+      # - Amazon S3: "s3://my-bucket?region=us-west-1"
+      # - S3-Compatible Storage: "s3://my-bucket?endpoint=my.minio.local:8080&s3ForcePathStyle=true"
+      # - Google Cloud Storage: "gs://my-bucket"
+      # - Azure Blob Storage: "azblob://my-container"
+      # - In-memory (for testing/development): "mem://"
+      # - Local file system: "file:///var/run/attestations?no_tmp_dir=true"
+      # @default -- 'file:///var/run/attestations?no_tmp_dir=true'
+      url: 'file:///var/run/attestations?no_tmp_dir=true'
+
+    searchIndex:
+      # -- Define your search index database connection
+      # @default -- true
+      create: true
+
+      # -- DB provider. Supported are redis and mysql.
+      # IMPORTANT: Provider can only be specified when using external database (trillian.database.create=false)
+      # When using managed database (create=true), leave provider unset.
+      # @default -- ''
+      provider: ''
+
+      # -- DB connection URL.
+      # Required when using external database with explicit provider.
+      # @default -- ''
+      url: ''
+
+    # -- ID of Merkle tree in Trillian backend
+    # If it is unset, the operator will create new Merkle tree in the Trillian backend
+    # @default -- ''
+    treeID: ''
+
+  ####################
+  # Trillian Configuration
+  ####################
+  # -- Trillian is a transparent, highly scalable and cryptographically verifiable data store
+  trillian:
+    # -- Database configuration for Trillian
+    database:
+      # -- Create database automatically.
+      # @default -- true
+      create: true
+
+      # -- OPTIONAL: Secret with values to be used to connect to an existing DB or to be used with the creation of a new DB
+      # mysql-host: The host of the MySQL server
+      # mysql-port: The port of the MySQL server
+      # mysql-user: The user to connect to the MySQL server
+      # mysql-password: The password to connect to the MySQL server
+      # mysql-database: The database to connect to
+      # @default -- {}
+      databaseSecretRef: {}
+      #  name: ''
+
+      # -- PVC configuration for Trillian database
+      pvc:
+        # -- Access modes for the PVC.
+        # @default -- [ReadWriteOnce]
+        accessModes:
+          - ReadWriteOnce
+
+        # -- Retain PVC on deletion.
+        # @default -- true
+        retain: true
+
+        # -- Size of the PVC.
+        # @default -- 5Gi
+        size: 5Gi
+
+        # -- Name of the PVC.
+        # @default -- ''
+        name: ''
+
+        # -- Storage class name for the PVC (optional).
+        # @default -- ''
+        storageClassName: ''
+
+      # -- Configuration for enabling TLS (Transport Layer Security) encryption for managed database.
+      # @default -- {}
+      tls: {}
+        # -- Reference to the secret containing the certificate for TLS encryption.
+        # certificateRef:
+        #   key: ''
+        #   name: ''
+        # -- Reference to the secret containing the private key for TLS encryption.
+        # privateKeyRef:
+        #   key: ''
+        #   name: ''
+
+    # -- Server configuration for Trillian
+    server:
+      # -- Number of replicas for Trillian server.
+      # @default -- 1
+      replicas: 1
+
+      # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+      # ONLY set this if you know what you are doing.
+      # @default -- {}
+      resources: {}
+        # requests:
+        #   cpu: 4
+        #   memory: 8Gi
+        #   ephemeral-storage: 50Mi
+        # limits:
+        #   cpu: 8
+        #   memory: 16Gi
+        #   ephemeral-storage: 500Mi
+
+      # -- You can configure tolerations of tainted nodes.
+      # @default -- {}
+      tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+      # -- Configuration for enabling TLS (Transport Layer Security) encryption for managed server.
+      # @default -- {}
+      tls: {}
+        # -- Reference to the secret containing the certificate for TLS encryption.
+        # certificateRef:
+        #   key: ''
+        #   name: ''
+        # -- Reference to the secret containing the private key for TLS encryption.
+        # privateKeyRef:
+        #   key: ''
+        #   name: ''
+
+    # -- Signer configuration for Trillian
+    signer:
+      # -- Number of replicas for Trillian signer.
+      # @default -- 1
+      replicas: 1
+
+      # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+      # ONLY set this if you know what you are doing.
+      # @default -- {}
+      resources: {}
+        # requests:
+        #   cpu: 4
+        #   memory: 8Gi
+        #   ephemeral-storage: 50Mi
+        # limits:
+        #   cpu: 8
+        #   memory: 16Gi
+        #   ephemeral-storage: 500Mi
+
+      # -- You can configure tolerations of tainted nodes.
+      # @default -- {}
+      tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+      # -- Configuration for enabling TLS (Transport Layer Security) encryption for managed signer.
+      # @default -- {}
+      tls: {}
+        # -- Reference to the secret containing the certificate for TLS encryption.
+        # certificateRef:
+        #   key: ''
+        #   name: ''
+        # -- Reference to the secret containing the private key for TLS encryption.
+        # privateKeyRef:
+        #   key: ''
+        #   name: ''
+
+    # -- MaxRecvMessageSize sets the maximum size in bytes for incoming gRPC messages handled by the Trillian logserver and logsigner
+    # @default -- 153600
+    maxRecvMessageSize: 153600
+
+    # -- Monitoring configuration for Trillian
+    monitoring:
+      # -- Enable or disable monitoring for Trillian.
+      # @default -- false
+      enabled: false
+
+    # -- Trusted Certificate Authority configuration for Trillian
+    # @default -- {}
+    trustedCA: {}
+      # name: ''
+
+  ####################
+  # TSA Configuration
+  ####################
+  # -- TSA TimestampAuthoritySpec defines the desired state of TimestampAuthority
+  tsa:
+    # -- Number of replicas for TSA.
+    # @default -- 1
+    replicas: 1
+
+    # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+    # ONLY set this if you know what you are doing.
+    # @default -- {}
+    resources: {}
+      # requests:
+      #   cpu: 4
+      #   memory: 8Gi
+      #   ephemeral-storage: 50Mi
+      # limits:
+      #   cpu: 8
+      #   memory: 16Gi
+      #   ephemeral-storage: 500Mi
+
+    # -- You can configure tolerations of tainted nodes.
+    # @default -- {}
+    tolerations: {}
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+      #  - effect: NoSchedule
+      #    key: infra
+      #    operator: Equal
+      #    value: reserved
+
+    # -- External access configuration for TSA
+    externalAccess:
+      # -- Enable external access to TSA.
+      # @default -- true
+      enabled: true
+
+      # -- Host for external access to TSA.
+      # @default -- ''
+      host: ''
+
+    # -- Configuration for NTP monitoring
+    ntpMonitoring:
+      # -- Enable or disable monitoring for TSA.
+      # @default -- false
+      enabled: false
+
+    # -- Monitoring configuration for TSA
+    monitoring:
+      # -- Enable or disable monitoring for TSA.
+      # @default -- false
+      enabled: false
+
+    # -- Trusted Certificate Authority configuration for TSA
+    # @default -- {}
+    trustedCA: {}
+      # name: ''
+
+    # -- MaxRequestBodySize sets the maximum size in bytes for HTTP request body. Passed as --max_request_body_size.
+    # @default -- 10485760
+    maxRequestBodySize: 1048576
+
+    signer:
+      # -- Certificate chain configuration for TSA signer
+      # @default -- {}
+      certificateChain:
+        # -- Reference to the secret containing the certificate chain for TSA signer
+        certificateChainRef: {}
+        #   key: ''
+        #   name: ''
+        intermediateCA:
+          intermediateCA:
+              # -- Common Name for the Intermediate CA.
+              # @default -- 'tsa.hostname-intermediate'
+            - commonName: tsa.hostname-intermediate
+              # -- Organization Email for the Intermediate CA.
+              # @default -- 'jdoe@redhat.com'
+              organizationEmail: jdoe@redhat.com
+              # -- Organization Name for the Intermediate CA.
+              # @default -- 'Red Hat'
+              organizationName: Red Hat
+              # passwordRef:
+              #   key: ''
+              #   name: ''
+              # privateKeyRef:
+              #   key: ''
+              #   name: ''
+          # -- Leaf CA configuration for TSA signer
+          leafCA:
+              # -- Common Name for the Leaf CA.
+              # @default -- 'tsa.hostname-leaf'
+            - commonName: tsa.hostname-leaf
+              # -- Organization Email for the Leaf CA.
+              # @default -- 'jdoe@redhat.com'
+              organizationEmail: jdoe@redhat.com
+              # -- Organization Name for the Leaf CA.
+              # @default -- 'Red Hat'
+              organizationName: Red Hat
+              # passwordRef:
+              #   key: ''
+              #   name: ''
+              # privateKeyRef:
+              #   key: ''
+              #   name: ''
+          # -- Root CA configuration for TSA signer
+          rootCA:
+              # -- Common Name for the Root CA.
+              # @default -- 'tsa.hostname-root'
+            - commonName: tsa.hostname-root
+              # -- Organization Email for the Root CA.
+              # @default -- 'jdoe@redhat.com'
+              organizationEmail: jdoe@redhat.com
+              # -- Organization Name for the Root CA.
+              # @default -- 'Red Hat'
+              organizationName: Red Hat
+              # passwordRef:
+              #   key: ''
+              #   name: ''
+              # privateKeyRef:
+              #   key: ''
+              #   name: ''
+
+      # -- Configuration for file-based signer
+      # @default -- {}
+      file: {}
+        # passwordRef:
+        #   key: ''
+        #   name: ''
+        # privateKeyRef:
+        #   key: ''
+        #   name: ''
+
+      # -- Configuration for KMS-based signer
+      # @default -- {}
+      kms: {}
+        # keyResource: ''
+
+      # -- Configuration for Tink-based signer
+      # @default -- {}
+      tink: {}
+        # keysetRef:
+        #   key: ''
+        #   name: ''
+        # keyResource: ''
+        #   keyResource: ''
+
+  ####################
+  # TUF Configuration
+  ####################
+  # -- TUF (The Update Framework) provides a secure way to distribute cryptographic keys
+  tuf:
+    # -- Number of replicas for TUF.
+    # @default -- 1
+    replicas: 1
+
+    # -- External access configuration for TUF
+    externalAccess:
+      # -- Enable external access to TUF.
+      # @default -- true
+      enabled: true
+
+      # -- Host for external access to TUF.
+      # @default -- ''
+      host: ''
+
+    # -- List of keys to be managed by TUF
+    # List of TUF targets which will be added to TUF root
+    # If secretRef is unset, the operator will try to autoconfigure secret reference, by searching secrets in namespace which contain `rhtas.redhat.com/$name` label.
+    keys:
+      - name: rekor.pub
+        secretRef:
+          key: ''
+          name: ''
+      - name: ctfe.pub
+        secretRef:
+          key: ''
+          name: ''
+      - name: fulcio_v1.crt.pem
+        secretRef:
+          key: ''
+          name: ''
+      - name: tsa.certchain.pem
+        secretRef:
+          key: ''
+          name: ''
+
+    # -- Port for TUF service.
+    # @default -- 80
+    port: 80
+
+    # -- Persistent Volume Claim configuration for TUF
+    pvc:
+      # -- Access modes for the PVC.
+      # @default -- [ReadWriteOnce]
+      accessModes:
+        - ReadWriteOnce
+
+      # -- Retain PVC on deletion.
+      # @default -- true
+      retain: true
+
+      # -- Size of the PVC.
+      # @default -- 100Mi
+      size: 100Mi
+
+      # -- Name of the PVC.
+      # @default -- ''
+      name: ''
+
+    # -- Storage class name for the PVC (optional).
+    # storageClassName: gp3-csi
+
+    # -- Set resources.requests and resources.limits. Per default this block can be omitted.
+    # ONLY set this if you know what you are doing.
+    # @default -- {}
+    resources: {}
+      # requests:
+      #   cpu: 4
+      #   memory: 8Gi
+      #   ephemeral-storage: 50Mi
+      # limits:
+      #   cpu: 8
+      #   memory: 16Gi
+      #   ephemeral-storage: 500Mi
+
+    # -- You can configure tolerations of tainted nodes.
+    # @default -- {}
+    tolerations: {}
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
+    #  - effect: NoSchedule
+    #    key: infra
+    #    operator: Equal
+    #    value: reserved
+
+    # -- Reference to the secret containing TUF root keys.
+    # This secret must exist in the same namespace.
+    rootKeySecretRef:
+      name: tuf-root-keys

@@ -1,0 +1,722 @@
+{{- with .Values.securesign }}
+{{- if eq (.enabled | toString) "true" }}
+{{/*
+Validation Summary:
+- Replica counts: 1-100 (validated)
+- Ports: 1-65535 (validated)
+- Email format: basic RFC validation (validated)
+- PVC sizes: Kubernetes quantity format (validated)
+- URLs: valid protocol required (validated)
+- OIDC Issuers: ClientID, Issuer, IssuerURL required (validated)
+- Search Index provider: redis or mysql only (validated)
+- Search Index provider: requires external database (create=false) (validated)
+*/}}
+apiVersion: rhtas.redhat.com/v1alpha1
+kind: Securesign
+metadata:
+  name: {{ .name | default "securesign" }}
+  namespace: {{ .namespace | default "trusted-artifact-signer" }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+spec:
+  {{- with .ctlog }}
+  {{- if hasKey . "replicas" }}
+  {{- include "securesign.validateReplicas" .replicas }}
+  {{- end }}
+  {{- $ctlogReplicas := .replicas | default 1 }}
+  ctlog:
+    replicas: {{ $ctlogReplicas }}
+
+{{- /* Set resources for CT Log */}}
+{{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+{{- end }}
+
+{{- /* Set tolerations for CT Log */}}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+    
+    {{- if .monitoring }}
+    monitoring:
+      enabled: {{ .monitoring.enabled | default false }}
+    {{- end }}
+    
+    {{- if .trillian }}
+    {{- $port := .trillian.port | default 8091 | int }}
+    {{- include "securesign.validatePort" $port }}
+    trillian:
+      port: {{ $port }}
+      {{- if .trillian.address }}
+      address: {{ .trillian.address }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- with .fulcio }}
+  {{- if hasKey . "replicas" }}
+  {{- include "securesign.validateReplicas" .replicas }}
+  {{- end }}
+  {{- $fulcioReplicas := .replicas | default 1 }}
+  fulcio:
+    replicas: {{ $fulcioReplicas }}
+
+{{- /* Set resources for Fulcio */}}
+{{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+{{- end }}
+
+{{- /* Set tolerations for Fulcio */}}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+    
+    {{- if .externalAccess }}
+    externalAccess:
+      enabled: {{ .externalAccess.enabled | default true }}
+      {{- if .externalAccess.host }}
+      host: {{ .externalAccess.host }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .monitoring }}
+    monitoring:
+      enabled: {{ .monitoring.enabled | default false }}
+    {{- end }}
+    
+    {{- if .certificate }}
+    {{- $commonName := tpl .certificate.commonName $ }}
+    {{- $orgEmail := tpl .certificate.organizationEmail $ }}
+    {{- include "securesign.validateCommonName" $commonName }}
+    {{- include "securesign.validateEmail" $orgEmail }}
+    certificate:
+      commonName: {{ $commonName }}
+      organizationEmail: {{ $orgEmail }}
+      organizationName: {{ tpl .certificate.organizationName $ }}
+      {{- if .certificate.privateKeyPasswordRef.name }}
+      privateKeyPasswordRef:
+        name: {{ .certificate.privateKeyPasswordRef.name }}
+        {{- if .certificate.privateKeyPasswordRef.key }}
+        key: {{ .certificate.privateKeyPasswordRef.key }}
+        {{- end }}
+      {{- end }}
+      {{- if .certificate.privateKeyRef.name }}
+      privateKeyRef:
+        name: {{ .certificate.privateKeyRef.name }}
+        {{- if .certificate.privateKeyRef.key }}
+        key: {{ .certificate.privateKeyRef.key }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .config }}
+    config:
+      {{- if .config.CIIssuerMetadata }}
+      CIIssuerMetadata:
+        {{- range .config.CIIssuerMetadata }}
+        {{- if .IssuerName }}
+        - IssuerName: {{ .IssuerName }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      
+      {{- if .config.OIDCIssuers }}
+      OIDCIssuers:
+        {{- range $index, $issuer := .config.OIDCIssuers }}
+        {{- /* Validate required fields for OIDC Issuers */}}
+        {{- if not $issuer.ClientID }}
+        {{- fail (printf "fulcio.config.OIDCIssuers[%d].ClientID is required and cannot be empty" $index) }}
+        {{- end }}
+        {{- if not $issuer.Issuer }}
+        {{- fail (printf "fulcio.config.OIDCIssuers[%d].Issuer is required and cannot be empty" $index) }}
+        {{- end }}
+        {{- if not $issuer.IssuerURL }}
+        {{- fail (printf "fulcio.config.OIDCIssuers[%d].IssuerURL is required and cannot be empty" $index) }}
+        {{- end }}
+        {{- /* Render the issuer after validation passes */}}
+        - ClientID: {{ tpl $issuer.ClientID $ }}
+          Issuer: {{ tpl $issuer.Issuer $ | quote }}
+          IssuerURL: {{ tpl $issuer.IssuerURL $ | quote }}
+          Type: {{ $issuer.Type | default "email" }}
+          {{- if $issuer.IssuerClaim }}
+          IssuerClaim: {{ $issuer.IssuerClaim }}
+          {{- end }}
+          {{- if $issuer.SubjectDomain }}
+          SubjectDomain: {{ $issuer.SubjectDomain }}
+          {{- end }}
+          {{- if $issuer.CIProvider }}
+          CIProvider: {{ $issuer.CIProvider }}
+          {{- end }}
+          {{- if $issuer.ChallengeClaim }}
+          ChallengeClaim: {{ $issuer.ChallengeClaim }}
+          {{- end }}
+          {{- if $issuer.SPIFFETrustDomain }}
+          SPIFFETrustDomain: {{ $issuer.SPIFFETrustDomain }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .ctlog }}
+    {{- $ctlogPort := .ctlog.port | default 80 | int }}
+    {{- include "securesign.validatePort" $ctlogPort }}
+    ctlog:
+      {{- if .ctlog.address }}
+      address: {{ .ctlog.address }}
+      {{- end }}
+      port: {{ $ctlogPort }}
+      {{- if .ctlog.prefix }}
+      prefix: {{ .ctlog.prefix }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .trustedCA.name }}
+    trustedCA:
+      name: {{ .trustedCA.name }}
+    {{- end }}
+  {{- end }}
+
+  {{- with .rekor }}
+  {{- if hasKey . "replicas" }}
+  {{- include "securesign.validateReplicas" .replicas }}
+  {{- end }}
+  {{- $rekorReplicas := .replicas | default 1 }}
+  rekor:
+    replicas: {{ $rekorReplicas }}
+
+{{- /* Set resources for Rekor */}}
+{{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+{{- end }}
+
+{{- /* Set tolerations for Rekor */}}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+    
+    {{- if .backFillRedis }}
+    backFillRedis:
+      enabled: {{ .backFillRedis.enabled | default true }}
+      schedule: {{ .backFillRedis.schedule | default "0 0 * * *" | quote }}
+    {{- end }}
+    
+    {{- if .externalAccess }}
+    externalAccess:
+      enabled: {{ .externalAccess.enabled | default true }}
+      {{- if .externalAccess.host }}
+      host: {{ .externalAccess.host }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .monitoring }}
+    monitoring:
+      enabled: {{ .monitoring.enabled | default false }}
+      {{- if .monitoring.tlog }}
+      tlog:
+        enabled: {{ .monitoring.tlog.enabled | default false }}
+        interval: {{ .monitoring.tlog.interval | default "10m" | quote }}
+      {{- end }}      
+    {{- end }}
+    
+    {{- if .pvc }}
+    {{- $pvcSize := .pvc.size | default "5Gi" }}
+    {{- include "securesign.validateSize" $pvcSize }}
+    pvc:
+      {{- if .pvc.accessModes }}
+      accessModes:
+        {{- range .pvc.accessModes }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      retain: {{ .pvc.retain | default true }}
+      size: {{ $pvcSize }}
+      {{- if .pvc.name }}
+      name: {{ .pvc.name }}
+      {{- end }}
+      {{- if .pvc.storageClassName }}
+      storageClassName: {{ .pvc.storageClassName }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .rekorSearchUI }}
+    {{- if hasKey .rekorSearchUI "replicas" }}
+    {{- include "securesign.validateReplicas" .rekorSearchUI.replicas }}
+    {{- end }}
+    {{- $rekorSearchUIReplicas := .rekorSearchUI.replicas | default 1 }}
+    rekorSearchUI:
+      enabled: {{ .rekorSearchUI.enabled | default true }}
+      replicas: {{ $rekorSearchUIReplicas }}
+      {{- if .rekorSearchUI.resources }}
+{{ include "tpl.resources" .rekorSearchUI.resources | indent 6 }}
+      {{- end }}
+      {{- if .rekorSearchUI.tolerations }}
+{{ include "tpl.tolerations" .rekorSearchUI.tolerations | indent 6 }}
+      {{- end }}
+      {{- if .rekorSearchUI.host }}
+      host: {{ .rekorSearchUI.host }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .sharding }}
+    sharding: {{ toYaml .sharding | nindent 6 }}
+    {{- else }}
+    sharding: []
+    {{- end }}
+    
+    {{- if .signer }}
+    signer:
+      kms: {{ .signer.kms | default "secret" }}
+      {{- if .signer.keyRef.name }}
+      keyRef:
+        name: {{ .signer.keyRef.name }}
+        {{- if .signer.keyRef.key }}
+        key: {{ .signer.keyRef.key }}
+        {{- end }}
+      {{- end }}
+      {{- if .signer.passwordRef.name }}
+      passwordRef:
+        name: {{ .signer.passwordRef.name }}
+        {{- if .signer.passwordRef.key }}
+        key: {{ .signer.passwordRef.key }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .trillian }}
+    {{- $rekorTrillianPort := .trillian.port | default 8091 | int }}
+    {{- include "securesign.validatePort" $rekorTrillianPort }}
+    trillian:
+      port: {{ $rekorTrillianPort }}
+      {{- if .trillian.address }}
+      address: {{ .trillian.address }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .maxRequestBodySize }}
+    maxRequestBodySize: {{ .maxRequestBodySize | default 10485760 }}
+    {{- end }}
+    
+    {{- if .trustedCA.name }}
+    trustedCA:
+      name: {{ .trustedCA.name }}
+    {{- end }}
+    
+    {{- if .attestations }}
+    {{- if .attestations.url }}
+    {{- include "securesign.validateURL" .attestations.url }}
+    {{- end }}
+    attestations:
+      enabled: {{ .attestations.enabled | default true }}
+      {{- if .attestations.url }}
+      url: {{ .attestations.url | default "file:///var/run/attestations?no_tmp_dir=true" | quote }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .searchIndex }}
+    {{- /* Validate searchIndex.provider - only allow redis or mysql */}}
+    {{- if .searchIndex.provider }}
+    {{- if and (ne .searchIndex.provider "redis") (ne .searchIndex.provider "mysql") }}
+    {{- fail (printf "searchIndex.provider must be either 'redis' or 'mysql', got '%s'" .searchIndex.provider) }}
+    {{- end }}
+    {{- /* Validate searchIndex.provider requires external database (create=false) */}}
+    {{- $dbCreate := true }}
+    {{- if $.Values.securesign.trillian }}
+    {{- if $.Values.securesign.trillian.database }}
+    {{- if hasKey $.Values.securesign.trillian.database "create" }}
+    {{- $dbCreate = $.Values.securesign.trillian.database.create }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- if $dbCreate }}
+    {{- fail "Invalid value: \"object\": Provider can be specified only with external db (create=false)" }}
+    {{- end }}
+    {{- end }}
+    searchIndex:
+      create: {{ .searchIndex.create | default true }}
+      {{- if .searchIndex.provider }}
+      provider: {{ .searchIndex.provider | default "redis" }}
+      {{- end }}
+      {{- if .searchIndex.url }}
+      url: {{ .searchIndex.url | quote }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .treeID }}
+    treeID: {{ .treeID | quote }}
+    {{- end }}
+  {{- end }}
+  
+  {{- with .trillian }}
+  trillian:
+    {{- if .database }}
+    database:
+      create: {{ .database.create | default true }}
+      
+      {{- if .database.databaseSecretRef.name }}
+      databaseSecretRef:
+        name: {{ .database.databaseSecretRef.name }}
+      {{- end }}
+      
+      {{- if .database.pvc }}
+      {{- $dbPvcSize := .database.pvc.size | default "5Gi" }}
+      {{- include "securesign.validateSize" $dbPvcSize }}
+      pvc:
+        {{- if .database.pvc.accessModes }}
+        accessModes:
+          {{- range .database.pvc.accessModes }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+        retain: {{ .database.pvc.retain | default true }}
+        size: {{ $dbPvcSize }}
+        {{- if .database.pvc.name }}
+        name: {{ .database.pvc.name }}
+        {{- end }}
+        {{- if .database.pvc.storageClassName }}
+        storageClassName: {{ .database.pvc.storageClassName }}
+        {{- end }}
+      {{- end }}
+      
+      {{- if .database.tls }}
+      tls:
+        {{- if or .database.tls.certificateRef .database.tls.privateKeyRef }}
+        {{- if .database.tls.certificateRef }}
+        certificateRef:
+          key: {{ .database.tls.certificateRef.key }}
+          name: {{ .database.tls.certificateRef.name }}
+        {{- end }}
+        {{- if .database.tls.privateKeyRef }}
+        privateKeyRef:
+          key: {{ .database.tls.privateKeyRef.key }}
+          name: {{ .database.tls.privateKeyRef.name }}
+        {{- end }}
+        {{- else }}
+        {{- toYaml .database.tls | nindent 8 }}
+        {{- end }}
+      {{- else }}
+      tls: {}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .server }}
+    {{- if hasKey .server "replicas" }}
+    {{- include "securesign.validateReplicas" .server.replicas }}
+    {{- end }}
+    {{- $trillianServerReplicas := .server.replicas | default 1 }}
+    server:
+      replicas: {{ $trillianServerReplicas }}
+      
+      {{- if .server.resources }}
+{{ include "tpl.resources" .server.resources | indent 6 }}
+      {{- end }}
+      
+      {{- if .server.tolerations }}
+{{ include "tpl.tolerations" .server.tolerations | indent 6 }}
+      {{- end }}
+      
+      {{- if .server.tls }}
+      tls:
+        {{- if or .server.tls.certificateRef .server.tls.privateKeyRef }}
+        {{- if .server.tls.certificateRef }}
+        certificateRef:
+          key: {{ .server.tls.certificateRef.key }}
+          name: {{ .server.tls.certificateRef.name }}
+        {{- end }}
+        {{- if .server.tls.privateKeyRef }}
+        privateKeyRef:
+          key: {{ .server.tls.privateKeyRef.key }}
+          name: {{ .server.tls.privateKeyRef.name }}
+        {{- end }}
+        {{- else }}
+        {{- toYaml .server.tls | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .signer }}
+    {{- if hasKey .signer "replicas" }}
+    {{- include "securesign.validateReplicas" .signer.replicas }}
+    {{- end }}
+    {{- $trillianSignerReplicas := .signer.replicas | default 1 }}
+    signer:
+      replicas: {{ $trillianSignerReplicas }}
+      
+      {{- if .signer.resources }}
+{{ include "tpl.resources" .signer.resources | indent 6 }}
+      {{- end }}
+      
+      {{- if .signer.tolerations }}
+{{ include "tpl.tolerations" .signer.tolerations | indent 6 }}
+      {{- end }}
+      
+      {{- if .signer.tls }}
+      tls:
+        {{- if or .signer.tls.certificateRef .signer.tls.privateKeyRef }}
+        {{- if .signer.tls.certificateRef }}
+        certificateRef:
+          key: {{ .signer.tls.certificateRef.key }}
+          name: {{ .signer.tls.certificateRef.name }}
+        {{- end }}
+        {{- if .signer.tls.privateKeyRef }}
+        privateKeyRef:
+          key: {{ .signer.tls.privateKeyRef.key }}
+          name: {{ .signer.tls.privateKeyRef.name }}
+        {{- end }}
+        {{- else }}
+        {{- toYaml .signer.tls | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .maxRecvMessageSize }}
+    maxRecvMessageSize: {{ .maxRecvMessageSize | default 153600 }}
+    {{- end }}
+    
+    {{- if .monitoring }}
+    monitoring:
+      enabled: {{ .monitoring.enabled | default false }}
+    {{- end }}
+    
+    {{- if .trustedCA.name }}
+    trustedCA:
+      name: {{ .trustedCA.name }}
+    {{- end }}
+  {{- end }}
+  
+  {{- with .tuf }}
+  {{- if hasKey . "replicas" }}
+  {{- include "securesign.validateReplicas" .replicas }}
+  {{- end }}
+  {{- $tufReplicas := .replicas | default 1 }}
+  tuf:
+    replicas: {{ $tufReplicas }}
+    {{- if .externalAccess }}
+    externalAccess:
+      enabled: {{ .externalAccess.enabled | default true }}
+      {{- if .externalAccess.host }}
+      host: {{ .externalAccess.host }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .keys }}
+    keys:
+      {{- range .keys }}
+      - name: {{ .name }}
+        {{- if .secretRef.name }}
+        secretRef:
+          key: {{ .secretRef.key }}
+          name: {{ .secretRef.name }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- $tufPort := .port | default 80 | int }}
+    {{- include "securesign.validatePort" $tufPort }}
+    port: {{ $tufPort }}
+    
+    {{- if .pvc }}
+    {{- $tufPvcSize := .pvc.size | default "100Mi" }}
+    {{- include "securesign.validateSize" $tufPvcSize }}
+    pvc:
+      {{- if .pvc.accessModes }}
+      accessModes:
+        {{- range .pvc.accessModes }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      retain: {{ .pvc.retain | default true }}
+      size: {{ $tufPvcSize }}
+      {{- if .pvc.name }}
+      name: {{ .pvc.name }}
+      {{- end }}
+      {{- if .pvc.storageClassName }}
+      storageClassName: {{ .pvc.storageClassName }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .rootKeySecretRef }}
+    rootKeySecretRef:
+      name: {{ .rootKeySecretRef.name }}
+    {{- end }}
+
+{{- /* Set resources for TUF */}}
+{{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+{{- end }}
+
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+
+  {{- end }}
+  
+  {{- with .tsa }}
+  {{- if hasKey . "replicas" }}
+  {{- include "securesign.validateReplicas" .replicas }}
+  {{- end }}
+  {{- $tsaReplicas := .replicas | default 1 }}
+  tsa:
+    replicas: {{ $tsaReplicas }}
+
+{{- /* Set resources for TSA */}}
+{{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+{{- end }}
+
+{{- /* Set tolerations for TSA */}}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 4 }}
+{{- end }}
+    
+    {{- if .externalAccess }}
+    externalAccess:
+      enabled: {{ .externalAccess.enabled | default true }}
+      {{- if .externalAccess.host }}
+      host: {{ .externalAccess.host }}
+      {{- end }}
+    {{- end }}
+    
+    {{- if .ntpMonitoring }}
+    ntpMonitoring:
+      enabled: {{ .ntpMonitoring.enabled | default false }}
+    {{- end }}
+    
+    {{- if .monitoring }}
+    monitoring:
+      enabled: {{ .monitoring.enabled | default false }}
+    {{- end }}
+    
+    {{- if .trustedCA.name }}
+    trustedCA:
+      name: {{ .trustedCA.name }}
+    {{- end }}
+    
+    {{- if .maxRequestBodySize }}
+    maxRequestBodySize: {{ .maxRequestBodySize | default 1048576 }}
+    {{- end }}
+    {{- if .signer }}
+    signer:
+      {{- if .signer.certificateChain }}
+      certificateChain:
+        {{- if .signer.certificateChain.certificateChainRef.name }}
+        certificateChainRef:
+          name: {{ .signer.certificateChain.certificateChainRef.name }}
+          {{- if .signer.certificateChain.certificateChainRef.key }}
+          key: {{ .signer.certificateChain.certificateChainRef.key }}
+          {{- end }}
+        {{- end }}
+        
+        {{- if .signer.certificateChain.intermediateCA }}
+        intermediateCA:
+        {{- range .signer.certificateChain.intermediateCA.intermediateCA }}
+          - commonName: {{ tpl .commonName $ }}
+            organizationEmail: {{ tpl .organizationEmail $ }}
+            organizationName: {{ tpl .organizationName $ }}
+            {{- if and .passwordRef .passwordRef.name }}
+            passwordRef:
+              name: {{ .passwordRef.name }}
+              {{- if .passwordRef.key }}
+              key: {{ .passwordRef.key }}
+              {{- end }}
+            {{- end }}
+            {{- if and .privateKeyRef .privateKeyRef.name }}
+            privateKeyRef:
+              name: {{ .privateKeyRef.name }}
+              {{- if .privateKeyRef.key }}
+              key: {{ .privateKeyRef.key }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+          
+        {{- if .signer.certificateChain.intermediateCA.leafCA }}
+        leafCA:
+          {{- range .signer.certificateChain.intermediateCA.leafCA }}
+            commonName: {{ tpl .commonName $ }}
+            organizationEmail: {{ tpl .organizationEmail $ }}
+            organizationName: {{ tpl .organizationName $ }}
+            {{- if and .passwordRef .passwordRef.name }}
+            passwordRef:
+              name: {{ .passwordRef.name }}
+              {{- if .passwordRef.key }}
+              key: {{ .passwordRef.key }}
+              {{- end }}
+            {{- end }}
+            {{- if and .privateKeyRef .privateKeyRef.name }}
+            privateKeyRef:
+              name: {{ .privateKeyRef.name }}
+              {{- if .privateKeyRef.key }}
+              key: {{ .privateKeyRef.key }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+          
+        {{- if .signer.certificateChain.intermediateCA.rootCA }}
+        rootCA:
+          {{- range .signer.certificateChain.intermediateCA.rootCA }}
+            commonName: {{ tpl .commonName $ }}
+            organizationEmail: {{ tpl .organizationEmail $ }}
+            organizationName: {{ tpl .organizationName $ }}
+            {{- if and .passwordRef .passwordRef.name }}
+            passwordRef:
+              name: {{ .passwordRef.name }}
+              {{- if .passwordRef.key }}
+              key: {{ .passwordRef.key }}
+              {{- end }}
+            {{- end }}
+            {{- if and .privateKeyRef .privateKeyRef.name }}
+            privateKeyRef:
+              name: {{ .privateKeyRef.name }}
+              {{- if .privateKeyRef.key }}
+              key: {{ .privateKeyRef.key }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+      
+      {{- if .signer.file }}
+      file:
+        {{- if and .signer.file.passwordRef .signer.file.passwordRef.name }}
+        passwordRef:
+          name: {{ .signer.file.passwordRef.name }}
+          {{- if .signer.file.passwordRef.key }}
+          key: {{ .signer.file.passwordRef.key }}
+          {{- end }}
+        {{- end }}
+        {{- if and .signer.file.privateKeyRef .signer.file.privateKeyRef.name }}
+        privateKeyRef:
+          name: {{ .signer.file.privateKeyRef.name }}
+          {{- if .signer.file.privateKeyRef.key }}
+          key: {{ .signer.file.privateKeyRef.key }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      
+      {{- if and .signer.kms .signer.kms.keyResource }}
+      kms:
+        keyResource: {{ .signer.kms.keyResource }}
+      {{- end }}
+      
+      {{- if .signer.tink }}
+      tink:
+        {{- if and .signer.tink.keysetRef .signer.tink.keysetRef.name }}
+        keysetRef:
+          name: {{ .signer.tink.keysetRef.name }}
+          {{- if .signer.tink.keysetRef.key }}
+          key: {{ .signer.tink.keysetRef.key }}
+          {{- end }}
+        {{- end }}
+        {{- if .signer.tink.keyResource }}
+        keyResource: {{ .signer.tink.keyResource }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

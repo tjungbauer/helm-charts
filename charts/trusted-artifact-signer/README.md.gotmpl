@@ -1,0 +1,373 @@
+{{ template "doc.header" . }}
+
+## Introduction
+
+This Helm chart deploys **Red Hat Trusted Artifact Signer (RHTAS)** on OpenShift. RHTAS is based on the [Sigstore](https://www.sigstore.dev/) project and provides a complete solution for signing, verifying, and maintaining transparency of software artifacts.
+
+### What is RHTAS?
+
+RHTAS provides enterprise-grade software supply chain security by offering:
+
+- **Code Signing**: Cryptographically sign software artifacts (containers, binaries, etc.)
+- **Transparency Logging**: Immutable audit trail of all signing events
+- **Certificate Authority**: Automated certificate issuance for signing
+- **Timestamp Authority**: RFC 3161 compliant timestamping service
+- **Key Distribution**: Secure distribution of public keys and certificates
+
+### Components
+
+RHTAS consists of the following integrated components:
+
+#### Core Components
+
+- **Fulcio**: A Root Certificate Authority for issuing code signing certificates based on OIDC identity
+  - Issues short-lived certificates (typically 10 minutes)
+  - No long-term key management required
+  - Identity-based signing tied to your OIDC provider
+
+- **Rekor**: An immutable transparency log for storing artifact signatures
+  - Records all signing events with cryptographic proof
+  - Enables signature verification and discovery
+  - Includes a Search UI for exploring the transparency log
+
+- **TSA (Timestamp Authority)**: RFC 3161 compliant timestamping service
+  - Provides trusted timestamps for signatures
+  - Proves when artifacts were signed
+  - Essential for long-term signature validity
+
+- **CT Log**: Certificate Transparency Log
+  - Records all certificates issued by Fulcio
+  - Provides transparency and accountability
+  - Enables detection of mis-issued certificates
+
+#### Supporting Infrastructure
+
+- **Trillian**: A transparent, append-only log (Merkle tree)
+  - Provides the cryptographic foundation for Rekor and CT Log
+  - Ensures tamper-evident storage
+  - Scalable to billions of entries
+
+- **TUF (The Update Framework)**: Secure key and metadata distribution
+  - Distributes public keys and certificates
+  - Protects against key compromise and rollback attacks
+  - Enables offline signature verification
+
+## Prerequisites
+
+### Required
+
+- **OpenShift**: Version 4.12 or higher
+- **OIDC Provider**: A working OIDC/OAuth2 provider for authentication
+  - Red Hat SSO (Keycloak)
+  - GitHub Actions
+  - GitLab CI
+  - Google, Microsoft, or other OIDC providers
+- **Storage**: Persistent volumes for databases and logs
+  - Dynamic provisioning recommended
+  - See [Storage Requirements](#storage-requirements) below
+- **RHTAS Operator**: Must be installed (this chart can install it via `helper-operator`)
+
+### Optional
+
+- **Custom Certificates**: For production deployments
+- **External Databases**: For high-availability setups
+- **Monitoring**: Prometheus for metrics collection
+- **Custom CA Bundle**: If using internal certificate authorities
+
+### Storage Requirements
+
+Recommended minimum storage sizes:
+
+| Component | Storage Type | Minimum Size | Recommended Size | Notes |
+|-----------|-------------|--------------|------------------|-------|
+| Rekor | PVC | 5Gi | 20Gi+ | Grows with number of signatures |
+| Trillian DB | PVC | 5Gi | 20Gi+ | Stores Merkle tree data |
+| TUF | PVC | 100Mi | 500Mi | Stores keys and metadata |
+
+**Note**: Storage requirements scale with usage. For production deployments with high signature volumes, plan for significantly larger storage.
+
+{{ template "doc.deps" . }}
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Installation
+
+### GitOps Deployment (Recommended)
+
+This chart is designed for GitOps workflows using Argo CD or similar tools. See: https://github.com/tjungbauer/openshift-clusterconfig-gitops
+
+The chart includes ArgoCD sync-wave annotations to ensure proper deployment order:
+
+1. **Wave 0**: RHTAS Operator installation (via `helper-operator`)
+2. **Wave 2**: Operator readiness check (via `helper-status-checker`)
+3. **Wave 3**: Securesign custom resource deployment
+
+### Quick Start
+
+#### 1. Add Helm Repository
+
+```bash
+helm repo add tjungbauer https://charts.stderr.at/
+helm repo update
+```
+
+#### 2. Basic Installation
+
+```bash
+# Install with operator
+helm install rhtas tjungbauer/trusted-artifact-signer \
+  --create-namespace \
+  --namespace trusted-artifact-signer \
+  --set securesign.enabled=true \
+  --set securesign.fulcio.config.OIDCIssuers[0].Issuer=https://your-oidc-provider.com \
+  --set securesign.fulcio.config.OIDCIssuers[0].IssuerURL=https://your-oidc-provider.com
+```
+
+#### 3. Custom Installation
+
+1. Create your (minimum) values file:
+
+```yaml
+---
+securesign:
+  # Enable the Securesign resource
+  enabled: true
+
+  name: securesign
+  namespace: trusted-artifact-signer
+  syncwave: '3'
+
+  # Fulcio Configuration - Certificate Authority for Code Signing
+  fulcio:
+    config:
+      OIDCIssuers:
+        - ClientID: trusted-artifact-signer
+          Issuer: 'https://keycloak-rhsso.apps.cluster.example.com/auth/realms/openshift'
+          IssuerURL: 'https://keycloak-rhsso.apps.cluster.example.com/auth/realms/openshift'
+          Type: email
+
+  # Trillian Configuration
+  trillian:
+    database:
+      create: true
+```
+
+2. Install the chart:
+
+```bash
+helm install rhtas tjungbauer/trusted-artifact-signer \
+  --create-namespace \
+  --namespace trusted-artifact-signer \
+  -f my-values.yaml
+```
+
+#### 4. Verify Installation
+
+```bash
+# Check operator status
+oc get csv -n openshift-operators | grep rhtas
+
+# Check Securesign resource
+oc get securesign -n trusted-artifact-signer
+
+# Check all components
+oc get pods -n trusted-artifact-signer
+```
+
+## Configuration
+
+### Critical Configuration Requirements
+
+#### OIDC Issuer Configuration (Required)
+
+RHTAS requires at least one OIDC issuer for Fulcio. The following fields are **mandatory** and validated:
+
+- `ClientID`: Must not be empty
+- `Issuer`: Must not be empty  
+- `IssuerURL`: Must not be empty
+
+
+### Component Configuration
+
+Each component can be individually configured with:
+
+- **Replicas**: Scale components independently
+- **Resources**: CPU and memory requests/limits
+- **Tolerations**: Schedule on specific nodes
+- **External Access**: Configure ingress/routes with custom hostnames
+- **Monitoring**: Enable Prometheus metrics endpoints
+- **Storage**: Customize PVC sizes and storage classes
+
+## Parameters
+
+{{ template "doc.values" . }}
+
+## Advanced Configuration
+
+### Search Index Provider
+
+Rekor supports two search index providers (validated at template rendering):
+
+- **redis** (default): In-memory cache, faster but volatile
+- **mysql**: Persistent database storage
+
+```yaml
+securesign:
+  rekor:
+    searchIndex:
+      enabled: true
+      provider: redis  # or mysql
+      url: "redis://redis-service:6379"
+```
+
+**Validation**: The chart validates that only `redis` or `mysql` is specified:
+```
+Error: searchIndex.provider must be either 'redis' or 'mysql', got 'invalid'
+```
+
+### Custom TUF Keys
+
+Specify keys to be managed by TUF:
+
+```yaml
+securesign:
+  tuf:
+    keys:
+      - name: rekor.pub
+        secretRef:
+          name: rekor-public-key
+          key: public
+      - name: ctfe.pub
+        secretRef:
+          name: ctlog-public-key
+          key: public
+      - name: fulcio_v1.crt.pem
+        secretRef:
+          name: fulcio-cert
+          key: cert
+      - name: tsa.certchain.pem
+        secretRef:
+          name: tsa-cert-chain
+          key: chain
+```
+
+### TSA Signer Configuration
+
+Configure the Timestamp Authority signer with certificate chains:
+
+```yaml
+securesign:
+  tsa:
+    signer:
+      certificateChain:
+        intermediateCA:
+          intermediateCA:
+            - commonName: "tsa-intermediate.example.com"
+              organizationEmail: "security@example.com"
+              organizationName: "Example Corp"
+              privateKeyRef:
+                name: tsa-intermediate-key
+                key: tls.key
+              passwordRef:
+                name: tsa-key-password
+                key: password
+      # Or use file-based signer
+      file:
+        privateKeyRef:
+          name: tsa-file-key
+          key: key.pem
+        passwordRef:
+          name: tsa-file-password
+          key: password
+      # Or use KMS
+      kms:
+        keyResource: "projects/my-project/locations/us/keyRings/my-ring/cryptoKeys/my-key"
+```
+
+### External Database Configuration
+
+Use an external MySQL database for Trillian:
+
+```yaml
+securesign:
+  trillian:
+    database:
+      create: false
+      databaseSecretRef:
+        name: trillian-db-credentials
+        # Secret should contain:
+        # mysql-host: database.example.com
+        # mysql-port: 3306
+        # mysql-user: trillian
+        # mysql-password: <password>
+        # mysql-database: trillian
+```
+
+## Security Considerations
+
+### Secrets Management
+
+RHTAS requires several secrets for proper operation:
+
+- **TUF Root Keys**: Create before deployment
+  ```bash
+  oc create secret generic tuf-root-keys \
+    --from-file=private=tuf-root-private.pem \
+    --from-file=public=tuf-root-public.pem \
+    -n trusted-artifact-signer
+  ```
+
+- **Certificate Private Keys**: For TSA and custom Fulcio certificates
+- **Database Credentials**: For external database connections
+
+### Network Policies
+
+Consider implementing network policies to restrict traffic:
+- Allow ingress only from authorized sources
+- Restrict egress to necessary destinations (OIDC providers, databases)
+
+## Monitoring and Observability
+
+### Prometheus Metrics
+
+Enable monitoring for each component:
+
+```yaml
+securesign:
+  fulcio:
+    externalAccess:
+      monitoring:
+        enabled: true
+  rekor:
+    monitoring:
+      enabled: true
+  trillian:
+    monitoring:
+      enabled: true
+  tsa:
+    monitoring:
+      enabled: true
+```
+
+Metrics endpoints will be exposed on port 9090 for each component.
+
+## Additional Resources
+
+### Documentation
+
+- [Red Hat Trusted Artifact Signer Documentation](https://docs.redhat.com/en/documentation/red_hat_trusted_artifact_signer/)
+- [Sigstore Project](https://www.sigstore.dev/)
+- [Cosign Documentation](https://docs.sigstore.dev/cosign/overview/)
+- [Rekor Documentation](https://docs.sigstore.dev/rekor/overview/)
+- [Fulcio Documentation](https://docs.sigstore.dev/fulcio/overview/)
+
+### Related Projects
+
+- [OpenShift GitOps Examples](https://github.com/tjungbauer/openshift-clusterconfig-gitops)
+- [RHTAS Operator](https://github.com/securesign/secure-sign-operator)
+
+## License
+
+This Helm chart is licensed under the Apache License 2.0. See the LICENSE file for details.
+
+{{ template "doc.footer" . }}
