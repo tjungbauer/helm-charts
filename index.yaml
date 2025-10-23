@@ -31052,6 +31052,44 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.0/tpl-1.0.0.tgz
     version: 1.0.0
+  trusted-artifact-signer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: First Release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-10-23T14:29:45.468243241Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.24
+    description: Configure Trusted Artifact Signer
+    digest: a8db784dc58aa17f3d65bdcc411fda9a11f2160c4ea51286cc02a40064cd2576
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
+    icon: https://github.com/tjungbauer/helm-imgs/raw/gh-pages/images/trusted-artifact-signer.png
+    keywords:
+    - security
+    - rhtas
+    - sigstore
+    - cosign
+    - rekor
+    - fulcio
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: trusted-artifact-signer
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/trusted-artifact-signer-1.0.0/trusted-artifact-signer-1.0.0.tgz
+    version: 1.0.0
   update-clusterversion:
   - annotations:
       artifacthub.io/changes: |
@@ -31109,4 +31147,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-13T11:54:48.810602927Z"
+generated: "2025-10-23T14:29:45.470186563Z"
