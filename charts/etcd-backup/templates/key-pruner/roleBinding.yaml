@@ -1,0 +1,20 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+{{- if eq (.Values.cronjobKeyPruner.enabled | toString) "true" }}
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.cronjobKeyPruner.clusterrolebinding_name | default "key-pruner" }}
+  namespace: openshift-kube-apiserver
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.cronjobKeyPruner.serviceAccount | default "key-pruner" }}
+    namespace: {{ .Values.namespace.name | default "etcd-backup" }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.cronjobKeyPruner.clusterrolename | default "key-pruner" }}
+{{- end }}
+{{- end }}

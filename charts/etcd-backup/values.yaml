@@ -3,7 +3,7 @@ backup_storage_size: &backup_storage_size "100Gi"
 
 # -- Enable ETCD backup.
 # @default -- false
-enabled: false
+enabled: true
 
 # -- Name of the cluster role
 # @default -- cluster-etcd-backup
@@ -20,7 +20,7 @@ clusterrolebindingPrivileged_name: etcd-backup-scc-privileged
 namespace:
   # -- Create the Namespace?
   # @default -- false
-  create: false
+  create: true
 
   # -- Name of the Namespace
   # @default -- etcd-backup
@@ -114,3 +114,25 @@ pv:
   # -- Path of the NFS share for example
   path: <path>
   # mountOptions: {}
+
+# Settings for the CronJob that cleans up old encryption keys in the openshift-kube-apiserver namespace
+cronjobKeyPruner:
+  # -- Enable Key Pruner CronJob.
+  # @default -- false
+  enabled: true
+
+  # -- Name of the CronJob
+  # @default -- key-pruner
+  name: key-pruner
+
+  # -- Schedule of the Cronjob, for example: Every 6 hours at minute 55
+  # @default -- 55 */6 * * *
+  schedule: "55 */6 * * *"
+
+  # Retention period for encryption keys (in days)
+  # @default -- 30
+  retention: 30
+
+  # -- Image for the cronjob
+  # @default -- quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2f47a31e743f4640016a795e317bd960b0480e0ce56f0cc5de15aa776eaa55b3
+  image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2f47a31e743f4640016a795e317bd960b0480e0ce56f0cc5de15aa776eaa55b3

@@ -1,6 +1,6 @@
 {{ template "doc.header" . }}
 
-This Helm Chart can be used to create a backup of ETCD.
+This Helm Chart can be used to create a backup of ETCD. In addition, a key-pruner Cronjob can be enabled that will cleanup old secrets.
 It will execute a CronJob on one of the control planes in order to dump ETCD and store it to a PV.
 
 **WARNING**: In order to be able to create such a backup, this CronJob must be able to start a *PRIVILEGED* pod.

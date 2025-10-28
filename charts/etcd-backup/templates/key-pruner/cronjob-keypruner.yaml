@@ -1,0 +1,67 @@
+{{- if eq (.Values.enabled | toString) "true" }}
+{{- if eq (.Values.cronjobKeyPruner.enabled | toString) "true" }}
+---
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: {{ .Values.cronjobKeyPruner.name | default "key-pruner" }}
+  namespace: {{ .Values.namespace.name | default "etcd-backup" }}
+  labels:
+    purpose: etcd-backup-key-lifecycle
+    {{- include "tpl.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .Values.cronjobKeyPruner.schedule | default "55 */6 * * *" | quote }}
+  startingDeadlineSeconds: 200
+  concurrencyPolicy: Forbid
+  suspend: false
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: ''
+          restartPolicy: Never
+          activeDeadlineSeconds: 200
+          serviceAccountName: {{ .Values.cronjobKeyPruner.serviceAccount | default "key-pruner" }}
+          schedulerName: default-scheduler
+          terminationGracePeriodSeconds: 30
+          securityContext: {}
+          containers:
+            - resources:
+                requests:
+                  cpu: 300m
+                  memory: 250Mi
+              terminationMessagePath: /dev/termination-log
+              name: key-pruner
+              command:
+                - /bin/bash
+                - '-c'
+                - >-
+                  printf "Starting etcd backup key cleanup\n";
+
+                  printf "Looking for keys encryption-config keys in the namespace openshift-kube-apiserver, older than {{ .Values.cronjobKeyPruner.retention }} days:\n";
+                  
+                  oc get secret -n openshift-kube-apiserver -o json | jq -r --arg s "$(date -d "{{ .Values.cronjobKeyPruner.retention }} days ago" "+%Y-%m-%dT%H:%M:%SZ")"  '.items[] | select(.metadata.name|test("encryption-config-."))| select ( .metadata.creationTimestamp <= $s ) | [(.metadata.name), (.metadata.creationTimestamp), (.metadata.deletionTimestamp)] | @tsv';
+                  
+                  printf "\n################################################################\n";
+                  
+                  printf "Patching older than {{ .Values.cronjobKeyPruner.retention }} days encryption-config keys for deletion:\n";
+                  
+                  for secret in $(oc get secret -n openshift-kube-apiserver -o json | jq -r --arg s "$(date -d "{{ .Values.cronjobKeyPruner.retention }} days ago" "+%Y-%m-%dT%H:%M:%SZ")"  '.items[] | select(.metadata.name|test("encryption-config-."))| select ( .metadata.creationTimestamp <= $s ) | .metadata.name '); 
+                    do 
+                      oc -n openshift-kube-apiserver patch secret $secret -p '{ "metadata": { "finalizers": null }}' --type merge ;
+                    done;
+              imagePullPolicy: IfNotPresent
+              terminationMessagePolicy: FallbackToLogsOnError
+              image: {{ .Values.cronjobKeyPruner.image | default "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2f47a31e743f4640016a795e317bd960b0480e0ce56f0cc5de15aa776eaa55b3" }}
+          dnsPolicy: ClusterFirst
+          tolerations:
+            - operator: Exists
+              effect: NoSchedule
+            - operator: Exists
+              effect: NoExecute
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+{{- end }}
+{{- end }}
