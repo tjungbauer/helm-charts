@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
+  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
 
  
 
@@ -15,7 +15,7 @@
 
   Create a CronJob that performs ETCD Backup and stores the backup to a PV.
 
-This Helm Chart can be used to create a backup of ETCD.
+This Helm Chart can be used to create a backup of ETCD. In addition, a key-pruner Cronjob can be enabled that will cleanup old secrets.
 It will execute a CronJob on one of the control planes in order to dump ETCD and store it to a PV.
 
 **WARNING**: In order to be able to create such a backup, this CronJob must be able to start a *PRIVILEGED* pod.
@@ -106,6 +106,11 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-bac
 | cronjob.name | string | etcd-backup | Name of the CronJob |
 | cronjob.retention | int | `30` |  |
 | cronjob.schedule | string | `"0 */4 * * *"` | Schedule of the Cronjob, for example: Every 4 hours |
+| cronjobKeyPruner.enabled | bool | false | Enable Key Pruner CronJob. |
+| cronjobKeyPruner.image | string | quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:2f47a31e743f4640016a795e317bd960b0480e0ce56f0cc5de15aa776eaa55b3 | Image for the cronjob |
+| cronjobKeyPruner.name | string | key-pruner | Name of the CronJob |
+| cronjobKeyPruner.retention | int | `30` |  |
+| cronjobKeyPruner.schedule | string | 55 */6 * * * | Schedule of the Cronjob, for example: Every 6 hours at minute 55 |
 | enabled | bool | false | Enable ETCD backup. |
 | name | string | `"etcd-backup"` |  |
 | namespace.create | bool | false | Create the Namespace? |
