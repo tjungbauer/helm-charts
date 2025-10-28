@@ -1,7 +1,7 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.1.3
+version: 1.1.4
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
@@ -78,3 +78,5 @@ annotations:
       description: Added possibility to define sharding settings for the controller
     - kind: added
       description: bump version
+    - kind: fixed
+      description: fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+
