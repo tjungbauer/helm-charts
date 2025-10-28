@@ -1,0 +1,542 @@
+{{- with .Values.checluster }}
+{{- if eq (.enabled | toString) "true" }}
+{{/*
+Validation Summary:
+- Log levels: DEBUG, INFO, WARN, ERROR (validated)
+- Image pull policy: Always, IfNotPresent, Never (validated)
+- Deployment strategy: Recreate, RollingUpdate (validated)
+- PVC strategy: common, per-workspace, per-user, ephemeral (validated)
+- Timeout values: positive integers (validated)
+- Namespace template: must contain <username>, <userid>, or <workspaceid> (validated)
+- Storage quantities: Kubernetes quantity format (validated)
+*/}}
+---
+apiVersion: org.eclipse.che/v2
+kind: CheCluster
+metadata:
+  name: {{ .name | default "devspaces" }}
+  namespace: {{ .namespace | default "openshift-devspaces" }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+spec:
+  {{- if .components }}
+  components:
+    {{- with .components.cheServer }}
+    {{- if hasKey $.Values.checluster.components.cheServer "logLevel" }}
+    {{- include "devspaces.validateCheServerLogLevel" .logLevel }}
+    {{- end }}
+    cheServer:
+      debug: {{ .debug | default false }}
+      {{- if .logLevel }}
+      logLevel: {{ .logLevel }}
+      {{- end }}
+      {{- if .clusterRoles }}
+      clusterRoles:
+        {{- range .clusterRoles }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .deployment }}
+      deployment:
+        {{- if .deployment.tolerations }}
+{{ include "tpl.tolerations" .deployment.tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .proxy }}
+      proxy:
+        {{- if .proxy.credentialsSecretName }}
+        credentialsSecretName: {{ .proxy.credentialsSecretName }}
+        {{- end }}
+        {{- if .proxy.nonProxyHosts }}
+        nonProxyHosts:
+          {{- range .proxy.nonProxyHosts }}
+          - {{ . | quote }}
+          {{- end }}
+        {{- end }}
+        {{- if .proxy.port }}
+        port: {{ .proxy.port | quote }}
+        {{- end }}
+        {{- if .proxy.url }}
+        url: {{ .proxy.url }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .components.dashboard }}
+    {{- if hasKey $.Values.checluster.components.dashboard "logLevel" }}
+    {{- include "devspaces.validatevalidateDashboardLogLevel" .logLevel }}
+    {{- end }}
+    dashboard:
+      {{- if .logLevel }}
+      logLevel: {{ .logLevel }}
+      {{- end }}
+      {{- if .branding }}
+      branding:
+        {{- if .branding.logo }}
+        logo:
+          {{- if .branding.logo.base64data }}
+          base64data: {{ .branding.logo.base64data }}
+          {{- end }}
+          {{- if .branding.logo.mediatype }}
+          mediatype: {{ .branding.logo.mediatype }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .deployment }}
+      deployment:
+        {{- if .deployment.tolerations }}
+{{ include "tpl.tolerations" .deployment.tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .headerMessage }}
+      headerMessage:
+        {{- if hasKey .headerMessage "show" }}
+        show: {{ .headerMessage.show }}
+        {{- end }}
+        {{- if .headerMessage.text }}
+        text: {{ .headerMessage.text }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .components.devfileRegistry }}
+    devfileRegistry:
+      {{- if hasKey . "disableInternalRegistry" }}
+      disableInternalRegistry: {{ .disableInternalRegistry }}
+      {{- end }}
+      {{- if .deployment }}
+      deployment:
+        {{- if .deployment.tolerations }}
+{{ include "tpl.tolerations" .deployment.tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .externalDevfileRegistries }}
+      externalDevfileRegistries:
+        {{- range .externalDevfileRegistries }}
+        - url: {{ .url }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .components.imagePuller }}
+    imagePuller:
+      {{- if hasKey . "enable" }}
+      enable: {{ .enable }}
+      {{- end }}
+      {{- if .spec }}
+      spec:
+        {{- if .spec.configMapName }}
+        configMapName: {{ .spec.configMapName }}
+        {{- end }}
+        {{- if .spec.cachingCPURequest }}
+        cachingCPURequest: {{ .spec.cachingCPURequest }}
+        {{- end }}
+        {{- if .spec.imagePullSecrets }}
+        imagePullSecrets: {{ .spec.imagePullSecrets }}
+        {{- end }}
+        {{- if .spec.nodeSelector }}
+        nodeSelector: {{ .spec.nodeSelector }}
+        {{- end }}
+        {{- if .spec.affinity }}
+        affinity: {{ .spec.affinity }}
+        {{- end }}
+        {{- if .spec.daemonsetName }}
+        daemonsetName: {{ .spec.daemonsetName }}
+        {{- end }}
+        {{- if .spec.cachingIntervalHours }}
+        cachingIntervalHours: {{ .spec.cachingIntervalHours }}
+        {{- end }}
+        {{- if .spec.imagePullerImage }}
+        imagePullerImage: {{ .spec.imagePullerImage }}
+        {{- end }}
+        {{- if .spec.cachingMemoryRequest }}
+        cachingMemoryRequest: {{ .spec.cachingMemoryRequest }}
+        {{- end }}
+        {{- if .spec.deploymentName }}
+        deploymentName: {{ .spec.deploymentName }}
+        {{- end }}
+        {{- if .spec.cachingCPULimit }}
+        cachingCPULimit: {{ .spec.cachingCPULimit }}
+        {{- end }}
+        {{- if .spec.images }}
+        images: {{ .spec.images }}
+        {{- end }}
+        {{- if .spec.cachingMemoryLimit }}
+        cachingMemoryLimit: {{ .spec.cachingMemoryLimit }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .components.metrics }}
+    metrics:
+      {{- if hasKey . "enable" }}
+      enable: {{ .enable }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .components.pluginRegistry }}
+    pluginRegistry:
+      {{- if hasKey . "disableInternalRegistry" }}
+      disableInternalRegistry: {{ .disableInternalRegistry }}
+      {{- end }}
+      {{- if .openVSXURL }}
+      openVSXURL: {{ .openVSXURL }}
+      {{- end }}
+      {{- if .deployment }}
+      deployment:
+        {{- if .deployment.tolerations }}
+{{ include "tpl.tolerations" .deployment.tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .externalPluginRegistries }}
+      externalPluginRegistries:
+        {{- range .externalPluginRegistries }}
+        - url: {{ .url }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .containerRegistry }}
+  containerRegistry:
+    {{- if .containerRegistry.hostname }}
+    hostname: {{ .containerRegistry.hostname }}
+    {{- end }}
+    {{- if .containerRegistry.organization }}
+    organization: {{ .containerRegistry.organization }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .devEnvironments }}
+  {{- /* Validate devEnvironments configuration */}}
+  {{- if hasKey .devEnvironments "imagePullPolicy" }}
+  {{- include "devspaces.validateImagePullPolicy" .devEnvironments.imagePullPolicy }}
+  {{- end }}
+  {{- if hasKey .devEnvironments "deploymentStrategy" }}
+  {{- include "devspaces.validateDeploymentStrategy" .devEnvironments.deploymentStrategy }}
+  {{- end }}
+  {{- if hasKey .devEnvironments "startTimeoutSeconds" }}
+  {{- include "devspaces.validateTimeout" .devEnvironments.startTimeoutSeconds }}
+  {{- end }}
+  {{- if .devEnvironments.storage }}
+  {{- if hasKey .devEnvironments.storage "pvcStrategy" }}
+  {{- include "devspaces.validatePvcStrategy" .devEnvironments.storage.pvcStrategy }}
+  {{- end }}
+  {{- if .devEnvironments.storage.perUserStrategyPvcConfig }}
+  {{- if .devEnvironments.storage.perUserStrategyPvcConfig.claimSize }}
+  {{- include "devspaces.validateQuantity" .devEnvironments.storage.perUserStrategyPvcConfig.claimSize }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .devEnvironments.defaultNamespace }}
+  {{- if .devEnvironments.defaultNamespace.template }}
+  {{- include "devspaces.validateNamespaceTemplate" .devEnvironments.defaultNamespace.template }}
+  {{- end }}
+  {{- end }}
+  devEnvironments:
+    {{- if hasKey .devEnvironments "startTimeoutSeconds" }}
+    startTimeoutSeconds: {{ .devEnvironments.startTimeoutSeconds }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "secondsOfRunBeforeIdling" }}
+    secondsOfRunBeforeIdling: {{ .devEnvironments.secondsOfRunBeforeIdling }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "secondsOfInactivityBeforeIdling" }}
+    secondsOfInactivityBeforeIdling: {{ .devEnvironments.secondsOfInactivityBeforeIdling }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "maxNumberOfWorkspacesPerUser" }}
+    maxNumberOfWorkspacesPerUser: {{ .devEnvironments.maxNumberOfWorkspacesPerUser }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "maxNumberOfRunningWorkspacesPerUser" }}
+    maxNumberOfRunningWorkspacesPerUser: {{ .devEnvironments.maxNumberOfRunningWorkspacesPerUser }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "maxNumberOfRunningWorkspacesPerCluster" }}
+    maxNumberOfRunningWorkspacesPerCluster: {{ .devEnvironments.maxNumberOfRunningWorkspacesPerCluster }}
+    {{- end }}
+    {{- if .devEnvironments.defaultEditor }}
+    defaultEditor: {{ .devEnvironments.defaultEditor }}
+    {{- end }}
+    {{- if .devEnvironments.imagePullPolicy }}
+    imagePullPolicy: {{ .devEnvironments.imagePullPolicy }}
+    {{- end }}
+    {{- if .devEnvironments.deploymentStrategy }}
+    deploymentStrategy: {{ .devEnvironments.deploymentStrategy }}
+    {{- end }}
+    {{- if .devEnvironments.serviceAccount }}
+    serviceAccount: {{ .devEnvironments.serviceAccount }}
+    {{- end }}
+    {{- if .devEnvironments.podSchedulerName }}
+    podSchedulerName: {{ .devEnvironments.podSchedulerName }}
+    {{- end }}
+    {{- if .devEnvironments.runtimeClassName }}
+    runtimeClassName: {{ .devEnvironments.runtimeClassName }}
+    {{- end }}
+    {{- if hasKey .devEnvironments "disableContainerBuildCapabilities" }}
+    disableContainerBuildCapabilities: {{ .devEnvironments.disableContainerBuildCapabilities }}
+    {{- end }}
+    {{- if .devEnvironments.containerBuildConfiguration }}
+    containerBuildConfiguration:
+      {{- if .devEnvironments.containerBuildConfiguration.openShiftSecurityContextConstraint }}
+      openShiftSecurityContextConstraint: {{ .devEnvironments.containerBuildConfiguration.openShiftSecurityContextConstraint }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.user }}
+    user:
+      {{- if .devEnvironments.user.clusterRoles }}
+      clusterRoles:
+        {{- range .devEnvironments.user.clusterRoles }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.ignoredUnrecoverableEvents }}
+    ignoredUnrecoverableEvents:
+      {{- range .devEnvironments.ignoredUnrecoverableEvents }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.allowedSources }}
+    allowedSources:
+      {{- if .devEnvironments.allowedSources.urls }}
+      urls:
+        {{- range .devEnvironments.allowedSources.urls }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.editorsDownloadUrls }}
+    editorsDownloadUrls:
+      {{- range .devEnvironments.editorsDownloadUrls }}
+      - editor: {{ .editor }}
+        url: {{ .url }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.serviceAccountTokens }}
+    serviceAccountTokens:
+      {{- range .devEnvironments.serviceAccountTokens }}
+      - {{- if .expirationSeconds }}
+        expirationSeconds: {{ .expirationSeconds }}
+        {{- end }}
+        {{- if .mountPath }}
+        mountPath: {{ .mountPath }}
+        {{- end }}
+        {{- if .name }}
+        name: {{ .name }}
+        {{- end }}
+        {{- if .path }}
+        path: {{ .path }}
+        {{- end }}
+        {{- if .audience }}
+        audience: {{ .audience }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.networking }}
+    networking:
+      {{- if .devEnvironments.networking.externalTLSConfig }}
+      externalTLSConfig:
+        {{- if hasKey .devEnvironments.networking.externalTLSConfig "enabled" }}
+        enabled: {{ .devEnvironments.networking.externalTLSConfig.enabled }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.defaultComponents }}
+    defaultComponents:
+      {{- toYaml .devEnvironments.defaultComponents | nindent 6 }}
+    {{- end }}
+    {{- if .devEnvironments.trustedCerts }}
+    trustedCerts:
+      {{- if hasKey .devEnvironments.trustedCerts "disableWorkspaceCaBundleMount" }}
+      disableWorkspaceCaBundleMount: {{ .devEnvironments.trustedCerts.disableWorkspaceCaBundleMount }}
+      {{- end }}
+      {{- if .devEnvironments.trustedCerts.gitTrustedCertsConfigMapName }}
+      gitTrustedCertsConfigMapName: {{ .devEnvironments.trustedCerts.gitTrustedCertsConfigMapName }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.defaultNamespace }}
+    defaultNamespace:
+      {{- if hasKey .devEnvironments.defaultNamespace "autoProvision" }}
+      autoProvision: {{ .devEnvironments.defaultNamespace.autoProvision }}
+      {{- end }}
+      {{- if .devEnvironments.defaultNamespace.template }}
+      template: {{ .devEnvironments.defaultNamespace.template }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.storage }}
+    storage:
+      {{- if .devEnvironments.storage.pvcStrategy }}
+      pvcStrategy: {{ .devEnvironments.storage.pvcStrategy }}
+      {{- end }}
+      {{- if .devEnvironments.storage.perUserStrategyPvcConfig }}
+      perUserStrategyPvcConfig:
+        {{- if .devEnvironments.storage.perUserStrategyPvcConfig.storageClass }}
+        storageClass: {{ .devEnvironments.storage.perUserStrategyPvcConfig.storageClass }}
+        {{- end }}
+        {{- if .devEnvironments.storage.perUserStrategyPvcConfig.claimSize }}
+        claimSize: {{ .devEnvironments.storage.perUserStrategyPvcConfig.claimSize | quote }}
+        {{- end }}
+        {{- if .devEnvironments.storage.perUserStrategyPvcConfig.storageAccessMode }}
+        storageAccessMode:
+          {{- range .devEnvironments.storage.perUserStrategyPvcConfig.storageAccessMode }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .devEnvironments.tolerations }}
+{{ include "tpl.tolerations" .devEnvironments.tolerations | indent 4 }}
+    {{- end }}
+    {{- if .devEnvironments.persistUserHome }}
+    persistUserHome:
+      {{- if hasKey .devEnvironments.persistUserHome "enabled" }}
+      enabled: {{ .devEnvironments.persistUserHome.enabled }}
+      {{- end }}
+      {{- if hasKey .devEnvironments.persistUserHome "disableInitContainer" }}
+      disableInitContainer: {{ .devEnvironments.persistUserHome.disableInitContainer }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .gitServices }}
+  gitServices:
+    {{- if .gitServices.azure }}
+    azure:
+      {{- range .gitServices.azure }}
+      - secretName: {{ .secretName }}
+        {{- if .endpoint }}
+        endpoint: {{ .endpoint }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .gitServices.bitbucket }}
+    bitbucket:
+      {{- range .gitServices.bitbucket }}
+      - secretName: {{ .secretName }}
+        {{- if .endpoint }}
+        endpoint: {{ .endpoint }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .gitServices.github }}
+    github:
+      {{- range .gitServices.github }}
+      - secretName: {{ .secretName }}
+        {{- if .endpoint }}
+        endpoint: {{ .endpoint }}
+        {{- end }}
+        {{- if hasKey . "disableSubdomainIsolation" }}
+        disableSubdomainIsolation: {{ .disableSubdomainIsolation }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .gitServices.gitlab }}
+    gitlab:
+      {{- range .gitServices.gitlab }}
+      - secretName: {{ .secretName }}
+        {{- if .endpoint }}
+        endpoint: {{ .endpoint }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .networking }}
+  networking:
+    {{- if .networking.domain }}
+    domain: {{ .networking.domain }}
+    {{- end }}
+    {{- if .networking.hostname }}
+    hostname: {{ .networking.hostname }}
+    {{- end }}
+    {{- if .networking.ingressClassName }}
+    ingressClassName: {{ .networking.ingressClassName }}
+    {{- end }}
+    {{- if .networking.tlsSecretName }}
+    tlsSecretName: {{ .networking.tlsSecretName }}
+    {{- end }}
+    {{- if .networking.auth }}
+    auth:
+      {{- if .networking.auth.identityProviderURL }}
+      identityProviderURL: {{ .networking.auth.identityProviderURL }}
+      {{- end }}
+      {{- if .networking.auth.oAuthClientName }}
+      oAuthClientName: {{ .networking.auth.oAuthClientName }}
+      {{- end }}
+      {{- if .networking.auth.oAuthScope }}
+      oAuthScope: {{ .networking.auth.oAuthScope }}
+      {{- end }}
+      {{- if .networking.auth.oAuthSecret }}
+      oAuthSecret: {{ .networking.auth.oAuthSecret }}
+      {{- end }}
+      {{- if .networking.auth.oAuthAccessTokenMaxAgeSeconds }}
+      oAuthAccessTokenMaxAgeSeconds: {{ .networking.auth.oAuthAccessTokenMaxAgeSeconds }}
+      {{- end }}
+      {{- if .networking.auth.oAuthAccessTokenInactivityTimeoutSeconds }}
+      oAuthAccessTokenInactivityTimeoutSeconds: {{ .networking.auth.oAuthAccessTokenInactivityTimeoutSeconds }}
+      {{- end }}
+      {{- if .networking.auth.gateway }}
+      gateway:
+        {{- if .networking.auth.gateway.deployment }}
+        deployment:
+          {{- if .networking.auth.gateway.deployment.tolerations }}
+{{ include "tpl.tolerations" .networking.auth.gateway.deployment.tolerations | indent 10 }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.gateway.kubeRbacProxy }}
+        kubeRbacProxy:
+          {{- if hasKey .networking.auth.gateway.kubeRbacProxy "logLevel" }}
+          logLevel: {{ .networking.auth.gateway.kubeRbacProxy.logLevel }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.gateway.oAuthProxy }}
+        oAuthProxy:
+          {{- if .networking.auth.gateway.oAuthProxy.cookieExpireSeconds }}
+          cookieExpireSeconds: {{ .networking.auth.gateway.oAuthProxy.cookieExpireSeconds }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.gateway.traefik }}
+        {{- if hasKey .networking.auth.gateway.traefik "logLevel" }}
+        {{- include "devspaces.validateTraeficLogLevel" .networking.auth.gateway.traefik.logLevel }}
+        {{- end }}
+        traefik:
+          {{- if .networking.auth.gateway.traefik.logLevel }}
+          logLevel: {{ .networking.auth.gateway.traefik.logLevel }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .networking.auth.advancedAuthorization }}
+      advancedAuthorization:
+        {{- if .networking.auth.advancedAuthorization.allowGroups }}
+        allowGroups:
+          {{- range .networking.auth.advancedAuthorization.allowGroups }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.advancedAuthorization.allowUsers }}
+        allowUsers:
+          {{- range .networking.auth.advancedAuthorization.allowUsers }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.advancedAuthorization.denyGroups }}
+        denyGroups:
+          {{- range .networking.auth.advancedAuthorization.denyGroups }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+        {{- if .networking.auth.advancedAuthorization.denyUsers }}
+        denyUsers:
+          {{- range .networking.auth.advancedAuthorization.denyUsers }}
+          - {{ . }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+

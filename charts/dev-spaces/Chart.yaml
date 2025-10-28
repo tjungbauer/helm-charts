@@ -1,0 +1,36 @@
+---
+apiVersion: v2
+name: dev-spaces
+description: |
+  Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native development solution that
+  delivers consistent developer environments on Red Hat OpenShift.
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces
+icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png
+version: 1.0.0
+dependencies:
+  - name: tpl
+    version: ~1.0.25
+    repository: https://charts.stderr.at/
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+  - devspaces
+  - che
+  - eclipse
+  - ide
+  - workspace
+  - development
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: First Release

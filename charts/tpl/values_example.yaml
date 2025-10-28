@@ -137,6 +137,24 @@ podSecurityContext:
   fsGroup: 2001
   runAsNonRoot: true
 
+# -- Namespace
+# <br />
+# Example include:
+# {{- if .Values.namespace }}
+# {{- if eq (.Values.namespace.create | toString) "true" }}
+# {{ include "tpl.namespace" .Values.namespace }}
+# {{- end }}
+# {{- end }}
+namespace:
+  create: true
+  name: "test-namespace"
+  description: "Test Namespace"
+  displayName: "Test Namespace"
+  additionalAnnotations:
+    test-annotation: "test-annotation"
+  additionalLabels:
+    test-label: "test-label"
+
 # -- PodDisruptionBudget
 # <br />
 # Example include:

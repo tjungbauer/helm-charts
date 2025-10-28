@@ -1,0 +1,32 @@
+---
+devspaces_namespace: &devspaces_namespace "devspaces"
+
+##################################################
+# Namespace Configuration
+##################################################
+namespace:
+  # -- Create the namespace if it does not exist.
+  # @default -- false
+  create: true
+
+  # -- Name of the namespace.
+  # @default -- test-namespace
+  name: *devspaces_namespace
+
+##################################################
+# Red Hat OpenShift Dev Spaces
+# Configuration for CheCluster CR
+##################################################
+
+checluster:
+  # -- Enable or disable the CheCluster resource.
+  # @default -- false
+  enabled: true
+
+  # -- Name of the CheCluster resource.
+  # @default -- devspaces
+  name: devspaces
+
+  # -- Namespace where Dev Spaces will be deployed.
+  # @default -- openshift-devspaces
+  namespace: *devspaces_namespace
