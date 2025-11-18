@@ -30392,6 +30392,43 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.0/sonarqube-1.0.0.tgz
     version: 1.0.0
+  tempo-tracing:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-18T14:40:22.233870037Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Configure the Tempo Operator (distributed tracing).
+    digest: fbcd60c5eab99a345466900b3f9776ae8f3c6c4cd0c1ffc9bf4a7e2567dbf17b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
+    keywords:
+    - tempo
+    - tracing
+    - observability
+    - distributed-tracing
+    - opentelemetry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tempo-tracing
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tempo-tracing-1.0.0/tempo-tracing-1.0.0.tgz
+    version: 1.0.0
   tpl:
   - annotations:
       artifacthub.io/changes: |
@@ -31554,4 +31591,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-28T15:10:14.944046376Z"
+generated: "2025-11-18T14:40:22.235016598Z"
