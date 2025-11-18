@@ -1,0 +1,570 @@
+{{- if eq (.Values.tempostack.enabled | toString) "true" }}
+{{- with .Values.tempostack }}
+{{- /* Validate storage.secret.credentialMode if provided */ -}}
+{{- if .storage.secret.credentialMode }}
+  {{- include "tempostack.storageCredentialMode" .storage.secret.credentialMode }}
+{{- end }}
+{{- /* Validate storage.secret.type if provided */ -}}
+{{- if .storage.secret.type }}
+  {{- include "tempostack.storageType" .storage.secret.type }}
+{{- end }}
+{{- /* Validate gateway ingress type if provided */ -}}
+{{- if .template.gateway.ingress.type }}
+  {{- include "tempostack.ingressType" .template.gateway.ingress.type }}
+{{- end }}
+{{- /* Validate gateway ingress termination if provided */ -}}
+{{- if .template.gateway.ingress.termination }}
+  {{- include "tempostack.ingressTermination" .template.gateway.ingress.termination }}
+{{- end }}
+{{- /* Validate query frontend ingress type if provided */ -}}
+{{- if .template.queryFrontend.jaegerQuery.ingress.type }}
+  {{- include "tempostack.ingressType" .template.queryFrontend.jaegerQuery.ingress.type }}
+{{- end }}
+{{- /* Validate query frontend ingress termination if provided */ -}}
+{{- if .template.queryFrontend.jaegerQuery.ingress.termination }}
+  {{- include "tempostack.ingressTermination" .template.queryFrontend.jaegerQuery.ingress.termination }}
+{{- end }}
+{{- /* Validate the managementState if provided */ -}}
+{{- if .managementState }}
+  {{- include "tempostack.managementState" .managementState }}
+{{- end }}
+{{- /* Validate tenants mode if provided */ -}}
+{{- if .tenants.mode }}
+  {{- include "tempostack.tenantsMode" .tenants.mode }}
+{{- end }}
+{{- /* Validate authorization is not enabled in openshift mode */ -}}
+{{- if .tenants }}
+  {{- include "tempostack.validateAuthorizationMode" (dict "mode" .tenants.mode "authorizationEnabled" .tenants.authorization.enabled) }}
+{{- end }}
+{{- /* Validate authorization roles and permissions if provided */ -}}
+{{- if .tenants.authorization.roles }}
+  {{- range .tenants.authorization.roles }}
+    {{- include "tempostack.rolePermissions" (dict "roleName" .name "permissions" .permissions) }}
+  {{- end }}
+{{- end }}
+{{- /* Validate authorization subject kinds if provided */ -}}
+{{- if .tenants.authorization.roleBindings }}
+  {{- range .tenants.authorization.roleBindings }}
+    {{- range .subjects }}
+      {{- include "tempostack.subjectKind" (dict "subjectName" .name "kind" .kind) }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- /* Validate hash ring instance address type if provided */ -}}
+{{- if .hashRing.memberlist.instanceAddrType }}
+  {{- include "tempostack.instanceAddrType" .hashRing.memberlist.instanceAddrType }}
+{{- end }}
+---
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoStack 
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace.name }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+spec:
+  {{- if .managementState }}
+  managementState: {{ .managementState }}
+  {{- end }}
+  {{- if .storage }}
+  {{- with .storage }}
+  storage: 
+    secret: 
+      name: {{ .secret.name | default "tempo-s3" }}
+      type: {{ .secret.type | default "s3" }}
+      {{- if .secret.credentialMode }}
+      credentialMode: {{ .secret.credentialMode }}
+      {{- end }}
+    {{- if .tls }}
+    tls:
+      enabled: {{ .tls.enabled | default false }}
+      {{- if eq (.tls.enabled | toString) "true" }}
+      {{- if .tls.caName }}
+      caName: {{ .tls.caName }}
+      {{- end }}
+      {{- if .tls.certName }}
+      certName: {{ .tls.certName }}
+      {{- end }}
+      {{- if .tls.minVersion }}
+      minVersion: {{ .tls.minVersion | quote }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .storageSize }}
+  storageSize: {{ .storageSize | default "10Gi" }}
+  {{- end }}
+  {{- if .timeout }}
+  timeout: {{ .timeout }}
+  {{- end }}
+  {{- if .serviceAccount }}
+  serviceAccount: {{ .serviceAccount }}
+  {{- end }}
+  {{- if .storageClassName }}
+  storageClassName: {{ .storageClassName }}
+  {{- end }}
+  {{- if .replicationFactor }}
+  replicationFactor: {{ .replicationFactor }}
+  {{- end }}
+  {{- if .retention }}
+  retention:
+    {{- if .retention.global }}
+    global:
+      traces: {{ .retention.global.traces | default "48h0m0s" }}
+    {{- end }}
+  {{- end }}
+  {{- if .search }}
+  {{- with .search }}
+  search:
+    {{- if .defaultResultLimit }}
+    defaultResultLimit: {{ .defaultResultLimit }}
+    {{- end }}
+    {{- if .maxDuration }}
+    maxDuration: {{ .maxDuration }}
+    {{- end }}
+    {{- if .maxResultLimit }}
+    maxResultLimit: {{ .maxResultLimit }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .resources }}
+  {{- with .resources }}
+  resources: 
+    total:
+      {{- toYaml . | nindent 6 }}
+  {{- end }}
+  {{- end }}
+  {{- if .tenants }}
+  {{- with .tenants }}
+  tenants:
+    mode: {{ .mode }}
+    {{- if eq (.enabled | toString) "true" }}
+    authentication: 
+      {{- range .authentication }}
+      - tenantName: {{ .tenantName }}
+        tenantId: {{ .tenantId }}
+        {{- if .oidc }}
+        {{- if eq (.oidc.enabled | toString) "true" }}
+        oidc:
+          {{- toYaml .oidc | nindent 10 }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if .authorization }}
+    {{- if eq (.authorization.enabled | toString) "true" }}
+    authorization:
+      {{- if .authorization.roles }}
+      roles:
+        {{- range .authorization.roles }}
+        - name: {{ .name }}
+          {{- if .permissions }}
+          permissions:
+            {{- range .permissions }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .resources }}
+          resources:
+            {{- range .resources }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .tenants }}
+          tenants:
+            {{- range .tenants }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .authorization.roleBindings }}
+      roleBindings:
+        {{- range .authorization.roleBindings }}
+        - name: {{ .name }}
+          {{- if .roles }}
+          roles:
+            {{- range .roles }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .subjects }}
+          subjects:
+            {{- range .subjects }}
+            - name: {{ .name }}
+              kind: {{ .kind }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .observability }}
+  {{- if eq (.observability.enabled | toString) "true" }}
+  {{- with .observability }}
+  observability:
+    {{- if .grafana }}
+    grafana:
+      {{- toYaml .grafana | nindent 6 }}
+    {{- end }}
+    {{- if .metrics }}
+    metrics:
+      {{- toYaml .metrics | nindent 6 }}
+    {{- end }}
+    {{- if .tracing }}
+    tracing:
+      {{- toYaml .tracing | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .limits }}
+  {{- if eq (.limits.enabled | toString) "true" }}
+  {{- with .limits }}
+  limits:
+    {{- if .global }}
+    {{- with .global }}
+    global:
+      {{- if .ingestion }}
+      {{- with .ingestion }}
+      {{- if or .ingestionBurstSizeBytes .ingestionRateLimitBytes .maxBytesPerTrace .maxTracesPerUser }}
+      ingestion:
+        {{- if .ingestionBurstSizeBytes }}
+        ingestionBurstSizeBytes: {{ .ingestionBurstSizeBytes }}
+        {{- end }}
+        {{- if .ingestionRateLimitBytes }}
+        ingestionRateLimitBytes: {{ .ingestionRateLimitBytes }}
+        {{- end }}
+        {{- if .maxBytesPerTrace }}
+        maxBytesPerTrace: {{ .maxBytesPerTrace }}
+        {{- end }}
+        {{- if .maxTracesPerUser }}
+        maxTracesPerUser: {{ .maxTracesPerUser }}
+        {{- end }}
+      {{- else }}
+      ingestion: {}
+      {{- end }}
+      {{- end }}
+      {{- else }}
+      ingestion: {}
+      {{- end }}
+      {{- if .query }}
+      {{- with .query }}
+      query:
+        {{- if .maxBytesPerTagValues }}
+        maxBytesPerTagValues: {{ .maxBytesPerTagValues }}
+        {{- end }}
+        {{- if .maxSearchDuration }}
+        maxSearchDuration: {{ .maxSearchDuration }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .images }}
+  {{- with .images }}
+  images:
+    {{- if .jaegerQuery }}
+    jaegerQuery: {{ .jaegerQuery }}
+    {{- end }}
+    {{- if .oauthProxy }}
+    oauthProxy: {{ .oauthProxy }}
+    {{- end }}
+    {{- if .tempo }}
+    tempo: {{ .tempo }}
+    {{- end }}
+    {{- if .tempoGateway }}
+    tempoGateway: {{ .tempoGateway }}
+    {{- end }}
+    {{- if .tempoGatewayOpa }}
+    tempoGatewayOpa: {{ .tempoGatewayOpa }}
+    {{- end }}
+    {{- if .tempoQuery }}
+    tempoQuery: {{ .tempoQuery }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- if .template }}
+  template:
+    {{- /* GATEWAY TEMPLATE */ -}}
+    {{- if .template.gateway }}
+    {{- with .template.gateway }}
+    gateway:
+      {{- if hasKey . "enabled" }}
+      enabled: {{ .enabled }}
+      {{- end }}
+      {{- if hasKey . "rbac" }}
+      rbac:
+        enabled: {{ .rbac }}
+      {{- end }}
+      {{- if .ingress }}
+      ingress:
+        {{- if .ingress.host }}
+        host: {{ .ingress.host | quote }}
+        {{- end }}
+        {{- if .ingress.type }}
+        type: {{ .ingress.type }}
+        {{- end }}
+        {{- if .ingress.termination }}
+        route:
+          termination: {{ .ingress.termination }}
+        {{- end }}
+        {{- if .ingress.ingressClassName }}
+        ingressClassName: {{ .ingress.ingressClassName }}
+        {{- end }}
+      {{- end }}
+      {{- if .component }}
+      {{- with .component }}
+      component:
+        {{- if .podSecurityContext }}
+        podSecurityContext:
+          {{- toYaml .podSecurityContext | nindent 10 }}
+        {{- end }}
+        {{- if .resources }}
+        resources:
+          {{- toYaml .resources | nindent 10 }}
+        {{- end }}
+        {{- if .replicas }}
+        replicas: {{ .replicas }}
+        {{- end }}
+        {{- if .tolerations }}
+        tolerations:
+{{ include "tpl.tolerations" .tolerations | indent 10 }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* QUERY FRONTEND TEMPLATE */ -}}
+    {{- if .template.queryFrontend }}
+    {{- with .template.queryFrontend }}
+    queryFrontend:
+      {{- if .jaegerQuery }}
+      {{- with .jaegerQuery }}
+      jaegerQuery:
+        enabled: {{ .enabled | default false }}
+        {{- if .authentication.enabled }}
+        {{- if .authentication }}
+        authentication:
+          {{- if .authentication.enabled }}
+          enabled: {{ .authentication.enabled }}
+          {{- end }}
+          {{- if .authentication.resources }}
+          resources:
+            {{- toYaml .authentication.resources | nindent 10 }}
+          {{- end }}
+          {{- if .authentication.sar }}
+          sar: {{ .authentication.sar }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- if .monitorTab }}
+        {{- if eq (.monitorTab.enabled | toString) "true" }}
+        monitorTab:
+          {{- if .monitorTab.enabled }}
+          enabled: {{ .monitorTab.enabled }}
+          {{- end }}
+          {{- if .monitorTab.prometheusEndpoint }}
+          prometheusEndpoint: {{ .monitorTab.prometheusEndpoint }}
+          {{- end }}
+          {{- if .monitorTab.redMetricsNamespace }}
+          redMetricsNamespace: {{ .monitorTab.redMetricsNamespace }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- if .resources }}
+        resources:
+          {{- toYaml .resources | nindent 8 }}
+        {{- end }}
+        {{- if .servicesQueryDuration }}
+        servicesQueryDuration: {{ .servicesQueryDuration }}
+        {{- end }}
+        {{- if .findTracesConcurrentRequests }}
+        findTracesConcurrentRequests: {{ .findTracesConcurrentRequests }}
+        {{- end }}
+        {{- if .tempoQuery }}
+        tempoQuery:
+          {{- toYaml .tempoQuery | nindent 8 }}
+        {{- end }}
+        {{- if .ingress }}
+        ingress:
+          {{- if .ingress.host }}
+          host: {{ .ingress.host | quote }}
+          {{- end }}
+          {{- if .ingress.type }}
+          type: {{ .ingress.type }}
+          {{- end }}
+          {{- if .ingress.termination }}
+          route:
+            termination: {{ .ingress.termination }}
+          {{- end }}
+          {{- if .ingress.ingressClassName }}
+          ingressClassName: {{ .ingress.ingressClassName }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+
+      {{- end }}
+      {{- if .component }}
+      {{- with .component }}
+      component:
+        {{- if .podSecurityContext }}
+        podSecurityContext:
+          {{- toYaml .podSecurityContext | nindent 10 }}
+        {{- end }}
+        {{- if .resources }}
+        resources:
+          {{- toYaml .resources | nindent 8 }}
+        {{- end }}
+        {{- if .replicas }}
+        replicas: {{ .replicas }}
+        {{- end }}
+        {{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* INGESTER TEMPLATE */ -}}
+    {{- if .template.ingester }}
+    {{- if eq (.template.ingester.enabled | toString) "true" }}
+    {{- with .template.ingester }}
+    ingester:
+      {{- if .resources }}
+      resources:
+        {{- toYaml .resources | nindent 8 }}
+      {{- end }}
+      {{- if .replicas }}
+      replicas: {{ .replicas }}
+      {{- end }}
+      {{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+      {{- end }}
+      {{- if .podSecurityContext }}
+      podSecurityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* COMPACTOR TEMPLATE */ -}}
+    {{- if .template.compactor }}
+    {{- if eq (.template.compactor.enabled | toString) "true" }}
+    {{- with .template.compactor }}
+    compactor:
+      {{- if .podSecurityContext }}
+      podSecurityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      {{- end }}
+      {{- if .resources }}
+      resources:
+        {{- if .resources.claims }}
+        claims:
+          {{- toYaml .resources.claims | nindent 10 }}
+        {{- end }}
+        {{- if .resources.limits }}
+        limits:
+          {{- toYaml .resources.limits | nindent 10 }}
+        {{- end }}
+        {{- if .resources.requests }}
+        requests:
+          {{- toYaml .resources.requests | nindent 10 }}
+        {{- end }}
+      {{- end }}
+      {{- if .replicas }}
+      replicas: {{ .replicas }}
+      {{- end }}
+      {{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* DISTRIBUTOR TEMPLATE */ -}}
+    {{- if .template.distributor }}
+    {{- if eq (.template.distributor.enabled | toString) "true" }}
+    {{- with .template.distributor }}
+    distributor:
+      {{- if .component }}
+      component:
+        {{- if .component.podSecurityContext }}
+        podSecurityContext:
+          {{- toYaml .component.podSecurityContext | nindent 10 }}
+        {{- end }}
+        {{- if .component.resources }}
+        resources:
+          {{- toYaml .component.resources | nindent 10 }}
+        {{- end }}
+        {{- if .component.replicas }}
+        replicas: {{ .component.replicas }}
+        {{- end }}
+        {{- if .component.nodeSelector }}
+        nodeSelector:
+          {{- toYaml .component.nodeSelector | nindent 10 }}
+        {{- end }}
+        {{- if .component.tolerations }}
+{{ include "tpl.tolerations" .component.tolerations | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if .tls }}
+      tls:
+        enabled: {{ .tls.enabled | default false }}
+        {{- if .tls.caName }}
+        caName: {{ .tls.caName }}
+        {{- end }}
+        {{- if .tls.certName }}
+        certName: {{ .tls.certName }}
+        {{- end }}
+        {{- if .tls.minVersion }}
+        minVersion: {{ .tls.minVersion | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- /* QUERIER TEMPLATE */ -}}
+    {{- if .template.querier }}
+    {{- if eq (.template.querier.enabled | toString) "true" }}
+    {{- with .template.querier }}
+    querier:
+      {{- if .resources }}
+      resources:
+        {{- toYaml .resources | nindent 8 }}
+      {{- end }}
+      {{- if .replicas }}
+      replicas: {{ .replicas }}
+      {{- end }}
+      {{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+      {{- end }}
+      {{- if .podSecurityContext }}
+      podSecurityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .hashRing }}
+  {{- if eq (.hashRing.enabled | toString) "true" }}
+  {{- with .hashRing }}
+  hashRing:
+    {{- if .memberlist }}
+    memberlist:
+      {{- toYaml .memberlist | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

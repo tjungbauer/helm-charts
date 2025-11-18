@@ -1,0 +1,1016 @@
+---
+tempostack-namespace: &tempostack-namespace tempo2stack-test
+
+tempostack:
+  # -- Enable TempoStack.
+  # @default -- false
+  enabled: true
+
+  # -- Name of the TempoStack.
+  # @default -- ''
+  name: tempostack
+
+  # -- Additional annotations for the TempoStack.
+  # @default -- {}
+  additionalAnnotations:
+
+  # -- Additional labels for the TempoStack.
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- ManagementState defines if the CR should be managed by the operator or not.
+  # @default -- Managed
+  managementState: Managed
+
+  # -- Namespace for the TempoStack.
+  namespace:
+    # -- Create the namespace for the TempoStack.
+    # @default -- true
+    create: true
+
+    # -- Name of the namespace.
+    # @default -- *tempostack-namespace
+    name: *tempostack-namespace
+
+    # -- Description of the namespace.
+    # @default -- ''
+    descr: ''
+
+    # -- Display name of the namespace.
+    # @default -- ''
+    display: ''
+
+    # -- Additional annotations for the namespace.
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for the namespace.
+    # @default -- {}
+    additionalLabels: {}
+
+  # -- Storage configuration for TempoStack
+  storage:
+    # -- Secret configuration for object storage
+    secret:
+      # -- Name of a secret in the namespace configured for object storage secrets.
+      # @default -- tempo-s3
+      name: tempo-s3
+
+      # -- Type of object storage backend
+      # Valid values: s3 (S3-compatible), azure (Azure Blob Storage), gcs (Google Cloud Storage)
+      # @default -- s3
+      type: s3
+
+      # -- Credential mode for accessing storage
+      # Valid values: static, token, tokenCCO
+      # @default -- static
+      credentialMode: static
+
+    # -- TLS configuration for storage connection
+    tls:
+      # -- Enable TLS for storage connection
+      # @default -- false
+      enabled: false
+
+      # -- CA is the name of a ConfigMap containing a CA certificate (service-ca.crt).
+      # It needs to be in the same namespace as the Tempo custom resource.
+      # @default -- ''
+      caName: ''
+
+      # -- Cert is the name of a Secret containing a certificate (tls.crt) and private key (tls.key).
+      # It needs to be in the same namespace as the Tempo custom resource.
+      # @default -- ""
+      certName: ''
+
+      # -- Minimum TLS version (VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13)
+      # @default -- ''
+      minVersion: ''
+
+  # -- Storage size for TempoStack
+  # @default -- 10Gi
+  storageSize: 10Gi
+
+  # -- Timeout configures the same timeout on all components starting at ingress down to the ingester/querier.
+  # Timeout configuration on a specific component has a higher precedence.
+  # Defaults to 30 seconds.
+  # @default -- 30s
+  timeout: ''
+
+  # -- ServiceAccount defines the service account to use for all tempo components.
+  # @default -- 'tempo-sa'
+  serviceAccount: 'tempo-sa'
+
+  # -- StorageClassName for PVCs used by ingester. Defaults to nil (default storage class in the cluster).
+  # @default -- ''
+  storageClassName: ''
+
+  # -- The replication factor is a configuration setting that determines how many ingesters need to acknowledge the data from the distributors before accepting a span.
+  # @default -- 1
+  replicationFactor: 1
+
+  # -- Traces defines retention period. Supported parameter suffixes are "s", "m" and "h". example: 336h
+  # default: value is 48h0m0s.
+  # @default -- '48h0m0s'
+  retention:
+    global:
+      traces: '48h0m0s'
+
+  #########################################################################################
+  # TENANT CONFIGURATION
+  #########################################################################################
+  tenants:
+    # -- Mode defines the multitenancy mode of the TempoStack.
+    # Valid values: openshift, static
+    # - openshift: Multi-tenancy mode for OpenShift with authentication via OAuth
+    # - static: Static tenant configuration with explicit tenant definitions
+    # @default -- openshift
+    mode: openshift
+
+    # -- Enabled defines if the tenants should be enabled.
+    # @default -- true
+    enabled: true
+
+    # -- Authentication defines the tempo-gateway component authentication configuration spec per tenant.
+    # @default -- []
+    authentication:
+        # -- TenantName defines a human readable, unique name of the tenant.
+        # The value of this field must be specified in the X-Scope-OrgID header and in the resources field of a ClusterRole to identify the tenant.
+        # @default -- ''
+      - tenantName: 'dev'
+
+        # -- TenantID defines a universally unique identifier of the tenant.
+        # Unlike the tenantName, which must be unique at a given time, the tenantId must be unique over the entire lifetime of the Tempo deployment.
+        # Tempo uses this ID to prefix objects in the object storage.
+        # @default -- ''
+        tenantId: '1610b0c3-c509-4592-a256-a1871353dbfa'
+
+        # -- Permissions, defines if this tenant has read and write permissions.
+        # Permissions can either be "read" or "write" or both.
+        # @default -- false
+        permissions:
+          - read
+          - write
+
+        # -- Oidc defines the oidc configuration for the tenant.
+        # @default -- {}
+        oidc:
+          # -- Enabled OIDC configuration
+          # @default -- false
+          enabled: false
+
+          # -- Secret defines the secret containing the oidc configuration.
+          # @default -- ''
+          secret: ''
+
+          # -- IssuerURL defines the issuer url of the oidc provider.
+          # @default -- ''
+          issuerURL: ''
+
+          # -- RedirectURL defines the redirect url of the oidc provider.
+          # @default -- ''
+          redirectURL: ''
+
+          # -- GroupClaim defines the group claim of the oidc provider.
+          # @default -- ''
+          groupClaim: ''
+
+          # -- UsernameClaim defines the username claim of the oidc provider.
+          # @default -- ''
+          usernameClaim: ''
+
+      - tenantName: 'prod'
+        tenantId: '1610b0c3-c509-4592-a256-a1871353dbfb'
+
+        # -- Permissions, defines if this tenant has read and write permissions.
+        # @default -- []
+        permissions:
+          - write
+          - read
+
+    # -- Authorization defines the authorization configuration for the TempoStack.
+    # Configures role-based access control (RBAC) for tenant access
+    # IMPORTANT: Authorization cannot be enabled when tenants.mode is set to 'openshift'.
+    # In OpenShift mode, authorization is handled by OpenShift OAuth.
+    # @default -- {}
+    authorization:
+      # -- Enabled defines if the authorization should be enabled.
+      # Must be false when tenants.mode is 'openshift'
+      # @default -- false
+      enabled: false
+
+      # -- Roles defines a set of permissions to interact with a tenant.
+      # Multiple roles can be defined with different permissions.
+      # @default -- []
+      roles:
+        # -- Name of the role
+        # @default -- ''
+        - name: 'tempo-reader'
+
+          # -- Permissions defines the permissions granted by this role.
+          # Valid values: read, write
+          # - read: Read-only access to traces (query operations)
+          # - write: Write access to traces (ingestion operations)
+          # @default -- []
+          permissions:
+            - read
+
+          # -- Resources defines the resources that the role has access to.
+          # @default -- []
+          resources:
+            - traces
+            - logs
+
+          # -- Tenants defines which tenants this role applies to.
+          # @default -- []
+          tenants:
+            - dev
+            - prod
+
+      # -- RoleBindings binds a set of roles to a set of subjects.
+      # Multiple role bindings can be defined.
+      # @default -- []
+      roleBindings:
+        # -- Name of the role binding
+        # @default -- ''
+        - name: 'dev-readers'
+
+          # -- Roles lists the names of roles to bind to the subjects.
+          # @default -- []
+          roles:
+            - tempo-reader
+
+          # -- Subjects lists the subjects (users or groups) to bind the roles to.
+          # @default -- []
+          subjects:
+            # -- Name of the subject (user or group name)
+            # @default -- ''
+            - name: 'john.doe@example.com'
+
+              # -- Kind defines the type of subject.
+              # Valid values: user, group
+              # - user: Individual user subject
+              # - group: Group of users subject
+              # @default -- 'user'
+              kind: user
+
+            - name: 'developers'
+              kind: group
+
+  #########################################################################################
+  # OPTIONAL: GENERAL RESOURCE REQUIREMENTS
+  #########################################################################################
+  # -- The total amount of resources for Tempo instance.
+  # @default -- {}
+  resources:
+    limits:
+      # -- Limits defines the limits for the Tempo instance.
+      # @default -- '2Gi 2000m'
+      memory: 2Gi
+      cpu: '2'
+
+    # -- Claims defines the claims for the Tempo instance.
+    # @default -- []
+    claims: []
+      # -- Name defines the name of the claim.
+      # @default -- ''
+      # name: ''
+      # -- Request defines the request for the claim.
+      # @default -- ''
+      # request: ''
+
+  #########################################################################################
+  # OPTIONAL: SEARCH CONFIGURATION
+  #########################################################################################
+  search:
+    # -- Limit used for search requests if none is set by the caller (default: 20)
+    # @default -- ''
+    defaultResultLimit: 20
+
+    # -- MaxDuration defines the maximum allowed time range for a search.
+    # @default -- ''
+    maxDuration: '0s'
+
+    # -- MaxResultLimit defines the maximum number of results for a search.
+    # If this value is not set, then spec.search.maxResultLimit is used.
+    # @default -- ''
+    maxResultLimit: ''
+
+  #########################################################################################
+  # OPTIONAL: OBSERVABILITY CONFIGURATION
+  #########################################################################################
+  # -- ObservabilitySpec defines how telemetry data gets handled.
+  observability:
+    # -- Enabled defines if the observability should be enabled.
+    # @default -- true
+    enabled: false
+
+    # -- Grafana defines the grafana configuration.
+    # @default -- {}
+    grafana:
+      # -- CreateDatasource specifies if a Grafana Datasource should be created for Tempo.
+      # @default -- false
+      createDatasource: false
+
+      # -- matchExpressions is a list of label selector requirements. The requirements are ANDed.
+      # @default -- []
+      instanceSelector:
+        matchExpressions: []
+
+    # -- Metrics defines the metrics configuration.
+    # @default -- {}
+    metrics:
+      # -- CreatePrometheusRules specifies if Prometheus rules for alerts should be created for Tempo components.
+      # @default -- false
+      createPrometheusRules: false
+
+      # -- CreateServiceMonitors specifies if ServiceMonitors should be created for Tempo components.
+      # @default -- false
+      createServiceMonitors: false
+
+    # -- Tracing defines the tracing configuration.
+    # @default -- {}
+    tracing:
+
+      # -- DEPRECATED: JaegerAgentEndpoint defines the Jaeger agent endpoint.
+      # @default -- 'localhost:6831'
+      jaeger_agent_endpoint: 'localhost:6831'
+
+      # -- OTLPHttpEndpoint defines the OTLP/http endpoint data gets send to.
+      # The default OTLP/http port 4318 collides with the distributor ports, therefore it is recommended to use a different port
+      # on the sidecar injected to the Tempo (e.g. 4320).
+      # @default -- ''
+      otlp_http_endpoint: 'http://localhost:4320'
+
+      # -- SamplingFraction defines the sampling ratio. Valid values are 0 to 1.
+      # The SamplingFraction has to be defined to enable tracing.
+      # @default -- ''
+      sampling_fraction: ''
+
+  #########################################################################################
+  # OPTIONAL: CUSTOM LIMITS
+  #########################################################################################
+  # -- Global is used to define global rate limits.
+  limits:
+    # -- Enabled defines if the limits should be enabled.
+    # @default -- false
+    enabled: false
+
+    global:
+      # -- Ingestion is used to define ingestion rate limits.
+      # If no values are provided, it will output 'ingestion: {}'
+      # If values are provided, only the specified values will be included
+      # @default -- {}
+      ingestion:
+        # -- IngestionBurstSizeBytes defines the maximum local rate-limited sample size per distributor replica in MB.
+        # @default -- ''
+        ingestionBurstSizeBytes: ''
+        # -- IngestionRateLimitBytes defines the maximum amount of ingested samples per second in MB.
+        # @default -- ''
+        ingestionRateLimitBytes: ''
+        # -- MaxBytesPerTrace defines the maximum size in bytes of a trace.
+        # @default -- ''
+        maxBytesPerTrace: ''
+        # -- MaxTracesPerUser defines the maximum number of traces per user.
+        # @default -- ''
+        maxTracesPerUser: ''
+
+      # -- Query is used to define query rate limits.
+      query:
+        # -- MaxBytesPerTagValues defines the maximum size in bytes of a tag-values query.
+        # @default -- ''
+        maxBytesPerTagValues: ''
+
+        # -- MaxSearchDuration defines the maximum allowed time range for a search.
+        # If this value is not set, then spec.search.maxDuration is used.
+        # @default -- '0s'
+        maxSearchDuration: '0s'
+
+  #########################################################################################
+  # OPTIONAL: CUSTOM IMAGES
+  #########################################################################################
+  # -- Images defines the image for each container.
+  # @default -- {}
+  images:
+    # -- JaegerQuery defines the tempo-query container image.
+    # @default -- ''
+    jaegerQuery: ''
+
+    # -- OauthProxy defines the oauth-proxy container image.
+    # @default -- ''
+    oauthProxy: ''
+
+    # -- Tempo defines the tempo container image.
+    # @default -- ''
+    tempo: ''
+
+    # -- TempoGateway defines the tempo-gateway container image.
+    # @default -- ''
+    tempoGateway: ''
+
+    # -- TempoGatewayOpa defines the tempo-gateway-opa container image.
+    # @default -- ''
+    tempoGatewayOpa: ''
+
+    # -- TempoQuery defines the tempo-query container image.
+    # @default -- ''
+    tempoQuery: ''
+
+  #########################################################################################
+  # OPTIONAL: TEMPO STACK COMPONENT CONFIGURATION TEMPLATES
+  #########################################################################################
+  # -- TempoStack component configuration templates
+  # Allows customization of individual TempoStack components (gateway, ingester, distributor, etc.)
+  # @default -- {}
+  template:
+    # -- Gateway component configuration
+    # The gateway is an optional component that provides a single entry point for trace ingestion
+    # @default -- {}
+    gateway:
+
+      # -- Enable the gateway component
+      # @default -- true
+      enabled: true
+
+      # -- Enabled defines if the query RBAC should be enabled.
+      # @default -- false
+      rbac: false
+
+      ingress:
+        # -- Host defines the hostname of the Ingress object.
+        # @default -- ''
+        host: ''
+
+        # -- Type defines the type of Ingress for the Gateway.
+        # Valid values: ingress, route, none
+        # - ingress: Kubernetes Ingress
+        # - route: OpenShift Route
+        # @default -- ''
+        type: 'route'
+
+        # -- Termination defines the TLS termination type for OpenShift Routes.
+        # Valid values: edge, passthrough, reencrypt
+        # - insecure: No TLS termination
+        # - edge: TLS termination at the router (default)
+        # - passthrough: TLS termination at the backend pod
+        # - reencrypt: TLS termination at the router, then re-encrypted to the backend
+        # @default -- ''
+        termination: 'reencrypt'
+
+        # -- IngressClassName defines the name of an IngressClass cluster resource.
+        # Defines which ingress controller serves this ingress resource.
+        # @default -- ''
+        ingressClassName: ''
+
+      # -- TempoComponentSpec is embedded to extend this definition with further options.
+      component:
+        # -- Replicas defines the number of replicas to be created for this component.
+        # @default -- 1
+        replicas: 1
+
+        # -- Resource requirements for gateway pods
+        # @default -- {}
+        resources: {}
+          # -- Claims lists the names of resources, defined in spec.resourceClaims,
+          # that are used by this container.
+          # @default --[]
+          # claims:
+            # -- Name must match the name of one entry in pod.spec.resourceClaims of
+            # the Pod where this field is used. It makes that resource available
+            # inside a container.
+            # @default -- ''
+            # - name: ''
+          # limits:
+          #   cpu: 1000m
+          #   memory: 2Gi
+          # requests:
+          #   cpu: 500m
+          #   memory: 1Gi
+
+        # -- Tolerations for gateway pods
+        # @default -- []
+        tolerations: []
+
+        podSecurityContext: {}
+          #  fsGroup: 10001
+          #  runAsGroup: 10001
+          #  runAsNonRoot: true
+          #  runAsUser: 10001
+          #  fsGroupChangePolicy: ""
+          #  seLinuxChangePolicy: ""
+          #  seLinuxOptions:
+          #    level: ""
+          #    role: ""
+          #    type: ""
+          #    user: ""
+          #  seccompProfile:
+          #    localhostProfile: ""
+          #    type: ""
+          #  supplementalGroups:
+          #  - 0
+          #  supplementalGroupsPolicy: ""
+          #  sysctls:
+          #  - name: ""
+          #    value: ""
+
+    # -- Query Frontend component configuration
+    # Handles query requests and provides the Jaeger Query UI
+    # @default -- {}
+    queryFrontend:
+      # -- Jaeger Query UI configuration
+      # @default -- {}
+      jaegerQuery:
+        # -- Enable Jaeger Query UI
+        # @default -- true
+        enabled: true
+
+        # -- Ingress configuration for Jaeger Query UI
+        ingress:
+          # -- Host defines the hostname of the Ingress object.
+          # @default -- ''
+          host: ''
+
+          # -- Type defines the type of Ingress for the Gateway.
+          # Valid values: ingress, route, none
+          # - ingress: Kubernetes Ingress
+          # - route: OpenShift Route
+          # @default -- ''
+          type: ''
+
+          # -- Termination defines the TLS termination type for OpenShift Routes.
+          # Valid values: edge, passthrough, reencrypt
+          # - insecure: No TLS termination
+          # - edge: TLS termination at the router (default)
+          # - passthrough: TLS termination at the backend pod
+          # - reencrypt: TLS termination at the router, then re-encrypted to the backend
+          # @default -- ''
+          termination: ''
+
+          # -- IngressClassName defines the name of an IngressClass cluster resource.
+          # Defines which ingress controller serves this ingress resource.
+          # @default -- ''
+          ingressClassName: ''
+
+        # -- ServicesQueryDuration defines how long the services will be available in the services list
+        # @default -- '72h0m0s'
+        servicesQueryDuration: '72h0m0s'
+
+        # -- FindTracesConcurrentRequests defines the maximum number of concurrent requests for finding traces.
+        # @default -- ''
+        findTracesConcurrentRequests: ''
+
+        # -- TempoQuery defines the tempo-query container image.
+        # @default -- {}
+        tempoQuery:
+          # -- Resource requirements for query frontend pods
+          # @default -- {}
+          resources: {}
+            # -- Claims lists the names of resources, defined in spec.resourceClaims,
+            # that are used by this container.
+            # @default --[]
+            # claims:
+              # -- Name must match the name of one entry in pod.spec.resourceClaims of
+              # the Pod where this field is used. It makes that resource available
+              # inside a container.
+              # @default -- ''
+            #  - name: 'xxx'
+              # -- Request is the name chosen for a request in the referenced claim.
+              # If empty, everything from the claim is made available, otherwise only the result of this request.
+              # @default -- ""
+              # request: ''
+            #    request: 'xxx'
+            # limits:
+            #   cpu: 1000m
+            #   memory: 2Gi
+            # requests:
+            #   cpu: 500m
+            #   memory: 1Gi
+
+        # -- Authentication defines the options for the oauth proxy used to protect jaeger UI
+        # @default -- {}
+        authentication:
+          # -- Enabled defines if the oauth proxy should be enabled.
+          # @default -- false
+          enabled: false
+
+          # -- SAR defines the SAR to be used in the oauth-proxy
+          # default -- {"namespace": "<tempo_stack_namespace>", "resource": "pods", "verb": "get"}
+          sar: ''
+
+          # -- Resources defines the resources for the oauth proxy.
+          # @default -- {}
+          resources:
+            # -- Limits defines the limits for the oauth proxy.
+            # @default -- {}
+            limits:
+              # -- CPU defines the CPU limit for the oauth proxy.
+              # @default -- ''
+              cpu: ''
+              # -- Memory defines the memory limit for the oauth proxy.
+              # @default -- ''
+              memory: ''
+              # -- EphemeralStorage defines the ephemeral storage limit for the oauth proxy.
+              # @default -- ''
+              ephemeral-storage: ''
+
+            # -- Requests defines the requests for the oauth proxy.
+            # @default -- {}
+            requests:
+              # -- CPU defines the CPU request for the oauth proxy.
+              # @default -- ''
+              cpu: ''
+              # -- Memory defines the memory request for the oauth proxy.
+              # @default -- ''
+              memory: ''
+              # -- EphemeralStorage defines the ephemeral storage request for the oauth proxy.
+              # @default -- ''
+              ephemeral-storage: ''
+
+        # -- MonitorTab defines the monitor tab configuration.
+        # @default -- {}
+        monitorTab:
+          # -- Enabled defines if the monitor tab should be enabled.
+          # @default -- false
+          enabled: false
+
+          # -- PrometheusEndpoint defines the endpoint to the Prometheus instance that contains the span rate, error, and duration (RED) metrics.
+          # @default -- ''
+          prometheusEndpoint: ''
+
+          # -- RedMetricsNamespace defines the red metrics namespace to be used in the monitor tab.
+          # @default -- ''
+          redMetricsNamespace: ''
+
+        # -- Resource requirements for query frontend pods
+        # @default -- {}
+        resources: {}
+          # -- Claims lists the names of resources, defined in spec.resourceClaims,
+          # that are used by this container.
+          # @default --[]
+          # claims:
+            # -- Name must match the name of one entry in pod.spec.resourceClaims of
+            # the Pod where this field is used. It makes that resource available
+            # inside a container.
+            # @default -- ''
+          #  - name: 'xxx'
+            # -- Request is the name chosen for a request in the referenced claim.
+            # If empty, everything from the claim is made available, otherwise only the result of this request.
+            # @default -- ""
+            # request: ''
+          #    request: 'xxx'
+          # limits:
+          #   cpu: 1000m
+          #   memory: 2Gi
+          # requests:
+          #   cpu: 500m
+          #   memory: 1Gi
+
+      component:
+        # -- Number of query frontend replicas
+        # @default -- 1
+        replicas: 1
+
+        # -- Resource requirements for query frontend pods
+        # @default -- {}
+        resources: {}
+          # -- Claims lists the names of resources, defined in spec.resourceClaims,
+          # that are used by this container.
+          # @default --[]
+          # claims:
+            # -- Name must match the name of one entry in pod.spec.resourceClaims of
+            # the Pod where this field is used. It makes that resource available
+            # inside a container.
+            # @default -- ''
+            # - name: ''
+          # limits:
+          #   cpu: 1000m
+          #   memory: 2Gi
+          # requests:
+          #   cpu: 500m
+          #   memory: 1Gi
+
+        # -- Tolerations for query frontend pods
+        # @default -- []
+        tolerations: []
+
+        podSecurityContext: {}
+          #  fsGroup: 10001
+          #  runAsGroup: 10001
+          #  runAsNonRoot: true
+          #  runAsUser: 10001
+          #  fsGroupChangePolicy: ""
+          #  seLinuxChangePolicy: ""
+          #  seLinuxOptions:
+          #    level: ""
+          #    role: ""
+          #    type: ""
+          #    user: ""
+          #  seccompProfile:
+          #    localhostProfile: ""
+          #    type: ""
+          #  supplementalGroups:
+          #  - 0
+          #  supplementalGroupsPolicy: ""
+          #  sysctls:
+          #  - name: ""
+          #    value: ""
+
+    # -- Ingester component configuration
+    # Receives traces from distributors and writes them to storage
+    # @default -- {}
+    ingester:
+      # -- Enabled defines if the ingester should be enabled.
+      # @default -- false
+      enabled: false
+
+      # -- Number of ingester replicas
+      # @default -- 1
+      replicas: 1
+
+      # -- Resource requirements for ingester pods
+      # @default -- {}
+      resources: {}
+        # -- Claims lists the names of resources, defined in spec.resourceClaims,
+        # that are used by this container.
+        # @default --[]
+        # claims:
+          # -- Name must match the name of one entry in pod.spec.resourceClaims of
+          # the Pod where this field is used. It makes that resource available
+          # inside a container.
+          # @default -- ''
+          # - name: ''
+
+          # -- Request is the name chosen for a request in the referenced claim.
+          # If empty, everything from the claim is made available, otherwise only the result of this request.
+          # @default -- ""
+          # request: ''
+        # limits:
+        #   cpu: 2000m
+        #   memory: 4Gi
+        # requests:
+        #   cpu: 1000m
+        #   memory: 2Gi
+
+      # -- Tolerations for ingester pods
+      # @default -- []
+      tolerations: []
+
+      # -- PodSecurityContext defines security context will be applied to all pods of this component.
+      # @default -- {}
+      podSecurityContext: {}
+      #  fsGroup: 10001
+      #  runAsGroup: 10001
+      #  runAsNonRoot: true
+      #  runAsUser: 10001
+      #  fsGroupChangePolicy: ""
+      #  seLinuxChangePolicy: ""
+      #  seLinuxOptions:
+      #    level: ""
+      #    role: ""
+      #    type: ""
+      #    user: ""
+      #  seccompProfile:
+      #    localhostProfile: ""
+      #    type: ""
+      #  supplementalGroups:
+      #  - 0
+      #  supplementalGroupsPolicy: ""
+      #  sysctls:
+      #  - name: ""
+      #    value: ""
+
+    # -- Compactor defines the tempo compactor component spec.
+    # Compacts and deduplicates trace data in object storage
+    # @default -- {}
+    compactor:
+      # -- Enabled defines if the compactor should be enabled.
+      # @default -- false
+      enabled: false
+
+      # -- Replicas defines the number of replicas to be created for this component.
+      # @default -- 1
+      replicas: 1
+
+      # -- Resources defines resources for this component, this will override the calculated resources derived from total
+      # @default -- {}
+      resources: {}
+        # -- Claims lists the names of resources, defined in spec.resourceClaims,
+        # that are used by this container.
+        # @default --[]
+        # claims:
+          # -- Name must match the name of one entry in pod.spec.resourceClaims of
+          # the Pod where this field is used. It makes that resource available
+          # inside a container.
+          # @default -- ''
+          # - name: ''
+
+          # -- Request is the name chosen for a request in the referenced claim.
+          # If empty, everything from the claim is made available, otherwise only the result of this request.
+          # @default -- ""
+          # request: ''
+        # limits:
+        #   cpu: 750m
+        #   memory: 2Gi
+        # requests:
+        #   cpu: 500m
+        #   memory: 1Gi
+
+      # -- Tolerations for compactor pods
+      # @default -- []
+      tolerations: []
+
+      # -- PodSecurityContext defines security context will be applied to all pods of this component.
+      # @default -- {}
+      podSecurityContext: {}
+      #  fsGroup: 10001
+      #  runAsGroup: 10001
+      #  runAsNonRoot: true
+      #  runAsUser: 10001
+      #  fsGroupChangePolicy: ""
+      #  seLinuxChangePolicy: ""
+      #  seLinuxOptions:
+      #    level: ""
+      #    role: ""
+      #    type: ""
+      #    user: ""
+      #  seccompProfile:
+      #    localhostProfile: ""
+      #    type: ""
+      #  supplementalGroups:
+      #  - 0
+      #  supplementalGroupsPolicy: ""
+      #  sysctls:
+      #  - name: ""
+      #    value: ""
+
+    # -- Distributor component configuration
+    # Receives traces from clients and distributes them to ingesters
+    # @default -- {}
+    distributor:
+      # -- Enabled defines if the distributor should be enabled.
+      # @default -- false
+      enabled: false
+
+      # -- Component-specific settings for distributor
+      # @default -- {}
+      component:
+
+        # -- Number of distributor replicas
+        # @default -- 1
+        replicas: 1
+        # -- Resource requirements for distributor pods
+        # @default -- {}
+
+        resources: {}
+        # -- Claims lists the names of resources, defined in spec.resourceClaims,
+        # that are used by this container.
+        # @default --[]
+        # claims:
+          # -- Name must match the name of one entry in pod.spec.resourceClaims of
+          # the Pod where this field is used. It makes that resource available
+          # inside a container.
+          # @default -- ''
+          # - name: ''
+
+          # -- Request is the name chosen for a request in the referenced claim.
+          # If empty, everything from the claim is made available, otherwise only the result of this request.
+          # @default -- ""
+          # request: ''
+          # limits:
+          #   cpu: 2000m
+          #   memory: 4Gi
+          # requests:
+          #   cpu: 1000m
+          #   memory: 2Gi
+
+        # -- Tolerations for distributor pods
+        # @default -- []
+        tolerations: []
+
+        podSecurityContext: {}
+        #  fsGroup: 10001
+        #  runAsGroup: 10001
+        #  runAsNonRoot: true
+        #  runAsUser: 10001
+        #  fsGroupChangePolicy: ""
+        #  seLinuxChangePolicy: ""
+        #  seLinuxOptions:
+        #    level: ""
+        #    role: ""
+        #    type: ""
+        #    user: ""
+        #  seccompProfile:
+        #    localhostProfile: ""
+        #    type: ""
+        #  supplementalGroups:
+        #  - 0
+        #  supplementalGroupsPolicy: ""
+        #  sysctls:
+        #  - name: ""
+        #    value: ""
+
+      # -- TLS defines TLS configuration for distributor receivers
+      # @default -- {}
+      tls:
+        # -- Enable TLS for distributor
+        # @default -- false
+        enabled: false
+
+        # -- CA is the name of a ConfigMap containing a CA certificate (service-ca.crt).
+        # It needs to be in the same namespace as the Tempo custom resource.
+        # @default -- ""
+        caName: ""
+        # -- Cert is the name of a Secret containing a certificate (tls.crt) and private key (tls.key).
+        # It needs to be in the same namespace as the Tempo custom resource.
+        # @default -- ""
+        certName: ""
+
+        # -- MinVersion defines the minimum acceptable TLS version.
+        # @default -- ""
+        minVersion: ""
+
+    # -- Querier component configuration
+    # Queries trace data from ingesters and object storage
+    # @default -- {}
+    querier:
+      # -- Enabled defines if the querier should be enabled.
+      # @default -- true
+      enabled: false
+
+      # -- Number of querier replicas
+      # @default -- 1
+      replicas: 1
+
+      # -- Resource requirements for querier pods
+      # @default -- {}
+      resources: {}
+        # -- Claims lists the names of resources, defined in spec.resourceClaims,
+        # that are used by this container.
+        # @default --[]
+        # claims:
+          # -- Name must match the name of one entry in pod.spec.resourceClaims of
+          # the Pod where this field is used. It makes that resource available
+          # inside a container.
+          # @default -- ''
+          # - name: ''
+
+          # -- Request is the name chosen for a request in the referenced claim.
+          # If empty, everything from the claim is made available, otherwise only the result of this request.
+          # @default -- ""
+          # request: ''
+        # limits:
+        #   cpu: 1000m
+        #   memory: 2Gi
+        # requests:
+        #   cpu: 500m
+        #   memory: 1Gi
+
+      # -- Tolerations for querier pods
+      # @default -- []
+      tolerations: []
+
+      # -- PodSecurityContext defines security context will be applied to all pods of this component.
+      # @default -- {}
+      podSecurityContext: {}
+      #  fsGroup: 10001
+      #  runAsGroup: 10001
+      #  runAsNonRoot: true
+      #  runAsUser: 10001
+      #  fsGroupChangePolicy: ""
+      #  seLinuxChangePolicy: ""
+      #  seLinuxOptions:
+      #    level: ""
+      #    role: ""
+      #    type: ""
+      #    user: ""
+      #  seccompProfile:
+      #    localhostProfile: ""
+      #    type: ""
+      #  supplementalGroups:
+      #  - 0
+      #  supplementalGroupsPolicy: ""
+      #  sysctls:
+      #  - name: ""
+      #    value: ""
+
+  #########################################################################################
+  # OPTIONAL: HASH RING CONFIGURATION
+  #########################################################################################
+  # -- HashRing defines the spec for the distributed hash ring configuration.
+  hashRing:
+    # -- Enabled defines if the hash ring should be enabled.
+    # @default -- false
+    enabled: false
+
+    # -- Memberlist defines the memberlist configuration for the hash ring.
+    # @default -- {}
+    memberlist:
+      # -- EnableIPv6 defines if IPv6 should be enabled for the hash ring.
+      # @default -- false
+      enableIPv6: false
+
+      # -- InstanceAddrType defines the address type for the hash ring.
+      # Valid values: default, podIP
+      # - default: Use the default instance address type (default behavior)
+      # - podIP: Use the pod IP address for the instance address
+      # @default -- default
+      instanceAddrType: default

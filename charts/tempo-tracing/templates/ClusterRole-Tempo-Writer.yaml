@@ -1,0 +1,42 @@
+{{- if eq (.Values.tempostack.enabled | toString) "true" }}
+{{- if eq (.Values.tempostack.tenants.enabled | toString) "true" }}
+{{- with .Values.tempostack }}
+{{- $hasWritePermission := false }}
+{{- $tenantsList := list }}
+{{- /* Loop through authentication block to find tenants with write permissions */ -}}
+{{- range .tenants.authentication }}
+  {{- if .permissions }}
+    {{- if has "write" .permissions }}
+      {{- $hasWritePermission = true }}
+      {{- $tenantsList = append $tenantsList .tenantName }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if $hasWritePermission }}
+{{- $uniqueTenants := uniq $tenantsList }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .name }}-traces-write
+  namespace: {{ .namespace.name }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+rules:
+  - apiGroups:
+      - 'tempo.grafana.com'
+    resources:
+      {{- range $uniqueTenants }}
+      - {{ . }}
+      {{- end }}
+    resourceNames:
+      - traces
+    verbs:
+      - 'create'
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

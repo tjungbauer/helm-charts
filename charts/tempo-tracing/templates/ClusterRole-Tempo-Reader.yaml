@@ -1,0 +1,42 @@
+{{- if eq (.Values.tempostack.enabled | toString) "true" }}
+{{- if eq (.Values.tempostack.tenants.enabled | toString) "true" }}
+{{- with .Values.tempostack }}
+{{- $hasReadPermission := false }}
+{{- $tenantsList := list }}
+{{- /* Loop through authentication block to find tenants with read permissions */ -}}
+{{- range .tenants.authentication }}
+  {{- if .permissions }}
+    {{- if has "read" .permissions }}
+      {{- $hasReadPermission = true }}
+      {{- $tenantsList = append $tenantsList .tenantName }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if $hasReadPermission }}
+{{- $uniqueTenants := uniq $tenantsList }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .name }}-traces-reader
+  namespace: {{ .namespace.name }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+rules:
+  - apiGroups:
+      - 'tempo.grafana.com'
+    resources:
+      {{- range $uniqueTenants }}
+      - {{ . }}
+      {{- end }}
+    resourceNames:
+      - traces
+    verbs:
+      - 'get'
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

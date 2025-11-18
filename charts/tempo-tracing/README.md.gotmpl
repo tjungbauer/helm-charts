@@ -1,0 +1,122 @@
+{{ template "doc.header" . }}
+
+This Helm chart deploys and configures Grafana Tempo using the Tempo Operator on Kubernetes or OpenShift. Tempo is a high-volume, distributed tracing backend that is cost-effective and requires only object storage to operate.
+
+The chart creates a TempoStack custom resource that is managed by the Tempo Operator, which handles the deployment and lifecycle of all Tempo components including distributors, ingesters, compactors, queriers, and query frontends.
+
+
+## Prerequisites
+
+### Required
+
+- **Kubernetes** 1.20+ or **OpenShift** 4.10+
+- **Tempo Operator** installed in the cluster
+  - Install via: OperatorHub (OpenShift) or Operator Lifecycle Manager (OLM)
+- **Helm** 3.0+
+- **Object Storage** backend configured (S3, Azure Blob Storage, or Google Cloud Storage)
+  - With credentials stored in a Kubernetes Secret
+
+### Recommended
+
+- **Prometheus Operator** (for metrics collection)
+- **Grafana** (for visualization and dashboards)
+- **OpenTelemetry Collector** (for trace collection from applications)
+
+### Validation
+
+The chart includes comprehensive validation for:
+
+- **Storage credential modes**: `static`, `token`, `tokenCCO`
+- **Storage types**: `s3`, `azure`, `gcs`
+- **Ingress types**: `ingress`, `route`
+- **Ingress termination**: `insecure`, `edge`, `passthrough`, `reencrypt`
+- **Management states**: `managed`, `unmanaged`
+- **Tenant modes**: `openshift`, `static`
+- **Authorization permissions**: `read`, `write`
+- **Subject kinds**: `user`, `group`
+- **Instance address types**: `default`, `podIP`
+- **Authorization vs OpenShift mode conflict**: Prevents authorization in OpenShift mode
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-tempo-operator)
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [tpl](https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl)
+
+{{ template "doc.values" . }}
+
+## Example settings
+
+```yaml
+---
+---
+tempostack-namespace: &tempostack-namespace tempo2stack-test
+
+tempostack:k.
+  enabled: true
+  name: tempostack
+
+  managementState: Managed
+
+  namespace:
+    create: true
+    name: *tempostack-namespace
+
+  storage:
+    secret:
+      name: tempo-s3
+      type: s3
+      credentialMode: static
+
+  storageSize: 10Gi
+  replicationFactor: 1
+
+  tenants:
+    mode: openshift
+    enabled: true
+
+    authentication:
+      - tenantName: 'dev'
+        tenantId: '1610b0c3-c509-4592-a256-a1871353dbfa'
+        permissions:
+          - read
+          - write
+
+      - tenantName: 'prod'
+        tenantId: '1610b0c3-c509-4592-a256-a1871353dbfb'
+        permissions:
+          - write
+          - read
+
+  observability:
+    enabled: true
+
+    tracing:
+      jaeger_agent_endpoint: 'localhost:6831'
+      otlp_http_endpoint: 'http://localhost:4320'
+
+  template:
+    gateway:
+      enabled: true
+      rbac: false
+
+      ingress:
+        type: 'route'
+        termination: 'reencrypt'
+      component:
+        replicas: 1
+
+    queryFrontend:
+      jaegerQuery:
+        enabled: true
+      component:
+        replicas: 1
+```
+
+{{ template "doc.footer" . }}
