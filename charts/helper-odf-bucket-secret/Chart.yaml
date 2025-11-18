@@ -1,0 +1,29 @@
+apiVersion: v2
+name: helper-odf-bucket-secret
+description: Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)
+version: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.22
+    repository: https://charts.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+  - helper
+  - subchart
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release
