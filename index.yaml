@@ -11946,6 +11946,43 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
     version: 1.0.0
+  helper-odf-bucket-secret:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-18T15:14:31.126948467Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Some services like Tempo require a secret with a specifc key for
+      the object sotrage. When a S3 bucket is created via OpenShift Data Foundation,
+      then this chart will help to generate a correct secret. (This is an evolution
+      of helper-loki-bucket-secret)
+    digest: e9a0956f46034a39f19ac6f7c08aa98ebb40ed8b97b3562188a7befc2708adea
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-odf-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-odf-bucket-secret-1.0.0/helper-odf-bucket-secret-1.0.0.tgz
+    version: 1.0.0
   helper-operator:
   - annotations:
       artifacthub.io/changes: |
@@ -31591,4 +31628,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-18T14:40:22.235016598Z"
+generated: "2025-11-18T15:14:31.128243339Z"
