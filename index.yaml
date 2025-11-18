@@ -11951,6 +11951,44 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: Initial release
+        - kind: fixed
+          description: disabled example values
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-18T15:17:27.073339634Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Some services like Tempo require a secret with a specifc key for
+      the object sotrage. When a S3 bucket is created via OpenShift Data Foundation,
+      then this chart will help to generate a correct secret. (This is an evolution
+      of helper-loki-bucket-secret)
+    digest: 5d9cc503c3266335cd724f0a59c0f3db1c494a5eafb52f2b293c13295e7805fa
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-odf-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-odf-bucket-secret-1.0.1/helper-odf-bucket-secret-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -31628,4 +31666,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-18T15:14:31.128243339Z"
+generated: "2025-11-18T15:17:27.074547092Z"
