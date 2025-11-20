@@ -1,0 +1,37 @@
+apiVersion: v2
+name: rh-build-of-opentelemetry
+description: Configure Red Hat Build of OpenTelemetry Operator resources (Collector, Instrumentation, TargetAllocator).
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.22
+    repository: https://charts.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+  - https://github.com/open-telemetry/opentelemetry-operator
+keywords:
+  - opentelemetry
+  - observability
+  - tracing
+  - metrics
+  - logs
+  - instrumentation
+annotations:
+  artifacthub.io/category: monitoring-logging
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: initial release

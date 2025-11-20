@@ -1,0 +1,91 @@
+{{- if eq (.Values.collector.enabled | toString) "true" }}
+{{- with .Values.collector }}
+{{- /* Validate collector mode if provided */ -}}
+{{- if .mode }}
+  {{- include "otel.collectorMode" .mode }}
+{{- end }}
+{{- /* Validate management state if provided */ -}}
+{{- if .managementState }}
+  {{- include "otel.managementState" .managementState }}
+{{- end }}
+---
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace.name }}
+  {{- if .additionalAnnotations }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+spec:
+  {{- if .mode }}
+  mode: {{ .mode }}
+  {{- end }}
+  
+  {{- if and (or (eq .mode "deployment") (eq .mode "statefulset")) .replicas }}
+  replicas: {{ .replicas }}
+  {{- end }}
+  
+  {{- if .managementState }}
+  managementState: {{ .managementState }}
+  {{- end }}
+  
+  {{- if .image }}
+  image: {{ .image }}
+  {{- end }}
+  
+  {{- if .serviceAccount }}
+  serviceAccount: {{ .serviceAccount }}
+  {{- end }}
+  
+  {{- if .resources }}
+  resources:
+    {{- toYaml .resources | nindent 4 }}
+  {{- end }}
+  
+  {{- if .nodeSelector }}
+  nodeSelector:
+    {{- toYaml .nodeSelector | nindent 4 }}
+  {{- end }}
+  
+  {{- if .tolerations }}
+  tolerations:
+    {{- include "tpl.tolerations" .tolerations | nindent 2 }}
+  {{- end }}
+  
+  {{- if .podSecurityContext }}
+  podSecurityContext:
+    {{- toYaml .podSecurityContext | nindent 4 }}
+  {{- end }}
+  
+  {{- if .volumeMounts }}
+  volumeMounts:
+    {{- toYaml .volumeMounts | nindent 4 }}
+  {{- end }}
+  
+  {{- if .volumes }}
+  volumes:
+    {{- toYaml .volumes | nindent 4 }}
+  {{- end }}
+  
+  {{- if .env }}
+  env:
+    {{- toYaml .env | nindent 4 }}
+  {{- end }}
+  
+  {{- if .ports }}
+  ports:
+    {{- toYaml .ports | nindent 4 }}
+  {{- end }}
+  
+  {{- if .config }}
+  config:
+    {{- toYaml .config | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+

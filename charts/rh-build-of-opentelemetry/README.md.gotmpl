@@ -1,0 +1,412 @@
+{{ template "doc.header" . }}
+
+This Helm chart deploys and configures **Red Hat Build of OpenTelemetry** resources on OpenShift using the OpenTelemetry Operator. It provides a declarative way to manage:
+
+- **OpenTelemetry Collector** - Vendor-agnostic telemetry data collection
+- **Instrumentation** - Automatic instrumentation for multiple languages
+- **Target Allocator** - Prometheus target discovery and allocation
+
+## Prerequisites
+
+### Required
+
+- **OpenShift** 4.12+ or **Kubernetes** 1.24+
+- **Red Hat Build of OpenTelemetry Operator** installed
+  - Install via: OperatorHub (OpenShift) or Operator Lifecycle Manager (OLM)
+- **Helm** 3.0+
+
+## Features
+
+### Core Features
+
+- ✅ **OpenTelemetry Collector** - Deploy as deployment, daemonset, statefulset, or sidecar
+- ✅ **Auto-Instrumentation** - Support for Java, Node.js, Python, .NET, Go, and Apache HTTPD
+- ✅ **Target Allocator** - Prometheus metrics target discovery and distribution
+- ✅ **Full Configuration** - Complete control over all resource configurations
+- ✅ **OpenShift Compatible** - Tested and optimized for Red Hat OpenShift
+
+### Validation
+
+The chart includes validation for:
+
+- **Collector modes**: `deployment`, `daemonset`, `statefulset`, `sidecar`
+- **Management states**: `managed`, `unmanaged`
+- **Sampler types**: `always_on`, `always_off`, `traceidratio`, `parentbased_*`, `jaeger_remote`, `xray`
+- **Allocation strategies**: `consistent-hashing`, `least-weighted`
+
+{{ template "doc.deps" . }}
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+Verify the subcharts for additional settings:
+
+* [tpl](https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl)
+
+{{ template "doc.values" . }}
+
+## Component Details
+
+### OpenTelemetry Collector
+
+The collector receives, processes, and exports telemetry data.
+
+**Deployment Modes:**
+
+1. **Deployment** (default)
+   - Stateless collector deployment
+   - Horizontal scaling with replicas
+   - Best for: General purpose collection
+
+2. **DaemonSet**
+   - One collector pod per node
+   - Collects node-level metrics
+   - Best for: Log collection, node metrics
+
+3. **StatefulSet**
+   - Stateful collector with persistent storage
+   - Ordered deployment
+   - Best for: Buffering, state management
+
+4. **Sidecar**
+   - Injected as sidecar container
+   - Per-application collection
+   - Best for: Application-specific telemetry
+
+**Configuration Example:**
+
+```yaml
+collector:
+  enabled: true
+  mode: deployment  # deployment, daemonset, statefulset, sidecar
+  replicas: 2
+  
+  config:
+    receivers:
+      otlp:  # OpenTelemetry Protocol
+      jaeger:  # Jaeger receiver
+      zipkin:  # Zipkin receiver
+      prometheus:  # Prometheus scraping
+    
+    processors:
+      batch: {}  # Batching
+      memory_limiter: {}  # Memory management
+      resource: {}  # Resource attributes
+    
+    exporters:
+      otlp: {}  # OTLP export
+      prometheus: {}  # Prometheus export
+      logging: {}  # Debug logging
+    
+    service:
+      pipelines:
+        traces: {}
+        metrics: {}
+        logs: {}
+```
+
+### Instrumentation
+
+Automatic instrumentation for applications without code changes.
+
+**How It Works:**
+
+1. **Annotation-based Injection**:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    instrumentation.opentelemetry.io/inject-java: "true"
+spec:
+  # Your deployment spec
+```
+
+2. **Namespace-level Injection**:
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    instrumentation.opentelemetry.io/inject-java: "true"
+```
+
+**Configuration Example:**
+
+```yaml
+instrumentation:
+  enabled: true
+  
+  exporter:
+    endpoint: http://otel-collector:4318
+  
+  sampler:
+    type: parentbased_traceidratio
+    argument: "1.0"  # 100% sampling
+  
+  java:
+    image: custom-java-instrumentation:latest
+    env:
+      OTEL_EXPORTER_OTLP_TIMEOUT: "10000"
+      OTEL_TRACES_EXPORTER: "otlp"
+```
+
+### Target Allocator
+
+Distributes Prometheus scrape targets across collector instances.
+
+**Features:**
+- Automatic target discovery from ServiceMonitor/PodMonitor
+- Consistent hashing for target distribution
+- Dynamic reallocation on collector scaling
+- Reduces duplicate scraping
+
+**Configuration Example:**
+
+```yaml
+targetallocator:
+  enabled: true
+  replicas: 2
+  
+  allocationStrategy: consistent-hashing
+  
+  prometheusCR:
+    enabled: true
+    scrapeInterval: 30s
+    
+    serviceMonitorSelector:
+      matchLabels:
+        team: backend
+    
+    podMonitorSelector:
+      matchLabels:
+        monitoring: enabled
+```
+
+## Example Configurations
+
+### Example 1: Basic Trace Collection
+
+```yaml
+collector:
+  enabled: true
+  name: traces-collector
+  mode: deployment
+  replicas: 2
+  
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc: {}
+          http: {}
+    
+    processors:
+      batch:
+        timeout: 1s
+        send_batch_size: 1024
+    
+    exporters:
+      otlp:
+        endpoint: jaeger-collector:4317
+        tls:
+          insecure: true
+    
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp]
+
+instrumentation:
+  enabled: true
+  exporter:
+    endpoint: http://traces-collector:4318
+  sampler:
+    type: always_on
+```
+
+### Example 2: DaemonSet for Logs
+
+```yaml
+collector:
+  enabled: true
+  name: logs-collector
+  mode: daemonset
+  
+  volumes:
+    - name: varlog
+      hostPath:
+        path: /var/log
+  
+  volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+      readOnly: true
+  
+  config:
+    receivers:
+      filelog:
+        include: [/var/log/pods/*/*/*.log]
+        operators:
+          - type: json_parser
+    
+    processors:
+      batch: {}
+    
+    exporters:
+      loki:
+        endpoint: http://loki:3100/loki/api/v1/push
+    
+    service:
+      pipelines:
+        logs:
+          receivers: [filelog]
+          processors: [batch]
+          exporters: [loki]
+```
+
+### Example 3: Metrics with Target Allocator
+
+```yaml
+collector:
+  enabled: true
+  name: metrics-collector
+  mode: statefulset
+  replicas: 3
+  
+  config:
+    receivers:
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: 'otel-collector'
+              scrape_interval: 10s
+    
+    processors:
+      batch: {}
+    
+    exporters:
+      prometheusremotewrite:
+        endpoint: http://prometheus:9090/api/v1/write
+    
+    service:
+      pipelines:
+        metrics:
+          receivers: [prometheus]
+          processors: [batch]
+          exporters: [prometheusremotewrite]
+
+targetallocator:
+  enabled: true
+  replicas: 2
+  allocationStrategy: consistent-hashing
+  
+  prometheusCR:
+    enabled: true
+    serviceMonitorSelector:
+      matchLabels:
+        prometheus: kube-prometheus
+```
+
+### Example 4: Production Configuration
+
+```yaml
+namespace:
+  name: opentelemetry
+  create: true
+  display: "OpenTelemetry Observability"
+
+collector:
+  enabled: true
+  name: otel-collector
+  mode: deployment
+  replicas: 3
+  
+  serviceAccount: otel-collector-sa
+  
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+  
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+    
+    processors:
+      batch:
+        timeout: 10s
+        send_batch_size: 1024
+      
+      memory_limiter:
+        check_interval: 1s
+        limit_mib: 3500
+      
+      resource:
+        attributes:
+          - key: cluster.name
+            value: production
+            action: insert
+    
+    exporters:
+      otlp/tempo:
+        endpoint: tempo-gateway:4317
+        tls:
+          insecure: false
+      
+      prometheusremotewrite:
+        endpoint: http://prometheus:9090/api/v1/write
+    
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, batch, resource]
+          exporters: [otlp/tempo]
+        
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [prometheusremotewrite]
+
+instrumentation:
+  enabled: true
+  
+  exporter:
+    endpoint: http://otel-collector:4318
+  
+  propagators:
+    - tracecontext
+    - baggage
+    - b3
+  
+  sampler:
+    type: parentbased_traceidratio
+    argument: "0.1"  # 10% sampling
+
+targetallocator:
+  enabled: true
+  replicas: 2
+  
+  allocationStrategy: consistent-hashing
+  
+  prometheusCR:
+    enabled: true
+    scrapeInterval: 30s
+```
+
+{{ template "doc.footer" . }}
+

@@ -1,0 +1,128 @@
+{{- if eq (.Values.instrumentation.enabled | toString) "true" }}
+{{- with .Values.instrumentation }}
+{{- /* Validate sampler type if provided */ -}}
+{{- if .sampler.type }}
+  {{- include "otel.samplerType" .sampler.type }}
+{{- end }}
+---
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace.name }}
+  {{- if .additionalAnnotations }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+spec:
+  {{- if .exporter.endpoint }}
+  exporter:
+    endpoint: {{ .exporter.endpoint }}
+  {{- end }}
+  
+  {{- if .propagators }}
+  propagators:
+    {{- range .propagators }}
+    - {{ . }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .sampler }}
+  sampler:
+    {{- if .sampler.type }}
+    type: {{ .sampler.type }}
+    {{- end }}
+    {{- if .sampler.argument }}
+    argument: {{ .sampler.argument | quote }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .java }}
+  java:
+    {{- if .java.image }}
+    image: {{ .java.image }}
+    {{- end }}
+    {{- if .java.env }}
+    env:
+      {{- range $key, $value := .java.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .nodejs }}
+  nodejs:
+    {{- if .nodejs.image }}
+    image: {{ .nodejs.image }}
+    {{- end }}
+    {{- if .nodejs.env }}
+    env:
+      {{- range $key, $value := .nodejs.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .python }}
+  python:
+    {{- if .python.image }}
+    image: {{ .python.image }}
+    {{- end }}
+    {{- if .python.env }}
+    env:
+      {{- range $key, $value := .python.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .dotnet }}
+  dotnet:
+    {{- if .dotnet.image }}
+    image: {{ .dotnet.image }}
+    {{- end }}
+    {{- if .dotnet.env }}
+    env:
+      {{- range $key, $value := .dotnet.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .go }}
+  go:
+    {{- if .go.image }}
+    image: {{ .go.image }}
+    {{- end }}
+    {{- if .go.env }}
+    env:
+      {{- range $key, $value := .go.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .apacheHttpd }}
+  apacheHttpd:
+    {{- if .apacheHttpd.image }}
+    image: {{ .apacheHttpd.image }}
+    {{- end }}
+    {{- if .apacheHttpd.env }}
+    env:
+      {{- range $key, $value := .apacheHttpd.env }}
+      - name: {{ $key }}
+        value: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+

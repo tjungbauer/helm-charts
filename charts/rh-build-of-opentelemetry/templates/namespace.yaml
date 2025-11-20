@@ -1,0 +1,24 @@
+{{- if eq (.Values.namespace.create | toString) "true" }}
+{{- with .Values.namespace }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .name }}
+  {{- if or .descr .display .additionalAnnotations }}
+  annotations:
+    {{- if .descr }}
+    openshift.io/description: {{ .descr | quote }}
+    {{- end }}
+    {{- if .display }}
+    openshift.io/display-name: {{ .display | quote }}
+    {{- end }}
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  {{- end }}
+  {{- if .additionalLabels }}
+  labels:
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+

@@ -1,0 +1,54 @@
+---
+# Minimal configuration example for Red Hat Build of OpenTelemetry
+# This is a simple setup for getting started
+
+namespace:
+  name: opentelemetry
+  create: true
+
+# Simple collector for trace collection
+collector:
+  enabled: true
+  name: otel-collector
+  mode: deployment
+  replicas: 1
+  
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc: {}
+          http: {}
+    
+    processors:
+      batch: {}
+    
+    exporters:
+      # Change this to your actual backend
+      otlp:
+        endpoint: tempo-gateway:4317
+        tls:
+          insecure: true
+    
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp]
+
+# Auto-instrumentation for applications
+instrumentation:
+  enabled: true
+  name: otel-instrumentation
+  
+  exporter:
+    endpoint: http://otel-collector:4318
+  
+  sampler:
+    type: always_on
+
+# Target allocator disabled for simplicity
+targetallocator:
+  enabled: false
+

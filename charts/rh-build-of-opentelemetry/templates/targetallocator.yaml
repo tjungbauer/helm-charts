@@ -1,0 +1,80 @@
+{{- if eq (.Values.targetallocator.enabled | toString) "true" }}
+{{- with .Values.targetallocator }}
+{{- /* Validate allocation strategy if provided */ -}}
+{{- if .allocationStrategy }}
+  {{- include "otel.allocationStrategy" .allocationStrategy }}
+{{- end }}
+---
+apiVersion: opentelemetry.io/v1beta1
+kind: TargetAllocator
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace.name }}
+  {{- if .additionalAnnotations }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
+spec:
+  {{- if .replicas }}
+  replicas: {{ .replicas }}
+  {{- end }}
+  
+  {{- if .image }}
+  image: {{ .image }}
+  {{- end }}
+  
+  {{- if .serviceAccount }}
+  serviceAccount: {{ .serviceAccount }}
+  {{- end }}
+  
+  {{- if .resources }}
+  resources:
+    {{- toYaml .resources | nindent 4 }}
+  {{- end }}
+  
+  {{- if .nodeSelector }}
+  nodeSelector:
+    {{- toYaml .nodeSelector | nindent 4 }}
+  {{- end }}
+  
+  {{- if .tolerations }}
+  tolerations:
+    {{- include "tpl.tolerations" .tolerations | nindent 2 }}
+  {{- end }}
+  
+  {{- if .allocationStrategy }}
+  allocationStrategy: {{ .allocationStrategy }}
+  {{- end }}
+  
+  {{- if .filterStrategy }}
+  filterStrategy: {{ .filterStrategy }}
+  {{- end }}
+  
+  {{- if .prometheusCR }}
+  prometheusCR:
+    {{- if hasKey .prometheusCR "enabled" }}
+    enabled: {{ .prometheusCR.enabled }}
+    {{- end }}
+    {{- if .prometheusCR.scrapeInterval }}
+    scrapeInterval: {{ .prometheusCR.scrapeInterval }}
+    {{- end }}
+    {{- if .prometheusCR.podMonitorSelector }}
+    podMonitorSelector:
+      {{- toYaml .prometheusCR.podMonitorSelector | nindent 6 }}
+    {{- end }}
+    {{- if .prometheusCR.serviceMonitorSelector }}
+    serviceMonitorSelector:
+      {{- toYaml .prometheusCR.serviceMonitorSelector | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .env }}
+  env:
+    {{- toYaml .env | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+

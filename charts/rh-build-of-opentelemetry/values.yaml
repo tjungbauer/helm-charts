@@ -1,0 +1,329 @@
+---
+# Namespace Configuration
+namespace:
+  # -- Create the namespace
+  # @default -- true
+  create: false
+
+  # -- Name of the namespace for OpenTelemetry resources
+  # @default -- opentelemetry
+  name: opentelemetry
+
+  # -- Description of the namespace
+  # @default -- ''
+  descr: 'Red Hat Build of OpenTelemetry'
+
+  # -- Display name of the namespace
+  # @default -- ''
+  display: 'OpenTelemetry'
+
+  # -- Additional annotations for the namespace
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for the namespace
+  # @default -- {}
+  additionalLabels: {}
+
+#########################################################################################
+# OPENTELEMETRY COLLECTOR
+#########################################################################################
+collector:
+  # -- Enable OpenTelemetry Collector
+  # @default -- false
+  enabled: false
+
+  # -- Management state (managed/unmanaged)
+  # @default -- managed
+  managementState: managed
+
+  # -- Name of the OpenTelemetry Collector
+  # @default -- otel-collector
+  name: otel-collector
+
+  # -- Deployment mode
+  # Valid values: deployment, daemonset, statefulset, sidecar
+  # @default -- deployment
+  mode: deployment
+
+  # -- Number of replicas (only for deployment and statefulset modes)
+  # @default -- 1
+  replicas: 1
+
+  # -- Additional annotations for the Collector
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for the Collector
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- Image configuration
+  image: ''
+    # repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
+    # tag: ''
+
+  # -- Service Account
+  # @default -- ''
+  serviceAccount: ''
+
+  # -- Resource requirements
+  # @default -- {}
+  resources:
+    limits:
+      cpu: 1
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 400Mi
+
+  # -- Node selector
+  # @default -- {}
+  nodeSelector: {}
+
+  # -- Tolerations
+  # @default -- []
+  tolerations: []
+
+  # -- Pod Security Context
+  # @default -- {}
+  podSecurityContext: {}
+
+  # -- Volume mounts
+  # @default -- []
+  volumeMounts: []
+
+  # -- Volumes
+  # @default -- []
+  volumes: []
+
+  # -- Environment variables
+  # @default -- []
+  env: []
+
+  # -- Ports configuration
+  # @default -- {}
+  ports: {}
+
+  # -- OpenTelemetry Collector configuration
+  # @default -- {}
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      batch: {}
+      memory_limiter:
+        check_interval: 1s
+        limit_mib: 1000
+
+    exporters:
+      debug:
+        verbosity: detailed
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [debug]
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [debug]
+        logs:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [debug]
+
+#########################################################################################
+# OPENTELEMETRY INSTRUMENTATION
+#########################################################################################
+instrumentation:
+  # -- Enable OpenTelemetry Instrumentation
+  # @default -- false
+  enabled: false
+
+  # -- Name of the Instrumentation
+  # @default -- otel-instrumentation
+  name: otel-instrumentation
+
+  # -- Additional annotations for Instrumentation
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for Instrumentation
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- Exporter endpoint
+  # @default -- http://otel-collector:4318
+  exporter:
+    endpoint: http://otel-collector:4318
+
+  # -- Propagators
+  # @default -- ["tracecontext", "baggage"]
+  propagators:
+    - tracecontext
+    - baggage
+
+  # -- Sampler configuration
+  # @default -- {}
+  sampler:
+    # Valid values: always_on, always_off, traceidratio, parentbased_always_on,
+    # parentbased_always_off, parentbased_traceidratio, jaeger_remote, xray
+    type: parentbased_traceidratio
+    argument: "1.0"
+
+  # -- Java instrumentation configuration
+  # @default -- {}
+  java:
+    # -- Image for Java auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for Java instrumentation
+    # @default -- {}
+    env: {}
+
+  # -- Node.js instrumentation configuration
+  # @default -- {}
+  nodejs:
+    # -- Image for Node.js auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for Node.js instrumentation
+    # @default -- {}
+    env: {}
+
+  # -- Python instrumentation configuration
+  # @default -- {}
+  python:
+    # -- Image for Python auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for Python instrumentation
+    # @default -- {}
+    env: {}
+
+  # -- .NET instrumentation configuration
+  # @default -- {}
+  dotnet:
+    # -- Image for .NET auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for .NET instrumentation
+    # @default -- {}
+    env: {}
+
+  # -- Go instrumentation configuration
+  # @default -- {}
+  go:
+    # -- Image for Go auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for Go instrumentation
+    # @default -- {}
+    env: {}
+
+  # -- Apache HTTP Server instrumentation configuration
+  # @default -- {}
+  apacheHttpd:
+    # -- Image for Apache HTTP Server auto-instrumentation
+    # @default -- ''
+    image: ''
+
+    # -- Environment variables for Apache HTTP Server instrumentation
+    # @default -- {}
+    env: {}
+
+#########################################################################################
+# TARGET ALLOCATOR
+#########################################################################################
+targetallocator:
+  # -- Enable Target Allocator
+  # @default -- false
+  enabled: false
+
+  # -- Name of the Target Allocator
+  # @default -- otel-targetallocator
+  name: otel-targetallocator
+
+  # -- Number of replicas
+  # @default -- 1
+  replicas: 1
+
+  # -- Additional annotations for Target Allocator
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for Target Allocator
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- Image configuration
+  # @default -- ''
+  image: ''
+
+  # -- Service Account
+  # @default -- ''
+  serviceAccount: ''
+
+  # -- Resource requirements
+  # @default -- {}
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  # -- Node selector
+  # @default -- {}
+  nodeSelector: {}
+
+  # -- Tolerations
+  # @default -- []
+  tolerations: []
+
+  # -- Allocation strategy
+  # Valid values: consistent-hashing, least-weighted
+  # @default -- consistent-hashing
+  allocationStrategy: consistent-hashing
+
+  # -- Filter strategy
+  # Valid values: relabel-config
+  # @default -- ''
+  filterStrategy: ''
+
+  # -- Prometheus CR configuration
+  prometheusCR:
+    # -- Enable Prometheus CR scraping
+    # @default -- true
+    enabled: true
+
+    # -- Scrape interval
+    # @default -- 30s
+    scrapeInterval: 30s
+
+    # -- Pod monitor selector
+    # @default -- {}
+    podMonitorSelector: {}
+
+    # -- Service monitor selector
+    # @default -- {}
+    serviceMonitorSelector: {}
+
+  # -- Environment variables
+  # @default -- []
+  env: []
