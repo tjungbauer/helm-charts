@@ -1,22 +1,25 @@
 
 
-# helper-loki-bucket-secret
+# helper-odf-bucket-secret
 
   [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/openshift-bootstraps)](https://artifacthub.io/packages/search?repo=openshift-bootstraps)
   [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
+  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
 
  
 
   ## Description
 
-  Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+  Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)
 
-This Helm Chart is required when LokiStack requires a Secret object with specific keys.
-The bucket in our case is created by OpenShift Data Foundation. ODF will create a Secret and a ConfigMap using the name of the Bucket. The Chart will then create a Job, that mounts the Secret and Configmap and creates a new Secret with the required keys for Loki.
+This Helm Chart is required when you create a Bucket via Open Data Foundation and the service that wants to use this bucket
+requires a secret object with specific keys (i.g. Loki or Tempo)
+The bucket in our case is created by OpenShift Data Foundation. ODF will create a Secret and a ConfigMap using the name of the Bucket. The Chart will then create a Job, that mounts the Secret and Configmap and creates a new Secret with the required keys.
+
+This chart is an evolution of *helper-loki-bucket-secret* and was created to be more generic (because of TempoStack requires a different Secret than Loki ....)
 
 The keys are:
 
@@ -48,7 +51,7 @@ Source:
 * <https://charts.stderr.at/>
 * <https://github.com/tjungbauer/openshift-clusterconfig-gitops>
 
-Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
 
 ## Parameters
 
@@ -58,14 +61,20 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 |-----|------|---------|-------------|
 | bucket.name | string | `"bucket-name"` | Name of the Bucket shall has been created. |
 | enabled | bool | false | Enable Job to create a Secret for LokiStack. |
+| keys | object | `{"access_key_id":"access_key_id","access_key_secret":"access_key_secret","bucket":"bucket","endpoint":"endpoint","region":"region"}` | Keys that shall be used to create the Secret. |
+| keys.access_key_id | string | access_key_id | Overwrite access_key_id key. |
+| keys.access_key_secret | string | access_key_secret | Overwrite access_key_secret key. |
+| keys.bucket | string | bucket | Overwrite bucket key. |
+| keys.endpoint | string | endpoint | Overwrite endpoint key. |
+| keys.region | string | region | Overwrite region key. Region is only set if set_region is true. |
 | namespace | string | `"namespace-with-lokistack-and-bucket"` | Namespace where LokiStack is deployed and where the Secret shall be created. |
 | secretname | string | `"secretname-to-create"` | Name of Secret that shall be created. |
+| set_region | bool | false | Set region key. |
 | syncwave | int | 3 | Syncwave for Argo CD. |
 
 ## Example values
 
 ```yaml
----
 ---
 # -- Enable Job to create a Secret for LokiStack.
 # @default -- false
