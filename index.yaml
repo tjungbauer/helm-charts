@@ -30515,6 +30515,44 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: initial release
+        - kind: fixed
+          description: fixed issue with serviceaccount template
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-24T14:42:03.242511885Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Configure the Tempo Operator (distributed tracing).
+    digest: 96009f0c8b35b69d3e71f1c1731b7b4e5ea2df6a2ae8782e558a2d8938331bbb
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
+    keywords:
+    - tempo
+    - tracing
+    - observability
+    - distributed-tracing
+    - opentelemetry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tempo-tracing
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tempo-tracing-1.0.1/tempo-tracing-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -31709,4 +31747,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-20T14:20:06.593153477Z"
+generated: "2025-11-24T14:42:03.243744586Z"
