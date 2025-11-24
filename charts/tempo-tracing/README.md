@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
 
  
 
@@ -113,7 +113,7 @@ Verify the subcharts for additional settings:
 | tempostack.limits.global.query.maxSearchDuration | string | '0s' | MaxSearchDuration defines the maximum allowed time range for a search. If this value is not set, then spec.search.maxDuration is used. |
 | tempostack.managementState | string | Managed | ManagementState defines if the CR should be managed by the operator or not. |
 | tempostack.name | string | '' | Name of the TempoStack. |
-| tempostack.namespace | object | `{"additionalAnnotations":{},"additionalLabels":{},"create":true,"descr":"","display":"","name":"tempo2stack-test"}` | Namespace for the TempoStack. |
+| tempostack.namespace | object | `{"additionalAnnotations":{},"additionalLabels":{},"create":false,"descr":"","display":"","name":"tempo2stack-test"}` | Namespace for the TempoStack. |
 | tempostack.namespace.additionalAnnotations | object | {} | Additional annotations for the namespace. |
 | tempostack.namespace.additionalLabels | object | {} | Additional labels for the namespace. |
 | tempostack.namespace.create | bool | true | Create the namespace for the TempoStack. |
