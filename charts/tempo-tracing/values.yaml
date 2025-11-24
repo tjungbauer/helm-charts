@@ -4,7 +4,7 @@ tempostack-namespace: &tempostack-namespace tempo2stack-test
 tempostack:
   # -- Enable TempoStack.
   # @default -- false
-  enabled: true
+  enabled: false
 
   # -- Name of the TempoStack.
   # @default -- ''
@@ -26,7 +26,7 @@ tempostack:
   namespace:
     # -- Create the namespace for the TempoStack.
     # @default -- true
-    create: true
+    create: false
 
     # -- Name of the namespace.
     # @default -- *tempostack-namespace
