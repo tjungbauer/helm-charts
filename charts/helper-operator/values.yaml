@@ -49,7 +49,7 @@ operators:
   my-operator:
     # -- Enabled yes/no
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave for the operator deployment
     # @default -- 0

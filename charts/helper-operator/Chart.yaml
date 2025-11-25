@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
-version: 1.0.37
+version: 1.0.39
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -44,3 +44,5 @@ annotations:
       description: fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl
     - kind: added
       description: added possibility to disable common labels
+    - kind: fixed
+      description: fixed namespace template to use the correct value for disable_common_labels
