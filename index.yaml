@@ -31888,6 +31888,34 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-11-26T11:12:04.269377396Z"
+    description: A Helm chart to update OpenShift ClusterVersion
+    digest: a627f309fbc472690586d36542391f21143c102a19d86f7edec5932aaae145e5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
+    keywords:
+    - configuration
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: update-clusterversion
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.2/update-clusterversion-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2025-07-03T07:44:23.549047249Z"
     description: A Helm chart to update OpenShift ClusterVersion
     digest: 1fae9f743364427082d4fe3647008bdeb4a4282c7081a2f2f67d47f8ad9c930e
@@ -31935,4 +31963,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-26T10:46:30.694971569Z"
+generated: "2025-11-26T11:12:04.270903727Z"
