@@ -2,7 +2,7 @@ apiVersion: v2
 name: rh-build-of-opentelemetry
 description: Configure Red Hat Build of OpenTelemetry Operator resources (Collector, Instrumentation, TargetAllocator).
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png
@@ -35,3 +35,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: initial release
+    - kind: fixed
+      description: fixed issue with config map template

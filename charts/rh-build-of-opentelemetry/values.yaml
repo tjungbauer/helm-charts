@@ -69,13 +69,13 @@ collector:
 
   # -- Resource requirements
   # @default -- {}
-  resources:
-    limits:
-      cpu: 1
-      memory: 2Gi
-    requests:
-      cpu: 200m
-      memory: 400Mi
+  resources: {}
+  #  limits:
+  #    cpu: 1
+  #    memory: 2Gi
+  #  requests:
+  #    cpu: 200m
+  #    memory: 400Mi
 
   # -- Node selector
   # @default -- {}
@@ -108,38 +108,38 @@ collector:
   # -- OpenTelemetry Collector configuration
   # @default -- {}
   config:
-    receivers:
-      otlp:
-        protocols:
-          grpc:
-            endpoint: 0.0.0.0:4317
-          http:
-            endpoint: 0.0.0.0:4318
+    receivers: {}
+    #  otlp:
+    #    protocols:
+    #      grpc:
+    #        endpoint: 0.0.0.0:4317
+    #      http:
+    #        endpoint: 0.0.0.0:4318
 
-    processors:
-      batch: {}
-      memory_limiter:
-        check_interval: 1s
-        limit_mib: 1000
+    processors: {}
+    #  batch: {}
+    #  memory_limiter:
+    #    check_interval: 1s
+    #    limit_mib: 1000
 
-    exporters:
-      debug:
-        verbosity: detailed
+    exporters: {}
+    #  debug:
+    #    verbosity: detailed
 
-    service:
-      pipelines:
-        traces:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [debug]
-        metrics:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [debug]
-        logs:
-          receivers: [otlp]
-          processors: [memory_limiter, batch]
-          exporters: [debug]
+    service: {}
+    #  pipelines:
+    #    traces:
+    #      receivers: [otlp]
+    #      processors: [memory_limiter, batch]
+    #      exporters: [debug]
+    #    metrics:
+    #      receivers: [otlp]
+   #       processors: [memory_limiter, batch]
+   #       exporters: [debug]
+   #     logs:
+   #       receivers: [otlp]
+   #       processors: [memory_limiter, batch]
+   #       exporters: [debug]
 
 #########################################################################################
 # OPENTELEMETRY INSTRUMENTATION
