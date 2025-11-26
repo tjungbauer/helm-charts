@@ -1,0 +1,24 @@
+apiVersion: v2
+name: update-clusterversion
+description: A Helm chart to update OpenShift ClusterVersion
+version: 1.0.2
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
+maintainers:
+- email: tjungbau@redhat.com
+  name: tjungbauer
+  url: https://blog.stderr.at/
+sources:
+- https://github.com/tjungbauer/helm-charts
+- https://charts.stderr.at/
+- https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+- configuration
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial Release
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
