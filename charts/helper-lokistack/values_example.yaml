@@ -141,6 +141,12 @@ mode: openshift-logging
 admin_groups:
   - cluster-admins
 
+# -- NEW since Loki 6.4: The Operator can automatically create NetworkPolicies for the LokiStack components. The values can either be 'None' or 'RestrictIngressEgress'
+# RestrictIngressEgress will deploy a set of Policies that restrict the communication to and from the Loki components.
+networkPolicies:
+  # @default -- None
+  ruleSet: None
+
 # -- Control pod placement for LokiStack components. You can define a list of tolerations for the following components:
 # compactor, distributer, gateway, indexGateway, ingester, querier, queryFrontend, ruler
 podPlacements: {}

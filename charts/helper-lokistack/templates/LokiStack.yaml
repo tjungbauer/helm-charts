@@ -1,5 +1,11 @@
 {{- with .Values }}
 {{ if eq ( .enabled | toString) "true" }}
+
+{{- /* Validate network policy ruleset if provided */ -}}
+{{- if .networkPolicies.ruleSet }}
+  {{- include "loki.netpolruleset" .networkPolicies.ruleSet }}
+{{- end }}
+
 ---
 apiVersion: loki.grafana.com/v1
 kind: LokiStack
@@ -103,6 +109,10 @@ spec:
       name: {{ .storage.secret.name }}
       type: {{ .storage.secret.type | default "s3" }}
   storageClassName: {{ .storageclassname | default "gp3-csi" }}
+  {{- if .networkPolicies }}
+  networkPolicies:
+    ruleSet: {{ .networkPolicies.ruleSet | default "None" }}
+  {{- end }}
   tenants:
     mode: {{ .mode | default "static" }}
     {{- if .admin_groups }}
