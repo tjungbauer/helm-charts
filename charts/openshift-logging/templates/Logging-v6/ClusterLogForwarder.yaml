@@ -1,6 +1,12 @@
 {{- with .Values.loggingConfig }}
 {{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
 {{- if eq ( .enabled | toString) "true" }}
+
+{{- /* Validate network policy ruleset if provided */ -}}
+{{- if .networkPolicy }}
+  {{- include "logging.netpolruleset" .networkPolicy.ruleSet }}
+{{- end }}
+
 ---
 apiVersion: "observability.openshift.io/v1"
 kind: "ClusterLogForwarder"
@@ -34,6 +40,11 @@ spec:
     {{- /* Set resources for the COLLECTOR */}}
     {{- if .collector.resources }}
 {{ include "tpl.resources" .collector.resources | indent 4 }}
+    {{- end }}
+
+    {{- if .networkPolicy }}
+    networkPolicy:
+      ruleSet: {{ .networkPolicy.ruleSet }}
     {{- end }}
 
 {{- end }}

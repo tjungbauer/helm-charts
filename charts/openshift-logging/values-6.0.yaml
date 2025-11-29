@@ -3,7 +3,7 @@ loggingConfig:
   # -- Enable openshift logging configuration
   # @section -- Generic Parameters
   # @default -- false
-  enabled: false
+  enabled: true
 
   # -- Syncwave for the ClusterLogging resource
   # @section -- Generic Parameters
@@ -20,6 +20,13 @@ loggingConfig:
   # @section -- Generic Parameters
   # @default -- Managed
   managementState: Managed
+
+  # -- NEW since 6.4: Network Policy ruleset to apply to the logging components.
+  # Possible values are: RestrictIngressEgress, AllowAllIngressEgress. If not set, no network policy will be applied.
+  # @section -- Generic Parameters
+  # @default -- ''
+  # networkPolicy:
+  #  ruleSet: ''
 
   # -- Service Account that shall be used for logging and is used by the collector pods
   # @section -- OpenShift Logging 6.0
