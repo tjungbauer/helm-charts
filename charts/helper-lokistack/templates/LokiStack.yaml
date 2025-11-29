@@ -2,7 +2,7 @@
 {{ if eq ( .enabled | toString) "true" }}
 
 {{- /* Validate network policy ruleset if provided */ -}}
-{{- if .networkPolicies.ruleSet }}
+{{- if .networkPolicies }}
   {{- include "loki.netpolruleset" .networkPolicies.ruleSet }}
 {{- end }}
 
