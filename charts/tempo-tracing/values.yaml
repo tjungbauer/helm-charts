@@ -86,7 +86,7 @@ tempostack:
       # @default -- ''
       minVersion: ''
 
-  # -- Storage size for TempoStack
+  # -- Storage size for TempoStack. The size of the persistent volume claim for the Tempo Write-Ahead Logging (WAL).
   # @default -- 10Gi
   storageSize: 10Gi
 

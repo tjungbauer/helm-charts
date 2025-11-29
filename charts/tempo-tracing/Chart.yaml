@@ -1,7 +1,7 @@
 apiVersion: v2
 name: tempo-tracing
 description: Configure the Tempo Operator (distributed tracing).
-version: 1.0.2
+version: 1.0.3
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
 maintainers:
@@ -34,3 +34,5 @@ annotations:
       description: fixed issue with serviceaccount template
     - kind: added
       description: added labels to serviceaccount template
+    - kind: added
+      description: added description for storageSize parameter
