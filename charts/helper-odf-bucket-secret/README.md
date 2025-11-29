@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
 
  
 
@@ -60,14 +60,14 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | bucket.name | string | `"bucket-name"` | Name of the Bucket shall has been created. |
-| enabled | bool | false | Enable Job to create a Secret for LokiStack. |
+| enabled | bool | false | Enable Job to create a Secret. |
 | keys | object | `{"access_key_id":"access_key_id","access_key_secret":"access_key_secret","bucket":"bucket","endpoint":"endpoint","region":"region"}` | Keys that shall be used to create the Secret. |
 | keys.access_key_id | string | access_key_id | Overwrite access_key_id key. |
 | keys.access_key_secret | string | access_key_secret | Overwrite access_key_secret key. |
 | keys.bucket | string | bucket | Overwrite bucket key. |
 | keys.endpoint | string | endpoint | Overwrite endpoint key. |
 | keys.region | string | region | Overwrite region key. Region is only set if set_region is true. |
-| namespace | string | `"namespace-with-lokistack-and-bucket"` | Namespace where LokiStack is deployed and where the Secret shall be created. |
+| namespace | string | `"namespace-with-target-resource-and-bucket"` | Namespace where target resource is deployed and where the Secret shall be created. |
 | secretname | string | `"secretname-to-create"` | Name of Secret that shall be created. |
 | set_region | bool | false | Set region key. |
 | syncwave | int | 3 | Syncwave for Argo CD. |
@@ -76,7 +76,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 
 ```yaml
 ---
-# -- Enable Job to create a Secret for LokiStack.
+# -- Enable Job to create a Secret.
 # @default -- false
 enabled: true
 
@@ -84,8 +84,8 @@ enabled: true
 # @default -- 3
 syncwave: 3
 
-# -- Namespace where LokiStack is deployed and where the Secret shall be created.
-namespace: namespace-with-lokistack-and-bucket
+# -- Namespace where target resource is deployed and where the Secret shall be created.
+namespace: namespace-with-target-resource-and-bucket
 
 # -- Name of Secret that shall be created.
 secretname: secretname-to-create
