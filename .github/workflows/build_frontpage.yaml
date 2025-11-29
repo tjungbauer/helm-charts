@@ -26,7 +26,7 @@ jobs:
 
     - name: Install Helm Plugin helm-repo-htlm
       run: |
-        helm plugin install https://github.com/halkeye/helm-repo-html
+        helm plugin install https://github.com/halkeye/helm-repo-html --verify=false
 
     - name: Create Frontpage
       run: |
