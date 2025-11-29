@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
+  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
 
  
 
@@ -152,7 +152,7 @@ Verify the subcharts for additional settings:
 | tempostack.storage.tls.enabled | bool | false | Enable TLS for storage connection |
 | tempostack.storage.tls.minVersion | string | '' | Minimum TLS version (VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13) |
 | tempostack.storageClassName | string | '' | StorageClassName for PVCs used by ingester. Defaults to nil (default storage class in the cluster). |
-| tempostack.storageSize | string | 10Gi | Storage size for TempoStack |
+| tempostack.storageSize | string | 10Gi | Storage size for TempoStack. The size of the persistent volume claim for the Tempo Write-Ahead Logging (WAL). |
 | tempostack.template | object | {} | TempoStack component configuration templates Allows customization of individual TempoStack components (gateway, ingester, distributor, etc.) |
 | tempostack.template.compactor | object | {} | Compactor defines the tempo compactor component spec. Compacts and deduplicates trace data in object storage |
 | tempostack.template.compactor.enabled | bool | false | Enabled defines if the compactor should be enabled. |
