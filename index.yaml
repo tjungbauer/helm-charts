@@ -12004,6 +12004,46 @@ entries:
           description: Initial release
         - kind: fixed
           description: disabled example values
+        - kind: added
+          description: cleanup and renaming
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-29T05:41:26.136997497Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Some services like Tempo require a secret with a specifc key for
+      the object sotrage. When a S3 bucket is created via OpenShift Data Foundation,
+      then this chart will help to generate a correct secret. (This is an evolution
+      of helper-loki-bucket-secret)
+    digest: 068e15bafd6d166e9a23bf9b894ef08314b7c8fdefb8b17c3833f119075c22ff
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-odf-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-odf-bucket-secret-1.0.2/helper-odf-bucket-secret-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: fixed
+          description: disabled example values
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32014,4 +32054,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-29T05:33:31.817143741Z"
+generated: "2025-11-29T05:41:26.13822618Z"
