@@ -262,22 +262,43 @@ spec:
     - check: |
         hs = {}
         if obj.status ~= nil and obj.status.conditions ~= nil then
-            for i, condition in ipairs(obj.status.conditions) do
-              if condition.type == "Degraded" and condition.reason == "MissingObjectStorageSecret" then
-                  hs.status = "Degraded"
-                  hs.message = "Missing Bucket Secret"
-              end
-              if condition.type == "Pending" and condition.reason == "PendingComponents" and condition.status == "True" then
-                  hs.status = "Progressing"
-                  hs.message = "Some LokiStack components pending on dependencies"
-              end
-              if condition.type == "Ready" and condition.reason == "ReadyComponents" then
-                  hs.status = "Healthy"
-                  hs.message = "All components are ready"
-              end
+          for i, condition in ipairs(obj.status.conditions) do
+
+            -- Degraded only if explicitly True
+            if condition.type == "Degraded"
+              and condition.reason == "MissingObjectStorageSecret"
+              and condition.status == "True" then
+                hs.status = "Degraded"
+                hs.message = "Missing Bucket Secret"
+                return hs
             end
-            return hs
+
+            -- Pending only if True
+            if condition.type == "Pending"
+              and condition.reason == "PendingComponents"
+              and condition.status == "True" then
+                hs.status = "Progressing"
+                hs.message = "Some LokiStack components are pending on dependencies"
+                return hs
+            end
+
+            -- Ready must be True to mark Healthy
+            if condition.type == "Ready"
+              and condition.reason == "ReadyComponents"
+              and condition.status == "True" then
+                hs.status = "Healthy"
+                hs.message = "All components are ready"
+                return hs
+            end
+          end
+
+          -- fallback
+          hs.status = "Progressing"
+          hs.message = "Waiting for LokiStack to deploy."
+          return hs
         end
+
+        -- no status at all → still deploying
         hs.status = "Progressing"
         hs.message = "Waiting for LokiStack to deploy."
         return hs
