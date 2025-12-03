@@ -1,7 +1,7 @@
 apiVersion: v2
 name: minio-configurator
 description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
-version: 1.0.9
+version: 1.0.10
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com
@@ -30,3 +30,5 @@ annotations:
       description: initial release
     - kind: changed
       description: changed the image to the new minio-client-tools image
+    - kind: fixed
+      description: fixed the issue with the findutils package

@@ -22,7 +22,7 @@ argoproj:
 image:
   # -- MinIO Client Tools image version. 
   # Specifies the image that contains the mc command line tool
-  url: quay.io/tjungbau/minio-client-tools:v1.0.2
+  url: quay.io/tjungbau/minio-client-tools:v1.0.3
 
   # -- Pull policy for the image. Can be Always or IfNotPresent
   # @default -- Always

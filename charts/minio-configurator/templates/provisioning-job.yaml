@@ -31,7 +31,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       initContainers:
         - name: wait-for-available-minio
-          image: {{ .Values.image.url | default "quay.io/tjungbau/minio-client-tools:v1.0.2" }}
+          image: {{ .Values.image.url | default "quay.io/tjungbau/minio-client-tools:v1.0.3" }}
           imagePullPolicy: {{ .Values.image.pullPolicy | default "Always" | quote }}
           command:
             - /bin/bash
@@ -50,7 +50,7 @@ spec:
           {{- end }}
       containers:
         - name: minio
-          image: {{ .Values.image.url | default "quay.io/tjungbau/minio-client-tools:v1.0.2" }}
+          image: {{ .Values.image.url | default "quay.io/tjungbau/minio-client-tools:v1.0.3" }}
           imagePullPolicy: {{ .Values.image.pullPolicy | default "Always" | quote }}
           command:
             - /bin/bash
