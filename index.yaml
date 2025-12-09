@@ -31111,6 +31111,50 @@ entries:
           description: added labels to serviceaccount template
         - kind: added
           description: added description for storageSize parameter
+        - kind: added
+          description: added syncwave parameter
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-12-09T15:39:34.556542418Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Configure the Tempo Operator (distributed tracing).
+    digest: 16129709599b8633888657282139ad73b855ccd5c517078387defd59fae787db
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
+    keywords:
+    - tempo
+    - tracing
+    - observability
+    - distributed-tracing
+    - opentelemetry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tempo-tracing
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tempo-tracing-1.0.4/tempo-tracing-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: fixed
+          description: fixed issue with serviceaccount template
+        - kind: added
+          description: added labels to serviceaccount template
+        - kind: added
+          description: added description for storageSize parameter
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32447,4 +32491,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-03T05:28:46.619047202Z"
+generated: "2025-12-09T15:39:34.558696289Z"
