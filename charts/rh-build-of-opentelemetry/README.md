@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
+  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
 
  
 
@@ -99,6 +99,7 @@ Verify the subcharts for additional settings:
 | collector.replicas | int | 1 | Number of replicas (only for deployment and statefulset modes) |
 | collector.resources | object | {} | Resource requirements |
 | collector.serviceAccount | string | '' | Service Account |
+| collector.syncwave | int | 10 | Sync wave for the OpenTelemetry Collector |
 | collector.tolerations | list | [] | Tolerations |
 | collector.volumeMounts | list | [] | Volume mounts |
 | collector.volumes | list | [] | Volumes |
@@ -127,6 +128,7 @@ Verify the subcharts for additional settings:
 | instrumentation.python.env | object | {} | Environment variables for Python instrumentation |
 | instrumentation.python.image | string | '' | Image for Python auto-instrumentation |
 | instrumentation.sampler | object | {} | Sampler configuration |
+| instrumentation.syncwave | int | 10 | Sync wave for the OpenTelemetry Instrumentation |
 | namespace.additionalAnnotations | object | {} | Additional annotations for the namespace |
 | namespace.additionalLabels | object | {} | Additional labels for the namespace |
 | namespace.create | bool | true | Create the namespace |
@@ -150,6 +152,7 @@ Verify the subcharts for additional settings:
 | targetallocator.replicas | int | 1 | Number of replicas |
 | targetallocator.resources | object | {} | Resource requirements |
 | targetallocator.serviceAccount | string | '' | Service Account |
+| targetallocator.syncwave | int | 10 | Sync wave for the OpenTelemetry Target Allocator |
 | targetallocator.tolerations | list | [] | Tolerations |
 
 ## Component Details
