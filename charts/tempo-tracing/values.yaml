@@ -10,6 +10,10 @@ tempostack:
   # @default -- ''
   name: tempostack
 
+  # -- Sync wave for the TempoStack.
+  # @default -- 10
+  syncwave: 10
+
   # -- Additional annotations for the TempoStack.
   # @default -- {}
   additionalAnnotations:
