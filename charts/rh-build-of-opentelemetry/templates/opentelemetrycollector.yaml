@@ -16,6 +16,8 @@ metadata:
   namespace: {{ $.Values.namespace.name }}
   {{- if .additionalAnnotations }}
   annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
   {{- end }}
   labels:

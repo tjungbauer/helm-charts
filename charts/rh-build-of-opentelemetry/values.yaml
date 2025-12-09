@@ -33,6 +33,10 @@ collector:
   # @default -- false
   enabled: false
 
+  # -- Sync wave for the OpenTelemetry Collector
+  # @default -- 10
+  syncwave: 10
+
   # -- Management state (managed/unmanaged)
   # @default -- managed
   managementState: managed
@@ -153,6 +157,10 @@ instrumentation:
   # @default -- otel-instrumentation
   name: otel-instrumentation
 
+  # -- Sync wave for the OpenTelemetry Instrumentation
+  # @default -- 10
+  syncwave: 10
+
   # -- Additional annotations for Instrumentation
   # @default -- {}
   additionalAnnotations: {}
@@ -253,6 +261,10 @@ targetallocator:
   # -- Enable Target Allocator
   # @default -- false
   enabled: false
+
+  # -- Sync wave for the OpenTelemetry Target Allocator
+  # @default -- 10
+  syncwave: 10
 
   # -- Name of the Target Allocator
   # @default -- otel-targetallocator
