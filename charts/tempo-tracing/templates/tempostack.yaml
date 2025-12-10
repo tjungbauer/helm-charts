@@ -137,7 +137,18 @@ spec:
   {{- with .resources }}
   resources: 
     total:
-      {{- toYaml . | nindent 6 }}
+      {{- if and .claims (gt (len .claims) 0) }}
+      claims:
+        {{- toYaml .claims | nindent 8 }}
+      {{- end }}
+      {{- if .limits }}
+      limits:
+        {{- toYaml .limits | nindent 8 }}
+      {{- end }}
+      {{- if .requests }}
+      requests:
+        {{- toYaml .requests | nindent 8 }}
+      {{- end }}
   {{- end }}
   {{- end }}
   {{- if .tenants }}
@@ -546,7 +557,7 @@ spec:
       {{- end }}
       {{- if .resources }}
       resources:
-        {{- if hasKey .resources "claims" }}
+        {{- if and .resources.claims (gt (len .resources.claims) 0) }}
         claims:
           {{- toYaml .resources.claims | nindent 10 }}
         {{- end }}
