@@ -316,9 +316,9 @@ tempostack:
       createDatasource: false
 
       # -- matchExpressions is a list of label selector requirements. The requirements are ANDed.
-      # @default -- []
-      instanceSelector:
-        matchExpressions: []
+      # @default -- {}
+      instanceSelector: {}
+      #  matchExpressions: []
 
     # -- Metrics defines the metrics configuration.
     # @default -- {}

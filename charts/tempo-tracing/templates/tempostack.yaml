@@ -212,16 +212,92 @@ spec:
   {{- with .observability }}
   observability:
     {{- if .grafana }}
+    {{- /* Check if grafana has meaningful content */ -}}
+    {{- $grafanaHasContent := false }}
+    {{- if .grafana.createDatasource }}
+      {{- $grafanaHasContent = true }}
+    {{- end }}
+    {{- if and .grafana.instanceSelector .grafana.instanceSelector.matchExpressions }}
+      {{- if gt (len .grafana.instanceSelector.matchExpressions) 0 }}
+        {{- $grafanaHasContent = true }}
+      {{- end }}
+    {{- end }}
+    {{- if and .grafana.instanceSelector .grafana.instanceSelector.matchLabels }}
+      {{- if gt (len .grafana.instanceSelector.matchLabels) 0 }}
+        {{- $grafanaHasContent = true }}
+      {{- end }}
+    {{- end }}
+    {{- if $grafanaHasContent }}
     grafana:
-      {{- toYaml .grafana | nindent 6 }}
+      {{- if .grafana.createDatasource }}
+      createDatasource: {{ .grafana.createDatasource }}
+      {{- end }}
+      {{- if .grafana.instanceSelector }}
+      {{- $instanceSelectorHasContent := false }}
+      {{- if and .grafana.instanceSelector.matchExpressions (gt (len .grafana.instanceSelector.matchExpressions) 0) }}
+        {{- $instanceSelectorHasContent = true }}
+      {{- end }}
+      {{- if and .grafana.instanceSelector.matchLabels (gt (len .grafana.instanceSelector.matchLabels) 0) }}
+        {{- $instanceSelectorHasContent = true }}
+      {{- end }}
+      {{- if $instanceSelectorHasContent }}
+      instanceSelector:
+        {{- toYaml .grafana.instanceSelector | nindent 8 }}
+      {{- else }}
+      instanceSelector: {}
+      {{- end }}
+      {{- end }}
+    {{- else }}
+    grafana: {}
+    {{- end }}
     {{- end }}
     {{- if .metrics }}
+    {{- /* Check if metrics has meaningful content (not just false values) */ -}}
+    {{- $metricsHasContent := false }}
+    {{- if .metrics.createPrometheusRules }}
+      {{- $metricsHasContent = true }}
+    {{- end }}
+    {{- if .metrics.createServiceMonitors }}
+      {{- $metricsHasContent = true }}
+    {{- end }}
+    {{- if $metricsHasContent }}
     metrics:
-      {{- toYaml .metrics | nindent 6 }}
+      {{- if .metrics.createPrometheusRules }}
+      createPrometheusRules: {{ .metrics.createPrometheusRules }}
+      {{- end }}
+      {{- if .metrics.createServiceMonitors }}
+      createServiceMonitors: {{ .metrics.createServiceMonitors }}
+      {{- end }}
+    {{- else }}
+    metrics: {}
+    {{- end }}
     {{- end }}
     {{- if .tracing }}
+    {{- /* Check if tracing has meaningful content */ -}}
+    {{- $tracingHasContent := false }}
+    {{- if .tracing.jaeger_agent_endpoint }}
+      {{- $tracingHasContent = true }}
+    {{- end }}
+    {{- if .tracing.otlp_http_endpoint }}
+      {{- $tracingHasContent = true }}
+    {{- end }}
+    {{- if .tracing.sampling_fraction }}
+      {{- $tracingHasContent = true }}
+    {{- end }}
+    {{- if $tracingHasContent }}
     tracing:
-      {{- toYaml .tracing | nindent 6 }}
+      {{- if .tracing.jaeger_agent_endpoint }}
+      jaeger_agent_endpoint: {{ .tracing.jaeger_agent_endpoint }}
+      {{- end }}
+      {{- if .tracing.otlp_http_endpoint }}
+      otlp_http_endpoint: {{ .tracing.otlp_http_endpoint }}
+      {{- end }}
+      {{- if .tracing.sampling_fraction }}
+      sampling_fraction: {{ .tracing.sampling_fraction | quote }}
+      {{- end }}
+    {{- else }}
+    tracing: {}
+    {{- end }}
     {{- end }}
   {{- end }}
   {{- end }}
@@ -470,7 +546,7 @@ spec:
       {{- end }}
       {{- if .resources }}
       resources:
-        {{- if .resources.claims }}
+        {{- if hasKey .resources "claims" }}
         claims:
           {{- toYaml .resources.claims | nindent 10 }}
         {{- end }}
