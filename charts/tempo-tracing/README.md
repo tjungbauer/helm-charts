@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
+  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
 
  
 
@@ -120,11 +120,11 @@ Verify the subcharts for additional settings:
 | tempostack.namespace.descr | string | '' | Description of the namespace. |
 | tempostack.namespace.display | string | '' | Display name of the namespace. |
 | tempostack.namespace.name | string | *tempostack-namespace | Name of the namespace. |
-| tempostack.observability | object | `{"enabled":false,"grafana":{"createDatasource":false,"instanceSelector":{"matchExpressions":[]}},"metrics":{"createPrometheusRules":false,"createServiceMonitors":false},"tracing":{"jaeger_agent_endpoint":"localhost:6831","otlp_http_endpoint":"http://localhost:4320","sampling_fraction":""}}` | ObservabilitySpec defines how telemetry data gets handled. |
+| tempostack.observability | object | `{"enabled":false,"grafana":{"createDatasource":false,"instanceSelector":{}},"metrics":{"createPrometheusRules":false,"createServiceMonitors":false},"tracing":{"jaeger_agent_endpoint":"localhost:6831","otlp_http_endpoint":"http://localhost:4320","sampling_fraction":""}}` | ObservabilitySpec defines how telemetry data gets handled. |
 | tempostack.observability.enabled | bool | true | Enabled defines if the observability should be enabled. |
 | tempostack.observability.grafana | object | {} | Grafana defines the grafana configuration. |
 | tempostack.observability.grafana.createDatasource | bool | false | CreateDatasource specifies if a Grafana Datasource should be created for Tempo. |
-| tempostack.observability.grafana.instanceSelector | object | [] | matchExpressions is a list of label selector requirements. The requirements are ANDed. |
+| tempostack.observability.grafana.instanceSelector | object | {} | matchExpressions is a list of label selector requirements. The requirements are ANDed. |
 | tempostack.observability.metrics | object | {} | Metrics defines the metrics configuration. |
 | tempostack.observability.metrics.createPrometheusRules | bool | false | CreatePrometheusRules specifies if Prometheus rules for alerts should be created for Tempo components. |
 | tempostack.observability.metrics.createServiceMonitors | bool | false | CreateServiceMonitors specifies if ServiceMonitors should be created for Tempo components. |
