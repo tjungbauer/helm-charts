@@ -10,12 +10,12 @@ kind: TargetAllocator
 metadata:
   name: {{ .name }}
   namespace: {{ $.Values.namespace.name }}
-  {{- if .additionalAnnotations }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- if .additionalAnnotations }}
     {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
-  {{- end }}
+    {{- end }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
     {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
