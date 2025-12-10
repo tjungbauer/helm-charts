@@ -31161,6 +31161,54 @@ entries:
           description: added syncwave parameter
         - kind: fixed
           description: fixed issue with default values to keep argocd in sync
+        - kind: fixed
+          description: fixed issue with claims to keep argocd in sync
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-12-10T09:33:26.664120248Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Configure the Tempo Operator (distributed tracing).
+    digest: df9f6e9c8976f16466f83ba3297a98980a765604348e60f47a3a42f91c34c5dc
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
+    keywords:
+    - tempo
+    - tracing
+    - observability
+    - distributed-tracing
+    - opentelemetry
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tempo-tracing
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tempo-tracing-1.0.6/tempo-tracing-1.0.6.tgz
+    version: 1.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: fixed
+          description: fixed issue with serviceaccount template
+        - kind: added
+          description: added labels to serviceaccount template
+        - kind: added
+          description: added description for storageSize parameter
+        - kind: added
+          description: added syncwave parameter
+        - kind: fixed
+          description: fixed issue with default values to keep argocd in sync
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32583,4 +32631,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-10T09:13:18.729912167Z"
+generated: "2025-12-10T09:33:26.665249341Z"
