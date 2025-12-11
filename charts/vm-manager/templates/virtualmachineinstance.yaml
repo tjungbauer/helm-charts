@@ -1,0 +1,228 @@
+{{/*
+OpenShift Virtualization Virtual Machine Instance Configuration
+This template creates VirtualMachineInstance resources for direct VM instances.
+*/}}
+{{- range $vmiName, $vmi := .Values.virtualMachineInstances }}
+{{- if $vmi.enabled }}
+{{- /* Validate VMI name is a valid Kubernetes name */ -}}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" $vmiName) }}
+{{- fail (printf "virtualMachineInstances.%s name must be a valid Kubernetes resource name" $vmiName) }}
+{{- end }}
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: {{ $vmiName | quote }}
+  namespace: {{ $vmi.namespace | default $.Values.global.namespace | default $.Release.Namespace | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    vm.kubevirt.io/name: {{ $vmiName | quote }}
+    {{- with $vmi.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" ($vmi.annotations | default dict) | nindent 4 }}
+    {{- if $vmi.description }}
+    description: {{ $vmi.description | quote }}
+    {{- end }}
+spec:
+  {{- with $vmi.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with $vmi.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with $vmi.tolerations }}
+{{ include "tpl.tolerations" . | indent 2 }}
+  {{- end }}
+
+  {{- with $vmi.priorityClassName }}
+  priorityClassName: {{ . | quote }}
+  {{- end }}
+
+  {{- with $vmi.evictionStrategy }}
+  {{- /* Validate evictionStrategy has allowed values */ -}}
+  {{- $allowedStrategies := list "None" "LiveMigrate" "LiveMigrateIfPossible" "External" }}
+  {{- if not (has . $allowedStrategies) }}
+  {{- fail (printf "virtualMachineInstances.%s.evictionStrategy '%s' is invalid. Allowed values: %s" $vmiName . (join ", " $allowedStrategies)) }}
+  {{- end }}
+  evictionStrategy: {{ . | quote }}
+  {{- end }}
+
+  domain:
+    {{- with $vmi.resources }}
+    resources:
+      {{- with .requests }}
+      requests:
+        {{- with .memory }}
+        memory: {{ . | quote }}
+        {{- end }}
+        {{- with .cpu }}
+        cpu: {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- with .limits }}
+      limits:
+        {{- with .memory }}
+        memory: {{ . | quote }}
+        {{- end }}
+        {{- with .cpu }}
+        cpu: {{ . | quote }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- with $vmi.cpu }}
+    cpu:
+      {{- with .cores }}
+      cores: {{ . }}
+      {{- end }}
+      {{- with .sockets }}
+      sockets: {{ . }}
+      {{- end }}
+      {{- with .threads }}
+      threads: {{ . }}
+      {{- end }}
+      {{- with .model }}
+      model: {{ . | quote }}
+      {{- end }}
+      {{- with .dedicatedCpuPlacement }}
+      dedicatedCpuPlacement: {{ . }}
+      {{- end }}
+    {{- end }}
+
+    {{- with $vmi.memory }}
+    memory:
+      {{- with .guest }}
+      guest: {{ . | quote }}
+      {{- end }}
+      {{- with .hugepages }}
+      hugepages:
+        pageSize: {{ .pageSize | quote }}
+      {{- end }}
+    {{- end }}
+
+    devices:
+      {{- with $vmi.disks }}
+      disks:
+        {{- range . }}
+        - name: {{ .name | quote }}
+          {{- if .disk }}
+          disk:
+            {{- with .disk.bus }}
+            bus: {{ . | quote }}
+            {{- end }}
+          {{- else if .cdrom }}
+          cdrom:
+            {{- with .cdrom.bus }}
+            bus: {{ . | quote }}
+            {{- end }}
+          {{- else if .lun }}
+          lun:
+            {{- with .lun.bus }}
+            bus: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          {{- with .bootOrder }}
+          bootOrder: {{ . }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+
+      {{- with $vmi.interfaces }}
+      interfaces:
+        {{- range . }}
+        - name: {{ .name | quote }}
+          {{- if .bridge }}
+          bridge: {}
+          {{- else if .masquerade }}
+          masquerade: {}
+          {{- else if .sriov }}
+          sriov: {}
+          {{- end }}
+          {{- with .model }}
+          model: {{ . | quote }}
+          {{- end }}
+          {{- with .macAddress }}
+          macAddress: {{ . | quote }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+
+      {{- if $vmi.autoattachGraphicsDevice }}
+      autoattachGraphicsDevice: {{ $vmi.autoattachGraphicsDevice }}
+      {{- end }}
+
+      {{- if $vmi.autoattachMemBalloon }}
+      autoattachMemBalloon: {{ $vmi.autoattachMemBalloon }}
+      {{- end }}
+
+    {{- with $vmi.machine }}
+    machine:
+      type: {{ .type | default "pc-q35-rhel9.2.0" | quote }}
+    {{- end }}
+
+    {{- with $vmi.firmware }}
+    firmware:
+      {{- with .bootloader }}
+      bootloader:
+        {{- if .bios }}
+        bios: {}
+        {{- else if .efi }}
+        efi:
+          {{- with .efi.secureBoot }}
+          secureBoot: {{ . }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+  {{- with $vmi.volumes }}
+  volumes:
+    {{- range . }}
+    - name: {{ .name | quote }}
+      {{- if .persistentVolumeClaim }}
+      persistentVolumeClaim:
+        claimName: {{ .persistentVolumeClaim.claimName | quote }}
+      {{- else if .cloudInitNoCloud }}
+      cloudInitNoCloud:
+        {{- with .cloudInitNoCloud.userData }}
+        userData: |
+{{ . | indent 10 }}
+        {{- end }}
+        {{- with .cloudInitNoCloud.networkData }}
+        networkData: |
+{{ . | indent 10 }}
+        {{- end }}
+      {{- else if .configMap }}
+      configMap:
+        name: {{ .configMap.name | quote }}
+      {{- else if .secret }}
+      secret:
+        secretName: {{ .secret.secretName | quote }}
+      {{- else if .emptyDisk }}
+      emptyDisk:
+        capacity: {{ .emptyDisk.capacity | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{- with $vmi.networks }}
+  networks:
+    {{- range . }}
+    - name: {{ .name | quote }}
+      {{- if .pod }}
+      pod: {}
+      {{- else if .multus }}
+      multus:
+        networkName: {{ .multus.networkName | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+{{- end }}
+{{- end }}

@@ -1,0 +1,14 @@
+argocd_applications:
+  my-branding:
+
+    enabled: true
+    namespace: "openshift-gitops" 
+    
+    source:
+      repositoryURL: "https://github.com/tjungbauer/openshift-clusterconfig-gitops"
+      targetRevision: "main"
+      path: "clusters/management-cluster/branding"
+
+    destination:
+      name: in-cluster
+      namespace: "default"

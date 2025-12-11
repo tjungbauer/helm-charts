@@ -1,0 +1,30 @@
+apiVersion: v2
+name: vm-manager
+description: A Helm chart for managing Virtual Machines in OpenShift Virtualization
+version: 1.0.0
+appVersion: "4.16"
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/vm-manager
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png
+maintainers:
+  - name: tjungbauer
+    email: tjungbau@redhat.com
+    url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.23
+    repository: https://charts.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://docs.openshift.com/container-platform/latest/virt/
+keywords:
+  - openshift
+  - virtualization
+  - virtual-machines
+  - kubevirt
+  - vm
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release for VM management in OpenShift Virtualization

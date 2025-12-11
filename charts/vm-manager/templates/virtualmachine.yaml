@@ -1,0 +1,359 @@
+{{/*
+OpenShift Virtualization Virtual Machine Configuration
+This template creates VirtualMachine resources for managing VMs in OpenShift Virtualization.
+
+Input validation ensures:
+- Valid VM names follow Kubernetes naming conventions
+- Resource requirements are properly specified
+- Network and storage configurations are valid
+*/}}
+{{- range $vmName, $vm := .Values.virtualMachines }}
+{{- if $vm.enabled }}
+{{- /* Validate VM name is a valid Kubernetes name */ -}}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" $vmName) }}
+{{- fail (printf "virtualMachines.%s name must be a valid Kubernetes resource name" $vmName) }}
+{{- end }}
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ $vmName | quote }}
+  namespace: {{ $vm.namespace | default $.Values.global.namespace | default $.Release.Namespace | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    vm.kubevirt.io/name: {{ $vmName | quote }}
+    {{- with $vm.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" ($vm.annotations | default dict) | nindent 4 }}
+    {{- if $vm.description }}
+    description: {{ $vm.description | quote }}
+    {{- end }}
+spec:
+  running: {{ $vm.running | default false }}
+  
+  {{- with $vm.runStrategy }}
+  {{- /* Validate runStrategy has allowed values */ -}}
+  {{- $allowedStrategies := list "Always" "RerunOnFailure" "Manual" "Halted" }}
+  {{- if not (has . $allowedStrategies) }}
+  {{- fail (printf "virtualMachines.%s.runStrategy '%s' is invalid. Allowed values: %s" $vmName . (join ", " $allowedStrategies)) }}
+  {{- end }}
+  runStrategy: {{ . | quote }}
+  {{- end }}
+
+  {{- with $vm.dataVolumeTemplates }}
+  dataVolumeTemplates:
+    {{- range . }}
+    - metadata:
+        name: {{ .name | quote }}
+        {{- with .labels }}
+        labels:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .annotations }}
+        annotations:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      spec:
+        {{- with .source }}
+        source:
+          {{- if .http }}
+          http:
+            url: {{ .http.url | quote }}
+            {{- with .http.secretRef }}
+            secretRef: {{ . | quote }}
+            {{- end }}
+            {{- with .http.certConfigMap }}
+            certConfigMap: {{ . | quote }}
+            {{- end }}
+          {{- else if .registry }}
+          registry:
+            url: {{ .registry.url | quote }}
+            {{- with .registry.secretRef }}
+            secretRef: {{ . | quote }}
+            {{- end }}
+            {{- with .registry.certConfigMap }}
+            certConfigMap: {{ . | quote }}
+            {{- end }}
+          {{- else if .pvc }}
+          pvc:
+            name: {{ .pvc.name | quote }}
+            namespace: {{ .pvc.namespace | quote }}
+          {{- else if .blank }}
+          blank: {}
+          {{- end }}
+        {{- end }}
+        pvc:
+          {{- with .pvc.accessModes }}
+          accessModes:
+            {{- range . }}
+            - {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          resources:
+            requests:
+              storage: {{ .pvc.size | default "10Gi" | quote }}
+          {{- with .pvc.storageClassName }}
+          storageClassName: {{ . | quote }}
+          {{- end }}
+          {{- with .pvc.volumeMode }}
+          volumeMode: {{ . | quote }}
+          {{- end }}
+    {{- end }}
+  {{- end }}
+
+  template:
+    metadata:
+      labels:
+        {{- include "tpl.labels" $ | nindent 8 }}
+        vm.kubevirt.io/name: {{ $vmName | quote }}
+        {{- with $vm.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with $vm.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with $vm.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with $vm.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with $vm.tolerations }}
+{{ include "tpl.tolerations" . | indent 6 }}
+      {{- end }}
+
+      {{- with $vm.priorityClassName }}
+      priorityClassName: {{ . | quote }}
+      {{- end }}
+
+      {{- with $vm.evictionStrategy }}
+      {{- /* Validate evictionStrategy has allowed values */ -}}
+      {{- $allowedStrategies := list "None" "LiveMigrate" "LiveMigrateIfPossible" "External" }}
+      {{- if not (has . $allowedStrategies) }}
+      {{- fail (printf "virtualMachines.%s.evictionStrategy '%s' is invalid. Allowed values: %s" $vmName . (join ", " $allowedStrategies)) }}
+      {{- end }}
+      evictionStrategy: {{ . | quote }}
+      {{- end }}
+
+      domain:
+        {{- with $vm.resources }}
+        resources:
+          {{- with .requests }}
+          requests:
+            {{- with .memory }}
+            memory: {{ . | quote }}
+            {{- end }}
+            {{- with .cpu }}
+            cpu: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+          {{- with .limits }}
+          limits:
+            {{- with .memory }}
+            memory: {{ . | quote }}
+            {{- end }}
+            {{- with .cpu }}
+            cpu: {{ . | quote }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+        {{- with $vm.cpu }}
+        cpu:
+          {{- with .cores }}
+          cores: {{ . }}
+          {{- end }}
+          {{- with .sockets }}
+          sockets: {{ . }}
+          {{- end }}
+          {{- with .threads }}
+          threads: {{ . }}
+          {{- end }}
+          {{- with .model }}
+          model: {{ . | quote }}
+          {{- end }}
+          {{- with .dedicatedCpuPlacement }}
+          dedicatedCpuPlacement: {{ . }}
+          {{- end }}
+        {{- end }}
+
+        {{- with $vm.memory }}
+        memory:
+          {{- with .guest }}
+          guest: {{ . | quote }}
+          {{- end }}
+          {{- with .hugepages }}
+          hugepages:
+            pageSize: {{ .pageSize | quote }}
+          {{- end }}
+        {{- end }}
+
+        devices:
+          {{- with $vm.disks }}
+          disks:
+            {{- range . }}
+            - name: {{ .name | quote }}
+              {{- if .disk }}
+              disk:
+                {{- with .disk.bus }}
+                bus: {{ . | quote }}
+                {{- end }}
+              {{- else if .cdrom }}
+              cdrom:
+                {{- with .cdrom.bus }}
+                bus: {{ . | quote }}
+                {{- end }}
+              {{- else if .lun }}
+              lun:
+                {{- with .lun.bus }}
+                bus: {{ . | quote }}
+                {{- end }}
+              {{- end }}
+              {{- with .bootOrder }}
+              bootOrder: {{ . }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+
+          {{- with $vm.interfaces }}
+          interfaces:
+            {{- range . }}
+            - name: {{ .name | quote }}
+              {{- if .bridge }}
+              bridge: {}
+              {{- else if .masquerade }}
+              masquerade: {}
+              {{- else if .sriov }}
+              sriov: {}
+              {{- end }}
+              {{- with .model }}
+              model: {{ . | quote }}
+              {{- end }}
+              {{- with .macAddress }}
+              macAddress: {{ . | quote }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+
+          {{- with $vm.inputs }}
+          inputs:
+            {{- range . }}
+            - type: {{ .type | quote }}
+              name: {{ .name | quote }}
+              {{- with .bus }}
+              bus: {{ . | quote }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+
+          {{- if $vm.autoattachGraphicsDevice }}
+          autoattachGraphicsDevice: {{ $vm.autoattachGraphicsDevice }}
+          {{- end }}
+
+          {{- if $vm.autoattachMemBalloon }}
+          autoattachMemBalloon: {{ $vm.autoattachMemBalloon }}
+          {{- end }}
+
+        {{- with $vm.machine }}
+        machine:
+          type: {{ .type | default "pc-q35-rhel9.2.0" | quote }}
+        {{- end }}
+
+        {{- with $vm.firmware }}
+        firmware:
+          {{- with .bootloader }}
+          bootloader:
+            {{- if .bios }}
+            bios: {}
+            {{- else if .efi }}
+            efi:
+              {{- with .efi.secureBoot }}
+              secureBoot: {{ . }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+        {{- with $vm.features }}
+        features:
+          {{- with .smm }}
+          smm:
+            enabled: {{ .enabled | default false }}
+          {{- end }}
+          {{- with .acpi }}
+          acpi: {}
+          {{- end }}
+          {{- with .apic }}
+          apic: {}
+          {{- end }}
+          {{- with .hyperv }}
+          hyperv:
+            {{- with .relaxed }}
+            relaxed: {}
+            {{- end }}
+            {{- with .vapic }}
+            vapic: {}
+            {{- end }}
+            {{- with .spinlocks }}
+            spinlocks:
+              spinlocks: {{ .spinlocks }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+
+      {{- with $vm.volumes }}
+      volumes:
+        {{- range . }}
+        - name: {{ .name | quote }}
+          {{- if .dataVolume }}
+          dataVolume:
+            name: {{ .dataVolume.name | quote }}
+          {{- else if .persistentVolumeClaim }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaim.claimName | quote }}
+          {{- else if .cloudInitNoCloud }}
+          cloudInitNoCloud:
+            {{- with .cloudInitNoCloud.userData }}
+            userData: |
+{{ . | indent 14 }}
+            {{- end }}
+            {{- with .cloudInitNoCloud.networkData }}
+            networkData: |
+{{ . | indent 14 }}
+            {{- end }}
+          {{- else if .configMap }}
+          configMap:
+            name: {{ .configMap.name | quote }}
+          {{- else if .secret }}
+          secret:
+            secretName: {{ .secret.secretName | quote }}
+          {{- else if .emptyDisk }}
+          emptyDisk:
+            capacity: {{ .emptyDisk.capacity | quote }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+
+      {{- with $vm.networks }}
+      networks:
+        {{- range . }}
+        - name: {{ .name | quote }}
+          {{- if .pod }}
+          pod: {}
+          {{- else if .multus }}
+          multus:
+            networkName: {{ .multus.networkName | quote }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+
+{{- end }}
+{{- end }}

@@ -1,0 +1,111 @@
+{{/*
+OpenShift Virtualization DataVolume Configuration
+This template creates DataVolume resources for VM storage management.
+*/}}
+{{- range $dvName, $dv := .Values.dataVolumes }}
+{{- if $dv.enabled }}
+{{- /* Validate DataVolume name is a valid Kubernetes name */ -}}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" $dvName) }}
+{{- fail (printf "dataVolumes.%s name must be a valid Kubernetes resource name" $dvName) }}
+{{- end }}
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: {{ $dvName | quote }}
+  namespace: {{ $dv.namespace | default $.Values.global.namespace | default $.Release.Namespace | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- with $dv.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- include "tpl.additionalAnnotations" ($dv.annotations | default dict) | nindent 4 }}
+    {{- if $dv.description }}
+    description: {{ $dv.description | quote }}
+    {{- end }}
+spec:
+  {{- with $dv.source }}
+  source:
+    {{- if .http }}
+    http:
+      url: {{ .http.url | quote }}
+      {{- with .http.secretRef }}
+      secretRef: {{ . | quote }}
+      {{- end }}
+      {{- with .http.certConfigMap }}
+      certConfigMap: {{ . | quote }}
+      {{- end }}
+    {{- else if .registry }}
+    registry:
+      url: {{ .registry.url | quote }}
+      {{- with .registry.secretRef }}
+      secretRef: {{ . | quote }}
+      {{- end }}
+      {{- with .registry.certConfigMap }}
+      certConfigMap: {{ . | quote }}
+      {{- end }}
+      {{- with .registry.pullMethod }}
+      pullMethod: {{ . | quote }}
+      {{- end }}
+    {{- else if .pvc }}
+    pvc:
+      name: {{ .pvc.name | quote }}
+      namespace: {{ .pvc.namespace | quote }}
+    {{- else if .upload }}
+    upload: {}
+    {{- else if .blank }}
+    blank: {}
+    {{- else if .imageio }}
+    imageio:
+      url: {{ .imageio.url | quote }}
+      {{- with .imageio.secretRef }}
+      secretRef: {{ . | quote }}
+      {{- end }}
+      {{- with .imageio.certConfigMap }}
+      certConfigMap: {{ . | quote }}
+      {{- end }}
+      diskId: {{ .imageio.diskId | quote }}
+    {{- else if .vddk }}
+    vddk:
+      backingFile: {{ .vddk.backingFile | quote }}
+      url: {{ .vddk.url | quote }}
+      uuid: {{ .vddk.uuid | quote }}
+      thumbprint: {{ .vddk.thumbprint | quote }}
+      {{- with .vddk.secretRef }}
+      secretRef: {{ . | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  pvc:
+    {{- with $dv.pvc.accessModes }}
+    accessModes:
+      {{- range . }}
+      - {{ . | quote }}
+      {{- end }}
+    {{- end }}
+    resources:
+      requests:
+        storage: {{ $dv.pvc.size | default "10Gi" | quote }}
+    {{- with $dv.pvc.storageClassName }}
+    storageClassName: {{ . | quote }}
+    {{- end }}
+    {{- with $dv.pvc.volumeMode }}
+    volumeMode: {{ . | quote }}
+    {{- end }}
+    {{- with $dv.pvc.selector }}
+    selector:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+
+  {{- with $dv.contentType }}
+  contentType: {{ . | quote }}
+  {{- end }}
+
+  {{- with $dv.preallocation }}
+  preallocation: {{ . }}
+  {{- end }}
+
+{{- end }}
+{{- end }}

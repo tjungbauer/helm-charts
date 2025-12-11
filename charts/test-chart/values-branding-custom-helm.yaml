@@ -1,0 +1,21 @@
+argocd_applications:
+  my-branding-custom-helm:
+
+    enabled: true
+    namespace: "openshift-gitops" 
+    
+    source:
+      repositoryURL: "https://github.com/tjungbauer/openshift-clusterconfig-gitops"
+      targetRevision: "main"
+      path: "clusters/management-cluster/branding"
+
+      helm:
+        parameters:
+          - name: generic-cluster-config.console.console_banners.topbanner.backgroundcolor
+            value: '#FF9843'
+
+    destination:
+      name: in-cluster
+      server: "https://kubernetes.default.svc"
+      namespace: "default"
+

@@ -1,0 +1,8 @@
+{{- if .Values.argocd_applications }}
+{{- range $name, $config := .Values.argocd_applications }}
+{{- if $config.enabled | default false }}
+---
+{{- include "tpl.argocdApplication" (dict "name" $name "spec" $config) -}}
+{{- end }}
+{{- end }}
+{{- end }}

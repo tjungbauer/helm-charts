@@ -1,0 +1,379 @@
+# Default values for vm-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+#################
+# GLOBAL CONFIG #
+#################
+global:
+  # -- Default namespace for all resources
+  # @default -- Release namespace
+  namespace: ""
+
+  # -- SSH public keys to be injected into VMs via cloud-init
+  # @default -- []
+  sshKeys: []
+  #  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB... user@example.com"
+
+##################
+# VIRTUAL MACHINES #
+##################
+# Define Virtual Machines to be created
+virtualMachines:
+  # Example RHEL 9 VM
+  web-server:
+    # -- Enable this Virtual Machine
+    # @default -- false
+    enabled: true
+    
+    # -- Namespace for this VM (overrides global namespace)
+    # @default -- global.namespace or Release.Namespace
+    namespace: ""
+    
+    # -- Description of the VM
+    description: "RHEL 9 Web Server"
+    
+    # -- VM running state
+    # @default -- false
+    running: true
+    
+    # -- Run strategy for the VM
+    # Allowed values: Always, RerunOnFailure, Manual, Halted
+    # @default -- ""
+    runStrategy: "Always"
+    
+    # -- Eviction strategy for the VM
+    # Allowed values: None, LiveMigrate, LiveMigrateIfPossible, External
+    # @default -- ""
+    evictionStrategy: "LiveMigrate"
+    
+    # -- Additional labels for the VM
+    labels:
+      app: web-server
+      tier: frontend
+      os: rhel9
+    
+    # -- Additional annotations for the VM
+    annotations:
+      vm.kubevirt.io/os: rhel9
+    
+    # -- Node selector for VM placement
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""
+    
+    # -- Tolerations for VM placement
+    tolerations:
+      - key: "vm-workload"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+    
+    # -- Priority class for VM scheduling
+    priorityClassName: ""
+    
+    # -- Resource requirements
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+      limits:
+        memory: "4Gi"
+        cpu: "2"
+    
+    # -- CPU configuration
+    cpu:
+      cores: 2
+      sockets: 1
+      threads: 1
+      model: "host-passthrough"
+      dedicatedCpuPlacement: false
+    
+    # -- Memory configuration
+    memory:
+      guest: "2Gi"
+      hugepages:
+        pageSize: ""
+    
+    # -- Machine type configuration
+    machine:
+      type: "pc-q35-rhel9.2.0"
+    
+    # -- Firmware configuration
+    firmware:
+      bootloader:
+        efi:
+          secureBoot: true
+    
+    # -- VM features
+    features:
+      smm:
+        enabled: true
+      acpi: {}
+      apic: {}
+      hyperv:
+        relaxed: {}
+        vapic: {}
+        spinlocks:
+          spinlocks: 8191
+    
+    # -- Device configuration
+    autoattachGraphicsDevice: true
+    autoattachMemBalloon: true
+    
+    # -- Input devices
+    inputs:
+      - type: "tablet"
+        name: "tablet"
+        bus: "usb"
+    
+    # -- Disk configuration
+    disks:
+      - name: "root-disk"
+        disk:
+          bus: "virtio"
+        bootOrder: 1
+      - name: "cloud-init"
+        disk:
+          bus: "virtio"
+    
+    # -- Network interfaces
+    interfaces:
+      - name: "default"
+        masquerade: {}
+        model: "virtio"
+    
+    # -- Volume configuration
+    volumes:
+      - name: "root-disk"
+        dataVolume:
+          name: "web-server-root"
+      - name: "cloud-init"
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            user: cloud-user
+            password: changeme
+            chpasswd: { expire: False }
+            ssh_pwauth: True
+            ssh_authorized_keys:
+              - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB... user@example.com
+            packages:
+              - httpd
+              - firewalld
+            runcmd:
+              - systemctl enable httpd
+              - systemctl start httpd
+              - systemctl enable firewalld
+              - systemctl start firewalld
+              - firewall-cmd --add-service=http --permanent
+              - firewall-cmd --reload
+              - echo "<h1>Hello from OpenShift Virtualization!</h1>" > /var/www/html/index.html
+    
+    # -- Network configuration
+    networks:
+      - name: "default"
+        pod: {}
+    
+    # -- DataVolume templates for this VM
+    dataVolumeTemplates:
+      - name: "web-server-root"
+        source:
+          registry:
+            url: "docker://quay.io/containerdisks/rhel:9-latest"
+        pvc:
+          accessModes:
+            - "ReadWriteOnce"
+          size: "30Gi"
+          storageClassName: "ocs-storagecluster-ceph-rbd"
+
+  # Example Windows VM (disabled by default)
+  windows-vm:
+    enabled: false
+    description: "Windows Server 2022"
+    running: false
+    runStrategy: "Manual"
+    
+    labels:
+      app: windows-server
+      os: windows
+    
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "2"
+      limits:
+        memory: "8Gi"
+        cpu: "4"
+    
+    cpu:
+      cores: 4
+      sockets: 1
+      threads: 1
+    
+    memory:
+      guest: "4Gi"
+    
+    machine:
+      type: "pc-q35-rhel9.2.0"
+    
+    firmware:
+      bootloader:
+        efi:
+          secureBoot: false
+    
+    features:
+      smm:
+        enabled: true
+      hyperv:
+        relaxed: {}
+        vapic: {}
+        spinlocks:
+          spinlocks: 8191
+    
+    disks:
+      - name: "windows-disk"
+        disk:
+          bus: "sata"
+        bootOrder: 1
+      - name: "virtio-drivers"
+        cdrom:
+          bus: "sata"
+    
+    interfaces:
+      - name: "default"
+        bridge: {}
+        model: "e1000e"
+    
+    volumes:
+      - name: "windows-disk"
+        dataVolume:
+          name: "windows-vm-disk"
+      - name: "virtio-drivers"
+        dataVolume:
+          name: "virtio-drivers-iso"
+    
+    networks:
+      - name: "default"
+        pod: {}
+    
+    dataVolumeTemplates:
+      - name: "windows-vm-disk"
+        source:
+          blank: {}
+        pvc:
+          accessModes:
+            - "ReadWriteOnce"
+          size: "60Gi"
+          storageClassName: "ocs-storagecluster-ceph-rbd"
+      - name: "virtio-drivers-iso"
+        source:
+          http:
+            url: "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso"
+        pvc:
+          accessModes:
+            - "ReadWriteOnce"
+          size: "1Gi"
+          storageClassName: "ocs-storagecluster-ceph-rbd"
+
+###########################
+# VIRTUAL MACHINE INSTANCES #
+###########################
+# Define standalone VMIs (for testing/temporary VMs)
+virtualMachineInstances:
+  test-vmi:
+    enabled: false
+    description: "Test VMI"
+    
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+    
+    disks:
+      - name: "test-disk"
+        disk:
+          bus: "virtio"
+    
+    interfaces:
+      - name: "default"
+        masquerade: {}
+    
+    volumes:
+      - name: "test-disk"
+        emptyDisk:
+          capacity: "5Gi"
+    
+    networks:
+      - name: "default"
+        pod: {}
+
+################
+# DATA VOLUMES #
+################
+# Define standalone DataVolumes
+dataVolumes:
+  ubuntu-base:
+    enabled: false
+    description: "Ubuntu 22.04 Base Image"
+    
+    source:
+      registry:
+        url: "docker://quay.io/containerdisks/ubuntu:22.04"
+    
+    pvc:
+      accessModes:
+        - "ReadWriteOnce"
+      size: "20Gi"
+      storageClassName: "ocs-storagecluster-ceph-rbd"
+      volumeMode: "Filesystem"
+    
+    contentType: "kubevirt"
+
+############
+# SERVICES #
+############
+# Define Services to expose VMs
+services:
+  web-server-svc:
+    enabled: true
+    type: "NodePort"
+    
+    ports:
+      - name: "http"
+        port: 80
+        targetPort: 80
+        protocol: "TCP"
+        nodePort: 30080
+    
+    selector:
+      vm.kubevirt.io/name: "web-server"
+
+###########
+# SECRETS #
+###########
+# Define Secrets for VM configuration
+secrets:
+  vm-ssh-keys:
+    enabled: true
+    type: "Opaque"
+    
+    stringData:
+      authorized_keys: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB... user@example.com
+        ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... admin@example.com
+  
+  registry-credentials:
+    enabled: false
+    type: "kubernetes.io/dockerconfigjson"
+    
+    stringData:
+      .dockerconfigjson: |
+        {
+          "auths": {
+            "quay.io": {
+              "username": "user",
+              "password": "password",
+              "auth": "dXNlcjpwYXNzd29yZA=="
+            }
+          }
+        }

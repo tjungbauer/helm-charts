@@ -1,0 +1,14 @@
+argocd_applications:
+  my-app:
+
+    enabled: true
+    namespace: "openshift-gitops" 
+    
+    source:
+      repositoryURL: "https://github.com/argoproj/argocd-example-apps.git"
+      targetRevision: "HEAD"
+      path: "guestbook"
+
+    destination:
+      server: "https://kubernetes.default.svc"
+      namespace: "guestbook"
