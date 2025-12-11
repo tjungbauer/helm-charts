@@ -113,8 +113,7 @@ jobs:
           
           # Also generate a "recent changes" summary (last 30 days)
           cat /tmp/changelog.json | jq --arg cutoff "$(date -d '30 days ago' -u +%Y-%m-%dT%H:%M:%SZ)" '
-            .charts |= [.[] | select(.lastModified >= $cutoff)] |
-            .charts |= sort_by(.lastModified) | reverse
+            .charts |= ([.[] | select(.lastModified >= $cutoff)] | sort_by(.lastModified) | reverse)
           ' > gh-pages/changelog-recent.json
           
           echo "Files updated:"
