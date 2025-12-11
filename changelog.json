@@ -1,0 +1,403 @@
+{
+  "generated": "2025-12-11T15:02:09Z",
+  "repository": "https://github.com/tjungbauer/helm-charts",
+  "charts_url": "https://charts.stderr.at/",
+  "charts": [
+    {
+      "name": "collection-management-operators",
+      "version": "1.0.49",
+      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2025-12-11T15:49:48+01:00",
+      "changes": []
+    },
+    {
+      "name": "helper-proj-onboarding",
+      "version": "1.0.46",
+      "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-12-11T14:48:48+01:00",
+      "changes": []
+    },
+    {
+      "name": "rh-build-of-opentelemetry",
+      "version": "1.0.5",
+      "description": "Configure Red Hat Build of OpenTelemetry Operator resources (Collector, Instrumentation, TargetAllocator).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png",
+      "lastModified": "2025-12-11T10:32:07+01:00",
+      "changes": []
+    },
+    {
+      "name": "tempo-tracing",
+      "version": "1.0.6",
+      "description": "Configure the Tempo Operator (distributed tracing).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png",
+      "lastModified": "2025-12-10T10:32:06+01:00",
+      "changes": []
+    },
+    {
+      "name": "minio-configurator",
+      "version": "1.0.10",
+      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
+      "lastModified": "2025-12-03T06:24:49+01:00",
+      "changes": []
+    },
+    {
+      "name": "openshift-gitops",
+      "version": "1.1.5",
+      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2025-12-01T15:04:02+01:00",
+      "changes": []
+    },
+    {
+      "name": "collection-optional-operators",
+      "version": "1.0.34",
+      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2025-12-01T01:30:31Z",
+      "changes": []
+    },
+    {
+      "name": "collection-operators",
+      "version": "1.0.42",
+      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2025-12-01T01:30:31Z",
+      "changes": []
+    },
+    {
+      "name": "helper-lokistack",
+      "version": "1.0.21",
+      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
+      "lastModified": "2025-11-29T07:19:28+01:00",
+      "changes": []
+    },
+    {
+      "name": "openshift-logging",
+      "version": "3.0.6",
+      "description": "Deploy and configure OpenShift Logging based on LokiStack",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg",
+      "lastModified": "2025-11-29T07:16:37+01:00",
+      "changes": []
+    },
+    {
+      "name": "helper-odf-bucket-secret",
+      "version": "1.0.2",
+      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-11-29T06:40:09+01:00",
+      "changes": []
+    },
+    {
+      "name": "update-clusterversion",
+      "version": "1.0.2",
+      "description": "A Helm chart to update OpenShift ClusterVersion",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png",
+      "lastModified": "2025-11-26T12:10:52+01:00",
+      "changes": []
+    },
+    {
+      "name": "helper-operator",
+      "version": "1.0.39",
+      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-11-25T11:22:37+01:00",
+      "changes": []
+    },
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.25",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2025-11-10T01:46:40Z",
+      "changes": []
+    },
+    {
+      "name": "tpl",
+      "version": "1.0.26",
+      "description": "A library that shall collect certain templates to reuse them among different charts.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
+      "lastModified": "2025-10-28T16:08:34+01:00",
+      "changes": []
+    },
+    {
+      "name": "dev-spaces",
+      "version": "1.0.0",
+      "description": "|",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png",
+      "lastModified": "2025-10-28T16:08:34+01:00",
+      "changes": []
+    },
+    {
+      "name": "etcd-backup",
+      "version": "1.0.10",
+      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2025-10-28T13:40:48+01:00",
+      "changes": []
+    },
+    {
+      "name": "trusted-artifact-signer",
+      "version": "1.0.1",
+      "description": "Configure Trusted Artifact Signer",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png",
+      "lastModified": "2025-10-23T16:46:05+02:00",
+      "changes": []
+    },
+    {
+      "name": "quay-registry-setup",
+      "version": "2.0.17",
+      "description": "Deploy and configure Red Hat Quay Registry.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png",
+      "lastModified": "2025-09-30T17:53:59+02:00",
+      "changes": []
+    },
+    {
+      "name": "sonarqube",
+      "version": "1.0.27",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2025-09-29T00:24:06Z",
+      "changes": []
+    },
+    {
+      "name": "compliance-operator-full-stack",
+      "version": "1.0.33",
+      "description": "Master chart to deploy and configure the Compliance Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
+      "lastModified": "2025-08-19T13:48:46+02:00",
+      "changes": []
+    },
+    {
+      "name": "helm-policy-generator",
+      "version": "1.0.17",
+      "description": "This Chart shall help to generate policies for Advanced Cluster Management",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2025-08-13T12:00:00+02:00",
+      "changes": []
+    },
+    {
+      "name": "generic-cluster-config",
+      "version": "1.0.64",
+      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2025-08-08T16:50:56+02:00",
+      "changes": []
+    },
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.37",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2025-08-08T16:03:13+02:00",
+      "changes": []
+    },
+    {
+      "name": "openshift-virtualization",
+      "version": "1.0.0",
+      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
+      "lastModified": "2025-08-08T14:15:02+02:00",
+      "changes": []
+    },
+    {
+      "name": "setup-container-security-operator",
+      "version": "1.0.11",
+      "description": "Setup the Quay Container Security Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "rhacs-backup",
+      "version": "1.0.5",
+      "description": "Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "rhacm-setup",
+      "version": "1.0.18",
+      "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "rh-build-keycloak",
+      "version": "1.0.5",
+      "description": "Configure the operator Red Hat Build of Keycloak",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "pipeline-example",
+      "version": "1.0.11",
+      "description": "Create an example Pipeline which does a linting of openshift-clusterconfig-gitops using kubelinter, yamllin, yamlscore ....",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "openshift-data-foundation",
+      "version": "1.0.35",
+      "description": "Deploys and configures the OpenShift Data Foundation Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "network-observability",
+      "version": "2.0.3",
+      "description": "Installs and configures OpenShift Network Observability Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "ingresscontroller",
+      "version": "1.0.17",
+      "description": "Configures the IngressController object.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "helper-status-checker",
+      "version": "4.0.16",
+      "description": "A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "helper-server-side-apply",
+      "version": "1.0.14",
+      "description": "Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "helper-objectstore",
+      "version": "1.0.9",
+      "description": "A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently type PV is supported only (Creating a local Persistent Volume-backed backingstore)!",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "helper-loki-bucket-secret",
+      "version": "1.0.11",
+      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "helper-argocd",
+      "version": "2.0.43",
+      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "file-integrity-operator",
+      "version": "1.0.13",
+      "description": "Setup the FileIntegrity Operator (based on AIDE)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "cyclonedx",
+      "version": "1.0.9",
+      "description": "A Helm chart to deploy CycloneDX to generate SBOM",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "cost-management",
+      "version": "1.0.14",
+      "description": "Setup and configure cost-management Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "cert-manager",
+      "version": "2.0.2",
+      "description": "Install and configure the Cert-Manager",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "admin-networkpolicies",
+      "version": "1.0.6",
+      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2025-07-07T09:36:19+02:00",
+      "changes": []
+    },
+    {
+      "name": "rhacs-demo-applications",
+      "version": "1.0.8",
+      "description": "Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
+      "lastModified": "2025-07-03T09:35:52+02:00",
+      "changes": []
+    }
+  ]
+}
