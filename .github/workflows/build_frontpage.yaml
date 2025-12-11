@@ -2,10 +2,10 @@ name: Build Frontpage
 
 on:
   workflow_dispatch:
-#  workflow_run:
-#    workflows: [Release Charts]
-#    types:
-#      - completed
+  workflow_run:
+    workflows: [Release Charts]
+    types:
+      - completed
 
 jobs:
   on-success:
