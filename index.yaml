@@ -25102,6 +25102,56 @@ entries:
           description: added syncwave parameter
         - kind: fixed
           description: fixed issue with additional annotations to keep argocd in sync
+        - kind: added
+          description: added serviceaccount template
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-12-11T09:28:09.047023752Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Configure Red Hat Build of OpenTelemetry Operator resources (Collector,
+      Instrumentation, TargetAllocator).
+    digest: 83b98428be0fdec605668cd85ea18d9a29863fbdb187c78ace60ec39b1ff0494
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png
+    keywords:
+    - opentelemetry
+    - observability
+    - tracing
+    - metrics
+    - logs
+    - instrumentation
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rh-build-of-opentelemetry
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    - https://github.com/open-telemetry/opentelemetry-operator
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rh-build-of-opentelemetry-1.0.4/rh-build-of-opentelemetry-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/category: monitoring-logging
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: fixed
+          description: fixed issue with config map template
+        - kind: added
+          description: added syncwave parameter
+        - kind: fixed
+          description: fixed issue with additional annotations to keep argocd in sync
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32679,4 +32729,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-10T10:28:20.018459673Z"
+generated: "2025-12-11T09:28:09.048517728Z"
