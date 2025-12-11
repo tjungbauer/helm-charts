@@ -42,7 +42,7 @@ spec:
   {{- end }}
   
   {{- if .serviceAccount }}
-  serviceAccount: {{ .serviceAccount }}
+  serviceAccount: {{ .serviceAccount.name }}
   {{- end }}
   
   {{- if .resources }}
