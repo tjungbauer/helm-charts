@@ -13335,6 +13335,56 @@ entries:
           description: "added dependency tp tpl library"
         - kind: fixed
           description: "fullaccess of argocd project now also allows to define the own repository for a developer"
+        - kind: fixed
+          description: "added annotations to namespace"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-12-11T13:50:11.660403651Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: a93d09a76dbdcbc4f4ae60f213fb2df7e167c2ff16c115b0a1748304c4ad9da5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.46/helper-proj-onboarding-1.0.46.tgz
+    version: 1.0.46
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Signing Chart"
+        - kind: fixed
+          description: "changed the ifelse definitions for resourcequota for tshirt sizes"
+        - kind: fixed
+          description: "changed the way default network policies are managed"
+        - kind: fixed
+          description: "streamlined the creation of AppProject"
+        - kind: added
+          description: "added README and did some fixed"
+        - kind: added
+          description: "possibility to define egressIPs"
+        - kind: added
+          description: "added dependency tp tpl library"
+        - kind: fixed
+          description: "fullaccess of argocd project now also allows to define the own repository for a developer"
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32781,4 +32831,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-11T09:33:23.027182604Z"
+generated: "2025-12-11T13:50:11.662645005Z"
