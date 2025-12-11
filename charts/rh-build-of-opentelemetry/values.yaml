@@ -69,7 +69,14 @@ collector:
 
   # -- Service Account
   # @default -- ''
-  serviceAccount: ''
+  serviceAccount:
+    # -- Name of the Service Account
+    # @default -- otel-collector
+    name: otel-collector
+
+    # -- Create the Service Account
+    # @default -- false
+    create: false
 
   # -- Resource requirements
   # @default -- {}
