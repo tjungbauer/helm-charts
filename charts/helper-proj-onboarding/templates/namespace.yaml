@@ -32,5 +32,9 @@ metadata:
     {{- if .project_size }}
     namespace-size: {{ .project_size | quote }}
     {{- end }}
+  annotations:
+    {{- if .annotations -}}
+    {{ toYaml .annotations | nindent 4 }}
+    {{- end }}
 {{- end }}
 {{- end }}
