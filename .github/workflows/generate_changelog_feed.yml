@@ -1,0 +1,138 @@
+name: Generate Changelog Feed
+
+on:
+  # Run after charts are released
+  workflow_run:
+    workflows: ["Release Charts"]
+    types:
+      - completed
+    branches:
+      - main
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  generate-feed:
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Generate changelog JSON
+        run: |
+          echo "Generating changelog feed from Chart.yaml files..."
+          
+          python3 << 'EOF'
+          import os
+          import json
+          import yaml
+          import subprocess
+          from datetime import datetime
+
+          charts = []
+
+          for chart_dir in sorted(os.listdir('charts')):
+              chart_file = f'charts/{chart_dir}/Chart.yaml'
+              if not os.path.isfile(chart_file):
+                  continue
+              
+              with open(chart_file, 'r') as f:
+                  chart = yaml.safe_load(f)
+              
+              # Get last modified date from git
+              try:
+                  result = subprocess.run(
+                      ['git', 'log', '-1', '--format=%cI', '--', chart_file],
+                      capture_output=True, text=True
+                  )
+                  last_modified = result.stdout.strip() or datetime.utcnow().isoformat() + 'Z'
+              except:
+                  last_modified = datetime.utcnow().isoformat() + 'Z'
+              
+              # Parse changes from annotations
+              changes = []
+              annotations = chart.get('annotations', {})
+              changes_yaml = annotations.get('artifacthub.io/changes', '')
+              if changes_yaml:
+                  try:
+                      changes = yaml.safe_load(changes_yaml)
+                      if not isinstance(changes, list):
+                          changes = []
+                  except:
+                      changes = []
+              
+              charts.append({
+                  'name': chart.get('name', chart_dir),
+                  'version': chart.get('version', '0.0.0'),
+                  'description': chart.get('description', 'No description'),
+                  'home': chart.get('home', ''),
+                  'icon': chart.get('icon', ''),
+                  'lastModified': last_modified,
+                  'changes': changes
+              })
+
+          # Sort by last modified (newest first)
+          charts.sort(key=lambda x: x['lastModified'], reverse=True)
+
+          output = {
+              'generated': datetime.utcnow().isoformat() + 'Z',
+              'repository': 'https://github.com/tjungbauer/helm-charts',
+              'charts_url': 'https://charts.stderr.at/',
+              'charts': charts
+          }
+
+          with open('/tmp/changelog.json', 'w') as f:
+              json.dump(output, f, indent=2)
+
+          print(f"Generated changelog.json with {len(charts)} charts")
+          print(f"Most recent updates:")
+          for c in charts[:5]:
+              print(f"  - {c['name']} v{c['version']} ({c['lastModified'][:10]})")
+          EOF
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Update changelog feed
+        run: |
+          cp /tmp/changelog.json gh-pages/changelog.json
+          
+          # Also generate a "recent changes" summary (last 30 days)
+          cat /tmp/changelog.json | jq --arg cutoff "$(date -d '30 days ago' -u +%Y-%m-%dT%H:%M:%SZ)" '
+            .charts |= [.[] | select(.lastModified >= $cutoff)] |
+            .charts |= sort_by(.lastModified) | reverse
+          ' > gh-pages/changelog-recent.json
+          
+          echo "Files updated:"
+          ls -la gh-pages/*.json
+
+      - name: Commit and push
+        run: |
+          cd gh-pages
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          
+          git add changelog.json changelog-recent.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update changelog feed [skip ci]"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
