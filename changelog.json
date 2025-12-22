@@ -1,8 +1,60 @@
 {
-  "generated": "2025-12-11T15:41:30.891387Z",
+  "generated": "2025-12-22T06:39:45.066744Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "sonarqube",
+      "version": "1.0.28",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2025-12-22T07:38:32+01:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial chart"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        }
+      ]
+    },
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.26",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2025-12-22T07:38:06+01:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version"
+        },
+        {
+          "kind": "added",
+          "description": "new README"
+        },
+        {
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        }
+      ]
+    },
     {
       "name": "collection-management-operators",
       "version": "1.0.53",
@@ -498,36 +550,6 @@
       ]
     },
     {
-      "name": "sealed-secrets",
-      "version": "1.0.25",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2025-11-10T01:46:40Z",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        }
-      ]
-    },
-    {
       "name": "dev-spaces",
       "version": "1.0.0",
       "description": "Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native development solution that\ndelivers consistent developer environments on Red Hat OpenShift.\n",
@@ -734,28 +756,6 @@
         {
           "kind": "added",
           "description": "Added support for auto-prune feature"
-        }
-      ]
-    },
-    {
-      "name": "sonarqube",
-      "version": "1.0.27",
-      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
-      "lastModified": "2025-09-29T00:24:06Z",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial chart"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
         }
       ]
     },
