@@ -2,7 +2,7 @@ apiVersion: v2
 name: sonarqube
 description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
 type: application
-version: 1.0.27
+version: 1.0.28
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
@@ -16,7 +16,7 @@ sources:
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 dependencies:
   - name: sonarqube
-    version: ~2025.5.0
+    version: ~2025.6.0
     repository: https://SonarSource.github.io/helm-chart-sonarqube
     condition: sonarqube.enabled
   - name: tpl
