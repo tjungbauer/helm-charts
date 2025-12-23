@@ -4,20 +4,40 @@
   <meta charset="UTF-8">
   <title>Helm Charts - stderr.at</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Helm Charts Repository for GitOps cluster configuration and OpenShift management">
+  <meta name="description" content="Helm Charts Repository for GitOps cluster configuration and OpenShift management. Production-ready charts for ArgoCD, operators, security, and more.">
   <meta name="theme-color" content="#252c33">
-
-  <!-- SEO & Social Media -->
-  <meta property="og:title" content="Helm Charts - stderr.at">
-  <meta property="og:description" content="Central storage for GitOps Helm charts">
+  
+  <!-- SEO -->
+  <meta name="author" content="Thomas Jungbauer">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="Helm, Kubernetes, OpenShift, GitOps, ArgoCD, Operators, Red Hat, Cloud Native">
+  <link rel="canonical" href="https://charts.stderr.at/">
+  
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://charts.stderr.at/">
+  <meta property="og:title" content="Helm Charts - stderr.at">
+  <meta property="og:description" content="Production-ready Helm charts for GitOps cluster configuration and OpenShift management">
+  <meta property="og:image" content="https://charts.stderr.at/images/favicon-152.png">
+  <meta property="og:site_name" content="stderr.at">
+  <meta property="og:locale" content="en_US">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Helm Charts - stderr.at">
+  <meta name="twitter:description" content="Production-ready Helm charts for GitOps cluster configuration and OpenShift management">
+  <meta name="twitter:image" content="https://charts.stderr.at/images/favicon-152.png">
 
+  <!-- Security & Privacy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  
   <!-- Icons -->
   <link rel="icon" type="image/x-icon" href="images/favicon-152.png">
-  <link rel="icon" type="image/png" href="images/favicon-152.png">
-  <link rel="apple-touch-icon" href="images/favicon-152.png">
+  <link rel="icon" type="image/png" sizes="152x152" href="images/favicon-152.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/favicon-152.png">
 
   <!-- Styles (fonts are loaded locally via CSS) -->
+  <link rel="stylesheet" href="css/fontawesome-all.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -40,6 +60,23 @@
         Feel free to test these charts and let me know if you encounter any issues or have suggestions for improvements.
       </p>
     </div>
+
+  <!-- GitOps Catalog Reference -->
+  <div class="helm-catalog-callout">
+    <div class="helm-catalog-callout-icon">
+      <i class="fas fa-th"></i>
+    </div>
+    <div class="helm-catalog-callout-content">
+      <h3>Looking for real-world deployments?</h3>
+      <p>
+        These Helm charts are the <strong>building blocks</strong>. The <strong>GitOps Catalog</strong> shows how they come together 
+        in actual ArgoCD Applications to configure OpenShift clusters — from security &amp; compliance to observability &amp; storage.
+      </p>
+      <a href="https://blog.stderr.at/gitops-catalog/" class="helm-catalog-link">
+        <i class="fas fa-arrow-right"></i> Explore the GitOps Catalog
+      </a>
+    </div>
+  </div>    
 
     <div class="helm-search-container">
       <input type="search" 
@@ -252,5 +289,26 @@ helm repo update</code></pre>
       <polyline points="18,15 12,9 6,15"></polyline>
     </svg>
   </button>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "Helm Charts Repository",
+    "description": "Production-ready Helm charts for GitOps cluster configuration and OpenShift management",
+    "url": "https://charts.stderr.at/",
+    "codeRepository": "https://github.com/tjungbauer/helm-charts",
+    "programmingLanguage": "YAML",
+    "author": {
+      "@type": "Person",
+      "name": "Thomas Jungbauer",
+      "url": "https://blog.stderr.at/authors/thomas-jungbauer/"
+    },
+    "license": "https://www.apache.org/licenses/LICENSE-2.0",
+    "keywords": ["Helm", "Kubernetes", "OpenShift", "GitOps", "ArgoCD"],
+    "dateModified": "{{ .Generated.Format "2006-01-02" }}"
+  }
+  </script>
 </body>
 </html>

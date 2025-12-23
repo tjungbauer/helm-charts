@@ -22,6 +22,7 @@
   --MAIN-LINK-HOVER-color: #a3d0f5;
   --MENU-SECTIONS-BG-color: #212427;
   --MENU-TAG-BG-color: #385B7F;
+  --STRONG-BG: #34587F;
   --WHITE: #ffffff;
   
   /* Border & Shadow */
@@ -72,6 +73,13 @@ body {
   line-height: 1.6;
 }
 
+/* Strong/Bold text - matching blog style */
+strong {
+  background: var(--STRONG-BG);
+  color: white;
+  padding: 0 3px;
+}
+
 .gradient-header {
   font-style: normal;
   background-image: linear-gradient(to bottom right,var(--tw-gradient-stops));
@@ -92,6 +100,12 @@ a {
 a:hover {
   color: var(--MAIN-LINK-HOVER-color);
   text-decoration: underline;
+}
+
+/* Prevent icons from getting underlined on hover */
+a i[class*="fa-"] {
+  text-decoration: none;
+  display: inline-block;
 }
 
 /* ============================================
@@ -628,6 +642,87 @@ code {
   outline: 2px solid var(--focus-color);
   outline-offset: 2px;
 }
+
+/* GitOps Catalog Callout */
+.helm-catalog-callout {
+  display: flex;
+  gap: 1.25rem;
+  background: linear-gradient(135deg, rgba(111, 66, 193, 0.12) 0%, rgba(32, 201, 151, 0.08) 100%);
+  border: 1px solid rgba(111, 66, 193, 0.25);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.helm-catalog-callout-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #6f42c1 0%, #20c997 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
+}
+
+.helm-catalog-callout-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.15rem;
+  color: var(--MAIN-TITLES-TEXT-color, #fff);
+}
+
+.helm-catalog-callout-content p {
+  margin: 0 0 1rem 0;
+  color: var(--MAIN-TEXT-color, #dedede);
+  line-height: 1.6;
+}
+
+.helm-catalog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(111, 66, 193, 0.3);
+}
+
+.helm-catalog-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(111, 66, 193, 0.4);
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.helm-catalog-link i {
+  transition: transform 0.2s ease;
+}
+
+.helm-catalog-link:hover i {
+  transform: translateX(4px);
+}
+
+@media (max-width: 600px) {
+  .helm-catalog-callout {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .helm-catalog-callout-icon {
+    margin-bottom: 0.5rem;
+  }
+}
+
 
 /* ============================================
    Responsive Design
