@@ -1,49 +1,15 @@
 {
-  "generated": "2026-01-13T11:01:53.929155Z",
+  "generated": "2026-01-13T11:25:02.864067Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "sealed-secrets",
-      "version": "1.0.27",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-01-13T11:57:08+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
-        }
-      ]
-    },
-    {
       "name": "rhacs-setup",
-      "version": "1.0.38",
+      "version": "1.0.39",
       "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-01-13T11:49:14+01:00",
+      "lastModified": "2026-01-13T12:23:21+01:00",
       "changes": [
         {
           "kind": "fixed",
@@ -84,6 +50,40 @@
         {
           "kind": "added",
           "description": "added support to define declarative configurations including oauth providers"
+        }
+      ]
+    },
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.27",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2026-01-13T11:57:08+01:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version"
+        },
+        {
+          "kind": "added",
+          "description": "new README"
+        },
+        {
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
         }
       ]
     },
