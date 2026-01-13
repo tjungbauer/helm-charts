@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.39](https://img.shields.io/badge/Version-1.0.39-informational?style=flat-square)
+  ![Version: 1.0.41](https://img.shields.io/badge/Version-1.0.41-informational?style=flat-square)
 
  
 
@@ -89,6 +89,7 @@ Verify the subcharts for additional settings:
 | rhacs.central.db | object | `{"resources":{"requests":{"cpu":4}}}` | Settings for Central DB, which is responsible for data persistence. |
 | rhacs.central.db.resources | object | `{"requests":{"cpu":4}}` | Set Central DB resources.requests and resources.limits. Per default this block can be omitted. |
 | rhacs.central.db.resources.requests.cpu | int | 4 | CPU requests. |
+| rhacs.central.declarativeConfiguration | list | empty list | Define ConfigMaps with DeclerativeConfiguration |
 | rhacs.central.egress | object | `{"connectivityPolicy":"Online"}` | Configures whether Red Hat Advanced Cluster Security should run in online or offline (disconnected) mode. In offline mode, automatic updates of vulnerability definitions and kernel modules are disabled. This parameter is MANDATORY default -- Online |
 | rhacs.central.enabled | bool | false | Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters. |
 | rhacs.central.syncwave | string | 3 | Syncwave for Argo CD to create the Central |
