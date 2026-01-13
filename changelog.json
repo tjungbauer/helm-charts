@@ -1,37 +1,15 @@
 {
-  "generated": "2025-12-22T06:40:16.735280Z",
+  "generated": "2026-01-13T11:01:53.929155Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "sonarqube",
-      "version": "1.0.28",
-      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
-      "lastModified": "2025-12-22T07:38:32+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial chart"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        }
-      ]
-    },
-    {
       "name": "sealed-secrets",
-      "version": "1.0.26",
+      "version": "1.0.27",
       "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
       "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2025-12-22T07:38:06+01:00",
+      "lastModified": "2026-01-13T11:57:08+01:00",
       "changes": [
         {
           "kind": "fixed",
@@ -48,6 +26,82 @@
         {
           "kind": "added",
           "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.38",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2026-01-13T11:49:14+01:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "added Readme"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "fixed",
+          "description": "documented missing centralEndpoint setting"
+        },
+        {
+          "kind": "added",
+          "description": "using common tpl chart for reusablility"
+        },
+        {
+          "kind": "added",
+          "description": "added option to define nodeSelector for all components"
+        },
+        {
+          "kind": "added",
+          "description": "alow to configure Scanner for SecuredCluster"
+        },
+        {
+          "kind": "added",
+          "description": "allowing definition of declerativeConfiguration configMaps"
+        },
+        {
+          "kind": "added",
+          "description": "added support to enable scanner V4"
+        },
+        {
+          "kind": "added",
+          "description": "added support to define declarative configurations including oauth providers"
+        }
+      ]
+    },
+    {
+      "name": "sonarqube",
+      "version": "1.0.28",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2025-12-22T07:38:32+01:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial chart"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
         },
         {
           "kind": "added",
@@ -922,52 +976,6 @@
         {
           "kind": "fixed",
           "description": "fixing ArtifactHub"
-        }
-      ]
-    },
-    {
-      "name": "rhacs-setup",
-      "version": "1.0.37",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2025-08-08T16:03:13+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "added Readme"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "fixed",
-          "description": "documented missing centralEndpoint setting"
-        },
-        {
-          "kind": "added",
-          "description": "using common tpl chart for reusablility"
-        },
-        {
-          "kind": "added",
-          "description": "added option to define nodeSelector for all components"
-        },
-        {
-          "kind": "added",
-          "description": "alow to configure Scanner for SecuredCluster"
-        },
-        {
-          "kind": "added",
-          "description": "allowing definition of declerativeConfiguration configMaps"
-        },
-        {
-          "kind": "added",
-          "description": "added support to enable scanner V4"
         }
       ]
     },
