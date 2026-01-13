@@ -27949,6 +27949,63 @@ entries:
           description: "added support to enable scanner V4"
         - kind: added
           description: "added support to define declarative configurations including oauth providers"
+        - kind: added
+          description: "updated example values file"
+        - kind: fixed
+          description: "fixed yaml syntax for declarative configurations"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-01-13T13:05:35.909951774Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: b6cdc5a9e29a030aca6e94b4ddb0a77b07d018e46d5716a59d45941b6f169bd4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.41/rhacs-setup-1.0.41.tgz
+    version: 1.0.41
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Signing Chart"
+        - kind: added
+          description: "added Readme"
+        - kind: added
+          description: "updated to helper-status-checker v4"
+        - kind: fixed
+          description: "documented missing centralEndpoint setting"
+        - kind: added
+          description: "using common tpl chart for reusablility"
+        - kind: added
+          description: "added option to define nodeSelector for all components"
+        - kind: added
+          description: "alow to configure Scanner for SecuredCluster"
+        - kind: added
+          description: "allowing definition of declerativeConfiguration configMaps"
+        - kind: added
+          description: "added support to enable scanner V4"
+        - kind: added
+          description: "added support to define declarative configurations including oauth providers"
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -33146,4 +33203,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-13T11:24:44.123422805Z"
+generated: "2026-01-13T13:05:35.91106677Z"
