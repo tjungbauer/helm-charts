@@ -11,6 +11,11 @@ on:
   # Manual trigger
   workflow_dispatch:
 
+# Ensure only one workflow pushing to gh-pages runs at a time
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
 jobs:
   generate-feed:
     if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'

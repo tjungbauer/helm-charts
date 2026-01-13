@@ -11,7 +11,7 @@ metadata:
     {{- include "tpl.labels" $ | nindent 4 }}
 data:
   {{- range $filename, $content := .declarative_configurations }}
-  {{ $filename }}: |
+  {{ $filename }}: |-
     {{- $content | toYaml | nindent 4 }}
   {{- end }}
 {{- end }}

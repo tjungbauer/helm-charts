@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.39
+version: 1.0.41
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -46,3 +46,7 @@ annotations:
       description: "added support to enable scanner V4"
     - kind: added
       description: "added support to define declarative configurations including oauth providers"
+    - kind: added
+      description: "updated example values file"
+    - kind: fixed
+      description: "fixed yaml syntax for declarative configurations"

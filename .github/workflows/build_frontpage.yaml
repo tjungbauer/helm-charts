@@ -7,6 +7,11 @@ on:
     types:
       - completed
 
+# Ensure only one workflow pushing to gh-pages runs at a time
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
 jobs:
   on-success:
     runs-on: ubuntu-latest
