@@ -1,8 +1,122 @@
 {
-  "generated": "2026-01-13T13:06:01.305217Z",
+  "generated": "2026-01-23T12:03:08.295421Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "openshift-gitops",
+      "version": "1.1.6",
+      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2026-01-23T13:01:20+01:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added customer Health Checks to Argo CD Patch-yaml"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed Argo CD CRD to v1beta1"
+        },
+        {
+          "kind": "fixed",
+          "description": "typo in health check"
+        },
+        {
+          "kind": "added",
+          "description": "cleaning up chart, added new README and tried to make more options configurable."
+        },
+        {
+          "kind": "added",
+          "description": "allowing configuration of syncwave for Argo CD object."
+        },
+        {
+          "kind": "fixed",
+          "description": "updated ArgoCD resource to v1beta1"
+        },
+        {
+          "kind": "added",
+          "description": "added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing some default Values"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "it is now possible to define a global AppProject"
+        },
+        {
+          "kind": "added",
+          "description": "it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod"
+        },
+        {
+          "kind": "added",
+          "description": "It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example."
+        },
+        {
+          "kind": "added",
+          "description": "Added option to define nodeSelector for ArgoCD resource"
+        },
+        {
+          "kind": "added",
+          "description": "Added option to configure keycloak as SSO for argo cd"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to completely enable/disable the sso configuration."
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to configure oidcConfig for argo cd"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define environment variables for the repo-container"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define extraConfig settings"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define additional labels and annotations for the namespace"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define sharding settings for the controller"
+        },
+        {
+          "kind": "added",
+          "description": "bump version"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed error in the LokiStack resource health check"
+        },
+        {
+          "kind": "fixed",
+          "description": "disabled the gitops-application instance by default"
+        }
+      ]
+    },
     {
       "name": "rhacs-setup",
       "version": "1.0.41",
@@ -276,116 +390,6 @@
         {
           "kind": "fixed",
           "description": "fixed the issue with the findutils package"
-        }
-      ]
-    },
-    {
-      "name": "openshift-gitops",
-      "version": "1.1.5",
-      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2025-12-01T15:04:02+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added customer Health Checks to Argo CD Patch-yaml"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed Argo CD CRD to v1beta1"
-        },
-        {
-          "kind": "fixed",
-          "description": "typo in health check"
-        },
-        {
-          "kind": "added",
-          "description": "cleaning up chart, added new README and tried to make more options configurable."
-        },
-        {
-          "kind": "added",
-          "description": "allowing configuration of syncwave for Argo CD object."
-        },
-        {
-          "kind": "fixed",
-          "description": "updated ArgoCD resource to v1beta1"
-        },
-        {
-          "kind": "added",
-          "description": "added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing some default Values"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define a global AppProject"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod"
-        },
-        {
-          "kind": "added",
-          "description": "It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example."
-        },
-        {
-          "kind": "added",
-          "description": "Added option to define nodeSelector for ArgoCD resource"
-        },
-        {
-          "kind": "added",
-          "description": "Added option to configure keycloak as SSO for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to completely enable/disable the sso configuration."
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to configure oidcConfig for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define environment variables for the repo-container"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define extraConfig settings"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define additional labels and annotations for the namespace"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define sharding settings for the controller"
-        },
-        {
-          "kind": "added",
-          "description": "bump version"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed error in the LokiStack resource health check"
         }
       ]
     },
