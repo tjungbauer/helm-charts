@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
-version: 1.0.39
+version: 1.0.40
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -46,3 +46,5 @@ annotations:
       description: added possibility to disable common labels
     - kind: fixed
       description: fixed namespace template to use the correct value for disable_common_labels
+    - kind: added
+      description: 1.0.40 - added possibility to configure a custom operatorgroup name

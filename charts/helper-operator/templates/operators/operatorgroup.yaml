@@ -5,7 +5,7 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: {{ $key | default "demo-operator-group" | quote }}
+  name: {{ $value.operatorgroup.name | default $key | quote }}
   namespace: {{ $value.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}

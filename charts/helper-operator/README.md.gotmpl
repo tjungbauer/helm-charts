@@ -7,6 +7,9 @@ This chart will create the objects: Namespace, Subscription, OperatorGroup and a
 
 *NOTE*: It is usually used as Subchart for other Charts and it works best with the second subchart [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker)
 
+NEW: 
+
+* 1.0.40: a possibility was added to define a custom OperatorGroup name. This might be useful when the Operator was already installed and such resource was created already with a special name and you want to keep this resource.
 
 {{ template "doc.maintainer_and_sources" . }}
 
@@ -67,6 +70,7 @@ operators:
           value: ""
     operatorgroup:
       create: true
+      name: my-custom-operatorgroup-name # optional value, default is the name of the $key (here loki-operator)
       notownnamespace: true
 ```
 

@@ -172,6 +172,10 @@ operators:
       # @default -- false
       create: false
 
+      # -- Optional: Custom name for the OperatorGroup. If not set, the operator key name is used.
+      # @default -- uses the operator key name (e.g., "my-operator")
+      # name: my-custom-operatorgroup-name
+
       # -- Monitor own Namespace. For some Operators no `targetNamespaces` must be defined
       # @default -- false
       notownnamespace: true
