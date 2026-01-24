@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.39](https://img.shields.io/badge/Version-1.0.39-informational?style=flat-square)
+  ![Version: 1.0.40](https://img.shields.io/badge/Version-1.0.40-informational?style=flat-square)
 
  
 
@@ -21,6 +21,10 @@ It is best used with a GitOps approach such as Argo CD does. For example: https:
 This chart will create the objects: Namespace, Subscription, OperatorGroup and a Job, that will enable additional console plugins, if enabled.
 
 *NOTE*: It is usually used as Subchart for other Charts and it works best with the second subchart [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker)
+
+NEW:
+
+* 1.0.40: a possibility was added to define a custom OperatorGroup name. This might be useful when the Operator was already installed and such resource was created already with a special name and you want to keep this resource.
 
 ## Maintainers
 
@@ -140,6 +144,7 @@ operators:
           value: ""
     operatorgroup:
       create: true
+      name: my-custom-operatorgroup-name # optional value, default is the name of the $key (here loki-operator)
       notownnamespace: true
 ```
 
