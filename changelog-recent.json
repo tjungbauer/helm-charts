@@ -1,69 +1,15 @@
 {
-  "generated": "2026-01-24T05:02:04.774339Z",
+  "generated": "2026-02-13T10:21:15.293871Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "helper-operator",
-      "version": "1.0.40",
-      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-01-24T06:00:20+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added Job that will enable Console Plugins if they are defined."
-        },
-        {
-          "kind": "added",
-          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added trustedCA configuration for the Operator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to disable common labels"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed namespace template to use the correct value for disable_common_labels"
-        },
-        {
-          "kind": "added",
-          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
-        }
-      ]
-    },
-    {
       "name": "openshift-gitops",
-      "version": "1.1.6",
+      "version": "1.1.7",
       "description": "Installs and patches the Red Hat Openshift Gitops Operator",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-01-23T13:01:20+01:00",
+      "lastModified": "2026-02-13T11:19:18+01:00",
       "changes": [
         {
           "kind": "fixed",
@@ -168,16 +114,20 @@
         {
           "kind": "fixed",
           "description": "disabled the gitops-application instance by default"
+        },
+        {
+          "kind": "fixed",
+          "description": "1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted"
         }
       ]
     },
     {
-      "name": "rhacs-setup",
-      "version": "1.0.41",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-01-13T14:04:19+01:00",
+      "name": "helper-operator",
+      "version": "1.0.40",
+      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-01-24T06:00:20+01:00",
       "changes": [
         {
           "kind": "fixed",
@@ -185,81 +135,43 @@
         },
         {
           "kind": "added",
-          "description": "added Readme"
+          "description": "Added Job that will enable Console Plugins if they are defined."
         },
         {
           "kind": "added",
-          "description": "updated to helper-status-checker v4"
+          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
         },
         {
           "kind": "fixed",
-          "description": "documented missing centralEndpoint setting"
+          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
         },
         {
           "kind": "added",
-          "description": "using common tpl chart for reusablility"
+          "description": "added dependency tp tpl library"
         },
         {
           "kind": "added",
-          "description": "added option to define nodeSelector for all components"
+          "description": "switching some snippets to use global tpl"
         },
         {
           "kind": "added",
-          "description": "alow to configure Scanner for SecuredCluster"
-        },
-        {
-          "kind": "added",
-          "description": "allowing definition of declerativeConfiguration configMaps"
-        },
-        {
-          "kind": "added",
-          "description": "added support to enable scanner V4"
-        },
-        {
-          "kind": "added",
-          "description": "added support to define declarative configurations including oauth providers"
-        },
-        {
-          "kind": "added",
-          "description": "updated example values file"
+          "description": "added trustedCA configuration for the Operator"
         },
         {
           "kind": "fixed",
-          "description": "fixed yaml syntax for declarative configurations"
-        }
-      ]
-    },
-    {
-      "name": "sealed-secrets",
-      "version": "1.0.27",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-01-13T11:57:08+01:00",
-      "changes": [
+          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to disable common labels"
+        },
         {
           "kind": "fixed",
-          "description": "Signing Chart"
+          "description": "fixed namespace template to use the correct value for disable_common_labels"
         },
         {
           "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
+          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
         }
       ]
     }
