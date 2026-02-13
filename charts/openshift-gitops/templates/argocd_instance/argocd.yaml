@@ -475,6 +475,12 @@ spec:
     {{- else }}
     sharding: {}
     {{- end }}
-
+    {{- if $value.controller.env }}
+    env:
+      {{- range $value.controller.env }}
+      - name: {{ .name }}
+        value: {{ .value }}
+      {{- end }}
+    {{- end }}
 {{- end }}
 {{- end }}

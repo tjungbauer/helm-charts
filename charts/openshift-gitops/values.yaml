@@ -7,7 +7,7 @@ gitopsinstances:
   gitops_application:
     # -- Create the instance or not.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Namespace for this application
     namespace: gitops-application
@@ -230,6 +230,13 @@ gitopsinstances:
         # -- Replicas defines the number of replicas of the Application Controller component
         # @default -- empty
         replicas: ''
+
+      # -- Additional environment variables for the controller. Each entry must have 'name' and either 'value' or 'valueFrom'.
+      # @default -- []
+      # env:
+      #   - name: ARGOCD_CONTROLLER_SHARDING_ALGORITHM
+      #     value: round-robin
+      env: []
 
     ha:
       # -- Enable HA for Argo CD
