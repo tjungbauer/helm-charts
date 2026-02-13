@@ -55,10 +55,10 @@ spec:
       enabled: false
     resources:
       limits:
-        cpu: {{ $value.server.cpu_limits | default "500m" }}
+        cpu: {{ $value.server.cpu_limits | default "500m" | quote }}
         memory: {{ $value.server.memory_limits | default "256Mi" }}
       requests:
-        cpu: {{ $value.server.cpu_requests | default "125m" }}
+        cpu: {{ $value.server.cpu_requests | default "125m" | quote }}
         memory: {{ $value.server.memory_requests | default "128Mi" }}
     {{- if $value.server.route }}
     route:
@@ -118,7 +118,7 @@ spec:
         cpu: {{ $value.appset.cpu_limits | default "2" | quote }}
         memory: {{ $value.appset.memory_limits | default "1Gi" }}
       requests:
-        cpu: {{ $value.appset.cpu_requests | default "250m" }}
+        cpu: {{ $value.appset.cpu_requests | default "250m" | quote }}
         memory: {{ $value.appset.memory_requests | default "512Mi" }}
   rbac:
     defaultPolicy: '{{ $value.rbac.defaultRole | default "role:readonly" }}'
@@ -142,7 +142,7 @@ spec:
         cpu: {{ $value.repo.cpu_limits | default "1" | quote }}
         memory: {{ $value.repo.memory_limits | default "1Gi" }}
       requests:
-        cpu: {{ $value.repo.cpu_requests | default "250m" }}
+        cpu: {{ $value.repo.cpu_requests | default "250m" | quote }}
         memory: {{ $value.repo.memory_requests | default "256Mi" }}
 
     {{- if $value.repo.additionalSidecars }}
@@ -398,10 +398,10 @@ spec:
       openShiftOAuth: {{ $value.sso.dex.openShiftOAuth | default "true" }} 
       resources:
         limits:
-          cpu: {{ $value.sso.dex.cpu_limits | default "500m" }}
+          cpu: {{ $value.sso.dex.cpu_limits | default "500m" | quote }}
           memory: {{ $value.sso.dex.memory_limits | default "256Mi" }}
         requests:
-          cpu: {{ $value.sso.dex.cpu_requests | default "250m" }}
+          cpu: {{ $value.sso.dex.cpu_requests | default "250m" | quote }}
           memory: {{ $value.sso.dex.memory_requests | default "128Mi" }} 
     {{- end }}
     {{- end }}
@@ -428,20 +428,20 @@ spec:
     enabled: {{ $value.ha.enabled | default "false" }}
     resources:
       limits:
-        cpu: {{ $value.ha.cpu_limits | default "500m" }}
+        cpu: {{ $value.ha.cpu_limits | default "500m" | quote }}
         memory: {{ $value.ha.memory_limits | default "256Mi" }}
       requests:
-        cpu: {{ $value.ha.cpu_requests | default "250m" }}
+        cpu: {{ $value.ha.cpu_requests | default "250m" | quote }}
         memory: {{ $value.ha.memory_requests | default "128Mi" }}
   tls:
     ca: {}
   redis:
     resources:
       limits:
-        cpu: {{ $value.redis.cpu_limits | default "500m" }}
-        memory: {{ $value.redis.memory_limits | default "256Mi" }}
+        cpu: {{ $value.redis.cpu_limits | default "500m" | quote }}
+        memory: {{ $value.redis.memory_limits | default "256Mi"  }}
       requests:
-        cpu: {{ $value.redis.cpu_requests | default "250m" }}
+        cpu: {{ $value.redis.cpu_requests | default "250m" | quote }}
         memory: {{ $value.redis.memory_requests | default "128Mi" }}
   controller:
     processors: {}
@@ -450,7 +450,7 @@ spec:
         cpu: {{ $value.controller.cpu_limits | default "2" | quote }}
         memory: {{ $value.controller.memory_limits | default "2Gi" }}
       requests:
-        cpu: {{ $value.controller.cpu_requests | default "250m" }}
+        cpu: {{ $value.controller.cpu_requests | default "250m" | quote }}
         memory: {{ $value.controller.memory_requests | default "1Gi" }}
     {{- if $value.controller.sharding }}
     sharding:
