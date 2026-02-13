@@ -18946,6 +18946,100 @@ entries:
           description: disabled the gitops-application instance by default
         - kind: fixed
           description: 1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted
+        - kind: added
+          description: 1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-02-13T11:05:59.752453938Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.36
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Installs and patches the Red Hat Openshift Gitops Operator
+    digest: 17af54abef4ec8bc50489390f47eac73b0661114228aaaedad666379d1dc278b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
+    keywords:
+    - gitops
+    - management
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-gitops
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-gitops-1.1.8/openshift-gitops-1.1.8.tgz
+    version: 1.1.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Added customer Health Checks to Argo CD Patch-yaml
+        - kind: fixed
+          description: changed Argo CD CRD to v1beta1
+        - kind: fixed
+          description: typo in health check
+        - kind: added
+          description: cleaning up chart, added new README and tried to make more options configurable.
+        - kind: added
+          description: allowing configuration of syncwave for Argo CD object.
+        - kind: fixed
+          description: updated ArgoCD resource to v1beta1
+        - kind: added
+          description: added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled
+        - kind: fixed
+          description: fixing some default Values
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+        - kind: added
+          description: it is now possible to define a global AppProject
+        - kind: added
+          description: it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod
+        - kind: added
+          description: It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example.
+        - kind: added
+          description: Added option to define nodeSelector for ArgoCD resource
+        - kind: added
+          description: Added option to configure keycloak as SSO for argo cd
+        - kind: added
+          description: Added possibility to completely enable/disable the sso configuration.
+        - kind: added
+          description: Added possibility to configure oidcConfig for argo cd
+        - kind: added
+          description: Added possibility to define environment variables for the repo-container
+        - kind: added
+          description: Added possibility to define extraConfig settings
+        - kind: added
+          description: Added possibility to define additional labels and annotations for the namespace
+        - kind: added
+          description: Added possibility to define sharding settings for the controller
+        - kind: added
+          description: bump version
+        - kind: fixed
+          description: fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+
+        - kind: fixed
+          description: fixed error in the LokiStack resource health check
+        - kind: fixed
+          description: disabled the gitops-application instance by default
+        - kind: fixed
+          description: 1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -33440,4 +33534,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-13T10:20:56.864222784Z"
+generated: "2026-02-13T11:05:59.753661459Z"
