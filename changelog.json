@@ -1,8 +1,38 @@
 {
-  "generated": "2026-02-13T11:06:18.338783Z",
+  "generated": "2026-02-18T09:16:16.002118Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "cert-manager",
+      "version": "2.0.3",
+      "description": "Install and configure the Cert-Manager",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
+      "lastModified": "2026-02-18T10:14:32+01:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added Certificate resource so this chart can be used to order any certificate"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
+        }
+      ]
+    },
     {
       "name": "openshift-gitops",
       "version": "1.1.8",
@@ -1040,32 +1070,6 @@
         {
           "kind": "added",
           "description": "fixing portRange implementation"
-        }
-      ]
-    },
-    {
-      "name": "cert-manager",
-      "version": "2.0.2",
-      "description": "Install and configure the Cert-Manager",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added Certificate resource so this chart can be used to order any certificate"
-        },
-        {
-          "kind": "added",
-          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
         }
       ]
     },
