@@ -5,6 +5,9 @@ apiVersion: cert-manager.io/v1
 kind: {{ .type | default "ClusterIssuer"}}
 metadata:
   name: {{ .name }}
+  {{- if eq (.type | toString) "Issuer" }}
+  namespace: {{ .namespace | default "default" }}
+  {{- end }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
   annotations:

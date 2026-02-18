@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager
 description: Install and configure the Cert-Manager
-version: 2.0.2
+version: 2.0.3
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
 maintainers:
@@ -33,3 +33,5 @@ annotations:
       description: added Certificate resource so this chart can be used to order any certificate
     - kind: added
       description: v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs
+    - kind: added
+      description: v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer.

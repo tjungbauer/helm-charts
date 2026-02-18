@@ -43,6 +43,10 @@ issuer:
   - name: acme
     # -- Type can be either ClusterIssuer or Issuer
     type: ClusterIssuer
+
+    # -- Namespace for Issuer (ignored for ClusterIssuer). Defaults to the default namespace when not set.
+    # namespace: my-namespace
+
     # -- Enable this issuer.
     # @default -- false
     enabled: false
