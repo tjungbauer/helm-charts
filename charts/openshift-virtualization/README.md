@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+  ![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square)
 
  
 
@@ -39,7 +39,7 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+| tjungbauer | <dev@stdin.at> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:
@@ -105,17 +105,16 @@ Verify the subcharts for additional settings:
 | virtualization.defaultCPUModel | string | "" | defines a cluster default for CPU model: default CPU model is set when VMI doesn't have any CPU model. |
 | virtualization.defaultRuntimeClass | string | "" | DefaultRuntimeClass defines a cluster default for the RuntimeClass to be used for VMIs pods if not set there. Default RuntimeClass can be changed when kubevirt is running, existing VMIs are not impacted till the next restart/live-migration when they are eventually going to consume the new default RuntimeClass. |
 | virtualization.deployOVS | bool | false | OvS Opt-In Label - Controls whether Open vSwitch (OvS) Container Network Interface (CNI) is deployed |
+| virtualization.deployVmConsoleProxy | bool | false | Deploy VM Console Proxy for remote console access. |
+| virtualization.enableApplicationAwareQuota | bool | false | EnableApplicationAwareQuota if true, enables the Application Aware Quota feature |
+| virtualization.enableCommonBootImageImport | bool | true | Enable common boot image import from external registries<br /> Opt-in to automatic delivery/updates of the common data import cron templates. There are two sources for the data import cron templates: hard coded list of common templates, and custom templates that can be added to the dataImportCronTemplates field. This feature gates only control the common templates. It is possible to use custom templates by adding them to the dataImportCronTemplates field. |
 | virtualization.enabled | bool | false | Enable OpenShift Virtualization (CNV) configuration. This will configure the HyperConverged resource. |
 | virtualization.evictionStrategy | string | "" | EvictionStrategy defines at the cluster level if the VirtualMachineInstance should be<br /> migrated instead of shut-off in case of a node drain. If the VirtualMachineInstance specific<br /> field is set it overrides the cluster level one.<br /> Allowed values:<br /> <ul>  <li>`None` no eviction strategy at cluster level.</li>  <li>`LiveMigrate` migrate the VM on eviction; a not live migratable VM with no specific strategy will block the drain of the node util manually evicted.</li>  <li>`LiveMigrateIfPossible` migrate the VM on eviction if live migration is possible, otherwise directly evict.</li>  <li>`External` block the drain, track eviction and notify an external controller.</li> </ul> Defaults to LiveMigrate with multiple worker nodes, None on single worker clusters. |
-| virtualization.featureGates | object | `{"alignCPUs":false,"autoResourceLimits":false,"deployKubeSecondaryDNS":false,"deployVmConsoleProxy":true,"disableMDevConfiguration":false,"downwardMetrics":false,"enableApplicationAwareQuota":false,"enableCommonBootImageImport":true,"persistentReservation":false}` | Feature gates for OpenShift Virtualization |
+| virtualization.featureGates | object | `{"alignCPUs":false,"deployKubeSecondaryDNS":false,"disableMDevConfiguration":false,"downwardMetrics":false,"persistentReservation":false}` | Feature gates for OpenShift Virtualization |
 | virtualization.featureGates.alignCPUs | bool | false | Set the alignCPUs feature gate to enable KubeVirt to request up to two additional dedicated CPUs in order to complete the total CPU count to an even parity when using emulator thread isolation. |
-| virtualization.featureGates.autoResourceLimits | bool | false | Enable KubeVirt to set automatic limits when they are needed. If ResourceQuota with set memory limits is associated with a namespace, each pod in that namespace must have memory limits set. By default, KubeVirt does not set such limits to the virt-launcher pod. |
 | virtualization.featureGates.deployKubeSecondaryDNS | bool | false | Set the deployKubeSecondaryDNS feature gate to true to allow deploying KubeSecondaryDNS by CNAO. |
-| virtualization.featureGates.deployVmConsoleProxy | bool | true | Deploy VM Console Proxy for remote console access. |
 | virtualization.featureGates.disableMDevConfiguration | bool | false | Disable mediated device configuration |
 | virtualization.featureGates.downwardMetrics | bool | false | Set the downwardMetrics feature gate in order to allow exposing a limited set of VM and host metrics to the guest. |
-| virtualization.featureGates.enableApplicationAwareQuota | bool | false | EnableApplicationAwareQuota if true, enables the Application Aware Quota feature |
-| virtualization.featureGates.enableCommonBootImageImport | bool | true | Enable common boot image import from external registries<br /> Opt-in to automatic delivery/updates of the common data import cron templates. There are two sources for the data import cron templates: hard coded list of common templates, and custom templates that can be added to the dataImportCronTemplates field. This feature gates only control the common templates. It is possible to use custom templates by adding them to the dataImportCronTemplates field. |
 | virtualization.featureGates.persistentReservation | bool | false | Snable persistent reservation of a LUN through the SCSI Persistent Reserve commands on Kubevirt. In order to issue privileged SCSI ioctls, the VM requires activation of the persistent reservation flag. |
 | virtualization.higherWorkloadDensity | object | `{"memoryOvercommitPercentage":100}` | HigherWorkloadDensity holds configurataion aimed to increase virtual machine density |
 | virtualization.higherWorkloadDensity.memoryOvercommitPercentage | int | 100 | MemoryOvercommitPercentage is the percentage of memory we want to give VMIs compared to the amount given to its parent pod (virt-launcher). For example, a value of 102 means the VMI will "see" 2% more memory than its parent pod. Values under 100 are effectively "undercommits". Overcommits can lead to memory exhaustion, which in turn can lead to crashes. Use carefully. |
