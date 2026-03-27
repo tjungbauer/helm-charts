@@ -23324,6 +23324,44 @@ entries:
       artifacthub.io/changes: |
         - kind: added
           description: initial release
+        - kind: added
+          description: added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-03-27T10:47:39.622080354Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.23
+    description: Configure the operator Openshift Virtualization (HyperConverged and
+      HostPath Provisioner)
+    digest: d231ac217729e9f2528614b060462dfa02be534287056a46f063f6d7eab93c09
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png
+    keywords:
+    - openshift
+    - virtualization
+    - hyperconverged
+    - kubevirt
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-virtualization
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-virtualization-1.0.1/openshift-virtualization-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -33575,4 +33613,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-18T09:15:55.11637472Z"
+generated: "2026-03-27T10:47:39.623472016Z"
