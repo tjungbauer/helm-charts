@@ -42,18 +42,18 @@ spec:
       renewBefore: {{ .renewBefore | default "12h0m0s" | quote }}
     {{- end }}
   {{- end }}
+
+  enableCommonBootImageImport: {{ .enableCommonBootImageImport | default true }}
+  deployVmConsoleProxy: {{ .deployVmConsoleProxy | default false }}
+  enableApplicationAwareQuota: {{ .enableApplicationAwareQuota | default false }}
   
   {{- with .featureGates }}
   featureGates:
-    enableCommonBootImageImport: {{ .enableCommonBootImageImport | default true }}
     downwardMetrics: {{ .downwardMetrics | default false }}
     disableMDevConfiguration: {{ .disableMDevConfiguration | default false }}
-    enableApplicationAwareQuota: {{ .enableApplicationAwareQuota | default false }}
     deployKubeSecondaryDNS: {{ .deployKubeSecondaryDNS | default false }}
     alignCPUs: {{ .alignCPUs | default false }}
-    deployVmConsoleProxy: {{ .deployVmConsoleProxy | default true }}
     persistentReservation: {{ .persistentReservation | default false }}
-    autoResourceLimits: {{ .autoResourceLimits | default false }}
   {{- end }}
 
   {{- with .infra }}

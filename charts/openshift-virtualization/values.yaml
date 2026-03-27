@@ -32,14 +32,6 @@ virtualization:
 
   # -- Feature gates for OpenShift Virtualization
   featureGates:
-    # -- Enable common boot image import from external registries<br />
-    # Opt-in to automatic delivery/updates of the common data import cron templates.
-    # There are two sources for the data import cron templates: hard coded list of common templates, and custom
-    # templates that can be added to the dataImportCronTemplates field. This feature gates only control the common
-    # templates. It is possible to use custom templates by adding them to the dataImportCronTemplates field.
-    # @default -- true
-    enableCommonBootImageImport: true
-
     # -- Set the downwardMetrics feature gate in order to allow exposing a limited set of VM and host metrics to the guest.
     # @default -- false
     downwardMetrics: false
@@ -47,10 +39,6 @@ virtualization:
     # -- Disable mediated device configuration
     # @default -- false
     disableMDevConfiguration: false
-
-    # -- EnableApplicationAwareQuota if true, enables the Application Aware Quota feature
-    # @default -- false
-    enableApplicationAwareQuota: false
 
     # -- Set the deployKubeSecondaryDNS feature gate to true to allow deploying KubeSecondaryDNS by CNAO.
     # @default -- false
@@ -60,20 +48,10 @@ virtualization:
     # @default -- false
     alignCPUs: false
 
-    # -- Deploy VM Console Proxy for remote console access.
-    # @default -- true
-    deployVmConsoleProxy: true
-
     # -- Snable persistent reservation of a LUN through the SCSI Persistent Reserve commands on Kubevirt.
     # In order to issue privileged SCSI ioctls, the VM requires activation of the persistent reservation flag.
     # @default -- false
     persistentReservation: false
-
-    # -- Enable KubeVirt to set automatic limits when they are needed.
-    # If ResourceQuota with set memory limits is associated with a namespace, each pod in that namespace must have memory limits set.
-    # By default, KubeVirt does not set such limits to the virt-launcher pod.
-    # @default -- false
-    autoResourceLimits: false
 
   # -- infra HyperConvergedConfig influences the pod configuration (currently only placement)
   # for all the infra components needed on the virtualization enabled cluster
@@ -227,6 +205,22 @@ virtualization:
     # -- Progress timeout for migration (seconds)
     # @default -- 150
     progressTimeout: 150
+
+  # -- Enable common boot image import from external registries<br />
+  # Opt-in to automatic delivery/updates of the common data import cron templates.
+  # There are two sources for the data import cron templates: hard coded list of common templates, and custom
+  # templates that can be added to the dataImportCronTemplates field. This feature gates only control the common
+  # templates. It is possible to use custom templates by adding them to the dataImportCronTemplates field.
+  # @default -- true
+  enableCommonBootImageImport: true
+
+  # -- Deploy VM Console Proxy for remote console access.
+  # @default -- false
+  deployVmConsoleProxy: false
+
+  # -- EnableApplicationAwareQuota if true, enables the Application Aware Quota feature
+  # @default -- false
+  enableApplicationAwareQuota: false
 
   # -- certConfig holds the rotation policy for internal, self-signed certificates
   certConfig:

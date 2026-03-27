@@ -1,12 +1,12 @@
 apiVersion: v2
 name: openshift-virtualization
 description: Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)
-version: 1.0.0
+version: 1.0.1
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
@@ -29,3 +29,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: initial release
+    - kind: added
+      description: added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore.
