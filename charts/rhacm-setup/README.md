@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.18](https://img.shields.io/badge/Version-1.0.18-informational?style=flat-square)
+  ![Version: 1.0.19](https://img.shields.io/badge/Version-1.0.19-informational?style=flat-square)
 
  
 
@@ -31,7 +31,7 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+| tjungbauer | <dev@stdin.at> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:
@@ -58,7 +58,7 @@ Verify the subcharts for additional settings:
 | helper-operator.operators.advanced-cluster-management.operatorgroup.create | bool | `false` |  |
 | helper-operator.operators.advanced-cluster-management.operatorgroup.notownnamespace | bool | `false` |  |
 | helper-operator.operators.advanced-cluster-management.subscription.approval | string | `"Automatic"` |  |
-| helper-operator.operators.advanced-cluster-management.subscription.channel | string | `"release-2.10"` |  |
+| helper-operator.operators.advanced-cluster-management.subscription.channel | string | `"release-2.16"` |  |
 | helper-operator.operators.advanced-cluster-management.subscription.operatorName | string | `"advanced-cluster-management"` |  |
 | helper-operator.operators.advanced-cluster-management.subscription.source | string | `"redhat-operators"` |  |
 | helper-operator.operators.advanced-cluster-management.subscription.sourceNamespace | string | `"openshift-marketplace"` |  |
@@ -68,7 +68,12 @@ Verify the subcharts for additional settings:
 | helper-status-checker.checks[0].serviceAccount.name | string | `"sa-acm-status-checker"` |  |
 | helper-status-checker.checks[0].syncwave | int | `3` |  |
 | helper-status-checker.enabled | bool | `false` |  |
-| override-rhacm-operator-version | string | `"release-2.10"` | Anchor for the operator version |
+| override-rhacm-operator-version | string | `"release-2.16"` | Anchor for the operator version |
+| rhacm.importClusters | object | `{"addons":{"applicationManager":{"enabled":true},"certPolicyController":{"enabled":true},"iamPolicyController":{"enabled":true},"policyController":{"enabled":true},"searchCollector":{"enabled":true}},"clusters":null,"enabled":false,"klusterlet_addon_syncwave":"10","managed_cluster_syncwave":"5"}` | ManagedCluster + KlusterletAddonConfig when enabled (see templates/rhacm/managedCluster.yaml) This will create a new cluster in the management cluster. However, this will only prepare the cluster, you still need to download and execute the command to fully integrate the new cluster. |
+| rhacm.importClusters.addons | object | `{"applicationManager":{"enabled":true},"certPolicyController":{"enabled":true},"iamPolicyController":{"enabled":true},"policyController":{"enabled":true},"searchCollector":{"enabled":true}}` | Klusterlet addon controllers; all default to enabled. Override globally or per cluster via clusters[].addons Per default all addons are enabled. However, you can override this here GLOBALLY |
+| rhacm.importClusters.enabled | bool | false | Enable the import of clusters. |
+| rhacm.importClusters.klusterlet_addon_syncwave | string | 10 | Syncwave for the KlusterletAddonConfig. MUST be HIGHER than managed_cluster_syncwave |
+| rhacm.importClusters.managed_cluster_syncwave | string | 5 | Syncwaves for the ManagedCluster. MUST be LOWER than klusterlet_addon_syncwave |
 | rhacm.multiclusterhub.availabilityConfig | string | `"Basic"` | Specifies deployment replication for improved availability. Options are: Basic and High @efault: -- Basic |
 | rhacm.multiclusterhub.enabled | bool | false | Enable MultiClusterHub object |
 | rhacm.multiclusterhub.nodeSelector | object | empty | Specify a nodeSelector for example to move the Pods to infrastructure nodes. |
