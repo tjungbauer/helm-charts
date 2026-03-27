@@ -1,0 +1,42 @@
+{{- if .Values.rhacm.importClusters }}
+{{- if eq (.Values.rhacm.importClusters.enabled | toString) "true" }}
+{{- range .Values.rhacm.importClusters.clusters }}
+---
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: {{ .name }}
+  namespace: {{ .name }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ $.Values.rhacm.importClusters.klusterlet_addon_syncwave | default "10" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  clusterName: {{ .name }}
+  clusterNamespace: {{ .name }}
+  clusterLabels:
+    name: {{ .name }}
+    cloud: auto-detect
+    vendor: auto-detect
+    cluster.open-cluster-management.io/clusterset: {{ .clusterSet }}
+{{- $addonDefaults := $.Values.rhacm.importClusters.addons | default dict }}
+{{- $addons := mergeOverwrite (deepCopy $addonDefaults) (.addons | default dict) }}
+{{- $am := index $addons "applicationManager" | default dict }}
+{{- $pc := index $addons "policyController" | default dict }}
+{{- $sc := index $addons "searchCollector" | default dict }}
+{{- $cpc := index $addons "certPolicyController" | default dict }}
+{{- $ipc := index $addons "iamPolicyController" | default dict }}
+  applicationManager:
+    enabled: {{ if hasKey $am "enabled" }}{{ $am.enabled }}{{ else }}true{{ end }}
+  policyController:
+    enabled: {{ if hasKey $pc "enabled" }}{{ $pc.enabled }}{{ else }}true{{ end }}
+  searchCollector:
+    enabled: {{ if hasKey $sc "enabled" }}{{ $sc.enabled }}{{ else }}true{{ end }}
+  certPolicyController:
+    enabled: {{ if hasKey $cpc "enabled" }}{{ $cpc.enabled }}{{ else }}true{{ end }}
+  iamPolicyController:
+    enabled: {{ if hasKey $ipc "enabled" }}{{ $ipc.enabled }}{{ else }}true{{ end }}
+{{- end }}
+{{- end }}
+{{- end }}
