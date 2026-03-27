@@ -1,8 +1,26 @@
 {
-  "generated": "2026-02-18T09:16:16.002118Z",
+  "generated": "2026-03-27T10:47:58.161100Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "openshift-virtualization",
+      "version": "1.0.1",
+      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
+      "lastModified": "2026-03-27T11:46:16+01:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
+        }
+      ]
+    },
     {
       "name": "cert-manager",
       "version": "2.0.3",
@@ -1030,20 +1048,6 @@
         {
           "kind": "fixed",
           "description": "fixing ArtifactHub"
-        }
-      ]
-    },
-    {
-      "name": "openshift-virtualization",
-      "version": "1.0.0",
-      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
-      "lastModified": "2025-08-08T14:15:02+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
         }
       ]
     },

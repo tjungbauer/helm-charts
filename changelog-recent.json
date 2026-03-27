@@ -1,15 +1,15 @@
 {
-  "generated": "2026-02-18T09:16:16.002118Z",
+  "generated": "2026-03-27T10:47:58.161100Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "cert-manager",
-      "version": "2.0.3",
-      "description": "Install and configure the Cert-Manager",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
-      "lastModified": "2026-02-18T10:14:32+01:00",
+      "name": "openshift-virtualization",
+      "version": "1.0.1",
+      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
+      "lastModified": "2026-03-27T11:46:16+01:00",
       "changes": [
         {
           "kind": "added",
@@ -17,195 +17,7 @@
         },
         {
           "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added Certificate resource so this chart can be used to order any certificate"
-        },
-        {
-          "kind": "added",
-          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
-        },
-        {
-          "kind": "added",
-          "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
-        }
-      ]
-    },
-    {
-      "name": "openshift-gitops",
-      "version": "1.1.8",
-      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-02-13T12:04:36+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added customer Health Checks to Argo CD Patch-yaml"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed Argo CD CRD to v1beta1"
-        },
-        {
-          "kind": "fixed",
-          "description": "typo in health check"
-        },
-        {
-          "kind": "added",
-          "description": "cleaning up chart, added new README and tried to make more options configurable."
-        },
-        {
-          "kind": "added",
-          "description": "allowing configuration of syncwave for Argo CD object."
-        },
-        {
-          "kind": "fixed",
-          "description": "updated ArgoCD resource to v1beta1"
-        },
-        {
-          "kind": "added",
-          "description": "added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing some default Values"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define a global AppProject"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod"
-        },
-        {
-          "kind": "added",
-          "description": "It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example."
-        },
-        {
-          "kind": "added",
-          "description": "Added option to define nodeSelector for ArgoCD resource"
-        },
-        {
-          "kind": "added",
-          "description": "Added option to configure keycloak as SSO for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to completely enable/disable the sso configuration."
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to configure oidcConfig for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define environment variables for the repo-container"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define extraConfig settings"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define additional labels and annotations for the namespace"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define sharding settings for the controller"
-        },
-        {
-          "kind": "added",
-          "description": "bump version"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed error in the LokiStack resource health check"
-        },
-        {
-          "kind": "fixed",
-          "description": "disabled the gitops-application instance by default"
-        },
-        {
-          "kind": "fixed",
-          "description": "1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted"
-        },
-        {
-          "kind": "added",
-          "description": "1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin."
-        }
-      ]
-    },
-    {
-      "name": "helper-operator",
-      "version": "1.0.40",
-      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-01-24T06:00:20+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added Job that will enable Console Plugins if they are defined."
-        },
-        {
-          "kind": "added",
-          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added trustedCA configuration for the Operator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to disable common labels"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed namespace template to use the correct value for disable_common_labels"
-        },
-        {
-          "kind": "added",
-          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
+          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
         }
       ]
     }
