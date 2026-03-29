@@ -2,7 +2,7 @@
 tempostack-namespace: &tempostack-namespace tempo2stack-test
 
 tempostack:
-  # -- Enable TempoStack.
+  # -- Enable TempoStack
   # @default -- false
   enabled: false
 
