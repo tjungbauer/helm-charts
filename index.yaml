@@ -26340,6 +26340,55 @@ entries:
           description: added support for nodeSelector of the Main instance
         - kind: added
           description: (1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster.
+        - kind: added
+          description: (1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-03-29T15:18:48.761350191Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.22
+    description: Setup and configure Advanced Cluster Managerment. Replaces the Chart
+      rhacm-full-stack.
+    digest: fb109d6446759189b15f059527e1263ae5543d87b8ac1b2a850b3ef1bd414c43
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
+    keywords:
+    - clustermanagement
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacm-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacm-setup-1.0.20/rhacm-setup-1.0.20.tgz
+    version: 1.0.20
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: support for tolerations in MultiClusterHub CRD
+        - kind: added
+          description: updated to helper-status-chcker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+        - kind: added
+          description: added support for nodeSelector of the Main instance
+        - kind: added
+          description: (1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster.
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -33660,4 +33709,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-03-27T14:12:41.738784229Z"
+generated: "2026-03-29T15:18:48.762737728Z"
