@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.19](https://img.shields.io/badge/Version-1.0.19-informational?style=flat-square)
+  ![Version: 1.0.20](https://img.shields.io/badge/Version-1.0.20-informational?style=flat-square)
 
  
 
@@ -74,12 +74,25 @@ Verify the subcharts for additional settings:
 | rhacm.importClusters.enabled | bool | false | Enable the import of clusters. |
 | rhacm.importClusters.klusterlet_addon_syncwave | string | 10 | Syncwave for the KlusterletAddonConfig. MUST be HIGHER than managed_cluster_syncwave |
 | rhacm.importClusters.managed_cluster_syncwave | string | 5 | Syncwaves for the ManagedCluster. MUST be LOWER than klusterlet_addon_syncwave |
-| rhacm.multiclusterhub.availabilityConfig | string | `"Basic"` | Specifies deployment replication for improved availability. Options are: Basic and High @efault: -- Basic |
+| rhacm.multiclusterhub.availabilityConfig | string | Basic | Specifies deployment replication for improved availability. Options are: Basic and High |
 | rhacm.multiclusterhub.enabled | bool | false | Enable MultiClusterHub object |
 | rhacm.multiclusterhub.nodeSelector | object | empty | Specify a nodeSelector for example to move the Pods to infrastructure nodes. |
 | rhacm.multiclusterhub.syncwave | string | 3 | Syncwave for the MultiClusterHub |
 | rhacm.multiclusterhub.tolerations | list | empty | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacm.namespace.name | string | `"open-cluster-management"` |  |
+| rhacm.search | object | `{"dbStorage":{"size":"10Gi"},"deployments":{},"enabled":false,"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"syncwave":"15","tolerations":[{"effect":"NoSchedule","key":"storage","operator":"Equal","value":"local"}]}` | Search custom resource (search-v2-operator). See RH ACM 2.16 "Customizing the Search service". https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.16/html/search/acm-search#customize-search-console |
+| rhacm.search.dbStorage | object | `{"size":"10Gi"}` | PostgreSQL PVC for search-postgres. Omit entire key (set to null) to let the operator keep defaults (e.g. emptyDir for non-prod). |
+| rhacm.search.dbStorage.size | string | 10Gi | Size of the PostgreSQL PVC. |
+| rhacm.search.deployments | object | {} | Per-deployment tuning:    collector, indexer, database, queryapi (resources, replicaCount, envVar, arguments). Passed through as YAML. deployments:   collector:     resources:       limits: { cpu: 500m, memory: 128Mi }       requests: { cpu: 250m, memory: 64Mi }   indexer:     replicaCount: 3     resources:       limits: { memory: 5Gi }       requests: { memory: 1Gi }   database:     envVar:       - name: POSTGRESQL_EFFECTIVE_CACHE_SIZE         value: 1024MB       - name: POSTGRESQL_SHARED_BUFFERS         value: 512MB   queryapi:     arguments:       - -v=3 |
+| rhacm.search.enabled | bool | false | Enable Search custom resource. |
+| rhacm.search.nodeSelector | object | {} | Hub-wide node placement for search pods (maps to spec.nodeSelector). |
+| rhacm.search.syncwave | string | `"15"` | Argo CD sync wave; place after MultiClusterHub / search operator is available. |
+| rhacm.search.tolerations | list | [] | Hub-wide tolerations for search pods. |
+| rhacm.searchCollector | object | false | Search collector add-on: ConfigMap search-collector-config (AllowedResources / DeniedResources). https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/ |
+| rhacm.searchCollector.configMap.allowedResources | object | {} | Structured rules; rendered as YAML under ConfigMap data keys AllowedResources / DeniedResources. |
+| rhacm.searchCollector.configMap.enabled | bool | false | Enable Search collector add-on. |
+| rhacm.searchCollector.configMap.namespace | string | open-cluster-management-agent | Namespace where the klusterlet search-collector runs. |
+| rhacm.searchCollector.configMap.syncwave | string | 20 | Syncwave for the ConfigMap. |
 
 ## Example values
 
