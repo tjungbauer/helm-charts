@@ -19,6 +19,11 @@ jobs:
       group: release-${{ github.ref }}
       cancel-in-progress: false
     runs-on: ubuntu-latest
+    # chart-releaser embeds Helm v3's downloader; pin Helm 3 and one config dir so `helm repo add`
+    # and `cr package` (dependency build) read the same repositories.yaml.
+    env:
+      HELM_CONFIG_HOME: ${{ github.workspace }}/.helm-config
+      HELM_REPOSITORY_CACHE: ${{ github.workspace }}/.helm-cache
     steps:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
@@ -35,27 +40,35 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
         with:
-          version: latest 
+          # Keep v3: chart-releaser links Helm v3; `latest` can be v4+ with a different config layout.
+          version: v3.17.1
+
+      - name: Init Helm config
+        run: mkdir -p "$HELM_CONFIG_HOME"
 
       # Add caching for Helm repositories
       - name: Cache Helm repositories
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
         with:
-          path: ~/.cache/helm/repository
+          path: ${{ github.workspace }}/.helm-cache
           key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
           restore-keys: |
             ${{ runner.os }}-helm-
 
-      # cr package / helm package resolve Chart.lock like helm dependency build — every URL must be in helm repo list
+      # cr package runs embedded `helm dependency build` — every Chart.lock URL must exist in repositories.yaml
       - name: Add dependency chart repos
         run: |
-          helm repo add stable https://charts.helm.sh/stable
-          helm repo add incubator https://charts.helm.sh/incubator
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add tjungbauer https://charts.stderr.at/
-          helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube
-          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+          mkdir -p "$HELM_REPOSITORY_CACHE" "$HELM_CONFIG_HOME"
+          helm repo add stable https://charts.helm.sh/stable 2>/dev/null || true
+          helm repo add incubator https://charts.helm.sh/incubator 2>/dev/null || true
+          helm repo add bitnami https://charts.bitnami.com/bitnami 2>/dev/null || true
+          helm repo add tjungbauer https://charts.stderr.at/ 2>/dev/null || true
+          helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
+          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
           helm repo update
+          helm repo list
+          echo "HELM_CONFIG_HOME=$HELM_CONFIG_HOME"
+          test -f "$HELM_CONFIG_HOME/repositories.yaml"
 
       # Optional step if GPG signing is used
       - name: Prepare GPG key
@@ -132,6 +145,21 @@ jobs:
             echo "📚 All changes are documentation-only - skipping release"
           fi
 
+      # Must run after check-changes. cr embeds Helm v3's client — same HELM_CONFIG_HOME / HELM_REPOSITORY_CACHE as `helm repo add` above.
+      - name: Refresh Helm repos for chart-releaser
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          mkdir -p "$HELM_REPOSITORY_CACHE" "$HELM_CONFIG_HOME"
+          helm repo add stable https://charts.helm.sh/stable 2>/dev/null || true
+          helm repo add incubator https://charts.helm.sh/incubator 2>/dev/null || true
+          helm repo add bitnami https://charts.bitnami.com/bitnami 2>/dev/null || true
+          helm repo add tjungbauer https://charts.stderr.at/ 2>/dev/null || true
+          helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
+          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
+          helm repo update
+          helm repo list
+          grep -q 'charts.stderr.at' "$HELM_CONFIG_HOME/repositories.yaml"
+
       - name: Run chart-releaser
         if: steps.check-changes.outputs.changes == 'true'
         uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
@@ -139,6 +167,8 @@ jobs:
           config: cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          HELM_CONFIG_HOME: ${{ env.HELM_CONFIG_HOME }}
+          HELM_REPOSITORY_CACHE: ${{ env.HELM_REPOSITORY_CACHE }}
 
       - name: Log release status
         run: |
