@@ -46,11 +46,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-helm-
 
+      # cr package / helm package resolve Chart.lock like helm dependency build — every URL must be in helm repo list
       - name: Add dependency chart repos
         run: |
           helm repo add stable https://charts.helm.sh/stable
           helm repo add incubator https://charts.helm.sh/incubator
           helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add tjungbauer https://charts.stderr.at/
+          helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube
+          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
           helm repo update
 
       # Optional step if GPG signing is used
