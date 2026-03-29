@@ -22,6 +22,16 @@ Each Helm Chart has a detailed README that (I hope) explains all possible settin
 
 The generate the READMEs (well most of them) I am using using [helm-doc](https://github.com/norwoodj/helm-docs)
 
+## AI / Cursor helpers
+
+Agent-oriented docs live in the central **`ai-library`** repository under **`skills/helm-charts-mgmt/`**. This repo **symlinks** **`.cursor/skills/helm-charts-mgmt`** and **`.cursor/rules/helm-charts-mgmt.mdc`** using **relative** targets (`../../../ai-library/...`) so they stay valid after **`git clone`** as long as **`ai-library` and `helm-charts` are sibling directories** (same parent folder). Re-create or fix layout with:
+
+```bash
+/path/to/ai-library/scripts/link-to-helm-charts.sh /path/to/helm-charts
+```
+
+(`python3` is required by the script to compute relative paths.)
+
 ## Contribute/Questions
 
 Feel free to open issues and pull requests if you find anything that should be added or does not work as it should. I am happy if someone finds these charts usefull.

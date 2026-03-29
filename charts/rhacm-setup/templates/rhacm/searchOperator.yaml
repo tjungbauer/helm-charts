@@ -1,0 +1,35 @@
+{{- if .Values.rhacm.search }}
+{{- if eq (.Values.rhacm.search.enabled | toString) "true" }}
+---
+apiVersion: search.open-cluster-management.io/v1alpha1
+kind: Search
+metadata:
+  name: search-v2-operator
+  namespace: {{ .Values.rhacm.namespace.name | default "open-cluster-management" | quote }}
+  labels:
+    cluster.open-cluster-management.io/backup: ""
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.rhacm.search.syncwave | default "15" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+{{- with .Values.rhacm.search.dbStorage }}
+  dbStorage:
+    size: {{ .size | default "10Gi" | quote }}
+{{- if .storageClassName }}
+    storageClassName: {{ .storageClassName | quote }}
+{{- end }}
+{{- end }}
+{{- $dep := .Values.rhacm.search.deployments }}
+{{- if and $dep (not (empty $dep)) }}
+  deployments:
+{{- toYaml $dep | nindent 4 }}
+{{- end }}
+{{- if .Values.rhacm.search.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacm.search | indent 0 }}
+{{- end }}             
+{{- if .Values.rhacm.search.tolerations }}
+{{ include "tpl.tolerations" .Values.rhacm.search.tolerations | indent 2 }}
+{{- end }}  
+{{- end }}
+{{- end }}

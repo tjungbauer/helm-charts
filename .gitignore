@@ -41,3 +41,5 @@ Chart.lock
 
 test-chart/
 vm-manager/
+
+.cursor/

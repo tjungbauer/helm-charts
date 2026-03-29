@@ -20,7 +20,7 @@ rhacm:
     syncwave: '3'
 
     # -- Specifies deployment replication for improved availability. Options are: Basic and High
-    # @efault: -- Basic
+    # @default -- Basic
     availabilityConfig: Basic
 
     # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
@@ -83,6 +83,108 @@ rhacm:
         enabled: true
       iamPolicyController:
         enabled: true
+
+  # -- Search custom resource (search-v2-operator). See RH ACM 2.16 "Customizing the Search service".
+  # https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.16/html/search/acm-search#customize-search-console
+  search:
+    # -- Enable Search custom resource.
+    # @default -- false
+    enabled: false
+
+    # -- Argo CD sync wave; place after MultiClusterHub / search operator is available.
+    syncwave: "15"
+
+    # -- PostgreSQL PVC for search-postgres.
+    # Omit entire key (set to null) to let the operator keep defaults (e.g. emptyDir for non-prod).
+    dbStorage:
+      # -- Size of the PostgreSQL PVC.
+      # @default -- 10Gi
+      size: 10Gi
+
+      # storageClassName unset (set to your cluster StorageClass in production, e.g. gp2
+      # @default -- none
+      # storageClassName: gp2
+
+    # -- Per-deployment tuning:
+    #    collector, indexer, database, queryapi (resources, replicaCount, envVar, arguments).
+    # Passed through as YAML.
+    # @default -- {}
+    # deployments:
+    #   collector:
+    #     resources:
+    #       limits: { cpu: 500m, memory: 128Mi }
+    #       requests: { cpu: 250m, memory: 64Mi }
+    #   indexer:
+    #     replicaCount: 3
+    #     resources:
+    #       limits: { memory: 5Gi }
+    #       requests: { memory: 1Gi }
+    #   database:
+    #     envVar:
+    #       - name: POSTGRESQL_EFFECTIVE_CACHE_SIZE
+    #         value: 1024MB
+    #       - name: POSTGRESQL_SHARED_BUFFERS
+    #         value: 512MB
+    #   queryapi:
+    #     arguments:
+    #       - -v=3
+    deployments: {}
+
+    # -- Hub-wide node placement for search pods (maps to spec.nodeSelector).
+    # @default -- {}
+    nodeSelector:
+      key: node-role.kubernetes.io/infra
+      value: ''
+
+    # -- Hub-wide tolerations for search pods.
+    # @default -- []
+    tolerations:
+      - key: storage
+        operator: Equal
+        value: local
+        effect: NoSchedule
+
+  # -- Search collector add-on: ConfigMap search-collector-config (AllowedResources / DeniedResources).
+  # https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/
+  # @default -- false
+  searchCollector:
+    configMap:
+      # -- Enable Search collector add-on.
+      # @default -- false
+      enabled: false
+
+      # -- Namespace where the klusterlet search-collector runs.
+      # @default -- open-cluster-management-agent
+      namespace: open-cluster-management-agent
+
+      # -- Syncwave for the ConfigMap.
+      # @default -- 20
+      syncwave: "20"
+
+      # -- Structured rules; rendered as YAML under ConfigMap data keys AllowedResources / DeniedResources.
+      # @default -- {}
+      allowedResources: {}
+      #   - apiGroups:
+      #       - "*"
+      #     resources:
+      #      - services
+      #      - pods
+      #   - apiGroups:
+      #       - admission.k8s.io
+      #       - authentication.k8s.io
+      #     resources:
+      #       - "*"
+      # deniedResources:
+      #  - apiGroups:
+      #       - "*"
+      #     resources:
+      #       - secrets
+      #   - apiGroups:
+      #      - admission.k8s.io
+      #     resources:
+      #       - policies
+      #       - iampolicies
+      #       - certificatepolicies
 
 # Install Operator RHACM
 # Deploys Operator --> Subscription and Operatorgroup

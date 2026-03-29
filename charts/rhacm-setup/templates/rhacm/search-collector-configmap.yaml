@@ -1,0 +1,17 @@
+{{- if and .Values.rhacm.searchCollector .Values.rhacm.searchCollector.configMap.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: search-collector-config
+  namespace: {{ .Values.rhacm.searchCollector.configMap.namespace | default "open-cluster-management-agent" | quote }}
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.rhacm.searchCollector.configMap.syncwave | default "20" | quote }}
+data:
+  AllowedResources: |-
+{{ toYaml .Values.rhacm.searchCollector.configMap.allowedResources | indent 4 }}
+  DeniedResources: |-
+{{ toYaml .Values.rhacm.searchCollector.configMap.deniedResources | indent 4 }}
+{{- end }}
