@@ -1,12 +1,13 @@
 apiVersion: v2
 name: tpl
+type: library
 description: A library that shall collect certain templates to reuse them among different charts.
-version: 1.0.26
+version: 1.0.27
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -48,3 +49,5 @@ annotations:
       description: fixed issue with newline in tpl.sleeptimer
     - kind: added
       description: new TPL for namespace object
+    - kind: fixed
+      description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
