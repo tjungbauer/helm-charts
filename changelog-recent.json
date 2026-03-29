@@ -1,8 +1,74 @@
 {
-  "generated": "2026-03-29T15:19:21.943068Z",
+  "generated": "2026-03-29T16:11:10.240431Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "tpl",
+      "version": "1.0.27",
+      "description": "A library that shall collect certain templates to reuse them among different charts.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
+      "lastModified": "2026-03-29T18:09:49+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "tpl nodeSelector"
+        },
+        {
+          "kind": "added",
+          "description": "tpl for sleeptimer that can be used in jobs"
+        },
+        {
+          "kind": "added",
+          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create matchExpressions and matchLabels blocks"
+        },
+        {
+          "kind": "added",
+          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
+        },
+        {
+          "kind": "added",
+          "description": "nswitched order of tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set securityContext and podSecurityContext"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create ArgoCD Applications"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPL for namespace object"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
+        }
+      ]
+    },
     {
       "name": "rhacm-setup",
       "version": "1.0.20",
