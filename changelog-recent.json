@@ -1,15 +1,15 @@
 {
-  "generated": "2026-03-27T14:13:00.127321Z",
+  "generated": "2026-03-29T15:19:21.943068Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
       "name": "rhacm-setup",
-      "version": "1.0.19",
+      "version": "1.0.20",
       "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
-      "lastModified": "2026-03-27T15:11:19+01:00",
+      "lastModified": "2026-03-29T17:17:30+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -42,6 +42,10 @@
         {
           "kind": "added",
           "description": "(1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster."
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass."
         }
       ]
     },
