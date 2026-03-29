@@ -1,8 +1,50 @@
 {
-  "generated": "2026-03-29T16:11:10.240431Z",
+  "generated": "2026-03-29T21:08:14.768635Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "tempo-tracing",
+      "version": "1.0.7",
+      "description": "Configure the Tempo Operator (distributed tracing).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png",
+      "lastModified": "2026-03-29T22:33:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added labels to serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added description for storageSize parameter"
+        },
+        {
+          "kind": "added",
+          "description": "added syncwave parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with default values to keep argocd in sync"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with claims to keep argocd in sync"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at"
+        }
+      ]
+    },
     {
       "name": "tpl",
       "version": "1.0.27",
