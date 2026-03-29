@@ -88,7 +88,7 @@ Verify the subcharts for additional settings:
 | tempostack-namespace | string | `"tempo2stack-test"` |  |
 | tempostack.additionalAnnotations | string | {} | Additional annotations for the TempoStack. |
 | tempostack.additionalLabels | object | {} | Additional labels for the TempoStack. |
-| tempostack.enabled | bool | false | Enable TempoStack. |
+| tempostack.enabled | bool | false | Enable TempoStack |
 | tempostack.hashRing | object | `{"enabled":false,"memberlist":{"enableIPv6":false,"instanceAddrType":"default"}}` | HashRing defines the spec for the distributed hash ring configuration. |
 | tempostack.hashRing.enabled | bool | false | Enabled defines if the hash ring should be enabled. |
 | tempostack.hashRing.memberlist | object | {} | Memberlist defines the memberlist configuration for the hash ring. |
