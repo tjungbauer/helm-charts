@@ -64,11 +64,35 @@ jobs:
 
       - name: Add Helm repositories
         run: |
-          # Add common Helm repositories that charts might depend on
+          # Common repos + any URL used in Chart.yaml/Chart.lock (helm dependency build needs a matching helm repo)
           helm repo add stable https://charts.helm.sh/stable
           helm repo add incubator https://charts.helm.sh/incubator
           helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add tjungbauer https://charts.stderr.at/
+          helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube
+          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
           helm repo update
+
+      # Ensures Chart.lock resolves and vendored charts/*/charts/*.tgz match `helm dependency build`.
+      - name: Verify Helm dependency build matches committed files
+        run: |
+          set -euo pipefail
+          for chart in charts/*/Chart.yaml; do
+            [[ -f "$chart" ]] || continue
+            case "$chart" in
+              charts/test-chart/*) continue ;;
+            esac
+            if grep -q '^dependencies:' "$chart"; then
+              dir=$(dirname "$chart")
+              echo "helm dependency build $dir"
+              helm dependency build "$dir"
+            fi
+          done
+          if ! git diff --exit-code; then
+            echo "::error::Tracked files changed after helm dependency build — run helm dependency build (or update) locally and commit Chart.lock and/or charts/*/charts/*.tgz"
+            git diff
+            exit 1
+          fi
 
       - name: Run chart-testing (list-changed)
         id: list-changed

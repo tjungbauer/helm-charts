@@ -1,16 +1,16 @@
 apiVersion: v2
 name: tempo-tracing
 description: Configure the Tempo Operator (distributed tracing).
-version: 1.0.6
+version: 1.0.7
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -42,3 +42,5 @@ annotations:
       description: fixed issue with default values to keep argocd in sync
     - kind: fixed
       description: fixed issue with claims to keep argocd in sync
+    - kind: changed
+      description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at

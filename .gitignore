@@ -31,13 +31,13 @@ bin/*
 Session.vim
 .netrwhist
 
-# Chart dependencies
-**/charts/*.tgz
-Chart.lock
+# Vendored subcharts under charts/<name>/charts/*.tgz are committed. Root-level Helm packages only:
+/*.tgz
 
 .history
 
-*.tgz
+# Local Helm cache (used when default cache is not writable)
+.helm-cache/
 
 test-chart/
 vm-manager/
