@@ -1,187 +1,45 @@
 {
-  "generated": "2026-03-29T21:08:14.768635Z",
+  "generated": "2026-03-30T06:28:48.728250Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "tempo-tracing",
+      "name": "admin-networkpolicies",
       "version": "1.0.7",
-      "description": "Configure the Tempo Operator (distributed tracing).",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png",
-      "lastModified": "2026-03-29T22:33:13+02:00",
+      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
           "description": "initial release"
         },
         {
-          "kind": "fixed",
-          "description": "fixed issue with serviceaccount template"
+          "kind": "added",
+          "description": "fixes and adding README"
         },
         {
           "kind": "added",
-          "description": "added labels to serviceaccount template"
+          "description": "added support for portEndNumber"
         },
         {
           "kind": "added",
-          "description": "added description for storageSize parameter"
-        },
-        {
-          "kind": "added",
-          "description": "added syncwave parameter"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with default values to keep argocd in sync"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with claims to keep argocd in sync"
+          "description": "fixing portRange implementation"
         },
         {
           "kind": "changed",
-          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at"
-        }
-      ]
-    },
-    {
-      "name": "tpl",
-      "version": "1.0.27",
-      "description": "A library that shall collect certain templates to reuse them among different charts.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
-      "lastModified": "2026-03-29T18:09:49+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "tpl nodeSelector"
-        },
-        {
-          "kind": "added",
-          "description": "tpl for sleeptimer that can be used in jobs"
-        },
-        {
-          "kind": "added",
-          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create matchExpressions and matchLabels blocks"
-        },
-        {
-          "kind": "added",
-          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
-        },
-        {
-          "kind": "added",
-          "description": "nswitched order of tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set securityContext and podSecurityContext"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create ArgoCD Applications"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPL for namespace object"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
-        }
-      ]
-    },
-    {
-      "name": "rhacm-setup",
-      "version": "1.0.20",
-      "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
-      "lastModified": "2026-03-29T17:17:30+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "support for tolerations in MultiClusterHub CRD"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-chcker v4"
-        },
-        {
-          "kind": "added",
-          "description": "README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added support for nodeSelector of the Main instance"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster."
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass."
-        }
-      ]
-    },
-    {
-      "name": "openshift-virtualization",
-      "version": "1.0.1",
-      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
-      "lastModified": "2026-03-27T11:46:16+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "cert-manager",
-      "version": "2.0.3",
+      "version": "2.0.4",
       "description": "Install and configure the Cert-Manager",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
-      "lastModified": "2026-02-18T10:14:32+01:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
@@ -202,16 +60,928 @@
         {
           "kind": "added",
           "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "collection-management-operators",
+      "version": "1.0.54",
+      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "redefined the management operators that shall be installed."
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.54) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "collection-operators",
+      "version": "1.0.43",
+      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.43) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "collection-optional-operators",
+      "version": "1.0.35",
+      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "compliance-operator-full-stack",
+      "version": "1.0.34",
+      "description": "Master chart to deploy and configure the Compliance Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "README.md"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "cost-management",
+      "version": "1.0.15",
+      "description": "Setup and configure cost-management Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "added",
+          "description": "Added README and additional possible parameters"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added source configuration parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed auth_secret parameter"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "cyclonedx",
+      "version": "1.0.10",
+      "description": "A Helm chart to deploy CycloneDX to generate SBOM",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "dev-spaces",
+      "version": "1.0.1",
+      "description": "Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native development solution that\ndelivers consistent developer environments on Red Hat OpenShift.\n",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "First Release"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.1) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "etcd-backup",
+      "version": "1.0.11",
+      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added key-pruner Cronjob"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "file-integrity-operator",
+      "version": "1.0.14",
+      "description": "Setup the FileIntegrity Operator (based on AIDE)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4 and prepared readme file"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "generic-cluster-config",
+      "version": "1.0.65",
+      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        },
+        {
+          "kind": "added",
+          "description": "using some templates"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of Samples operator"
+        },
+        {
+          "kind": "added",
+          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "You can now define your external AlertManager and external Labels."
+        },
+        {
+          "kind": "added",
+          "description": "you can now define nodeExporter features and resources"
+        },
+        {
+          "kind": "fixed",
+          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure remoteWrite"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the metricsServer"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the google openID"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed some issues with the proxy and trusted CA"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing ArtifactHub"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helm-policy-generator",
+      "version": "1.0.18",
+      "description": "This Chart shall help to generate policies for Advanced Cluster Management",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "added",
+          "description": "descriptions in example values-files and some minor changes for optional parameters"
+        },
+        {
+          "kind": "added",
+          "description": "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
+        },
+        {
+          "kind": "fixed",
+          "description": "put Namespaceselector for policies into the right place"
+        },
+        {
+          "kind": "added",
+          "description": "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
+        },
+        {
+          "kind": "added",
+          "description": "added example for cluster health checks"
+        },
+        {
+          "kind": "added",
+          "description": "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "fixed",
+          "description": "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-argocd",
+      "version": "2.0.44",
+      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "support git GIT generator"
+        },
+        {
+          "kind": "added",
+          "description": "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
+        },
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for Matrix Generator (opinionated)"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for ignoreDifferences definition in ApplicationSet"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing syncwave settings for Application objects"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of namespace for Application objects"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of retries in ApplicationSets"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "fixed",
+          "description": "AppProject has been extended to that the namespace can be defined as well."
+        },
+        {
+          "kind": "fixed",
+          "description": "app_project can now be correctly defined for applicationsets"
+        },
+        {
+          "kind": "added",
+          "description": "merge generator can be used for applicationsets now and additional examples around git Generator"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed an issue with the default namespace for git generator"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.44) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-loki-bucket-secret",
+      "version": "1.0.12",
+      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "removed hardcodedstring logging"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-lokistack",
+      "version": "1.0.22",
+      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "finalizing README and added possibility to configure culster-admin list and retention"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed value .size to .storage.size"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using global template to build tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed default schema"
+        },
+        {
+          "kind": "added",
+          "description": "possibility to configure the CA configmap"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure nodeSelector for LokiStack components."
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure network policy ruleset"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-objectstore",
+      "version": "1.0.10",
+      "description": "A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently type PV is supported only (Creating a local Persistent Volume-backed backingstore)!",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "Added README and did some cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-odf-bucket-secret",
+      "version": "1.0.3",
+      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "disabled example values"
+        },
+        {
+          "kind": "added",
+          "description": "cleanup and renaming"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-operator",
+      "version": "1.0.41",
+      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added Job that will enable Console Plugins if they are defined."
+        },
+        {
+          "kind": "added",
+          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added trustedCA configuration for the Operator"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to disable common labels"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed namespace template to use the correct value for disable_common_labels"
+        },
+        {
+          "kind": "added",
+          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-proj-onboarding",
+      "version": "1.0.47",
+      "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed the ifelse definitions for resourcequota for tshirt sizes"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed the way default network policies are managed"
+        },
+        {
+          "kind": "fixed",
+          "description": "streamlined the creation of AppProject"
+        },
+        {
+          "kind": "added",
+          "description": "added README and did some fixed"
+        },
+        {
+          "kind": "added",
+          "description": "possibility to define egressIPs"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "fixed",
+          "description": "fullaccess of argocd project now also allows to define the own repository for a developer"
+        },
+        {
+          "kind": "fixed",
+          "description": "added annotations to namespace"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-server-side-apply",
+      "version": "1.0.15",
+      "description": "Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure roles and tains for nodes"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "helper-status-checker",
+      "version": "4.0.17",
+      "description": "A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        },
+        {
+          "kind": "added",
+          "description": "added new option subscriptionName in case the subscription name is different to the operator name"
+        },
+        {
+          "kind": "fixed",
+          "description": "Wrong clusterrole for the installplan approver."
+        },
+        {
+          "kind": "added",
+          "description": "improved output for the installplan approver"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using tpl.sleeptimer now to prevent code repetition"
+        },
+        {
+          "kind": "fixed",
+          "description": "removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job."
+        },
+        {
+          "kind": "changed",
+          "description": "(4.0.17) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "ingresscontroller",
+      "version": "1.0.18",
+      "description": "Configures the IngressController object.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure routeAdmission"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "minio-configurator",
+      "version": "1.0.11",
+      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "changed",
+          "description": "changed the image to the new minio-client-tools image"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed the issue with the findutils package"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "network-observability",
+      "version": "2.0.4",
+      "description": "Installs and configures OpenShift Network Observability Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing icon"
+        },
+        {
+          "kind": "added",
+          "description": "added README and did some cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports."
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "openshift-data-foundation",
+      "version": "1.0.36",
+      "description": "Deploys and configures the OpenShift Data Foundation Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Updated to Open Data Foundation v4.13"
+        },
+        {
+          "kind": "added",
+          "description": "Added StorageCluster object which automatically spins up the storage."
+        },
+        {
+          "kind": "added",
+          "description": "Spliting storagecluster to full-fletched and standalone for better reasability."
+        },
+        {
+          "kind": "fixed",
+          "description": "wrong IFs"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-check v4 and added readme"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "added resourceProfile setting that can be set to lean or balanced or performance"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.36) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "openshift-gitops",
-      "version": "1.1.8",
+      "version": "1.1.9",
       "description": "Installs and patches the Red Hat Openshift Gitops Operator",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-02-13T12:04:36+01:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -324,390 +1094,20 @@
         {
           "kind": "added",
           "description": "1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin."
-        }
-      ]
-    },
-    {
-      "name": "helper-operator",
-      "version": "1.0.40",
-      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-01-24T06:00:20+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added Job that will enable Console Plugins if they are defined."
-        },
-        {
-          "kind": "added",
-          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added trustedCA configuration for the Operator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to disable common labels"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed namespace template to use the correct value for disable_common_labels"
-        },
-        {
-          "kind": "added",
-          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
-        }
-      ]
-    },
-    {
-      "name": "rhacs-setup",
-      "version": "1.0.41",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-01-13T14:04:19+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "added Readme"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "fixed",
-          "description": "documented missing centralEndpoint setting"
-        },
-        {
-          "kind": "added",
-          "description": "using common tpl chart for reusablility"
-        },
-        {
-          "kind": "added",
-          "description": "added option to define nodeSelector for all components"
-        },
-        {
-          "kind": "added",
-          "description": "alow to configure Scanner for SecuredCluster"
-        },
-        {
-          "kind": "added",
-          "description": "allowing definition of declerativeConfiguration configMaps"
-        },
-        {
-          "kind": "added",
-          "description": "added support to enable scanner V4"
-        },
-        {
-          "kind": "added",
-          "description": "added support to define declarative configurations including oauth providers"
-        },
-        {
-          "kind": "added",
-          "description": "updated example values file"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed yaml syntax for declarative configurations"
-        }
-      ]
-    },
-    {
-      "name": "sealed-secrets",
-      "version": "1.0.27",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-01-13T11:57:08+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
-        }
-      ]
-    },
-    {
-      "name": "sonarqube",
-      "version": "1.0.28",
-      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
-      "lastModified": "2025-12-22T07:38:32+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial chart"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        }
-      ]
-    },
-    {
-      "name": "collection-management-operators",
-      "version": "1.0.53",
-      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2025-12-11T16:36:56+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "redefined the management operators that shall be installed."
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        }
-      ]
-    },
-    {
-      "name": "helper-proj-onboarding",
-      "version": "1.0.46",
-      "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-12-11T14:48:48+01:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed the ifelse definitions for resourcequota for tshirt sizes"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed the way default network policies are managed"
-        },
-        {
-          "kind": "fixed",
-          "description": "streamlined the creation of AppProject"
-        },
-        {
-          "kind": "added",
-          "description": "added README and did some fixed"
-        },
-        {
-          "kind": "added",
-          "description": "possibility to define egressIPs"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "fixed",
-          "description": "fullaccess of argocd project now also allows to define the own repository for a developer"
-        },
-        {
-          "kind": "fixed",
-          "description": "added annotations to namespace"
-        }
-      ]
-    },
-    {
-      "name": "rh-build-of-opentelemetry",
-      "version": "1.0.5",
-      "description": "Configure Red Hat Build of OpenTelemetry Operator resources (Collector, Instrumentation, TargetAllocator).",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png",
-      "lastModified": "2025-12-11T10:32:07+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with config map template"
-        },
-        {
-          "kind": "added",
-          "description": "added syncwave parameter"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with additional annotations to keep argocd in sync"
-        },
-        {
-          "kind": "added",
-          "description": "added serviceaccount template"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with serviceaccount template to keep argocd in sync"
-        }
-      ]
-    },
-    {
-      "name": "minio-configurator",
-      "version": "1.0.10",
-      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
-      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
-      "lastModified": "2025-12-03T06:24:49+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
         },
         {
           "kind": "changed",
-          "description": "changed the image to the new minio-client-tools image"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed the issue with the findutils package"
-        }
-      ]
-    },
-    {
-      "name": "collection-operators",
-      "version": "1.0.42",
-      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2025-12-01T01:30:31Z",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        }
-      ]
-    },
-    {
-      "name": "collection-optional-operators",
-      "version": "1.0.34",
-      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2025-12-01T01:30:31Z",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        }
-      ]
-    },
-    {
-      "name": "helper-lokistack",
-      "version": "1.0.21",
-      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
-      "lastModified": "2025-11-29T07:19:28+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "finalizing README and added possibility to configure culster-admin list and retention"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed value .size to .storage.size"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "using global template to build tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed default schema"
-        },
-        {
-          "kind": "added",
-          "description": "possibility to configure the CA configmap"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure nodeSelector for LokiStack components."
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure network policy ruleset"
+          "description": "(1.1.9) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "openshift-logging",
-      "version": "3.0.6",
+      "version": "3.0.7",
       "description": "Deploy and configure OpenShift Logging based on LokiStack",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging",
       "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg",
-      "lastModified": "2025-11-29T07:16:37+01:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -752,106 +1152,64 @@
         {
           "kind": "added",
           "description": "allowing to define network policy ruleset"
+        },
+        {
+          "kind": "changed",
+          "description": "(3.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
-      "name": "helper-odf-bucket-secret",
+      "name": "openshift-virtualization",
       "version": "1.0.2",
-      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-11-29T06:40:09+01:00",
+      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
-          "description": "Initial release"
+          "description": "initial release"
         },
+        {
+          "kind": "added",
+          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "pipeline-example",
+      "version": "1.0.12",
+      "description": "Create an example Pipeline which does a linting of openshift-clusterconfig-gitops using kubelinter, yamllin, yamlscore ....",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
         {
           "kind": "fixed",
-          "description": "disabled example values"
+          "description": "Signing Chart"
         },
         {
           "kind": "added",
-          "description": "cleanup and renaming"
-        }
-      ]
-    },
-    {
-      "name": "update-clusterversion",
-      "version": "1.0.2",
-      "description": "A Helm chart to update OpenShift ClusterVersion",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png",
-      "lastModified": "2025-11-26T12:10:52+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial Release"
-        }
-      ]
-    },
-    {
-      "name": "dev-spaces",
-      "version": "1.0.0",
-      "description": "Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native development solution that\ndelivers consistent developer environments on Red Hat OpenShift.\n",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces",
-      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png",
-      "lastModified": "2025-10-28T16:08:34+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "First Release"
-        }
-      ]
-    },
-    {
-      "name": "etcd-backup",
-      "version": "1.0.10",
-      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2025-10-28T13:40:48+01:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
+          "description": "added tpl chart"
         },
         {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added key-pruner Cronjob"
-        }
-      ]
-    },
-    {
-      "name": "trusted-artifact-signer",
-      "version": "1.0.1",
-      "description": "Configure Trusted Artifact Signer",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer",
-      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png",
-      "lastModified": "2025-10-23T16:46:05+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "First Release"
-        },
-        {
-          "kind": "added",
-          "description": "Added icon"
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "quay-registry-setup",
-      "version": "2.0.17",
+      "version": "2.0.18",
       "description": "Deploy and configure Red Hat Quay Registry.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png",
-      "lastModified": "2025-09-30T17:53:59+02:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
@@ -936,588 +1294,20 @@
         {
           "kind": "added",
           "description": "Added support for auto-prune feature"
-        }
-      ]
-    },
-    {
-      "name": "compliance-operator-full-stack",
-      "version": "1.0.33",
-      "description": "Master chart to deploy and configure the Compliance Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
-      "lastModified": "2025-08-19T13:48:46+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "README.md"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        }
-      ]
-    },
-    {
-      "name": "helm-policy-generator",
-      "version": "1.0.17",
-      "description": "This Chart shall help to generate policies for Advanced Cluster Management",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
-      "lastModified": "2025-08-13T12:00:00+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial Release"
-        },
-        {
-          "kind": "added",
-          "description": "descriptions in example values-files and some minor changes for optional parameters"
-        },
-        {
-          "kind": "added",
-          "description": "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
-        },
-        {
-          "kind": "fixed",
-          "description": "put Namespaceselector for policies into the right place"
-        },
-        {
-          "kind": "added",
-          "description": "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
-        },
-        {
-          "kind": "added",
-          "description": "added example for cluster health checks"
-        },
-        {
-          "kind": "added",
-          "description": "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "fixed",
-          "description": "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
-        }
-      ]
-    },
-    {
-      "name": "generic-cluster-config",
-      "version": "1.0.64",
-      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2025-08-08T16:50:56+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
-        },
-        {
-          "kind": "added",
-          "description": "using some templates"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of Samples operator"
-        },
-        {
-          "kind": "added",
-          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "You can now define your external AlertManager and external Labels."
-        },
-        {
-          "kind": "added",
-          "description": "you can now define nodeExporter features and resources"
-        },
-        {
-          "kind": "fixed",
-          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure remoteWrite"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the metricsServer"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the google openID"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed some issues with the proxy and trusted CA"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing ArtifactHub"
-        }
-      ]
-    },
-    {
-      "name": "admin-networkpolicies",
-      "version": "1.0.6",
-      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "fixes and adding README"
-        },
-        {
-          "kind": "added",
-          "description": "added support for portEndNumber"
-        },
-        {
-          "kind": "added",
-          "description": "fixing portRange implementation"
-        }
-      ]
-    },
-    {
-      "name": "cost-management",
-      "version": "1.0.14",
-      "description": "Setup and configure cost-management Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial Release"
-        },
-        {
-          "kind": "added",
-          "description": "Added README and additional possible parameters"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added source configuration parameter"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed auth_secret parameter"
-        }
-      ]
-    },
-    {
-      "name": "cyclonedx",
-      "version": "1.0.9",
-      "description": "A Helm chart to deploy CycloneDX to generate SBOM",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        }
-      ]
-    },
-    {
-      "name": "file-integrity-operator",
-      "version": "1.0.13",
-      "description": "Setup the FileIntegrity Operator (based on AIDE)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4 and prepared readme file"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        }
-      ]
-    },
-    {
-      "name": "helper-argocd",
-      "version": "2.0.43",
-      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "support git GIT generator"
-        },
-        {
-          "kind": "added",
-          "description": "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
-        },
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for Matrix Generator (opinionated)"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for ignoreDifferences definition in ApplicationSet"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing syncwave settings for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of namespace for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of retries in ApplicationSets"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "fixed",
-          "description": "AppProject has been extended to that the namespace can be defined as well."
-        },
-        {
-          "kind": "fixed",
-          "description": "app_project can now be correctly defined for applicationsets"
-        },
-        {
-          "kind": "added",
-          "description": "merge generator can be used for applicationsets now and additional examples around git Generator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed an issue with the default namespace for git generator"
-        }
-      ]
-    },
-    {
-      "name": "helper-loki-bucket-secret",
-      "version": "1.0.11",
-      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "removed hardcodedstring logging"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        }
-      ]
-    },
-    {
-      "name": "helper-objectstore",
-      "version": "1.0.9",
-      "description": "A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently type PV is supported only (Creating a local Persistent Volume-backed backingstore)!",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "Added README and did some cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        }
-      ]
-    },
-    {
-      "name": "helper-server-side-apply",
-      "version": "1.0.14",
-      "description": "Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure roles and tains for nodes"
-        }
-      ]
-    },
-    {
-      "name": "helper-status-checker",
-      "version": "4.0.16",
-      "description": "A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
-        },
-        {
-          "kind": "added",
-          "description": "added new option subscriptionName in case the subscription name is different to the operator name"
-        },
-        {
-          "kind": "fixed",
-          "description": "Wrong clusterrole for the installplan approver."
-        },
-        {
-          "kind": "added",
-          "description": "improved output for the installplan approver"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "using tpl.sleeptimer now to prevent code repetition"
-        },
-        {
-          "kind": "fixed",
-          "description": "removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job."
-        }
-      ]
-    },
-    {
-      "name": "ingresscontroller",
-      "version": "1.0.17",
-      "description": "Configures the IngressController object.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure routeAdmission"
-        }
-      ]
-    },
-    {
-      "name": "network-observability",
-      "version": "2.0.3",
-      "description": "Installs and configures OpenShift Network Observability Operator.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial Release"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing icon"
-        },
-        {
-          "kind": "added",
-          "description": "added README and did some cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports."
-        }
-      ]
-    },
-    {
-      "name": "openshift-data-foundation",
-      "version": "1.0.35",
-      "description": "Deploys and configures the OpenShift Data Foundation Operator.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-data-foundation",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Updated to Open Data Foundation v4.13"
-        },
-        {
-          "kind": "added",
-          "description": "Added StorageCluster object which automatically spins up the storage."
-        },
-        {
-          "kind": "added",
-          "description": "Spliting storagecluster to full-fletched and standalone for better reasability."
-        },
-        {
-          "kind": "fixed",
-          "description": "wrong IFs"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-check v4 and added readme"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "added resourceProfile setting that can be set to lean or balanced or performance"
-        }
-      ]
-    },
-    {
-      "name": "pipeline-example",
-      "version": "1.0.11",
-      "description": "Create an example Pipeline which does a linting of openshift-clusterconfig-gitops using kubelinter, yamllin, yamlscore ....",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
         },
         {
-          "kind": "added",
-          "description": "added tpl chart"
+          "kind": "changed",
+          "description": "(2.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "rh-build-keycloak",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "description": "Configure the operator Red Hat Build of Keycloak",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
@@ -1530,30 +1320,244 @@
         {
           "kind": "added",
           "description": "Change the example database StatefulSet to use a VolumeClaimTemplate to have persistent storage."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "rh-build-of-opentelemetry",
+      "version": "1.0.6",
+      "description": "Configure Red Hat Build of OpenTelemetry Operator resources (Collector, Instrumentation, TargetAllocator).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-of-opentelemetry",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/opentelemetry-icon-color.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with config map template"
+        },
+        {
+          "kind": "added",
+          "description": "added syncwave parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with additional annotations to keep argocd in sync"
+        },
+        {
+          "kind": "added",
+          "description": "added serviceaccount template"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with serviceaccount template to keep argocd in sync"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "rhacm-setup",
+      "version": "1.0.21",
+      "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "support for tolerations in MultiClusterHub CRD"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-chcker v4"
+        },
+        {
+          "kind": "added",
+          "description": "README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added support for nodeSelector of the Main instance"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster."
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.21) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "rhacs-backup",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "description": "Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "added",
           "description": "Initial release"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-demo-applications",
+      "version": "1.0.9",
+      "description": "Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.9) - Maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.42",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "added Readme"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "fixed",
+          "description": "documented missing centralEndpoint setting"
+        },
+        {
+          "kind": "added",
+          "description": "using common tpl chart for reusablility"
+        },
+        {
+          "kind": "added",
+          "description": "added option to define nodeSelector for all components"
+        },
+        {
+          "kind": "added",
+          "description": "alow to configure Scanner for SecuredCluster"
+        },
+        {
+          "kind": "added",
+          "description": "allowing definition of declerativeConfiguration configMaps"
+        },
+        {
+          "kind": "added",
+          "description": "added support to enable scanner V4"
+        },
+        {
+          "kind": "added",
+          "description": "added support to define declarative configurations including oauth providers"
+        },
+        {
+          "kind": "added",
+          "description": "updated example values file"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed yaml syntax for declarative configurations"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.42) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.28",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version"
+        },
+        {
+          "kind": "added",
+          "description": "new README"
+        },
+        {
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
       "name": "setup-container-security-operator",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "description": "Setup the Quay Container Security Operator.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png",
-      "lastModified": "2025-07-07T09:36:19+02:00",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -1562,20 +1566,184 @@
         {
           "kind": "added",
           "description": "updated to helper-status-checker v4 and added new README"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
     {
-      "name": "rhacs-demo-applications",
-      "version": "1.0.8",
-      "description": "Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
-      "lastModified": "2025-07-03T09:35:52+02:00",
+      "name": "sonarqube",
+      "version": "1.0.29",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
       "changes": [
         {
+          "kind": "added",
+          "description": "initial chart"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "trusted-artifact-signer",
+      "version": "1.0.2",
+      "description": "Configure Trusted Artifact Signer",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "First Release"
+        },
+        {
+          "kind": "added",
+          "description": "Added icon"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "update-clusterversion",
+      "version": "1.0.3",
+      "description": "A Helm chart to update OpenShift ClusterVersion",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png",
+      "lastModified": "2026-03-30T08:11:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) - Maintainer email"
+        }
+      ]
+    },
+    {
+      "name": "tempo-tracing",
+      "version": "1.0.7",
+      "description": "Configure the Tempo Operator (distributed tracing).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png",
+      "lastModified": "2026-03-29T22:33:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
           "kind": "fixed",
-          "description": "Signing Chart"
+          "description": "fixed issue with serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added labels to serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added description for storageSize parameter"
+        },
+        {
+          "kind": "added",
+          "description": "added syncwave parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with default values to keep argocd in sync"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with claims to keep argocd in sync"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at"
+        }
+      ]
+    },
+    {
+      "name": "tpl",
+      "version": "1.0.27",
+      "description": "A library that shall collect certain templates to reuse them among different charts.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
+      "lastModified": "2026-03-29T18:09:49+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "tpl nodeSelector"
+        },
+        {
+          "kind": "added",
+          "description": "tpl for sleeptimer that can be used in jobs"
+        },
+        {
+          "kind": "added",
+          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create matchExpressions and matchLabels blocks"
+        },
+        {
+          "kind": "added",
+          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
+        },
+        {
+          "kind": "added",
+          "description": "nswitched order of tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set securityContext and podSecurityContext"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create ArgoCD Applications"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPL for namespace object"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
         }
       ]
     }
