@@ -1,7 +1,7 @@
 apiVersion: v2
 name: setup-container-security-operator
 description: Setup the Quay Container Security Operator.
-version: 1.0.11
+version: 1.0.12
 dependencies:
   - name: helper-operator
     version: ~1.0.36
@@ -14,7 +14,7 @@ home: https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -34,3 +34,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: updated to helper-status-checker v4 and added new README
+    - kind: changed
+      description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

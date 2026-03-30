@@ -1,12 +1,12 @@
 apiVersion: v2
 name: openshift-gitops
 description: Installs and patches the Red Hat Openshift Gitops Operator
-version: 1.1.8
+version: 1.1.9
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -14,7 +14,7 @@ sources:
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
   - name: helper-operator
     version: ~1.0.36
@@ -88,3 +88,5 @@ annotations:
       description: 1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted
     - kind: added
       description: 1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin.
+    - kind: changed
+      description: (1.1.9) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

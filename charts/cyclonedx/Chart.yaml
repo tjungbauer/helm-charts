@@ -2,17 +2,17 @@ apiVersion: v2
 name: cyclonedx
 description: A Helm chart to deploy CycloneDX to generate SBOM
 type: application
-version: 1.0.9
+version: 1.0.10
 appVersion: 1.0.0
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -30,3 +30,5 @@ annotations:
       description: Initial release
     - kind: added
       description: added dependency tp tpl library
+    - kind: changed
+      description: (1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

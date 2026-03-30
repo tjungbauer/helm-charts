@@ -1,16 +1,16 @@
 apiVersion: v2
 name: helper-operator
 description: A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.
-version: 1.0.40
+version: 1.0.41
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -48,3 +48,5 @@ annotations:
       description: fixed namespace template to use the correct value for disable_common_labels
     - kind: added
       description: 1.0.40 - added possibility to configure a custom operatorgroup name
+    - kind: changed
+      description: (1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

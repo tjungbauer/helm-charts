@@ -1,16 +1,16 @@
 apiVersion: v2
 name: etcd-backup
 description: Create a CronJob that performs ETCD Backup and stores the backup to a PV.
-version: 1.0.10
+version: 1.0.11
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -31,3 +31,5 @@ annotations:
       description: added dependency tp tpl library
     - kind: added
       description: added key-pruner Cronjob
+    - kind: changed
+      description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

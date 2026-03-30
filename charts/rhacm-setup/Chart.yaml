@@ -1,12 +1,12 @@
 apiVersion: v2
 name: rhacm-setup
 description: Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
-version: 1.0.20
+version: 1.0.21
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -42,3 +42,5 @@ annotations:
       description: (1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster.
     - kind: added
       description: (1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass.
+    - kind: changed
+      description: (1.0.21) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

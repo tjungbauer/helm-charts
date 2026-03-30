@@ -1,16 +1,16 @@
 apiVersion: v2
 name: rh-build-keycloak
 description: Configure the operator Red Hat Build of Keycloak
-version: 1.0.5
+version: 1.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rh-build-keycloak
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/redhat-icon.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -31,3 +31,5 @@ annotations:
       description: added a small example config to the readme
     - kind: added
       description: Change the example database StatefulSet to use a VolumeClaimTemplate to have persistent storage.
+    - kind: changed
+      description: (1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

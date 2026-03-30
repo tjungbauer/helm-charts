@@ -1,7 +1,7 @@
 apiVersion: v2
 name: compliance-operator-full-stack
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.33
+version: 1.0.34
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
 dependencies:
@@ -13,11 +13,11 @@ dependencies:
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -40,3 +40,5 @@ annotations:
       description: updated to helper-status-checker v4
     - kind: added
       description: added dependency tp tpl library
+    - kind: changed
+      description: (1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

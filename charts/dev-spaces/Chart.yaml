@@ -6,14 +6,14 @@ description: |
   delivers consistent developer environments on Red Hat OpenShift.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png
-version: 1.0.0
+version: 1.0.1
 dependencies:
   - name: tpl
-    version: ~1.0.25
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -34,3 +34,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: First Release
+    - kind: changed
+      description: (1.0.1) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

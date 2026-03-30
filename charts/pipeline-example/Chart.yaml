@@ -2,17 +2,17 @@ apiVersion: v2
 name: pipeline-example
 description: Create an example Pipeline which does a linting of openshift-clusterconfig-gitops using kubelinter, yamllin, yamlscore ....
 type: application
-version: 1.0.11
+version: 1.0.12
 appVersion: "1.16.0"
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -31,3 +31,5 @@ annotations:
       description: Signing Chart
     - kind: added
       description: added tpl chart
+    - kind: changed
+      description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

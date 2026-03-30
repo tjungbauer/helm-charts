@@ -1,16 +1,16 @@
 apiVersion: v2
 name: cert-manager
 description: Install and configure the Cert-Manager
-version: 2.0.3
+version: 2.0.4
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -35,3 +35,5 @@ annotations:
       description: v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs
     - kind: added
       description: v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer.
+    - kind: changed
+      description: (2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

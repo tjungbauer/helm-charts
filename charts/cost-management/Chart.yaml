@@ -3,7 +3,7 @@ name: cost-management
 description: Setup and configure cost-management Operator
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
-version: 1.0.14
+version: 1.0.15
 dependencies:
   - name: helper-operator
     version: ~1.0.36
@@ -13,11 +13,11 @@ dependencies:
     repository: https://charts.stderr.at/
     condition: helper-status-checker.enabled
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -44,3 +44,5 @@ annotations:
       description: added source configuration parameter
     - kind: fixed
       description: fixed auth_secret parameter
+    - kind: changed
+      description: (1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

@@ -1,16 +1,16 @@
 apiVersion: v2
 name: helm-policy-generator
 description: This Chart shall help to generate policies for Advanced Cluster Management
-version: 1.0.17
+version: 1.0.18
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -46,3 +46,5 @@ annotations:
       description: added dependency tp tpl library
     - kind: fixed
       description: "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
+    - kind: changed
+      description: (1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

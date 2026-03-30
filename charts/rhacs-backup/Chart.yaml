@@ -1,16 +1,16 @@
 apiVersion: v2
 name: rhacs-backup
 description: Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.
-version: 1.0.5
+version: 1.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -29,3 +29,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: Initial release
+    - kind: changed
+      description: (1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

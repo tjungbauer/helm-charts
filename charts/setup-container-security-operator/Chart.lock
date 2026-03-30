@@ -1,0 +1,9 @@
+dependencies:
+- name: helper-operator
+  repository: https://charts.stderr.at/
+  version: 1.0.40
+- name: helper-status-checker
+  repository: https://charts.stderr.at/
+  version: 4.0.16
+digest: sha256:6fead545eee60172a43f6af74a95421edda5c0111754af5fb064e240545e1ea8
+generated: "2026-03-29T17:01:18.092647+02:00"

@@ -1,16 +1,16 @@
 apiVersion: v2
 name: openshift-logging
 description: Deploy and configure OpenShift Logging based on LokiStack
-version: 3.0.6
+version: 3.0.7
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -46,3 +46,5 @@ annotations:
       description: allowing to define 6 or 6.0 as operator version
     - kind: added
       description: allowing to define network policy ruleset
+    - kind: changed
+      description: (3.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

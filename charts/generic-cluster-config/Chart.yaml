@@ -1,16 +1,16 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.64
+version: 1.0.65
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -65,3 +65,5 @@ annotations:
       description: "fixed some issues with the proxy and trusted CA"
     - kind: fixed
       description: "fixing ArtifactHub"
+    - kind: changed
+      description: (1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

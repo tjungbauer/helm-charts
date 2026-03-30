@@ -1,16 +1,16 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.43
+version: 2.0.44
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -52,3 +52,5 @@ annotations:
       description: merge generator can be used for applicationsets now and additional examples around git Generator
     - kind: fixed
       description: fixed an issue with the default namespace for git generator
+    - kind: changed
+      description: (2.0.44) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

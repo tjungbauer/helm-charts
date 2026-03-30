@@ -3,14 +3,14 @@ name: trusted-artifact-signer
 description: Configure Trusted Artifact Signer
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png
-version: 1.0.1
+version: 1.0.2
 dependencies:
   - name: tpl
-    version: ~1.0.24
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -33,3 +33,5 @@ annotations:
       description: First Release
     - kind: added
       description: Added icon
+    - kind: changed
+      description: (1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email

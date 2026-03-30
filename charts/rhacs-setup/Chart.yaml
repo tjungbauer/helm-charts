@@ -1,16 +1,16 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.41
+version: 1.0.42
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
   - name: tpl
-    version: ~1.0.22
+    version: ~1.0.27
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
-    email: tjungbau@redhat.com
+    email: dev@stdin.at
     url: https://blog.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -50,3 +50,5 @@ annotations:
       description: "updated example values file"
     - kind: fixed
       description: "fixed yaml syntax for declarative configurations"
+    - kind: changed
+      description: (1.0.42) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
