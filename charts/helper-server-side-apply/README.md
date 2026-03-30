@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.14](https://img.shields.io/badge/Version-1.0.14-informational?style=flat-square)
+  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
 
  
 
@@ -23,7 +23,7 @@ Using Server Side Apply to create for example node labelling, taints and roles. 
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+| tjungbauer | <dev@stdin.at> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:

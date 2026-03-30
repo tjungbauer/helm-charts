@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.14](https://img.shields.io/badge/Version-1.0.14-informational?style=flat-square)
+  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
 
  
 
@@ -30,7 +30,7 @@ This chart has the following dependencies:
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.36 |
 | https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.22 |
+| https://charts.stderr.at/ | tpl | ~1.0.27 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -38,7 +38,7 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| tjungbauer | <tjungbau@redhat.com> | <https://blog.stderr.at/> |
+| tjungbauer | <dev@stdin.at> | <https://blog.stderr.at/> |
 
 ## Sources
 Source:
