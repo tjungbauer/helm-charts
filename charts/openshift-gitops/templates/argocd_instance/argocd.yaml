@@ -159,7 +159,7 @@ spec:
             value: {{ .value }}
           {{- end }}
         {{- end }}
-        image: {{ .image | default "quay.io/gnunn/tools:latest" | quote }}
+        image: {{ .image | default "quay.io/tjungbau/gitops-tools:latest" | quote }}
         imagePullPolicy: Always
 {{ include "tpl.resources" .resources | indent 8 }}
         securityContext:

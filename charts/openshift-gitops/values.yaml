@@ -331,8 +331,8 @@ gitopsinstances:
           configMapPath: plugin.yaml
 
           # -- Image the Sidecar should use.
-          # @default -- quay.io/gnunn/tools:latest
-          image: quay.io/gnunn/tools:latest@sha256:c1a6efd646da0aec794770eae83e5a9220103f643278fa9df26fd3b6978e9f87
+          # @default -- quay.io/tjungbau/gitops-tools:latest
+          image: quay.io/tjungbau/gitops-tools:latest
 
           # -- List of environment variables
           # @default -- empty
