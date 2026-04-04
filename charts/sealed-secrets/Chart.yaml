@@ -16,7 +16,7 @@ sources:
   - https://github.com/tjungbauer/openshift-clusterconfig-gitops
 dependencies:
   - name: sealed-secrets
-    version: "2.18.0"
+    version: "2.18.4"
     repository: https://bitnami-labs.github.io/sealed-secrets
     condition: sealed-secrets.enabled
   - name: tpl
