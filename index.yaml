@@ -31684,6 +31684,61 @@ entries:
           description: updated sealed secrets helm chart version to 2.18.0
         - kind: changed
           description: (1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.29) - bump version
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-04-15T08:30:36.615250861Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.18.4
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.27
+    description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm
+      chart
+    digest: 573e54d6270f72a46f0200f289760d663335d24cd94821d8ee162ed19533722e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    keywords:
+    - secretmanagement
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.29/sealed-secrets-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated sealed secrets helm chart version
+        - kind: added
+          description: new README
+        - kind: added
+          description: new version of sealed secrets chart 2.16
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: updated sealed secrets helm chart version to 2.18.0
+        - kind: changed
+          description: (1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -34638,6 +34693,66 @@ entries:
           description: new TPL for namespace object
         - kind: fixed
           description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
+        - kind: fixed
+          description: (1.0.28) Omit toleration value when operator is Exists or value is empty
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-04-15T08:30:36.77163979Z"
+    description: A library that shall collect certain templates to reuse them among
+      different charts.
+    digest: f88f994505e582f0b794ee18f4a69ccdb7cc4883f1bed92352dd59b4ef657f2d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: library
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.28/tpl-1.0.28.tgz
+    version: 1.0.28
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: tpl nodeSelector
+        - kind: added
+          description: tpl for sleeptimer that can be used in jobs
+        - kind: added
+          description: tpl to set nodeSelector and tolartion annoations for a namespace
+        - kind: added
+          description: new TPLs to create matchExpressions and matchLabels blocks
+        - kind: added
+          description: new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource.
+        - kind: added
+          description: nswitched order of tolerations
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPLs to set securityContext and podSecurityContext
+        - kind: added
+          description: new TPLs to set podDisruptionBudget and optimized resources template and schema
+        - kind: added
+          description: new TPLs to create ArgoCD Applications
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPL for namespace object
+        - kind: fixed
+          description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -35926,4 +36041,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-03T08:48:04.102657941Z"
+generated: "2026-04-15T08:30:36.773008031Z"
