@@ -1,8 +1,120 @@
 {
-  "generated": "2026-04-03T08:48:22.305843Z",
+  "generated": "2026-04-15T08:30:55.547228Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.29",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2026-04-15T10:22:10+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version"
+        },
+        {
+          "kind": "added",
+          "description": "new README"
+        },
+        {
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.29) - bump version"
+        }
+      ]
+    },
+    {
+      "name": "tpl",
+      "version": "1.0.28",
+      "description": "A library that shall collect certain templates to reuse them among different charts.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
+      "lastModified": "2026-04-15T10:09:34+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "tpl nodeSelector"
+        },
+        {
+          "kind": "added",
+          "description": "tpl for sleeptimer that can be used in jobs"
+        },
+        {
+          "kind": "added",
+          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create matchExpressions and matchLabels blocks"
+        },
+        {
+          "kind": "added",
+          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
+        },
+        {
+          "kind": "added",
+          "description": "nswitched order of tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set securityContext and podSecurityContext"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create ArgoCD Applications"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPL for namespace object"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.28) Omit toleration value when operator is Exists or value is empty"
+        }
+      ]
+    },
     {
       "name": "openshift-gitops",
       "version": "1.1.10",
@@ -218,44 +330,6 @@
         {
           "kind": "changed",
           "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "sealed-secrets",
-      "version": "1.0.28",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
@@ -1682,72 +1756,6 @@
         {
           "kind": "changed",
           "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at"
-        }
-      ]
-    },
-    {
-      "name": "tpl",
-      "version": "1.0.27",
-      "description": "A library that shall collect certain templates to reuse them among different charts.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
-      "lastModified": "2026-03-29T18:09:49+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "tpl nodeSelector"
-        },
-        {
-          "kind": "added",
-          "description": "tpl for sleeptimer that can be used in jobs"
-        },
-        {
-          "kind": "added",
-          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create matchExpressions and matchLabels blocks"
-        },
-        {
-          "kind": "added",
-          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
-        },
-        {
-          "kind": "added",
-          "description": "nswitched order of tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set securityContext and podSecurityContext"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create ArgoCD Applications"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPL for namespace object"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
         }
       ]
     }
