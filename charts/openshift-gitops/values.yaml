@@ -203,6 +203,16 @@ gitopsinstances:
       # @default -- 1Gi
       memory_requests: 1Gi
 
+      # -- Application controller `processors` on the Argo CD CR. Supported settings are: status, operation.<br />
+      #  status: Status is the number of application status processors.<br />
+      # operation: Operation is the number of application operation processors.<br />
+      # For example: <br />
+      # processors: <br />
+      #   status: 50 <br />
+      #   operation: 25 <br />
+      # @default -- {}
+      processors: {}
+
       # -- Sharding settings for the controller.
       # @default -- empty
       sharding:

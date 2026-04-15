@@ -8,7 +8,7 @@ metadata:
   namespace: {{ $value.namespace | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
-    {{- include "tpl.additionalLabels" $value.additionalLabels | indent 4 }}    
+    {{- include "tpl.additionalLabels" $value.additionalLabels | indent 4 }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ $value.syncwave | default "10" | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
@@ -103,7 +103,7 @@ spec:
     - {{ . }}
   {{- end }}
   {{- end }}
-  {{- end }}  
+  {{- end }}
   applicationSet:
     {{- if $value.sourceNamespaces }}
     {{- if eq ($value.sourceNamespaces.enabled | toString) "true" }}
@@ -112,7 +112,7 @@ spec:
       - {{ . }}
     {{- end }}
     {{- end }}
-    {{- end }} 
+    {{- end }}
     resources:
       limits:
         cpu: {{ $value.appset.cpu_limits | default "2" | quote }}
@@ -204,7 +204,7 @@ spec:
   resourceHealthChecks:
     {{- if $value.custom_resourceHealthChecks }}
       {{- $value.custom_resourceHealthChecks | nindent 4 }}
-    {{- end }} 
+    {{- end }}
     {{- if eq ($value.default_resourceHealthChecks | toString) "true" }}
     - check: |
         hs = {}
@@ -220,7 +220,7 @@ spec:
           -- verify operationState.phase to see if PostSync has been finished
           if obj.status.operationState ~= nil then
             -- check if phase is Running or Terminating
-            if obj.status.operationState.phase == "Running" or obj.status.operationState.phase == "Terminating" then 
+            if obj.status.operationState.phase == "Running" or obj.status.operationState.phase == "Terminating" then
               hs.status = "Progressing"
             -- check if phase if Degraded or Error
             elseif obj.status.operationState.phase == "Degraded" or obj.status.operationState.phase == "Error" or obj.status.operationState.phase == "Failed" then
@@ -395,14 +395,14 @@ spec:
     {{- if $value.sso.dex }}
     {{- if ne ($value.sso.dex.enabled | toString) "false" }}
     dex:
-      openShiftOAuth: {{ $value.sso.dex.openShiftOAuth | default "true" }} 
+      openShiftOAuth: {{ $value.sso.dex.openShiftOAuth | default "true" }}
       resources:
         limits:
           cpu: {{ $value.sso.dex.cpu_limits | default "500m" | quote }}
           memory: {{ $value.sso.dex.memory_limits | default "256Mi" }}
         requests:
           cpu: {{ $value.sso.dex.cpu_requests | default "250m" | quote }}
-          memory: {{ $value.sso.dex.memory_requests | default "128Mi" }} 
+          memory: {{ $value.sso.dex.memory_requests | default "128Mi" }}
     {{- end }}
     {{- end }}
     {{- if $value.sso.keycloak }}
@@ -417,12 +417,12 @@ spec:
       rootCA: {{ $value.sso.keycloak.rootCA }}
       {{- if eq ($value.sso.keycloak.verifyTLS | toString) "true" }}
       verifyTLS: true
-      {{- end }}  
+      {{- end }}
       version: {{ $value.sso.keycloak.version }}
       image: {{ $value.sso.keycloak.image }}
     {{- end }}
-    {{- end }} 
-    provider: {{ $value.sso.provider | default "dex" }} 
+    {{- end }}
+    provider: {{ $value.sso.provider | default "dex" }}
   {{- end }}
   ha:
     enabled: {{ $value.ha.enabled | default "false" }}
@@ -444,7 +444,12 @@ spec:
         cpu: {{ $value.redis.cpu_requests | default "250m" | quote }}
         memory: {{ $value.redis.memory_requests | default "128Mi" }}
   controller:
+    {{- if $value.controller.processors }}
+    processors:
+{{ $value.controller.processors | toYaml | indent 6 }}
+    {{- else }}
     processors: {}
+    {{- end }}
     resources:
       limits:
         cpu: {{ $value.controller.cpu_limits | default "2" | quote }}
