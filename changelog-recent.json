@@ -1,8 +1,142 @@
 {
-  "generated": "2026-04-15T08:43:44.602556Z",
+  "generated": "2026-04-15T09:48:51.309866Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "openshift-gitops",
+      "version": "1.1.11",
+      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2026-04-15T11:40:00+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added customer Health Checks to Argo CD Patch-yaml"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed Argo CD CRD to v1beta1"
+        },
+        {
+          "kind": "fixed",
+          "description": "typo in health check"
+        },
+        {
+          "kind": "added",
+          "description": "cleaning up chart, added new README and tried to make more options configurable."
+        },
+        {
+          "kind": "added",
+          "description": "allowing configuration of syncwave for Argo CD object."
+        },
+        {
+          "kind": "fixed",
+          "description": "updated ArgoCD resource to v1beta1"
+        },
+        {
+          "kind": "added",
+          "description": "added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing some default Values"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "it is now possible to define a global AppProject"
+        },
+        {
+          "kind": "added",
+          "description": "it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod"
+        },
+        {
+          "kind": "added",
+          "description": "It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example."
+        },
+        {
+          "kind": "added",
+          "description": "Added option to define nodeSelector for ArgoCD resource"
+        },
+        {
+          "kind": "added",
+          "description": "Added option to configure keycloak as SSO for argo cd"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to completely enable/disable the sso configuration."
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to configure oidcConfig for argo cd"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define environment variables for the repo-container"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define extraConfig settings"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define additional labels and annotations for the namespace"
+        },
+        {
+          "kind": "added",
+          "description": "Added possibility to define sharding settings for the controller"
+        },
+        {
+          "kind": "added",
+          "description": "bump version"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed error in the LokiStack resource health check"
+        },
+        {
+          "kind": "fixed",
+          "description": "disabled the gitops-application instance by default"
+        },
+        {
+          "kind": "fixed",
+          "description": "1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted"
+        },
+        {
+          "kind": "added",
+          "description": "1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.1.9) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.1.10) - Rebuild the image for CMP and published it at quay.io/tjungbau/gitops-tools:latest"
+        },
+        {
+          "kind": "added",
+          "description": "(1.1.11) - Configurable controller.processors (defaults to {})"
+        }
+      ]
+    },
     {
       "name": "rhacm-setup",
       "version": "1.0.22",
@@ -166,136 +300,6 @@
         {
           "kind": "fixed",
           "description": "(1.0.28) Omit toleration value when operator is Exists or value is empty"
-        }
-      ]
-    },
-    {
-      "name": "openshift-gitops",
-      "version": "1.1.10",
-      "description": "Installs and patches the Red Hat Openshift Gitops Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-04-03T10:39:28+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added customer Health Checks to Argo CD Patch-yaml"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed Argo CD CRD to v1beta1"
-        },
-        {
-          "kind": "fixed",
-          "description": "typo in health check"
-        },
-        {
-          "kind": "added",
-          "description": "cleaning up chart, added new README and tried to make more options configurable."
-        },
-        {
-          "kind": "added",
-          "description": "allowing configuration of syncwave for Argo CD object."
-        },
-        {
-          "kind": "fixed",
-          "description": "updated ArgoCD resource to v1beta1"
-        },
-        {
-          "kind": "added",
-          "description": "added ClusterRolebinding to enable cluster-admin permissions for Argo CD in case it is enabled"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing some default Values"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define a global AppProject"
-        },
-        {
-          "kind": "added",
-          "description": "it is now possible to define the name of a ConfigMap with the list of custom CAs, that will be used inside the Repo Pod"
-        },
-        {
-          "kind": "added",
-          "description": "It is now possible to define a sidecar container for Argo CD. This is useful for post-renderer scripts for example."
-        },
-        {
-          "kind": "added",
-          "description": "Added option to define nodeSelector for ArgoCD resource"
-        },
-        {
-          "kind": "added",
-          "description": "Added option to configure keycloak as SSO for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to completely enable/disable the sso configuration."
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to configure oidcConfig for argo cd"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define environment variables for the repo-container"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define extraConfig settings"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define additional labels and annotations for the namespace"
-        },
-        {
-          "kind": "added",
-          "description": "Added possibility to define sharding settings for the controller"
-        },
-        {
-          "kind": "added",
-          "description": "bump version"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed default resourceExclusions for Operator openshift-gitops version 1.18.0+"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed error in the LokiStack resource health check"
-        },
-        {
-          "kind": "fixed",
-          "description": "disabled the gitops-application instance by default"
-        },
-        {
-          "kind": "fixed",
-          "description": "1.1.7 - fixed resource limits and requests for CPU and be sure they are quoted"
-        },
-        {
-          "kind": "added",
-          "description": "1.1.8 - added possibility to define environment variables for the controller. For example to set the sharding algorithm to round-robin."
-        },
-        {
-          "kind": "changed",
-          "description": "(1.1.9) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.1.10) - Rebuild the image for CMP and published it at quay.io/tjungbau/gitops-tools:latest"
         }
       ]
     },
