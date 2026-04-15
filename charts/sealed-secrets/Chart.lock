@@ -1,9 +1,9 @@
 dependencies:
 - name: sealed-secrets
   repository: https://bitnami-labs.github.io/sealed-secrets
-  version: 2.18.0
+  version: 2.18.4
 - name: tpl
   repository: https://charts.stderr.at/
   version: 1.0.27
-digest: sha256:66d5b83198a6543aff6460c5ed9eeb11ab0d4816421435725aa153f56ad5f040
-generated: "2026-03-29T18:55:20.801109+02:00"
+digest: sha256:65fdb050bc3445a6f55d2d29a4f6bdf61cffce4e2cfd59ce761ea00f78da9852
+generated: "2026-04-15T10:18:14.084922+02:00"
