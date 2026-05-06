@@ -39,7 +39,7 @@ spec:
     {{/* LIST GENERATOR */}}
     {{- else if .generatorlist }}
       - list:
-          elements: 
+          elements:
           {{- range .generatorlist }}
             - cluster: {{ .clustername }}
               url: {{ .clusterurl }}
@@ -113,7 +113,7 @@ spec:
             {{ printf "%s" $key | replace "_" "-" }}
         {{- else }}
           name: >-
-            {{ printf "{{ name }}-%s" $key | replace "_" "-" }} 
+            {{ printf "{{ name }}-%s" $key | replace "_" "-" }}
         {{- end }}
       {{- end }}
     spec:
@@ -133,12 +133,15 @@ spec:
           {{- if $idiff_val.namespace }}
           namespace: {{ $idiff_val.namespace }}
           {{- end }}
+          {{- if $idiff_val.group }}
+          group: {{ $idiff_val.group }}
+          {{- end }}
         {{- end }}
       {{- end }}
     {{- if .argocd_project }}
       project: {{ .argocd_project }}
     {{- else }}
-      {{- if .generatorlist }}      
+      {{- if .generatorlist }}
       project: >-
         {{ printf "{{ cluster }}" }}
       {{- else if .generatorgit }}
@@ -180,12 +183,12 @@ spec:
             {{- if $value.helm.per_cluster_helm_values }}
               - '{{ printf "%s/{{ cluster }}-values.yaml" $value.helm.per_cluster_helm_values_path }}'
             {{- end }}
-            {{- end }}      
+            {{- end }}
             {{- if .helm.helmvalues }}
             parameters:
             {{- range .helm.helmvalues }}
             - name: {{ .name }}
-              value: '{{ .value }}' 
+              value: '{{ .value }}'
             {{- end }}
             {{- end }}
             {{- if .helm.releaseName }}
@@ -201,7 +204,7 @@ spec:
         {{- if .helm }}
         helm:
           {{- if or (.helm.per_cluster_helm_values) (.helm.value_files) }}
-          valueFiles: 
+          valueFiles:
             {{- range .helm.value_files }}
             - {{ . }}
             {{- end }}
@@ -216,7 +219,7 @@ spec:
           parameters:
           {{- range .helm.helmvalues }}
           - name: {{ .name }}
-            value: '{{ .value }}' 
+            value: '{{ .value }}'
           {{- end }}
           {{- end }}
         {{- end }}
