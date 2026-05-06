@@ -1,8 +1,78 @@
 {
-  "generated": "2026-04-15T09:48:51.309866Z",
+  "generated": "2026-05-06T08:09:28.684790Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "helper-argocd",
+      "version": "2.0.45",
+      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
+      "lastModified": "2026-05-06T10:00:24+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "support git GIT generator"
+        },
+        {
+          "kind": "added",
+          "description": "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
+        },
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for Matrix Generator (opinionated)"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for ignoreDifferences definition in ApplicationSet"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing syncwave settings for Application objects"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of namespace for Application objects"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of retries in ApplicationSets"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "fixed",
+          "description": "AppProject has been extended to that the namespace can be defined as well."
+        },
+        {
+          "kind": "fixed",
+          "description": "app_project can now be correctly defined for applicationsets"
+        },
+        {
+          "kind": "added",
+          "description": "merge generator can be used for applicationsets now and additional examples around git Generator"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed an issue with the default namespace for git generator"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.44) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "fixed",
+          "description": "(2.0.45) - fixed an issue with the ignoreDifferences definition. You can now define the group for the ignoreDifferences definition."
+        }
+      ]
+    },
     {
       "name": "openshift-gitops",
       "version": "1.1.11",
@@ -742,72 +812,6 @@
         {
           "kind": "changed",
           "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-argocd",
-      "version": "2.0.44",
-      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "support git GIT generator"
-        },
-        {
-          "kind": "added",
-          "description": "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
-        },
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for Matrix Generator (opinionated)"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for ignoreDifferences definition in ApplicationSet"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing syncwave settings for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of namespace for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of retries in ApplicationSets"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "fixed",
-          "description": "AppProject has been extended to that the namespace can be defined as well."
-        },
-        {
-          "kind": "fixed",
-          "description": "app_project can now be correctly defined for applicationsets"
-        },
-        {
-          "kind": "added",
-          "description": "merge generator can be used for applicationsets now and additional examples around git Generator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed an issue with the default namespace for git generator"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.44) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
