@@ -467,6 +467,26 @@ rhacs:
     # @default -- empty
     centralEndpoint: ''
 
+    # -- Customizations to apply on all Secured Cluster Services components
+    customize:
+      deploymentDefaults:
+        # -- If you want all components of the secured cluster to only run on specific nodes, you can
+        # configure tolerations of tainted nodes here. This will be applied to all components of the secured cluster.
+        tolerations:
+          - effect: NoSchedule
+            key: infra
+            operator: Equal
+            value: reserved
+          - effect: NoSchedule
+            key: infra
+            operator: Equal
+            value: reserved
+
+        # - Set node selector for all components of the secured cluster
+        # nodeSelector:
+        #   key: kubernetes.io/role
+        #   value: infra
+
     # -- Settings for Sensor
     sensor:
       # -- If you want this component to only run on specific nodes, you can
