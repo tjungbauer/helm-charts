@@ -15,6 +15,14 @@ spec:
   {{ if .Values.rhacs.secured_cluster.centralEndpoint }}
   centralEndpoint: {{ .Values.rhacs.secured_cluster.centralEndpoint }}
   {{- end }}
+  customize:
+    deploymentDefaults:
+{{- if .Values.rhacs.secured_cluster.customize.deploymentDefaults.nodeSelector }}
+{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.customize.deploymentDefaults | indent 4 }}
+{{- end }}
+{{- if .Values.rhacs.secured_cluster.customize.deploymentDefaults.tolerations }}
+{{ include "tpl.tolerations" .Values.rhacs.secured_cluster.customize.deploymentDefaults.tolerations | indent 6 }}
+{{- end }}
   {{- /* SCANNER */}}
   {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
   {{- if eq (.Values.rhacs.central.enabled | toString ) "true" }}
