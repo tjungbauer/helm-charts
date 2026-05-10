@@ -472,15 +472,15 @@ rhacs:
       deploymentDefaults:
         # -- If you want all components of the secured cluster to only run on specific nodes, you can
         # configure tolerations of tainted nodes here. This will be applied to all components of the secured cluster.
-        tolerations:
-          - effect: NoSchedule
-            key: infra
-            operator: Equal
-            value: reserved
-          - effect: NoSchedule
-            key: infra
-            operator: Equal
-            value: reserved
+        # tolerations:
+        #   - effect: NoSchedule
+        #     key: infra
+        #     operator: Equal
+        #     value: reserved
+        #   - effect: NoSchedule
+        #     key: infra
+        #     operator: Equal
+        #     value: reserved
 
         # - Set node selector for all components of the secured cluster
         # nodeSelector:
