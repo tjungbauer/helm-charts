@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.42](https://img.shields.io/badge/Version-1.0.42-informational?style=flat-square)
+  ![Version: 1.0.43](https://img.shields.io/badge/Version-1.0.43-informational?style=flat-square)
 
  
 
@@ -123,6 +123,7 @@ Verify the subcharts for additional settings:
 | rhacs.secured_cluster.admissioncontrol.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.secured_cluster.centralEndpoint | string | empty | URL of the Central (without https://, with port :443) |
 | rhacs.secured_cluster.clustername | string | local-cluster" | Name of the cluster |
+| rhacs.secured_cluster.customize | object | `{"deploymentDefaults":null}` | Customizations to apply on all Secured Cluster Services components |
 | rhacs.secured_cluster.enabled | bool | false | Enable SecuredCluster yes or no ... typically yes |
 | rhacs.secured_cluster.scannerV4 | string | Default | Enable Scanner V4 for the Secured Cluster. Valid values are: Default, AutoSense, Disabled NOTE: In ACS 4.8 scannerV4 will be enabled by default. |
 | rhacs.secured_cluster.sensor | object | `{"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Sensor |
