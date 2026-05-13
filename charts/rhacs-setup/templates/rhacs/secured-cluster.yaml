@@ -15,13 +15,20 @@ spec:
   {{ if .Values.rhacs.secured_cluster.centralEndpoint }}
   centralEndpoint: {{ .Values.rhacs.secured_cluster.centralEndpoint }}
   {{- end }}
+{{- /* Only emit spec.customize when deploymentDefaults is set and has nodeSelector and/or tolerations */}}
+{{- with .Values.rhacs.secured_cluster.customize }}
+{{- with .deploymentDefaults }}
+{{- if or .nodeSelector .tolerations }}
   customize:
     deploymentDefaults:
-{{- if .Values.rhacs.secured_cluster.customize.deploymentDefaults.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.customize.deploymentDefaults | indent 4 }}
+{{- if .nodeSelector }}
+{{- include "tpl.nodeSelector" . | indent 4 }}
 {{- end }}
-{{- if .Values.rhacs.secured_cluster.customize.deploymentDefaults.tolerations }}
-{{ include "tpl.tolerations" .Values.rhacs.secured_cluster.customize.deploymentDefaults.tolerations | indent 6 }}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
   {{- /* SCANNER */}}
   {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
