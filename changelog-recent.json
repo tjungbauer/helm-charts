@@ -1,15 +1,15 @@
 {
-  "generated": "2026-05-10T04:30:40.303505Z",
+  "generated": "2026-05-13T10:45:19.935631Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
       "name": "rhacs-setup",
-      "version": "1.0.43",
+      "version": "1.0.44",
       "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-05-10T06:21:46+02:00",
+      "lastModified": "2026-05-13T12:35:57+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -66,6 +66,10 @@
         {
           "kind": "added",
           "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
         }
       ]
     },
