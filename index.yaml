@@ -17913,6 +17913,41 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.0/ingresscontroller-1.0.0.tgz
     version: 1.0.0
+  kube-descheduler:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: (1.0.0) Initial release of Kube Descheduler Operator Helm Chart
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-05-27T15:14:47.844707879Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.27
+    description: Setup and configure the Kube Descheduler Operator to evict pods based
+      on specific strategies
+    digest: bdca496e927178c214d6b15e5fb019c225894950cc0f7412db6125c0ba00f581
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png
+    keywords:
+    - descheduler
+    - scheduling
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: kube-descheduler
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/kube-descheduler-1.0.0/kube-descheduler-1.0.0.tgz
+    version: 1.0.0
   minio-configurator:
   - annotations:
       artifacthub.io/changes: |
@@ -36483,4 +36518,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-05-15T12:02:28.408149184Z"
+generated: "2026-05-27T15:14:47.845980722Z"
