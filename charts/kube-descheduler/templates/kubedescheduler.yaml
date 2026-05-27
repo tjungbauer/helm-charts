@@ -1,0 +1,148 @@
+{{/*
+KubeDescheduler cluster CR (operator.openshift.io/v1).
+Rendered when descheduler.enabled is true.
+*/}}
+{{- if .Values.descheduler }}
+{{- if eq ( .Values.descheduler.enabled | toString) "true" }}
+{{- with .Values.descheduler }}
+{{- $validLogLevels := list "Normal" "Debug" "Trace" "TraceAll" }}
+{{- $validDevLowNodeUtilizationThresholds := list "Low" "Medium" "High" }}
+{{- $validDevHighNodeUtilizationThresholds := list "Minimal" "Modest" "Moderate" }}
+{{- $validDevDeviationThresholds := list "Low" "Medium" "High" "AsymmetricLow" "AsymmetricMedium" "AsymmetricHigh" }}
+{{- $validProfiles := list "AffinityAndTaints" "TopologyAndDuplicates" "SoftTopologyAndDuplicates" "LifecycleAndUtilization" "LongLifecycle" "CompactAndScale" "KubeVirtRelieveAndMigrate" "EvictPodsWithPVC" "EvictPodsWithLocalStorage" }}
+---
+apiVersion: operator.openshift.io/v1
+kind: KubeDescheduler
+metadata:
+  name: cluster
+  namespace: openshift-kube-descheduler-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+  labels:
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+spec:
+  managementState: Managed
+
+  {{- /* Core scheduling settings */}}
+  deschedulingIntervalSeconds: {{ .deschedulingIntervalSeconds | default 3600 }}
+  {{- if .mode }}
+  {{- /* mode: Predictive (simulate) or Automatic (evict) */}}
+  {{- if and (ne .mode "Predictive") (ne .mode "Automatic") }}
+  {{- fail (printf "descheduler.mode must be either 'Predictive' or 'Automatic', got '%s'" .mode) }}
+  {{- end }}
+  mode: {{ .mode }}
+  {{- end }}
+
+  {{- /* Logging (OpenShift intent-based levels) */}}
+  {{- $logLevel := .logLevel | default "Normal" }}
+  {{- if not (has $logLevel $validLogLevels) }}
+  {{- fail (printf "descheduler.logLevel must be one of Normal, Debug, Trace, TraceAll, got '%s'" $logLevel) }}
+  {{- end }}
+  logLevel: {{ $logLevel }}
+  {{- $operatorLogLevel := .operatorLogLevel | default "Normal" }}
+  {{- if not (has $operatorLogLevel $validLogLevels) }}
+  {{- fail (printf "descheduler.operatorLogLevel must be one of Normal, Debug, Trace, TraceAll, got '%s'" $operatorLogLevel) }}
+  {{- end }}
+  operatorLogLevel: {{ $operatorLogLevel }}
+
+  {{- /* Enabled descheduler strategy profiles */}}
+  {{- if .profiles }}
+  profiles:
+    {{- range .profiles }}
+    {{- if not (has . $validProfiles) }}
+    {{- fail (printf "descheduler.profiles contains invalid profile '%s'; must be one of AffinityAndTaints, TopologyAndDuplicates, SoftTopologyAndDuplicates, LifecycleAndUtilization, LongLifecycle, CompactAndScale, KubeVirtRelieveAndMigrate, EvictPodsWithPVC, EvictPodsWithLocalStorage" .) }}
+    {{- end }}
+    - {{ . }}
+    {{- end }}
+  {{- end }}
+
+  {{- /* Optional profile overrides (only emitted when at least one field is set) */}}
+  {{- if .profileCustomizations }}
+  {{- $hasCustomizations := false }}
+  {{- if .profileCustomizations.podLifetime }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.thresholdPriorityClassName }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.thresholdPriority }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if or .profileCustomizations.namespaces.included .profileCustomizations.namespaces.excluded }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.devLowNodeUtilizationThresholds }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.devHighNodeUtilizationThresholds }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.devEnableEvictionsInBackground }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.devActualUtilizationProfile }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if .profileCustomizations.devDeviationThresholds }}{{ $hasCustomizations = true }}{{ end }}
+  {{- if $hasCustomizations }}
+  profileCustomizations:
+    {{- /* Pod lifecycle and priority thresholds */ -}}
+    {{- if .profileCustomizations.podLifetime }}
+    podLifetime: {{ .profileCustomizations.podLifetime }}
+    {{- end }}
+    {{- if .profileCustomizations.thresholdPriorityClassName }}
+    thresholdPriorityClassName: {{ .profileCustomizations.thresholdPriorityClassName }}
+    {{- end }}
+    {{- if .profileCustomizations.thresholdPriority }}
+    thresholdPriority: {{ .profileCustomizations.thresholdPriority }}
+    {{- end }}
+
+    {{- /* Namespace include/exclude lists */}}
+    {{- if or .profileCustomizations.namespaces.included .profileCustomizations.namespaces.excluded }}
+    namespaces:
+      {{- if .profileCustomizations.namespaces.included }}
+      included:
+        {{- range .profileCustomizations.namespaces.included }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .profileCustomizations.namespaces.excluded }}
+      excluded:
+        {{- range .profileCustomizations.namespaces.excluded }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- /* Experimental / dev-only profile tuning */}}
+    {{- if .profileCustomizations.devLowNodeUtilizationThresholds }}
+    {{- $devLow := .profileCustomizations.devLowNodeUtilizationThresholds }}
+    {{- if not (has $devLow $validDevLowNodeUtilizationThresholds) }}
+    {{- fail (printf "descheduler.profileCustomizations.devLowNodeUtilizationThresholds must be one of Low, Medium, High, got '%s'" $devLow) }}
+    {{- end }}
+    devLowNodeUtilizationThresholds: {{ $devLow }}
+    {{- end }}
+    {{- if .profileCustomizations.devHighNodeUtilizationThresholds }}
+    {{- $devHigh := .profileCustomizations.devHighNodeUtilizationThresholds }}
+    {{- if not (has $devHigh $validDevHighNodeUtilizationThresholds) }}
+    {{- fail (printf "descheduler.profileCustomizations.devHighNodeUtilizationThresholds must be one of Minimal, Modest, Moderate, got '%s'" $devHigh) }}
+    {{- end }}
+    devHighNodeUtilizationThresholds: {{ $devHigh }}
+    {{- end }}
+    {{- if .profileCustomizations.devEnableEvictionsInBackground }}
+    devEnableEvictionsInBackground: {{ .profileCustomizations.devEnableEvictionsInBackground }}
+    {{- end }}
+    {{- if .profileCustomizations.devActualUtilizationProfile }}
+    devActualUtilizationProfile: {{ .profileCustomizations.devActualUtilizationProfile }}
+    {{- end }}
+    {{- if .profileCustomizations.devDeviationThresholds }}
+    {{- $devDeviation := .profileCustomizations.devDeviationThresholds }}
+    {{- if not (has $devDeviation $validDevDeviationThresholds) }}
+    {{- fail (printf "descheduler.profileCustomizations.devDeviationThresholds must be one of Low, Medium, High, AsymmetricLow, AsymmetricMedium, AsymmetricHigh, got '%s'" $devDeviation) }}
+    {{- end }}
+    devDeviationThresholds: {{ $devDeviation }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+  {{- /* Per-run eviction caps */}}
+  {{- if .evictionLimits }}
+  {{- if or .evictionLimits.total .evictionLimits.node }}
+  evictionLimits:
+    {{- if .evictionLimits.total }}
+    total: {{ .evictionLimits.total }}
+    {{- end }}
+    {{- if .evictionLimits.node }}
+    node: {{ .evictionLimits.node }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

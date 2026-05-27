@@ -1,0 +1,50 @@
+{{ template "doc.header" . }}
+
+This chart renders the cluster-scoped `KubeDescheduler` custom resource (`operator.openshift.io/v1`) in `openshift-kube-descheduler-operator`. It configures descheduling interval, mode, logging, strategy profiles, optional profile customizations, and eviction limits.
+
+The OpenShift Descheduler Operator must already be installed (OLM package `cluster-kube-descheduler-operator`). This chart does not deploy the operator or its subscription.
+
+Use `mode: Predictive` to simulate evictions before switching to `Automatic`. Invalid values for `mode`, `logLevel`, `operatorLogLevel`, `profiles`, and the `dev*` threshold fields fail at `helm template` / install time.
+
+Operator reference: https://github.com/openshift/cluster-kube-descheduler-operator
+
+{{ template "doc.deps" . }}
+
+Typical use is GitOps (for example Argo CD) together with a separate chart or manifest that installs the operator.
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+* [tpl](https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl) — shared labels and annotations helpers
+
+{{ template "doc.values" . }}
+
+## Example values
+
+```yaml
+---
+descheduler:
+  enabled: true
+  syncwave: 10
+
+  deschedulingIntervalSeconds: 3600
+  mode: Predictive
+  logLevel: Normal
+  operatorLogLevel: Normal
+
+  profiles:
+    - AffinityAndTaints
+    - LifecycleAndUtilization
+
+  profileCustomizations:
+    namespaces:
+      excluded:
+        - openshift-monitoring
+
+  # evictionLimits:
+  #   total: 10
+  #   node: 2
+```
+
+{{ template "doc.footer" . }}

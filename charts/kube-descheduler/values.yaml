@@ -1,0 +1,145 @@
+---
+# KubeDescheduler CR configuration
+descheduler:
+  # -- Enable or disable the KubeDescheduler CR creation
+  # @default -- false
+  enabled: false
+
+  # -- Syncwave for Argo CD
+  # @default -- 10
+  syncwave: 10
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalAnnotations: {}
+  #  additionalAnnotation1: "My Annotation"
+  #  additionalAnnotation2: "My Annotation 2"
+
+  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # @section -- namespace
+  # @default -- {}
+  additionalLabels: {}
+  #  additionalLabel1: "My Label"
+  #  additionalLabel2: "My Label 2"
+
+  # -- The descheduling interval in seconds. Sets the number of seconds between descheduler runs.
+  # @default -- 3600
+  deschedulingIntervalSeconds: 3600
+
+  # -- Descheduling mode. Mode configures the descheduler to either evict pods (Automatic) or to simulate the eviction (Predictive)
+  # Valid values:
+  #   - Predictive: The descheduler only simulates eviction (default)
+  #   - Automatic: The descheduler actively evicts pods
+  # @default -- Predictive
+  mode: Predictive
+
+  # -- Log level for the descheduler component (operand).
+  # Valid values: Normal, Debug, Trace, TraceAll
+  # @default -- Normal
+  logLevel: Normal
+
+  # -- Log level for the descheduler operator.
+  # Valid values: Normal, Debug, Trace, TraceAll
+  # @default -- Normal
+  operatorLogLevel: Normal
+
+  # -- List of descheduler profiles to enable. Multiple profiles can be combined.
+  # Available profiles:
+  #   - AffinityAndTaints: Evicts pods violating node/pod affinity and node taints
+  #   - TopologyAndDuplicates: Balances pod distribution based on topology constraints
+  #   - SoftTopologyAndDuplicates: Same as TopologyAndDuplicates but includes soft constraints
+  #   - LifecycleAndUtilization: Focuses on pod lifecycles and node resource consumption
+  #   - LongLifecycle: Similar to LifecycleAndUtilization but without 24h pod lifetime eviction
+  #   - CompactAndScale: Evicts pods to enable workload consolidation on fewer nodes
+  #   - KubeVirtRelieveAndMigrate: Optimized for KubeVirt workloads with live migration support
+  #   - EvictPodsWithPVC: Allows eviction of pods with PVCs (use with other profiles)
+  #   - EvictPodsWithLocalStorage: Allows eviction of pods with local storage
+  # @default -- []
+  profiles: []
+  #  - AffinityAndTaints
+  #  - LifecycleAndUtilization
+
+  # -- Profile customizations to modify default behavior of certain profiles
+  # @default -- {}
+  profileCustomizations:
+    # -- Sets the lifetime value for pods evicted by the LifecycleAndUtilization profile
+    # @default -- ""
+    # podLifetime: "24h"
+
+    # -- Sets the priority class threshold by name for all strategies.
+    # Pods with priority class at or above this threshold will not be evicted.
+    # @default -- ""
+    # thresholdPriorityClassName: "system-cluster-critical"
+
+    # -- Sets the priority class threshold by value for all strategies.
+    # Pods with priority at or above this value will not be evicted.
+    # @default -- ""
+    # thresholdPriority: 10000
+
+    # -- Namespace configuration for all strategies
+    # @default -- {}
+    namespaces:
+      # -- List of namespaces to include (cannot include protected namespaces:
+      # kube-system, hypershift, and openshift-* prefixed namespaces)
+      # @default -- []
+      included: []
+      #  - ns1
+      #  - ns2
+
+      # -- List of namespaces to exclude from descheduling
+      # @default -- []
+      excluded: []
+      #  - ns3
+      #  - ns4
+
+    # -- Sets experimental thresholds for the LowNodeUtilization strategy
+    # of the LifecycleAndUtilization profile.
+    # Valid values: Low (10%:30%), Medium (20%:50%), High (40%:70%)
+    # @default -- ""
+    # devLowNodeUtilizationThresholds: "Medium"
+
+    # -- Sets thresholds for the HighNodeUtilization strategy of the CompactAndScale profile.
+    # Valid values: Minimal (10%), Modest (20%), Moderate (30%)
+    # @default -- ""
+    # devHighNodeUtilizationThresholds: "Modest"
+
+    # -- Enables descheduler's EvictionsInBackground alpha feature.
+    # This is an experimental feature subject to change.
+    # @default -- false
+    # devEnableEvictionsInBackground: false
+
+    # -- Sets a profile that gets translated into a predefined prometheus query.
+    # Available profiles:
+    #   - PrometheusCPUUsage
+    #   - PrometheusCPUPSIPressure
+    #   - PrometheusCPUPSIPressureByUtilization
+    #   - PrometheusMemoryPSIPressure
+    #   - PrometheusIOPSIPressure
+    #   - PrometheusCPUCombined
+    #   - PrometheusCPUMemoryCombinedProfile
+    # @default -- ""
+    # devActualUtilizationProfile: "PrometheusCPUMemoryCombinedProfile"
+
+    # -- Have the thresholds be based on the average utilization.
+    # Thresholds signify the distance from the average node utilization.
+    # Valid values:
+    #   - Low: 10%:10%
+    #   - Medium: 20%:20%
+    #   - High: 30%:30%
+    #   - AsymmetricLow: 0%:10%
+    #   - AsymmetricMedium: 0%:20%
+    #   - AsymmetricHigh: 0%:30%
+    # @default -- ""
+    # devDeviationThresholds: "AsymmetricLow"
+
+  # -- Eviction limits to restrict the number of evictions during each descheduling run
+  # @default -- {}
+  evictionLimits:
+    # -- Restricts the maximum number of overall evictions
+    # @default -- ""
+    # total: 10
+
+    # -- Restricts the maximum number of evictions per node
+    # @default -- ""
+    # node: 2
