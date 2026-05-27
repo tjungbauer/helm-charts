@@ -1,8 +1,22 @@
 {
-  "generated": "2026-05-15T12:03:02.327392Z",
+  "generated": "2026-05-27T15:15:10.252621Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "kube-descheduler",
+      "version": "1.0.0",
+      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
+      "lastModified": "2026-05-27T17:06:09+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
+        }
+      ]
+    },
     {
       "name": "openshift-gitops",
       "version": "1.1.12",
