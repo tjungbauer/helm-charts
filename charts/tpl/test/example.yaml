@@ -41,3 +41,21 @@
 {{- if .Values.podSecurityContext }}
 {{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 6 }}
 {{- end }}
+
+{{- /* tpl.isEnabled */}}
+{{- if include "tpl.isEnabled" true }}
+# isEnabled: true branch
+{{- end }}
+
+{{- /* tpl.argocdMetadata (resource) */}}
+# argocd resource metadata:
+# {{- include "tpl.argocdMetadata" (dict "syncWave" 3) | nindent 0 }}
+
+{{- /* tpl.jobHookMetadata */}}
+# argocd hook metadata:
+# {{- include "tpl.jobHookMetadata" (dict "syncWave" 5) | nindent 0 }}
+
+{{- /* tpl.affinity */}}
+{{- if .Values.affinity }}
+{{ include "tpl.affinity" .Values.affinity | indent 0 }}
+{{- end }}

@@ -3,11 +3,11 @@
 Set a securityContext
 
 Example for resources in the values-file:
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 3001
-  fsGroup: 2001
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
   runAsNonRoot: true
+  readOnlyRootFilesystem: true
 
 # Example Deployment:
 --------------------------------
@@ -41,9 +41,17 @@ securityContext:
   {{- if .runAsGroup }}
   runAsGroup: {{ .runAsGroup }}
   {{- end }}
-  {{- if .fsGroup }}
-  fsGroup: {{ .fsGroup }}
-  {{- end }}
   runAsNonRoot: {{ .runAsNonRoot | default true }}
   readOnlyRootFilesystem: {{ .readOnlyRootFilesystem | default true }}
+  {{- if ne (.allowPrivilegeEscalation | toString) "" }}
+  allowPrivilegeEscalation: {{ .allowPrivilegeEscalation }}
+  {{- end }}
+  {{- with .capabilities }}
+  capabilities:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .seccompProfile }}
+  seccompProfile:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 {{- end }}

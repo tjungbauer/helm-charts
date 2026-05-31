@@ -121,7 +121,6 @@ matchExpressions:
 securityContext:
   runAsUser: 1000
   runAsGroup: 3000
-  fsGroup: 2000
   runAsNonRoot: true
   readOnlyRootFilesystem: true
 
@@ -185,6 +184,39 @@ podDisruptionBudget:
       values:
         - test-vendor
   unhealthyPodEvictionPolicy: "AlwaysAllow"
+
+# -- Argo CD sync metadata for any GitOps-managed resource (not Application CRs).
+# <br />
+# Example include (operator CR):
+# metadata:
+#   annotations:
+#     {{- include "tpl.argocdMetadata" (dict "syncWave" .Values.central.syncwave "extra" .Values.central.additionalAnnotations) | nindent 4 }}
+# <br />
+# Example include (hook Job):
+# metadata:
+#   annotations:
+#     {{- include "tpl.argocdMetadata" (dict "type" "hook" "syncWave" 5) | nindent 4 }}
+argocdMetadata:
+  syncWave: 3
+  syncOptions: SkipDryRunOnMissingResource=true
+  extra:
+    my-annotation: example
+
+# -- Pod affinity rules
+# <br />
+# Example include:
+# {{- if .Values.affinity }}
+# {{ include "tpl.affinity" .Values.affinity | indent 6 }}
+# {{- end }}
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app: test-app
+          topologyKey: kubernetes.io/hostname
 
 # -- ArgoCD Application
 # <br />

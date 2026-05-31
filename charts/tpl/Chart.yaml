@@ -2,7 +2,7 @@ apiVersion: v2
 name: tpl
 type: library
 description: A library that shall collect certain templates to reuse them among different charts.
-version: 1.0.29
+version: 1.0.30
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
 maintainers:
@@ -55,3 +55,5 @@ annotations:
       description: (1.0.28) Omit toleration value when operator is Exists or value is empty
     - kind: added
       description: (1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion
+    - kind: added
+      description: (1.0.30) tpl.isEnabled, tpl.argocdMetadata, tpl.jobHookMetadata, tpl.jobPodSpec, and tpl.affinity, tpl.argocdApplication finalizers render $spec.finalizers instead of root context, tpl.securityContext no longer emits fsGroup on container securityContext, tpl.podDisruptionBudget validates name, budget field, and selector; supports minAvailable 0

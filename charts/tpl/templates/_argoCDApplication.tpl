@@ -30,7 +30,7 @@ metadata:
   {{- end }}
   {{- if $spec.finalizers }}
   finalizers:
-    {{- toYaml . | nindent 4 }}
+    {{- toYaml $spec.finalizers | nindent 4 }}
   {{- end }}
 spec:
   project: {{ $spec.project | default "default" }}

@@ -28,6 +28,7 @@ cd "$ROOT"
 TARGET_BRANCH="${CT_TARGET_BRANCH:-main}"
 LINT_ALL=false
 WITH_INSTALL=false
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
   sed -n '1,20p' "$0" | tail -n +2
@@ -83,21 +84,77 @@ dep_update_if_needed() {
   fi
 }
 
+verify_dependency_build() {
+  local charts="$1"
+  while IFS= read -r chart; do
+    [[ -z "${chart// }" ]] && continue
+    case "$chart" in
+      charts/test-chart) continue ;;
+    esac
+    if [[ -f "${chart}/Chart.yaml" ]] && grep -q '^dependencies:' "${chart}/Chart.yaml"; then
+      echo "helm dependency build ${chart}"
+      helm dependency build "${chart}"
+    fi
+  done <<< "$charts"
+  if ! git diff --exit-code; then
+    echo "error: tracked files changed after helm dependency build — run helm dependency build locally and commit Chart.lock and/or charts/*/charts/*.tgz" >&2
+    git diff
+    exit 1
+  fi
+}
+
+tpl_dependents_csv() {
+  local native="$1"
+  local charts="$2"
+  local chart csv=""
+
+  if ! echo "$native" | grep -qx 'charts/tpl'; then
+    return 0
+  fi
+
+  while IFS= read -r chart; do
+    [[ -z "${chart// }" ]] && continue
+    if ! echo "$native" | grep -qx "$chart"; then
+      csv="${csv:+$csv,}${chart}"
+    fi
+  done <<< "$charts"
+
+  if [[ -n "$csv" ]]; then
+    printf '%s' "$csv"
+  fi
+}
+
 run_lint_changed() {
-  local changed
-  changed="$(ct list-changed --target-branch "$TARGET_BRANCH")" || true
-  if [[ -z "${changed//[$'\t\r\n ']/}" ]]; then
+  local charts native tpl_dependents
+  charts="$("$SCRIPT_DIR/list-charts-to-test.sh" --target-branch "$TARGET_BRANCH")"
+  native="$("$SCRIPT_DIR/list-charts-to-test.sh" --native --target-branch "$TARGET_BRANCH")"
+
+  if [[ -z "${charts//[$'\t\r\n ']/}" ]]; then
     echo "No charts changed vs ${TARGET_BRANCH} (local git only) — nothing to lint."
     echo "Tip: commit on a branch, or run with --all to lint every chart."
     return 0
   fi
-  echo "Changed charts:"
-  echo "$changed"
+
+  echo "Changed charts (native):"
+  echo "$native"
+  echo "Charts to test (including tpl dependents when applicable):"
+  echo "$charts"
+
+  helm_ensure_repos
+  verify_dependency_build "$charts"
+
   while IFS= read -r chart; do
     [[ -z "${chart// }" ]] && continue
     dep_update_if_needed "$chart"
-  done <<< "$changed"
+  done <<< "$charts"
+
   ct lint --debug --target-branch "$TARGET_BRANCH"
+
+  tpl_dependents="$(tpl_dependents_csv "$native" "$charts")"
+  if [[ -n "$tpl_dependents" ]]; then
+    echo "Linting tpl dependents (no version increment check): $tpl_dependents"
+    ct lint --debug --charts "$tpl_dependents" --check-version-increment=false
+  fi
 }
 
 run_lint_all() {
@@ -139,17 +196,19 @@ run_install_kind() {
   if $LINT_ALL; then
     ct install --all
   else
-    ct install --target-branch "$TARGET_BRANCH"
+    local charts charts_csv
+    charts="$("$SCRIPT_DIR/list-charts-to-test.sh" --target-branch "$TARGET_BRANCH")"
+    charts_csv=$(echo "$charts" | paste -sd, -)
+    ct install --charts "$charts_csv"
   fi
 
   trap - EXIT 2>/dev/null || true
   cleanup
 }
 
-helm_ensure_repos
-
 if $LINT_ALL; then
   echo "Lint mode: --all (entire charts/)"
+  helm_ensure_repos
   run_lint_all
 else
   echo "Lint mode: changed charts vs ${TARGET_BRANCH}"
@@ -158,6 +217,7 @@ fi
 
 if $WITH_INSTALL; then
   echo "Running ct install (kind) …"
+  helm_ensure_repos
   run_install_kind
 else
   echo "Skipping kind / ct install (use --with-install to enable, as on pull_request in CI)."
