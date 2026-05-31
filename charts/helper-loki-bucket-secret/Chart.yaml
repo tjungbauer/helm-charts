@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-loki-bucket-secret
 description: Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.
-version: 1.0.13
+version: 1.0.14
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -37,3 +37,5 @@ annotations:
       description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: added
       description: (1.0.13) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)
+    - kind: changed
+      description: (1.0.14) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)

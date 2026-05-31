@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.45
+version: 1.0.46
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -58,3 +58,5 @@ annotations:
       description: (1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks
     - kind: added
       description: (1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)
+    - kind: changed
+      description: (1.0.46) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
