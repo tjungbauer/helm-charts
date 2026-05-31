@@ -35172,6 +35172,68 @@ entries:
           description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
         - kind: fixed
           description: (1.0.28) Omit toleration value when operator is Exists or value is empty
+        - kind: added
+          description: (1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-05-31T05:53:58.060725144Z"
+    description: A library that shall collect certain templates to reuse them among
+      different charts.
+    digest: 0da094107da01f71bac75a332c0f93878ac56c91d690c0e411c6f41bae93511a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: library
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.29/tpl-1.0.29.tgz
+    version: 1.0.29
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: tpl nodeSelector
+        - kind: added
+          description: tpl for sleeptimer that can be used in jobs
+        - kind: added
+          description: tpl to set nodeSelector and tolartion annoations for a namespace
+        - kind: added
+          description: new TPLs to create matchExpressions and matchLabels blocks
+        - kind: added
+          description: new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource.
+        - kind: added
+          description: nswitched order of tolerations
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPLs to set securityContext and podSecurityContext
+        - kind: added
+          description: new TPLs to set podDisruptionBudget and optimized resources template and schema
+        - kind: added
+          description: new TPLs to create ArgoCD Applications
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPL for namespace object
+        - kind: fixed
+          description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
+        - kind: fixed
+          description: (1.0.28) Omit toleration value when operator is Exists or value is empty
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -36518,4 +36580,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-05-27T15:14:47.845980722Z"
+generated: "2026-05-31T05:53:58.063336085Z"
