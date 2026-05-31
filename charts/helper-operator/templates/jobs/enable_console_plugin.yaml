@@ -13,6 +13,7 @@ metadata:
     {{- include "helper-operator.job.annotations" .Values.console_plugins | nindent 4 }}
 spec:
   selector: {}
+  {{- include "tpl.ttlSecondsAfterFinished" (.Values.console_plugins.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
     metadata:
       name: enable-console-plugin

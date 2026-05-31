@@ -3,6 +3,10 @@
 # @default -- false
 enabled: false
 
+# -- Seconds to retain finished status-checker Jobs before Kubernetes deletes them
+# @default -- 600
+ttlSecondsAfterFinished: 600
+
 # -- Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps.
 # @default -- false
 approver: false
@@ -31,6 +35,10 @@ checks:
     # -- Syncwave for the status-check Job. 0 is the recommended value.
     # @default -- 0
     syncwave: 0
+
+    # -- Optional override for Job cleanup TTL in seconds
+    # @default -- inherits ttlSecondsAfterFinished from chart root
+    # ttlSecondsAfterFinished: 600
 
     serviceAccount:
       # -- Name of the Service Account.

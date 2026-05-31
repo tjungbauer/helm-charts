@@ -50,6 +50,10 @@ apiserver:
     # @default -- aesgcm
     encryption_type: aesgcm
 
+    # -- Seconds to retain the finished etcd-encryption check Job before Kubernetes deletes it
+    # @default -- 600
+    ttlSecondsAfterFinished: 600
+
 ########################
 # CLUSTER PROXY CONFIG #
 ########################

@@ -7,6 +7,10 @@ enabled: false
 # @default -- 3
 syncwave: 3
 
+# -- Seconds to retain the finished bucket-secret Job before Kubernetes deletes it
+# @default -- 600
+ttlSecondsAfterFinished: 600
+
 # -- Namespace where LokiStack is deployed and where the Secret shall be created.
 namespace: namespace-with-lokistack-and-bucket
 

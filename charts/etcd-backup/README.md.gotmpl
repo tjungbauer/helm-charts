@@ -3,10 +3,23 @@
 This Helm Chart can be used to create a backup of ETCD. In addition, a key-pruner Cronjob can be enabled that will cleanup old secrets.
 It will execute a CronJob on one of the control planes in order to dump ETCD and store it to a PV.
 
-**WARNING**: In order to be able to create such a backup, this CronJob must be able to start a *PRIVILEGED* pod.
+**WARNING**: In order to create this backup, the CronJob must run a **privileged** pod on a **control-plane** node.
 
 **CAUTION**: The backup contains two files: the etcd DB and a tar.gz. If etcd is encrypted, then the tar.gz will contain the keys to decrypt the DB. It is up to the storage team to be sure that the access to the share is secure.
 (Maybe in the future I can extend the Chart ... or just create a pull request :) )
+
+## Why privileged access and control-plane placement are required
+
+OpenShift etcd backups are taken **on the control plane**, not from an ordinary application pod. The chart follows the approach documented by Red Hat: schedule work on a control-plane node and run `/usr/local/bin/cluster-backup.sh` in the host context via `oc debug node/...`.
+
+That workflow requires capabilities a restricted pod cannot have:
+
+1. **Control-plane scheduling** — the CronJob uses `nodeSelector: node-role.kubernetes.io/control-plane` so the backup logic runs where etcd and the backup script live.
+2. **Host access** — the pod uses `hostNetwork`, `hostPID`, a hostPath mount of `/`, and `securityContext.privileged: true` so it can reach the node filesystem under `/host` and move files from `/host/home/core/backup`.
+3. **`oc debug` on the local node** — the container runs `oc debug node/<local-node> -- bash -c 'chroot /host sudo -E /usr/local/bin/cluster-backup.sh ...'`, which needs permission to start debug pods and execute commands in the control-plane host namespace.
+4. **OpenShift SCC** — item 5 below binds the ServiceAccount to `system:openshift:scc:privileged`. Without that SCC binding, the scheduler rejects the pod or the backup script cannot access the host paths it needs.
+
+This is **not optional hardening debt**: a non-privileged, worker-node-only design cannot perform the supported control-plane etcd backup path. Treat the backup namespace, ServiceAccount, PVC, and privileged binding as highly sensitive infrastructure.
 
 The following objects/settings will be created:
 
@@ -14,7 +27,7 @@ The following objects/settings will be created:
 2. ClusterRole: a dedicated Role that allows to get/list nodes and start a Debug pod.
 3. ServiceAccount: The ServiceAccount the CronJob will use (Default etcd-backup).
 4. ClusterRoleBinding: A binding that binds the ServiceAccount to the ClusterRole.
-5. ClusterRoleBinding-Privileged: A binding that binds the ServiceAccount to the SCC system:openshift:scc:privileged.
+5. ClusterRoleBinding-Privileged: A binding that binds the ServiceAccount to the SCC `system:openshift:scc:privileged` (required for control-plane host access as described above).
 6. PersistentVolumeClaim: The Claim to the Storage where the backup will be stored.
 7. Optional: PersistentVolume: A dedicated PV, used by the PVC. This is optional and might be automatically created, depending on the StorageClass.
 8. CronJob: The actual CronJob starts a Debug Pod to execute the backup script. 

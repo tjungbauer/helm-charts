@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-status-checker
 description: A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.
-version: 4.0.17
+version: 4.0.18
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.28
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -43,3 +43,5 @@ annotations:
       description: removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job.
     - kind: changed
       description: (4.0.17) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: added
+      description: (4.0.18) - Configurable ttlSecondsAfterFinished on status-check and installplan Jobs (default 600s)

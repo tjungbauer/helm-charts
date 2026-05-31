@@ -16,6 +16,7 @@ spec:
   parallelism: 1
   completions: 1
   backoffLimit: 6
+  {{- include "tpl.ttlSecondsAfterFinished" (.job_init_quay.ttlSecondsAfterFinished | default $.Values.quay.job_ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
     spec:
       containers:

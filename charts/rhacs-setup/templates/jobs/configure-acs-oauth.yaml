@@ -10,6 +10,7 @@ metadata:
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
+  {{- include "tpl.ttlSecondsAfterFinished" (.Values.rhacs.job_vars.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
     spec:
       containers:

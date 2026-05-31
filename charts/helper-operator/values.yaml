@@ -20,6 +20,10 @@ console_plugins:
   # @default -- kube-system
   job_namespace: kube-system
 
+  # -- Seconds to retain the finished console-plugin Job before Kubernetes deletes it
+  # @default -- 600
+  ttlSecondsAfterFinished: 600
+
   # -- Optional: Name of the service account that will execute the Job.
   # @default -- enable-console-plugin-sa
   job_service_account: enable-console-plugin-sa

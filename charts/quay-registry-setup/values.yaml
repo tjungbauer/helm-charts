@@ -15,6 +15,11 @@ quay:
   # @default -- 3
   syncwave: 3
 
+  # -- Seconds to retain finished Quay hook Jobs before Kubernetes deletes them (init, cert inject)
+  # @section -- Generic Settings
+  # @default -- 600
+  job_ttlSecondsAfterFinished: 600
+
   # -- The public route that shall be used for the registry. This setting is required to initialize quay.
   # @section -- Generic Settings
   # @default -- N/A
@@ -305,6 +310,11 @@ quay_configuration:
   # @section -- Quay Configuration Generic
   # @default -- 3
   syncwave: 3
+
+  # -- Seconds to retain the finished configuration Job before Kubernetes deletes it
+  # @section -- Quay Configuration Generic
+  # @default -- 600
+  ttlSecondsAfterFinished: 600
 
   # -- Name of the config map skeleton
   # @section -- Quay Configuration Generic

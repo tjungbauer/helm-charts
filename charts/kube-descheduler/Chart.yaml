@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kube-descheduler
 description: Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies
-version: 1.0.0
+version: 1.0.1
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png
 dependencies:
@@ -27,3 +27,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: (1.0.0) Initial release of Kube Descheduler Operator Helm Chart
+    - kind: changed
+      description: (1.0.1) - Fixed wrong text in values.yaml

@@ -536,6 +536,10 @@ rhacs:
     # @default -- 20
     max_attempts: 20
 
+    # -- Seconds to retain finished RHACS setup Jobs before Kubernetes deletes them
+    # @default -- 600
+    ttlSecondsAfterFinished: 600
+
   # -- Run the Job to initialze an ACS secrued cluster and creates a init bundle.
   job_init_bundle:
     # -- Enable this Job

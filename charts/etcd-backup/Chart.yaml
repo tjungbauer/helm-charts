@@ -1,7 +1,7 @@
 apiVersion: v2
 name: etcd-backup
 description: Create a CronJob that performs ETCD Backup and stores the backup to a PV.
-version: 1.0.11
+version: 1.0.12
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
 maintainers:
@@ -33,3 +33,5 @@ annotations:
       description: added key-pruner Cronjob
     - kind: changed
       description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: changed
+      description: (1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup

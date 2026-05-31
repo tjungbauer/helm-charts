@@ -10,7 +10,11 @@ namespace:
 
 # -- Start a Job to set an initial password
 # @default -- false
-set_admin_password: true
+set_admin_password: false
+
+# -- Seconds to retain the finished admin-password Job before Kubernetes deletes it
+# @default -- 600
+ttlSecondsAfterFinished: 600
 
 # -- Endpoint so that the Job that is configuring the initial password can connect.
 endpoint: *endpoint

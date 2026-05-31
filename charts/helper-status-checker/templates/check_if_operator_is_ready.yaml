@@ -14,7 +14,7 @@ metadata:
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
-  ttlSecondsAfterFinished: 120
+  {{- include "tpl.ttlSecondsAfterFinished" (.ttlSecondsAfterFinished | default $.Values.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
     spec:
       containers:

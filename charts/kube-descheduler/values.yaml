@@ -9,14 +9,14 @@ descheduler:
   # @default -- 10
   syncwave: 10
 
-  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # -- Additional labels to add as key: value pairs.
   # @section -- namespace
   # @default -- {}
   additionalAnnotations: {}
   #  additionalAnnotation1: "My Annotation"
   #  additionalAnnotation2: "My Annotation 2"
 
-  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # -- Additional labels to add as key: value pairs.
   # @section -- namespace
   # @default -- {}
   additionalLabels: {}
