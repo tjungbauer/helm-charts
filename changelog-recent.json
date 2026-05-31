@@ -1,8 +1,112 @@
 {
-  "generated": "2026-05-31T09:18:46.560242Z",
+  "generated": "2026-05-31T09:32:11.109240Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "kube-descheduler",
+      "version": "1.0.2",
+      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-descheduler",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
+      "lastModified": "2026-05-31T11:22:42+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.1) - Fixed wrong text in values.yaml"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Fixed typos"
+        }
+      ]
+    },
+    {
+      "name": "collection-optional-operators",
+      "version": "1.0.36",
+      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-05-31T11:22:42+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.36) - Fixed dependency version"
+        }
+      ]
+    },
+    {
+      "name": "collection-operators",
+      "version": "1.0.44",
+      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-05-31T11:22:42+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.43) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.44) - Fixed dependency version"
+        }
+      ]
+    },
+    {
+      "name": "collection-management-operators",
+      "version": "1.0.55",
+      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-05-31T11:22:42+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "redefined the management operators that shall be installed."
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.54) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.55) - Fixed dependency version"
+        }
+      ]
+    },
     {
       "name": "openshift-gitops",
       "version": "1.1.13",
@@ -516,24 +620,6 @@
         {
           "kind": "changed",
           "description": "(1.0.10) - Mark chart as demo-only in Chart.yaml and README; add not-for-production keywords"
-        }
-      ]
-    },
-    {
-      "name": "kube-descheduler",
-      "version": "1.0.1",
-      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
-      "lastModified": "2026-05-31T07:56:26+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.1) - Fixed wrong text in values.yaml"
         }
       ]
     },
