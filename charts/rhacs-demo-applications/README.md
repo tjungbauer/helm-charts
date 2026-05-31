@@ -7,21 +7,27 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square)
+  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
 
  
 
   ## Description
 
-  Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos
+  DEMO ONLY — intentionally vulnerable workloads for RHACS training and demos. Not for production or shared clusters.
 
-# DEMO Application to test Red Hat Advanced Cluster Security (RHACS)
+# DEMO ONLY — RHACS training workloads
 
-:exclamation: This installs a demo application which has vulnerabilities :exclamation:
+**This chart is for demonstrations and security training only.** It deploys intentionally misconfigured applications so Red Hat Advanced Cluster Security (RHACS) can detect and report violations.
 
-It shall only be used to demonstrate how Red Hat Advanced Cluster Security deals with found security violations.
+## Do not use in production
 
-DO NOT use it anywhere near production. You have been warned.
+- **Do not** install on production, staging, or shared multi-tenant clusters.
+- **Do not** include this chart in operator collection charts or default GitOps bootstrap paths.
+- **Do not** treat deployed workloads as safe to expose or integrate with real data.
+
+The manifests deliberately include patterns such as privileged containers, excessive RBAC (including `cluster-admin` bindings in demo namespaces), hostPath mounts, and other misconfigurations that RHACS is meant to flag.
+
+Use this chart only in isolated lab clusters when demonstrating RHACS policies, violations, and remediation workflows.
 
 ## Maintainers
 

@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.29](https://img.shields.io/badge/Version-1.0.29-informational?style=flat-square)
+  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
 
  
 
@@ -41,7 +41,7 @@ This chart has the following dependencies:
 | Repository | Name | Version |
 |------------|------|---------|
 | https://SonarSource.github.io/helm-chart-sonarqube | sonarqube | ~2025.6.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.28 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -82,6 +82,7 @@ Verify the subcharts for additional settings:
 | sonarqube.persistence | object | `{"enabled":true}` | Keep the data persistent |
 | sonarqube.plugins | object | `{"install":["https://github.com/checkstyle/sonar-checkstyle/releases/download/10.9.3/checkstyle-sonar-plugin-10.9.3.jar","https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/3.1.0/sonar-dependency-check-plugin-3.1.0.jar","https://github.com/sbaudoin/sonar-yaml/releases/download/v1.7.0/sonar-yaml-plugin-1.7.0.jar","https://github.com/sbaudoin/sonar-shellcheck/releases/download/v2.5.0/sonar-shellcheck-plugin-2.5.0.jar"]}` | additional plugins to install |
 | sonarqube.route | object | `{"enabled":true,"host":"sonarqube.apps.ocp.aws.ispworld.at","tls":{"insecureEdgeTerminationPolicy":"Allow","termination":"edge"}}` | Enable ingress, using the defind endpoint. |
+| ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished admin-password Job before Kubernetes deletes it |
 
 ## Example #1 - MultiCloudGateway only
 

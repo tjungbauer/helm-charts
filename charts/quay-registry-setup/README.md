@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.18](https://img.shields.io/badge/Version-2.0.18-informational?style=flat-square)
+  ![Version: 2.0.19](https://img.shields.io/badge/Version-2.0.19-informational?style=flat-square)
 
  
 
@@ -37,7 +37,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.28 |
 
 ## Maintainers
 
@@ -98,6 +98,7 @@ Verify the possible sub-charts for additional settings:
 |-----|------|---------|-------------|
 | quay.config_bundle | string | quay-generated-configuration | Name of the Secret of the Quay configuration. This should be configured by the chart used by GitOps approach. |
 | quay.enabled | bool | false | Enable configuration of the Quay Operator. This will setup the Namespace and the Operator isntance. |
+| quay.job_ttlSecondsAfterFinished | int | 600 | Seconds to retain finished Quay hook Jobs before Kubernetes deletes them (init, cert inject) |
 | quay.namespace.bindtoNode | object | N/A | When you want to schedule Quay on a specific node (role), for example infrastructure nodes, you can define the role here. Technically, it will add specific annotations onto the Namespace object. |
 | quay.namespace.bindtoNode.role | string | `"infra"` | Role where Quay shall be scheduled @default: N/A |
 | quay.namespace.create | bool | false | Create the Namespace for Quay Enterprise. Should be "true" if it is a new namespace. |
@@ -293,6 +294,7 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.storage.maximum_chunk_size_mb | int | 100Mb | Defines the maximum chunk size in MB for the final copy. Has no effect if server_side_assembly is set to false. Used by RadosGWStorage, RHOCSStorage, IBMCloudStorage |
 | quay_configuration.storage.server_side_assembly | bool | true | Whether Red Hat Quay should try and use server side assembly and the final chunked copy instead of client assembly. Defaults to true. |
 | quay_configuration.syncwave | int | 3 | Syncwave for generating the quay configuration |
+| quay_configuration.ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished configuration Job before Kubernetes deletes it |
 
 ### Quay Configuration Settings QUOTA
 

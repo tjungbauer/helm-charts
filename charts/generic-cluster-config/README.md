@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.65](https://img.shields.io/badge/Version-1.0.65-informational?style=flat-square)
+  ![Version: 1.0.66](https://img.shields.io/badge/Version-1.0.66-informational?style=flat-square)
 
  
 
@@ -40,7 +40,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.28 |
 
 None
 
@@ -75,6 +75,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-
 | apiserver.etcd_encryption.encryption_type | string | aesgcm | Type of encryption. This can either be: <br /> <ul> <li>AES-CBC - Uses AES-CBC with PKCS#7 padding and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <li>AES-GCM - Uses AES-GCM with a random nonce and a 32 byte key to perform the encryption. The encryption keys are rotated weekly.</li> <ul> |
 | apiserver.etcd_encryption.namespace | string | `"openshift-gitops"` | The Namespace where the Pod that verifies the status of the encryption will be started. If you encrypt the ETCD on a cluster without GitOps, this namespace must be changed. For example to "kube-system" |
 | apiserver.etcd_encryption.serviceAccount | object | `{"create":true,"name":"etcd-encryption-checker"}` | The service account that is used to verify the status of the encryption |
+| apiserver.etcd_encryption.ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished etcd-encryption check Job before Kubernetes deletes it |
 | clusterproxy.additionalAnnotations | object | {} | Additional labels to add as key: value pairs. |
 | clusterproxy.additionalLabels | object | {} | Additional labels to add to as key: value pairs. |
 | clusterproxy.enabled | bool | false | Enable Cluster Proxy configuration |

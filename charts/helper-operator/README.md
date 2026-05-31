@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.41](https://img.shields.io/badge/Version-1.0.41-informational?style=flat-square)
+  ![Version: 1.0.42](https://img.shields.io/badge/Version-1.0.42-informational?style=flat-square)
 
  
 
@@ -65,6 +65,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 | console_plugins.job_service_account_role | string | enable-console-plugin-role | Optional: Name of the role that will be assigned to the service account. |
 | console_plugins.plugins | list | empty | List of console plugins to configure. Each list item will be added to the OpenShift UI. |
 | console_plugins.syncwave | int | 5 | Optional: Syncwave for console plugin configuration. |
+| console_plugins.ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished console-plugin Job before Kubernetes deletes it |
 | operators | object | "" | Define operators that you want to deploy. A key/value setup is used here. Each new operator is a new key (in this example "my-operator") |
 | operators.my-operator.enabled | bool | false | Enabled yes/no |
 | operators.my-operator.namespace.create | bool | false | Create the Namespace yes/no. |

@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.44](https://img.shields.io/badge/Version-1.0.44-informational?style=flat-square)
+  ![Version: 1.0.45](https://img.shields.io/badge/Version-1.0.45-informational?style=flat-square)
 
  
 
@@ -37,7 +37,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.28 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-acs)
 
@@ -102,8 +102,9 @@ Verify the subcharts for additional settings:
 | rhacs.job_init_bundle | object | `{"enabled":false,"syncwave":"3"}` | Run the Job to initialze an ACS secrued cluster and creates a init bundle. |
 | rhacs.job_init_bundle.enabled | bool | false | Enable this Job |
 | rhacs.job_init_bundle.syncwave | string | 3 | Syncwave for Argo CD to create this Job. |
-| rhacs.job_vars | object | `{"max_attempts":20}` | Variables for Jobs |
+| rhacs.job_vars | object | `{"max_attempts":20,"ttlSecondsAfterFinished":600}` | Variables for Jobs |
 | rhacs.job_vars.max_attempts | int | 20 | Maximum retries for Jobs that need to check a certain state. |
+| rhacs.job_vars.ttlSecondsAfterFinished | int | 600 | Seconds to retain finished RHACS setup Jobs before Kubernetes deletes them |
 | rhacs.namespace.descr | string | `"Red Hat Advanced Cluster Security"` | Description of the Namespace. |
 | rhacs.namespace.name | string | `"stackrox"` | Namespace where ACS shall be deployed. Typicall, this is stackrox. This is not the Operator itself, that is usually deployed in "rhacs-operator". |
 | rhacs.namespace.syncwave | string | 0 | Syncwave to deploy the ACS namespace. |
