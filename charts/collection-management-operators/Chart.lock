@@ -1,6 +1,6 @@
 dependencies:
 - name: helper-operator
   repository: https://charts.stderr.at/
-  version: 1.0.40
-digest: sha256:4f005ca473a2745dc9ca5724c8cc8b9668d30d931a0c912bfc7ca8c5cfa8fa6a
-generated: "2026-03-29T17:00:58.140971+02:00"
+  version: 1.0.41
+digest: sha256:1fba94a25b2bdc47e6aa8e9c090c095f2c838958876fce4c56a9c873c7270b45
+generated: "2026-05-31T11:21:49.751912+02:00"
