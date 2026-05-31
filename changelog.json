@@ -1,103 +1,15 @@
 {
-  "generated": "2026-05-31T05:54:28.286342Z",
+  "generated": "2026-05-31T09:18:46.560242Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "tpl",
-      "version": "1.0.29",
-      "description": "A library that shall collect certain templates to reuse them among different charts.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
-      "lastModified": "2026-05-31T07:46:01+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "tpl nodeSelector"
-        },
-        {
-          "kind": "added",
-          "description": "tpl for sleeptimer that can be used in jobs"
-        },
-        {
-          "kind": "added",
-          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create matchExpressions and matchLabels blocks"
-        },
-        {
-          "kind": "added",
-          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
-        },
-        {
-          "kind": "added",
-          "description": "nswitched order of tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set securityContext and podSecurityContext"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
-        },
-        {
-          "kind": "added",
-          "description": "new TPLs to create ArgoCD Applications"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "new TPL for namespace object"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.28) Omit toleration value when operator is Exists or value is empty"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion"
-        }
-      ]
-    },
-    {
-      "name": "kube-descheduler",
-      "version": "1.0.0",
-      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
-      "lastModified": "2026-05-27T17:06:09+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
-        }
-      ]
-    },
-    {
       "name": "openshift-gitops",
-      "version": "1.1.12",
+      "version": "1.1.13",
       "description": "Installs and patches the Red Hat Openshift Gitops Operator",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-05-15T13:53:50+02:00",
+      "lastModified": "2026-05-31T11:10:15+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -226,16 +138,264 @@
         {
           "kind": "fixed",
           "description": "(1.1.12) - disabled the gitops-application instance by default"
+        },
+        {
+          "kind": "added",
+          "description": "(1.1.13) - added Changelog"
+        }
+      ]
+    },
+    {
+      "name": "helper-loki-bucket-secret",
+      "version": "1.0.14",
+      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-05-31T08:18:42+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "removed hardcodedstring logging"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.13) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.14) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        }
+      ]
+    },
+    {
+      "name": "helper-odf-bucket-secret",
+      "version": "1.0.5",
+      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-05-31T08:18:42+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "disabled example values"
+        },
+        {
+          "kind": "added",
+          "description": "cleanup and renaming"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.4) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        }
+      ]
+    },
+    {
+      "name": "helper-operator",
+      "version": "1.0.43",
+      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-05-31T08:18:42+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added Job that will enable Console Plugins if they are defined."
+        },
+        {
+          "kind": "added",
+          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added trustedCA configuration for the Operator"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to disable common labels"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed namespace template to use the correct value for disable_common_labels"
+        },
+        {
+          "kind": "added",
+          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.42) - Configurable ttlSecondsAfterFinished on console-plugin Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.43) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        }
+      ]
+    },
+    {
+      "name": "quay-registry-setup",
+      "version": "2.0.20",
+      "description": "Deploy and configure Red Hat Quay Registry.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png",
+      "lastModified": "2026-05-31T08:18:42+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "using some templates"
+        },
+        {
+          "kind": "fixed",
+          "description": "Postgres does not allow replica override."
+        },
+        {
+          "kind": "fixed",
+          "description": "Removed hardcoded nodeSelector from Namespace resource. This might be added later as variable"
+        },
+        {
+          "kind": "added",
+          "description": "using new tpl function bindtoNode"
+        },
+        {
+          "kind": "added",
+          "description": "This big update moved Config Generation into this chart and included a Job that is able to inject the certificate into the Quay configration. Moreover, any storage type is now supported to be generated by this chart."
+        },
+        {
+          "kind": "fixed",
+          "description": "Fixed some default configuration values"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for LDAP authentication, added possibility to set proxy_cache and several settings for Quotas"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for Github, Google, OIDC oauth, added option for Mailing configuration"
+        },
+        {
+          "kind": "added",
+          "description": "Added support to configure different logging options and some additional parameters"
+        },
+        {
+          "kind": "fixed",
+          "description": "Error in configuration file creation Job"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fixing some errors on Quay configuration rendering"
+        },
+        {
+          "kind": "added",
+          "description": "Added new option repo_mirror_server_hostname to set hostname for the mirroring service"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fixed some errors in the init-quay job"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for RHOCSStorage"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fixed issue with hook-delete-policy"
+        },
+        {
+          "kind": "added",
+          "description": "Added support for auto-prune feature"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(2.0.19) - Configurable ttlSecondsAfterFinished on Quay hook Jobs (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
         }
       ]
     },
     {
       "name": "rhacs-setup",
-      "version": "1.0.44",
+      "version": "1.0.46",
       "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-05-13T12:35:57+02:00",
+      "lastModified": "2026-05-31T08:18:42+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -296,6 +456,336 @@
         {
           "kind": "fixed",
           "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.46) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        }
+      ]
+    },
+    {
+      "name": "etcd-backup",
+      "version": "1.0.12",
+      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added key-pruner Cronjob"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
+        }
+      ]
+    },
+    {
+      "name": "generic-cluster-config",
+      "version": "1.0.66",
+      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        },
+        {
+          "kind": "added",
+          "description": "using some templates"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of Samples operator"
+        },
+        {
+          "kind": "added",
+          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "You can now define your external AlertManager and external Labels."
+        },
+        {
+          "kind": "added",
+          "description": "you can now define nodeExporter features and resources"
+        },
+        {
+          "kind": "fixed",
+          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure remoteWrite"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the metricsServer"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the google openID"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed some issues with the proxy and trusted CA"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing ArtifactHub"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)"
+        }
+      ]
+    },
+    {
+      "name": "helper-status-checker",
+      "version": "4.0.18",
+      "description": "A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        },
+        {
+          "kind": "added",
+          "description": "added new option subscriptionName in case the subscription name is different to the operator name"
+        },
+        {
+          "kind": "fixed",
+          "description": "Wrong clusterrole for the installplan approver."
+        },
+        {
+          "kind": "added",
+          "description": "improved output for the installplan approver"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using tpl.sleeptimer now to prevent code repetition"
+        },
+        {
+          "kind": "fixed",
+          "description": "removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job."
+        },
+        {
+          "kind": "changed",
+          "description": "(4.0.17) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(4.0.18) - Configurable ttlSecondsAfterFinished on status-check and installplan Jobs (default 600s)"
+        }
+      ]
+    },
+    {
+      "name": "kube-descheduler",
+      "version": "1.0.1",
+      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-descheduler",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.1) - Fixed wrong text in values.yaml"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-demo-applications",
+      "version": "1.0.10",
+      "description": "DEMO ONLY \u2014 intentionally vulnerable workloads for RHACS training and demos. Not for production or shared clusters.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.9) - Maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) - Mark chart as demo-only in Chart.yaml and README; add not-for-production keywords"
+        }
+      ]
+    },
+    {
+      "name": "sonarqube",
+      "version": "1.0.30",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2026-05-31T07:56:26+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial chart"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished"
+        }
+      ]
+    },
+    {
+      "name": "tpl",
+      "version": "1.0.29",
+      "description": "A library that shall collect certain templates to reuse them among different charts.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
+      "lastModified": "2026-05-31T07:46:01+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "tpl nodeSelector"
+        },
+        {
+          "kind": "added",
+          "description": "tpl for sleeptimer that can be used in jobs"
+        },
+        {
+          "kind": "added",
+          "description": "tpl to set nodeSelector and tolartion annoations for a namespace"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create matchExpressions and matchLabels blocks"
+        },
+        {
+          "kind": "added",
+          "description": "new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource."
+        },
+        {
+          "kind": "added",
+          "description": "nswitched order of tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set securityContext and podSecurityContext"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to set podDisruptionBudget and optimized resources template and schema"
+        },
+        {
+          "kind": "added",
+          "description": "new TPLs to create ArgoCD Applications"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with newline in tpl.sleeptimer"
+        },
+        {
+          "kind": "added",
+          "description": "new TPL for namespace object"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.28) Omit toleration value when operator is Exists or value is empty"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion"
         }
       ]
     },
@@ -708,32 +1198,6 @@
       ]
     },
     {
-      "name": "etcd-backup",
-      "version": "1.0.11",
-      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added key-pruner Cronjob"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
       "name": "file-integrity-operator",
       "version": "1.0.14",
       "description": "Setup the FileIntegrity Operator (based on AIDE)",
@@ -756,100 +1220,6 @@
         {
           "kind": "changed",
           "description": "(1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "generic-cluster-config",
-      "version": "1.0.65",
-      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
-        },
-        {
-          "kind": "added",
-          "description": "using some templates"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of Samples operator"
-        },
-        {
-          "kind": "added",
-          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "You can now define your external AlertManager and external Labels."
-        },
-        {
-          "kind": "added",
-          "description": "you can now define nodeExporter features and resources"
-        },
-        {
-          "kind": "fixed",
-          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure remoteWrite"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the metricsServer"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the google openID"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed some issues with the proxy and trusted CA"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing ArtifactHub"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
@@ -904,36 +1274,6 @@
         {
           "kind": "changed",
           "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-loki-bucket-secret",
-      "version": "1.0.12",
-      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "removed hardcodedstring logging"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
@@ -1014,90 +1354,6 @@
       ]
     },
     {
-      "name": "helper-odf-bucket-secret",
-      "version": "1.0.3",
-      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "disabled example values"
-        },
-        {
-          "kind": "added",
-          "description": "cleanup and renaming"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-operator",
-      "version": "1.0.41",
-      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added Job that will enable Console Plugins if they are defined."
-        },
-        {
-          "kind": "added",
-          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added trustedCA configuration for the Operator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to disable common labels"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed namespace template to use the correct value for disable_common_labels"
-        },
-        {
-          "kind": "added",
-          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
       "name": "helper-proj-onboarding",
       "version": "1.0.47",
       "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
@@ -1170,52 +1426,6 @@
         {
           "kind": "changed",
           "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-status-checker",
-      "version": "4.0.17",
-      "description": "A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
-        },
-        {
-          "kind": "added",
-          "description": "added new option subscriptionName in case the subscription name is different to the operator name"
-        },
-        {
-          "kind": "fixed",
-          "description": "Wrong clusterrole for the installplan approver."
-        },
-        {
-          "kind": "added",
-          "description": "improved output for the installplan approver"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "using tpl.sleeptimer now to prevent code repetition"
-        },
-        {
-          "kind": "fixed",
-          "description": "removed the namespace from clusterrole and clusterrolebinding as it is not needed and it could cause issues. Added a check if installPlan was found for the subscription. Syncing default syncwave to 0 for all objects. Added missing delete policy to the install-approver job."
-        },
-        {
-          "kind": "changed",
-          "description": "(4.0.17) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
@@ -1474,104 +1684,6 @@
       ]
     },
     {
-      "name": "quay-registry-setup",
-      "version": "2.0.18",
-      "description": "Deploy and configure Red Hat Quay Registry.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "using some templates"
-        },
-        {
-          "kind": "fixed",
-          "description": "Postgres does not allow replica override."
-        },
-        {
-          "kind": "fixed",
-          "description": "Removed hardcoded nodeSelector from Namespace resource. This might be added later as variable"
-        },
-        {
-          "kind": "added",
-          "description": "using new tpl function bindtoNode"
-        },
-        {
-          "kind": "added",
-          "description": "This big update moved Config Generation into this chart and included a Job that is able to inject the certificate into the Quay configration. Moreover, any storage type is now supported to be generated by this chart."
-        },
-        {
-          "kind": "fixed",
-          "description": "Fixed some default configuration values"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for LDAP authentication, added possibility to set proxy_cache and several settings for Quotas"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for Github, Google, OIDC oauth, added option for Mailing configuration"
-        },
-        {
-          "kind": "added",
-          "description": "Added support to configure different logging options and some additional parameters"
-        },
-        {
-          "kind": "fixed",
-          "description": "Error in configuration file creation Job"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fixing some errors on Quay configuration rendering"
-        },
-        {
-          "kind": "added",
-          "description": "Added new option repo_mirror_server_hostname to set hostname for the mirroring service"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fixed some errors in the init-quay job"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fixed issue with newline in tpl.sleeptimer"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for RHOCSStorage"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fixed issue with hook-delete-policy"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for auto-prune feature"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
       "name": "rh-build-keycloak",
       "version": "1.0.6",
       "description": "Configure the operator Red Hat Build of Keycloak",
@@ -1654,24 +1766,6 @@
       ]
     },
     {
-      "name": "rhacs-demo-applications",
-      "version": "1.0.9",
-      "description": "Deploy a demo application with known SECURITY RISKS!!! Used for RHACS Demos",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.9) - Maintainer email"
-        }
-      ]
-    },
-    {
       "name": "setup-container-security-operator",
       "version": "1.0.12",
       "description": "Setup the Quay Container Security Operator.",
@@ -1690,32 +1784,6 @@
         {
           "kind": "changed",
           "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "sonarqube",
-      "version": "1.0.29",
-      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial chart"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
