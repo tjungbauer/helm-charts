@@ -124,7 +124,49 @@ tpl_dependents_csv() {
   fi
 }
 
+run_lint_changed_on_main() {
+  local charts native charts_csv tpl_dependents
+  charts="$("$SCRIPT_DIR/list-charts-to-test.sh" --target-branch "$TARGET_BRANCH")"
+  native="$("$SCRIPT_DIR/list-charts-to-test.sh" --native --target-branch "$TARGET_BRANCH")"
+
+  if [[ -z "${charts//[$'\t\r\n ']/}" ]]; then
+    echo "No charts changed vs ${TARGET_BRANCH} (local git only) — nothing to lint."
+    echo "Tip: commit on a branch, or run with --all to lint every chart."
+    return 0
+  fi
+
+  echo "Changed charts (native):"
+  echo "$native"
+  echo "Charts to test (including tpl dependents when applicable):"
+  echo "$charts"
+
+  helm_ensure_repos
+  verify_dependency_build "$charts"
+
+  while IFS= read -r chart; do
+    [[ -z "${chart// }" ]] && continue
+    dep_update_if_needed "$chart"
+  done <<< "$charts"
+
+  charts_csv=$(echo "$charts" | paste -sd, -)
+  ct lint --debug --charts "$charts_csv" --check-version-increment=false
+}
+
 run_lint_changed() {
+  local current_branch native_from_ct
+  current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+  native_from_ct="$(ct list-changed --target-branch "$TARGET_BRANCH" 2>/dev/null || true)"
+
+  if [[ -n "${native_from_ct//[$'\t\r\n ']/}" ]]; then
+    run_lint_changed_on_pr_branch
+  elif [[ "$current_branch" == "$TARGET_BRANCH" ]]; then
+    run_lint_changed_on_main
+  else
+    run_lint_changed_on_pr_branch
+  fi
+}
+
+run_lint_changed_on_pr_branch() {
   local charts native tpl_dependents
   charts="$("$SCRIPT_DIR/list-charts-to-test.sh" --target-branch "$TARGET_BRANCH")"
   native="$("$SCRIPT_DIR/list-charts-to-test.sh" --native --target-branch "$TARGET_BRANCH")"

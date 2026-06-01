@@ -1,29 +1,18 @@
 name: Lint and Test Charts
 
 on: 
-  # push:
-  #   branches: 
-  #     - main
-  #   paths:
-  #     - 'charts/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
   pull_request:
     paths:
       - 'charts/**'
   workflow_dispatch:
-  # Only run when documentation PR is merged (not on every completion)
-  workflow_run:
-    workflows: ["Update Chart Documentation"]
-    types:
-      - completed
-    branches:
-      - main
 
 jobs:
   lint-test:
-    # Skip if this is a workflow_run trigger and the previous workflow didn't succeed
-    if: >
-      github.event_name != 'workflow_run' || 
-      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,9 +39,13 @@ jobs:
 
       - name: Detect changed charts
         id: list-changed
+        env:
+          CT_TARGET_BRANCH: ${{ github.event.repository.default_branch }}
+          CT_BASE_REF: ${{ github.event.before }}
+          CT_HEAD_REF: ${{ github.event.after || github.sha }}
         run: |
           set -euo pipefail
-          TARGET_BRANCH="${{ github.event.repository.default_branch }}"
+          TARGET_BRANCH="${CT_TARGET_BRANCH}"
           native=$(./scripts/list-charts-to-test.sh --native --target-branch "$TARGET_BRANCH" || true)
           charts=$(./scripts/list-charts-to-test.sh --target-branch "$TARGET_BRANCH" || true)
 
@@ -133,11 +126,17 @@ jobs:
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          echo "Linting changed charts: ${{ steps.list-changed.outputs.charts }}"
-          ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
-          if [[ -n "${{ steps.list-changed.outputs.tpl-dependents }}" ]]; then
-            echo "Linting tpl dependents (no version increment check): ${{ steps.list-changed.outputs.tpl-dependents }}"
-            ct lint --debug --charts "${{ steps.list-changed.outputs.tpl-dependents }}" --check-version-increment=false
+          set -euo pipefail
+          echo "Linting charts: ${{ steps.list-changed.outputs.charts }}"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            ct lint --debug --target-branch ${{ github.event.repository.default_branch }}
+            if [[ -n "${{ steps.list-changed.outputs.tpl-dependents }}" ]]; then
+              echo "Linting tpl dependents (no version increment check): ${{ steps.list-changed.outputs.tpl-dependents }}"
+              ct lint --debug --charts "${{ steps.list-changed.outputs.tpl-dependents }}" --check-version-increment=false
+            fi
+          else
+            charts_csv=$(echo "${{ steps.list-changed.outputs.charts }}" | paste -sd, -)
+            ct lint --debug --charts "$charts_csv" --check-version-increment=false
           fi
 
       # Add dependency update step
