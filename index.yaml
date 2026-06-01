@@ -35441,6 +35441,80 @@ entries:
           description: (1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion
         - kind: added
           description: (1.0.30) tpl.isEnabled, tpl.argocdMetadata, tpl.jobHookMetadata, tpl.jobPodSpec, and tpl.affinity, tpl.argocdApplication finalizers render $spec.finalizers instead of root context, tpl.securityContext no longer emits fsGroup on container securityContext, tpl.podDisruptionBudget validates name, budget field, and selector; supports minAvailable 0
+        - kind: added
+          description: (1.0.31) tpl.topologySpreadConstraints, tpl.imagePullSecrets, tpl.env, tpl.envFrom, tpl.openshiftRoute, and tpl.networkPolicy
+        - kind: changed
+          description: (1.0.31) tpl.jobPodSpec supports imagePullSecrets and topologySpreadConstraints
+        - kind: changed
+          description: (1.0.31) tpl.namespace emits OpenShift description and display-name annotations only when set
+        - kind: changed
+          description: (1.0.31) tpl.resources documents appendUnit Gi/Mi behavior; values examples use explicit units; limits.nvidia removed in favor of extendedResources map
+        - kind: changed
+          description: (1.0.31) tpl.nodeSelector accepts legacy key/value or a multi-label map; tpl.jobPodSpec reuses tpl.nodeSelector
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-01T10:49:23.403841669Z"
+    description: A library that shall collect certain templates to reuse them among
+      different charts.
+    digest: 1ff09a3872a7df3004971f06def0747bd95936d8933f71bb15e2dea1a8ec0c4f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png
+    keywords:
+    - templates
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tpl
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: library
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tpl-1.0.31/tpl-1.0.31.tgz
+    version: 1.0.31
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: tpl nodeSelector
+        - kind: added
+          description: tpl for sleeptimer that can be used in jobs
+        - kind: added
+          description: tpl to set nodeSelector and tolartion annoations for a namespace
+        - kind: added
+          description: new TPLs to create matchExpressions and matchLabels blocks
+        - kind: added
+          description: new TOLS additionalAnnotations and additionalLabels that allow to set annotations and labels freely on any resource.
+        - kind: added
+          description: nswitched order of tolerations
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPLs to set securityContext and podSecurityContext
+        - kind: added
+          description: new TPLs to set podDisruptionBudget and optimized resources template and schema
+        - kind: added
+          description: new TPLs to create ArgoCD Applications
+        - kind: fixed
+          description: fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: new TPL for namespace object
+        - kind: fixed
+          description: (1.0.27) Set Chart.yaml type to library so Helm and Artifact Hub treat tpl as a library chart
+        - kind: fixed
+          description: (1.0.28) Omit toleration value when operator is Exists or value is empty
+        - kind: added
+          description: (1.0.29) tpl.ttlSecondsAfterFinished for Job cleanup after completion
+        - kind: added
+          description: (1.0.30) tpl.isEnabled, tpl.argocdMetadata, tpl.jobHookMetadata, tpl.jobPodSpec, and tpl.affinity, tpl.argocdApplication finalizers render $spec.finalizers instead of root context, tpl.securityContext no longer emits fsGroup on container securityContext, tpl.podDisruptionBudget validates name, budget field, and selector; supports minAvailable 0
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -36909,4 +36983,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-05-31T10:01:22.280246572Z"
+generated: "2026-06-01T10:49:23.405952732Z"
