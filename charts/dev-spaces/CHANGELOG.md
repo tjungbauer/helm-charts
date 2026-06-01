@@ -38,6 +38,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.3] - 2026-06-01
+
+- using tpl.isEnabled now chart-wide.
+
 ## [1.0.2] - 2026-06-01
 
 ### Changed

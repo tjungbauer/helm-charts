@@ -1,5 +1,5 @@
 {{- with .Values.checluster }}
-{{- if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{/*
 Validation Summary:
 - Log levels: DEBUG, INFO, WARN, ERROR (validated)
