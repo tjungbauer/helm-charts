@@ -1,8 +1,46 @@
 {
-  "generated": "2026-06-01T19:43:55.187362Z",
+  "generated": "2026-06-01T20:03:51.634753Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "cert-manager",
+      "version": "2.0.5",
+      "description": "Install and configure the Cert-Manager",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
+      "lastModified": "2026-06-01T22:01:28+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added Certificate resource so this chart can be used to order any certificate"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.5) using tpl min version 1.0.31 and tpl.isEnabled guard, documented skipTLSVerify option"
+        }
+      ]
+    },
     {
       "name": "dev-spaces",
       "version": "1.0.4",
