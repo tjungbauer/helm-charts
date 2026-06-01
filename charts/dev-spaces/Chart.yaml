@@ -6,7 +6,7 @@ description: |
   delivers consistent developer environments on Red Hat OpenShift.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png
-version: 1.0.3
+version: 1.0.4
 dependencies:
   - name: tpl
     version: ~1.0.31
@@ -42,3 +42,5 @@ annotations:
       description: (1.0.2) CHANGELOG.md and values.schema.json for chart values validation and release notes.
     - kind: changed
       description: (1.0.3) using tpl.isEnabled for checluster enabled guard
+    - kind: changed
+      description: (1.0.4) version bump
