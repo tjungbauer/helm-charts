@@ -1,5 +1,5 @@
 {{- range .Values.banp }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: policy.networking.k8s.io/v1alpha1
 kind: BaselineAdminNetworkPolicy
@@ -26,9 +26,9 @@ spec:
     {{- end }}
 
     {{- if .subject.matchPods }}
-    
+
     {{- range .subject.matchPods }}
-    
+
   {{- include "helper.podsConfig" .pods }}
     {{- end }}
     {{- end }}
@@ -41,8 +41,8 @@ spec:
   {{- if .egress }}
   egress:
     {{- range .egress }}
-    {{- if eq ( .enabled | toString) "true" }}
-    - name: {{ .name | quote }} 
+    {{- if include "tpl.isEnabled" .enabled }}
+    - name: {{ .name | quote }}
       action: {{ .action | default "Deny" | quote }}
       to:
       {{- /* RENDER RULES */}}
@@ -66,8 +66,8 @@ spec:
   {{- if .ingress }}
   ingress:
   {{- range .ingress }}
-  {{- if eq ( .enabled | toString) "true" }}
-    - name: {{ .name | quote }} 
+  {{- if include "tpl.isEnabled" .enabled }}
+    - name: {{ .name | quote }}
       action: {{ .action | default "Deny" | quote }}
       from:
       {{- /* RENDER RULES */}}

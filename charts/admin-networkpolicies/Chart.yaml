@@ -1,12 +1,12 @@
 apiVersion: v2
 name: admin-networkpolicies
 description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.
-version: 1.0.7
+version: 1.0.8
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -36,3 +36,7 @@ annotations:
       description: fixing portRange implementation
     - kind: changed
       description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: changed
+      description: (1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard
+    - kind: added
+      description: (1.0.8) Changelog and values.schema.json

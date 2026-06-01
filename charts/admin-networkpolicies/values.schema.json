@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "admin-networkpolicies chart values",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "anp": {
+      "type": "array",
+      "description": "AdminNetworkPolicy resources",
+      "items": { "$ref": "#/definitions/anpPolicy" }
+    },
+    "banp": {
+      "type": "array",
+      "description": "BaselineAdminNetworkPolicy resources",
+      "items": { "$ref": "#/definitions/banpPolicy" }
+    },
+    "tpl": {
+      "type": "object",
+      "description": "Values passed to the tpl library subchart dependency",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "enableFlag": {
+      "description": "Boolean or string true/false (tpl.isEnabled)",
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["true", "false", "True", "False", "TRUE", "FALSE"] }
+      ]
+    },
+    "syncwave": {
+      "description": "Argo CD argocd.argoproj.io/sync-wave annotation",
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string", "pattern": "^-?[0-9]+$" }
+      ]
+    },
+    "policyRule": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "action": {
+          "type": "string",
+          "enum": ["Allow", "Pass", "Deny"]
+        },
+        "peers": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "ports": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "subject": {
+      "type": "object",
+      "description": "Policy subject (namespaces and/or pods)",
+      "properties": {
+        "matchNamespaces": { "type": "object" },
+        "matchPods": { "type": "array" }
+      },
+      "additionalProperties": true
+    },
+    "anpPolicy": {
+      "type": "object",
+      "required": ["name", "enabled"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "subject": { "$ref": "#/definitions/subject" },
+        "ingress": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/policyRule" }
+        },
+        "egress": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/policyRule" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "banpPolicy": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "subject": { "$ref": "#/definitions/subject" },
+        "ingress": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/policyRule" }
+        },
+        "egress": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/policyRule" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

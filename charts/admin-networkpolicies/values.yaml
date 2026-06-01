@@ -23,7 +23,7 @@ anp:
     # Any ANP should have a unique priority
     # @section -- Generic - ANP
     # @default -- 50
-    priority: 50
+    priority: 1000
 
     # -- Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection.
     # Can be namespaces or pods that are selected.
@@ -48,7 +48,7 @@ anp:
     #          - openshift*
     #          - default
     #          - kubde-info
-#
+
         # -- Select Namespaces using matchLabels. The labels must exist on the Namespace
         # @section -- Subject
         # @default -- N/A
