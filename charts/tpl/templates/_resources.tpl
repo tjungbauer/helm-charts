@@ -1,5 +1,15 @@
 {{/*
-Return the range of resources if defined.
+Render a container resources block (requests and limits).
+
+IMPORTANT — memory and ephemeral-storage units:
+  tpl.appendUnit appends "Gi" to values that do not already end with "Gi" or "Mi".
+  Prefer explicit quantities in values (8Gi, 512Mi) to avoid surprises.
+  Example: memory: 8 renders as 8Gi; ephemeral-storage: 50 renders as 50Gi (not 50Mi).
+
+CPU values are passed through unchanged (e.g. 500m, 2).
+
+Extended resources (GPUs, etc.): use limits.extendedResources / requests.extendedResources
+with full Kubernetes resource names as keys, e.g. "nvidia.com/gpu": 1
 
 Example for resources in the values-file:
       resources:
@@ -11,7 +21,9 @@ Example for resources in the values-file:
           cpu: 8
           memory: 16Gi
           ephemeral-storage: 500Mi
-     
+          extendedResources:
+            nvidia.com/gpu: 1
+
 {{ include "tpl.resources" . -}}
 */}}
 
@@ -30,8 +42,10 @@ resources:
     {{- $ephemeral_storage := include "tpl.appendUnit" (index .limits "ephemeral-storage") }}
     ephemeral-storage: {{ $ephemeral_storage }}
     {{- end }}
-    {{- if .limits.nvidia }}
-    nvidia.com/gpu: {{ .limits.nvidia }}
+    {{- with .limits.extendedResources }}
+    {{- range $name, $qty := . }}
+    {{ $name }}: {{ $qty }}
+    {{- end }}
     {{- end }}
   {{- end }}
   {{- if .requests }}
@@ -47,23 +61,24 @@ resources:
     {{- $ephemeral_storage := include "tpl.appendUnit" (index .requests "ephemeral-storage") }}
     ephemeral-storage: {{ $ephemeral_storage }}
     {{- end }}
+    {{- with .requests.extendedResources }}
+    {{- range $name, $qty := . }}
+    {{ $name }}: {{ $qty }}
+    {{- end }}
+    {{- end }}
   {{- end }}
 {{- end -}}
 
 {{/*
-Append the unit Gi if it is not set for memory or storage
+Append "Gi" when memory or ephemeral-storage has no Gi/Mi suffix.
+
+Only Gi and Mi are treated as complete units; use explicit Ki, G, etc. in values if needed.
 */}}
 {{- define "tpl.appendUnit" -}}
-{{/* Treat the value as a string */}}
 {{- $val := printf "%v" . -}}
-  {{- if not (hasSuffix "Gi" $val) -}}
-    {{- if not (hasSuffix "Mi" $val) -}}
-      {{- printf "%sGi" $val -}}
-    {{- else -}}
-      {{ $val -}}
-    {{- end -}}
-  {{- else -}}
-    {{ $val -}}
-  {{- end -}}
+{{- if or (hasSuffix "Gi" $val) (hasSuffix "Mi" $val) -}}
+{{ $val -}}
+{{- else -}}
+{{- printf "%sGi" $val -}}
 {{- end -}}
-
+{{- end -}}

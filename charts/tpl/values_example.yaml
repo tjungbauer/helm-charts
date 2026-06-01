@@ -20,7 +20,8 @@ tolerations:
     value: reserved
     tolerationSeconds: 600
 
-# -- If you want to define resources
+# -- Container resources (requests and limits).
+# Bare numbers for memory or ephemeral-storage get a "Gi" suffix unless the value already ends with Gi or Mi (see tpl.appendUnit). Prefer explicit units (8Gi, 512Mi) in production values.
 # <br />
 # Example include:
 # {{- if .Values.resources }}
@@ -29,17 +30,30 @@ tolerations:
 resources:
   requests:
     cpu: 4
-    memory: 8
-    ephemeral-storage: 50
+    # -- Memory request. Prefer explicit Gi/Mi; bare integers get a Gi suffix via tpl.appendUnit.
+    # @default -- 8Gi
+    memory: 8Gi
+    # -- Ephemeral storage request. Prefer explicit Mi/Gi; bare integers get a Gi suffix.
+    # @default -- 50Mi
+    ephemeral-storage: 50Mi
   limits:
     cpu: 8
-    memory: 16
-    ephemeral-storage: 500
-    nvidia: 1
+    memory: 16Gi
+    ephemeral-storage: 500Mi
+    # -- Extended resources (full Kubernetes resource names as keys).
+    # @default -- {}
+    extendedResources:
+      nvidia.com/gpu: 1
 
+# -- nodeSelector for workloads. Use key/value for one label, or a label map for multiple (do not mix both shapes).
+# @default -- key/value example below
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+# Multi-label example (use instead of key/value, not together):
+# nodeSelector:
+#   node-role.kubernetes.io/infra: ""
+#   topology.kubernetes.io/zone: eu-west-1
 
 # -- If you want to annotate a namespace to run on a specific node configure the following annotations
 # <br />
@@ -140,7 +154,7 @@ podSecurityContext:
 # <br />
 # Example include:
 # {{- if .Values.namespace }}
-# {{- if eq (.Values.namespace.create | toString) "true" }}
+# {{- if include "tpl.isEnabled" .Values.namespace.create }}
 # {{ include "tpl.namespace" .Values.namespace }}
 # {{- end }}
 # {{- end }}
@@ -217,6 +231,68 @@ affinity:
             matchLabels:
               app: test-app
           topologyKey: kubernetes.io/hostname
+
+# -- Pod topology spread constraints
+# <br />
+# Example include:
+# {{- if .Values.topologySpreadConstraints }}
+# {{ include "tpl.topologySpreadConstraints" .Values.topologySpreadConstraints | indent 6 }}
+# {{- end }}
+topologySpreadConstraints: []
+
+# -- Pod image pull secrets (list of secret names)
+# <br />
+# Example include:
+# {{- if .Values.imagePullSecrets }}
+# {{ include "tpl.imagePullSecrets" .Values.imagePullSecrets | indent 6 }}
+# {{- end }}
+imagePullSecrets:
+  - my-registry-pull-secret
+
+# -- Container environment variables
+# <br />
+# Example include:
+# {{ include "tpl.env" .Values.env | indent 4 }}
+env:
+  - name: EXAMPLE
+    value: "true"
+
+# -- Container envFrom
+# <br />
+# Example include:
+# {{ include "tpl.envFrom" .Values.envFrom | indent 4 }}
+envFrom: []
+
+# -- OpenShift Route (route.openshift.io/v1)
+# <br />
+# Example include:
+# {{- if include "tpl.isEnabled" .Values.route.enabled }}
+# {{ include "tpl.openshiftRoute" (dict "root" $ "route" .Values.route) }}
+# {{- end }}
+route:
+  enabled: false
+  name: my-app
+  namespace: my-namespace
+  targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+
+# -- NetworkPolicy
+# <br />
+# Example include:
+# {{ include "tpl.networkPolicy" (dict "root" $ "policy" .Values.networkPolicy) }}
+networkPolicy:
+  name: allow-from-same-namespace
+  namespace: my-namespace
+  podSelector:
+    matchLabels:
+      app: my-app
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}
 
 # -- ArgoCD Application
 # <br />

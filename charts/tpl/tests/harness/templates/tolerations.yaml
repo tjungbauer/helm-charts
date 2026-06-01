@@ -1,0 +1,21 @@
+{{- with .Values.harness.tolerations }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tolerations-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tolerations-test
+  template:
+    metadata:
+      labels:
+        app: tolerations-test
+    spec:
+{{ include "tpl.tolerations" . | indent 6 }}
+      containers:
+        - name: pause
+          image: registry.access.redhat.com/ubi9/ubi-micro:latest
+          command: ["sleep", "infinity"]
+{{- end }}

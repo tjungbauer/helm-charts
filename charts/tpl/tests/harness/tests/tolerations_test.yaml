@@ -1,0 +1,56 @@
+suite: tpl.tolerations
+templates:
+  - templates/tolerations.yaml
+tests:
+  - it: renders Equal toleration with value and tolerationSeconds
+    set:
+      harness:
+        tolerations:
+          - effect: NoSchedule
+            key: infra
+            operator: Equal
+            value: reserved
+            tolerationSeconds: 600
+    asserts:
+      - equal:
+          path: spec.template.spec.tolerations[0].key
+          value: infra
+      - equal:
+          path: spec.template.spec.tolerations[0].operator
+          value: Equal
+      - equal:
+          path: spec.template.spec.tolerations[0].value
+          value: reserved
+      - equal:
+          path: spec.template.spec.tolerations[0].tolerationSeconds
+          value: 600
+
+  - it: omits value for Exists operator
+    set:
+      harness:
+        tolerations:
+          - effect: NoSchedule
+            key: dedicated
+            operator: Exists
+    asserts:
+      - equal:
+          path: spec.template.spec.tolerations[0].operator
+          value: Exists
+      - notExists:
+          path: spec.template.spec.tolerations[0].value
+
+  - it: renders multiple tolerations
+    set:
+      harness:
+        tolerations:
+          - effect: NoSchedule
+            key: infra
+            operator: Equal
+            value: reserved
+          - effect: NoExecute
+            key: node.kubernetes.io/not-ready
+            operator: Exists
+    asserts:
+      - lengthEqual:
+          path: spec.template.spec.tolerations
+          count: 2

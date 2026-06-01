@@ -123,6 +123,17 @@ jobs:
             exit 1
           fi
 
+      - name: Install helm-unittest plugin
+        if: steps.list-changed.outputs.changed == 'true' && contains(steps.list-changed.outputs.charts, 'charts/tpl')
+        run: |
+          if ! helm plugin list 2>/dev/null | grep -q '^unittest'; then
+            helm plugin install https://github.com/helm-unittest/helm-unittest --version v0.8.2 --verify=false
+          fi
+
+      - name: Run tpl library unit tests
+        if: steps.list-changed.outputs.changed == 'true' && contains(steps.list-changed.outputs.charts, 'charts/tpl')
+        run: ./scripts/run-tpl-unittest.sh
+
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
         run: |

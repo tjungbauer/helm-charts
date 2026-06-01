@@ -1,0 +1,89 @@
+suite: tpl.podDisruptionBudget
+templates:
+  - templates/poddisruptionbudget.yaml
+tests:
+  - it: renders PDB with minAvailable and selectors
+    set:
+      harness:
+        podDisruptionBudget:
+          name: test-pdb
+          namespace: test-ns
+          minAvailable: 1
+          matchLabels:
+            app: test-app
+          additionalLabels:
+            test-label: test-value
+          additionalAnnotations:
+            test-annotation: test-value
+    asserts:
+      - isKind:
+          of: PodDisruptionBudget
+      - equal:
+          path: metadata.name
+          value: test-pdb
+      - equal:
+          path: metadata.namespace
+          value: test-ns
+      - equal:
+          path: spec.minAvailable
+          value: 1
+      - equal:
+          path: spec.selector.matchLabels.app
+          value: test-app
+      - equal:
+          path: metadata.labels.test-label
+          value: test-value
+      - equal:
+          path: metadata.annotations.test-annotation
+          value: test-value
+
+  - it: allows minAvailable zero
+    set:
+      harness:
+        podDisruptionBudget:
+          name: zero-pdb
+          minAvailable: 0
+          matchLabels:
+            app: test-app
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 0
+
+  - it: renders maxUnavailable when set
+    set:
+      harness:
+        podDisruptionBudget:
+          name: max-pdb
+          maxUnavailable: 1
+          matchLabels:
+            app: test-app
+    asserts:
+      - equal:
+          path: spec.maxUnavailable
+          value: 1
+      - notExists:
+          path: spec.minAvailable
+
+  - it: fails when minAvailable and maxUnavailable are both set
+    set:
+      harness:
+        podDisruptionBudget:
+          name: bad-pdb
+          minAvailable: 1
+          maxUnavailable: 1
+          matchLabels:
+            app: test-app
+    asserts:
+      - failedTemplate:
+          errorMessage: "tpl.podDisruptionBudget: minAvailable and maxUnavailable are mutually exclusive"
+
+  - it: fails when selector is missing
+    set:
+      harness:
+        podDisruptionBudget:
+          name: bad-pdb
+          minAvailable: 1
+    asserts:
+      - failedTemplate:
+          errorMessage: "tpl.podDisruptionBudget: set matchLabels and/or matchExpressions for spec.selector"

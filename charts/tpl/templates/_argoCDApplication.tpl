@@ -36,7 +36,9 @@ spec:
   project: {{ $spec.project | default "default" }}
 
   {{- if $spec.info }}
-  # Additional information
+  {{/*
+  Additional information
+  */}}
   info:
     {{- range $spec.info }}
     - name: {{ .name | required "If additional info list is provided, name and value fields are required" }}
@@ -46,7 +48,9 @@ spec:
 
   {{- if $spec.sources }}
   {{- else }}
-  # Single source configuration
+  {{/*
+  Single source configuration
+  */}}
   source:
     repoURL: {{ $spec.source.repositoryURL | required "source.repositoryURL is required" }}
     {{- with $spec.source.targetRevision }}
@@ -60,7 +64,9 @@ spec:
     {{- end }}
 
     {{- if $spec.source.helm }}
-    # Helm specific configuration
+    {{/*
+    Helm specific configuration
+    */}}
     helm:
       {{- with $spec.source.helm.releaseName }}
       releaseName: {{ . }}
@@ -122,7 +128,9 @@ spec:
     {{- end }}
 
   {{- end }}
-  # Destination cluster and namespace
+  {{/*
+  Destination cluster and namespace
+  */}}
   destination:
     {{- if and ($spec.destination.server) ($spec.destination.name) }}
     {{ fail "destination.server and destination.name cannot be set at the same time" }}
@@ -138,7 +146,9 @@ spec:
     namespace: {{ $spec.destination.namespace | required "destination.namespace is required" }}
 
   {{- if $spec.syncPolicy }}
-  # Sync policy configuration
+  {{/*
+  Sync policy configuration
+  */}}
   syncPolicy:
     {{- if $spec.syncPolicy.automated }}
     automated:
@@ -172,7 +182,9 @@ spec:
     {{- end }}
 
     {{- if $spec.syncPolicy.retry }}
-    # Sync retry configuration
+    {{/*
+    Sync retry configuration
+    */}}
     retry:
       {{- with $spec.syncPolicy.retry.limit }}
       limit: {{ . }}
@@ -193,7 +205,9 @@ spec:
   {{- end }}
 
   {{- if $spec.ignoreDifferences }}
-  # Ignore differences configuration
+  {{/*
+  Ignore differences configuration
+  */}}
   ignoreDifferences:
     {{- toYaml $spec.ignoreDifferences | nindent 4 }}
   {{- end }}

@@ -1,0 +1,38 @@
+suite: tpl.nodeSelector
+templates:
+  - templates/nodeselector.yaml
+tests:
+  - it: renders legacy key and value
+    set:
+      harness:
+        nodeSelectorContext:
+          nodeSelector:
+            key: node-role.kubernetes.io/infra
+            value: ""
+    asserts:
+      - equal:
+          path: spec.nodeSelector
+          value:
+            node-role.kubernetes.io/infra: ""
+
+  - it: renders multiple labels from a map
+    set:
+      harness:
+        nodeSelectorContext:
+          nodeSelector:
+            node-role.kubernetes.io/infra: ""
+            topology.kubernetes.io/zone: eu-west-1
+    asserts:
+      - equal:
+          path: spec.nodeSelector
+          value:
+            node-role.kubernetes.io/infra: ""
+            topology.kubernetes.io/zone: eu-west-1
+
+  - it: omits nodeSelector when unset
+    set:
+      harness:
+        nodeSelectorContext: {}
+    asserts:
+      - notExists:
+          path: spec.nodeSelector

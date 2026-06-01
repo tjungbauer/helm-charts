@@ -1,0 +1,6 @@
+dependencies:
+- name: tpl
+  repository: file://../..
+  version: 1.0.31
+digest: sha256:3c292e58aa4a7c6baaaaf00ace60ee7ef2a9a8d38be127f4c995ed57cc507e41
+generated: "2026-06-01T12:15:43.544654+02:00"

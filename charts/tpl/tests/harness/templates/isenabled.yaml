@@ -1,0 +1,17 @@
+{{- with .Values.harness.isEnabled }}
+{{- if include "tpl.isEnabled" .flag }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: isenabled-on
+data:
+  enabled: "true"
+{{- else }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: isenabled-off
+data:
+  enabled: "false"
+{{- end }}
+{{- end }}

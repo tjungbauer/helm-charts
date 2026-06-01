@@ -26,8 +26,10 @@ Pass a dict:
   dnsPolicy: optional (default ClusterFirst)
   terminationGracePeriodSeconds: optional (default 30)
   tolerations: optional slice (tpl.tolerations format)
-  nodeSelector: optional dict with key and value
+  nodeSelector: optional legacy key/value or a label map (see tpl.nodeSelector)
   podSecurityContext: optional dict (tpl.podSecurityContext format)
+  imagePullSecrets: optional list (tpl.imagePullSecrets format)
+  topologySpreadConstraints: optional list (tpl.topologySpreadConstraints format)
 
 Example:
 spec:
@@ -47,11 +49,16 @@ terminationGracePeriodSeconds: {{ .terminationGracePeriodSeconds | default 30 }}
 {{- with .tolerations }}
 {{ include "tpl.tolerations" . | indent 0 }}
 {{- end }}
-{{- with .nodeSelector }}
-nodeSelector:
-  {{ .key }}: {{ .value | quote }}
+{{- if .nodeSelector }}
+{{ include "tpl.nodeSelector" (dict "nodeSelector" .nodeSelector) | indent 0 }}
 {{- end }}
 {{- with .podSecurityContext }}
 {{ include "tpl.podSecurityContext" . | indent 0 }}
+{{- end }}
+{{- with .imagePullSecrets }}
+{{ include "tpl.imagePullSecrets" . | indent 0 }}
+{{- end }}
+{{- with .topologySpreadConstraints }}
+{{ include "tpl.topologySpreadConstraints" . | indent 0 }}
 {{- end }}
 {{- end -}}

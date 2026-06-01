@@ -1,0 +1,9 @@
+{{- with .Values.harness.argocdMetadata }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-metadata-test
+  annotations:
+{{- include "tpl.argocdMetadata" . | nindent 4 }}
+data: {}
+{{- end }}

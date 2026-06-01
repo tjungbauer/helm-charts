@@ -1,0 +1,3 @@
+{{- with .Values.harness.argocdApplication }}
+{{ include "tpl.argocdApplication" (dict "Values" $.Values "Chart" $.Chart "Release" $.Release "name" .name "spec" .spec) }}
+{{- end }}

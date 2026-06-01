@@ -1,0 +1,55 @@
+suite: tpl.isEnabled
+templates:
+  - templates/isenabled.yaml
+tests:
+  - it: treats bool true as enabled
+    set:
+      harness:
+        isEnabled:
+          flag: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.name
+          value: isenabled-on
+
+  - it: treats string true as enabled
+    set:
+      harness:
+        isEnabled:
+          flag: "TRUE"
+    asserts:
+      - equal:
+          path: metadata.name
+          value: isenabled-on
+
+  - it: treats bool false as disabled
+    set:
+      harness:
+        isEnabled:
+          flag: false
+    asserts:
+      - equal:
+          path: metadata.name
+          value: isenabled-off
+
+  - it: treats string false as disabled
+    set:
+      harness:
+        isEnabled:
+          flag: "false"
+    asserts:
+      - equal:
+          path: metadata.name
+          value: isenabled-off
+
+  - it: treats unset flag as disabled
+    set:
+      harness:
+        isEnabled:
+          flag: null
+    asserts:
+      - equal:
+          path: metadata.name
+          value: isenabled-off

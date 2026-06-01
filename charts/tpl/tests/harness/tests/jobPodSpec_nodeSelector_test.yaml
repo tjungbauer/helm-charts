@@ -1,0 +1,18 @@
+suite: tpl.jobPodSpec nodeSelector
+templates:
+  - templates/jobpodspec-nodeselector.yaml
+tests:
+  - it: renders multi-label nodeSelector via jobPodSpec
+    set:
+      harness:
+        jobPodSpec:
+          serviceAccountName: test-sa
+          nodeSelector:
+            node-role.kubernetes.io/worker: ""
+            disktype: ssd
+    asserts:
+      - equal:
+          path: spec.template.spec.nodeSelector
+          value:
+            node-role.kubernetes.io/worker: ""
+            disktype: ssd

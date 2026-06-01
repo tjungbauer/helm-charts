@@ -1,0 +1,2 @@
+# Defaults for harness templates; tests override via helm-unittest `set`.
+harness: {}

@@ -1,0 +1,11 @@
+{{- with .Values.harness.resources }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resources-test
+spec:
+  containers:
+    - name: test
+      image: registry.access.redhat.com/ubi9/ubi-micro:latest
+{{ include "tpl.resources" . | indent 6 }}
+{{- end }}

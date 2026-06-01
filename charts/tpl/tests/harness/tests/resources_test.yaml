@@ -1,0 +1,62 @@
+suite: tpl.resources
+templates:
+  - templates/resources.yaml
+tests:
+  - it: keeps explicit Gi and Mi units
+    set:
+      harness:
+        resources:
+          requests:
+            memory: 8Gi
+            ephemeral-storage: 50Mi
+          limits:
+            memory: 16Gi
+    asserts:
+      - equal:
+          path: spec.containers[0].resources.requests.memory
+          value: 8Gi
+      - equal:
+          path: spec.containers[0].resources.requests.ephemeral-storage
+          value: 50Mi
+      - equal:
+          path: spec.containers[0].resources.limits.memory
+          value: 16Gi
+
+  - it: appends Gi to bare memory and ephemeral-storage integers
+    set:
+      harness:
+        resources:
+          requests:
+            memory: 8
+            ephemeral-storage: 50
+    asserts:
+      - equal:
+          path: spec.containers[0].resources.requests.memory
+          value: 8Gi
+      - equal:
+          path: spec.containers[0].resources.requests.ephemeral-storage
+          value: 50Gi
+
+  - it: passes cpu through unchanged
+    set:
+      harness:
+        resources:
+          requests:
+            cpu: 500m
+    asserts:
+      - equal:
+          path: spec.containers[0].resources.requests.cpu
+          value: 500m
+
+  - it: renders extendedResources with full resource names
+    set:
+      harness:
+        resources:
+          limits:
+            extendedResources:
+              nvidia.com/gpu: 1
+    asserts:
+      - equal:
+          path: spec.containers[0].resources.limits
+          value:
+            nvidia.com/gpu: 1

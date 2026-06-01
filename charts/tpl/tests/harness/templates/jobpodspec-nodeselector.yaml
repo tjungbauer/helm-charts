@@ -1,0 +1,14 @@
+{{- with .Values.harness.jobPodSpec }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jobpodspec-nodeselector-test
+spec:
+  template:
+    spec:
+      containers:
+        - name: test
+          image: registry.access.redhat.com/ubi9/ubi-micro:latest
+          command: ["sleep", "infinity"]
+{{ include "tpl.jobPodSpec" . | indent 6 }}
+{{- end }}

@@ -1,0 +1,56 @@
+suite: tpl.argocdMetadata
+templates:
+  - templates/argocd-metadata.yaml
+tests:
+  - it: renders resource sync metadata with defaults
+    set:
+      harness:
+        argocdMetadata:
+          syncWave: 3
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            argocd.argoproj.io/sync-wave: "3"
+            argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
+  - it: merges extra annotations
+    set:
+      harness:
+        argocdMetadata:
+          syncWave: 1
+          extra:
+            team.example.com/owner: platform
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            argocd.argoproj.io/sync-wave: "1"
+            argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+            team.example.com/owner: platform
+
+  - it: renders hook metadata without default sync-options
+    set:
+      harness:
+        argocdMetadata:
+          type: hook
+          syncWave: 5
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            argocd.argoproj.io/hook: Sync
+            argocd.argoproj.io/hook-delete-policy: HookSucceeded
+            argocd.argoproj.io/sync-wave: "5"
+
+  - it: honors custom syncOptions on resource type
+    set:
+      harness:
+        argocdMetadata:
+          syncOptions: ServerSideApply=true
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            argocd.argoproj.io/sync-wave: "0"
+            argocd.argoproj.io/sync-options: ServerSideApply=true

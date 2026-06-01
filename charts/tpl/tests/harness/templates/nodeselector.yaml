@@ -1,0 +1,12 @@
+{{- with .Values.harness.nodeSelectorContext }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodeselector-test
+spec:
+{{ include "tpl.nodeSelector" . | indent 2 }}
+  containers:
+    - name: test
+      image: registry.access.redhat.com/ubi9/ubi-micro:latest
+      command: ["sleep", "infinity"]
+{{- end }}

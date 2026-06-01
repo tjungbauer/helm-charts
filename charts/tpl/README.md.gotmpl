@@ -14,6 +14,8 @@ The tpl chart is a Helm library chart that provides reusable templates for commo
 * Sleep timer for jobs
 * security context
 * Pod security context
+* Topology spread, image pull secrets, env / envFrom
+* OpenShift Route and NetworkPolicy helpers
 
 Instead of defining them in other Charts multiple times, it is possible to simply include the template.
 
@@ -24,6 +26,10 @@ No dependencies
 {{ template "doc.maintainer_and_sources" . }}
 
 {{ template "doc.values" . }}
+
+**`tpl.resources`:** Bare numbers on `memory` or `ephemeral-storage` receive a **Gi** suffix unless the value already ends with **Gi** or **Mi** (for example `memory: 8` becomes `8Gi`). Prefer explicit units in values. Extended resources use `limits.extendedResources` / `requests.extendedResources` with full Kubernetes resource names (e.g. `nvidia.com/gpu`).
+
+**`tpl.nodeSelector`:** Supports one label via `key` / `value`, or multiple labels as a Kubernetes label map (without `key` / `value` fields). Do not mix both shapes in the same block.
 
 ## Example values
 
@@ -46,16 +52,23 @@ tolerations:
 resources:
   requests:
     cpu: 4
-    memory: 8
-    ephemeral-storage: 50
+    memory: 8Gi
+    ephemeral-storage: 50Mi
   limits:
     cpu: 8
-    memory: 16
-    ephemeral-storage: 500
+    memory: 16Gi
+    ephemeral-storage: 500Mi
+    extendedResources:
+      nvidia.com/gpu: 1
 
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+
+# Or multiple labels (map form; do not combine with key/value):
+# nodeSelector:
+#   node-role.kubernetes.io/infra: ""
+#   topology.kubernetes.io/zone: eu-west-1
 
 namespace:
   bindtoNode:

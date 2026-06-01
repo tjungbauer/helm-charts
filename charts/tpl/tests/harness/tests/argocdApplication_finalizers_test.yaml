@@ -1,0 +1,55 @@
+suite: tpl.argocdApplication finalizers
+templates:
+  - templates/argocd-application.yaml
+tests:
+  - it: renders foreground cascade finalizer
+    set:
+      harness:
+        argocdApplication:
+          name: test-app
+          spec:
+            namespace: openshift-gitops
+            finalizers:
+              - resources-finalizer.argocd.argoproj.io
+            source:
+              repositoryURL: https://github.com/example/repo.git
+              targetRevision: HEAD
+            destination:
+              namespace: guestbook
+    asserts:
+      - isKind:
+          of: Application
+      - equal:
+          path: metadata.finalizers[0]
+          value: resources-finalizer.argocd.argoproj.io
+
+  - it: renders background cascade finalizer
+    set:
+      harness:
+        argocdApplication:
+          name: test-app-bg
+          spec:
+            finalizers:
+              - resources-finalizer.argocd.argoproj.io/background
+            source:
+              repositoryURL: https://github.com/example/repo.git
+            destination:
+              namespace: guestbook
+    asserts:
+      - equal:
+          path: metadata.finalizers[0]
+          value: resources-finalizer.argocd.argoproj.io/background
+
+  - it: omits finalizers block when not set
+    set:
+      harness:
+        argocdApplication:
+          name: test-app-no-finalizer
+          spec:
+            source:
+              repositoryURL: https://github.com/example/repo.git
+            destination:
+              namespace: guestbook
+    asserts:
+      - notExists:
+          path: metadata.finalizers

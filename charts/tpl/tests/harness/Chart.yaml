@@ -1,0 +1,10 @@
+apiVersion: v2
+name: tpl-unittest-harness
+description: Renders tpl library defines for helm-unittest (not published).
+type: application
+version: 0.0.0
+appVersion: "0"
+dependencies:
+  - name: tpl
+    version: 1.0.31
+    repository: file://../..

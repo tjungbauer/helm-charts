@@ -6,14 +6,14 @@ Example for values files:
         role: infra  # mandatory
         operator: "Exists" # optional, default Exists
         effect: "NoSchedule" # optional, default NoSchedule
-        value: "reserverd" # optional, default reserverd
-     
+        value: "reserved" # optional, default reserved
+
 {{ include "tpl.bindtoNode" . -}}
 */}}
 {{- define "tpl.bindtoNode" -}}
 openshift.io/node-selector: node-role.kubernetes.io/{{ .role }}=
 scheduler.alpha.kubernetes.io/defaultTolerations: >-
-  [{"operator": "{{ .operator | default "Equal" }}", "effect": "{{ .effect | default "NoSchedule" }}", "key":"{{ .role }}", "value": "{{ .value | default "reserverd" }}"}]
+  [{"operator": "{{ .operator | default "Equal" }}", "effect": "{{ .effect | default "NoSchedule" }}", "key":"{{ .role }}", "value": "{{ .value | default "reserved" }}"}]
 {{- end }}
 
 {{- define "tpl.namespaceDescr" -}}
