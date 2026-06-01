@@ -1,15 +1,15 @@
 {
-  "generated": "2026-06-01T11:37:45.096500Z",
+  "generated": "2026-06-01T19:43:55.187362Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
       "name": "dev-spaces",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "description": "Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native development solution that\ndelivers consistent developer environments on Red Hat OpenShift.\n",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces",
       "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png",
-      "lastModified": "2026-06-01T13:35:37+02:00",
+      "lastModified": "2026-06-01T21:37:52+02:00",
       "changes": [
         {
           "kind": "added",
@@ -30,6 +30,48 @@
         {
           "kind": "changed",
           "description": "(1.0.3) using tpl.isEnabled for checluster enabled guard"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.4) version bump"
+        }
+      ]
+    },
+    {
+      "name": "admin-networkpolicies",
+      "version": "1.0.8",
+      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-06-01T21:30:10+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "fixes and adding README"
+        },
+        {
+          "kind": "added",
+          "description": "added support for portEndNumber"
+        },
+        {
+          "kind": "added",
+          "description": "fixing portRange implementation"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.8) Changelog and values.schema.json"
         }
       ]
     },
