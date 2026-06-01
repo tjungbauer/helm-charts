@@ -1,5 +1,5 @@
 {{- if .Values.namespace }}
-{{- if eq (.Values.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.namespace.create }}
 {{ include "tpl.namespace" .Values.namespace }}
 {{- end }}
 {{- end }}

@@ -45,6 +45,16 @@ helm install devspaces tjungbauer/dev-spaces \
   --create-namespace
 ```
 
+### Values validation
+
+`values.schema.json` documents and validates chart values (enums for log levels, PVC strategy, image pull policy, and related fields). Helm applies it during `helm lint` and `helm install` when a schema is present:
+
+```bash
+helm lint . -f values.yaml
+```
+
+See `CHANGELOG.md` for release history.
+
 ### GitOps / ArgoCD
 
 ```yaml

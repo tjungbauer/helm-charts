@@ -1,0 +1,496 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "dev-spaces chart values",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "devspaces_namespace": {
+      "type": "string",
+      "description": "YAML anchor helper in values files; not referenced by chart templates"
+    },
+    "namespace": {
+      "$ref": "#/definitions/namespace"
+    },
+    "checluster": {
+      "$ref": "#/definitions/checluster"
+    },
+    "tpl": {
+      "type": "object",
+      "description": "Values passed to the tpl library subchart dependency",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "enableFlag": {
+      "description": "Boolean or string true/false (tpl.isEnabled)",
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["true", "false", "True", "FALSE", "TRUE"] }
+      ]
+    },
+    "stringMap": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "tolerations": {
+      "description": "Kubernetes tolerations array; empty object {} is accepted as unset in values defaults",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/toleration" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "toleration": {
+      "type": "object",
+      "required": ["key", "operator", "effect"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "type": "string" },
+        "operator": { "type": "string", "enum": ["Equal", "Exists"] },
+        "value": { "type": "string" },
+        "effect": {
+          "type": "string",
+          "enum": ["NoSchedule", "PreferNoSchedule", "NoExecute"]
+        },
+        "tolerationSeconds": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "kubernetesQuantity": {
+      "oneOf": [
+        { "type": "string", "const": "" },
+        {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Ki|Mi|Gi|Ti|Pi|Ei|K|M|G|T|P|E)?$"
+        }
+      ]
+    },
+    "namespace": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "create": { "$ref": "#/definitions/enableFlag" },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "displayName": { "type": "string" },
+        "additionalAnnotations": { "$ref": "#/definitions/stringMap" },
+        "additionalLabels": { "$ref": "#/definitions/stringMap" }
+      },
+      "required": ["name"]
+    },
+    "checluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "name": { "type": "string", "minLength": 1 },
+        "namespace": { "type": "string", "minLength": 1 },
+        "syncwave": { "type": "string" },
+        "additionalAnnotations": { "$ref": "#/definitions/stringMap" },
+        "additionalLabels": { "$ref": "#/definitions/stringMap" },
+        "components": { "$ref": "#/definitions/checlusterComponents" },
+        "containerRegistry": { "$ref": "#/definitions/containerRegistry" },
+        "devEnvironments": { "$ref": "#/definitions/devEnvironments" },
+        "gitServices": { "$ref": "#/definitions/gitServices" },
+        "networking": { "$ref": "#/definitions/networking" }
+      }
+    },
+    "checlusterComponents": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cheServer": { "$ref": "#/definitions/cheServer" },
+        "dashboard": { "$ref": "#/definitions/dashboard" },
+        "devfileRegistry": { "$ref": "#/definitions/devfileRegistry" },
+        "imagePuller": { "$ref": "#/definitions/imagePuller" },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enable": { "type": "boolean" }
+          }
+        },
+        "pluginRegistry": { "$ref": "#/definitions/pluginRegistry" }
+      }
+    },
+    "deploymentTolerations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tolerations": { "$ref": "#/definitions/tolerations" }
+      }
+    },
+    "cheServer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "debug": { "type": "boolean" },
+        "logLevel": {
+          "type": "string",
+          "enum": ["DEBUG", "INFO"],
+          "description": "Che server supports DEBUG and INFO only"
+        },
+        "clusterRoles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deployment": { "$ref": "#/definitions/deploymentTolerations" },
+        "proxy": { "$ref": "#/definitions/proxy" }
+      }
+    },
+    "proxy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "credentialsSecretName": { "type": "string" },
+        "nonProxyHosts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "port": { "type": "string" },
+        "url": { "type": "string" }
+      }
+    },
+    "dashboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logLevel": {
+          "type": "string",
+          "enum": ["DEBUG", "INFO", "WARN", "ERROR", "FATAL", "TRACE", "SILENT"]
+        },
+        "branding": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "base64data": { "type": "string" },
+                "mediatype": { "type": "string" }
+              }
+            }
+          }
+        },
+        "deployment": { "$ref": "#/definitions/deploymentTolerations" },
+        "headerMessage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "show": { "type": "boolean" },
+            "text": { "type": "string" }
+          }
+        }
+      }
+    },
+    "devfileRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disableInternalRegistry": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+        },
+        "deployment": { "$ref": "#/definitions/deploymentTolerations" },
+        "externalDevfileRegistries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": {
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+    "pluginRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "disableInternalRegistry": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+        },
+        "openVSXURL": { "type": "string" },
+        "deployment": { "$ref": "#/definitions/deploymentTolerations" },
+        "externalPluginRegistries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": {
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+    "imagePuller": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable": { "type": "boolean" },
+        "spec": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "containerRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hostname": { "type": "string" },
+        "organization": { "type": "string" }
+      }
+    },
+    "devEnvironments": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "startTimeoutSeconds": { "type": "integer" },
+        "secondsOfRunBeforeIdling": { "type": "integer" },
+        "secondsOfInactivityBeforeIdling": { "type": "integer" },
+        "podSchedulerName": { "type": "string" },
+        "maxNumberOfWorkspacesPerUser": { "type": "integer" },
+        "maxNumberOfRunningWorkspacesPerUser": { "type": "integer" },
+        "maxNumberOfRunningWorkspacesPerCluster": { "type": "integer" },
+        "defaultEditor": { "type": "string" },
+        "imagePullPolicy": {
+          "type": "string",
+          "enum": ["Always", "IfNotPresent", "Never"]
+        },
+        "deploymentStrategy": {
+          "type": "string",
+          "enum": ["Recreate", "RollingUpdate"]
+        },
+        "containerBuildConfiguration": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "openShiftSecurityContextConstraint": { "type": "string" }
+          }
+        },
+        "runtimeClassName": { "type": "string" },
+        "disableContainerBuildCapabilities": { "type": "boolean" },
+        "user": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "clusterRoles": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "ignoredUnrecoverableEvents": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowedSources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "urls": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "editorsDownloadUrls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["editor", "url"],
+            "additionalProperties": false,
+            "properties": {
+              "editor": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "serviceAccountTokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["mountPath", "name", "path"],
+            "additionalProperties": false,
+            "properties": {
+              "mountPath": { "type": "string" },
+              "name": { "type": "string" },
+              "path": { "type": "string" },
+              "audience": { "type": "string" },
+              "expirationSeconds": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "networking": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "externalTLSConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "defaultComponents": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "trustedCerts": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disableWorkspaceCaBundleMount": { "type": "boolean" },
+            "gitTrustedCertsConfigMapName": { "type": "string" }
+          }
+        },
+        "serviceAccount": { "type": "string" },
+        "defaultNamespace": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "autoProvision": { "type": "boolean" },
+            "template": {
+              "type": "string",
+              "pattern": "(<username>|<userid>|<workspaceid>)"
+            }
+          }
+        },
+        "storage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pvcStrategy": {
+              "type": "string",
+              "enum": ["common", "per-workspace", "per-user", "ephemeral"]
+            },
+            "perUserStrategyPvcConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "storageClass": { "type": "string" },
+                "claimSize": { "$ref": "#/definitions/kubernetesQuantity" },
+                "storageAccessMode": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany", "ReadWriteOncePod"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tolerations": { "$ref": "#/definitions/tolerations" },
+        "persistUserHome": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "disableInitContainer": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "gitServices": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "azure": { "$ref": "#/definitions/gitProviderList" },
+        "bitbucket": { "$ref": "#/definitions/gitProviderList" },
+        "github": { "$ref": "#/definitions/gitProviderList" },
+        "gitlab": { "$ref": "#/definitions/gitProviderList" }
+      }
+    },
+    "gitProviderList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["secretName"],
+        "additionalProperties": false,
+        "properties": {
+          "secretName": { "type": "string", "minLength": 1 },
+          "endpoint": { "type": "string" },
+          "disableSubdomainIsolation": { "type": "boolean" }
+        }
+      }
+    },
+    "networking": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "domain": { "type": "string" },
+        "hostname": { "type": "string" },
+        "ingressClassName": { "type": "string" },
+        "tlsSecretName": { "type": "string" },
+        "auth": { "$ref": "#/definitions/auth" }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "identityProviderURL": { "type": "string" },
+        "oAuthClientName": { "type": "string" },
+        "oAuthScope": { "type": "string" },
+        "oAuthSecret": { "type": "string" },
+        "oAuthAccessTokenMaxAgeSeconds": { "type": "string" },
+        "oAuthAccessTokenInactivityTimeoutSeconds": { "type": "string" },
+        "gateway": { "$ref": "#/definitions/gateway" },
+        "advancedAuthorization": { "$ref": "#/definitions/advancedAuthorization" }
+      }
+    },
+    "gateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deployment": { "$ref": "#/definitions/deploymentTolerations" },
+        "kubeRbacProxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logLevel": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "oAuthProxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cookieExpireSeconds": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "traefik": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logLevel": {
+              "type": "string",
+              "enum": ["DEBUG", "INFO", "WARN", "ERROR", "FATAL", "PANIC"]
+            }
+          }
+        }
+      }
+    },
+    "advancedAuthorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowGroups": { "type": "array", "items": { "type": "string" } },
+        "allowUsers": { "type": "array", "items": { "type": "string" } },
+        "denyGroups": { "type": "array", "items": { "type": "string" } },
+        "denyUsers": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
