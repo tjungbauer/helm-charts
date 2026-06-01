@@ -1,15 +1,15 @@
 {
-  "generated": "2026-05-31T10:01:38.299618Z",
+  "generated": "2026-06-01T10:49:40.912274Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
       "name": "tpl",
-      "version": "1.0.30",
+      "version": "1.0.31",
       "description": "A library that shall collect certain templates to reuse them among different charts.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/template.png",
-      "lastModified": "2026-05-31T12:00:17+02:00",
+      "lastModified": "2026-06-01T12:29:27+02:00",
       "changes": [
         {
           "kind": "added",
@@ -78,6 +78,26 @@
         {
           "kind": "added",
           "description": "(1.0.30) tpl.isEnabled, tpl.argocdMetadata, tpl.jobHookMetadata, tpl.jobPodSpec, and tpl.affinity, tpl.argocdApplication finalizers render $spec.finalizers instead of root context, tpl.securityContext no longer emits fsGroup on container securityContext, tpl.podDisruptionBudget validates name, budget field, and selector; supports minAvailable 0"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.31) tpl.topologySpreadConstraints, tpl.imagePullSecrets, tpl.env, tpl.envFrom, tpl.openshiftRoute, and tpl.networkPolicy"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) tpl.jobPodSpec supports imagePullSecrets and topologySpreadConstraints"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) tpl.namespace emits OpenShift description and display-name annotations only when set"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) tpl.resources documents appendUnit Gi/Mi behavior; values examples use explicit units; limits.nvidia removed in favor of extendedResources map"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) tpl.nodeSelector accepts legacy key/value or a multi-label map; tpl.jobPodSpec reuses tpl.nodeSelector"
         }
       ]
     },
