@@ -5325,6 +5325,51 @@ entries:
           description: First Release
         - kind: changed
           description: (1.0.1) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.2) Use tpl min version 1.0.31 and tpl.isEnabled for namespace create guard
+        - kind: added
+          description: (1.0.2) CHANGELOG.md and values.schema.json for chart values validation and release notes.
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-01T11:17:42.025649501Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: 'Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native
+      development solution that delivers consistent developer environments on Red
+      Hat OpenShift. '
+    digest: 2319e1fc1af6ac29c88aba2bd2e9feb7ad1448d9690d559b77bcd9b5204e47ac
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png
+    keywords:
+    - devspaces
+    - che
+    - eclipse
+    - ide
+    - workspace
+    - development
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: dev-spaces
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/dev-spaces-1.0.2/dev-spaces-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: First Release
+        - kind: changed
+          description: (1.0.1) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -36983,4 +37028,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-01T10:49:23.405952732Z"
+generated: "2026-06-01T11:17:42.027369292Z"
