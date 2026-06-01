@@ -67,6 +67,10 @@ issuer:
       # @default -- https://acme-v02.api.letsencrypt.org/directory
       server: "https://acme-v02.api.letsencrypt.org/directory"
 
+      # -- Skip TLS verification.
+      # @default -- false
+      skipTLSVerify: false
+
       # -- add a challenge solver. This coulr be DNS01 or HTTP01
       # The yaml specification will be used as is
       # Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/

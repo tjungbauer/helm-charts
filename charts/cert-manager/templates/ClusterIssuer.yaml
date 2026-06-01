@@ -1,5 +1,5 @@
 {{- range .Values.issuer }}
-{{ if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: cert-manager.io/v1
 kind: {{ .type | default "ClusterIssuer"}}
@@ -33,7 +33,7 @@ spec:
   {{- with .acme }}
   acme:
     email: {{ .email }}
-    {{ if eq (.skipTLSVerify | toString) "true" }}
+    {{- if include "tpl.isEnabled" .skipTLSVerify }}
     skipTLSVerify: true
     {{- else }}
     skipTLSVerify: false

@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "cert-manager chart values",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "certManager": {
+      "$ref": "#/definitions/certManager"
+    },
+    "issuer": {
+      "type": "array",
+      "description": "ClusterIssuer or Issuer resources",
+      "items": { "$ref": "#/definitions/issuer" }
+    },
+    "certificates": {
+      "$ref": "#/definitions/certificates"
+    },
+    "tpl": {
+      "type": "object",
+      "description": "Values passed to the tpl library subchart dependency",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "enableFlag": {
+      "description": "Boolean or string true/false (tpl.isEnabled or template string checks)",
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["true", "false", "True", "False", "TRUE", "FALSE"] }
+      ]
+    },
+    "syncwave": {
+      "description": "Argo CD argocd.argoproj.io/sync-wave annotation",
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string", "pattern": "^-?[0-9]+$" }
+      ]
+    },
+    "logLevel": {
+      "type": "string",
+      "enum": ["Debug", "Trace", "TraceAll", "Normal"]
+    },
+    "certManager": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enable_patch": { "$ref": "#/definitions/enableFlag" },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "logLevel": { "$ref": "#/definitions/logLevel" },
+        "operatorLogLevel": { "$ref": "#/definitions/logLevel" },
+        "overrideArgs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "$ref": "#/definitions/enableFlag" },
+            "args": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "unsupportedConfigOverrides": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "issuer": {
+      "type": "object",
+      "required": ["name", "enabled"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["ClusterIssuer", "Issuer"]
+        },
+        "namespace": { "type": "string" },
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "selfSigned": { "type": "boolean" },
+        "acme": { "type": "object" },
+        "ca": { "type": "object" },
+        "vault": { "type": "object" },
+        "venafi": { "type": "object" }
+      }
+    },
+    "certificates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "certificate": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/certificate" }
+        }
+      }
+    },
+    "certificate": {
+      "type": "object",
+      "required": ["name", "namespace", "secretName"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "namespace": { "type": "string", "minLength": 1 },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "secretName": { "type": "string", "minLength": 1 },
+        "duration": { "type": "string" },
+        "renewBefore": { "type": "string" },
+        "isCA": { "$ref": "#/definitions/enableFlag" },
+        "secretTemplate": { "type": "object" },
+        "subject": { "type": "object" },
+        "dnsNames": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "uris": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "emailAddresses": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "ipAddresses": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "usages": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "privateKey": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "enum": ["RSA", "ECDSA", "Ed25519"]
+            },
+            "size": { "type": "integer" },
+            "encoding": {
+              "type": "string",
+              "enum": ["PKCS1", "PKCS8"]
+            },
+            "rotationPolicy": {
+              "type": "string",
+              "enum": ["Never", "Always"]
+            }
+          }
+        },
+        "issuerRef": {
+          "type": "object",
+          "required": ["name"],
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "kind": {
+              "type": "string",
+              "enum": ["Issuer", "ClusterIssuer"]
+            },
+            "group": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

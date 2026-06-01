@@ -1,7 +1,7 @@
 {{- with .Values.certificates }}
-{{ if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- range .certificate }}
-{{ if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -57,7 +57,7 @@ spec:
   renewBefore: {{ .renewBefore }}
   {{- end }}
 
-  {{- if eq (.isCA | toString) "true" }}
+  {{- if include "tpl.isEnabled" .isCA }}
   isCA: true
   {{- end }}
 

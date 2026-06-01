@@ -1,5 +1,5 @@
 {{- with .Values.certManager }}
-{{ if eq (.enable_patch | toString) "true" }}
+{{- if include "tpl.isEnabled" .enable_patch }}
 ---
 apiVersion: operator.openshift.io/v1alpha1
 kind: CertManager
@@ -16,7 +16,7 @@ spec:
   managementState: Managed
   observedConfig: null
   controllerConfig:
-    {{ if eq (.overrideArgs.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .overrideArgs.enabled }}
     overrideArgs:
       {{- range .overrideArgs.args }}
       - {{ . }}
