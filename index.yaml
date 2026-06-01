@@ -13,6 +13,53 @@ entries:
           description: fixing portRange implementation
         - kind: changed
           description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard
+        - kind: added
+          description: (1.0.8) Changelog and values.schema.json
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-01T19:43:38.332269202Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources
+      for a cluster.
+    digest: 271895ad7971b4114ef7df91053fc1b511ff4233a483dc639267ac4973fb4c05
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - security
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: admin-networkpolicies
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    - https://blog.stderr.at/openshift/2024/11/introducting-adminnetworkpolicies/
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/admin-networkpolicies-1.0.8/admin-networkpolicies-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: fixes and adding README
+        - kind: added
+          description: added support for portEndNumber
+        - kind: added
+          description: fixing portRange implementation
+        - kind: changed
+          description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -5319,6 +5366,55 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/cyclonedx-1.0.0/cyclonedx-1.0.0.tgz
     version: 1.0.0
   dev-spaces:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: First Release
+        - kind: changed
+          description: (1.0.1) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.2) Use tpl min version 1.0.31 and tpl.isEnabled for namespace create guard
+        - kind: added
+          description: (1.0.2) CHANGELOG.md and values.schema.json for chart values validation and release notes.
+        - kind: changed
+          description: (1.0.3) using tpl.isEnabled for checluster enabled guard
+        - kind: changed
+          description: (1.0.4) version bump
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-01T19:43:38.53125502Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: 'Red Hat OpenShift Dev Spaces is a collaborative Kubernetes-native
+      development solution that delivers consistent developer environments on Red
+      Hat OpenShift. '
+    digest: e7cd407f2bf7867fce6205940703ef5dddf2d82002bf5dfee87484371f05d81c
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/dev-spaces
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/dev-spaces.png
+    keywords:
+    - devspaces
+    - che
+    - eclipse
+    - ide
+    - workspace
+    - development
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: dev-spaces
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/dev-spaces-1.0.4/dev-spaces-1.0.4.tgz
+    version: 1.0.4
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -37075,4 +37171,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-01T11:37:26.676699273Z"
+generated: "2026-06-01T19:43:38.532431581Z"
