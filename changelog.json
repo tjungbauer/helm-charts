@@ -1,8 +1,106 @@
 {
-  "generated": "2026-06-01T20:03:51.634753Z",
+  "generated": "2026-06-02T05:37:31.989742Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "collection-management-operators",
+      "version": "1.0.57",
+      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-06-02T07:34:54+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "redefined the management operators that shall be installed."
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.54) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.55) - Fixed dependency version"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.56) - Fixed dependency version"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.57) - version bump"
+        }
+      ]
+    },
+    {
+      "name": "collection-operators",
+      "version": "1.0.45",
+      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-06-02T07:21:57+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.43) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.44) - Fixed dependency version"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.45) - Fixed dependency version"
+        }
+      ]
+    },
+    {
+      "name": "collection-optional-operators",
+      "version": "1.0.37",
+      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
+      "lastModified": "2026-06-02T07:21:57+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "fixed",
+          "description": "README.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.36) - Fixed dependency version"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.37) - Fixed dependency version"
+        }
+      ]
+    },
     {
       "name": "cert-manager",
       "version": "2.0.5",
@@ -208,88 +306,6 @@
         {
           "kind": "changed",
           "description": "(1.0.31) tpl.nodeSelector accepts legacy key/value or a multi-label map; tpl.jobPodSpec reuses tpl.nodeSelector"
-        }
-      ]
-    },
-    {
-      "name": "collection-management-operators",
-      "version": "1.0.55",
-      "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-management-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2026-05-31T11:22:42+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "redefined the management operators that shall be installed."
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.54) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.55) - Fixed dependency version"
-        }
-      ]
-    },
-    {
-      "name": "collection-operators",
-      "version": "1.0.44",
-      "description": "Collection of Operators which can be deployed on Demo Systems without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2026-05-31T11:22:42+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.43) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.44) - Fixed dependency version"
-        }
-      ]
-    },
-    {
-      "name": "collection-optional-operators",
-      "version": "1.0.36",
-      "description": "Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png",
-      "lastModified": "2026-05-31T11:22:42+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "fixed",
-          "description": "README.md"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.35) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.36) - Fixed dependency version"
         }
       ]
     },
