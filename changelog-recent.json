@@ -1,8 +1,42 @@
 {
-  "generated": "2026-06-02T05:37:31.989742Z",
+  "generated": "2026-06-02T06:25:09.860966Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "compliance-operator-full-stack",
+      "version": "1.0.35",
+      "description": "Master chart to deploy and configure the Compliance Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
+      "lastModified": "2026-06-02T08:22:34+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "README.md"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies"
+        }
+      ]
+    },
     {
       "name": "collection-management-operators",
       "version": "1.0.57",
