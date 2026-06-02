@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.34](https://img.shields.io/badge/Version-1.0.34-informational?style=flat-square)
+  ![Version: 1.0.35](https://img.shields.io/badge/Version-1.0.35-informational?style=flat-square)
 
  
 
@@ -30,7 +30,7 @@ This chart has the following dependencies:
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.36 |
 | https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -58,14 +58,18 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 |-----|------|---------|-------------|
 | compliance.namespace | object | `{"name":"openshift-compliance"}` | Settings for namespace where compliance operator will be installed. |
 | compliance.namespace.name | string | `"openshift-compliance"` | Namespace of the operator |
-| compliance.scansettingbinding | object | `{"enabled":false,"profiles":[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}],"scansetting":"default","syncwave":"3","tailored":{"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}]}}` | Settings for the ScanSettings Here ScanSettingBinding and TailoredProfile can be configured |
+| compliance.scansettingbinding | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"profiles":[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}],"scansetting":"default","syncwave":"3","tailored":{"additionalAnnotations":{},"additionalLabels":{},"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}]}}` | Settings for the ScanSettings Here ScanSettingBinding and TailoredProfile can be configured |
+| compliance.scansettingbinding.additionalAnnotations | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
+| compliance.scansettingbinding.additionalLabels | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
 | compliance.scansettingbinding.enabled | bool | false | Enable ScanSetting cnofiguration |
 | compliance.scansettingbinding.profiles | list | `[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}]` | A list of Profiles that shall be used for scanning |
 | compliance.scansettingbinding.profiles[0] | object | `{"kind":"Profile","name":"ocp4-cis-node"}` | The name of the Profile |
 | compliance.scansettingbinding.profiles[0].kind | string | `"Profile"` | The kind of the profile. This can either be Profile or TailoredProfile |
 | compliance.scansettingbinding.scansetting | string | `"default"` | Use the default ScanSettings that a provided by the Operator. |
 | compliance.scansettingbinding.syncwave | string | `"3"` | Syncwave for the ScanSetting |
-| compliance.scansettingbinding.tailored | object | `{"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}]}` | Example of a TailoredProfile With TailoredProfiles you can disable specific checks |
+| compliance.scansettingbinding.tailored | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}]}` | Example of a TailoredProfile With TailoredProfiles you can disable specific checks |
+| compliance.scansettingbinding.tailored.additionalAnnotations | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
+| compliance.scansettingbinding.tailored.additionalLabels | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
 | compliance.scansettingbinding.tailored.enabled | bool | false | Enable TailoredProfile |
 | compliance.scansettingbinding.tailored.modified_profiles[0] | object | `{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}` | Name of the TailoredProfile |
 | compliance.scansettingbinding.tailored.modified_profiles[0].description | string | `"Modified ocp4-cis profile"` | Description of the Profile |
