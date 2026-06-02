@@ -165,6 +165,8 @@ jobs:
         uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
         with:
           config: cr.yaml
+          # Monorepo: helm-docs may update README.md after a chart tag; cr still packages that chart.
+          skip_existing: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           HELM_CONFIG_HOME: ${{ env.HELM_CONFIG_HOME }}
