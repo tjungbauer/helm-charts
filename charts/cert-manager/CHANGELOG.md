@@ -38,6 +38,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.0.6] - 2026-06-02
+
+### Fixed
+
+- `values.schema.json` allows Helm-injected `global` values so `helm lint` / `helm template` succeed when this chart is used as a dependency (umbrella charts).
+
+---
+
 ## [2.0.5] - 2026-06-01
 
 ### Changed
@@ -164,6 +172,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+[2.0.6]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.5...cert-manager-2.0.6
 [2.0.5]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.4...cert-manager-2.0.5
 [2.0.4]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.3...cert-manager-2.0.4
 [2.0.3]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.2...cert-manager-2.0.3

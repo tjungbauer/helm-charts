@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cert-manager
 description: Install and configure the Cert-Manager
-version: 2.0.5
+version: 2.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
 maintainers:
@@ -39,3 +39,5 @@ annotations:
       description: (2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: changed
       description: (2.0.5) using tpl min version 1.0.31 and tpl.isEnabled guard, documented skipTLSVerify option
+    - kind: changed
+      description: (2.0.6) allowing global values to be passed to the chart in the schema
