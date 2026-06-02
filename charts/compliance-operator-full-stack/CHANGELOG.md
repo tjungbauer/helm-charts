@@ -38,6 +38,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.37] - 2026-06-02
+
+### Fixed
+
+- `values.schema.json` allows `compliance.namespace.descr` and `compliance.namespace.syncwave` (used by GitOps values such as `setup-compliance-operator`).
+
+---
+
 ## [1.0.36] - 2026-06-02
 
 ### Fixed
@@ -99,6 +107,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+[1.0.37]: https://github.com/tjungbauer/helm-charts/compare/compliance-operator-full-stack-1.0.36...compliance-operator-full-stack-1.0.37
 [1.0.36]: https://github.com/tjungbauer/helm-charts/compare/compliance-operator-full-stack-1.0.35...compliance-operator-full-stack-1.0.36
 [1.0.35]: https://github.com/tjungbauer/helm-charts/compare/compliance-operator-full-stack-1.0.34...compliance-operator-full-stack-1.0.35
 [1.0.34]: https://github.com/tjungbauer/helm-charts/compare/compliance-operator-full-stack-1.0.33...compliance-operator-full-stack-1.0.34

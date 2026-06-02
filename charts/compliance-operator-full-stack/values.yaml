@@ -5,6 +5,14 @@ compliance:
     # -- Namespace of the operator
     name: openshift-compliance
 
+    # -- OpenShift namespace description (openshift.io/description); same key as helper-operator namespace blocks
+    # @default -- ""
+    descr: ""
+
+    # -- Sync wave documented for GitOps ordering (operator namespace is created via helper-operator)
+    # @default -- 0
+    syncwave: "0"
+
   # -- Settings for the ScanSettings
   # Here ScanSettingBinding and TailoredProfile can be configured
   scansettingbinding:

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: compliance-operator-full-stack
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.36
+version: 1.0.37
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
 dependencies:
@@ -46,3 +46,5 @@ annotations:
       description: (1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies
     - kind: fixed
       description: (1.0.36) values.schema.json allows Helm-injected global values when used as a dependency
+    - kind: fixed
+      description: (1.0.37) values.schema.json allows compliance.namespace descr and syncwave
