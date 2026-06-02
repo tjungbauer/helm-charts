@@ -1,12 +1,12 @@
 apiVersion: v2
 name: collection-optional-operators
 description: Collection of optional operators, like CodeReadyWorkspaces without any configuration of a CRD.
-version: 1.0.36
+version: 1.0.37
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/collection-optional-operators
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/operatorframework-icon-color.png
 dependencies:
   - name: helper-operator
-    version: "~1.0.39"
+    version: "~1.0.41"
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -33,3 +33,5 @@ annotations:
       description: (1.0.35) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: changed
       description: (1.0.36) - Fixed dependency version
+    - kind: changed
+      description: (1.0.37) - Fixed dependency version
