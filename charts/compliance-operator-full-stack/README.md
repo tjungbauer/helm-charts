@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.36](https://img.shields.io/badge/Version-1.0.36-informational?style=flat-square)
+  ![Version: 1.0.37](https://img.shields.io/badge/Version-1.0.37-informational?style=flat-square)
 
  
 
@@ -56,8 +56,10 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/complian
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| compliance.namespace | object | `{"name":"openshift-compliance"}` | Settings for namespace where compliance operator will be installed. |
+| compliance.namespace | object | `{"descr":"","name":"openshift-compliance","syncwave":"0"}` | Settings for namespace where compliance operator will be installed. |
+| compliance.namespace.descr | string | "" | OpenShift namespace description (openshift.io/description); same key as helper-operator namespace blocks |
 | compliance.namespace.name | string | `"openshift-compliance"` | Namespace of the operator |
+| compliance.namespace.syncwave | string | 0 | Sync wave documented for GitOps ordering (operator namespace is created via helper-operator) |
 | compliance.scansettingbinding | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"profiles":[{"kind":"Profile","name":"ocp4-cis-node"},{"kind":"Profile","name":"ocp4-cis"}],"scansetting":"default","syncwave":"3","tailored":{"additionalAnnotations":{},"additionalLabels":{},"enabled":false,"modified_profiles":[{"description":"Modified ocp4-cis profile","disableRules":[{"name":"ocp4-scc-limit-container-allowed-capabilities","rationale":"Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration"}],"extends":"ocp4-cis","name":"tailoredprofile-ocp4-cis","setValues":[{"name":"ocp4-var-sccs-with-allowed-capabilities-regex","rationale":"To exclude extra SCC's from OCP-CIS rule","value":"^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$"}],"title":"Tailored Profile of ocp4-cis"}]}}` | Settings for the ScanSettings Here ScanSettingBinding and TailoredProfile can be configured |
 | compliance.scansettingbinding.additionalAnnotations | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
 | compliance.scansettingbinding.additionalLabels | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
