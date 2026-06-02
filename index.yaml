@@ -3862,6 +3862,60 @@ entries:
           description: (1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies
         - kind: fixed
           description: (1.0.36) values.schema.json allows Helm-injected global values when used as a dependency
+        - kind: fixed
+          description: (1.0.37) values.schema.json allows compliance.namespace descr and syncwave
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-02T06:57:32.696474675Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.36
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 35c2b16f6768199dda6325888e1d5471d82c45356fc3840bce0748528e1c0099
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: compliance-operator-full-stack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/compliance-operator-full-stack-1.0.37/compliance-operator-full-stack-1.0.37.tgz
+    version: 1.0.37
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: README.md
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: changed
+          description: (1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies
+        - kind: fixed
+          description: (1.0.36) values.schema.json allows Helm-injected global values when used as a dependency
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -37545,4 +37599,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-02T06:48:58.98310678Z"
+generated: "2026-06-02T06:57:32.698003493Z"
