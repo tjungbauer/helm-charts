@@ -1,8 +1,50 @@
 {
-  "generated": "2026-06-02T06:49:28.653596Z",
+  "generated": "2026-06-02T06:58:05.632590Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "compliance-operator-full-stack",
+      "version": "1.0.37",
+      "description": "Master chart to deploy and configure the Compliance Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
+      "lastModified": "2026-06-02T08:55:24+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "README.md"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.36) values.schema.json allows Helm-injected global values when used as a dependency"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.37) values.schema.json allows compliance.namespace descr and syncwave"
+        }
+      ]
+    },
     {
       "name": "admin-networkpolicies",
       "version": "1.0.9",
@@ -42,44 +84,6 @@
         {
           "kind": "fixed",
           "description": "(1.0.9) values.schema.json allows Helm-injected global values when used as a dependency"
-        }
-      ]
-    },
-    {
-      "name": "compliance-operator-full-stack",
-      "version": "1.0.36",
-      "description": "Master chart to deploy and configure the Compliance Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
-      "lastModified": "2026-06-02T08:45:46+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "README.md"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.36) values.schema.json allows Helm-injected global values when used as a dependency"
         }
       ]
     },
