@@ -18,6 +18,11 @@
       "type": "object",
       "description": "Values passed to the tpl library subchart dependency",
       "additionalProperties": true
+    },
+    "global": {
+      "type": "object",
+      "description": "Helm-injected global values when this chart is used as a dependency; not used by admin-networkpolicies templates",
+      "additionalProperties": true
     }
   },
   "definitions": {

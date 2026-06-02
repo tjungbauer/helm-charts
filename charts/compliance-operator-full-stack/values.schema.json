@@ -19,6 +19,11 @@
       "type": "object",
       "description": "Values passed to the tpl library subchart dependency",
       "additionalProperties": true
+    },
+    "global": {
+      "type": "object",
+      "description": "Helm-injected global values when this chart is used as a dependency; not used by compliance-operator-full-stack templates",
+      "additionalProperties": true
     }
   },
   "definitions": {

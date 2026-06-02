@@ -38,6 +38,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.9] - 2026-06-02
+
+### Fixed
+
+- `values.schema.json` allows Helm-injected `global` values so `helm lint` / `helm template` succeed when this chart is used as a dependency.
+
+---
+
 ## [1.0.8] - 2026-06-01
 
 ### Changed
@@ -125,6 +133,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+[1.0.9]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.8...admin-networkpolicies-1.0.9
 [1.0.8]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.7...admin-networkpolicies-1.0.8
 [1.0.7]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.6...admin-networkpolicies-1.0.7
 [1.0.6]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.5...admin-networkpolicies-1.0.6
