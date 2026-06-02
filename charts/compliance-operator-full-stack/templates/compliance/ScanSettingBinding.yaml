@@ -1,23 +1,26 @@
-{{ if eq (.Values.compliance.scansettingbinding.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.compliance.scansettingbinding.enabled }}
 ---
 apiVersion: compliance.openshift.io/v1alpha1
 kind: ScanSettingBinding
 metadata:
   name: cis-compliance
-  annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.compliance.scansettingbinding.syncwave | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   namespace: {{ .Values.compliance.namespace.name | default "openshift-compliance" | quote }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" .Values.compliance.scansettingbinding.syncwave
+                "syncOptions" (.Values.compliance.scansettingbinding.syncOptions  | default "SkipDryRunOnMissingResource=true")
+                "extra" (.Values.compliance.scansettingbinding.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" .Values.compliance.scansettingbinding.additionalLabels | indent 4 }}
 profiles:
 {{- range $key, $value := .Values.compliance.scansettingbinding.profiles }}
-  - name: {{ $value.name }} 
+  - name: {{ $value.name }}
     kind: {{ $value.kind }}
     apiGroup: compliance.openshift.io/v1alpha1
 {{- end }}
 settingsRef:
-  name: {{ .Values.compliance.scansettingbinding.scansetting }}  
+  name: {{ .Values.compliance.scansettingbinding.scansetting }}
   kind: ScanSetting
   apiGroup: compliance.openshift.io/v1alpha1
 {{- end }}

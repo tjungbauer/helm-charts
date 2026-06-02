@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "compliance-operator-full-stack chart values",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "compliance": {
+      "$ref": "#/definitions/compliance"
+    },
+    "helper-operator": {
+      "type": "object",
+      "description": "Values passed to the helper-operator subchart dependency",
+      "additionalProperties": true
+    },
+    "helper-status-checker": {
+      "$ref": "#/definitions/helperStatusChecker"
+    },
+    "tpl": {
+      "type": "object",
+      "description": "Values passed to the tpl library subchart dependency",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "enableFlag": {
+      "description": "Boolean or string true/false (tpl.isEnabled)",
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["true", "false", "True", "False", "TRUE", "FALSE"] }
+      ]
+    },
+    "syncwave": {
+      "description": "Argo CD argocd.argoproj.io/sync-wave annotation",
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string", "pattern": "^-?[0-9]+$" }
+      ]
+    },
+    "stringMap": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": { "type": "string", "minLength": 1 }
+          }
+        },
+        "scansettingbinding": {
+          "$ref": "#/definitions/scanSettingBinding"
+        }
+      }
+    },
+    "scanSettingBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "syncOptions": { "type": "string" },
+        "additionalAnnotations": { "$ref": "#/definitions/stringMap" },
+        "additionalLabels": { "$ref": "#/definitions/stringMap" },
+        "scansetting": { "type": "string", "minLength": 1 },
+        "profiles": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/complianceProfile" }
+        },
+        "tailored": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "$ref": "#/definitions/enableFlag" },
+            "additionalAnnotations": { "$ref": "#/definitions/stringMap" },
+            "additionalLabels": { "$ref": "#/definitions/stringMap" },
+            "modified_profiles": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/tailoredProfile" }
+            }
+          }
+        }
+      }
+    },
+    "complianceProfile": {
+      "type": "object",
+      "required": ["name", "kind"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "kind": {
+          "type": "string",
+          "enum": ["Profile", "TailoredProfile"]
+        }
+      }
+    },
+    "tailoredProfile": {
+      "type": "object",
+      "required": ["name", "extends"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "title": { "type": "string" },
+        "extends": { "type": "string", "minLength": 1 },
+        "disableRules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "setValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "value"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "rationale": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "helperStatusChecker": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "enabled": { "$ref": "#/definitions/enableFlag" },
+        "checks": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/statusCheck" }
+        }
+      }
+    },
+    "statusCheck": {
+      "type": "object",
+      "required": ["operatorName"],
+      "additionalProperties": true,
+      "properties": {
+        "operatorName": { "type": "string", "minLength": 1 },
+        "syncwave": { "$ref": "#/definitions/syncwave" },
+        "namespace": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 }
+          }
+        },
+        "serviceAccount": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

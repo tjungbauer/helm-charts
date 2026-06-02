@@ -1,4 +1,92 @@
 ---
+compliance:
+  # -- Settings for namespace where compliance operator will be installed.
+  namespace:
+    # -- Namespace of the operator
+    name: openshift-compliance
+
+  # -- Settings for the ScanSettings
+  # Here ScanSettingBinding and TailoredProfile can be configured
+  scansettingbinding:
+
+    # -- Enable ScanSetting cnofiguration
+    # @default -- false
+    enabled: true
+
+    # -- Syncwave for the ScanSetting
+    syncwave: '3'
+
+    # -- Additional labels to add to the Keycloak instance as key: value pairs.
+    # @default -- {}
+    additionalAnnotations: {}
+    #  additionalAnnotation1: "My Annotation"
+    #  additionalAnnotation2: "My Annotation 2"
+
+    # -- Additional labels to add to the Keycloak instance as key: value pairs.
+    # @default -- {}
+    additionalLabels: {}
+    #  additionalLabel1: "My Label"
+    #  additionalLabel2: "My Label 2"
+
+    # -- Example of a TailoredProfile
+    # With TailoredProfiles you can disable specific checks
+    tailored:
+
+      # -- Enable TailoredProfile
+      # @default -- false
+      enabled: false
+
+      # -- Additional labels to add to the Keycloak instance as key: value pairs.
+      # @default -- {}
+      additionalAnnotations: {}
+      #  additionalAnnotation1: "My Annotation"
+      #  additionalAnnotation2: "My Annotation 2"
+
+      # -- Additional labels to add to the Keycloak instance as key: value pairs.
+      # @default -- {}
+      additionalLabels: {}
+      #  additionalLabel1: "My Label"
+      #  additionalLabel2: "My Label 2"
+
+      modified_profiles:
+
+        # -- Name of the TailoredProfile
+      - name: tailoredprofile-ocp4-cis
+        # -- Description of the Profile
+        description: Modified ocp4-cis profile
+        # -- Title of the profile (visible in the reports)
+        title: Tailored Profile of ocp4-cis
+        # -- Which Profile is extended here. Here we are using ocp4-cis as basis.
+        # This Profile must exist.
+        extends: ocp4-cis
+        # -- A list of rules that might be disabled.
+        disableRules:
+          # -- Name of the rule that shall be disabled
+        - name: ocp4-scc-limit-container-allowed-capabilities
+          # -- A Reason why this rule is excluded.
+          rationale: Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration
+
+        # -- A list of variables to set, used for tuning rules instead of disabling them.
+        setValues:
+          # -- The name of the variable in the base profile to override.
+        - name: "ocp4-var-sccs-with-allowed-capabilities-regex"
+          # -- The justification for setting this variable.
+          rationale: "To exclude extra SCC's from OCP-CIS rule"
+          # -- The new value for the variable
+          value: ^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$
+
+    # -- A list of Profiles that shall be used for scanning
+    profiles:
+        # -- The name of the Profile
+      - name: ocp4-cis-node
+        # -- The kind of the profile. This can either be Profile or TailoredProfile
+        kind: Profile  # Could be Profile or TailedProfile
+      - name: ocp4-cis
+        kind: Profile
+
+    # -- Use the default ScanSettings that a provided by the Operator.
+    scansetting: default
+
 # Using sub-chart helper-operator
 helper-operator:
   operators:
@@ -65,67 +153,3 @@ helper-status-checker:
       # -- Set the values of the ServiceAccount that will execute the status checker Job.
       serviceAccount:
         name: "sa-compliance"
-
-compliance:
-  # -- Settings for namespace where compliance operator will be installed.
-  namespace:
-    # -- Namespace of the operator
-    name: openshift-compliance
-
-  # -- Settings for the ScanSettings
-  # Here ScanSettingBinding and TailoredProfile can be configured
-  scansettingbinding:
-
-    # -- Enable ScanSetting cnofiguration
-    # @default -- false
-    enabled: false
-
-    # -- Syncwave for the ScanSetting
-    syncwave: '3'
-
-    # -- Example of a TailoredProfile
-    # With TailoredProfiles you can disable specific checks
-    tailored:
-
-      # -- Enable TailoredProfile
-      # @default -- false
-      enabled: false
-
-      modified_profiles:
-
-        # -- Name of the TailoredProfile
-      - name: tailoredprofile-ocp4-cis
-        # -- Description of the Profile
-        description: Modified ocp4-cis profile
-        # -- Title of the profile (visible in the reports)
-        title: Tailored Profile of ocp4-cis
-        # -- Which Profile is extended here. Here we are using ocp4-cis as basis.
-        # This Profile must exist.
-        extends: ocp4-cis
-        # -- A list of rules that might be disabled.
-        disableRules:
-          # -- Name of the rule that shall be disabled
-        - name: ocp4-scc-limit-container-allowed-capabilities
-          # -- A Reason why this rule is excluded.
-          rationale: Disabling CIS-OCP 5.2.8 that will always be triggered as long nutanix-csi does not provide SCC configuration
-
-        # -- A list of variables to set, used for tuning rules instead of disabling them.
-        setValues:
-          # -- The name of the variable in the base profile to override.
-        - name: "ocp4-var-sccs-with-allowed-capabilities-regex"
-          # -- The justification for setting this variable.
-          rationale: "To exclude extra SCC's from OCP-CIS rule"
-          # -- The new value for the variable
-          value: ^noobaa$|^rook-ceph-csi$|^privileged|^hostnetwork-v2|^nonroot-v2|^restricted-v2$
-
-    # -- A list of Profiles that shall be used for scanning
-    profiles:
-        # -- The name of the Profile
-      - name: ocp4-cis-node
-        # -- The kind of the profile. This can either be Profile or TailoredProfile
-        kind: Profile  # Could be Profile or TailedProfile
-      - name: ocp4-cis
-        kind: Profile
-
-    # -- Use the default ScanSettings that a provided by the Operator.
-    scansetting: default
