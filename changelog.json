@@ -1,8 +1,88 @@
 {
-  "generated": "2026-06-02T06:39:48.461574Z",
+  "generated": "2026-06-02T06:49:28.653596Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "admin-networkpolicies",
+      "version": "1.0.9",
+      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-06-02T08:45:46+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "fixes and adding README"
+        },
+        {
+          "kind": "added",
+          "description": "added support for portEndNumber"
+        },
+        {
+          "kind": "added",
+          "description": "fixing portRange implementation"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.8) Changelog and values.schema.json"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.9) values.schema.json allows Helm-injected global values when used as a dependency"
+        }
+      ]
+    },
+    {
+      "name": "compliance-operator-full-stack",
+      "version": "1.0.36",
+      "description": "Master chart to deploy and configure the Compliance Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
+      "lastModified": "2026-06-02T08:45:46+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "README.md"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.36) values.schema.json allows Helm-injected global values when used as a dependency"
+        }
+      ]
+    },
     {
       "name": "cert-manager",
       "version": "2.0.6",
@@ -42,40 +122,6 @@
         {
           "kind": "changed",
           "description": "(2.0.6) allowing global values to be passed to the chart in the schema"
-        }
-      ]
-    },
-    {
-      "name": "compliance-operator-full-stack",
-      "version": "1.0.35",
-      "description": "Master chart to deploy and configure the Compliance Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png",
-      "lastModified": "2026-06-02T08:22:34+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "README.md"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.34) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.35) tpl.argocdMetadata/tpl.isEnabled adoption, schema + additional metadata values, and refreshed dependencies"
         }
       ]
     },
@@ -208,44 +254,6 @@
         {
           "kind": "changed",
           "description": "(1.0.4) version bump"
-        }
-      ]
-    },
-    {
-      "name": "admin-networkpolicies",
-      "version": "1.0.8",
-      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
-      "lastModified": "2026-06-01T21:30:10+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "fixes and adding README"
-        },
-        {
-          "kind": "added",
-          "description": "added support for portEndNumber"
-        },
-        {
-          "kind": "added",
-          "description": "fixing portRange implementation"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.8) Changelog and values.schema.json"
         }
       ]
     },
