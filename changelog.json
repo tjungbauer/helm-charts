@@ -1,8 +1,76 @@
 {
-  "generated": "2026-06-02T06:58:05.632590Z",
+  "generated": "2026-06-03T12:09:35.229354Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "cost-management",
+      "version": "1.0.16",
+      "description": "Setup and configure cost-management Operator",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png",
+      "lastModified": "2026-06-03T14:05:49+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "added",
+          "description": "Added README and additional possible parameters"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added source configuration parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed auth_secret parameter"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.16) tpl.isEnabled guard, tpl.argocdMetadata, additional labels/annotations, tpl ~1.0.31"
+        }
+      ]
+    },
+    {
+      "name": "cyclonedx",
+      "version": "1.0.11",
+      "description": "A Helm chart to deploy CycloneDX to generate SBOM",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png",
+      "lastModified": "2026-06-03T14:05:49+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) tpl.isEnabled namespace guard, tpl.argocdMetadata, additional labels/annotations, tpl ~1.0.31"
+        }
+      ]
+    },
     {
       "name": "compliance-operator-full-stack",
       "version": "1.0.37",
@@ -1238,66 +1306,6 @@
         {
           "kind": "changed",
           "description": "(1.0.29) - bump version"
-        }
-      ]
-    },
-    {
-      "name": "cost-management",
-      "version": "1.0.15",
-      "description": "Setup and configure cost-management Operator",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial Release"
-        },
-        {
-          "kind": "added",
-          "description": "Added README and additional possible parameters"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added source configuration parameter"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed auth_secret parameter"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "cyclonedx",
-      "version": "1.0.10",
-      "description": "A Helm chart to deploy CycloneDX to generate SBOM",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
