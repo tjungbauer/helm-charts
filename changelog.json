@@ -1,8 +1,78 @@
 {
-  "generated": "2026-06-03T12:09:35.229354Z",
+  "generated": "2026-06-03T13:42:09.615151Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "helper-operator",
+      "version": "1.0.44",
+      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-06-03T15:39:20+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "Added Job that will enable Console Plugins if they are defined."
+        },
+        {
+          "kind": "added",
+          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
+        },
+        {
+          "kind": "fixed",
+          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added trustedCA configuration for the Operator"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to disable common labels"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed namespace template to use the correct value for disable_common_labels"
+        },
+        {
+          "kind": "added",
+          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.42) - Configurable ttlSecondsAfterFinished on console-plugin Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.43) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.44) tpl.isEnabled guards, tpl ~1.0.31, CHANGELOG and .helmignore"
+        }
+      ]
+    },
     {
       "name": "cost-management",
       "version": "1.0.16",
@@ -660,72 +730,6 @@
         {
           "kind": "changed",
           "description": "(1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
-      "name": "helper-operator",
-      "version": "1.0.43",
-      "description": "A helper Chart to reduce code repetition. This Chart should be called as a dependency by other charts in order to install Operators.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-05-31T08:18:42+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added Job that will enable Console Plugins if they are defined."
-        },
-        {
-          "kind": "added",
-          "description": "Possibility to configure config.tolerations, config.nodeSelector and config.env for the subscription, updated inline documentation and README"
-        },
-        {
-          "kind": "fixed",
-          "description": "Fix Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it."
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added trustedCA configuration for the Operator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed Job _enable_console_plugin_ in a way that it first verifies if the plugin has been added previously already and if it does not exist the Job will add it and leveraging helpers.tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to disable common labels"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed namespace template to use the correct value for disable_common_labels"
-        },
-        {
-          "kind": "added",
-          "description": "1.0.40 - added possibility to configure a custom operatorgroup name"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.41) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.42) - Configurable ttlSecondsAfterFinished on console-plugin Job (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.43) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
         }
       ]
     },
