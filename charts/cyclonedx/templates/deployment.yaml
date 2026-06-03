@@ -3,8 +3,13 @@ apiVersion: apps/v1
 metadata:
   name: cyclonedx-bom-repo-server
   namespace: {{ .Values.namespace.name | quote }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.syncwave | default "0")
+                "extra" (.Values.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.additionalLabels | default dict) | indent 4 }}
 spec:
   replicas: 1
   selector:

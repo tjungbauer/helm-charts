@@ -4,6 +4,20 @@ costmgmt:
   # @default -- false
   enabled: false
 
+  # -- Syncwave for the CostManagementMetricsConfig resource
+  # @default -- 10
+  syncwave: "10"
+
+  # -- Additional annotations on the CostManagementMetricsConfig resource
+  # @default -- {}
+  additionalAnnotations: {}
+  #  my-annotation: "value"
+
+  # -- Additional labels on the CostManagementMetricsConfig resource
+  # @default -- {}
+  additionalLabels: {}
+  #  my-label: "value"
+
   # -- Name of the cost manager CRD
   # @default -- costmanagementmetricscfg
   name: costmanagementmetricscfg

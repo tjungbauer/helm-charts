@@ -7,3 +7,17 @@ namespace:
 
   # -- Name of the Namespace
   name: cyclonedx
+
+# -- Sync wave for all rendered resources
+# @default -- 0
+syncwave: "0"
+
+# -- Additional annotations on all rendered resources
+# @default -- {}
+additionalAnnotations: {}
+#  my-annotation: "value"
+
+# -- Additional labels on all rendered resources
+# @default -- {}
+additionalLabels: {}
+#  my-label: "value"

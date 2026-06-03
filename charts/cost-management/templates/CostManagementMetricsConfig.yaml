@@ -1,5 +1,4 @@
-{{- if .Values.costmgmt }}
-{{- if eq ( .Values.costmgmt.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.costmgmt.enabled }}
 {{- with .Values.costmgmt }}
 ---
 kind: CostManagementMetricsConfig
@@ -8,12 +7,15 @@ metadata:
   name: {{ .name | default "costmanagementmetricscfg" }}
   namespace: costmanagement-metrics-operator
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "10")
+                "syncOptions" (.syncOptions | default "SkipDryRunOnMissingResource=true")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | indent 4 }}
 spec:
-  {{- if eq ( .airgapped | toString) "true" }}
+  {{- if include "tpl.isEnabled" .airgapped }}
   authentication: {}
   {{- else }}
   authentication:
@@ -33,7 +35,7 @@ spec:
     disable_metrics_collection_resource_optimization: {{ .promconfig_disable_metric_coll_resource_optimization | default "false" }}
     service_address: {{ .promconfig_service_address | default "https://thanos-querier.openshift-monitoring.svc:9091" }}
     skip_tls_verification: {{ .promconfig_skip_tls_verification | default "false" }}
-  {{- if eq ( .airgapped | toString) "true" }}
+  {{- if include "tpl.isEnabled" .airgapped }}
   source: {}
   {{- else }}
   source:
@@ -44,12 +46,11 @@ spec:
   {{- end }}
   upload:
     upload_cycle: {{ .upload_cycle | default 360 }}
-    {{- if eq ( .airgapped | toString) "true" }}
+    {{- if include "tpl.isEnabled" .airgapped }}
     upload_toggle: false
     {{- else }}
     upload_toggle: {{ .upload_toggle | default "true" }}
     {{- end }}
     validate_cert: {{ .upload_validate_cert | default "true" }}
-{{- end }}
 {{- end }}
 {{- end }}
