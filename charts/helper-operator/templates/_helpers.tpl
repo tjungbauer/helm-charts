@@ -79,7 +79,7 @@ config:
 
   {{- /* mount additional volumes for certificates */}}
   {{- if .config.trustedCA }}
-  {{- if eq ( .config.trustedCA.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .config.trustedCA.enabled }}
   volumeMounts:
     - name: {{ .config.trustedCA.configMap | default "trusted-ca-bundle" }}
       mountPath: /etc/pki/ca-trust/extracted/pem

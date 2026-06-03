@@ -1,5 +1,4 @@
-{{- if .Values.console_plugins }}
-{{- if eq (.Values.console_plugins.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" (.Values.console_plugins.enabled | default false) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -20,5 +19,4 @@ rules:
       - list
       - update
       - patch
-{{- end }}
 {{- end }}

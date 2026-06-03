@@ -1,5 +1,4 @@
-{{- if .Values.console_plugins }}
-{{- if eq (.Values.console_plugins.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" (.Values.console_plugins.enabled | default false) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -18,5 +17,4 @@ subjects:
   - kind: ServiceAccount
     name: {{ .Values.console_plugins.job_service_account | default "enable-console-plugin-sa" }}
     namespace: {{ .Values.console_plugins.job_namespace | default "kube-system" }}
-{{- end }}
 {{- end }}
