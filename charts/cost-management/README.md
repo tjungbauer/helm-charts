@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
+  ![Version: 1.0.16](https://img.shields.io/badge/Version-1.0.16-informational?style=flat-square)
 
  
 
@@ -30,7 +30,7 @@ This chart has the following dependencies:
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.36 |
 | https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -56,6 +56,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| costmgmt.additionalAnnotations | object | {} | Additional annotations on the CostManagementMetricsConfig resource |
+| costmgmt.additionalLabels | object | {} | Additional labels on the CostManagementMetricsConfig resource |
 | costmgmt.airgapped | bool | false | Is the cluster running in an airgapped or disconnected environment, we cannot upload the cost management data. If set to true upload_toggle will be set to false autoamatically. |
 | costmgmt.auth_type | string | token | Authentication: Valid values are:  - "basic" (deprecated) : Enables authentication using user and password from authentication secret.  - "service-account" : Enables authentication using client_id and client_secret from the secret containing service account information.  - "token" (default): Uses cluster token for authentication. If the cluster is running in airgapped mode, then these settings can be ignored. |
 | costmgmt.clustername | string | "mycluster" | The name of the cluster. |
@@ -72,6 +74,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 | costmgmt.source_check_cycle | int | `1440` | The cycle to check the source. @default - 1440 |
 | costmgmt.source_create_source | bool | true | Whether or not the operator will create the source. |
 | costmgmt.sources_path | string | "/api/sources/v1.0/" | The path to the sources API. |
+| costmgmt.syncwave | string | 10 | Syncwave for the CostManagementMetricsConfig resource |
 | costmgmt.upload_cycle | int | 360 | Represents the number of minutes between each upload schedule. |
 | costmgmt.upload_toggle | bool | true | If `false`, the operator will not upload to console.redhat.com or check/create sources. |
 | costmgmt.upload_validate_cert | bool | true | Whether or not the operator will validate the certificate of upload target. |

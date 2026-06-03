@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
+  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
 
  
 
@@ -30,7 +30,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -54,8 +54,11 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/cycloned
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalAnnotations | object | {} | Additional annotations on all rendered resources |
+| additionalLabels | object | {} | Additional labels on all rendered resources |
 | namespace.create | bool | false | Create Namespace yes or not |
 | namespace.name | string | `"cyclonedx"` | Name of the Namespace |
+| syncwave | string | 0 | Sync wave for all rendered resources |
 
 ## Example values
 
