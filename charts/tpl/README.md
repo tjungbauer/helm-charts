@@ -28,6 +28,8 @@ The tpl chart is a Helm library chart that provides reusable templates for commo
 * Sleep timer for jobs
 * security context
 * Pod security context
+* Topology spread, image pull secrets, env / envFrom
+* OpenShift Route and NetworkPolicy helpers
 
 Instead of defining them in other Charts multiple times, it is possible to simply include the template.
 
@@ -96,17 +98,29 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/tpl
 | argocd_applications.example-app.syncPolicy.retry.backoff.maxDuration | string | `"3m"` | the maximum amount of time allowed for the backoff strategy |
 | argocd_applications.example-app.syncPolicy.retry.limit | int | `5` | Number of failed sync attempt retries; unlimited number of attempts if less than 0 @default: 0 |
 | argocd_applications.example-app.syncPolicy.syncOptions | list | `[]` | Sync options which modifies sync behavior <br /> The following can be set (see: https://argo-cd.readthedocs.io/en/stable/operator-manual/sync-options/)<br /> <ul> <li>- Validate=true ... disables resource validation (equivalent to 'kubectl apply --validate=false') ( true by default ).</li> <li>- CreateNamespace=true ... Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.</li> <li>- PrunePropagationPolicy=foreground ... Supported policies are background, foreground and orphan.</li> <li>- PruneLast=true ... Allow the ability for resource pruning to happen as a final, implicit wave of a sync operation</li> <li>- RespectIgnoreDifferences=true ... When syncing changes, respect fields ignored by the ignoreDifferences configuration</li> <li>- ApplyOutOfSyncOnly=true ... Only sync out-of-sync resources, rather than applying every object in the application </li> </ul> @default: [] |
+| env | list | `[{"name":"EXAMPLE","value":"true"}]` | Container environment variables <br /> Example include: {{ include "tpl.env" .Values.env | indent 4 }} |
+| envFrom | list | `[]` | Container envFrom <br /> Example include: {{ include "tpl.envFrom" .Values.envFrom | indent 4 }} |
+| imagePullSecrets | list | `["my-registry-pull-secret"]` | Pod image pull secrets (list of secret names) <br /> Example include: {{- if .Values.imagePullSecrets }} {{ include "tpl.imagePullSecrets" .Values.imagePullSecrets | indent 6 }} {{- end }} |
 | matchExpressions | list | `[{"key":"kubernetes.io/metadata.name","operator":"NotIn","values":["kube-system","openshift*","default","kubde-info"]}]` | Deine a metchExpression to use key, oeprator, value pairs. <br /> Example include (used in chart admin-networkpolicies)  spec:  subject:    {{- if .subject.namespaces }}    namespaces:      {{- if .subject.namespaces.matchExpressions }}      matchExpressions:        {{- range .subject.namespaces.matchExpressions }}        {{- include "tpl.matchExpressions" . | indent 4 }}        {{- end }}      {{- end }}      {{- if .subject.namespaces.matchLabels }}      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}      {{- end }}    {{- end }} |
-| namespace | object | `{"additionalAnnotations":{"test-annotation":"test-annotation"},"additionalLabels":{"test-label":"test-label"},"create":true,"description":"Test Namespace","displayName":"Test Namespace","name":"test-namespace"}` | Namespace <br /> Example include: {{- if .Values.namespace }} {{- if eq (.Values.namespace.create | toString) "true" }} {{ include "tpl.namespace" .Values.namespace }} {{- end }} {{- end }} |
+| namespace | object | `{"additionalAnnotations":{"test-annotation":"test-annotation"},"additionalLabels":{"test-label":"test-label"},"create":true,"description":"Test Namespace","displayName":"Test Namespace","name":"test-namespace"}` | Namespace <br /> Example include: {{- if .Values.namespace }} {{- if include "tpl.isEnabled" .Values.namespace.create }} {{ include "tpl.namespace" .Values.namespace }} {{- end }} {{- end }} |
 | namespace | object | `{"additionalAnnotations":{"additionalAnnotation1":"My Annotation","additionalAnnotation2":"My Annotation 2"},"additionalLabels":{"myLabel1":"My Label","myLabel2":"My Labe 2"},"bindtoNode":{"role":"infra"}}` | If you want to annotate a namespace to run on a specific node configure the following annotations <br /> Example include:    {{- if .Values.namespace.bindtoNode }}    {{- if .Values.namespace.bindtoNode.role }}    {{- include "tpl.bindtoNode" .Values.namespace.bindtoNode | nindent 4 }}    {{- end }}    {{- end }}    {{- include "tpl.additionalAnnotations" .Values.namespace.additionalAnnotations | indent 4 }}    {{- include "tpl.additionalLabels" .Values.namespace.additionalLabels | indent 4 }} |
 | namespaceSelector | object | `{"matchLabels":{"kubernetes.io/metadata.name":"openshift-dns"}}` | Define a NamespaceSelector and the required labels <br /> Example include (used in chart admin-networkpolicies)  spec:  subject:    {{- if .subject.namespaces }}    namespaces:      {{- if .subject.namespaces.matchExpressions }}      matchExpressions:        {{- range .subject.namespaces.matchExpressions }}        {{- include "tpl.matchExpressions" . | indent 4 }}        {{- end }}      {{- end }}      {{- if .subject.namespaces.matchLabels }}      {{- include "tpl.matchLabels" .subject.namespaces.matchLabels | indent 4 }}      {{- end }}    {{- end }} |
-| nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
-| nodeSelector.value | string | `""` |  |
+| networkPolicy | object | `{"ingress":[{"from":[{"podSelector":{}}]}],"name":"allow-from-same-namespace","namespace":"my-namespace","podSelector":{"matchLabels":{"app":"my-app"}},"policyTypes":["Ingress"]}` | NetworkPolicy <br /> Example include: {{ include "tpl.networkPolicy" (dict "root" $ "policy" .Values.networkPolicy) }} |
+| nodeSelector | object | key/value example below | nodeSelector for workloads. Use key/value for one label, or a label map for multiple (do not mix both shapes). |
 | podDisruptionBudget | object | `{"additionalAnnotations":{"test-annotation":"test-annotation"},"additionalLabels":{"test-label":"test-label"},"matchExpressions":[{"key":"app","operator":"In","values":["test-app","test-app-2"]},{"key":"vendor","operator":"In","values":["test-vendor"]}],"matchLabels":{"app":"test-app","vendor":"test-vendor"},"minAvailable":1,"name":"test-pdb","namespace":"test-namespace","unhealthyPodEvictionPolicy":"AlwaysAllow"}` | PodDisruptionBudget <br /> Example include: {{- if .Values.podDisruptionBudget }} {{ include "tpl.podDisruptionBudget" .Values.podDisruptionBudget | indent 2 }} {{- end }} |
 | podSecurityContext | object | `{"fsGroup":2001,"runAsGroup":3001,"runAsNonRoot":true,"runAsUser":1001}` | Pod-level security context <br /> Example include: {{- if .Values.podSecurityContext }} {{ include "tpl.podSecurityContext" .Values.podSecurityContext | indent 2 }} {{- end }} |
-| resources | object | `{"limits":{"cpu":8,"ephemeral-storage":500,"memory":16,"nvidia":1},"requests":{"cpu":4,"ephemeral-storage":50,"memory":8}}` | If you want to define resources <br /> Example include: {{- if .Values.resources }} {{ include "tpl.resources" .Values.resources  | indent 0 }} {{- end }} |
+| resources | object | `{"limits":{"cpu":8,"ephemeral-storage":"500Mi","extendedResources":{"nvidia.com/gpu":1},"memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}}` | Container resources (requests and limits). Bare numbers for memory or ephemeral-storage get a "Gi" suffix unless the value already ends with Gi or Mi (see tpl.appendUnit). Prefer explicit units (8Gi, 512Mi) in production values. <br /> Example include: {{- if .Values.resources }} {{ include "tpl.resources" .Values.resources  | indent 0 }} {{- end }} |
+| resources.limits.extendedResources | object | {} | Extended resources (full Kubernetes resource names as keys). |
+| resources.requests.ephemeral-storage | string | 50Mi | Ephemeral storage request. Prefer explicit Mi/Gi; bare integers get a Gi suffix. |
+| resources.requests.memory | string | 8Gi | Memory request. Prefer explicit Gi/Mi; bare integers get a Gi suffix via tpl.appendUnit. |
+| route | object | `{"enabled":false,"name":"my-app","namespace":"my-namespace","targetPort":"http","tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}` | OpenShift Route (route.openshift.io/v1) <br /> Example include: {{- if include "tpl.isEnabled" .Values.route.enabled }} {{ include "tpl.openshiftRoute" (dict "root" $ "route" .Values.route) }} {{- end }} |
 | securityContext | object | `{"readOnlyRootFilesystem":true,"runAsGroup":3000,"runAsNonRoot":true,"runAsUser":1000}` | Security context configuration for containers <br /> Example include: {{- if .Values.securityContext }} {{ include "tpl.securityContext" .Values.securityContext | indent 2 }} {{- end }} |
 | tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","tolerationSeconds":600,"value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","tolerationSeconds":600,"value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. <br /> Example include: {{- if .Values.tolerations }} {{ include "tpl.tolerations" .Values.tolerations  | indent 0 }} {{- end }} |
+| topologySpreadConstraints | list | `[]` | Pod topology spread constraints <br /> Example include: {{- if .Values.topologySpreadConstraints }} {{ include "tpl.topologySpreadConstraints" .Values.topologySpreadConstraints | indent 6 }} {{- end }} |
+
+**`tpl.resources`:** Bare numbers on `memory` or `ephemeral-storage` receive a **Gi** suffix unless the value already ends with **Gi** or **Mi** (for example `memory: 8` becomes `8Gi`). Prefer explicit units in values. Extended resources use `limits.extendedResources` / `requests.extendedResources` with full Kubernetes resource names (e.g. `nvidia.com/gpu`).
+
+**`tpl.nodeSelector`:** Supports one label via `key` / `value`, or multiple labels as a Kubernetes label map (without `key` / `value` fields). Do not mix both shapes in the same block.
 
 ## Example values
 
@@ -129,16 +143,23 @@ tolerations:
 resources:
   requests:
     cpu: 4
-    memory: 8
-    ephemeral-storage: 50
+    memory: 8Gi
+    ephemeral-storage: 50Mi
   limits:
     cpu: 8
-    memory: 16
-    ephemeral-storage: 500
+    memory: 16Gi
+    ephemeral-storage: 500Mi
+    extendedResources:
+      nvidia.com/gpu: 1
 
 nodeSelector:
   key: node-role.kubernetes.io/infra
   value: ''
+
+# Or multiple labels (map form; do not combine with key/value):
+# nodeSelector:
+#   node-role.kubernetes.io/infra: ""
+#   topology.kubernetes.io/zone: eu-west-1
 
 namespace:
   bindtoNode:

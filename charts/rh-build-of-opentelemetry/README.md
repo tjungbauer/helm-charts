@@ -84,78 +84,129 @@ Verify the subcharts for additional settings:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| collector.additionalAnnotations | object | {} | Additional annotations for the Collector |
-| collector.additionalLabels | object | {} | Additional labels for the Collector |
-| collector.config | object | {} | OpenTelemetry Collector configuration |
-| collector.enabled | bool | false | Enable OpenTelemetry Collector |
-| collector.env | list | [] | Environment variables |
-| collector.image | string | `""` | Image configuration |
-| collector.managementState | string | managed | Management state (managed/unmanaged) |
-| collector.mode | string | deployment | Deployment mode Valid values: deployment, daemonset, statefulset, sidecar |
-| collector.name | string | otel-collector | Name of the OpenTelemetry Collector |
-| collector.nodeSelector | object | {} | Node selector |
-| collector.podSecurityContext | object | {} | Pod Security Context |
-| collector.ports | object | {} | Ports configuration |
-| collector.replicas | int | 1 | Number of replicas (only for deployment and statefulset modes) |
-| collector.resources | object | {} | Resource requirements |
-| collector.serviceAccount | object | '' | Service Account |
-| collector.serviceAccount.create | bool | false | Create the Service Account |
-| collector.serviceAccount.name | string | otel-collector | Name of the Service Account |
-| collector.syncwave | int | 10 | Sync wave for the OpenTelemetry Collector |
-| collector.tolerations | list | [] | Tolerations |
-| collector.volumeMounts | list | [] | Volume mounts |
-| collector.volumes | list | [] | Volumes |
-| instrumentation.additionalAnnotations | object | {} | Additional annotations for Instrumentation |
-| instrumentation.additionalLabels | object | {} | Additional labels for Instrumentation |
-| instrumentation.apacheHttpd | object | {} | Apache HTTP Server instrumentation configuration |
-| instrumentation.apacheHttpd.env | object | {} | Environment variables for Apache HTTP Server instrumentation |
-| instrumentation.apacheHttpd.image | string | '' | Image for Apache HTTP Server auto-instrumentation |
-| instrumentation.dotnet | object | {} | .NET instrumentation configuration |
-| instrumentation.dotnet.env | object | {} | Environment variables for .NET instrumentation |
-| instrumentation.dotnet.image | string | '' | Image for .NET auto-instrumentation |
-| instrumentation.enabled | bool | false | Enable OpenTelemetry Instrumentation |
-| instrumentation.exporter | object | http://otel-collector:4318 | Exporter endpoint |
-| instrumentation.go | object | {} | Go instrumentation configuration |
-| instrumentation.go.env | object | {} | Environment variables for Go instrumentation |
-| instrumentation.go.image | string | '' | Image for Go auto-instrumentation |
-| instrumentation.java | object | {} | Java instrumentation configuration |
-| instrumentation.java.env | object | {} | Environment variables for Java instrumentation |
-| instrumentation.java.image | string | '' | Image for Java auto-instrumentation |
-| instrumentation.name | string | otel-instrumentation | Name of the Instrumentation |
-| instrumentation.nodejs | object | {} | Node.js instrumentation configuration |
-| instrumentation.nodejs.env | object | {} | Environment variables for Node.js instrumentation |
-| instrumentation.nodejs.image | string | '' | Image for Node.js auto-instrumentation |
-| instrumentation.propagators | list | ["tracecontext", "baggage"] | Propagators |
-| instrumentation.python | object | {} | Python instrumentation configuration |
-| instrumentation.python.env | object | {} | Environment variables for Python instrumentation |
-| instrumentation.python.image | string | '' | Image for Python auto-instrumentation |
-| instrumentation.sampler | object | {} | Sampler configuration |
-| instrumentation.syncwave | int | 10 | Sync wave for the OpenTelemetry Instrumentation |
-| namespace.additionalAnnotations | object | {} | Additional annotations for the namespace |
-| namespace.additionalLabels | object | {} | Additional labels for the namespace |
-| namespace.create | bool | true | Create the namespace |
-| namespace.descr | string | '' | Description of the namespace |
-| namespace.display | string | '' | Display name of the namespace |
-| namespace.name | string | opentelemetry | Name of the namespace for OpenTelemetry resources |
-| targetallocator.additionalAnnotations | object | {} | Additional annotations for Target Allocator |
-| targetallocator.additionalLabels | object | {} | Additional labels for Target Allocator |
-| targetallocator.allocationStrategy | string | consistent-hashing | Allocation strategy Valid values: consistent-hashing, least-weighted |
-| targetallocator.enabled | bool | false | Enable Target Allocator |
-| targetallocator.env | list | [] | Environment variables |
-| targetallocator.filterStrategy | string | '' | Filter strategy Valid values: relabel-config |
-| targetallocator.image | string | '' | Image configuration |
-| targetallocator.name | string | otel-targetallocator | Name of the Target Allocator |
-| targetallocator.nodeSelector | object | {} | Node selector |
-| targetallocator.prometheusCR | object | `{"enabled":true,"podMonitorSelector":{},"scrapeInterval":"30s","serviceMonitorSelector":{}}` | Prometheus CR configuration |
-| targetallocator.prometheusCR.enabled | bool | true | Enable Prometheus CR scraping |
-| targetallocator.prometheusCR.podMonitorSelector | object | {} | Pod monitor selector |
-| targetallocator.prometheusCR.scrapeInterval | string | 30s | Scrape interval |
-| targetallocator.prometheusCR.serviceMonitorSelector | object | {} | Service monitor selector |
-| targetallocator.replicas | int | 1 | Number of replicas |
-| targetallocator.resources | object | {} | Resource requirements |
-| targetallocator.serviceAccount | string | '' | Service Account |
-| targetallocator.syncwave | int | 10 | Sync wave for the OpenTelemetry Target Allocator |
-| targetallocator.tolerations | list | [] | Tolerations |
+| collector.config.exporters.debug.sampling_initial | int | `5` |  |
+| collector.config.exporters.debug.sampling_thereafter | int | `200` |  |
+| collector.config.exporters.debug.verbosity | string | `"basic"` |  |
+| collector.config.exporters.loki.endpoint | string | `"http://loki-gateway.loki.svc.cluster.local:3100/loki/api/v1/push"` |  |
+| collector.config.exporters.loki.labels.resource."k8s.container.name" | string | `"container"` |  |
+| collector.config.exporters.loki.labels.resource."k8s.namespace.name" | string | `"namespace"` |  |
+| collector.config.exporters.loki.labels.resource."k8s.pod.name" | string | `"pod"` |  |
+| collector.config.exporters.otlp/tempo.endpoint | string | `"tempo-gateway.tempo.svc.cluster.local:4317"` |  |
+| collector.config.exporters.otlp/tempo.tls.ca_file | string | `"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"` |  |
+| collector.config.exporters.otlp/tempo.tls.insecure | bool | `false` |  |
+| collector.config.exporters.prometheusremotewrite.endpoint | string | `"http://prometheus-server.monitoring.svc.cluster.local:9090/api/v1/write"` |  |
+| collector.config.exporters.prometheusremotewrite.resource_to_telemetry_conversion.enabled | bool | `true` |  |
+| collector.config.processors.batch.send_batch_max_size | int | `2048` |  |
+| collector.config.processors.batch.send_batch_size | int | `1024` |  |
+| collector.config.processors.batch.timeout | string | `"10s"` |  |
+| collector.config.processors.k8sattributes.auth_type | string | `"serviceAccount"` |  |
+| collector.config.processors.k8sattributes.extract.metadata[0] | string | `"k8s.namespace.name"` |  |
+| collector.config.processors.k8sattributes.extract.metadata[1] | string | `"k8s.deployment.name"` |  |
+| collector.config.processors.k8sattributes.extract.metadata[2] | string | `"k8s.pod.name"` |  |
+| collector.config.processors.k8sattributes.extract.metadata[3] | string | `"k8s.pod.uid"` |  |
+| collector.config.processors.k8sattributes.extract.metadata[4] | string | `"k8s.node.name"` |  |
+| collector.config.processors.k8sattributes.passthrough | bool | `false` |  |
+| collector.config.processors.memory_limiter.check_interval | string | `"1s"` |  |
+| collector.config.processors.memory_limiter.limit_mib | int | `3500` |  |
+| collector.config.processors.memory_limiter.spike_limit_mib | int | `512` |  |
+| collector.config.processors.resource.attributes[0].action | string | `"insert"` |  |
+| collector.config.processors.resource.attributes[0].key | string | `"cluster.name"` |  |
+| collector.config.processors.resource.attributes[0].value | string | `"production-cluster"` |  |
+| collector.config.processors.resource.attributes[1].action | string | `"insert"` |  |
+| collector.config.processors.resource.attributes[1].key | string | `"k8s.cluster.name"` |  |
+| collector.config.processors.resource.attributes[1].value | string | `"production-cluster"` |  |
+| collector.config.processors.resource.attributes[2].action | string | `"insert"` |  |
+| collector.config.processors.resource.attributes[2].key | string | `"deployment.environment"` |  |
+| collector.config.processors.resource.attributes[2].value | string | `"production"` |  |
+| collector.config.receivers.jaeger.protocols.grpc.endpoint | string | `"0.0.0.0:14250"` |  |
+| collector.config.receivers.jaeger.protocols.thrift_http.endpoint | string | `"0.0.0.0:14268"` |  |
+| collector.config.receivers.otlp.protocols.grpc.endpoint | string | `"0.0.0.0:4317"` |  |
+| collector.config.receivers.otlp.protocols.http.cors.allowed_origins[0] | string | `"https://*.example.com"` |  |
+| collector.config.receivers.otlp.protocols.http.endpoint | string | `"0.0.0.0:4318"` |  |
+| collector.config.receivers.prometheus.config.scrape_configs[0].job_name | string | `"otel-collector"` |  |
+| collector.config.receivers.prometheus.config.scrape_configs[0].scrape_interval | string | `"30s"` |  |
+| collector.config.receivers.prometheus.config.scrape_configs[0].static_configs[0].targets[0] | string | `"0.0.0.0:8888"` |  |
+| collector.config.service.pipelines.logs.exporters[0] | string | `"loki"` |  |
+| collector.config.service.pipelines.logs.processors[0] | string | `"memory_limiter"` |  |
+| collector.config.service.pipelines.logs.processors[1] | string | `"k8sattributes"` |  |
+| collector.config.service.pipelines.logs.processors[2] | string | `"resource"` |  |
+| collector.config.service.pipelines.logs.processors[3] | string | `"batch"` |  |
+| collector.config.service.pipelines.logs.receivers[0] | string | `"otlp"` |  |
+| collector.config.service.pipelines.metrics.exporters[0] | string | `"prometheusremotewrite"` |  |
+| collector.config.service.pipelines.metrics.processors[0] | string | `"memory_limiter"` |  |
+| collector.config.service.pipelines.metrics.processors[1] | string | `"resource"` |  |
+| collector.config.service.pipelines.metrics.processors[2] | string | `"batch"` |  |
+| collector.config.service.pipelines.metrics.receivers[0] | string | `"otlp"` |  |
+| collector.config.service.pipelines.metrics.receivers[1] | string | `"prometheus"` |  |
+| collector.config.service.pipelines.traces.exporters[0] | string | `"otlp/tempo"` |  |
+| collector.config.service.pipelines.traces.processors[0] | string | `"memory_limiter"` |  |
+| collector.config.service.pipelines.traces.processors[1] | string | `"k8sattributes"` |  |
+| collector.config.service.pipelines.traces.processors[2] | string | `"resource"` |  |
+| collector.config.service.pipelines.traces.processors[3] | string | `"batch"` |  |
+| collector.config.service.pipelines.traces.receivers[0] | string | `"otlp"` |  |
+| collector.config.service.pipelines.traces.receivers[1] | string | `"jaeger"` |  |
+| collector.config.service.telemetry.logs.level | string | `"info"` |  |
+| collector.config.service.telemetry.metrics.address | string | `"0.0.0.0:8888"` |  |
+| collector.config.service.telemetry.metrics.level | string | `"detailed"` |  |
+| collector.enabled | bool | `true` |  |
+| collector.managementState | string | `"managed"` |  |
+| collector.mode | string | `"deployment"` |  |
+| collector.name | string | `"otel-collector"` |  |
+| collector.nodeSelector."node-role.kubernetes.io/worker" | string | `""` |  |
+| collector.replicas | int | `3` |  |
+| collector.resources.limits.cpu | int | `2` |  |
+| collector.resources.limits.memory | string | `"4Gi"` |  |
+| collector.resources.requests.cpu | string | `"500m"` |  |
+| collector.resources.requests.memory | string | `"1Gi"` |  |
+| collector.serviceAccount.create | bool | `false` |  |
+| collector.serviceAccount.name | string | `"otel-collector-sa"` |  |
+| collector.tolerations[0].effect | string | `"NoSchedule"` |  |
+| collector.tolerations[0].key | string | `"node-role.kubernetes.io/infra"` |  |
+| collector.tolerations[0].operator | string | `"Exists"` |  |
+| instrumentation.dotnet.env.OTEL_DOTNET_AUTO_METRICS_INSTRUMENTATION_ENABLED | string | `"true"` |  |
+| instrumentation.dotnet.env.OTEL_DOTNET_AUTO_TRACES_INSTRUMENTATION_ENABLED | string | `"true"` |  |
+| instrumentation.dotnet.env.OTEL_EXPORTER_OTLP_TIMEOUT | string | `"10000"` |  |
+| instrumentation.enabled | bool | `true` |  |
+| instrumentation.exporter.endpoint | string | `"http://otel-collector.opentelemetry.svc.cluster.local:4318"` |  |
+| instrumentation.java.env.OTEL_EXPORTER_OTLP_TIMEOUT | string | `"10000"` |  |
+| instrumentation.java.env.OTEL_INSTRUMENTATION_COMMON_PEER_SERVICE_MAPPING | string | `"redis=redis-service,postgresql=postgres-service"` |  |
+| instrumentation.java.env.OTEL_LOGS_EXPORTER | string | `"otlp"` |  |
+| instrumentation.java.env.OTEL_METRICS_EXPORTER | string | `"otlp"` |  |
+| instrumentation.java.env.OTEL_TRACES_EXPORTER | string | `"otlp"` |  |
+| instrumentation.name | string | `"otel-instrumentation"` |  |
+| instrumentation.nodejs.env.OTEL_EXPORTER_OTLP_TIMEOUT | string | `"10000"` |  |
+| instrumentation.nodejs.env.OTEL_NODE_RESOURCE_DETECTORS | string | `"env,host,os,serviceinstance"` |  |
+| instrumentation.propagators[0] | string | `"tracecontext"` |  |
+| instrumentation.propagators[1] | string | `"baggage"` |  |
+| instrumentation.propagators[2] | string | `"b3"` |  |
+| instrumentation.propagators[3] | string | `"jaeger"` |  |
+| instrumentation.python.env.OTEL_EXPORTER_OTLP_TIMEOUT | string | `"10000"` |  |
+| instrumentation.python.env.OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED | string | `"true"` |  |
+| instrumentation.sampler.argument | string | `"0.25"` |  |
+| instrumentation.sampler.type | string | `"parentbased_traceidratio"` |  |
+| namespace.create | bool | `true` |  |
+| namespace.descr | string | `"Production OpenTelemetry Stack"` |  |
+| namespace.display | string | `"OpenTelemetry Observability"` |  |
+| namespace.name | string | `"opentelemetry"` |  |
+| targetallocator.allocationStrategy | string | `"consistent-hashing"` |  |
+| targetallocator.enabled | bool | `true` |  |
+| targetallocator.env[0].name | string | `"OTEL_LOG_LEVEL"` |  |
+| targetallocator.env[0].value | string | `"info"` |  |
+| targetallocator.name | string | `"otel-targetallocator"` |  |
+| targetallocator.nodeSelector."node-role.kubernetes.io/worker" | string | `""` |  |
+| targetallocator.prometheusCR.enabled | bool | `true` |  |
+| targetallocator.prometheusCR.podMonitorSelector.matchExpressions[0].key | string | `"monitoring"` |  |
+| targetallocator.prometheusCR.podMonitorSelector.matchExpressions[0].operator | string | `"In"` |  |
+| targetallocator.prometheusCR.podMonitorSelector.matchExpressions[0].values[0] | string | `"enabled"` |  |
+| targetallocator.prometheusCR.podMonitorSelector.matchExpressions[0].values[1] | bool | `true` |  |
+| targetallocator.prometheusCR.scrapeInterval | string | `"30s"` |  |
+| targetallocator.prometheusCR.serviceMonitorSelector.matchLabels.prometheus | string | `"kube-prometheus"` |  |
+| targetallocator.replicas | int | `2` |  |
+| targetallocator.resources.limits.cpu | int | `1` |  |
+| targetallocator.resources.limits.memory | string | `"1Gi"` |  |
+| targetallocator.resources.requests.cpu | string | `"200m"` |  |
+| targetallocator.resources.requests.memory | string | `"256Mi"` |  |
+| targetallocator.serviceAccount | string | `"otel-targetallocator-sa"` |  |
 
 ## Component Details
 
