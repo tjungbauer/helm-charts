@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-status-checker
 description: A helper Chart that creates a job to verify if the deployments of an operator are running. To do so it creates a service account with a role to read the status of the Deployments.
-version: 4.0.18
+version: 4.0.21
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.28
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -45,3 +45,9 @@ annotations:
       description: (4.0.17) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: added
       description: (4.0.18) - Configurable ttlSecondsAfterFinished on status-check and installplan Jobs (default 600s)
+    - kind: changed
+      description: (4.0.19) tpl.isEnabled guard, tpl ~1.0.31
+    - kind: changed
+      description: (4.0.20) tpl.argocdMetadata hook annotations, additionalLabels and additionalAnnotations
+    - kind: changed
+      description: (4.0.21) chart-root additionalLabels and additionalAnnotations only (removed per-check metadata),random Job name suffix, CHANGELOG

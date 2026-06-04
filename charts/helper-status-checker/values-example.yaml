@@ -1,7 +1,7 @@
 ---
 # -- Enable or disable the status-checker configuration
 # @default -- false
-enabled: false
+enabled: true
 
 # -- Seconds to retain finished status-checker Jobs before Kubernetes deletes them
 # @default -- 600
@@ -10,6 +10,20 @@ ttlSecondsAfterFinished: 600
 # -- Enable automatic approval of an InstallPlan. Useful if the installation must be approved manually and you want to initially deploy the Operator using GitOps.
 # @default -- false
 approver: false
+
+# -- Additional annotations on all status-checker hook resources.
+# @default -- {}
+additionalAnnotations: {}
+#  my-annotation: "value"
+
+# -- Additional labels on all status-checker hook resources.
+# @default -- {}
+additionalLabels: {}
+#  my-label: "value"
+
+# -- Optional Argo CD sync-options for all hook resources.
+# @default -- none
+# syncOptions: Replace=true
 
 # List of checks that shall be performed.
 checks:

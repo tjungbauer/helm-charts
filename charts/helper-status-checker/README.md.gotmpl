@@ -12,13 +12,21 @@ helper-status-checker will create a Service Account (incl. a ClusterRole and a C
 
 NOTE: This chart can also be used to automatically approve an InstallPlan
 
+Shipped **`values.yaml`** is intentionally empty so this subchart renders nothing until the parent chart sets values.
+
+The **parameter table below** and the **full documented example** (including `# --` comments and defaults) are taken from **`values-example.yaml`** in this chart directory—not from `values.yaml`. Use that file as the reference when configuring this chart as a subchart or for local testing (`helm template … -f values-example.yaml`). CI helm-docs reads the same file (see **`.helm-docs.yml`**).
+
 {{ template "doc.maintainer_and_sources" . }}
 
 ## Parameters
 
+Values below reflect **`values-example.yaml`**. Install-time defaults in the packaged chart remain empty in **`values.yaml`**.
+
 {{ template "doc.values" . }}
 
 ## Example
+
+Minimal install example (see **`values-example.yaml`** for all keys, comments, and defaults):
 
 ```yaml
 ---

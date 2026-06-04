@@ -7,10 +7,12 @@ on:
     paths:
       - 'charts/**/values*.yaml'
       - 'charts/**/Chart.yaml'
+      - 'charts/**/.helm-docs.yml'
   pull_request:
     paths:
       - 'charts/**/values*.yaml'
       - 'charts/**/Chart.yaml'
+      - 'charts/**/.helm-docs.yml'
   workflow_dispatch:
 
 jobs:
@@ -38,6 +40,16 @@ jobs:
           # Function to determine the correct values file
           get_values_file() {
             local chart_dir="$1"
+
+            # Prefer committed per-chart helm-docs config when present
+            if [[ -f "$chart_dir/.helm-docs.yml" ]]; then
+              local configured_values
+              configured_values=$(grep -E '^values-file:' "$chart_dir/.helm-docs.yml" | head -1 | sed 's/^values-file:[[:space:]]*//')
+              if [[ -n "$configured_values" && -f "$chart_dir/$configured_values" ]]; then
+                echo "$chart_dir/$configured_values"
+                return
+              fi
+            fi
             
             # Check for different values file patterns in order of preference
             if [[ -f "$chart_dir/values_example.yaml" && -s "$chart_dir/values_example.yaml" ]]; then
@@ -74,21 +86,15 @@ jobs:
               
               if [[ -n "$values_file" ]]; then
                 echo "  Using values file: $values_file"
-                
-                # Create helm-docs config for this specific chart
-                cat > "$chart_dir/.helm-docs.yml" << EOF
-          chart-search-root: .
-          template-files:
-            - README.md.gotmpl
-          values-file: $(basename "$values_file")
-          EOF
-                
-                # Run helm-docs for this chart
-                helm-docs --chart-search-root="$chart_dir" -t "$chart_dir/../../_templates.gotmpl" --template-files="$chart_dir/README.md.gotmpl"
-                
-                # Clean up temporary config file
-                rm -f "$chart_dir/.helm-docs.yml"
-                
+                values_basename=$(basename "$values_file")
+
+                # helm-docs v1.14 uses CLI flags (-f, -t); it does not load .helm-docs.yml.
+                # Root _templates.gotmpl defines doc.* templates; chart README.md.gotmpl is concatenated with it.
+                helm-docs --chart-search-root="$chart_dir" \
+                  -f "$values_basename" \
+                  -t "../../_templates.gotmpl" \
+                  -t "README.md.gotmpl"
+
                 echo "  ✓ Documentation updated for $chart_name"
               else
                 echo "  ⚠️  No values file found for $chart_name, skipping..."

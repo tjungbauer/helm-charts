@@ -36,6 +36,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.58] - 2026-06-04
+
+### Changed
+
+- CHANGELOG cleanup
+
+---
+
 ## [1.0.57] - 2026-06-02
 
 ### Changed
@@ -94,6 +102,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+[1.0.58]: https://github.com/tjungbauer/helm-charts/compare/collection-management-operators-1.0.57...collection-management-operators-1.0.58
+[1.0.57]: https://github.com/tjungbauer/helm-charts/compare/collection-management-operators-1.0.56...collection-management-operators-1.0.57
 [1.0.56]: https://github.com/tjungbauer/helm-charts/compare/collection-management-operators-1.0.55...collection-management-operators-1.0.56
 [1.0.55]: https://github.com/tjungbauer/helm-charts/compare/collection-management-operators-1.0.54...collection-management-operators-1.0.55
 [1.0.54]: https://github.com/tjungbauer/helm-charts/compare/collection-management-operators-1.0.53...collection-management-operators-1.0.54

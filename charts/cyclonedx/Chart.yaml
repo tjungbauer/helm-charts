@@ -2,7 +2,7 @@ apiVersion: v2
 name: cyclonedx
 description: A Helm chart to deploy CycloneDX to generate SBOM
 type: application
-version: 1.0.11
+version: 1.0.12
 appVersion: 1.0.0
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cyclonedx-logo.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cyclonedx
@@ -35,3 +35,5 @@ annotations:
       description: (1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: changed
       description: (1.0.11) tpl.isEnabled namespace guard, tpl.argocdMetadata, additional labels/annotations, tpl ~1.0.31
+    - kind: changed
+      description: (1.0.12) - CHANGELOG cleanup

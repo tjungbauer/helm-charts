@@ -3,7 +3,7 @@ name: cost-management
 description: Setup and configure cost-management Operator
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cost-mgmt-icon.png
-version: 1.0.16
+version: 1.0.17
 dependencies:
   - name: helper-operator
     version: ~1.0.36
@@ -48,3 +48,5 @@ annotations:
       description: (1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: changed
       description: (1.0.16) tpl.isEnabled guard, tpl.argocdMetadata, additional labels/annotations, tpl ~1.0.31
+    - kind: changed
+      description: (1.0.17) - CHANGELOG cleanup

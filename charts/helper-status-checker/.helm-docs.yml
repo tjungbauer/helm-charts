@@ -1,0 +1,6 @@
+# helm-docs settings for this chart (see repo .github/workflows/update_docs.yml).
+# helm-docs v1.14 reads CLI flags (-f, -t), not this file directly; CI mirrors these settings.
+chart-search-root: .
+template-files:
+  - README.md.gotmpl
+values-file: values-example.yaml

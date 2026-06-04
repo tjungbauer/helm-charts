@@ -1,1 +1,3 @@
 ---
+# No install defaults: this chart is intended as a subchart; the parent must set values
+# (e.g. enabled, checks). Documented parameters and examples are in values-example.yaml.
