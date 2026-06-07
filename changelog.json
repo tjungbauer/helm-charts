@@ -1,8 +1,50 @@
 {
-  "generated": "2026-06-07T18:39:52.654755Z",
+  "generated": "2026-06-07T19:11:17.127623Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.47",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2026-06-07T21:08:56+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.47) rename declarative-config template (was declerative-config.yaml)"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.47) CHANGELOG.md"
+        }
+      ]
+    },
     {
       "name": "generic-cluster-config",
       "version": "1.0.67",
@@ -1222,84 +1264,6 @@
         {
           "kind": "changed",
           "description": "(2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
-      "name": "rhacs-setup",
-      "version": "1.0.46",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-05-31T08:18:42+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "added Readme"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4"
-        },
-        {
-          "kind": "fixed",
-          "description": "documented missing centralEndpoint setting"
-        },
-        {
-          "kind": "added",
-          "description": "using common tpl chart for reusablility"
-        },
-        {
-          "kind": "added",
-          "description": "added option to define nodeSelector for all components"
-        },
-        {
-          "kind": "added",
-          "description": "alow to configure Scanner for SecuredCluster"
-        },
-        {
-          "kind": "added",
-          "description": "allowing definition of declerativeConfiguration configMaps"
-        },
-        {
-          "kind": "added",
-          "description": "added support to enable scanner V4"
-        },
-        {
-          "kind": "added",
-          "description": "added support to define declarative configurations including oauth providers"
-        },
-        {
-          "kind": "added",
-          "description": "updated example values file"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed yaml syntax for declarative configurations"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.42) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.46) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
         }
       ]
     },
