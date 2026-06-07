@@ -1,4 +1,4 @@
-{{- if eq (.Values.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.enabled }}
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -14,7 +14,7 @@ spec:
     requests:
       storage: {{ .Values.pvc.size | default "100Gi" }}
   storageClassName: {{ .Values.pvc.storageClass | default "ReadWriteOnce" | quote }}
-  {{- if eq (.Values.pvc.setVolumeName | toString) "true" }}
+  {{- if include "tpl.isEnabled" .Values.pvc.setVolumeName }}
   volumeName: {{ .Values.pvc.volumeName }}
   {{- end }}
   volumeMode: Filesystem

@@ -1,5 +1,5 @@
-{{- if eq (.Values.enabled | toString) "true" }}
-{{- if eq (.Values.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.enabled }}
+{{- if include "tpl.isEnabled" .Values.namespace.create }}
 ---
 kind: Namespace
 apiVersion: v1

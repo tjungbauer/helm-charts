@@ -14,9 +14,14 @@ spec:
       - name: etcd-backup
         mountPath: /etcd-backup
     resources:
+      requests:
+        cpu: 100m
+        memory: 250Mi
+        ephemeral-storage: 50Mi
       limits:
         cpu: 100m
         memory: 250Mi
+        ephemeral-storage: 500Mi
   serviceAccountName: etcd-backup
   serviceAccount: etcd-backup
   volumes:

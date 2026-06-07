@@ -1,5 +1,5 @@
-{{- if eq (.Values.enabled | toString) "true" }}
-{{- if eq (.Values.cronjobKeyPruner.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.enabled }}
+{{- if include "tpl.isEnabled" .Values.cronjobKeyPruner.enabled }}
 ---
 kind: CronJob
 apiVersion: batch/v1
@@ -41,15 +41,15 @@ spec:
                   printf "Starting etcd backup key cleanup\n";
 
                   printf "Looking for keys encryption-config keys in the namespace openshift-kube-apiserver, older than {{ .Values.cronjobKeyPruner.retention }} days:\n";
-                  
+
                   oc get secret -n openshift-kube-apiserver -o json | jq -r --arg s "$(date -d "{{ .Values.cronjobKeyPruner.retention }} days ago" "+%Y-%m-%dT%H:%M:%SZ")"  '.items[] | select(.metadata.name|test("encryption-config-."))| select ( .metadata.creationTimestamp <= $s ) | [(.metadata.name), (.metadata.creationTimestamp), (.metadata.deletionTimestamp)] | @tsv';
-                  
+
                   printf "\n################################################################\n";
-                  
+
                   printf "Patching older than {{ .Values.cronjobKeyPruner.retention }} days encryption-config keys for deletion:\n";
-                  
-                  for secret in $(oc get secret -n openshift-kube-apiserver -o json | jq -r --arg s "$(date -d "{{ .Values.cronjobKeyPruner.retention }} days ago" "+%Y-%m-%dT%H:%M:%SZ")"  '.items[] | select(.metadata.name|test("encryption-config-."))| select ( .metadata.creationTimestamp <= $s ) | .metadata.name '); 
-                    do 
+
+                  for secret in $(oc get secret -n openshift-kube-apiserver -o json | jq -r --arg s "$(date -d "{{ .Values.cronjobKeyPruner.retention }} days ago" "+%Y-%m-%dT%H:%M:%SZ")"  '.items[] | select(.metadata.name|test("encryption-config-."))| select ( .metadata.creationTimestamp <= $s ) | .metadata.name ');
+                    do
                       oc -n openshift-kube-apiserver patch secret $secret -p '{ "metadata": { "finalizers": null }}' --type merge ;
                     done;
               imagePullPolicy: IfNotPresent
