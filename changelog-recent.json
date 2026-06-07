@@ -1,8 +1,62 @@
 {
-  "generated": "2026-06-04T04:26:35.796346Z",
+  "generated": "2026-06-07T06:11:02.229446Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "helper-lokistack",
+      "version": "1.0.23",
+      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
+      "lastModified": "2026-06-07T08:09:03+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "finalizing README and added possibility to configure culster-admin list and retention"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed value .size to .storage.size"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using global template to build tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed default schema"
+        },
+        {
+          "kind": "added",
+          "description": "possibility to configure the CA configmap"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure nodeSelector for LokiStack components."
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure network policy ruleset"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)"
+        }
+      ]
+    },
     {
       "name": "cert-manager",
       "version": "2.0.8",
@@ -1200,76 +1254,6 @@
         {
           "kind": "changed",
           "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
-        }
-      ]
-    },
-    {
-      "name": "helper-argocd",
-      "version": "2.0.45",
-      "description": "Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-05-06T10:00:24+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "support git GIT generator"
-        },
-        {
-          "kind": "added",
-          "description": "Release 2.0 allows the usage of multiple sources and a releasemanagement for charts. (ie. dev install version X, prod installs version Y)"
-        },
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for Matrix Generator (opinionated)"
-        },
-        {
-          "kind": "added",
-          "description": "Added support for ignoreDifferences definition in ApplicationSet"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing syncwave settings for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of namespace for Application objects"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of retries in ApplicationSets"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "fixed",
-          "description": "AppProject has been extended to that the namespace can be defined as well."
-        },
-        {
-          "kind": "fixed",
-          "description": "app_project can now be correctly defined for applicationsets"
-        },
-        {
-          "kind": "added",
-          "description": "merge generator can be used for applicationsets now and additional examples around git Generator"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed an issue with the default namespace for git generator"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.44) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "fixed",
-          "description": "(2.0.45) - fixed an issue with the ignoreDifferences definition. You can now define the group for the ignoreDifferences definition."
         }
       ]
     }

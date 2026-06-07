@@ -1,8 +1,62 @@
 {
-  "generated": "2026-06-04T04:26:35.796346Z",
+  "generated": "2026-06-07T06:11:02.229446Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "helper-lokistack",
+      "version": "1.0.23",
+      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
+      "lastModified": "2026-06-07T08:09:03+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "finalizing README and added possibility to configure culster-admin list and retention"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed value .size to .storage.size"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using global template to build tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed default schema"
+        },
+        {
+          "kind": "added",
+          "description": "possibility to configure the CA configmap"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure nodeSelector for LokiStack components."
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure network policy ruleset"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)"
+        }
+      ]
+    },
     {
       "name": "cert-manager",
       "version": "2.0.8",
@@ -1446,56 +1500,6 @@
         {
           "kind": "changed",
           "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-lokistack",
-      "version": "1.0.22",
-      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "finalizing README and added possibility to configure culster-admin list and retention"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed value .size to .storage.size"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "using global template to build tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed default schema"
-        },
-        {
-          "kind": "added",
-          "description": "possibility to configure the CA configmap"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure nodeSelector for LokiStack components."
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure network policy ruleset"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
