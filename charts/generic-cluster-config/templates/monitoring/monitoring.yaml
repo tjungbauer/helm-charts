@@ -1,5 +1,5 @@
 {{ if .Values.monitoring }}
-{{ if eq ( .Values.monitoring.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.monitoring.enabled }}
 {{- with .Values.monitoring }}
 ---
 apiVersion: v1
@@ -13,18 +13,18 @@ data:
   config.yaml: |
 
     {{- /* ALERTMANAGER CONFIGURATION */}}
-    {{- with .alertmanagerMain }}  
+    {{- with .alertmanagerMain }}
     alertmanagerMain:
       {{- if .disable_local_alertmanager }}
-      {{- if or ( eq (.disable_local_alertmanager | toString) "true") (eq (.disable_local_alertmanager | toString) "false") }}
-      enabled: {{.disable_local_alertmanager }}
+      {{- if or ( include "tpl.isEnabled" .disable_local_alertmanager ) (include "tpl.isEnabled" .disable_local_alertmanager) }}
+      enabled: {{ .disable_local_alertmanager }}
       {{- end }}
       {{- end }}
 
       {{- if .secrets }}
       secrets:
         {{- range .secrets }}
-        - {{.}}
+        - {{ . }}
         {{- end }}
       {{- end }}
 
@@ -47,12 +47,12 @@ data:
       {{- end }}
           storageClassName: {{ .storage.class | default "gp2-csi" }}
         status: {}
-    
+
       {{- if .resources }}
 {{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
     {{- end }}
-    enableUserWorkload: {{ ( .enableUserWorkload | toString) | default "false" }}
+    enableUserWorkload: {{ include "tpl.isEnabled" .enableUserWorkload | default "false" }}
     {{- /* KUBE STATE METRIC CONFIGURATION */}}
     {{- with .kubeStateMetrics }}
     kubeStateMetrics:
@@ -86,7 +86,7 @@ data:
       {{- if .resources }}
 {{ include "tpl.resources" .resources | indent 6 }}
       {{- end }}
-    {{- end }}    
+    {{- end }}
 
     {{- /* MONITORING PLUGIN CONFIGURATION */}}
     {{- with .monitoringPlugin }}
@@ -151,7 +151,7 @@ data:
       {{- if .tolerations }}
 {{ include "tpl.tolerations.override" .tolerations | indent 6 }}
       {{- end }}
-      {{- if eq (.retentionSize | toString) "0"}}
+      {{- if eq (.retentionSize | toString) "0" }}
       {{- else }}
       retentionSize: {{ .retentionSize }}
       {{- end }}

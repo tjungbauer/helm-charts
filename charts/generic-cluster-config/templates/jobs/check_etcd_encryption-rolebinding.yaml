@@ -1,6 +1,6 @@
-{{ if eq ( .Values.apiserver.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.apiserver.enabled }}
 {{- with .Values.apiserver.etcd_encryption }}
-{{ if eq ( .enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

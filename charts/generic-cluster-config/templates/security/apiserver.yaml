@@ -1,5 +1,5 @@
 {{- with .Values.apiserver  }}
-{{ if eq ( .enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: config.openshift.io/v1
 kind: APIServer
@@ -14,11 +14,11 @@ spec:
   audit:
     profile: {{ .audit.profile | default "Default" }}
   {{- end }}
-  {{- if eq (.etcd_encryption.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .etcd_encryption.enabled }}
   encryption:
     type: {{ .etcd_encryption.encryption_type | default "aesgcm" }}
   {{- end }}
-  {{- if eq (.custom_cert.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .custom_cert.enabled }}
   servingCerts:
     namedCertificates:
       - names:

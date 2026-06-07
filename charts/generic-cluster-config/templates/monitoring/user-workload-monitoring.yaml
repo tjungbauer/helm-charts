@@ -1,5 +1,5 @@
 {{ if .Values.user_workload_monitoring }}
-{{ if eq ( .Values.user_workload_monitoring.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.user_workload_monitoring.enabled }}
 {{- with .Values.user_workload_monitoring }}
 ---
 apiVersion: v1
@@ -12,24 +12,24 @@ metadata:
 data:
   config.yaml: |
     {{- /* ALERTMANAGER CONFIGURATION */}}
-    {{- with .alertmanager }}  
+    {{- with .alertmanager }}
     alertmanager:
       {{- if .disable_local_alertmanager }}
-      {{- if or ( eq (.disable_local_alertmanager | toString) "true") (eq (.disable_local_alertmanager | toString) "false") }}
-      enabled: {{.disable_local_alertmanager }}
+      {{- if or ( include "tpl.isEnabled" .disable_local_alertmanager ) (include "tpl.isEnabled" .disable_local_alertmanager) }}
+      enabled: {{ .disable_local_alertmanager }}
       {{- end }}
       {{- end }}
 
       {{- if .enableAlertmanagerConfig }}
-      {{- if or ( eq (.enableAlertmanagerConfig | toString) "true") (eq (.enableAlertmanagerConfig | toString) "false") }}
-      enableAlertmanagerConfig: {{.enableAlertmanagerConfig }}
+      {{- if or ( include "tpl.isEnabled" .enableAlertmanagerConfig ) (include "tpl.isEnabled" .enableAlertmanagerConfig) }}
+      enableAlertmanagerConfig: {{ .enableAlertmanagerConfig }}
       {{- end }}
       {{- end }}
 
       {{- if .secrets }}
       secrets:
         {{- range .secrets }}
-        - {{.}}
+        - {{ . }}
         {{- end }}
       {{- end }}
 
@@ -68,7 +68,7 @@ data:
         {{- toYaml .remoteWriteConfig | nindent 6 }}
       {{- end }}
       retention: {{ .retention | default "24h" }}
-      {{- if eq (.retentionSize | toString) "0"}}
+      {{- if eq (.retentionSize | toString) "0" }}
       {{- else }}
       retentionSize: {{ .retentionSize }}
       {{- end }}

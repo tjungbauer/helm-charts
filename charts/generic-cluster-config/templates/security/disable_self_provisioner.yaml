@@ -1,5 +1,5 @@
 {{- with .Values.self_provisioner }}
-{{ if eq ( .deactivate | toString) "true" }}
+{{ if include "tpl.isEnabled" .deactivate }}
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:

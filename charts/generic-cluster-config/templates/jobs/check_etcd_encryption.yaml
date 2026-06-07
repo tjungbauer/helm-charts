@@ -1,6 +1,6 @@
-{{ if eq ( .Values.apiserver.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.apiserver.enabled }}
 {{- with .Values.apiserver.etcd_encryption }}
-{{ if eq ( .enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -26,7 +26,7 @@ spec:
              #!/usr/bin/env bash
              max_attempts={{ .max_attempts | default 1000 }}
              sleeper={{ .wait_time | default 60 }}
-             
+
              check_apiserver_status() {
                status=1
                check=$(oc get $1 -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}' 2>&1)
@@ -36,7 +36,7 @@ spec:
                else
                  printf "%s Status is:\n" $1
                  printf "%s" "$check\n"
-             
+
                  if [[ $check =~ "EncryptionInProgress" ]]; then
                    if [ ${attempt_counter} -eq ${max_attempts} ];then
                      echo "Max attempts reached"
@@ -54,13 +54,13 @@ spec:
                  fi
                fi
              }
-             
+
              waiting() {
                printf "Waiting %s seconds\n" $sleeper
                sleep $sleeper
                check_apiserver_status $1
              }
-             
+
              # wait before start checking
 
              printf "Waiting 60 seconds before I first check if etcd encryption is finished\n"
@@ -71,7 +71,7 @@ spec:
              check_apiserver_status "openshiftapiserver"
              attempt_counter=0
              check_apiserver_status "kubeapiserver"
-             
+
              if [ $status -eq 0 ]; then
                echo "Cluster etcd has been encrypted"
              else

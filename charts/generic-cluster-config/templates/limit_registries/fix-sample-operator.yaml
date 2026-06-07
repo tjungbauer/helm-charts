@@ -1,4 +1,4 @@
-{{ if eq ( .Values.config_allowed_registries.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.config_allowed_registries.enabled }}
 ---
 apiVersion: samples.operator.openshift.io/v1
 kind: Config
