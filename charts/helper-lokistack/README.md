@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.23](https://img.shields.io/badge/Version-1.0.23-informational?style=flat-square)
+  ![Version: 1.0.24](https://img.shields.io/badge/Version-1.0.24-informational?style=flat-square)
 
  
 
@@ -23,7 +23,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | 1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -47,6 +47,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-l
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalAnnotations | string | {} | Additional annotations on the LokiStack resource (merged with Argo CD metadata via tpl.argocdMetadata). |
+| additionalLabels | object | {} | Additional labels on the LokiStack resource. |
 | admin_groups | list | none | AdminGroups defines a list of groups, whose members are considered to have admin-privileges by the Loki Operator. Setting this to an empty array disables admin groups. By default the following groups are considered admin-groups: - system:cluster-admins - cluster-admin - dedicated-admin |
 | enabled | bool | false | Enable or disable LokiStack configuration |
 | limits.global.retention_days | int | 7 | This is for log streams only, not the retention of the object store. Data retention must be configured on the bucket. |
