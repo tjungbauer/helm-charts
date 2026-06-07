@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07T06:29:43.689758Z",
+  "generated": "2026-06-07T06:44:43.504631Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
@@ -1108,28 +1108,6 @@
         {
           "kind": "changed",
           "description": "(1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished"
-        }
-      ]
-    },
-    {
-      "name": "rhacs-demo-applications",
-      "version": "1.0.10",
-      "description": "DEMO ONLY — intentionally vulnerable workloads for RHACS training and demos. Not for production or shared clusters.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-demo-applications",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/warning.png",
-      "lastModified": "2026-05-31T07:56:26+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.9) - Maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.10) - Mark chart as demo-only in Chart.yaml and README; add not-for-production keywords"
         }
       ]
     },
