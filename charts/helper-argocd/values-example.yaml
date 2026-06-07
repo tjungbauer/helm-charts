@@ -296,8 +296,8 @@ applicationsets:
         clusterurl: *mgmtcluster
     syncPolicy:
       autosync_enabled: false
-    path: charts/rhacs-demo-applications/
-    repourl: "https://github.com/tjungbauer/helm-charts"
+    path: /
+    repourl: "https://github.com/tjungbauer/RHACS-Demo-Application"
     targetrevision: "main"
 
   # Install Pipeline Demo
