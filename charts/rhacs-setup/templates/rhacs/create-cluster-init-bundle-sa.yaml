@@ -2,11 +2,14 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.serviceAccount.syncwave | default "1")
+                "extra" (.Values.serviceAccount.additionalAnnotations | default dict)) | nindent 4 }}
   name: {{ include "tpl.serviceAccountName" $ }}-role
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 rules:
   - apiGroups:
       - ""
@@ -41,6 +44,7 @@ metadata:
   name: {{ include "tpl.serviceAccountName" $ }}-check-operator-status
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 rules:
   - verbs:
       - get
@@ -65,6 +69,7 @@ metadata:
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -80,6 +85,7 @@ metadata:
   name: {{ include "tpl.serviceAccountName" $ }}-check-operator-status
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 subjects:
   - kind: ServiceAccount
     name: {{ include "tpl.serviceAccountName" $ }}
@@ -96,11 +102,12 @@ metadata:
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 ---
 # required so that stackrox can check if deployment of operator is ready
 # could be removed if the job is running directly in the rhacs-operator namespace
 {{- range $key, $value := .Values.operators }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" $value.enabled }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -108,6 +115,7 @@ metadata:
   namespace: {{ $value.namespace | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.serviceAccount.additionalLabels | default dict) | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

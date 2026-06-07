@@ -1,14 +1,17 @@
-{{ if eq (.Values.rhacs.job_init_bundle.enabled | toString) "true" }} 
+{{ if include "tpl.isEnabled" .Values.rhacs.job_init_bundle.enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.job_init_bundle.syncwave | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.rhacs.job_init_bundle.syncwave | default "3")
+                "extra" (.Values.rhacs.job_init_bundle.additionalAnnotations | default dict)) | nindent 4 }}
   name: create-cluster-init-bundle
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.rhacs.job_init_bundle.additionalLabels | default dict) | indent 4 }}
 spec:
   {{- include "tpl.ttlSecondsAfterFinished" (.Values.rhacs.job_vars.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:

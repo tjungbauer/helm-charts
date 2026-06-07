@@ -1,15 +1,17 @@
-{{ if eq (.Values.rhacs.secured_cluster.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.rhacs.secured_cluster.enabled }}
 ---
 apiVersion: platform.stackrox.io/v1alpha1
 kind: SecuredCluster
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.secured_cluster.syncwave | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.rhacs.secured_cluster.syncwave | default "4")
+                "extra" (.Values.rhacs.secured_cluster.additionalAnnotations | default dict)) | nindent 4 }}
   name: {{ .Values.rhacs.secured_cluster.clustername | default "local-cluster" | replace "_" "-" | replace "." "-" }}
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.rhacs.secured_cluster.additionalLabels | default dict) | indent 4 }}
 spec:
   clusterName: {{ .Values.rhacs.secured_cluster.clustername | default "local-cluster" }}
   {{ if .Values.rhacs.secured_cluster.centralEndpoint }}
@@ -31,8 +33,8 @@ spec:
 {{- end }}
 {{- end }}
   {{- /* SCANNER */}}
-  {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
-  {{- if eq (.Values.rhacs.central.enabled | toString ) "true" }}
+  {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
+  {{- if include "tpl.isEnabled" .Values.rhacs.central.enabled }}
   {{- else }}
   scanner:
     {{- if .Values.rhacs.scanner.analyzer }}
@@ -42,7 +44,7 @@ spec:
         autoScaling: {{ .Values.rhacs.scanner.analyzer.autoscaling.status | default "Enabled" }}
         maxReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.max | default "5" }}
         minReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.min | default "2" }}
-        replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3"}}
+        replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3" }}
       {{- end }}
 
 {{- /* Set tolerations for the scanner */}}
@@ -81,9 +83,10 @@ spec:
 
     {{- end }}
     {{- end }}
-    {{- if eq (.Values.rhacs.central.enabled | toString ) "true" }}
+    {{- if include "tpl.isEnabled" .Values.rhacs.central.enabled }}
     {{- else }}
-    {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+    {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
+
     scannerComponent: AutoSense
     {{- else }}
     scannerComponent: Disabled
@@ -96,17 +99,17 @@ spec:
     {{- if .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}
     {{- with .Values.rhacs.secured_cluster.admissioncontrol.listenOn }}
     {{- if .creates }}
-    {{- if eq (.creates | toString) "true" }}
+    {{- if include "tpl.isEnabled" .creates }}
     listenOnCreates: true
     {{- else }}
     listenOnCreates: false
     {{- end }}
-    {{- if eq (.events | toString) "true" }}
+    {{- if include "tpl.isEnabled" .events }}
     listenOnEvents: true
     {{- else }}
     listenOnEvents: false
     {{- end }}
-    {{- if eq (.updates | toString) "true" }}
+    {{- if include "tpl.isEnabled" .updates }}
     listenOnUpdates: true
     {{- else }}
     listenOnUpdates: false

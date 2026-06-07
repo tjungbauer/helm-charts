@@ -1,16 +1,18 @@
-{{ if eq (.Values.rhacs.central.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.rhacs.central.enabled }}
 apiVersion: platform.stackrox.io/v1alpha1
 kind: Central
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.central.syncwave | default "3" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.rhacs.central.syncwave | default "3")
+                "extra" (.Values.rhacs.central.additionalAnnotations | default dict)) | nindent 4 }}
   name: central
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.rhacs.central.additionalLabels | default dict) | indent 4 }}
 spec:
-  {{- if eq (.Values.rhacs.central.monitoring | toString | lower) "enabled" }}
+  {{- if include "tpl.isEnabled" .Values.rhacs.central.monitoring }}
   monitoring:
     openshift:
       enabled: true
@@ -49,7 +51,7 @@ spec:
         {{- else }}
         enabled: true
         {{- end }}
-    {{- if eq (.Values.rhacs.central.monitoring | toString | lower) "enabled" }}
+    {{- if include "tpl.isEnabled" .Values.rhacs.central.monitoring }}
     monitoring:
       exposeEndpoint: Enabled
     {{- end }}
@@ -135,7 +137,7 @@ spec:
     scannerComponent: {{ .Values.rhacs.scannerV4 | default "Default" }}
 
   {{- /* SCANNER */}}
-  {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+  {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
   scanner:
     monitoring:
       {{- if .Values.rhacs.scanner.monitoring }}
@@ -150,7 +152,7 @@ spec:
         autoScaling: {{ .Values.rhacs.scanner.analyzer.autoscaling.status | default "Enabled" }}
         maxReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.max | default "5" }}
         minReplicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.min | default "2" }}
-        replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3"}}
+        replicas: {{ .Values.rhacs.scanner.analyzer.autoscaling.replicas | default "3" }}
       {{- end }}
 
 {{- /* Set tolerations for the scanner */}}
@@ -189,7 +191,7 @@ spec:
 
     {{- end }}
     {{- end }}
-    {{- if eq (.Values.rhacs.scanner.enabled | toString ) "true" }}
+    {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
     scannerComponent: Enabled
     {{- else }}
     scannerComponent: Disabled

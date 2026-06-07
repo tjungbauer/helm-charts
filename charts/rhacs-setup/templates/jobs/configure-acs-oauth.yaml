@@ -1,14 +1,17 @@
-{{ if eq (.Values.rhacs.central.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.rhacs.central.enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.basic_acs_settings.syncwave | quote |default 5 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.rhacs.basic_acs_settings.syncwave | default 5)
+                "extra" (.Values.rhacs.basic_acs_settings.additionalAnnotations | default dict)) | nindent 4 }}
   name: basic-acs-configuration
   namespace: {{ .Values.rhacs.namespace.name | quote }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.rhacs.basic_acs_settings.additionalLabels | default dict) | indent 4 }}
 spec:
   {{- include "tpl.ttlSecondsAfterFinished" (.Values.rhacs.job_vars.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
@@ -37,7 +40,7 @@ spec:
               printf "Get Id of created Auth Provider\n"
               ID=`curl -k -u "admin:$PASSWORD" https://central/v1/authProviders?name=OpenShift | python3 -c "import sys, json; print(json.load(sys.stdin)['authProviders'][0]['id'])"`
               printf "Found ID: %s" $ID
-              
+
               printf "Set Default Role for auth Provider\n"
               curl -k -X POST -u "admin:$PASSWORD" -H 'Content-Type: application/json' https://central/v1/groupsbatch --data-binary @- <<DATA
               {

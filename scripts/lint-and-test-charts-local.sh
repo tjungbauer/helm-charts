@@ -31,21 +31,24 @@ WITH_INSTALL=false
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
+  local exit_code="${1:-0}"
   sed -n '1,20p' "$0" | tail -n +2
-  exit "${1:-0}"
+  exit "$exit_code"
 }
 
 while [[ $# -gt 0 ]]; do
-  case "$1" in
+  opt="$1"
+  case "$opt" in
     --all) LINT_ALL=true ;;
     --target-branch)
-      TARGET_BRANCH="${2:?--target-branch requires an argument}"
+      branch="${2:?--target-branch requires an argument}"
+      TARGET_BRANCH="$branch"
       shift
       ;;
     --with-install) WITH_INSTALL=true ;;
     -h | --help) usage 0 ;;
     *)
-      echo "unknown option: $1" >&2
+      echo "unknown option: $opt" >&2
       usage 1
       ;;
   esac
@@ -53,10 +56,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 need_cmd() {
-  command -v "$1" >/dev/null 2>&1 || {
-    echo "error: required command '$1' not found in PATH" >&2
+  local cmd="$1"
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "error: required command '$cmd' not found in PATH" >&2
     exit 1
   }
+  return 0
 }
 
 need_cmd git
@@ -74,6 +79,7 @@ helm_ensure_repos() {
   helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
   helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
   helm repo update
+  return 0
 }
 
 dep_update_if_needed() {
@@ -82,6 +88,7 @@ dep_update_if_needed() {
     echo "helm dependency update ${chart}"
     helm dependency update "${chart}"
   fi
+  return 0
 }
 
 verify_dependency_build() {
@@ -90,6 +97,7 @@ verify_dependency_build() {
     [[ -z "${chart// }" ]] && continue
     case "$chart" in
       charts/test-chart) continue ;;
+      *) ;;
     esac
     if [[ -f "${chart}/Chart.yaml" ]] && grep -q '^dependencies:' "${chart}/Chart.yaml"; then
       echo "helm dependency build ${chart}"
@@ -101,6 +109,7 @@ verify_dependency_build() {
     git diff
     exit 1
   fi
+  return 0
 }
 
 tpl_dependents_csv() {
@@ -122,6 +131,7 @@ tpl_dependents_csv() {
   if [[ -n "$csv" ]]; then
     printf '%s' "$csv"
   fi
+  return 0
 }
 
 run_lint_changed_on_main() {
@@ -150,6 +160,7 @@ run_lint_changed_on_main() {
 
   charts_csv=$(echo "$charts" | paste -sd, -)
   ct lint --debug --charts "$charts_csv" --check-version-increment=false
+  return 0
 }
 
 run_lint_changed() {
@@ -164,6 +175,7 @@ run_lint_changed() {
   else
     run_lint_changed_on_pr_branch
   fi
+  return 0
 }
 
 run_lint_changed_on_pr_branch() {
@@ -197,6 +209,7 @@ run_lint_changed_on_pr_branch() {
     echo "Linting tpl dependents (no version increment check): $tpl_dependents"
     ct lint --debug --charts "$tpl_dependents" --check-version-increment=false
   fi
+  return 0
 }
 
 run_lint_all() {
@@ -205,10 +218,12 @@ run_lint_all() {
     [[ -d "$d" ]] || continue
     case "$(basename "$d")" in
       test-chart) continue ;;
+      *) ;;
     esac
     dep_update_if_needed "${d%/}"
   done
   ct lint --debug --all
+  return 0
 }
 
 run_install_kind() {
@@ -230,6 +245,7 @@ run_install_kind() {
       echo "deleting kind cluster: $cluster"
       kind delete cluster --name "$cluster" 2>/dev/null || true
     fi
+    return 0
   }
   if [[ "$create" -eq 1 ]]; then
     trap cleanup EXIT
@@ -246,6 +262,7 @@ run_install_kind() {
 
   trap - EXIT 2>/dev/null || true
   cleanup
+  return 0
 }
 
 if $LINT_ALL; then

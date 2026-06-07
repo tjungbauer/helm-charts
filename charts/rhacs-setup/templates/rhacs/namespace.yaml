@@ -2,10 +2,13 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.rhacs.namespace.syncwave | default "0" | quote }}
     openshift.io/display-name: {{ .Values.rhacs.namespace.descr | quote }}
     openshift.io/node-selector: ''
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.rhacs.namespace.syncwave | default "0")
+                "extra" (.Values.rhacs.namespace.additionalAnnotations | default dict)) | nindent 4 }}
   name: {{ .Values.rhacs.namespace.name }}
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.rhacs.namespace.additionalLabels | default dict) | indent 4 }}

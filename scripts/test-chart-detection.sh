@@ -34,6 +34,7 @@ assert_contains() {
     echo "$haystack" | sed 's/^/  /'
     fail=$((fail + 1))
   fi
+  return 0
 }
 
 assert_empty() {
@@ -48,6 +49,7 @@ assert_empty() {
     echo "$haystack" | sed 's/^/  /'
     fail=$((fail + 1))
   fi
+  return 0
 }
 
 assert_min_lines() {
@@ -64,6 +66,7 @@ assert_min_lines() {
     echo "FAIL: $name — expected >= $min lines, got $count"
     fail=$((fail + 1))
   fi
+  return 0
 }
 
 echo "Chart detection regression tests"

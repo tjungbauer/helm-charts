@@ -25,10 +25,12 @@ TARGET_BRANCH="${CT_TARGET_BRANCH:-main}"
 NATIVE_ONLY=false
 
 while [[ $# -gt 0 ]]; do
-  case "$1" in
+  opt="$1"
+  case "$opt" in
     --native) NATIVE_ONLY=true ;;
     --target-branch)
-      TARGET_BRANCH="${2:?--target-branch requires an argument}"
+      branch="${2:?--target-branch requires an argument}"
+      TARGET_BRANCH="$branch"
       shift
       ;;
     -h | --help)
@@ -36,7 +38,7 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     *)
-      echo "unknown option: $1" >&2
+      echo "unknown option: $opt" >&2
       exit 1
       ;;
   esac
@@ -72,9 +74,11 @@ charts_from_git_diff() {
         [[ -f "$chart/Chart.yaml" ]] || continue
         case "$chart" in
           charts/test-chart) continue ;;
+          *) ;;
         esac
         echo "$chart"
       done
+  return 0
 }
 
 list_native_charts() {
@@ -98,6 +102,7 @@ list_native_charts() {
   if git rev-parse HEAD~1 >/dev/null 2>&1; then
     charts_from_git_diff "HEAD~1" "$ct_head"
   fi
+  return 0
 }
 
 expand_tpl_dependents() {
@@ -113,6 +118,7 @@ expand_tpl_dependents() {
     dir=$(dirname "$chart_yaml")
     case "$dir" in
       charts/test-chart) continue ;;
+      *) ;;
     esac
     if grep -qE '^\s+- name: tpl\s*$' "$chart_yaml"; then
       charts=$(printf '%s\n%s' "$charts" "$dir")
@@ -120,6 +126,7 @@ expand_tpl_dependents() {
   done
 
   echo "$charts" | awk 'NF' | sort -u
+  return 0
 }
 
 native=$(list_native_charts)

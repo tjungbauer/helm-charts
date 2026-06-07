@@ -16,6 +16,9 @@ rhacs:
     # @default -- 0
     syncwave: '0'
 
+    additionalAnnotations: {}
+    additionalLabels: {}
+
     # -- Description of the Namespace.
     descr: 'Red Hat Advanced Cluster Security'
 
@@ -32,6 +35,9 @@ rhacs:
     # -- Syncwave for Argo CD to create the Central
     # @default -- 3
     syncwave: '3'
+
+    additionalAnnotations: {}
+    additionalLabels: {}
 
     # -- Define ConfigMaps with DeclerativeConfiguration
     # @default -- emtpy
@@ -436,6 +442,9 @@ rhacs:
     # @default -- 4
     syncwave: '4'
 
+    additionalAnnotations: {}
+    additionalLabels: {}
+
     # -- Enable Scanner V4 for the Secured Cluster. Valid values are: Default, AutoSense, Disabled
     # NOTE: In ACS 4.8 scannerV4 will be enabled by default.
     # @default -- Default
@@ -521,6 +530,9 @@ rhacs:
     # @default -- 3
     syncwave: '3'
 
+    additionalAnnotations: {}
+    additionalLabels: {}
+
   # -- Job that creates a console link in OpenShift
   consolelink:
     # -- Enable this Job
@@ -530,6 +542,9 @@ rhacs:
     # -- Syncwave for Argo CD to create this Job.
     # @default -- 3
     syncwave: '3'
+
+    additionalAnnotations: {}
+    additionalLabels: {}
 
     # -- Location of the ConsoleLink
     location: ApplicationMenu
@@ -548,10 +563,16 @@ rhacs:
     min_access_role: 'None'
     syncwave: 5
 
+    additionalAnnotations: {}
+    additionalLabels: {}
+
 # -- Service account name used in Jobs
 serviceAccount:
   create: false
   name: "create-cluster-init"
+  syncwave: '1'
+  additionalAnnotations: {}
+  additionalLabels: {}
 
 # Subchart helper-operator
 # Simply installs the operator

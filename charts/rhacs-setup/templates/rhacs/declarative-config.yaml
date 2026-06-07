@@ -1,5 +1,5 @@
 {{- with .Values.rbac }}
-{{- if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- if .declarative_configurations }}
 ---
 kind: ConfigMap
@@ -7,8 +7,13 @@ apiVersion: v1
 metadata:
   name: declarative-configurations
   namespace: {{ $.Values.rhacs.namespace.name | quote }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "3")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | indent 4 }}
 data:
   {{- range $filename, $content := .declarative_configurations }}
   {{ $filename }}: |-
