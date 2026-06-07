@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.46](https://img.shields.io/badge/Version-1.0.46-informational?style=flat-square)
+  ![Version: 1.0.47](https://img.shields.io/badge/Version-1.0.47-informational?style=flat-square)
 
  
 
@@ -37,7 +37,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.28 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-acs)
 
@@ -85,7 +85,9 @@ Verify the subcharts for additional settings:
 | helper-status-checker.enabled | bool | `false` |  |
 | operatornamespace | string | `"rhacs-operator"` |  |
 | override-rhacs-operator-version | string | `"stable"` |  |
-| rhacs.basic_acs_settings | object | `{"auth_provider":"OpenShift","auth_provider_type":"openshift","min_access_role":"None","syncwave":5}` | Basic settings for ACS authentication This configuration is done by a Job, that will configure the OpenShift oauth for ACS. |
+| rhacs.basic_acs_settings | object | `{"additionalAnnotations":{},"additionalLabels":{},"auth_provider":"OpenShift","auth_provider_type":"openshift","min_access_role":"None","syncwave":5}` | Basic settings for ACS authentication This configuration is done by a Job, that will configure the OpenShift oauth for ACS. |
+| rhacs.central.additionalAnnotations | object | `{}` |  |
+| rhacs.central.additionalLabels | object | `{}` |  |
 | rhacs.central.adminPasswordSecret | string | omitted | Specify a secret that contains the administrator password in the "password" data item. If omitted, the operator will auto-generate a password and store it in the "password" item in the "central-htpasswd" secret. The Secret must exist. |
 | rhacs.central.db | object | `{"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"passwordSecret":"secretname","pvc":"central-db","pvc_size":"100Gi","pvc_storageclass":"storageclass","resources":{"limits":{"cpu":8,"ephemeral-storage":"500Mi","memory":"16Gi"},"requests":{"cpu":4,"ephemeral-storage":"50Mi","memory":"8Gi"}},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for Central DB, which is responsible for data persistence. |
 | rhacs.central.db.nodeSelector | object | empty | Define nodeSelector for Sensor. |
@@ -125,17 +127,19 @@ Verify the subcharts for additional settings:
 | rhacs.central.route | object | `{"enabled":true}` | Expose Central through an OpenShift route. This is the default setting |
 | rhacs.central.syncwave | string | 3 | Syncwave for Argo CD to create the Central |
 | rhacs.central.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
-| rhacs.consolelink | object | `{"enabled":true,"location":"ApplicationMenu","section":"Observability","syncwave":"3","text":"Advanced Cluster Security"}` | Job that creates a console link in OpenShift |
+| rhacs.consolelink | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"location":"ApplicationMenu","section":"Observability","syncwave":"3","text":"Advanced Cluster Security"}` | Job that creates a console link in OpenShift |
 | rhacs.consolelink.enabled | bool | false | Enable this Job |
 | rhacs.consolelink.location | string | `"ApplicationMenu"` | Location of the ConsoleLink |
 | rhacs.consolelink.section | string | `"Observability"` | Section of the ConsoleLink |
 | rhacs.consolelink.syncwave | string | 3 | Syncwave for Argo CD to create this Job. |
 | rhacs.consolelink.text | string | `"Advanced Cluster Security"` | Text of the ConsoleLink |
-| rhacs.job_init_bundle | object | `{"enabled":true,"syncwave":"3"}` | Run the Job to initialze an ACS secrued cluster and creates a init bundle. |
+| rhacs.job_init_bundle | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"syncwave":"3"}` | Run the Job to initialze an ACS secrued cluster and creates a init bundle. |
 | rhacs.job_init_bundle.enabled | bool | false | Enable this Job |
 | rhacs.job_init_bundle.syncwave | string | 3 | Syncwave for Argo CD to create this Job. |
 | rhacs.job_vars | object | `{"max_attempts":20}` | Variables for Jobs |
 | rhacs.job_vars.max_attempts | int | 20 | Maximum retries for Jobs that need to check a certain state. |
+| rhacs.namespace.additionalAnnotations | object | `{}` |  |
+| rhacs.namespace.additionalLabels | object | `{}` |  |
 | rhacs.namespace.descr | string | `"Red Hat Advanced Cluster Security"` | Description of the Namespace. |
 | rhacs.namespace.name | string | `"stackrox"` | Namespace where ACS shall be deployed. Typicall, this is stackrox. This is not the Operator itself, that is usually deployed in "rhacs-operator". |
 | rhacs.namespace.syncwave | string | 0 | Syncwave to deploy the ACS namespace. |
@@ -165,6 +169,8 @@ Verify the subcharts for additional settings:
 | rhacs.scanner.enabled | bool | false | If you do not want to deploy the Red Hat Advanced Cluster Security Scanner, you can disable it here (not recommended). |
 | rhacs.scanner.monitoring | string | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. |
 | rhacs.scannerV4 | string | Default | Enable scanner V4. Valid settings are: Default, Enabled, Disabled NOTE: In ACS 4.8 scannerV4 will be enabled by default. |
+| rhacs.secured_cluster.additionalAnnotations | object | `{}` |  |
+| rhacs.secured_cluster.additionalLabels | object | `{}` |  |
 | rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |
 | rhacs.secured_cluster.admissioncontrol.listenOn.creates | bool | `true` | Set this to true to enable preventive policy enforcement for object creations. |
 | rhacs.secured_cluster.admissioncontrol.listenOn.events | bool | `true` | Set this to 'true' to enable monitoring and enforcement for Kubernetes events (port-forward and exec). |
@@ -179,7 +185,7 @@ Verify the subcharts for additional settings:
 | rhacs.secured_cluster.sensor.nodeSelector | object | empty | Define nodeSelector for Sensor. |
 | rhacs.secured_cluster.sensor.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.secured_cluster.syncwave | string | 4 | Syncwave for Argo CD to deploy the SecureCluster |
-| serviceAccount | object | `{"create":false,"name":"create-cluster-init"}` | Service account name used in Jobs |
+| serviceAccount | object | `{"additionalAnnotations":{},"additionalLabels":{},"create":false,"name":"create-cluster-init","syncwave":"1"}` | Service account name used in Jobs |
 
 ## Example
 
