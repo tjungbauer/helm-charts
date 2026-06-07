@@ -14,6 +14,16 @@ namespace: openshift-logging
 # @default -- 3
 syncwave: 3
 
+# -- Additional annotations on the LokiStack resource (merged with Argo CD metadata via tpl.argocdMetadata).
+# @default -- {}
+additionalAnnotations:
+#  team: platform
+
+# -- Additional labels on the LokiStack resource.
+# @default -- {}
+additionalLabels: {}
+#  app.kubernetes.io/part-of: logging
+
 limits:
   global:
     # -- This is for log streams only, not the retention of the object store. Data retention must be configured on the bucket.
