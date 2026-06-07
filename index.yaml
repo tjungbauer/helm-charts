@@ -13349,6 +13349,63 @@ entries:
           description: (1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
         - kind: fixed
           description: (1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)
+        - kind: changed
+          description: (1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-07T06:29:25.910890737Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: 53a5bf83917b674b9e1dfb4496f817c4b89e145119c0b5519b72a6800625989d
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.24/helper-lokistack-1.0.24.tgz
+    version: 1.0.24
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: finalizing README and added possibility to configure culster-admin list and retention
+        - kind: fixed
+          description: fixed value .size to .storage.size
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: using global template to build tolerations
+        - kind: fixed
+          description: changed default schema
+        - kind: added
+          description: possibility to configure the CA configmap
+        - kind: added
+          description: added possibility to configure nodeSelector for LokiStack components.
+        - kind: added
+          description: added possibility to configure network policy ruleset
+        - kind: changed
+          description: (1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: fixed
+          description: (1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -38497,4 +38554,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-07T06:10:45.487411685Z"
+generated: "2026-06-07T06:29:25.912300155Z"
