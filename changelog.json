@@ -1,8 +1,50 @@
 {
-  "generated": "2026-06-07T07:00:58.080632Z",
+  "generated": "2026-06-07T07:27:28.733846Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "etcd-backup",
+      "version": "1.0.13",
+      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2026-06-07T09:23:43+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added key-pruner Cronjob"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.13) enabled, namespace, pv, pvc, and key-pruner guards use tpl.isEnabled"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.13) POD_ManualBackupCheck.yaml defines CPU, memory, and ephemeral-storage requests"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.13) CHANGELOG.md for release notes"
+        }
+      ]
+    },
     {
       "name": "helper-argocd",
       "version": "2.0.46",
@@ -1152,36 +1194,6 @@
         {
           "kind": "changed",
           "description": "(1.0.46) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
-      "name": "etcd-backup",
-      "version": "1.0.12",
-      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2026-05-31T07:56:26+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added key-pruner Cronjob"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
         }
       ]
     },
