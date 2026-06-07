@@ -1,8 +1,114 @@
 {
-  "generated": "2026-06-07T07:27:28.733846Z",
+  "generated": "2026-06-07T18:39:52.654755Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "generic-cluster-config",
+      "version": "1.0.67",
+      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-06-07T20:35:23+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        },
+        {
+          "kind": "added",
+          "description": "using some templates"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of Samples operator"
+        },
+        {
+          "kind": "added",
+          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "You can now define your external AlertManager and external Labels."
+        },
+        {
+          "kind": "added",
+          "description": "you can now define nodeExporter features and resources"
+        },
+        {
+          "kind": "fixed",
+          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure remoteWrite"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the metricsServer"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the google openID"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed some issues with the proxy and trusted CA"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing ArtifactHub"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.67) CHANGELOG.md and .helmignore"
+        }
+      ]
+    },
     {
       "name": "etcd-backup",
       "version": "1.0.13",
@@ -1194,104 +1300,6 @@
         {
           "kind": "changed",
           "description": "(1.0.46) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
-      "name": "generic-cluster-config",
-      "version": "1.0.66",
-      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2026-05-31T07:56:26+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
-        },
-        {
-          "kind": "added",
-          "description": "using some templates"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of Samples operator"
-        },
-        {
-          "kind": "added",
-          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "You can now define your external AlertManager and external Labels."
-        },
-        {
-          "kind": "added",
-          "description": "you can now define nodeExporter features and resources"
-        },
-        {
-          "kind": "fixed",
-          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure remoteWrite"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the metricsServer"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the google openID"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed some issues with the proxy and trusted CA"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing ArtifactHub"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)"
         }
       ]
     },
