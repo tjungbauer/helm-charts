@@ -1,8 +1,188 @@
 {
-  "generated": "2026-06-07T19:11:17.127623Z",
+  "generated": "2026-06-08T11:03:45.277876Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "update-clusterversion",
+      "version": "1.0.4",
+      "description": "A Helm chart to update OpenShift ClusterVersion",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png",
+      "lastModified": "2026-06-08T12:58:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) - Maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.4) tpl dependency ~1.0.31, tpl.argocdMetadata, additionalAnnotations and additionalLabels on ClusterVersion"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.4) CHANGELOG.md and Chart.lock for reproducible installs"
+        }
+      ]
+    },
+    {
+      "name": "helm-policy-generator",
+      "version": "1.0.19",
+      "description": "This Chart shall help to generate policies for Advanced Cluster Management",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-06-08T12:58:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial Release"
+        },
+        {
+          "kind": "added",
+          "description": "descriptions in example values-files and some minor changes for optional parameters"
+        },
+        {
+          "kind": "added",
+          "description": "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
+        },
+        {
+          "kind": "fixed",
+          "description": "put Namespaceselector for policies into the right place"
+        },
+        {
+          "kind": "added",
+          "description": "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
+        },
+        {
+          "kind": "added",
+          "description": "added example for cluster health checks"
+        },
+        {
+          "kind": "added",
+          "description": "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "fixed",
+          "description": "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.19) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on Namespace, PolicySet, Policy, Placement, and PlacementBinding"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.19) enabled guards use tpl.isEnabled"
+        }
+      ]
+    },
+    {
+      "name": "file-integrity-operator",
+      "version": "1.0.15",
+      "description": "Setup the FileIntegrity Operator (based on AIDE)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png",
+      "lastModified": "2026-06-08T12:58:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4 and prepared readme file"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.15) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on FileIntegrity CRs and control plane AIDE ConfigMap"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.15) enabled guards use tpl.isEnabled"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.15) FileIntegrity spec.tolerations rendered at spec level instead of under spec.config"
+        }
+      ]
+    },
+    {
+      "name": "cert-manager",
+      "version": "2.0.9",
+      "description": "Install and configure the Cert-Manager",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
+      "lastModified": "2026-06-08T12:58:55+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added Certificate resource so this chart can be used to order any certificate"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
+        },
+        {
+          "kind": "added",
+          "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.5) using tpl min version 1.0.31 and tpl.isEnabled guard, documented skipTLSVerify option"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.6) allowing global values to be passed to the chart in the schema"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.7) CHANGELOG cleanup"
+        },
+        {
+          "kind": "changed",
+          "description": "(2.0.8) removed schema file again, as is causes too much friction with gitops and subcharts"
+        },
+        {
+          "kind": "added",
+          "description": "(2.0.9) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on CertManager, Issuer/ClusterIssuer, and Certificate"
+        }
+      ]
+    },
     {
       "name": "rhacs-setup",
       "version": "1.0.47",
@@ -322,56 +502,6 @@
         {
           "kind": "changed",
           "description": "(1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md"
-        }
-      ]
-    },
-    {
-      "name": "cert-manager",
-      "version": "2.0.8",
-      "description": "Install and configure the Cert-Manager",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png",
-      "lastModified": "2026-06-04T06:21:49+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added Certificate resource so this chart can be used to order any certificate"
-        },
-        {
-          "kind": "added",
-          "description": "v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs"
-        },
-        {
-          "kind": "added",
-          "description": "v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer."
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.5) using tpl min version 1.0.31 and tpl.isEnabled guard, documented skipTLSVerify option"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.6) allowing global values to be passed to the chart in the schema"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.7) CHANGELOG cleanup"
-        },
-        {
-          "kind": "changed",
-          "description": "(2.0.8) removed schema file again, as is causes too much friction with gitops and subcharts"
         }
       ]
     },
