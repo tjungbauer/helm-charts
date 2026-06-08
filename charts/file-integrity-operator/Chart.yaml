@@ -1,12 +1,12 @@
 apiVersion: v2
 name: file-integrity-operator
 description: Setup the FileIntegrity Operator (based on AIDE)
-version: 1.0.14
+version: 1.0.15
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -33,3 +33,9 @@ annotations:
       description: added dependency tp tpl library
     - kind: changed
       description: (1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: added
+      description: (1.0.15) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on FileIntegrity CRs and control plane AIDE ConfigMap
+    - kind: changed
+      description: (1.0.15) enabled guards use tpl.isEnabled
+    - kind: fixed
+      description: (1.0.15) FileIntegrity spec.tolerations rendered at spec level instead of under spec.config

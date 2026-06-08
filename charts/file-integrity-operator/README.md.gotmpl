@@ -10,6 +10,26 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 {{ template "doc.maintainer_and_sources" . }}
 
+## Worker vs control plane FileIntegrity CRs
+
+The chart can deploy **two independent** `FileIntegrity` custom resources—one for worker nodes and one for control plane nodes. Configure them under `aide.worker` and `aide.controlplane`; each block is disabled by default and can be enabled separately.
+
+Each CR is backed by a daemon set that runs AIDE on nodes matching that CR’s scheduling rules. The chart renders Argo CD sync metadata via `tpl.argocdMetadata`, optional `additionalAnnotations` / `additionalLabels` on each resource, and `spec.tolerations` from values. The control plane block can also attach metadata to the chart-managed `controlplane-aide-conf` ConfigMap (`aide.controlplane.config.customconfig`).
+
+| Setting | Worker (`aide.worker`) | Control plane (`aide.controlplane`) |
+| --- | --- | --- |
+| Default `enabled` | `false` | `false` |
+| `FileIntegrity` name | `worker-fileintegrity` | `controlplane-fileintegrity` |
+| Argo CD sync-wave | `5` | `10` |
+| Intended node role (`selector` / `nodeSelector`) | `node-role.kubernetes.io/worker` | `node-role.kubernetes.io/master` |
+| `tolerations` | `node-role.kubernetes.io/worker` (Exists / NoSchedule) | `node-role.kubernetes.io/master` (Exists / NoSchedule) |
+| Custom AIDE config (`config.customconfig`) | `enabled: false` — operator default config | `enabled: true` — references `controlplane-aide-conf` |
+| Extra chart objects | none | `ConfigMap` `controlplane-aide-conf` (sync-wave `2`) with control-plane–specific AIDE rules |
+
+**Control plane AIDE config:** When `aide.controlplane.config.customconfig.enabled` is `true` and the name is `controlplane-aide-conf`, the chart creates a `ConfigMap` whose rules focus on paths relevant to control plane nodes (for example `/hostroot/etc/kubernetes`), with excludes for static pod resources, manifests, kubelet CA material, machine-config-daemon transient files, and similar high-churn locations. Worker scans use the File Integrity Operator’s default configuration unless you enable `customconfig` and supply your own `ConfigMap`.
+
+**Compact clusters:** On nodes that carry both worker and control plane labels, enabling **both** CRs can schedule overlapping AIDE daemon sets on the same nodes. For single-node or compact topologies, prefer one `FileIntegrity` CR whose node selector targets each node once, or enable only the block that matches your layout. See the [File Integrity Operator documentation](https://docs.openshift.com/container-platform/latest/security/file_integrity_operator/file-integrity-operator-understanding.html).
+
 ## Parameters
 
 Verify the subcharts for additional settings:
@@ -26,8 +46,8 @@ Verify the subcharts for additional settings:
 # Deploy operator using helper-operator sub chart
 helper-operator:
   operators:
-    quay-operator:
-      enabled: false
+    file-integrity-operator:
+      enabled: true
       syncwave: '0'
       namespace:
         name: openshift-file-integrity

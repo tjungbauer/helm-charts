@@ -41,6 +41,19 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 {{ template "doc.maintainer_and_sources" . }}
 
+## GitOps metadata
+
+Chart-managed ACM resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels`:
+
+| Resource | Values path |
+| --- | --- |
+| Namespace | `namespaceMetadata` |
+| PolicySet | `policySet.sets[]` |
+| Policy | `policies[]` |
+| Placement / PlacementBinding | `policySet.sets[].placement` or `policies[].placement` (PlacementBinding uses `placementBindingSyncwave`) |
+
+Placement and PlacementBinding inherit PolicySet- or Policy-level metadata unless overridden under `placement`.
+
 ## Parameters
 
 *TIP*: Verify the values.yaml to see possible additional settings. 

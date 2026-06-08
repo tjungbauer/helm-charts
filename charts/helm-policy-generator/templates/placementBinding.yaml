@@ -1,4 +1,4 @@
-{{- if eq (.Values.policySet.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.policySet.enabled }}
 {{- range .Values.policySet.sets }}
 {{- if .placement }}
 ---
@@ -9,6 +9,11 @@ metadata:
   namespace: {{ .namespace }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.placement.additionalLabels | default .additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.placement.placementBindingSyncwave | default "3")
+                "extra" (.placement.additionalAnnotations | default .additionalAnnotations | default dict)) | nindent 4 }}
 placementRef:
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
@@ -21,8 +26,8 @@ subjects:
 {{- end }}
 {{- else }}
 {{- range .Values.policies }}
-{{- if eq ( .enabled | toString ) "true" }}
-
+{{- if include "tpl.isEnabled" .enabled }}
+{{- if .placement }}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
@@ -31,13 +36,18 @@ metadata:
   namespace: {{ .namespace }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.placement.additionalLabels | default .additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.placement.placementBindingSyncwave | default "3")
+                "extra" (.placement.additionalAnnotations | default .additionalAnnotations | default dict)) | nindent 4 }}
 placementRef:
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
   name: {{ .policyname }}-placement
 subjects:
 {{- if $.Values.policySet }}
-  {{- if eq ( $.Values.policySet.enabled | toString ) "true"  }}
+  {{- if include "tpl.isEnabled" $.Values.policySet.enabled }}
     {{- range $.Values.policySet.sets }}
 - apiGroup: policy.open-cluster-management.io
   kind: PolicySet
@@ -52,6 +62,7 @@ subjects:
 - apiGroup: policy.open-cluster-management.io
   kind: Policy
   name: {{ .policyname }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

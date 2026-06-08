@@ -1,4 +1,4 @@
-{{- if eq (.Values.policySet.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.policySet.enabled }}
 {{- range .Values.policySet.sets }}
 {{- if .placement }}
 ---
@@ -9,6 +9,11 @@ metadata:
   namespace: {{ .namespace }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.placement.additionalLabels | default .additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.placement.syncwave | default .syncwave | default "2")
+                "extra" (.placement.additionalAnnotations | default .additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   {{- if .placement.clusterSets }}
   clusterSets:
@@ -33,7 +38,8 @@ spec:
 
 {{- else }}
 {{- range .Values.policies }}
-{{- if eq ( .enabled | toString ) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
+{{- if .placement }}
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
@@ -42,6 +48,11 @@ metadata:
   namespace: {{ .namespace }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.placement.additionalLabels | default .additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.placement.syncwave | default .syncwave | default "2")
+                "extra" (.placement.additionalAnnotations | default .additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   {{- if .placement.clusterSets }}
   clusterSets:
@@ -61,6 +72,7 @@ spec:
           - {{ . }}
           {{- end }}
         {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

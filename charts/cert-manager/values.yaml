@@ -7,6 +7,18 @@ certManager:
   # @default -- false
   enable_patch: false
 
+  # -- Argo CD sync-wave for the CertManager CR.
+  # @default -- 10
+  syncwave: 10
+
+  # -- Additional annotations on the CertManager CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels on the CertManager CR.
+  # @default -- {}
+  additionalLabels: {}
+
   # -- List of arguments that should be overwritten.
   overrideArgs:
     # Enable overriding args.
@@ -52,6 +64,14 @@ issuer:
     enabled: false
     # -- Syncwave to create this issuer
     syncwave: 20
+
+    # -- Additional annotations on the Issuer or ClusterIssuer (merged with Argo CD sync metadata via tpl.argocdMetadata).
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels on the Issuer or ClusterIssuer.
+    # @default -- {}
+    additionalLabels: {}
 
     # -- Create ACME issuer. ACME CA servers rely on a challenge to verify that a client owns the domain names that the certificate is being requested for.
     acme:
@@ -169,7 +189,15 @@ certificates:
 
       # -- Syncwave when the certificate shall be ordered.
       # @default -- 1
-      syncwave: "0"
+      syncwave: "1"
+
+      # -- Additional annotations on the Certificate (merged with Argo CD sync metadata via tpl.argocdMetadata).
+      # @default -- {}
+      additionalAnnotations: {}
+
+      # -- Additional labels on the Certificate.
+      # @default -- {}
+      additionalLabels: {}
 
       # -- Name of the Secret resource that will be created and managed by the Certificate.
       # It will be populated with a private key and certificate, signed by the denoted issuer.

@@ -3,6 +3,13 @@ apiVersion: config.openshift.io/v1
 kind: ClusterVersion
 metadata:
   name: version
+  labels:
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.syncwave | default "0")
+                "extra" (.Values.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   channel: {{ .Values.channel }}
   desiredUpdate:

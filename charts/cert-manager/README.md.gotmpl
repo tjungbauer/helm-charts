@@ -19,6 +19,16 @@ It is best used with a full GitOps approach such as Argo CD does. For example, h
 
 {{ template "doc.maintainer_and_sources" . }}
 
+## GitOps metadata
+
+Chart-managed resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels`:
+
+| Resource | Values path |
+| --- | --- |
+| CertManager CR | `certManager` |
+| Issuer / ClusterIssuer | `issuer[]` |
+| Certificate | `certificates.certificate[]` |
+
 {{ template "doc.values" . }}
 
 ## Example values - for the cert manager

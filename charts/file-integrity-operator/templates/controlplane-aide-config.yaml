@@ -1,7 +1,7 @@
 {{- range $key, $value := .Values.aide }}
 {{- with $value }}
-{{- if eq (.enabled | toString) "true" }}
-{{- if eq (.config.customconfig.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
+{{- if include "tpl.isEnabled" .config.customconfig.enabled }}
 {{- if eq (.config.customconfig.name | toString) "controlplane-aide-conf" }}
 ---
 kind: ConfigMap
@@ -11,9 +11,11 @@ metadata:
   namespace: openshift-file-integrity
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.config.customconfig.additionalLabels | default dict) | indent 4 }}
   annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "2"
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.config.customconfig.syncwave | default "2")
+                "extra" (.config.customconfig.additionalAnnotations | default dict)) | nindent 4 }}
 data:
   controlplane-aide.conf: |+
     @@define DBDIR /hostroot/etc/kubernetes

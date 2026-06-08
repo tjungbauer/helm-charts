@@ -1,4 +1,4 @@
-{{ if eq (.Values.create_policy_namespace | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.create_policy_namespace }}
 ---
 apiVersion: v1
 kind: Namespace
@@ -7,4 +7,9 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.namespaceMetadata.additionalLabels | default dict) | indent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.Values.namespaceMetadata.syncwave | default "0")
+                "extra" (.Values.namespaceMetadata.additionalAnnotations | default dict)) | nindent 4 }}
 {{- end }}

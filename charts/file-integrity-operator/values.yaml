@@ -10,6 +10,14 @@ aide:
     # -- Syncwave when this object is created
     syncwave: 5
 
+    # -- Additional annotations on the FileIntegrity CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels on the FileIntegrity CR.
+    # @default -- {}
+    additionalLabels: {}
+
     # -- Name of this object
     name: worker-fileintegrity
 
@@ -58,10 +66,18 @@ aide:
   controlplane:
     # -- Enable worker node fileintegrity check
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Syncwave when this object is created
     syncwave: 10
+
+    # -- Additional annotations on the FileIntegrity CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels on the FileIntegrity CR.
+    # @default -- {}
+    additionalLabels: {}
 
     # -- Name of this object
     name: controlplane-fileintegrity
@@ -98,6 +114,18 @@ aide:
 
         # -- The key that contains the actual AIDE configuration in a configmap specified by Name and Namespace. Defaults to aide.conf
         key: "controlplane-aide.conf"
+
+        # -- Sync-wave when the chart-created control plane AIDE ConfigMap is applied.
+        # @default -- 2
+        syncwave: 2
+
+        # -- Additional annotations on the control plane AIDE ConfigMap (merged with Argo CD sync metadata via tpl.argocdMetadata).
+        # @default -- {}
+        additionalAnnotations: {}
+
+        # -- Additional labels on the control plane AIDE ConfigMap.
+        # @default -- {}
+        additionalLabels: {}
 
     # -- If you want this component to only run on specific nodes, you can
     # configure tolerations of tainted nodes.

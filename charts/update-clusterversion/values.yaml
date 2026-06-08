@@ -1,5 +1,17 @@
 ---
-# Example values file. This should be used by a gitOps process that triggers the clsuter update.
+# Example values file. This should be used by a gitOps process that triggers the cluster update.
+
+# -- Argo CD sync-wave for the ClusterVersion object.
+# @default -- 0
+syncwave: 0
+
+# -- Additional annotations on the ClusterVersion resource (merged with Argo CD sync metadata via tpl.argocdMetadata).
+# @default -- {}
+additionalAnnotations: {}
+
+# -- Additional labels on the ClusterVersion resource.
+# @default -- {}
+additionalLabels: {}
 
 # -- The channel that shall be used for that cluster. The available channels
 # can be found with oc get clusterversion -o yaml

@@ -34,6 +34,7 @@ usage() {
   local exit_code="${1:-0}"
   sed -n '1,20p' "$0" | tail -n +2
   exit "$exit_code"
+  return 0
 }
 
 while [[ $# -gt 0 ]]; do
@@ -135,7 +136,7 @@ tpl_dependents_csv() {
 }
 
 run_lint_changed_on_main() {
-  local charts native charts_csv tpl_dependents
+  local charts native charts_csv
   charts="$("$SCRIPT_DIR/list-charts-to-test.sh" --target-branch "$TARGET_BRANCH")"
   native="$("$SCRIPT_DIR/list-charts-to-test.sh" --native --target-branch "$TARGET_BRANCH")"
 

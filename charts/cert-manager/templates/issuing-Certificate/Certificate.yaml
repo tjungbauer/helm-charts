@@ -10,8 +10,11 @@ metadata:
   namespace: {{ .namespace }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | indent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "1")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   secretName: {{ .secretName }}
 
@@ -70,7 +73,7 @@ spec:
 
   {{- if .subject }}
   subject:
-{{ toYaml .subject | indent 4}}
+{{ toYaml .subject | indent 4 }}
   {{- end }}
 
   {{- if .dnsNames }}

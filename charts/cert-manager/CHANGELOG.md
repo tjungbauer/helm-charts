@@ -20,6 +20,14 @@ All notable changes to the **cert-manager** Helm chart are documented in this fi
 
 ---
 
+## [2.0.9] - 2026-06-02
+
+### Added
+
+- tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on CertManager, Issuer/ClusterIssuer, and Certificate
+
+---
+
 ## [2.0.8] - 2026-06-04
 
 ### Changed
@@ -170,6 +178,7 @@ All notable changes to the **cert-manager** Helm chart are documented in this fi
 
 ---
 
+[2.0.9]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.8...cert-manager-2.0.9
 [2.0.8]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.7...cert-manager-2.0.8
 [2.0.7]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.6...cert-manager-2.0.7
 [2.0.6]: https://github.com/tjungbauer/helm-charts/compare/cert-manager-2.0.5...cert-manager-2.0.6
