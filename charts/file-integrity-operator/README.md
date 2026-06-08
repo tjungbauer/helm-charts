@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.14](https://img.shields.io/badge/Version-1.0.14-informational?style=flat-square)
+  ![Version: 1.0.15](https://img.shields.io/badge/Version-1.0.15-informational?style=flat-square)
 
  
 
@@ -24,7 +24,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (for example in the folder clusters/management-cluster/setup-file-integrity-operator)
 
@@ -42,6 +42,26 @@ Source:
 
 Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
 
+## Worker vs control plane FileIntegrity CRs
+
+The chart can deploy **two independent** `FileIntegrity` custom resources—one for worker nodes and one for control plane nodes. Configure them under `aide.worker` and `aide.controlplane`; each block is disabled by default and can be enabled separately.
+
+Each CR is backed by a daemon set that runs AIDE on nodes matching that CR’s scheduling rules. The chart renders Argo CD sync metadata via `tpl.argocdMetadata`, optional `additionalAnnotations` / `additionalLabels` on each resource, and `spec.tolerations` from values. The control plane block can also attach metadata to the chart-managed `controlplane-aide-conf` ConfigMap (`aide.controlplane.config.customconfig`).
+
+| Setting | Worker (`aide.worker`) | Control plane (`aide.controlplane`) |
+| --- | --- | --- |
+| Default `enabled` | `false` | `false` |
+| `FileIntegrity` name | `worker-fileintegrity` | `controlplane-fileintegrity` |
+| Argo CD sync-wave | `5` | `10` |
+| Intended node role (`selector` / `nodeSelector`) | `node-role.kubernetes.io/worker` | `node-role.kubernetes.io/master` |
+| `tolerations` | `node-role.kubernetes.io/worker` (Exists / NoSchedule) | `node-role.kubernetes.io/master` (Exists / NoSchedule) |
+| Custom AIDE config (`config.customconfig`) | `enabled: false` — operator default config | `enabled: true` — references `controlplane-aide-conf` |
+| Extra chart objects | none | `ConfigMap` `controlplane-aide-conf` (sync-wave `2`) with control-plane–specific AIDE rules |
+
+**Control plane AIDE config:** When `aide.controlplane.config.customconfig.enabled` is `true` and the name is `controlplane-aide-conf`, the chart creates a `ConfigMap` whose rules focus on paths relevant to control plane nodes (for example `/hostroot/etc/kubernetes`), with excludes for static pod resources, manifests, kubelet CA material, machine-config-daemon transient files, and similar high-churn locations. Worker scans use the File Integrity Operator’s default configuration unless you enable `customconfig` and supply your own `ConfigMap`.
+
+**Compact clusters:** On nodes that carry both worker and control plane labels, enabling **both** CRs can schedule overlapping AIDE daemon sets on the same nodes. For single-node or compact topologies, prefer one `FileIntegrity` CR whose node selector targets each node once, or enable only the block that matches your layout. See the [File Integrity Operator documentation](https://docs.openshift.com/container-platform/latest/security/file_integrity_operator/file-integrity-operator-understanding.html).
+
 ## Parameters
 
 Verify the subcharts for additional settings:
@@ -53,11 +73,16 @@ Verify the subcharts for additional settings:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| aide.controlplane.config | object | `{"customconfig":{"enabled":true,"key":"controlplane-aide.conf","name":"controlplane-aide-conf","namespace":"openshift-file-integrity"},"gracePeriod":900,"maxBackups":5}` | FileIntegrity configuration |
-| aide.controlplane.config.customconfig | object | `{"enabled":true,"key":"controlplane-aide.conf","name":"controlplane-aide-conf","namespace":"openshift-file-integrity"}` | Enable a custom configuration. This is usefull for control planes. If not defined a configuration will be created. |
+| aide.controlplane.additionalAnnotations | object | {} | Additional annotations on the FileIntegrity CR (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| aide.controlplane.additionalLabels | object | {} | Additional labels on the FileIntegrity CR. |
+| aide.controlplane.config | object | `{"customconfig":{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"key":"controlplane-aide.conf","name":"controlplane-aide-conf","namespace":"openshift-file-integrity","syncwave":2},"gracePeriod":900,"maxBackups":5}` | FileIntegrity configuration |
+| aide.controlplane.config.customconfig | object | `{"additionalAnnotations":{},"additionalLabels":{},"enabled":true,"key":"controlplane-aide.conf","name":"controlplane-aide-conf","namespace":"openshift-file-integrity","syncwave":2}` | Enable a custom configuration. This is usefull for control planes. If not defined a configuration will be created. |
+| aide.controlplane.config.customconfig.additionalAnnotations | object | {} | Additional annotations on the control plane AIDE ConfigMap (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| aide.controlplane.config.customconfig.additionalLabels | object | {} | Additional labels on the control plane AIDE ConfigMap. |
 | aide.controlplane.config.customconfig.enabled | bool | false | Enable custom configuration |
 | aide.controlplane.config.customconfig.key | string | `"controlplane-aide.conf"` | The key that contains the actual AIDE configuration in a configmap specified by Name and Namespace. Defaults to aide.conf |
 | aide.controlplane.config.customconfig.namespace | string | `"openshift-file-integrity"` | Namespace of a configMap that contains custom AIDE configuration. A default configuration would be created if omitted. |
+| aide.controlplane.config.customconfig.syncwave | int | 2 | Sync-wave when the chart-created control plane AIDE ConfigMap is applied. |
 | aide.controlplane.config.gracePeriod | int | 900 | Time between individual aide scans |
 | aide.controlplane.config.maxBackups | int | 5 | The maximum number of AIDE database and log backups (leftover from the re-init process) to keep on a node. Older backups beyond this number are automatically pruned by the daemon. |
 | aide.controlplane.enabled | bool | false | Enable worker node fileintegrity check |
@@ -66,6 +91,8 @@ Verify the subcharts for additional settings:
 | aide.controlplane.selector | object | `{"key":"node-role.kubernetes.io/master","value":""}` | nodeSelector as key/value |
 | aide.controlplane.syncwave | int | `10` | Syncwave when this object is created |
 | aide.controlplane.tolerations | list | empty | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
+| aide.worker.additionalAnnotations | object | {} | Additional annotations on the FileIntegrity CR (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| aide.worker.additionalLabels | object | {} | Additional labels on the FileIntegrity CR. |
 | aide.worker.config | object | `{"customconfig":{"enabled":false},"gracePeriod":900,"maxBackups":5}` | FileIntegrity configuration |
 | aide.worker.config.customconfig | object | `{"enabled":false}` | Enable a custom configuration. This is usefull for control planes. If not defined a configuration will be created. |
 | aide.worker.config.customconfig.enabled | bool | false | Enable custom configuration |
@@ -87,8 +114,8 @@ Verify the subcharts for additional settings:
 # Deploy operator using helper-operator sub chart
 helper-operator:
   operators:
-    quay-operator:
-      enabled: false
+    file-integrity-operator:
+      enabled: true
       syncwave: '0'
       namespace:
         name: openshift-file-integrity

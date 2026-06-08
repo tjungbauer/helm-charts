@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.8](https://img.shields.io/badge/Version-2.0.8-informational?style=flat-square)
+  ![Version: 2.0.9](https://img.shields.io/badge/Version-2.0.9-informational?style=flat-square)
 
  
 
@@ -50,17 +50,32 @@ Source:
 
 Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
 
+## GitOps metadata
+
+Chart-managed resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels`:
+
+| Resource | Values path |
+| --- | --- |
+| CertManager CR | `certManager` |
+| Issuer / ClusterIssuer | `issuer[]` |
+| Certificate | `certificates.certificate[]` |
+
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| certManager.additionalAnnotations | object | {} | Additional annotations on the CertManager CR (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| certManager.additionalLabels | object | {} | Additional labels on the CertManager CR. |
 | certManager.enable_patch | bool | false | Enable pathing of the certManager resource, for the ACME provider. This is required, when the recusrive nameserver shall be changed. For example, when private and public define-domains in AWS Route 53 are used, then the DNS server must be set. Verify the documentation at: https://docs.openshift.com/container-platform/4.15/security/cert_manager_operator/cert-manager-operator-issuer-acme.html The resource itself it created automatically and is therefor patched. |
 | certManager.logLevel | string | Normal | Loglevel of the cert-manager operator.<br /> Possible values are: Debug, Trace, TraceAll, Normal |
 | certManager.operatorLogLevel | string | Normal | operatorLogLevel of the cert-manager operator.<br /> Possible values are: Debug, Trace, TraceAll, Normal |
 | certManager.overrideArgs | object | `{"args":[],"enabled":false}` | List of arguments that should be overwritten. |
 | certManager.overrideArgs.args | list | [] | List of arguments that should be overwritten. |
+| certManager.syncwave | int | 10 | Argo CD sync-wave for the CertManager CR. |
 | certManager.unsupportedConfigOverrides | object | {} | UNSUPPORTED Config Overrides. For example to disable the automatic certificate approver, because you might want to use policy approver to limit which certificates can be created. |
-| certificates.certificate[0] | object | `{"dnsNames":["example.com","www.example.com"],"duration":"2160h0m0s","emailAddresses":["john.doe@cert-manager.io"],"enabled":false,"ipAddresses":["192.168.0.5"],"isCA":false,"issuerRef":{"group":"cert-manager.io","kind":"Issuer","name":"ca-issuer"},"name":"example-cert","namespace":"example","privateKey":{"algorithm":"RSA","encoding":"PKCS1","rotationPolicy":"Always","size":2048},"renewBefore":"360h0m0s","secretName":"example-cert-tls","secretTemplate":{"annotations":{"my-secret-annotation-1":"foo","my-secret-annotation-2":"bar"},"labels":{"my-secret-label":"foo"}},"subject":{"countries":["Country"],"localities":["Cities"],"organizationalUnits":["OrganizationalUnit"],"organizations":["Organization"],"postalCodes":["PostalCode"],"provinces":["State"],"serialNumber":"SerialNumber","streetAddresses":["StreetAddress"]},"syncwave":"0","uris":["spiffe://cluster.local/ns/sandbox/sa/example"],"usages":["server auth","client auth"]}` | Name of the certificate resource. This is not the dnsName of commonName. |
+| certificates.certificate[0] | object | `{"additionalAnnotations":{},"additionalLabels":{},"dnsNames":["example.com","www.example.com"],"duration":"2160h0m0s","emailAddresses":["john.doe@cert-manager.io"],"enabled":false,"ipAddresses":["192.168.0.5"],"isCA":false,"issuerRef":{"group":"cert-manager.io","kind":"Issuer","name":"ca-issuer"},"name":"example-cert","namespace":"example","privateKey":{"algorithm":"RSA","encoding":"PKCS1","rotationPolicy":"Always","size":2048},"renewBefore":"360h0m0s","secretName":"example-cert-tls","secretTemplate":{"annotations":{"my-secret-annotation-1":"foo","my-secret-annotation-2":"bar"},"labels":{"my-secret-label":"foo"}},"subject":{"countries":["Country"],"localities":["Cities"],"organizationalUnits":["OrganizationalUnit"],"organizations":["Organization"],"postalCodes":["PostalCode"],"provinces":["State"],"serialNumber":"SerialNumber","streetAddresses":["StreetAddress"]},"syncwave":"1","uris":["spiffe://cluster.local/ns/sandbox/sa/example"],"usages":["server auth","client auth"]}` | Name of the certificate resource. This is not the dnsName of commonName. |
+| certificates.certificate[0].additionalAnnotations | object | {} | Additional annotations on the Certificate (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| certificates.certificate[0].additionalLabels | object | {} | Additional labels on the Certificate. |
 | certificates.certificate[0].dnsNames | list | `["example.com","www.example.com"]` | Requested DNS subject alternative names. |
 | certificates.certificate[0].duration | string | 2160h0m0s (90d) | The duration of the certificated (X.509 certificate's duration) Some issuers might be configured to only issue certificates with a set duration<br /> Minimum value for spec.duration is 1 hour<br /> It is required that spec.duration > spec.renewBefore Value must be in units accepted by Go time.ParseDuration https://golang.org/pkg/time/#ParseDuration |
 | certificates.certificate[0].emailAddresses | list | `["john.doe@cert-manager.io"]` | Requested email subject alternative names. |
@@ -97,6 +112,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-man
 | issuer[0].acme.server | string | https://acme-v02.api.letsencrypt.org/directory | URL of PKI server |
 | issuer[0].acme.skipTLSVerify | bool | false | Skip TLS verification. |
 | issuer[0].acme.solvers | list | `[{"dns01":{"route53":{"accessKeyIDSecretRef":{"key":"access-key-id","name":"prod-route53-credentials-secret"},"region":"your-region","secretAccessKeySecretRef":{"key":"secret-access-key","name":"prod-route53-credentials-secret"}}},"selector":{"dnsZones":["define-domains"]}}]` | add a challenge solver. This coulr be DNS01 or HTTP01 The yaml specification will be used as is Verify the official documentation for detailed information: https://cert-manager.io/docs/configuration/acme/ |
+| issuer[0].additionalAnnotations | object | {} | Additional annotations on the Issuer or ClusterIssuer (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| issuer[0].additionalLabels | object | {} | Additional labels on the Issuer or ClusterIssuer. |
 | issuer[0].enabled | bool | false | Enable this issuer. |
 | issuer[0].name | string | `"acme"` |  |
 | issuer[0].syncwave | int | `20` | Syncwave to create this issuer |

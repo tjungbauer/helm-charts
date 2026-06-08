@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.18](https://img.shields.io/badge/Version-1.0.18-informational?style=flat-square)
+  ![Version: 1.0.19](https://img.shields.io/badge/Version-1.0.19-informational?style=flat-square)
 
  
 
@@ -54,7 +54,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -72,6 +72,19 @@ Source:
 
 Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
 
+## GitOps metadata
+
+Chart-managed ACM resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels`:
+
+| Resource | Values path |
+| --- | --- |
+| Namespace | `namespaceMetadata` |
+| PolicySet | `policySet.sets[]` |
+| Policy | `policies[]` |
+| Placement / PlacementBinding | `policySet.sets[].placement` or `policies[].placement` (PlacementBinding uses `placementBindingSyncwave`) |
+
+Placement and PlacementBinding inherit PolicySet- or Policy-level metadata unless overridden under `placement`.
+
 ## Parameters
 
 *TIP*: Verify the values.yaml to see possible additional settings.
@@ -82,7 +95,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 |-----|------|---------|-------------|
 | create_policy_namespace | bool | false | Create Namespace for the policy Yes/No |
 | namespace | string | `"policy-hub"` |  |
-| policies[0] | object | `{"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"dependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"description":"","disabled":"false","enabled":true,"ignorePending":false,"namespace":"policy-hub","placement":{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]},"policy_templates":[{"allowedSANPattern":"","complianceType":"musthave","disallowedSANPattern":"","evaluationInterval":{"compliant":"45m","noncompliant":"45s"},"extraDependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"kind":"ConfigurationPolicy","maximumCADuration":"100h","maximumDuration":"100h","minimumCADuration":"400h","minimumDuration":"100h","name":"console-banner","name_use_template_filename":"true","namespaceSelector":{"exclude":[],"include":[],"matchExpressions":[{"key":"name","operator":"In","values":["local-cluster"]}],"matchLabels":{"component":"redis","env":"test"}},"path":"console-banner","pruneObjectBehavior":"DeleteIfCreated","remediationAction":"enforce","severity":"low"}],"policyname":"console-banner","remediationAction":"inform","standards":["Baseline 2023v1"]}` | The name for identifying the policy resource. |
+| namespaceMetadata | object | `{"additionalAnnotations":{},"additionalLabels":{},"syncwave":0}` | Metadata for the chart-created policy namespace (when create_policy_namespace is true). |
+| namespaceMetadata.additionalAnnotations | object | {} | Additional annotations on the policy namespace (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| namespaceMetadata.additionalLabels | object | {} | Additional labels on the policy namespace. |
+| namespaceMetadata.syncwave | int | 0 | Argo CD sync-wave for the Namespace object. |
+| policies[0] | object | `{"additionalAnnotations":{},"additionalLabels":{},"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"dependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"description":"","disabled":"false","enabled":true,"ignorePending":false,"namespace":"policy-hub","placement":{"additionalAnnotations":{},"additionalLabels":{},"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}],"placementBindingSyncwave":3,"syncwave":2},"policy_templates":[{"allowedSANPattern":"","complianceType":"musthave","disallowedSANPattern":"","evaluationInterval":{"compliant":"45m","noncompliant":"45s"},"extraDependencies":[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}],"kind":"ConfigurationPolicy","maximumCADuration":"100h","maximumDuration":"100h","minimumCADuration":"400h","minimumDuration":"100h","name":"console-banner","name_use_template_filename":"true","namespaceSelector":{"exclude":[],"include":[],"matchExpressions":[{"key":"name","operator":"In","values":["local-cluster"]}],"matchLabels":{"component":"redis","env":"test"}},"path":"console-banner","pruneObjectBehavior":"DeleteIfCreated","remediationAction":"enforce","severity":"low"}],"policyname":"console-banner","remediationAction":"inform","standards":["Baseline 2023v1"],"syncwave":1}` | The name for identifying the policy resource. |
+| policies[0].additionalAnnotations | object | {} | Additional annotations on the Policy (merged with Argo CD sync metadata and ACM policy annotations via tpl.argocdMetadata). |
+| policies[0].additionalLabels | object | {} | Additional labels on the Policy. |
 | policies[0].categories | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards. This is used only when policyDefaults.catagories is not set. |
 | policies[0].controls | list | empty | The name of the security control that is being checked. For example, Access Control or System and Information Integrity. This is used only when policyDefaults.catagories is not set. |
 | policies[0].dependencies | list | `[{"apiVersion":"policy.open-cluster-management.io/v1","compliance":"Compliant","kind":"Policy","name":"","namespace":""}]` | Dependencies are used to create a list of dependency objects detailed with extra considerations for compliance. |
@@ -92,8 +111,12 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policies[0].ignorePending | bool | empty | Used to mark a policy template as compliant until the dependency criteria is verified. Values:   - true   - false |
 | policies[0].namespace | string | `"policy-hub"` | Namespace of the policy. This namespace must exist! |
 | policies[0].placement | object | empty | Places a policy to a cluster with selected labels and or clusterSet This is used when the PolicySet does NOT define a placement |
+| policies[0].placement.additionalAnnotations | object | {} | Additional annotations on Placement and PlacementBinding (merged with Argo CD sync metadata via tpl.argocdMetadata). Overrides Policy-level additionalAnnotations when set. |
+| policies[0].placement.additionalLabels | object | {} | Additional labels on Placement and PlacementBinding. Overrides Policy-level additionalLabels when set. |
 | policies[0].placement.clusterSets | list | empty | A clusterSet the policy to bind to. The clusterSet must exist. Optional |
 | policies[0].placement.lableSelectors | list | empty | Required cluster selectors Selects a cluster based on its labels. For example: name euqals to "local-cluster" multiple selectors can be defined, which must all be true |
+| policies[0].placement.placementBindingSyncwave | int | 3 | Argo CD sync-wave for the PlacementBinding object. |
+| policies[0].placement.syncwave | int | 2 | Argo CD sync-wave for the Placement object. |
 | policies[0].policy_templates[0].allowedSANPattern | string | `""` | Only if CertificatePolicy! A regular expression that must match every SAN entry that you have defined in your certificates. This parameter checks DNS names against patterns.  Optional |
 | policies[0].policy_templates[0].complianceType | string | musthave | Used to define the desired state of the Kubernetes object on the managed clusters. You must use one of the following verbs as the parameter value: mustonlyhave: Indicates that an object must exist with the exact fields and values as               defined in the objectDefinition. musthave: Indicates an object must exist with the same fields as specified in the objectDefinition.           Any existing fields on the object that are not specified in the object-template           are ignored. In general, array values are appended. The exception for the array to be           patched is when the item contains a name key with a value that matches an existing item. Use a           fully defined objectDefinition using the mustonlyhave compliance type, if you want to           replace the array. mustnothave: Indicates that an object with the same fields as specified in the objectDefinition              cannot exist. |
 | policies[0].policy_templates[0].disallowedSANPattern | string | `""` | Only if CertificatePolicy! A regular expression that must not match any SAN entries you have defined in your certificates. This parameter checks DNS names against patterns. Note: To detect wild-card certificate, use the following SAN pattern:    disallowedSANPattern: "[\\*]"  Optional |
@@ -117,6 +140,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policies[0].policy_templates[0].severity | string | `"low"` | Specifies the severity when the policy is non-compliant. Use the following parameter values: low, medium, high, or critical.  @efault -- low |
 | policies[0].remediationAction | string | `"inform"` | Specifies the remediation of your policy. The possible parameter values are enforce and inform. If specified, the spec.remediationAction value overrides any remediationAction parameter defined in the child policies in the policy-templates section. For example, if the spec.remediationAction value is set to enforce, then the remediationAction in the policy-templates section is set to enforce during runtime. Important: Some policy kinds might not support the enforce feature.  Optional Values:   - inform   - enforce |
 | policies[0].standards | list | empty | The name or names of security standards the policy is related to. For example, National Institute of Standards and Technology (NIST) and Payment Card Industry (PCI). This is used only when policyDefaults.catagories is not set. |
+| policies[0].syncwave | int | 1 | Argo CD sync-wave for the Policy object. |
 | policyDefaults | object | `{"categories":["CM Configuration Management"],"controls":["CM Console Customizations"],"description":"Console Customizations","globalRemediationAction":"inform","standards":["Baseline 2023v1"]}` | Default annotation settings. These will overwrite the individual settings in the Policy and are used by all policies that are defined here. |
 | policyDefaults.categories | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards.  Optional |
 | policyDefaults.controls | list | empty | A security control category represent specific requirements for one or more standards. For example, a System and Information Integrity category might indicate that your policy contains a data transfer protocol to protect personal information, as required by the HIPAA and PCI standards.  Optional |
@@ -124,13 +148,20 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-pol
 | policyDefaults.globalRemediationAction | string | `"inform"` | Specifies the remediation of your policy. Must either be set here or inside the policy. Overrides other remediationAction settings!!  Optional The parameter values are:   - inform   - enforce |
 | policyDefaults.standards | list | empty | The name or names of security standards the policy is related to. For example, National Institute of Standards and Technology (NIST) and Payment Card Industry (PCI).  Optional |
 | policySet.enabled | bool | false | Enable of disable policySets. If disabled, the PlaceMentBinding will use the name of the policy |
-| policySet.sets[0] | object | `{"description":"Contains console customizations","name":"console-customizations","namespace":"policy-hub","placement":{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]},"policies":["console-banner"]}` | The name for identifying the policySet resource. |
+| policySet.sets[0] | object | `{"additionalAnnotations":{},"additionalLabels":{},"description":"Contains console customizations","name":"console-customizations","namespace":"policy-hub","placement":{"additionalAnnotations":{},"additionalLabels":{},"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}],"placementBindingSyncwave":3,"syncwave":2},"policies":["console-banner"],"syncwave":1}` | The name for identifying the policySet resource. |
+| policySet.sets[0].additionalAnnotations | object | {} | Additional annotations on the PolicySet (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| policySet.sets[0].additionalLabels | object | {} | Additional labels on the PolicySet. |
 | policySet.sets[0].description | string | `"Contains console customizations"` | The descrption for identifying the policySet resource. |
 | policySet.sets[0].namespace | string | `"policy-hub"` | The namespace of policySet resource. |
-| policySet.sets[0].placement | object | `{"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}]}` | Places a policySET to a cluster with selected labels and or clusterSet |
+| policySet.sets[0].placement | object | `{"additionalAnnotations":{},"additionalLabels":{},"clusterSets":["hub"],"lableSelectors":[{"key":"name","operator":"In","values":["local-cluster"]}],"placementBindingSyncwave":3,"syncwave":2}` | Places a policySET to a cluster with selected labels and or clusterSet |
+| policySet.sets[0].placement.additionalAnnotations | object | {} | Additional annotations on Placement and PlacementBinding (merged with Argo CD sync metadata via tpl.argocdMetadata). Overrides PolicySet-level additionalAnnotations when set. |
+| policySet.sets[0].placement.additionalLabels | object | {} | Additional labels on Placement and PlacementBinding. Overrides PolicySet-level additionalLabels when set. |
 | policySet.sets[0].placement.clusterSets | list | N/A | a clusterSet the policy to bind to. The clusterSet must exist. Optional |
 | policySet.sets[0].placement.lableSelectors | list | `[{"key":"name","operator":"In","values":["local-cluster"]}]` | multiple selectors can be defined, which must all be true |
+| policySet.sets[0].placement.placementBindingSyncwave | int | 3 | Argo CD sync-wave for the PlacementBinding object. |
+| policySet.sets[0].placement.syncwave | int | 2 | Argo CD sync-wave for the Placement object. |
 | policySet.sets[0].policies | list | empty | The list of policies that you want to group together in the policy set. If defined, it will take the list. If Not defined it will automatically take the names of the policies defined below. |
+| policySet.sets[0].syncwave | int | 1 | Argo CD sync-wave for the PolicySet object. |
 
 ## Example values
 

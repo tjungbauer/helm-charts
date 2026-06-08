@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
+  ![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square)
 
  
 
@@ -29,6 +29,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -52,9 +53,12 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-c
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalAnnotations | object | {} | Additional annotations on the ClusterVersion resource (merged with Argo CD sync metadata via tpl.argocdMetadata). |
+| additionalLabels | object | {} | Additional labels on the ClusterVersion resource. |
 | channel | string | `"your-channel"` | The channel that shall be used for that cluster. The available channels can be found with oc get clusterversion -o yaml Verify the availableUpdates to find the required channel. |
 | desiredVersion | string | `"your-target-version"` | The desired version that the cluster shall be updated to. The available versions can be found with oc get clusterversion -o yaml Verify the availableUpdates to find the required version. |
 | image | string | `""` | OPTIONAL: The desired image SHA that the cluster shall be updated to. The available SHA can be found with oc get clusterversion -o yaml Verify the availableUpdates to find the required SHA. This option is optional and typically only used for restricted clusters. |
+| syncwave | int | 0 | Argo CD sync-wave for the ClusterVersion object. |
 
 ## Example values
 
