@@ -481,6 +481,59 @@ entries:
           description: (2.0.7) CHANGELOG cleanup
         - kind: changed
           description: (2.0.8) removed schema file again, as is causes too much friction with gitops and subcharts
+        - kind: added
+          description: (2.0.9) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on CertManager, Issuer/ClusterIssuer, and Certificate
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-08T11:03:12.478357565Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Install and configure the Cert-Manager
+    digest: ad590a7ff4f8ae646748b6f32ee271888e6eca7d552d9de503f2b8d582900534
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/cert-manager
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/cert-manager-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: cert-manager
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/cert-manager-2.0.9/cert-manager-2.0.9.tgz
+    version: 2.0.9
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: added Certificate resource so this chart can be used to order any certificate
+        - kind: added
+          description: v2.0.0 added support for unsupported config overrides and the option to enabled or disable extra configs
+        - kind: added
+          description: v2.0.3 added support to set the namespace when the type is Issuer. Ignored for ClusterIssuer.
+        - kind: changed
+          description: (2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (2.0.5) using tpl min version 1.0.31 and tpl.isEnabled guard, documented skipTLSVerify option
+        - kind: changed
+          description: (2.0.6) allowing global values to be passed to the chart in the schema
+        - kind: changed
+          description: (2.0.7) CHANGELOG cleanup
+        - kind: changed
+          description: (2.0.8) removed schema file again, as is causes too much friction with gitops and subcharts
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -7006,6 +7059,51 @@ entries:
           description: added dependency tp tpl library
         - kind: changed
           description: (1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.15) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on FileIntegrity CRs and control plane AIDE ConfigMap
+        - kind: changed
+          description: (1.0.15) enabled guards use tpl.isEnabled
+        - kind: fixed
+          description: (1.0.15) FileIntegrity spec.tolerations rendered at spec level instead of under spec.config
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-08T11:03:12.632593828Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Setup the FileIntegrity Operator (based on AIDE)
+    digest: 841a2ab316ec1318138d901a338e98bd3481b2e797ae29909e325b7c30d2d673
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/file-integrity-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/file-integrity-operator-icon.png
+    keywords:
+    - security
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: file-integrity-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/file-integrity-operator-1.0.15/file-integrity-operator-1.0.15.tgz
+    version: 1.0.15
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: updated to helper-status-checker v4 and prepared readme file
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: changed
+          description: (1.0.14) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -10314,6 +10412,64 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.0/generic-cluster-config-1.0.0.tgz
     version: 1.0.0
   helm-policy-generator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: added
+          description: descriptions in example values-files and some minor changes for optional parameters
+        - kind: added
+          description: "added basic README and final features for ConfigurationPolicies (like dependencies etc.) and an example-folder"
+        - kind: fixed
+          description: put Namespaceselector for policies into the right place
+        - kind: added
+          description: "added additional example, Placement and PlacementBinding are correctly created when using PolicySets"
+        - kind: added
+          description: added example for cluster health checks
+        - kind: added
+          description: "added inline comments to policy.yaml template for better readability, new example to check cluster-operators-healthcheck, supporting CertificationPolicy kind"
+        - kind: added
+          description: added README
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: fixed
+          description: "set quotes for disallowedSANPattern, PR-44 [vishnoisuresh]"
+        - kind: changed
+          description: (1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.19) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on Namespace, PolicySet, Policy, Placement, and PlacementBinding
+        - kind: changed
+          description: (1.0.19) enabled guards use tpl.isEnabled
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-08T11:03:12.806103688Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: This Chart shall help to generate policies for Advanced Cluster Management
+    digest: e622c680f0acec0fa8abd289b7ec9c0f812efc237db3dd488af01f6f5f56a465
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helm-policy-generator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - helper
+    - acm
+    - policy
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helm-policy-generator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helm-policy-generator-1.0.19/helm-policy-generator-1.0.19.tgz
+    version: 1.0.19
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -38404,6 +38560,44 @@ entries:
           description: Initial Release
         - kind: changed
           description: (1.0.3) - Maintainer email
+        - kind: added
+          description: (1.0.4) tpl dependency ~1.0.31, tpl.argocdMetadata, additionalAnnotations and additionalLabels on ClusterVersion
+        - kind: added
+          description: (1.0.4) CHANGELOG.md and Chart.lock for reproducible installs
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-08T11:03:13.20729865Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Helm chart to update OpenShift ClusterVersion
+    digest: 3bf4a5ee393a288ee70235b0ab13354ba4b2e90122a4d4578d139a61c6041576
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/update-clusterversion
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/openshift.png
+    keywords:
+    - configuration
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: update-clusterversion
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.4/update-clusterversion-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: changed
+          description: (1.0.3) - Maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -38512,4 +38706,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-07T19:10:45.798590975Z"
+generated: "2026-06-08T11:03:13.208959565Z"
