@@ -1,8 +1,92 @@
 {
-  "generated": "2026-06-10T14:03:36.560690Z",
+  "generated": "2026-06-10T20:15:52.765016Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "ingresscontroller",
+      "version": "1.0.19",
+      "description": "Configures the IngressController object.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-06-10T22:11:52+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure routeAdmission"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.19) CHANGELOG.md and .helmignore"
+        }
+      ]
+    },
+    {
+      "name": "openshift-virtualization",
+      "version": "1.0.3",
+      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
+      "lastModified": "2026-06-10T22:11:52+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.3) CHANGELOG.md and .helmignore"
+        }
+      ]
+    },
     {
       "name": "etcd-backup",
       "version": "1.0.14",
@@ -1752,52 +1836,6 @@
       ]
     },
     {
-      "name": "ingresscontroller",
-      "version": "1.0.18",
-      "description": "Configures the IngressController object.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure routeAdmission"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
       "name": "network-observability",
       "version": "2.0.4",
       "description": "Installs and configures OpenShift Network Observability Operator.",
@@ -1932,28 +1970,6 @@
         {
           "kind": "changed",
           "description": "(3.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "openshift-virtualization",
-      "version": "1.0.2",
-      "description": "Configure the operator Openshift Virtualization (HyperConverged and HostPath Provisioner)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore."
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
