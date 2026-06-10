@@ -64,10 +64,7 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+{{ include "tpl.affinity" .affinity | indent 6 }}
       {{- with .tolerations }}
 {{ include "tpl.tolerations" . | indent 6 }}
       {{- end }}
@@ -82,10 +79,7 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+{{ include "tpl.affinity" .affinity | indent 6 }}
       {{- with .tolerations }}
 {{ include "tpl.tolerations" . | indent 6 }}
       {{- end }}

@@ -9,6 +9,19 @@ ingresscontrollers:
     # @default -- false
     enabled: false
 
+    # -- Syncwave for Argo CD
+    # @default -- 10
+    syncwave: 10
+
+    # -- Additional annotations on the IngressController CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
+    # Operator-specific keys (for example HTTP/2) may also be set under `annotations` below.
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels on the IngressController CR.
+    # @default -- {}
+    additionalLabels: {}
+
     # -- Number of replicas for this IngressController
     # @default -- 2
     replicas: 3
@@ -57,11 +70,12 @@ ingresscontrollers:
     # @default -- N/A
     defaultCertificate: my-certificate
 
-    # -- Additional annotations for the IngressController
+    # -- Additional annotations for the IngressController (OpenShift operator keys).
     # For example to enable HTTP/2 add the following:
     # ingress.operator.openshift.io/default-enable-http2: true
-    # @default -- N/A
-    annotations: ''
+    # Argo CD sync metadata and GitOps extras use syncwave / additionalAnnotations above.
+    # @default -- {}
+    annotations: {}
 
     # -- namespaceSelector is used to filter the set of namespaces serviced by the ingress controller.
     # This is useful for implementing shards. If unset, the default is no filtering.

@@ -152,10 +152,7 @@ spec:
 {{ include "tpl.tolerations" . | indent 4 }}
     {{- end }}
     
-    {{- with .affinity }}
-    affinity:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
+{{ include "tpl.affinity" .affinity | indent 4 }}
   {{- end }}
 
   {{- with .featureGates }}

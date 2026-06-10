@@ -1,17 +1,22 @@
 {{- range .Values.ingresscontrollers }}
-{{ if eq ( .enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: operator.openshift.io/v1
 kind: IngressController
 metadata:
   name: {{ .name }}
   namespace: openshift-ingress-operator
+  annotations:
+    {{- $extra := .additionalAnnotations | default dict }}
+    {{- if kindIs "map" .annotations }}
+    {{- $extra = merge $extra .annotations }}
+    {{- end }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "10")
+                "extra" $extra) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
-  {{- if .annotations }}
-  annotations:
-{{ toYaml .annotations | indent 4 }}
-  {{- end }}
+    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
 spec:
   replicas: {{ .replicas | default "2" }}
   {{- if .defaultCertificate }}
@@ -31,7 +36,7 @@ spec:
     {{- if .routeAdmission.wildcardPolicy }}
     wildcardPolicy: {{ .routeAdmission.wildcardPolicy }}
     {{- end }}
-  {{- end}}
+  {{- end }}
 
   {{- if .endpointPublishingStrategy }}
   endpointPublishingStrategy:
@@ -44,7 +49,7 @@ spec:
     {{- end }}
   {{- end }}
   {{- if .tlsSecurityProfile }}
-  tlsSecurityProfile: 
+  tlsSecurityProfile:
     {{- toYaml .tlsSecurityProfile | nindent 4 }}
   {{- end }}
   {{- if .namespaceSelector }}
@@ -60,7 +65,7 @@ spec:
   nodePlacement:
     {{- if .nodeSelector }}
     nodeSelector:
-      matchLabels: 
+      matchLabels:
         {{ .nodeSelector.key }}: {{ .nodeSelector.value | quote }}
     {{- end }}
 
@@ -69,6 +74,5 @@ spec:
   {{- end }}
   {{- end }}
   {{- end }}
-
 {{- end }}
 {{- end }}

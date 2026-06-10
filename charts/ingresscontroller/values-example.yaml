@@ -9,6 +9,18 @@ ingresscontrollers:
     # @default -- false
     enabled: true
 
+    # -- Syncwave for Argo CD
+    # @default -- 10
+    syncwave: 10
+
+    # -- Additional annotations on the IngressController CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels on the IngressController CR.
+    # @default -- {}
+    additionalLabels: {}
+
     # -- Number of replicas for this IngressController
     # @default -- 2
     replicas: 3
@@ -34,7 +46,7 @@ ingresscontrollers:
       # If empty, the default is Strict. <br />
       # @default -- N/A
       namespaceOwnership: Strict
-      
+
       # -- wildcardPolicy describes how routes with wildcard policies should be handled for the ingress controller.<br />
       # Note: Updating WildcardPolicy from WildcardsAllowed to WildcardsDisallowed will cause admitted routes with a wildcard policy of Subdomain to stop working.<br />
       # These routes must be updated to a wildcard policy of None to be readmitted by the ingress controller.<br />
@@ -45,7 +57,7 @@ ingresscontrollers:
 
     # -- endpointPublishingStrategy is used to publish the ingress controller endpoints to other networks,
     # enable load balancer integrations, etc. If unset, the default is based on infrastructure.config.openshift.io/cluster
-    # .status.platform: AWS: LoadBalancerService (with External scope) Azure: LoadBalancerService (with External scope) 
+    # .status.platform: AWS: LoadBalancerService (with External scope) Azure: LoadBalancerService (with External scope)
     # GCP: LoadBalancerService (with External scope) IBMCloud: LoadBalancerService (with External scope)
     # AlibabaCloud: LoadBalancerService (with External scope) Libvirt: HostNetwork Any other platform types (including None)
     # default to HostNetwork. endpointPublishingStrategy cannot be updated.
@@ -61,11 +73,11 @@ ingresscontrollers:
     # @default -- N/A
     defaultCertificate: my-certificate
 
-    # -- Additional annotations for the IngressController
+    # -- DEPRECATED: Use additionalAnnotations instead. Kept for backwards compatibility.
     # For example to enable HTTP/2 add the following:
     # ingress.operator.openshift.io/default-enable-http2: true
-    # @default -- N/A
-    annotations: ''
+    # @default -- {}
+    annotations: {}
 
     # -- namespaceSelector is used to filter the set of namespaces serviced by the ingress controller.
     # This is useful for implementing shards. If unset, the default is no filtering.
@@ -77,10 +89,10 @@ ingresscontrollers:
           values:
             - 'false'
 
-    # -- tlsSecurityProfile specifies settings for TLS connections for ingresscontrollers. 
+    # -- tlsSecurityProfile specifies settings for TLS connections for ingresscontrollers.
     # If unset, the default is based on the apiservers.config.openshift.io/cluster resource.
     # Note that when using the Old, Intermediate, and Modern profile types, the effective profile
-    # configuration is subject to change between releases. 
+    # configuration is subject to change between releases.
     # @default -- N/A
     tlsSecurityProfile:
       custom:
