@@ -19385,6 +19385,59 @@ entries:
           description: added option to configure routeAdmission
         - kind: changed
           description: (1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels
+        - kind: added
+          description: (1.0.19) CHANGELOG.md and .helmignore
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T20:15:25.368152622Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configures the IngressController object.
+    digest: 3d9c9079c592f0caaf1fd178809c08c2af6710a975f5f935ee2699ff3db9d128
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: ingresscontroller
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.19/ingresscontroller-1.0.19.tgz
+    version: 1.0.19
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: added README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: added defaultCertificate option to use a valid certificate for the ingresscontroller
+        - kind: added
+          description: added possibility to define annotations for the IngressController. For example to enable HTTP/2
+        - kind: added
+          description: added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain
+        - kind: added
+          description: added option to configure routeAdmission
+        - kind: changed
+          description: (1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -27408,6 +27461,50 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-1.0.0/openshift-logging-1.0.0.tgz
     version: 1.0.0
   openshift-virtualization:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: added new values for enableCommonBootImageImport, deployVmConsoleProxy and enableApplicationAwareQuota which are now directly under spec and not FeatureGates anymore.
+        - kind: changed
+          description: (1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.3) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed
+        - kind: added
+          description: (1.0.3) CHANGELOG.md and .helmignore
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T20:15:26.091949145Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configure the operator Openshift Virtualization (HyperConverged and
+      HostPath Provisioner)
+    digest: b8b6aa847dcac1cf3435b1f3a780339fddea9f5bb5ee0027b133dfb20b4ea03e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-virtualization
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/ocp-virt-icon.png
+    keywords:
+    - openshift
+    - virtualization
+    - hyperconverged
+    - kubevirt
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-virtualization
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-virtualization-1.0.3/openshift-virtualization-1.0.3.tgz
+    version: 1.0.3
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -39007,4 +39104,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-10T14:02:56.464125072Z"
+generated: "2026-06-10T20:15:26.615191668Z"
