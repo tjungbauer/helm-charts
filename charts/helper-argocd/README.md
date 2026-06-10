@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.46](https://img.shields.io/badge/Version-2.0.46-informational?style=flat-square)
+  ![Version: 2.0.47](https://img.shields.io/badge/Version-2.0.47-informational?style=flat-square)
 
  
 
@@ -178,7 +178,7 @@ NOTE: Inside the values-file in this lokal Git repository, all examples are "dis
 
     # Switch to set the namespace to '.namespace' ... must be defined in config.json
     use_configured_namespace: true
-   
+
     # Definition of Matrix Generator. Only 2 generators are supported at the moment
     generatormatrix:
       # Git: Walking through the specific folder and take whatever is there.
