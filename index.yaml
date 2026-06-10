@@ -6676,6 +6676,56 @@ entries:
           description: (1.0.13) POD_ManualBackupCheck.yaml defines CPU, memory, and ephemeral-storage requests
         - kind: added
           description: (1.0.13) CHANGELOG.md for release notes
+        - kind: changed
+          description: (1.0.14) POD_ManualBackupCheck.yaml pins ose-cli to v4.15, imagePullPolicy, and automountServiceAccountToken false
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T14:02:55.14030691Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Create a CronJob that performs ETCD Backup and stores the backup
+      to a PV.
+    digest: 906aa044762c2f706e9862dd22276b3e68f02f6c23769851eed0e7d9a0a7136f
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
+    keywords:
+    - security
+    - backup
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: etcd-backup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/etcd-backup-1.0.14/etcd-backup-1.0.14.tgz
+    version: 1.0.14
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: added key-pruner Cronjob
+        - kind: changed
+          description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup
+        - kind: changed
+          description: (1.0.13) enabled, namespace, pv, pvc, and key-pruner guards use tpl.isEnabled
+        - kind: fixed
+          description: (1.0.13) POD_ManualBackupCheck.yaml defines CPU, memory, and ephemeral-storage requests
+        - kind: added
+          description: (1.0.13) CHANGELOG.md for release notes
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -19967,6 +20017,46 @@ entries:
           description: (1.0.1) - Fixed wrong text in values.yaml
         - kind: changed
           description: (1.0.2) - Fixed typos
+        - kind: changed
+          description: (1.0.3) tpl.argocdMetadata on KubeDescheduler CR with additionalAnnotations and additionalLabels
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T14:02:55.692219055Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Setup and configure the Kube Descheduler Operator to evict pods based
+      on specific strategies
+    digest: 031d136e2d80ff6c9cfd9227c941fc27e83afa011e5fa8e9c0759c8cccbcc141
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-descheduler
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png
+    keywords:
+    - descheduler
+    - scheduling
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: kube-descheduler
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/kube-descheduler-1.0.3/kube-descheduler-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: (1.0.0) Initial release of Kube Descheduler Operator Helm Chart
+        - kind: changed
+          description: (1.0.1) - Fixed wrong text in values.yaml
+        - kind: changed
+          description: (1.0.2) - Fixed typos
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -20032,6 +20122,51 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/kube-descheduler-1.0.0/kube-descheduler-1.0.0.tgz
     version: 1.0.0
   minio-configurator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: changed
+          description: changed the image to the new minio-client-tools image
+        - kind: fixed
+          description: fixed the issue with the findutils package
+        - kind: changed
+          description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed
+        - kind: fixed
+          description: (1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T14:02:55.940941487Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Chart to automate the bucket creation and configuration for MINIO
+      Object Storage
+    digest: 0832cfeb0f8f049517b9815073e6705e402b46191069f09ef0f458c7a78c41d5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
+    keywords:
+    - minio
+    - storage
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: minio-configurator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/minio-configurator-1.0.12/minio-configurator-1.0.12.tgz
+    version: 1.0.12
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -36832,6 +36967,60 @@ entries:
           description: fixed issue with claims to keep argocd in sync
         - kind: changed
           description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at
+        - kind: added
+          description: (1.0.8) tpl.argocdMetadata on TempoStack, Namespace, ServiceAccount, and tenant ClusterRole resources
+        - kind: changed
+          description: (1.0.8) enabled guards use tpl.isEnabled across templates and validation helpers
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T14:02:56.207047636Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configure the Tempo Operator (distributed tracing).
+    digest: 6719a684640772d94b05ff2aee94a5c1b229e12242d37e0ee6228f7db379381e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
+    keywords:
+    - tempo
+    - tracing
+    - observability
+    - distributed-tracing
+    - opentelemetry
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: tempo-tracing
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/tempo-tracing-1.0.8/tempo-tracing-1.0.8.tgz
+    version: 1.0.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: fixed
+          description: fixed issue with serviceaccount template
+        - kind: added
+          description: added labels to serviceaccount template
+        - kind: added
+          description: added description for storageSize parameter
+        - kind: added
+          description: added syncwave parameter
+        - kind: fixed
+          description: fixed issue with default values to keep argocd in sync
+        - kind: fixed
+          description: fixed issue with claims to keep argocd in sync
+        - kind: changed
+          description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -38513,6 +38702,49 @@ entries:
           description: Added icon
         - kind: changed
           description: (1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.3) tpl.argocdMetadata on Securesign CR with additionalAnnotations and additionalLabels
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-10T14:02:56.462659553Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configure Trusted Artifact Signer
+    digest: be38f802677d1e5b2321599c3a7464fc4ce218030b071d4c42e3c5a37a205920
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png
+    keywords:
+    - security
+    - rhtas
+    - sigstore
+    - cosign
+    - rekor
+    - fulcio
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: trusted-artifact-signer
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/trusted-artifact-signer-1.0.3/trusted-artifact-signer-1.0.3.tgz
+    version: 1.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: First Release
+        - kind: added
+          description: Added icon
+        - kind: changed
+          description: (1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -38775,4 +39007,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-10T12:35:32.783041242Z"
+generated: "2026-06-10T14:02:56.464125072Z"
