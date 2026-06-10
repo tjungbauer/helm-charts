@@ -1,4 +1,4 @@
-{{- if eq (.Values.tempostack.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.tempostack.enabled }}
 {{- with .Values.tempostack }}
 {{- /* Validate storage.secret.credentialMode if provided */ -}}
 {{- if .storage.secret.credentialMode }}
@@ -56,14 +56,14 @@
 {{- end }}
 ---
 apiVersion: tempo.grafana.com/v1alpha1
-kind: TempoStack 
+kind: TempoStack
 metadata:
   name: {{ .name }}
   namespace: {{ .namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    {{- include "tpl.additionalAnnotations" .additionalAnnotations | nindent 4 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "10")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
     {{- include "tpl.additionalLabels" .additionalLabels | nindent 4 }}
@@ -73,8 +73,8 @@ spec:
   {{- end }}
   {{- if .storage }}
   {{- with .storage }}
-  storage: 
-    secret: 
+  storage:
+    secret:
       name: {{ .secret.name | default "tempo-s3" }}
       type: {{ .secret.type | default "s3" }}
       {{- if .secret.credentialMode }}
@@ -83,7 +83,7 @@ spec:
     {{- if .tls }}
     tls:
       enabled: {{ .tls.enabled | default false }}
-      {{- if eq (.tls.enabled | toString) "true" }}
+      {{- if include "tpl.isEnabled" .tls.enabled }}
       {{- if .tls.caName }}
       caName: {{ .tls.caName }}
       {{- end }}
@@ -135,7 +135,7 @@ spec:
   {{- end }}
   {{- if .resources }}
   {{- with .resources }}
-  resources: 
+  resources:
     total:
       {{- if and .claims (gt (len .claims) 0) }}
       claims:
@@ -155,13 +155,13 @@ spec:
   {{- with .tenants }}
   tenants:
     mode: {{ .mode }}
-    {{- if eq (.enabled | toString) "true" }}
-    authentication: 
+    {{- if include "tpl.isEnabled" .enabled }}
+    authentication:
       {{- range .authentication }}
       - tenantName: {{ .tenantName }}
         tenantId: {{ .tenantId }}
         {{- if .oidc }}
-        {{- if eq (.oidc.enabled | toString) "true" }}
+        {{- if include "tpl.isEnabled" .oidc.enabled }}
         oidc:
           {{- toYaml .oidc | nindent 10 }}
         {{- end }}
@@ -169,7 +169,7 @@ spec:
       {{- end }}
     {{- end }}
     {{- if .authorization }}
-    {{- if eq (.authorization.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .authorization.enabled }}
     authorization:
       {{- if .authorization.roles }}
       roles:
@@ -219,7 +219,7 @@ spec:
   {{- end }}
   {{- end }}
   {{- if .observability }}
-  {{- if eq (.observability.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .observability.enabled }}
   {{- with .observability }}
   observability:
     {{- if .grafana }}
@@ -314,7 +314,7 @@ spec:
   {{- end }}
   {{- end }}
   {{- if .limits }}
-  {{- if eq (.limits.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .limits.enabled }}
   {{- with .limits }}
   limits:
     {{- if .global }}
@@ -441,10 +441,10 @@ spec:
       {{- with .jaegerQuery }}
       jaegerQuery:
         enabled: {{ .enabled | default false }}
-        {{- if .authentication.enabled }}
+        {{- if include "tpl.isEnabled" .authentication.enabled }}
         {{- if .authentication }}
         authentication:
-          {{- if .authentication.enabled }}
+          {{- if include "tpl.isEnabled" .authentication.enabled }}
           enabled: {{ .authentication.enabled }}
           {{- end }}
           {{- if .authentication.resources }}
@@ -457,7 +457,7 @@ spec:
         {{- end }}
         {{- end }}
         {{- if .monitorTab }}
-        {{- if eq (.monitorTab.enabled | toString) "true" }}
+        {{- if include "tpl.isEnabled" .monitorTab.enabled }}
         monitorTab:
           {{- if .monitorTab.enabled }}
           enabled: {{ .monitorTab.enabled }}
@@ -526,7 +526,7 @@ spec:
     {{- end }}
     {{- /* INGESTER TEMPLATE */ -}}
     {{- if .template.ingester }}
-    {{- if eq (.template.ingester.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .template.ingester.enabled }}
     {{- with .template.ingester }}
     ingester:
       {{- if .resources }}
@@ -548,7 +548,7 @@ spec:
     {{- end }}
     {{- /* COMPACTOR TEMPLATE */ -}}
     {{- if .template.compactor }}
-    {{- if eq (.template.compactor.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .template.compactor.enabled }}
     {{- with .template.compactor }}
     compactor:
       {{- if .podSecurityContext }}
@@ -581,7 +581,7 @@ spec:
     {{- end }}
     {{- /* DISTRIBUTOR TEMPLATE */ -}}
     {{- if .template.distributor }}
-    {{- if eq (.template.distributor.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .template.distributor.enabled }}
     {{- with .template.distributor }}
     distributor:
       {{- if .component }}
@@ -623,7 +623,7 @@ spec:
     {{- end }}
     {{- /* QUERIER TEMPLATE */ -}}
     {{- if .template.querier }}
-    {{- if eq (.template.querier.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .template.querier.enabled }}
     {{- with .template.querier }}
     querier:
       {{- if .resources }}
@@ -645,7 +645,7 @@ spec:
     {{- end }}
   {{- end }}
   {{- if .hashRing }}
-  {{- if eq (.hashRing.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .hashRing.enabled }}
   {{- with .hashRing }}
   hashRing:
     {{- if .memberlist }}

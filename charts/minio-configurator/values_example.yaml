@@ -20,7 +20,7 @@ argoproj:
   hook_delete_policy: HookSucceeded
 
 image:
-  # -- MinIO Client Tools image version. 
+  # -- MinIO Client Tools image version.
   # Specifies the image that contains the mc command line tool
   url: quay.io/tjungbau/minio-client-tools:v1.0.3
 
@@ -142,7 +142,7 @@ provisioning:
   # @default -- []
   usersExistingSecrets: []
 
-  # -- Provisioning.groups 
+  # -- Provisioning.groups
   # e.g.
   # groups
   #   - name: test-group
@@ -214,7 +214,7 @@ provisioning:
   # config:
   #   - name: region
   #     options:
-  #       name: us-east-1  
+  #       name: us-east-1
   # @default -- []
   config: []
 
@@ -239,7 +239,7 @@ provisioning:
       operator: Equal
       value: reserved
 
-# Information of the Minio Cluster 
+# Information of the Minio Cluster
 miniocluster:
   # -- Name/URL of the Minio Cluster
   # @default -- ''

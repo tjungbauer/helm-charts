@@ -96,7 +96,9 @@ Recommended minimum storage sizes:
 
 This chart is designed for GitOps workflows using Argo CD or similar tools. See: https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
-The chart includes ArgoCD sync-wave annotations to ensure proper deployment order:
+Chart-managed resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels` on the Securesign CR (`securesign` values).
+
+Typical deployment order with companion charts:
 
 1. **Wave 0**: RHTAS Operator installation (via `helper-operator`)
 2. **Wave 2**: Operator readiness check (via `helper-status-checker`)

@@ -1,14 +1,14 @@
 apiVersion: v2
 name: minio-configurator
 description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
-version: 1.0.11
+version: 1.0.12
 maintainers:
   - name: tjungbauer
     email: dev@stdin.at
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
@@ -34,3 +34,7 @@ annotations:
       description: fixed the issue with the findutils package
     - kind: changed
       description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: changed
+      description: (1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed
+    - kind: fixed
+      description: (1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing

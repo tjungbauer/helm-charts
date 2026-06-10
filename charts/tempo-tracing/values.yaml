@@ -14,9 +14,9 @@ tempostack:
   # @default -- 10
   syncwave: 10
 
-  # -- Additional annotations for the TempoStack.
+  # -- Additional annotations for chart-managed resources (merged with Argo CD sync metadata via tpl.argocdMetadata).
   # @default -- {}
-  additionalAnnotations:
+  additionalAnnotations: {}
 
   # -- Additional labels for the TempoStack.
   # @default -- {}
@@ -44,7 +44,7 @@ tempostack:
     # @default -- ''
     display: ''
 
-    # -- Additional annotations for the namespace.
+    # -- Additional annotations for the namespace (merged with Argo CD sync metadata via tpl.argocdMetadata).
     # @default -- {}
     additionalAnnotations: {}
 

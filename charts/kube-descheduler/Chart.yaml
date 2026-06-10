@@ -1,12 +1,12 @@
 apiVersion: v2
 name: kube-descheduler
 description: Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies
-version: 1.0.2
+version: 1.0.3
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-descheduler
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -31,3 +31,5 @@ annotations:
       description: (1.0.1) - Fixed wrong text in values.yaml
     - kind: changed
       description: (1.0.2) - Fixed typos
+    - kind: changed
+      description: (1.0.3) tpl.argocdMetadata on KubeDescheduler CR with additionalAnnotations and additionalLabels

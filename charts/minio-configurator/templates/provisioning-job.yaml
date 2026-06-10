@@ -13,9 +13,9 @@ metadata:
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
 spec:
-  {{- if .Values.provisioning.cleanupAfterFinished.enabled }} 
-  ttlSecondsAfterFinished: {{ .Values.provisioning.cleanupAfterFinished.seconds }} 
-  {{- end }} 
+  {{- if .Values.provisioning.cleanupAfterFinished.enabled }}
+  ttlSecondsAfterFinished: {{ .Values.provisioning.cleanupAfterFinished.seconds }}
+  {{- end }}
   parallelism: 1
   template:
     metadata:
@@ -23,7 +23,7 @@ spec:
       {{- if .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- range .Values.image.pullSecrets }}
-        - name: {{.}}
+        - name: {{ . }}
         {{- end }}
       {{- end }}
       restartPolicy: OnFailure
@@ -115,9 +115,9 @@ spec:
               {{- $options = (printf "%s=%s" $name $value) | append $options }}
               {{- end }}
               {{- $options := join " " $options }}
-              
+
               mc admin config set {{ $minioAlias }} {{ $config.name }} {{ $options }};
-              
+
               {{- end }}
 
               {{- range $policy := .Values.provisioning.policies }}
@@ -148,7 +148,7 @@ spec:
               while read -d '' configFile; do
                 addUsersFromFile "${configFile}";
               done < <(find "/opt/bitnami/minio/users/" -type l -not -name '..data' -print0);
-              
+
               {{- end }}
 
               {{- range $group := .Values.provisioning.groups }}
@@ -175,24 +175,24 @@ spec:
               {{- $target := printf "%s/%s" $minioAlias $bucket.name }}
               {{- $region := ternary (printf "--region=%s" $bucket.region) ("") (not (empty $bucket.region)) }}
               {{- $withLock := ternary ("--with-lock") ("") (and (not (empty $bucket.withLock)) $bucket.withLock) }}
-              
+
               mc mb {{ $target }} --ignore-existing {{ $region }} {{ $withLock }};
 
               {{- if $bucket.lifecycle }}
-              
+
               mc ilm import {{ $minioAlias }}/{{ $bucket.name }} < /etc/ilm/bucket-{{ $bucket.name }}.json;
-              
+
               {{- end }}
 
               {{- with $bucket.quota }}
               {{- if eq .type "hard" }}
-              
+
               mc quota set {{ $minioAlias }}/{{ $bucket.name }} {{ if .size }}--size {{ .size }}{{ end }};
-              
+
               {{- else }}
-              
+
               mc quota {{ .type }} {{ $minioAlias }}/{{ $bucket.name }} {{ if .size }}--size {{ .size }}{{ end }};
-              
+
               {{- end }}
               {{- end }}
 
@@ -202,13 +202,13 @@ spec:
               {{- $versioning = ternary "Versioned" "Suspended" $bucket.versioning }}
               {{- end }}
               {{- if eq $versioning "Versioned" }}
-              
+
               mc version enable {{ $minioAlias }}/{{ $bucket.name }};
-              
+
               {{- else if eq $versioning "Suspended" }}
-              
+
               mc version suspend {{ $minioAlias }}/{{ $bucket.name }};
-              
+
               {{- else if ne $versioning "Unchanged" }}
               {{- fail (printf "Invalid value '%s' for versioning of bucket '%s'" $versioning $bucket.name) }}
               {{- end }}
@@ -221,9 +221,9 @@ spec:
               {{- $tags = (printf "%s=%s" $name $value) | append $tags }}
               {{- end }}
               {{- $tags = join "&" $tags | quote }}
-              
+
               mc tag set {{ $target }} {{ $tags }};
-              
+
               {{- end }}
 
               {{- if $bucket.bucketReplication }}
@@ -248,7 +248,7 @@ spec:
               fi
 
               mc replicate ${method} {{ $minioAlias }}/{{ $bucket.name }} ${id} \
-                 --remote-bucket "https://${REPLICATION_USER_{{$bucket.name | replace "-" "_" | upper}}}:${REPLICATION_PASSWORD_{{$bucket.name | replace "-" "_" | upper}}}@{{ $bucket.bucketReplication.targetClusterUrl }}:{{ $bucket.bucketReplication.targetClusterPort | default "443"}}/{{ $bucket.bucketReplication.targetBucket }}" \
+                 --remote-bucket "https://${REPLICATION_USER_{{ $bucket.name | replace "-" "_" | upper }}}:${REPLICATION_PASSWORD_{{ $bucket.name | replace "-" "_" | upper }}}@{{ $bucket.bucketReplication.targetClusterUrl }}:{{ $bucket.bucketReplication.targetClusterPort | default "443" }}/{{ $bucket.bucketReplication.targetBucket }}" \
                  --replicate "{{ join "," $bucket.bucketReplication.replicationSettings }}"
 
               {{- end }}

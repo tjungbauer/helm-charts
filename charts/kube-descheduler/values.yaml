@@ -9,8 +9,7 @@ descheduler:
   # @default -- 10
   syncwave: 10
 
-  # -- Additional labels to add as key: value pairs.
-  # @section -- namespace
+  # -- Additional annotations on the KubeDescheduler CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
   # @default -- {}
   additionalAnnotations: {}
   #  additionalAnnotation1: "My Annotation"

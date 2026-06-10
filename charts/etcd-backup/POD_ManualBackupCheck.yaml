@@ -6,7 +6,8 @@ metadata:
 spec:
   containers:
   - name: check-etcd-backup
-    image: registry.redhat.io/openshift4/ose-cli
+    image: registry.redhat.io/openshift4/ose-cli:v4.15
+    imagePullPolicy: IfNotPresent
     # Just spin & wait forever
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
@@ -23,7 +24,7 @@ spec:
         memory: 250Mi
         ephemeral-storage: 500Mi
   serviceAccountName: etcd-backup
-  serviceAccount: etcd-backup
+  automountServiceAccountToken: false
   volumes:
     - name: etcd-backup
       persistentVolumeClaim:

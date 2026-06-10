@@ -3,7 +3,7 @@ KubeDescheduler cluster CR (operator.openshift.io/v1).
 Rendered when descheduler.enabled is true.
 */}}
 {{- if .Values.descheduler }}
-{{- if eq ( .Values.descheduler.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.descheduler.enabled }}
 {{- with .Values.descheduler }}
 {{- $validLogLevels := list "Normal" "Debug" "Trace" "TraceAll" }}
 {{- $validDevLowNodeUtilizationThresholds := list "Low" "Medium" "High" }}
@@ -17,9 +17,9 @@ metadata:
   name: cluster
   namespace: openshift-kube-descheduler-operator
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "10")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
 spec:

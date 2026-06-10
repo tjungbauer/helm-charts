@@ -3,10 +3,10 @@ name: trusted-artifact-signer
 description: Configure Trusted Artifact Signer
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer
 icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png
-version: 1.0.2
+version: 1.0.3
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -35,3 +35,5 @@ annotations:
       description: Added icon
     - kind: changed
       description: (1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: added
+      description: (1.0.3) tpl.argocdMetadata on Securesign CR with additionalAnnotations and additionalLabels

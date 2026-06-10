@@ -1,5 +1,5 @@
-{{- if eq (.Values.tempostack.enabled | toString) "true" }}
-{{- if eq (.Values.tempostack.tenants.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.tempostack.enabled }}
+{{- if include "tpl.isEnabled" .Values.tempostack.tenants.enabled }}
 {{- with .Values.tempostack }}
 {{- $hasReadPermission := false }}
 {{- /* Loop through authentication block to find tenants with read permissions */ -}}

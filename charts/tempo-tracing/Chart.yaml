@@ -1,7 +1,7 @@
 apiVersion: v2
 name: tempo-tracing
 description: Configure the Tempo Operator (distributed tracing).
-version: 1.0.7
+version: 1.0.8
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     url: https://blog.stderr.at/
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 sources:
   - https://github.com/tjungbauer/helm-charts
@@ -44,3 +44,7 @@ annotations:
       description: fixed issue with claims to keep argocd in sync
     - kind: changed
       description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at
+    - kind: added
+      description: (1.0.8) tpl.argocdMetadata on TempoStack, Namespace, ServiceAccount, and tenant ClusterRole resources
+    - kind: changed
+      description: (1.0.8) enabled guards use tpl.isEnabled across templates and validation helpers

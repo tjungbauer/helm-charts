@@ -1,5 +1,5 @@
-{{- if eq (.Values.tempostack.enabled | toString) "true" }}
-{{- if eq (.Values.tempostack.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.tempostack.enabled }}
+{{- if include "tpl.isEnabled" .Values.tempostack.namespace.create }}
 ---
 apiVersion: v1
 kind: Namespace

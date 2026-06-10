@@ -21,7 +21,7 @@ securesign:
   # @default -- 3
   syncwave: '3'
 
-  # -- Additional annotations to add to the Securesign instance as key: value pairs.
+  # -- Additional annotations on the Securesign CR (merged with Argo CD sync metadata via tpl.argocdMetadata).
   # @section -- namespace
   # @default -- {}
   additionalAnnotations: {}

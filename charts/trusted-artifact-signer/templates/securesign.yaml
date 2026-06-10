@@ -1,5 +1,5 @@
 {{- with .Values.securesign }}
-{{- if eq (.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{/*
 Validation Summary:
 - Replica counts: 1-100 (validated)
@@ -17,9 +17,9 @@ metadata:
   name: {{ .name | default "securesign" }}
   namespace: {{ .namespace | default "trusted-artifact-signer" }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "3" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "3")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
     {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
@@ -41,12 +41,12 @@ spec:
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 4 }}
 {{- end }}
-    
+
     {{- if .monitoring }}
     monitoring:
       enabled: {{ .monitoring.enabled | default false }}
     {{- end }}
-    
+
     {{- if .trillian }}
     {{- $port := .trillian.port | default 8091 | int }}
     {{- include "securesign.validatePort" $port }}
@@ -57,7 +57,7 @@ spec:
       {{- end }}
     {{- end }}
   {{- end }}
-  
+
   {{- with .fulcio }}
   {{- if hasKey . "replicas" }}
   {{- include "securesign.validateReplicas" .replicas }}
@@ -75,7 +75,7 @@ spec:
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 4 }}
 {{- end }}
-    
+
     {{- if .externalAccess }}
     externalAccess:
       enabled: {{ .externalAccess.enabled | default true }}
@@ -83,12 +83,12 @@ spec:
       host: {{ .externalAccess.host }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .monitoring }}
     monitoring:
       enabled: {{ .monitoring.enabled | default false }}
     {{- end }}
-    
+
     {{- if .certificate }}
     {{- $commonName := tpl .certificate.commonName $ }}
     {{- $orgEmail := tpl .certificate.organizationEmail $ }}
@@ -113,7 +113,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .config }}
     config:
       {{- if .config.CIIssuerMetadata }}
@@ -124,7 +124,7 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
-      
+
       {{- if .config.OIDCIssuers }}
       OIDCIssuers:
         {{- range $index, $issuer := .config.OIDCIssuers }}
@@ -161,7 +161,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .ctlog }}
     {{- $ctlogPort := .ctlog.port | default 80 | int }}
     {{- include "securesign.validatePort" $ctlogPort }}
@@ -174,7 +174,7 @@ spec:
       prefix: {{ .ctlog.prefix }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .trustedCA.name }}
     trustedCA:
       name: {{ .trustedCA.name }}
@@ -198,13 +198,13 @@ spec:
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 4 }}
 {{- end }}
-    
+
     {{- if .backFillRedis }}
     backFillRedis:
       enabled: {{ .backFillRedis.enabled | default true }}
       schedule: {{ .backFillRedis.schedule | default "0 0 * * *" | quote }}
     {{- end }}
-    
+
     {{- if .externalAccess }}
     externalAccess:
       enabled: {{ .externalAccess.enabled | default true }}
@@ -212,7 +212,7 @@ spec:
       host: {{ .externalAccess.host }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .monitoring }}
     monitoring:
       enabled: {{ .monitoring.enabled | default false }}
@@ -220,9 +220,9 @@ spec:
       tlog:
         enabled: {{ .monitoring.tlog.enabled | default false }}
         interval: {{ .monitoring.tlog.interval | default "10m" | quote }}
-      {{- end }}      
+      {{- end }}
     {{- end }}
-    
+
     {{- if .pvc }}
     {{- $pvcSize := .pvc.size | default "5Gi" }}
     {{- include "securesign.validateSize" $pvcSize }}
@@ -242,7 +242,7 @@ spec:
       storageClassName: {{ .pvc.storageClassName }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .rekorSearchUI }}
     {{- if hasKey .rekorSearchUI "replicas" }}
     {{- include "securesign.validateReplicas" .rekorSearchUI.replicas }}
@@ -261,13 +261,13 @@ spec:
       host: {{ .rekorSearchUI.host }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .sharding }}
     sharding: {{ toYaml .sharding | nindent 6 }}
     {{- else }}
     sharding: []
     {{- end }}
-    
+
     {{- if .signer }}
     signer:
       kms: {{ .signer.kms | default "secret" }}
@@ -286,7 +286,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .trillian }}
     {{- $rekorTrillianPort := .trillian.port | default 8091 | int }}
     {{- include "securesign.validatePort" $rekorTrillianPort }}
@@ -296,16 +296,16 @@ spec:
       address: {{ .trillian.address }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .maxRequestBodySize }}
     maxRequestBodySize: {{ .maxRequestBodySize | default 10485760 }}
     {{- end }}
-    
+
     {{- if .trustedCA.name }}
     trustedCA:
       name: {{ .trustedCA.name }}
     {{- end }}
-    
+
     {{- if .attestations }}
     {{- if .attestations.url }}
     {{- include "securesign.validateURL" .attestations.url }}
@@ -316,7 +316,7 @@ spec:
       url: {{ .attestations.url | default "file:///var/run/attestations?no_tmp_dir=true" | quote }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .searchIndex }}
     {{- /* Validate searchIndex.provider - only allow redis or mysql */}}
     {{- if .searchIndex.provider }}
@@ -345,23 +345,23 @@ spec:
       url: {{ .searchIndex.url | quote }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .treeID }}
     treeID: {{ .treeID | quote }}
     {{- end }}
   {{- end }}
-  
+
   {{- with .trillian }}
   trillian:
     {{- if .database }}
     database:
       create: {{ .database.create | default true }}
-      
+
       {{- if .database.databaseSecretRef.name }}
       databaseSecretRef:
         name: {{ .database.databaseSecretRef.name }}
       {{- end }}
-      
+
       {{- if .database.pvc }}
       {{- $dbPvcSize := .database.pvc.size | default "5Gi" }}
       {{- include "securesign.validateSize" $dbPvcSize }}
@@ -381,7 +381,7 @@ spec:
         storageClassName: {{ .database.pvc.storageClassName }}
         {{- end }}
       {{- end }}
-      
+
       {{- if .database.tls }}
       tls:
         {{- if or .database.tls.certificateRef .database.tls.privateKeyRef }}
@@ -402,7 +402,7 @@ spec:
       tls: {}
       {{- end }}
     {{- end }}
-    
+
     {{- if .server }}
     {{- if hasKey .server "replicas" }}
     {{- include "securesign.validateReplicas" .server.replicas }}
@@ -410,15 +410,15 @@ spec:
     {{- $trillianServerReplicas := .server.replicas | default 1 }}
     server:
       replicas: {{ $trillianServerReplicas }}
-      
+
       {{- if .server.resources }}
 {{ include "tpl.resources" .server.resources | indent 6 }}
       {{- end }}
-      
+
       {{- if .server.tolerations }}
 {{ include "tpl.tolerations" .server.tolerations | indent 6 }}
       {{- end }}
-      
+
       {{- if .server.tls }}
       tls:
         {{- if or .server.tls.certificateRef .server.tls.privateKeyRef }}
@@ -437,7 +437,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .signer }}
     {{- if hasKey .signer "replicas" }}
     {{- include "securesign.validateReplicas" .signer.replicas }}
@@ -445,15 +445,15 @@ spec:
     {{- $trillianSignerReplicas := .signer.replicas | default 1 }}
     signer:
       replicas: {{ $trillianSignerReplicas }}
-      
+
       {{- if .signer.resources }}
 {{ include "tpl.resources" .signer.resources | indent 6 }}
       {{- end }}
-      
+
       {{- if .signer.tolerations }}
 {{ include "tpl.tolerations" .signer.tolerations | indent 6 }}
       {{- end }}
-      
+
       {{- if .signer.tls }}
       tls:
         {{- if or .signer.tls.certificateRef .signer.tls.privateKeyRef }}
@@ -472,22 +472,22 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .maxRecvMessageSize }}
     maxRecvMessageSize: {{ .maxRecvMessageSize | default 153600 }}
     {{- end }}
-    
+
     {{- if .monitoring }}
     monitoring:
       enabled: {{ .monitoring.enabled | default false }}
     {{- end }}
-    
+
     {{- if .trustedCA.name }}
     trustedCA:
       name: {{ .trustedCA.name }}
     {{- end }}
   {{- end }}
-  
+
   {{- with .tuf }}
   {{- if hasKey . "replicas" }}
   {{- include "securesign.validateReplicas" .replicas }}
@@ -502,7 +502,7 @@ spec:
       host: {{ .externalAccess.host }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .keys }}
     keys:
       {{- range .keys }}
@@ -517,7 +517,7 @@ spec:
     {{- $tufPort := .port | default 80 | int }}
     {{- include "securesign.validatePort" $tufPort }}
     port: {{ $tufPort }}
-    
+
     {{- if .pvc }}
     {{- $tufPvcSize := .pvc.size | default "100Mi" }}
     {{- include "securesign.validateSize" $tufPvcSize }}
@@ -537,7 +537,7 @@ spec:
       storageClassName: {{ .pvc.storageClassName }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .rootKeySecretRef }}
     rootKeySecretRef:
       name: {{ .rootKeySecretRef.name }}
@@ -553,7 +553,7 @@ spec:
 {{- end }}
 
   {{- end }}
-  
+
   {{- with .tsa }}
   {{- if hasKey . "replicas" }}
   {{- include "securesign.validateReplicas" .replicas }}
@@ -571,7 +571,7 @@ spec:
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 4 }}
 {{- end }}
-    
+
     {{- if .externalAccess }}
     externalAccess:
       enabled: {{ .externalAccess.enabled | default true }}
@@ -579,22 +579,22 @@ spec:
       host: {{ .externalAccess.host }}
       {{- end }}
     {{- end }}
-    
+
     {{- if .ntpMonitoring }}
     ntpMonitoring:
       enabled: {{ .ntpMonitoring.enabled | default false }}
     {{- end }}
-    
+
     {{- if .monitoring }}
     monitoring:
       enabled: {{ .monitoring.enabled | default false }}
     {{- end }}
-    
+
     {{- if .trustedCA.name }}
     trustedCA:
       name: {{ .trustedCA.name }}
     {{- end }}
-    
+
     {{- if .maxRequestBodySize }}
     maxRequestBodySize: {{ .maxRequestBodySize | default 1048576 }}
     {{- end }}
@@ -609,7 +609,7 @@ spec:
           key: {{ .signer.certificateChain.certificateChainRef.key }}
           {{- end }}
         {{- end }}
-        
+
         {{- if .signer.certificateChain.intermediateCA }}
         intermediateCA:
         {{- range .signer.certificateChain.intermediateCA.intermediateCA }}
@@ -632,7 +632,7 @@ spec:
             {{- end }}
           {{- end }}
         {{- end }}
-          
+
         {{- if .signer.certificateChain.intermediateCA.leafCA }}
         leafCA:
           {{- range .signer.certificateChain.intermediateCA.leafCA }}
@@ -655,7 +655,7 @@ spec:
             {{- end }}
           {{- end }}
         {{- end }}
-          
+
         {{- if .signer.certificateChain.intermediateCA.rootCA }}
         rootCA:
           {{- range .signer.certificateChain.intermediateCA.rootCA }}
@@ -680,7 +680,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-      
+
       {{- if .signer.file }}
       file:
         {{- if and .signer.file.passwordRef .signer.file.passwordRef.name }}
@@ -698,12 +698,12 @@ spec:
           {{- end }}
         {{- end }}
       {{- end }}
-      
+
       {{- if and .signer.kms .signer.kms.keyResource }}
       kms:
         keyResource: {{ .signer.kms.keyResource }}
       {{- end }}
-      
+
       {{- if .signer.tink }}
       tink:
         {{- if and .signer.tink.keysetRef .signer.tink.keysetRef.name }}

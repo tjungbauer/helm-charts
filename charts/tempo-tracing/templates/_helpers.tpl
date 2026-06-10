@@ -204,7 +204,7 @@ Usage: include "tempostack.validateAuthorizationMode" (dict "mode" .tenants.mode
 {{- define "tempostack.validateAuthorizationMode" -}}
 {{- $mode := .mode -}}
 {{- $authorizationEnabled := .authorizationEnabled -}}
-{{- if and (eq $mode "openshift") (eq ($authorizationEnabled | toString) "true") -}}
+{{- if and (eq $mode "openshift") (include "tpl.isEnabled" $authorizationEnabled) -}}
   {{- fail "Invalid value: true: spec.tenants.authorization should not be defined in openshift mode" -}}
 {{- end -}}
 {{- end -}}
