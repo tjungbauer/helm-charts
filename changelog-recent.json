@@ -1,8 +1,190 @@
 {
-  "generated": "2026-06-10T12:36:07.352359Z",
+  "generated": "2026-06-10T14:03:36.560690Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "trusted-artifact-signer",
+      "version": "1.0.3",
+      "description": "Configure Trusted Artifact Signer",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-artifact-signer",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/trusted-artifact-signer.png",
+      "lastModified": "2026-06-10T15:58:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "First Release"
+        },
+        {
+          "kind": "added",
+          "description": "Added icon"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.3) tpl.argocdMetadata on Securesign CR with additionalAnnotations and additionalLabels"
+        }
+      ]
+    },
+    {
+      "name": "tempo-tracing",
+      "version": "1.0.8",
+      "description": "Configure the Tempo Operator (distributed tracing).",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/tempo-tracing",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tempo-operator-icon.png",
+      "lastModified": "2026-06-10T15:58:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added labels to serviceaccount template"
+        },
+        {
+          "kind": "added",
+          "description": "added description for storageSize parameter"
+        },
+        {
+          "kind": "added",
+          "description": "added syncwave parameter"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with default values to keep argocd in sync"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed issue with claims to keep argocd in sync"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer dev@stdin.at"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.8) tpl.argocdMetadata on TempoStack, Namespace, ServiceAccount, and tenant ClusterRole resources"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.8) enabled guards use tpl.isEnabled across templates and validation helpers"
+        }
+      ]
+    },
+    {
+      "name": "minio-configurator",
+      "version": "1.0.12",
+      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
+      "lastModified": "2026-06-10T15:58:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "changed",
+          "description": "changed the image to the new minio-client-tools image"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed the issue with the findutils package"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing"
+        }
+      ]
+    },
+    {
+      "name": "kube-descheduler",
+      "version": "1.0.3",
+      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-descheduler",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
+      "lastModified": "2026-06-10T15:58:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.1) - Fixed wrong text in values.yaml"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.2) - Fixed typos"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) tpl.argocdMetadata on KubeDescheduler CR with additionalAnnotations and additionalLabels"
+        }
+      ]
+    },
+    {
+      "name": "etcd-backup",
+      "version": "1.0.14",
+      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2026-06-10T15:58:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added key-pruner Cronjob"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.13) enabled, namespace, pv, pvc, and key-pruner guards use tpl.isEnabled"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.13) POD_ManualBackupCheck.yaml defines CPU, memory, and ephemeral-storage requests"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.13) CHANGELOG.md for release notes"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.14) POD_ManualBackupCheck.yaml pins ose-cli to v4.15, imagePullPolicy, and automountServiceAccountToken false"
+        }
+      ]
+    },
     {
       "name": "helper-argocd",
       "version": "2.0.47",
@@ -410,48 +592,6 @@
         {
           "kind": "added",
           "description": "(1.0.67) CHANGELOG.md and .helmignore"
-        }
-      ]
-    },
-    {
-      "name": "etcd-backup",
-      "version": "1.0.13",
-      "description": "Create a CronJob that performs ETCD Backup and stores the backup to a PV.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/etcd-backup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2026-06-07T09:23:43+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added key-pruner Cronjob"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) - Document why privileged SCC and control-plane access are required for etcd backup"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.13) enabled, namespace, pv, pvc, and key-pruner guards use tpl.isEnabled"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.13) POD_ManualBackupCheck.yaml defines CPU, memory, and ephemeral-storage requests"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.13) CHANGELOG.md for release notes"
         }
       ]
     },
@@ -1060,28 +1200,6 @@
         {
           "kind": "changed",
           "description": "(1.0.31) tpl.nodeSelector accepts legacy key/value or a multi-label map; tpl.jobPodSpec reuses tpl.nodeSelector"
-        }
-      ]
-    },
-    {
-      "name": "kube-descheduler",
-      "version": "1.0.2",
-      "description": "Setup and configure the Kube Descheduler Operator to evict pods based on specific strategies",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-descheduler",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/kube-descheduler.png",
-      "lastModified": "2026-05-31T11:22:42+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "(1.0.0) Initial release of Kube Descheduler Operator Helm Chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.1) - Fixed wrong text in values.yaml"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.2) - Fixed typos"
         }
       ]
     },
