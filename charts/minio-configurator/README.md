@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
+  ![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square)
 
  
 
@@ -58,7 +58,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-co
 | auth.useCredentialsFiles | bool | false | Mount credentials as a files instead of using an environment variable. |
 | image.pullPolicy | string | Always | Pull policy for the image. Can be Always or IfNotPresent |
 | image.pullSecrets | list | [] | Optional List of pull secrets for the image |
-| image.url | string | `"quay.io/tjungbau/minio-client-tools:v1.0.3"` | MinIO Client Tools image version.  Specifies the image that contains the mc command line tool |
+| image.url | string | `"quay.io/tjungbau/minio-client-tools:v1.0.3"` | MinIO Client Tools image version. Specifies the image that contains the mc command line tool |
 | miniocluster.port | int | '' | Port of the Minio Cluster |
 | miniocluster.url | string | '' | Name/URL of the Minio Cluster |
 | name | string | "" | Name of the resources (unlike Bitnami I am not using any templating here) |
@@ -68,7 +68,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-co
 | provisioning.config | list | `[]` |  |
 | provisioning.enabled | bool | false | Enable Bucket provisioning |
 | provisioning.extraCommands | list | [] | Optionally specify extra list of additional commands for provisioning |
-| provisioning.groups | list | [] | Provisioning.groups  e.g. groups   - name: test-group     disabled: false     members:       - test-username     policies:       - readwrite     # When set to true, it will replace all policies with the specified.     # When false, the policies will be added to the existing.     setPolicies: false |
+| provisioning.groups | list | [] | Provisioning.groups e.g. groups   - name: test-group     disabled: false     members:       - test-username     policies:       - readwrite     # When set to true, it will replace all policies with the specified.     # When false, the policies will be added to the existing.     setPolicies: false |
 | provisioning.policies | list | [] | Policies provisioning <br /> https://docs.min.io/docs/minio-admin-complete-guide.html#policy e.g. policies:   - name: custom-bucket-specific-policy     statements:       - resources:           - "arn:aws:s3:::my-bucket"         actions:           - "s3:GetBucketLocation"           - "s3:ListBucket"           - "s3:ListBucketMultipartUploads"       - resources:           - "arn:aws:s3:::my-bucket/*"         # Allowed values: "Allow" | "Deny"         # Defaults to "Deny" if not specified         effect: "Allow"         actions:           - "s3:AbortMultipartUpload"           - "s3:DeleteObject"           - "s3:GetObject"           - "s3:ListMultipartUploadParts"           - "s3:PutObject" |
 | provisioning.resources | object | {} | Optionall define resource for the provisioner pod. Simply define typical resources, like limits.cpu; requests.memory etc. |
 | provisioning.tolerations | list | [] | Tolerations for the provisioning Pod |

@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
+  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
 
  
 
@@ -29,7 +29,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 Typical use is GitOps (for example Argo CD) together with a separate chart or manifest that installs the operator.
 
@@ -57,13 +57,13 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/kube-des
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| descheduler.additionalAnnotations | object | {} | Additional labels to add as key: value pairs. |
 | descheduler.additionalLabels | object | {} | Additional labels to add as key: value pairs. |
 
 ### Other Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| descheduler.additionalAnnotations | object | {} | Additional annotations on the KubeDescheduler CR (merged with Argo CD sync metadata via tpl.argocdMetadata). |
 | descheduler.deschedulingIntervalSeconds | int | 3600 | The descheduling interval in seconds. Sets the number of seconds between descheduler runs. |
 | descheduler.enabled | bool | false | Enable or disable the KubeDescheduler CR creation |
 | descheduler.evictionLimits | string | {} | Eviction limits to restrict the number of evictions during each descheduling run |

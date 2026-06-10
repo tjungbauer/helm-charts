@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square)
+  ![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square)
 
  
 
@@ -107,7 +107,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 ## Maintainers
 
@@ -129,7 +129,9 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/trusted-
 
 This chart is designed for GitOps workflows using Argo CD or similar tools. See: https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
-The chart includes ArgoCD sync-wave annotations to ensure proper deployment order:
+Chart-managed resources support Argo CD sync ordering via `tpl.argocdMetadata`, plus optional `additionalAnnotations` and `additionalLabels` on the Securesign CR (`securesign` values).
+
+Typical deployment order with companion charts:
 
 1. **Wave 0**: RHTAS Operator installation (via `helper-operator`)
 2. **Wave 2**: Operator readiness check (via `helper-status-checker`)
@@ -238,7 +240,7 @@ Each component can be individually configured with:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| securesign.additionalAnnotations | object | {} | Additional annotations to add to the Securesign instance as key: value pairs. |
+| securesign.additionalAnnotations | object | {} | Additional annotations on the Securesign CR (merged with Argo CD sync metadata via tpl.argocdMetadata). |
 | securesign.additionalLabels | object | {} | Additional labels to add to the Securesign instance as key: value pairs. |
 
 ### Other Values
