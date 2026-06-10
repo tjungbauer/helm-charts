@@ -1,1 +1,56 @@
 ---
+# Empty skeleton: this chart is intended as a subchart. Examples are in values-example.yaml.
+
+# argocd_projects:
+#   - name: in-cluster
+#     # -- Enable this AppProject.
+#     # @default -- false
+#     enabled: false
+#     # -- Namespace of the AppProject.
+#     # @default -- openshift-gitops
+#     namespace: openshift-gitops
+#     # -- Argo CD sync-wave for the AppProject.
+#     # @default -- 1
+#     syncwave: 1
+#     # -- Additional annotations (merged with Argo CD sync metadata via tpl.argocdMetadata).
+#     # @default -- {}
+#     additionalAnnotations: {}
+#     # -- Additional labels on the AppProject.
+#     # @default -- {}
+#     additionalLabels: {}
+
+# applications:
+#   my-app:
+#     # -- Enable this Application.
+#     # @default -- false
+#     enabled: false
+#     # -- Argo CD sync-wave for the Application.
+#     # @default -- 0
+#     syncwave: 0
+#     # -- Additional annotations (merged with Argo CD sync metadata via tpl.argocdMetadata).
+#     # @default -- {}
+#     additionalAnnotations: {}
+#     # -- Additional labels on the Application (in addition to gitops.ownedBy).
+#     # @default -- {}
+#     additionalLabels: {}
+
+# applicationsets:
+#   my-appset:
+#     # -- Enable this ApplicationSet.
+#     # @default -- false
+#     enabled: false
+#     # -- Argo CD sync-wave for the ApplicationSet.
+#     # @default -- 5
+#     syncwave: 5
+#     # -- Additional annotations (merged with Argo CD sync metadata via tpl.argocdMetadata).
+#     # @default -- {}
+#     additionalAnnotations: {}
+#     # -- Additional labels on the ApplicationSet.
+#     # @default -- {}
+#     additionalLabels: {}
+
+# general:
+#   argocd_project: default
+#   source:
+#     repourl: https://github.com/example/gitops
+#   branch: main

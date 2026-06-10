@@ -18,6 +18,9 @@ dummy_rev: &rev 1.0.0
 argocd_projects:
   - name: *mgmtclustername
     enabled: false
+    # syncwave: 1
+    # additionalAnnotations: {}
+    # additionalLabels: {}
   - name: *prodclustername
     enabled: false
 
@@ -370,6 +373,11 @@ applicationsets:
   install_sonarqube:
     # Is the ApplicationSet enabled or not
     enabled: false
+
+    # Argo CD sync-wave and optional metadata (see values.yaml skeleton).
+    # syncwave: 5
+    # additionalAnnotations: {}
+    # additionalLabels: {}
 
     # Description - always usful
     description: "Install Sonarqube"

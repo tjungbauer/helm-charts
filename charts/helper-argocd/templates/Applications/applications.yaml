@@ -1,19 +1,22 @@
 {{- range $key, $value := .Values.applications }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value.enabled }}
+{{- with $value }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "0" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" ($value.syncwave | default "0")
+                "compareOptions" "IgnoreExtraneous"
+                "extra" ($value.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     gitops.ownedBy: cluster-config
-    {{- if eq ($value.ignore_argocd_labels | toString) "true" }}
+    {{- if include "tpl.isEnabled" $value.ignore_argocd_labels }}
     {{- else }}
     {{- include "tpl.labels" $ | nindent 4 }}
     {{- end }}
+    {{- include "tpl.additionalLabels" ($value.additionalLabels | default dict) | indent 4 }}
     {{- if $value.labels }}
     {{- range $key_labels, $value_labels := $value.labels }}
     {{ $key_labels }}: {{ $value_labels }}
@@ -34,10 +37,10 @@ spec:
   syncPolicy:
     {{- if .syncPolicy.autosync_enabled }}
     automated:
-      {{- if eq (.syncPolicy.syncpolicy_prune | toString) "true" }}
+      {{- if include "tpl.isEnabled" .syncPolicy.syncpolicy_prune }}
       prune: {{ .syncPolicy.syncpolicy_prune  }}
       {{- end }}
-      {{- if eq (.syncPolicy.syncpolicy_selfheal | toString) "true" }}
+      {{- if include "tpl.isEnabled" .syncPolicy.syncpolicy_selfheal }}
       selfHeal: {{ .syncPolicy.syncpolicy_selfheal }}
       {{- end }}
     {{- end }}
@@ -116,5 +119,6 @@ spec:
   info:
     - name: Description
       value: {{ .description | default "No Description" }}
+{{- end }}
 {{- end }}
 {{- end }}

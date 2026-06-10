@@ -1,5 +1,6 @@
 {{- range $key, $value := .Values.applicationsets }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value.enabled }}
+{{- with $value }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -7,9 +8,12 @@ metadata:
   name: {{ $key | replace "_" "-" }}
   namespace: {{ $value.appsetNamespace | default "openshift-gitops" }}
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" ($value.syncwave | default "5")
+                "extra" ($value.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($value.additionalLabels | default dict) | indent 4 }}
     {{- if $value.labels }}
     {{- range $key_labels, $value_labels := $value.labels }}
     {{ $key_labels }}: {{ $value_labels }}
@@ -20,7 +24,7 @@ spec:
   syncPolicy:
     preserveResourcesOnDeletion: {{ .preserveResourcesOnDeletion }}
   {{- end }}
-  {{- if eq (.goTemplate | toString) "true" }}
+  {{- if include "tpl.isEnabled" .goTemplate }}
   goTemplate: true
   goTemplateOptions:
     - missingkey=error
@@ -56,7 +60,7 @@ spec:
             - path: {{ . }}
             {{- end }}
           repoURL: {{ .repourl }}
-          revision: {{ .targetrevision | default "main" }}
+          revision: {{ .targetrevision | default .revision | default "main" }}
       {{- end }}
     {{- else }}
   # This does not work, since openshift-gitops keeps removing the label of the local ArgoCD secret
@@ -75,7 +79,7 @@ spec:
     metadata:
       {{/* MATRIX GENERATOR */}}
       {{- if .generatormatrix }}
-        {{- if eq (.omitClustername | toString) "true" }}
+        {{- if include "tpl.isEnabled" .omitClustername }}
           name: >-
           '{{ .targetCluster }}-{{ .path.basenameNormalized }}'
             {{ printf "{{ .path.basenameNormalized }}" }}
@@ -85,7 +89,7 @@ spec:
         {{- end }}
       {{/* MERGE GENERATOR */}}
       {{- else if .generatormerge }}
-        {{- if eq (.omitClustername | toString) "true" }}
+        {{- if include "tpl.isEnabled" .omitClustername }}
           name: >-
           '{{ .targetCluster }}-{{ .path.basenameNormalized }}'
             {{ printf "{{ .path.basenameNormalized }}" }}
@@ -95,7 +99,7 @@ spec:
         {{- end }}
       {{/* LIST GENERATOR */}}
       {{- else if .generatorlist }}
-        {{- if eq (.omitClustername | toString) "true" }}
+        {{- if include "tpl.isEnabled" .omitClustername }}
           name: >-
             {{ printf "%s" $key | replace "_" "-" }}
         {{- else }}
@@ -108,7 +112,7 @@ spec:
             {{ printf "{{ index .path.segments 1 | normalize }}-{{ .path.basename }}" }}
       {{/* ELSE */}}
       {{- else }}
-        {{- if eq (.omitClustername | toString) "true" }}
+        {{- if include "tpl.isEnabled" .omitClustername }}
           name: >-
             {{ printf "%s" $key | replace "_" "-" }}
         {{- else }}
@@ -231,7 +235,7 @@ spec:
         path: '{{ printf "{{ .path.path }}" }}'
         {{- end }}
         {{- if .path }}
-        path: {{.path }}
+        path: {{ .path }}
         {{- else }}
         {{- if .chartname }}
         chart: {{ .chartname }}
@@ -267,7 +271,7 @@ spec:
       destination:
       {{- if .generatormatrix }}
         name: {{ printf "'{{ .targetCluster }}'" }}
-        {{- if eq (.use_configured_namespace | toString) "true"}}
+        {{- if include "tpl.isEnabled" .use_configured_namespace }}
         namespace: {{ printf "'{{ .namespace }}'" }}
         {{- else }}
         namespace: {{ .namespace | default "default" }}
@@ -281,7 +285,7 @@ spec:
         namespace: {{ .namespace | default "default" }}
       {{- else if .generatorgit }}
         name: {{ printf "'{{ .environment }}'" }}
-        {{- if eq (.use_configured_namespace | toString) "true"}}
+        {{- if include "tpl.isEnabled" .use_configured_namespace }}
         namespace: {{ printf "'{{ .namespace }}'" }}
         {{- else }}
         namespace: {{ .namespace | default "default" }}
@@ -294,5 +298,6 @@ spec:
       info:
         - name: Description
           value: {{ .description | default "No Description" }}
+{{- end }}
 {{- end }}
 {{- end }}
