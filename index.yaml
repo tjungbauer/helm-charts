@@ -20647,6 +20647,51 @@ entries:
           description: Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports.
         - kind: changed
           description: (2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: fixed
+          description: (2.0.5) - fixing indentation issues (#83 chrissmanynames)
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T10:49:52.003675888Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.27
+    description: Installs and configures OpenShift Network Observability Operator.
+    digest: 107ead07616b7871e72409e03e9d837a06e16916359d22572c520744279320ba
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-observability
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/netobserv-icon.png
+    keywords:
+    - security
+    - network
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: network-observability
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/network-observability-2.0.5/network-observability-2.0.5.tgz
+    version: 2.0.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial Release
+        - kind: fixed
+          description: fixing icon
+        - kind: added
+          description: added README and did some cleanup
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: Release 2.0.0 - Complete restructure of the chart making it more modular and allow tons of configurations that operator supports.
+        - kind: changed
+          description: (2.0.4) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -32884,6 +32929,57 @@ entries:
           description: (1.0.47) rename declarative-config template (was declerative-config.yaml)
         - kind: added
           description: (1.0.47) CHANGELOG.md
+        - kind: fixed
+          description: (1.0.48) - fixing indentation issues (#83 chrissmanynames)
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T10:49:52.391440049Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: ef72078e4f0ba43542635fcfd4870468276e00ca4bb72319db702e1c04b94f69
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.48/rhacs-setup-1.0.48.tgz
+    version: 1.0.48
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: (1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala
+        - kind: fixed
+          description: (1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks
+        - kind: added
+          description: (1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)
+        - kind: changed
+          description: (1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)
+        - kind: changed
+          description: (1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC
+        - kind: changed
+          description: (1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31
+        - kind: fixed
+          description: (1.0.47) rename declarative-config template (was declerative-config.yaml)
+        - kind: added
+          description: (1.0.47) CHANGELOG.md
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -39212,4 +39308,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T10:32:31.937345267Z"
+generated: "2026-06-11T10:49:52.393145579Z"
