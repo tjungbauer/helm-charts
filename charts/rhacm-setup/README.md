@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.23](https://img.shields.io/badge/Version-1.0.23-informational?style=flat-square)
+  ![Version: 1.0.24](https://img.shields.io/badge/Version-1.0.24-informational?style=flat-square)
 
  
 
@@ -84,7 +84,7 @@ Verify the subcharts for additional settings:
 | rhacm.multiclusterhub.syncwave | string | 3 | Syncwave for the MultiClusterHub |
 | rhacm.multiclusterhub.tolerations | list | empty | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacm.namespace.name | string | `"open-cluster-management"` |  |
-| rhacm.search | object | `{"additionalAnnotations":{},"additionalLabels":{},"dbStorage":{"size":"10Gi"},"deployments":{},"enabled":false,"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"syncwave":"15","tolerations":[{"effect":"NoSchedule","key":"storage","operator":"Equal","value":"local"}]}` | Search custom resource (search-v2-operator). See RH ACM 2.16 "Customizing the Search service". https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.16/html/search/acm-search#customize-search-console |
+| rhacm.search | object | `{"additionalAnnotations":{},"additionalLabels":{},"dbStorage":{"size":"10Gi"},"deployments":{},"enabled":false,"nodeSelector":{},"syncwave":"15","tolerations":[]}` | Search custom resource (search-v2-operator). See RH ACM 2.16 "Customizing the Search service". https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.16/html/search/acm-search#customize-search-console |
 | rhacm.search.additionalAnnotations | object | {} | Additional annotations for the Search custom resource |
 | rhacm.search.additionalLabels | object | {} | Additional labels for the Search custom resource |
 | rhacm.search.dbStorage | object | `{"size":"10Gi"}` | PostgreSQL PVC for search-postgres. Omit entire key (set to null) to let the operator keep defaults (e.g. emptyDir for non-prod). |
