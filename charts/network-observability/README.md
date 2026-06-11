@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.5](https://img.shields.io/badge/Version-2.0.5-informational?style=flat-square)
+  ![Version: 2.0.6](https://img.shields.io/badge/Version-2.0.6-informational?style=flat-square)
 
  
 
@@ -25,7 +25,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (for example in the folder clusters/management-cluster/setup-network-observability)
 
@@ -51,13 +51,16 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/network-
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| netobserv.additionalAnnotations | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
-| netobserv.additionalLabels | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
+| netobserv.additionalAnnotations | object | {} | Additional annotations for FlowCollector, Namespace, and RBAC resources. |
+| netobserv.additionalLabels | object | {} | Additional labels for FlowCollector, Namespace, and RBAC resources. |
 | netobserv.deploymentModel | string | Direct | Defines the desired type of deployment for flow processing. Possible values: <br /> <ul> <li>Direct</li> <li>Kafka</li> </ul> |
 | netobserv.enabled | bool | false | Enable Network Observability configuration? This will also create the reader/writer rolebanding for multi-tenancy |
-| netobserv.namespace | object | `{"create":true,"name":"netobserv"}` | Namespace where Network Observability FlowCollector shall be installed. |
+| netobserv.namespace | object | `{"create":true,"descr":"","display":"","name":"netobserv"}` | Namespace where Network Observability FlowCollector shall be installed. |
 | netobserv.namespace.create | bool | true | Create the namespace if it does not exist. |
+| netobserv.namespace.descr | string | "" | Description of the namespace. |
+| netobserv.namespace.display | string | "" | Display name of the namespace. |
 | netobserv.namespace.name | string | netobserv | Name of the namespace |
+| netobserv.rbacSyncwave | int | 3 | Argo CD sync-wave for ClusterRole and ClusterRoleBinding resources. |
 | netobserv.syncwave | int | 10 | Syncwave for the FlowCollector resource. |
 
 ### Agent

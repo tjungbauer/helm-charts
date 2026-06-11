@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.36](https://img.shields.io/badge/Version-1.0.36-informational?style=flat-square)
+  ![Version: 1.0.37](https://img.shields.io/badge/Version-1.0.37-informational?style=flat-square)
 
  
 
@@ -33,7 +33,7 @@ This chart has the following dependencies:
 |------------|------|---------|
 | https://charts.stderr.at/ | helper-operator | ~1.0.36 |
 | https://charts.stderr.at/ | helper-status-checker | ~4.0.0 |
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-openshift-data-foundation)
 
@@ -77,6 +77,8 @@ Verify the subcharts for additional settings:
 | helper-status-checker.checks[0].serviceAccount.name | string | `"status-checker-odf"` |  |
 | helper-status-checker.checks[0].syncwave | int | `3` |  |
 | helper-status-checker.enabled | bool | `false` |  |
+| storagecluster.additionalAnnotations | object | {} | Additional annotations for the StorageCluster resource. |
+| storagecluster.additionalLabels | object | {} | Additional labels for the StorageCluster resource. |
 | storagecluster.enabled | bool | false | Enable or disable StorageCluster |
 | storagecluster.full_deployment | object | `{"default_node_label":"cluster.ocs.openshift.io/openshift-storage","enabled":false,"nfs":"enabled","resourceProfile":"balanced","storageDeviceSets":[{"count":1,"dataPVCTemplate":{"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"512Gi"}},"storageClassName":"gp3-csi","volumeMode":"Block"}},"name":"ocs-deviceset","replica":3,"resources":{}}]}` | Second option is a full deployment, which will provide Block, File and Object Storage |
 | storagecluster.full_deployment.default_node_label | string | cluster.ocs.openshift.io/openshift-storage | The label the nodes should have to allow hosting of ODF services |
