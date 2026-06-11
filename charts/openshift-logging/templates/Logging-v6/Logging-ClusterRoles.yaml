@@ -1,9 +1,9 @@
 {{- with .Values.loggingConfig }}
 {{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- range .additionalClusterRoles }}
 
-{{- if and (eq ( .type | toString) "application") (eq ( .enabled | toString) "true") }}
+{{- if and (eq ( .type | toString) "application") (include "tpl.isEnabled" .enabled) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -11,8 +11,11 @@ metadata:
   name: {{ .name | default "cluster-logging-write-application-logs" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.loggingConfig.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default ($.Values.loggingConfig.syncwave | default 4))
+                "extra" ($.Values.loggingConfig.additionalAnnotations | default dict)) | nindent 4 }}
 rules:
   - apiGroups:
       - loki.grafana.com
@@ -25,7 +28,7 @@ rules:
 {{- end }}
 
 
-{{- if and (eq ( .type | toString) "audit") (eq ( .enabled | toString) "true") }}
+{{- if and (eq ( .type | toString) "audit") (include "tpl.isEnabled" .enabled) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -33,8 +36,11 @@ metadata:
   name: {{ .name | default "cluster-logging-write-audit-logs" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.loggingConfig.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default ($.Values.loggingConfig.syncwave | default 4))
+                "extra" ($.Values.loggingConfig.additionalAnnotations | default dict)) | nindent 4 }}
 rules:
   - apiGroups:
       - loki.grafana.com
@@ -46,7 +52,7 @@ rules:
       - create
 {{- end }}
 
-{{- if and (eq ( .type | toString) "infrastructure") (eq ( .enabled | toString) "true") }}
+{{- if and (eq ( .type | toString) "infrastructure") (include "tpl.isEnabled" .enabled) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -54,8 +60,11 @@ metadata:
   name: {{ .name | default "cluster-logging-write-infrastructure-logs" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.loggingConfig.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default ($.Values.loggingConfig.syncwave | default 4))
+                "extra" ($.Values.loggingConfig.additionalAnnotations | default dict)) | nindent 4 }}
 rules:
   - apiGroups:
       - loki.grafana.com
@@ -67,7 +76,7 @@ rules:
       - create
 {{- end }}
 
-{{- if and (eq ( .type | toString) "editor") (eq ( .enabled | toString) "true") }}
+{{- if and (eq ( .type | toString) "editor") (include "tpl.isEnabled" .enabled) }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -75,8 +84,11 @@ metadata:
   name: {{ .name | default "clusterlogforwarder-editor-role" }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.loggingConfig.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default ($.Values.loggingConfig.syncwave | default 4))
+                "extra" ($.Values.loggingConfig.additionalAnnotations | default dict)) | nindent 4 }}
 rules:
   - apiGroups:
       - observability.openshift.io

@@ -1,5 +1,5 @@
 {{- with .Values.quay_configuration }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -7,11 +7,11 @@ metadata:
   name: create-config-secret-sa
   namespace: quay-enterprise
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 3 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "type" "hook"
+                "syncWave" (.syncwave | default 3)
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .additionalLabels) | nindent 4 }}
 {{- end }}
 {{- end }}
-

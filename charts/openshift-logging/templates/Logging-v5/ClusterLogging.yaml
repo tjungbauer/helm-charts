@@ -1,6 +1,6 @@
 {{- with .Values.loggingConfig }}
-{{ if eq ( .operatorVersion | toString) "5" }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if eq ( .operatorVersion | toString) "5" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: "logging.openshift.io/v1"
 kind: "ClusterLogging"
@@ -9,9 +9,11 @@ metadata:
   namespace: "openshift-logging"
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 4 | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default 4)
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   managementState: {{ .managementState | default "Managed" | quote }}
   {{- if eq .logStore.type "lokistack" }}

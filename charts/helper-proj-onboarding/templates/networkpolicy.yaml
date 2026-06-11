@@ -1,8 +1,8 @@
 {{- range $key, $value := .Values.namespaces }}
-{{ if eq ( .enabled | toString) "true" }}
-{{ if .networkpolicies }}
+{{- if include "tpl.isEnabled" .enabled }}
+{{- if .networkpolicies }}
 {{- range $key_pol, $value_pol := .networkpolicies }}
-{{ if eq ( .active | toString) "true" }}
+{{- if include "tpl.isEnabled" .active }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

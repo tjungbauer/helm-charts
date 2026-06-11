@@ -1,7 +1,7 @@
 {{- range $key, $value := .Values.namespaces }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- if .egressIPs }}
-{{- if eq ( .egressIPs.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .egressIPs.enabled }}
 ---
 apiVersion: k8s.ovn.org/v1
 kind: EgressIP

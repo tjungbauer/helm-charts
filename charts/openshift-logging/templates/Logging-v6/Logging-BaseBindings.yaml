@@ -1,6 +1,6 @@
 {{- with .Values.loggingConfig }}
 {{- if or (eq ( .operatorVersion | toString) "6.0") (eq ( .operatorVersion | toString) "6") (eq ( .operatorVersion | toString) "6.x") }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- if .collectorServiceAccount.bindings }}
 {{- range .collectorServiceAccount.bindings }}
 ---
@@ -10,6 +10,11 @@ metadata:
   name: {{ . }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.loggingConfig.additionalLabels | default dict) | nindent 4 }}
+  annotations:
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" ($.Values.loggingConfig.syncwave | default 4)
+                "extra" ($.Values.loggingConfig.additionalAnnotations | default dict)) | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

@@ -1,5 +1,5 @@
 {{- with .Values.quay_configuration }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -7,11 +7,12 @@ metadata:
   name: create-config-secret
   namespace:  {{ $.Values.quay.namespace.name }}
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 3 | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "type" "hook"
+                "syncWave" (.syncwave | default 3)
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .additionalLabels) | nindent 4 }}
 spec:
   {{- include "tpl.ttlSecondsAfterFinished" (.ttlSecondsAfterFinished | default 600) | nindent 2 }}
   template:
@@ -76,7 +77,7 @@ spec:
               ##############
               # Github OAUTH
               ##############
-              {{- if eq (.github_login_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .github_login_config.enabled }}
               gh_oauth_user=`cat /tmp/ghoauth-secret/GH_CLIENT_ID`
 
               gh_oauth_password=`cat /tmp/ghoauth-secret/GH_CLIENT_SECRET` 
@@ -85,7 +86,7 @@ spec:
               ##############
               # Google OAUTH
               ##############
-              {{- if eq (.google_login_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .google_login_config.enabled }}
               google_oauth_user=`cat /tmp/google-oauth-secret/GOOGLE_CLIENT_ID`
 
               google_oauth_password=`cat /tmp/google-oauth-secret/GOOGLE_CLIENT_SECRET` 
@@ -94,7 +95,7 @@ spec:
               ##############
               # MAIL CONFIG
               ##############
-              {{- if eq (.mailing_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .mailing_config.enabled }}
               mail_user=`cat /tmp/mail-auth-secret/MAIL_USERNAME`
 
               mail_password=`cat /tmp/mail-auth-secret/MAIL_PASSWORD` 
@@ -104,9 +105,9 @@ spec:
               # Elasticsearch LOG CONFIG
               ###########################
 
-              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if include "tpl.isEnabled" .feature.log_export }}
               {{- if eq ( .logs_model | toString) "elasticsearch" }}
-              {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+              {{- if or (include "tpl.isEnabled" .logs_model_config.elasticsearch_config.enabled) (include "tpl.isEnabled" .logs_model_config.kinesis_steam_config.enabled) }}
 
               log_access_key=`cat /tmp/log_model_auth/ACCESS_KEY`
 
@@ -120,9 +121,9 @@ spec:
               # Splunk LOG CONFIG
               ###########################
 
-              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if include "tpl.isEnabled" .feature.log_export }}
               {{- if eq ( .logs_model | toString) "splunk" }}
-              {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+              {{- if include "tpl.isEnabled" .logs_model_config.splunk_config.enabled }}
 
               bearer_token=`cat /tmp/log_model_auth/TOKEN`
 
@@ -186,7 +187,7 @@ spec:
               ##############
               # Google OAUTH
               ##############
-              {{- if eq (.google_login_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .google_login_config.enabled }}
               printf "\nReplacing required information for Google OAUTH\n"
 
               sed -e "s|PATCH_GOOGLE_CLIENT_ID$|${google_oauth_user}|g;" \
@@ -199,7 +200,7 @@ spec:
               ##############
               # Github OAUTH
               ##############
-              {{- if eq (.github_login_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .github_login_config.enabled }}
               printf "\nReplacing required information for Github OAUTH\n"
 
               sed -e "s|PATCH_GITHUB_CLIENT_ID$|${gh_oauth_user}|g;" \
@@ -212,7 +213,7 @@ spec:
               ##############
               # MAIL CONFIG
               ##############
-              {{- if eq (.mailing_config.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .mailing_config.enabled }}
               printf "\nReplacing required information for Github OAUTH\n"
 
               sed -e "s|PATCH_MAIL_USER$|${mail_user}|g;" \
@@ -226,9 +227,9 @@ spec:
               # Elasticsearch LOG CONFIG
               ###########################
 
-              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if include "tpl.isEnabled" .feature.log_export }}
               {{- if eq ( .logs_model | toString) "elasticsearch" }}
-              {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+              {{- if or (include "tpl.isEnabled" .logs_model_config.elasticsearch_config.enabled) (include "tpl.isEnabled" .logs_model_config.kinesis_steam_config.enabled) }}
               printf "\nReplacing required information for Elasticsearch Log configuration\n"
 
               sed -e "s|PATCH_ACCESS_KEY$|${log_access_key}|g;" \
@@ -244,9 +245,9 @@ spec:
               # Splunk LOG CONFIG
               ###########################
 
-              {{- if eq ( .feature.log_export| toString) "true" }}
+              {{- if include "tpl.isEnabled" .feature.log_export }}
               {{- if eq ( .logs_model | toString) "splunk" }}
-              {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+              {{- if include "tpl.isEnabled" .logs_model_config.splunk_config.enabled }}
               printf "\nReplacing required information for Splunk Log configuration\n"
 
               sed -e "s|PATH_SPLUNK_TOKEN$|${bearer_token}|g;" ${current_config_file} > /tmp/quay-config-skeleton-set-Splunk
@@ -275,29 +276,29 @@ spec:
             - name: oidc-secret
               mountPath: "/tmp/oidc-secret"
             {{- end }}
-            {{- if eq (.github_login_config.enabled | toString) "true" }}
+            {{- if include "tpl.isEnabled" .github_login_config.enabled }}
             - name: github-oauth
               mountPath: "/tmp/ghoauth-secret"
             {{- end }}
-            {{- if eq (.google_login_config.enabled | toString) "true" }}
+            {{- if include "tpl.isEnabled" .google_login_config.enabled }}
             - name: google-oauth
               mountPath: "/tmp/google-oauth-secret"
             {{- end }}
-            {{- if eq (.mailing_config.enabled | toString) "true" }}
+            {{- if include "tpl.isEnabled" .mailing_config.enabled }}
             - name: mail-auth
               mountPath: "/tmp/mail-auth-secret"
             {{- end }}
-            {{- if eq ( .feature.log_export| toString) "true" }}
+            {{- if include "tpl.isEnabled" .feature.log_export }}
             {{- if eq ( .logs_model | toString) "elasticsearch" }}
-            {{- if or (eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true") ( eq (.logs_model_config.kinesis_steam_config.enabled| toString) "true") }}
+            {{- if or (include "tpl.isEnabled" .logs_model_config.elasticsearch_config.enabled) (include "tpl.isEnabled" .logs_model_config.kinesis_steam_config.enabled) }}
             - name: log_model_auth
               mountPath: "/tmp/log_model_auth"
             {{- end }}
             {{- end }}
             {{- end }}
-            {{- if eq ( .feature.log_export| toString) "true" }}
+            {{- if include "tpl.isEnabled" .feature.log_export }}
             {{- if eq ( .logs_model | toString) "splunk" }}
-            {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+            {{- if include "tpl.isEnabled" .logs_model_config.splunk_config.enabled }}
             - name: log_model_auth
               mountPath: "/tmp/log_model_auth"
             {{- end }}
@@ -317,38 +318,38 @@ spec:
           secret:
             secretName: {{ .oidc_login_config.oidc_auth_secret }}
         {{- end }}
-        {{- if eq ( .github_login_config.enabled | toString) "true" }}
+        {{- if include "tpl.isEnabled" .github_login_config.enabled }}
         - name: github-oauth
           secret:
             secretName: {{ .github_login_config.github_oauth_secret }}
         {{- end }}
-        {{- if eq ( .google_login_config.enabled | toString) "true" }}
+        {{- if include "tpl.isEnabled" .google_login_config.enabled }}
         - name: google-oauth
           secret:
             secretName: {{ .google_login_config.google_oauth_secret }}
         {{- end }}
-        {{- if eq ( .mailing_config.enabled | toString) "true" }}
+        {{- if include "tpl.isEnabled" .mailing_config.enabled }}
         - name: mail-auth
           secret:
             secretName: {{ .mailing_config.mail_auth_secret }}
         {{- end }}
-        {{- if eq ( .feature.log_export| toString) "true" }}
+        {{- if include "tpl.isEnabled" .feature.log_export }}
         {{- if eq ( .logs_model | toString) "elasticsearch" }}
-        {{- if eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true" }}
+        {{- if include "tpl.isEnabled" .logs_model_config.elasticsearch_config.enabled }}
         - name: log_model_auth
           secret:
             secretName: {{ .logs_model_config.elasticsearch_config.log_model_auth }}
         {{- end }}
-        {{- if eq ( .logs_model_config.kinesis_steam_config.enabled| toString) "true" }}
+        {{- if include "tpl.isEnabled" .logs_model_config.kinesis_steam_config.enabled }}
         - name: log_model_auth
           secret:
             secretName: {{ .logs_model_config.kinesis_steam_config.log_model_auth }}
         {{- end }}
         {{- end }}
         {{- end }}
-        {{- if eq ( .feature.log_export| toString) "true" }}
+        {{- if include "tpl.isEnabled" .feature.log_export }}
         {{- if eq ( .logs_model | toString) "splunk" }}
-        {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+        {{- if include "tpl.isEnabled" .logs_model_config.splunk_config.enabled }}
         - name: log_model_auth
           secret:
             secretName: {{ .logs_model_config.splunk_config.log_model_auth }}

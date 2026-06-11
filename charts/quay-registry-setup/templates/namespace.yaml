@@ -1,5 +1,6 @@
-{{ if eq ( .Values.quay.enabled | toString) "true" }}
-{{ if eq ( .Values.quay.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.quay.enabled }}
+{{- if include "tpl.isEnabled" .Values.quay.namespace.create }}
+---
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -11,9 +12,10 @@ metadata:
     {{- include "tpl.bindtoNode" .Values.quay.namespace.bindtoNode | nindent 4 }}
     {{- end }}
     {{- end }}
+    {{- include "tpl.additionalAnnotations" (.Values.quay.additionalAnnotations | default dict) | nindent 4 }}
   name: {{ .Values.quay.namespace.name }}
   labels:
     openshift.io/cluster-monitoring: "true"
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .Values.quay.additionalLabels) | nindent 4 }}
 {{- end }}
 {{- end }}

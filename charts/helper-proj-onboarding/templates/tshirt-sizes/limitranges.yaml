@@ -1,8 +1,8 @@
 {{- range $key, $value := .Values.namespaces }}
-{{- if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- if .project_size }}
 {{- if .resourceQuotas }}
-{{- if eq ( .limitRanges.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .limitRanges.enabled }}
 {{- /*
 Get global values and find the URL and name of the cluster
 */}}

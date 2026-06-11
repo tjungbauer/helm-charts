@@ -15,6 +15,16 @@ quay:
   # @default -- 3
   syncwave: 3
 
+  # -- Additional labels merged onto Quay chart resources (Namespace, QuayRegistry, Jobs, etc.)
+  # @section -- Generic Settings
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- Additional annotations merged onto Quay chart resources
+  # @section -- Generic Settings
+  # @default -- {}
+  additionalAnnotations: {}
+
   # -- Seconds to retain finished Quay hook Jobs before Kubernetes deletes them (init, cert inject)
   # @section -- Generic Settings
   # @default -- 600
@@ -321,6 +331,15 @@ quay_configuration:
   # @default -- quay-configuration-skeleton
   configmapName: quay-configuration-skeleton
 
+  # -- Additional labels merged onto configuration Job, ConfigMap skeleton, and related RBAC
+  # @section -- Quay Configuration Generic
+  # @default -- {}
+  additionalLabels: {}
+
+  # -- Additional annotations merged onto configuration Job, ConfigMap skeleton, and related RBAC
+  # @section -- Quay Configuration Generic
+  # @default -- {}
+  additionalAnnotations: {}
 
   # -- Storage Settings. Verify the Quay documentation about the object storage configuration: <a href=https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-storage-noobaa>Quay Storage Configuration</a>
   # @section -- Quay Configuration Generic

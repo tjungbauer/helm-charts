@@ -1,7 +1,6 @@
-{{- if .Values.quay }}
-{{- if eq ( .Values.quay.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.quay.enabled }}
 {{- with .Values.quay }}
-{{ if eq ( .job_inject_route_cert.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .job_inject_route_cert.enabled }}
 ---
 kind: Job
 apiVersion: batch/v1
@@ -9,11 +8,12 @@ metadata:
   name: {{ .job_inject_route_cert.name | default "inject-certificate" }}
   namespace: {{ $.Values.quay.namespace.name | quote }}
   labels:
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .additionalLabels) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .job_inject_route_cert.syncwave | default "5" | quote }}
+    {{- include "tpl.argocdMetadata"
+          (dict "type" "hook"
+                "syncWave" (.job_inject_route_cert.syncwave | default "5")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   parallelism: 1
   completions: 1
@@ -47,7 +47,7 @@ spec:
                 printf "Additional CA is not yet injected. Continuing\n"
               fi
               
-              {{- if eq ( .job_inject_route_cert.certificate.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .job_inject_route_cert.certificate.enabled }}
               printf "Give certificate some time to be created. Waiting for 20 seconds\n"
 
               {{ include "tpl.sleeptimer" . | nindent 14 }}
@@ -129,7 +129,7 @@ spec:
               fi
               {{- end }}
 
-              {{- if eq ( .job_inject_route_cert.additional_ca.enabled | toString) "true" }}
+              {{- if include "tpl.isEnabled" .job_inject_route_cert.additional_ca.enabled }}
               printf "Inject trusted CA\n"
 
               get_extra_certs=`oc get configmap {{ .job_inject_route_cert.additional_ca.configmap }} -o jsonpath='{ {{ .job_inject_route_cert.additional_ca.configmap_key }} }' | base64 -w0`
@@ -165,7 +165,6 @@ spec:
           operator: Equal
           value: reserved
           effect: NoSchedule
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

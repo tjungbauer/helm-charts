@@ -1,5 +1,5 @@
 {{- with .Values }}
-{{- if eq ( .quay_configuration.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .quay_configuration.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -7,9 +7,11 @@ metadata:
   name: {{ .quay_configuration.configmapName | default "quay-configuration-skeleton" | quote }}
   namespace: {{ $.Values.quay.namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 3 | quote }}
+    {{- include "quay.syncAnnotations"
+          (dict "syncWave" (.quay_configuration.syncwave | default 3)
+                "extra" (.quay_configuration.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .quay_configuration.additionalLabels) | nindent 4 }}
 data:
   {{- with .quay_configuration }}
   quay.cleartext.properties: |
@@ -206,7 +208,7 @@ data:
     FRESH_LOGIN_TIMEOUT: {{ .fresh_login_timeout | quote | default "5m" | trimAll "\"" }}
     {{- /* GITHUB OAUTH CONFIGURATION */}}
     {{- if .github_login_config }}
-    {{- if eq (.github_login_config.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .github_login_config.enabled }}
     GITHUB_LOGIN_CONFIG:
       {{- with .github_login_config }}
       {{- if .allowed_organizations }}
@@ -238,7 +240,7 @@ data:
     GLOBAL_PROMETHEUS_STATS_FREQUENCY: 60
     {{- /* END GOOGLE OAUTH CONFIGURATION */}}
     {{- if .google }}
-    {{- if eq (.google.enabled | toString) "true" }}    
+    {{- if include "tpl.isEnabled" .google.enabled }}
     GOOGLE_LOGIN_CONFIG:
       CLIENT_ID: PATCH_GOOGLE_CLIENT_ID
       CLIENT_SECRET: PATCH_GOOGLE_CLIENT_SECRET
@@ -291,7 +293,7 @@ data:
     {{- /* OIDC CONFIGURATION */}}
     {{- end }}
     {{- if .oidc_login_config }}
-    {{- if eq (.oidc_login_config.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .oidc_login_config.enabled }}
     {{- if eq ( .authentication_type | toString) "OIDC" }}
     {{- with .oidc_login_config }}
     {{ .oidc_name | upper }}_LOGIN_CONFIG:
@@ -331,18 +333,18 @@ data:
     {{- end }}
     {{- /* END OIDC CONFIGURATION */}}
     {{- /* BUILD LOG CONFIGURATION */}}
-    {{- if eq ( .feature.reader_build_logs| toString) "true" }}
+    {{- if include "tpl.isEnabled" .feature.reader_build_logs }}
     LOG_ARCHIVE_LOCATION: {{ .log_archive_location | quote | default "default" | trimAll "\"" }}
     LOG_ARCHIVE_PATH: {{ .log_archive_path | quote | default "" | trimAll "\"" }}
     {{- end }}
     {{- /* END BUILD LOG CONFIGURATION */}}
     {{- /* ACTION LOG CONFIGURATION */}}
-    {{- if eq ( .feature.log_export| toString) "true" }}
+    {{- if include "tpl.isEnabled" .feature.log_export }}
     LOGS_MODEL: {{ .logs_model | quote | default "database" | trimAll "\"" }}
     {{- end }}
-    {{- if eq ( .feature.log_export| toString) "true" }}
+    {{- if include "tpl.isEnabled" .feature.log_export }}
     {{- if eq ( .logs_model | toString) "elasticsearch" }}
-    {{- if eq ( .logs_model_config.elasticsearch_config.enabled| toString) "true" }}
+    {{- if include "tpl.isEnabled" .logs_model_config.elasticsearch_config.enabled }}
     LOGS_MODEL_CONFIG:
       producer: elasticsearch
       elasticsearch_config:
@@ -357,7 +359,7 @@ data:
     {{- end }}
     {{- end }}
     {{- if eq ( .logs_model | toString) "elasticsearch" }}
-    {{- if eq ( .logs_model_config.kinesis_steam_config.enabled| toString) "true" }}
+    {{- if include "tpl.isEnabled" .logs_model_config.kinesis_steam_config.enabled }}
     LOGS_MODEL_CONFIG:
       producer: kinesis_stream
       kinesis_stream_config:
@@ -372,7 +374,7 @@ data:
     {{- end }}
     {{- end }}
     {{- if eq ( .logs_model | toString) "kafka" }}
-    {{- if eq ( .logs_model_config.kafka_config.enabled| toString) "true" }}
+    {{- if include "tpl.isEnabled" .logs_model_config.kafka_config.enabled }}
     LOGS_MODEL_CONFIG:
       producer: kafka
       kafka_config:
@@ -382,7 +384,7 @@ data:
     {{- end }}
     {{- end }}
     {{- if eq ( .logs_model | toString) "splunk" }}
-    {{- if eq ( .logs_model_config.splunk_config.enabled| toString) "true" }}
+    {{- if include "tpl.isEnabled" .logs_model_config.splunk_config.enabled }}
     LOGS_MODEL_CONFIG:
       producer: splunk
       splunk_config:
@@ -397,7 +399,7 @@ data:
     {{- else }}
     LOGS_MODEL_CONFIG: {}
     {{- end }}
-    {{- if eq ( .feature.action_log_rotation| toString) "true" }}
+    {{- if include "tpl.isEnabled" .feature.action_log_rotation }}
     ACTION_LOG_ARCHIVE_LOCATION: {{ .action_log_archive_location | quote | default "" | trimAll "\"" }}
     ACTION_LOG_ARCHIVE_PATH: {{ .action_log_archive_path | quote | default "" | trimAll "\"" }}
     ACTION_LOG_ROTATION_THRESHOLD: {{ .action_log_rotation_threshold | quote | default "30d" | trimAll "\"" }}
@@ -405,8 +407,8 @@ data:
     ACTION_LOG_AUDIT_LOGINS: {{ .action_log_audit_logins | quote | default "true" | trimAll "\"" }}
     {{- /* END ACTION LOG CONFIGURATION */}}
     {{- /* MAIL CONFIGURATION */}}
-    {{- if eq (.mailing_config.enabled | toString) "true" }}
-    {{- if eq ( .feature.mailing| toString) "true" }}
+    {{- if include "tpl.isEnabled" .mailing_config.enabled }}
+    {{- if include "tpl.isEnabled" .feature.mailing }}
     {{- with .mailing_config }}
     MAIL_PASSWORD: PATCH_MAIL_PASSWORD
     MAIL_USERNAME: PATCH_MAIL_USER

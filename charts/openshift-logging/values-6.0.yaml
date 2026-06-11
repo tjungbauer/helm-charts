@@ -10,6 +10,16 @@ loggingConfig:
   # @default -- 4
   syncwave: '4'
 
+  # -- Additional annotations for logging resources (ClusterLogForwarder, ServiceAccount, RBAC).
+  # @section -- Generic Parameters
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for logging resources (ClusterLogForwarder, ServiceAccount, RBAC).
+  # @section -- Generic Parameters
+  # @default -- {}
+  additionalLabels: {}
+
   # -- Defines if we are going to deploy openshift logging verison 6.x. This changes the possible settings and resources.
   # Possible values are: 5 or 6.
   # @section -- Generic Parameters

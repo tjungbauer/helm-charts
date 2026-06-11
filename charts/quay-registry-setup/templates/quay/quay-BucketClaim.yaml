@@ -1,16 +1,18 @@
-{{- if eq ( .Values.quay.enabled | toString) "true" }}
-{{- if eq ( .Values.quay.bucketClaim.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.quay.enabled }}
+{{- if include "tpl.isEnabled" .Values.quay.bucketClaim.enabled }}
 {{- with .Values.quay }}
+---
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
   name: {{ .bucketClaim.name }}
   namespace: {{ .namespace.name }}
   labels:
-    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "quay.labels" (dict "root" $ "additionalLabels" .additionalLabels) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .bucketClaim.syncwave | default "2" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.bucketClaim.syncwave | default "2")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   generateBucketName: {{ .bucketClaim.name }}
   storageClassName: {{ .bucketClaim.storageclass | default "openshift-storage.noobaa.io" }}

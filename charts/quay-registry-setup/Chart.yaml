@@ -3,10 +3,10 @@ name: quay-registry-setup
 description: Deploy and configure Red Hat Quay Registry.
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
-version: 2.0.20
+version: 2.0.21
 dependencies:
   - name: tpl
-    version: ~1.0.28
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -73,3 +73,5 @@ annotations:
       description: (2.0.19) - Configurable ttlSecondsAfterFinished on Quay hook Jobs (default 600s)
     - kind: changed
       description: (2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+    - kind: changed
+      description: (2.0.21) - tpl.isEnabled guards; additionalLabels and additionalAnnotations via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md

@@ -1,7 +1,7 @@
 {{- range $key, $value := .Values.namespaces }}
 
 {{ range $key_approject, $value_appproject := $value.argocd_rbac_setup }}
-{{ if eq ($value_appproject.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value_appproject.enabled }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -33,7 +33,7 @@ spec:
           - dummy-group
         {{- end }}
       policies:
-      {{- if eq ( .fullaccess |toString) "true" }}
+      {{- if include "tpl.isEnabled" .fullaccess }}
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, get, {{ $value_appproject.name }}/*, allow'
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, create, {{ $value_appproject.name }}/*, allow'
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, applications, update, {{ $value_appproject.name }}/*, allow'
@@ -46,7 +46,7 @@ spec:
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, repositories, delete, *, allow'
       {{- else }}
       {{- range .policies }}
-      {{- if eq ($role_value.overwrite_appproject_name | toString) "true" }}
+      {{- if include "tpl.isEnabled" $role_value.overwrite_appproject_name }}
         - 'p, proj:{{ .namespace }}:{{ $role_value.name }}, {{ .resource | default "applications" }}, {{ .action }}, {{ $value_appproject.name }}/{{ .object | default "*" }}, {{ .permission | default "deny" }}'
       {{- else }}
         - 'p, proj:{{ $value_appproject.name }}:{{ $role_value.name }}, {{ .resource | default "applications" }}, {{ .action }}, {{ $value_appproject.name }}/{{ .object | default "*" }}, {{ .permission | default "deny" }}'

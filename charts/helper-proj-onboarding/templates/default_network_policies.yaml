@@ -1,11 +1,10 @@
 {{- range $key, $value := .Values.namespaces }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 
 {{- $default_policies := index $value "default_policies" | default dict }}
 
 {{- /* DEFAULT POLICY: allow-from-ingres*/}}
-{{- $allow_from_ingress := index $default_policies "allow_from_ingress" | toString }}
-{{ if eq ($allow_from_ingress | toString) "true" }}
+{{- if include "tpl.isEnabled" (index $default_policies "allow_from_ingress") }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -48,7 +47,7 @@ spec:
 {{- end }}
 
 {{- /* DEFAULT POLICY: allow-to-openshift-dns */}}
-{{- $allow_to_dns := index $default_policies "allow_to_dns" | toString  | default "true"}}
+{{- $allow_to_dns := index $default_policies "allow_to_dns" | toString  | default "true" }}
 {{ if ne ($allow_to_dns | toString) "false" }}
 ---
 apiVersion: networking.k8s.io/v1
@@ -103,8 +102,7 @@ spec:
 {{- end }}
 
 {{- /* DEFAULT POLICY: deny-all-engres*/}}
-{{- $deny_all_egress := index $default_policies "deny_all_egress" | toString }}
-{{ if eq ($deny_all_egress | toString) "true" }}
+{{- if include "tpl.isEnabled" (index $default_policies "deny_all_egress") }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -120,8 +118,7 @@ spec:
 {{- end }}
 
 {{- /* DEFAULT POLICY: deny-all-ingress */}}
-{{- $deny_all_ingress := index $default_policies "deny_all_ingress" | toString }}
-{{ if eq ($deny_all_ingress | toString) "true" }}
+{{- if include "tpl.isEnabled" (index $default_policies "deny_all_ingress") }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
