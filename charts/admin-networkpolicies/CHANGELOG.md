@@ -4,19 +4,11 @@ All notable changes to the **admin-networkpolicies** Helm chart are documented i
 
 ---
 
-## [Unreleased]
-
-### Added
-
-- (nothing yet)
+## [1.0.11] - 2026-06-11
 
 ### Changed
 
-- (nothing yet)
-
-### Fixed
-
-- (nothing yet)
+- per-policy additionalLabels and additionalAnnotations on AdminNetworkPolicy and BaselineAdminNetworkPolicy via tpl.argocdMetadata
 
 ---
 
@@ -123,6 +115,7 @@ All notable changes to the **admin-networkpolicies** Helm chart are documented i
 
 ---
 
+[1.0.11]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.10...admin-networkpolicies-1.0.11
 [1.0.10]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.9...admin-networkpolicies-1.0.10
 [1.0.9]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.8...admin-networkpolicies-1.0.9
 [1.0.8]: https://github.com/tjungbauer/helm-charts/compare/admin-networkpolicies-1.0.7...admin-networkpolicies-1.0.8

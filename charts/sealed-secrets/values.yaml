@@ -30,3 +30,19 @@ namespace:
   # -- Create Namespace or not
   # @default -- false
   create: true
+
+  # -- Description of the namespace.
+  # @default -- ""
+  descr: ""
+
+  # -- Display name of the namespace.
+  # @default -- ""
+  display: ""
+
+  # -- Additional annotations for the Namespace.
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for the Namespace.
+  # @default -- {}
+  additionalLabels: {}

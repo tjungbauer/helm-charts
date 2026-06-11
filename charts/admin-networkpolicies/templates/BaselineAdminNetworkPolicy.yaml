@@ -7,9 +7,11 @@ metadata:
   name: default
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 10 | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default 10)
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 spec:
   subject:
     {{- if .subject.matchNamespaces }}

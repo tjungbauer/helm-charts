@@ -18,6 +18,16 @@ anp:
     # @default -- 10
     syncwave: 10
 
+    # -- Additional annotations for this AdminNetworkPolicy.
+    # @section -- Generic - ANP
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for this AdminNetworkPolicy.
+    # @section -- Generic - ANP
+    # @default -- {}
+    additionalLabels: {}
+
     # -- Priority is a value from 0 to 1000 (0-99 according to OpenShift documentation).
     # Policies with lower priority values have higher precedence, and are checked before policies with higher priority values.
     # Any ANP should have a unique priority
@@ -286,6 +296,16 @@ banp:
     # @section -- Generic - BANP
     # @default -- 10
     syncwave: 10
+
+    # -- Additional annotations for this BaselineAdminNetworkPolicy.
+    # @section -- Generic - BANP
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for this BaselineAdminNetworkPolicy.
+    # @section -- Generic - BANP
+    # @default -- {}
+    additionalLabels: {}
 
     # -- Subject defines the pods to which this Policy applies. Note that host-networked pods are not included in subject selection.
     # Can be namespaces or pods that are selected.

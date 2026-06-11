@@ -90,6 +90,14 @@
         "egress": {
           "type": "array",
           "items": { "$ref": "#/definitions/policyRule" }
+        },
+        "additionalLabels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "additionalAnnotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "additionalProperties": false
@@ -108,6 +116,14 @@
         "egress": {
           "type": "array",
           "items": { "$ref": "#/definitions/policyRule" }
+        },
+        "additionalLabels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "additionalAnnotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       },
       "additionalProperties": false

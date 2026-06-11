@@ -1,4 +1,4 @@
-{{ if eq ( .Values.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.namespace.create }}
 ---
 apiVersion: v1
 kind: Namespace
@@ -7,4 +7,9 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.Values.namespace.additionalLabels | default dict) | nindent 4 }}
+  annotations:
+    {{- include "tpl.namespaceDescr" .Values.namespace.descr | nindent 4 }}
+    {{- include "tpl.namespaceDisplay" .Values.namespace.display | nindent 4 }}
+    {{- include "tpl.additionalAnnotations" (.Values.namespace.additionalAnnotations | default dict) | nindent 4 }}
 {{- end }}

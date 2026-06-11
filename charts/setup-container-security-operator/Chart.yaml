@@ -1,7 +1,7 @@
 apiVersion: v2
 name: setup-container-security-operator
 description: Setup the Quay Container Security Operator.
-version: 1.0.12
+version: 1.0.13
 dependencies:
   - name: helper-operator
     version: ~1.0.36
@@ -36,3 +36,5 @@ annotations:
       description: updated to helper-status-checker v4 and added new README
     - kind: changed
       description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: changed
+      description: (1.0.13) - align .helmignore; CHANGELOG.md

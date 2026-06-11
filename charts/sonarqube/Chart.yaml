@@ -2,7 +2,7 @@ apiVersion: v2
 name: sonarqube
 description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart
 type: application
-version: 1.0.30
+version: 1.0.31
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
@@ -20,7 +20,7 @@ dependencies:
     repository: https://SonarSource.github.io/helm-chart-sonarqube
     condition: sonarqube.enabled
   - name: tpl
-    version: ~1.0.28
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 keywords:
   - devsecops
@@ -42,3 +42,5 @@ annotations:
       description: (1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
     - kind: changed
       description: (1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished
+    - kind: changed
+      description: (1.0.31) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md

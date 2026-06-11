@@ -1,4 +1,4 @@
-{{ if eq ( .Values.set_admin_password | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.set_admin_password }}
 ---
 apiVersion: batch/v1
 kind: Job

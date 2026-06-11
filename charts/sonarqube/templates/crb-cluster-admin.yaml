@@ -1,5 +1,5 @@
-{{ if eq ( .Values.namespace.create | toString) "true" }}
-{{ if eq ( .Values.set_admin_password | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.namespace.create }}
+{{- if include "tpl.isEnabled" .Values.set_admin_password }}
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
