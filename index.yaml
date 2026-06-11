@@ -13405,6 +13405,54 @@ entries:
           description: added dependency tp tpl library
         - kind: changed
           description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.13) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)
+        - kind: changed
+          description: (1.0.14) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+        - kind: added
+          description: (1.0.15) chart-root additionalLabels and additionalAnnotations on hook Job, ServiceAccount, and ClusterRoleBinding; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T11:23:17.139843563Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.28
+    description: Loki requires a secret with specific keys. This Chart creates a Job
+      that will create such a secret based on the OpenShift Data Foundation BucketClaim.
+    digest: 653301a10e4e5cdb852ab1cf773e5474d615de40ea6d50a1592b46a4b8a86ee9
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-loki-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-loki-bucket-secret-1.0.15/helper-loki-bucket-secret-1.0.15.tgz
+    version: 1.0.15
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: fixed
+          description: removed hardcodedstring logging
+        - kind: added
+          description: added README
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: changed
+          description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -14723,6 +14771,50 @@ entries:
           description: added dependency tp tpl library
         - kind: changed
           description: (1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.11) chart-root additionalLabels and additionalAnnotations on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T11:23:17.690477455Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.27
+    description: A helper Chart to create BackingStore, BackingClass, BucketClaim
+      and StorageClass objects, when ODF is used. Currently type PV is supported only
+      (Creating a local Persistent Volume-backed backingstore)!
+    digest: b7cc64ab5772b9536bc6b10681cc701b53fa770cd1c82e4ce671b812573825bc
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    - storage
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-objectstore
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.11/helper-objectstore-1.0.11.tgz
+    version: 1.0.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: Added README and did some cleanup
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: changed
+          description: (1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -15037,6 +15129,54 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-objectstore-1.0.0/helper-objectstore-1.0.0.tgz
     version: 1.0.0
   helper-odf-bucket-secret:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release
+        - kind: fixed
+          description: disabled example values
+        - kind: added
+          description: cleanup and renaming
+        - kind: changed
+          description: (1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.4) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)
+        - kind: changed
+          description: (1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+        - kind: added
+          description: (1.0.6) chart-root additionalLabels and additionalAnnotations on hook Job, ServiceAccount, and ClusterRoleBinding; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T11:23:17.943492964Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.28
+    description: Some services like Tempo require a secret with a specifc key for
+      the object sotrage. When a S3 bucket is created via OpenShift Data Foundation,
+      then this chart will help to generate a correct secret. (This is an evolution
+      of helper-loki-bucket-secret)
+    digest: 4fd15461cc006fcf2c32f6a4ee8f66cc2862401514bfa8d428cf9a9be498dd74
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-odf-bucket-secret
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-odf-bucket-secret-1.0.6/helper-odf-bucket-secret-1.0.6.tgz
+    version: 1.0.6
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -17899,6 +18039,48 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.0/helper-proj-onboarding-1.0.0.tgz
     version: 1.0.0
   helper-server-side-apply:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: added possibility to configure roles and tains for nodes
+        - kind: changed
+          description: (1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.16) - bump tpl to ~1.0.31 and using isEnabled guard; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T11:23:18.229522431Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Using Server Side Apply to create for example node labelling, requires
+      openshift-gitops 1.6+
+    digest: 9e4f99b0131e2868ee81176131c9576be12267fc2aa1f5ffa510a1e6b7fa2cf4
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-server-side-apply
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-server-side-apply-1.0.16/helper-server-side-apply-1.0.16.tgz
+    version: 1.0.16
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -39308,4 +39490,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T10:49:52.393145579Z"
+generated: "2026-06-11T11:23:18.710680167Z"
