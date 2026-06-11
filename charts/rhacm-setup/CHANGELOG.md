@@ -2,6 +2,13 @@
 
 All notable changes to the **rhacm-setup** Helm chart are documented in this file.
 
+
+## [1.0.24] - 2026-06-11
+
+### Changed
+
+- fixing indentation issues
+
 ---
 
 ## [1.0.23] - 2026-06-11
@@ -32,6 +39,7 @@ All notable changes to the **rhacm-setup** Helm chart are documented in this fil
 
 See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
+[1.0.24]: https://github.com/tjungbauer/helm-charts/compare/rhacm-setup-1.0.23...rhacm-setup-1.0.24
 [1.0.23]: https://github.com/tjungbauer/helm-charts/compare/rhacm-setup-1.0.22...rhacm-setup-1.0.23
 [1.0.22]: https://github.com/tjungbauer/helm-charts/compare/rhacm-setup-1.0.21...rhacm-setup-1.0.22
-[1.0.21]: https://github.com/tjungbauer/helm-charts/tree/rhacm-setup-1.0.21/charts/rhacm-setup
+[1.0.21]: https://github.com/tjungbauer/helm-charts/compare/rhacm-setup-1.0.24...rhacm-setup-1.0.21

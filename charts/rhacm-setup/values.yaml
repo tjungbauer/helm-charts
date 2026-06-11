@@ -156,17 +156,15 @@ rhacm:
 
     # -- Hub-wide node placement for search pods (maps to spec.nodeSelector).
     # @default -- {}
-    nodeSelector:
-      key: node-role.kubernetes.io/infra
-      value: ''
+    nodeSelector: {}
 
     # -- Hub-wide tolerations for search pods.
     # @default -- []
-    tolerations:
-      - key: storage
-        operator: Equal
-        value: local
-        effect: NoSchedule
+    tolerations: []
+    #  - key: storage
+    #    operator: Equal
+    #    value: local
+    #    effect: NoSchedule
 
   # -- Search collector add-on: ConfigMap search-collector-config (AllowedResources / DeniedResources).
   # https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/

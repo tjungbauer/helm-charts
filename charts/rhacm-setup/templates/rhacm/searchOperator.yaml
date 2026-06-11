@@ -28,7 +28,7 @@ spec:
 {{- toYaml $dep | nindent 4 }}
 {{- end }}
 {{- if .Values.rhacm.search.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacm.search | indent 0 }}
+{{- include "tpl.nodeSelector" .Values.rhacm.search | indent 2 }}
 {{- end }}
 {{- if .Values.rhacm.search.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacm.search.tolerations | indent 2 }}

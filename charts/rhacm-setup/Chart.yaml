@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacm-setup
 description: Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.
-version: 1.0.23
+version: 1.0.24
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png
 dependencies:
@@ -48,3 +48,5 @@ annotations:
       description: (1.0.22) - update tpl minimum version to 1.0.28
     - kind: changed
       description: (1.0.23) - per-resource additionalLabels and additionalAnnotations on MultiClusterHub, Search, ManagedCluster, KlusterletAddonConfig, and search-collector ConfigMap; bump tpl to ~1.0.31; CHANGELOG.md
+    - kind: changed
+      description: (1.0.24) - fixing indentation issues
