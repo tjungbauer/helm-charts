@@ -21,6 +21,59 @@ entries:
           description: (1.0.9) values.schema.json allows Helm-injected global values when used as a dependency
         - kind: changed
           description: (1.0.10) CHANGELOG cleanup
+        - kind: changed
+          description: (1.0.11) per-policy additionalLabels and additionalAnnotations on AdminNetworkPolicy and BaselineAdminNetworkPolicy via tpl.argocdMetadata
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T12:58:14.336975714Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configure AdminNetworkPolicy and BaselineNetworkPolicy resources
+      for a cluster.
+    digest: 38cb302162f52f4e901f6bd830c1f3dfe2ce08a802251f610aaeb9e1c55c887a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png
+    keywords:
+    - security
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: admin-networkpolicies
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    - https://blog.stderr.at/openshift/2024/11/introducting-adminnetworkpolicies/
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/admin-networkpolicies-1.0.11/admin-networkpolicies-1.0.11.tgz
+    version: 1.0.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: fixes and adding README
+        - kind: added
+          description: added support for portEndNumber
+        - kind: added
+          description: fixing portRange implementation
+        - kind: changed
+          description: (1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard
+        - kind: added
+          description: (1.0.8) Changelog and values.schema.json
+        - kind: fixed
+          description: (1.0.9) values.schema.json allows Helm-injected global values when used as a dependency
+        - kind: changed
+          description: (1.0.10) CHANGELOG cleanup
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -35262,6 +35315,63 @@ entries:
           description: (1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
         - kind: changed
           description: (1.0.29) - bump version
+        - kind: changed
+          description: (1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-06-11T12:58:15.12322714Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami-labs.github.io/sealed-secrets
+      version: 2.18.4
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm
+      chart
+    digest: 041c7e5ed533c4837bf623157fa6924ed503febc27f228c60ce81bb43ea98269
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    keywords:
+    - secretmanagement
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.30/sealed-secrets-1.0.30.tgz
+    version: 1.0.30
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated sealed secrets helm chart version
+        - kind: added
+          description: new README
+        - kind: added
+          description: new version of sealed secrets chart 2.16
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: updated sealed secrets helm chart version to 2.18.0
+        - kind: changed
+          description: (1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.29) - bump version
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -36276,6 +36386,50 @@ entries:
           description: updated to helper-status-checker v4 and added new README
         - kind: changed
           description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.13) - align .helmignore; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T12:58:15.293165458Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://charts.stderr.at/
+      version: ~1.0.36
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://charts.stderr.at/
+      version: ~4.0.0
+    description: Setup the Quay Container Security Operator.
+    digest: c4311cf27fd60a5349965290407b03c479113f095340b1ad5c9eaf757b028172
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png
+    keywords:
+    - operator
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: setup-container-security-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.13/setup-container-security-operator-1.0.13.tgz
+    version: 1.0.13
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4 and added new README
+        - kind: changed
+          description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -36693,6 +36847,57 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/setup-container-security-operator-1.0.0/setup-container-security-operator-1.0.0.tgz
     version: 1.0.0
   sonarqube:
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial chart
+        - kind: added
+          description: added README
+        - kind: added
+          description: added tpl chart
+        - kind: changed
+          description: (1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished
+        - kind: changed
+          description: (1.0.31) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-06-11T12:58:15.529639246Z"
+    dependencies:
+    - condition: sonarqube.enabled
+      name: sonarqube
+      repository: https://SonarSource.github.io/helm-chart-sonarqube
+      version: ~2025.6.0
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's
+      helm chart
+    digest: 0506e0d2ca3fd1cd18cebf4a6a02775fc744cdacfabd7fa3746a9b9494bc733a
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png
+    keywords:
+    - devsecops
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sonarqube
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sonarqube-1.0.31/sonarqube-1.0.31.tgz
+    version: 1.0.31
   - annotations:
       artifacthub.io/category: security
       artifacthub.io/changes: |
@@ -39952,4 +40157,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T12:47:14.578973357Z"
+generated: "2026-06-11T12:58:15.531004994Z"
