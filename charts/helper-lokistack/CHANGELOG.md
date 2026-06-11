@@ -4,22 +4,6 @@ All notable changes to the **helper-lokistack** Helm chart are documented in thi
 
 ---
 
-## [Unreleased]
-
-### Added
-
-- (nothing yet)
-
-### Changed
-
-- (nothing yet)
-
-### Fixed
-
-- (nothing yet)
-
----
-
 ## [1.0.24] - 2026-06-07
 
 ### Changed

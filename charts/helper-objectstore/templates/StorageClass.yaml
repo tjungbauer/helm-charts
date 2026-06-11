@@ -1,5 +1,5 @@
 {{- with .Values }}
-{{ if eq ( .enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .enabled }}
 ---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -7,9 +7,11 @@ metadata:
   name: {{ .storageclass_name }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | indent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "1" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default 1)
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
 provisioner: openshift-storage.noobaa.io/obc
 parameters:
   bucketclass: {{ .backingstore_name }}-class

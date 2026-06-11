@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-odf-bucket-secret
 description: Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)
-version: 1.0.5
+version: 1.0.6
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
 maintainers:
@@ -37,3 +37,5 @@ annotations:
       description: (1.0.4) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)
     - kind: changed
       description: (1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+    - kind: added
+      description: (1.0.6) chart-root additionalLabels and additionalAnnotations on hook Job, ServiceAccount, and ClusterRoleBinding; CHANGELOG.md

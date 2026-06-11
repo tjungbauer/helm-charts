@@ -43,6 +43,14 @@ baseStorageClass: gp3-csi
 # -- Name of the StorageClass that shall be created for the bucket.
 storageclass_name: bucket-storage-class
 
+# -- Additional annotations on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim.
+# @default -- {}
+additionalAnnotations: {}
+
+# -- Additional labels on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim.
+# @default -- {}
+additionalLabels: {}
+
 # Bucket that shall be created
 bucket:
   # -- Shall a new bucket be enabled?

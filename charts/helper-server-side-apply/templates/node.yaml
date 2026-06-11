@@ -1,5 +1,5 @@
 {{- range $key, $value := .Values.nodes }}
-{{ if eq ( $value.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" $value.enabled }}
 ---
 kind: Node
 apiVersion: v1
