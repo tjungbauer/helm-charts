@@ -5,7 +5,8 @@ kind: Job
 metadata:
   annotations:
     {{- include "tpl.argocdMetadata"
-          (dict "syncWave" (.Values.rhacs.consolelink.syncwave | default "3")
+          (dict "type" "hook"
+                "syncWave" (.Values.rhacs.consolelink.syncwave | default "3")
                 "extra" (.Values.rhacs.consolelink.additionalAnnotations | default dict)) | nindent 4 }}
   name: create-cluster-link
   namespace: {{ .Values.rhacs.namespace.name | quote }}

@@ -5,7 +5,8 @@ kind: Job
 metadata:
   annotations:
     {{- include "tpl.argocdMetadata"
-          (dict "syncWave" (.Values.rhacs.basic_acs_settings.syncwave | default 5)
+          (dict "type" "hook"
+                "syncWave" (.Values.rhacs.basic_acs_settings.syncwave | default 5)
                 "extra" (.Values.rhacs.basic_acs_settings.additionalAnnotations | default dict)) | nindent 4 }}
   name: basic-acs-configuration
   namespace: {{ .Values.rhacs.namespace.name | quote }}

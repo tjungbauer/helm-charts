@@ -20,6 +20,14 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
+## [1.0.51] - 2026-06-11
+
+### Changed
+
+- changed Jobs to use type "hook"
+
+---
+
 ## [1.0.50] - 2026-06-11
 
 ### Changed
@@ -121,6 +129,7 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
+[1.0.51]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.50...rhacs-setup-1.0.51
 [1.0.50]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.49...rhacs-setup-1.0.50
 [1.0.49]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.48...rhacs-setup-1.0.49
 [1.0.48]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.47...rhacs-setup-1.0.48
