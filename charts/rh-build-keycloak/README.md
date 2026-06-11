@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
+  ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
 
  
 
@@ -42,7 +42,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops (folder: clusters/management-cluster/setup-rh-build-of-keycloak)
 
@@ -72,7 +72,7 @@ Verify the subcharts for additional settings:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| keycloak | object | `{"additionalAnnotations":{},"additionalLabels":{},"additionalOptions":{},"db":{"example_db_pass":"","exmple_db_user":"testuser","settings":{"custom_database":false,"database":"","host":"","passwordSecret":{"key":"","name":""},"poolInitialSize":"","poolMaxSize":"","poolMinSize":"","port":"","schema":"","url":"","usernameSecret":{"key":"","name":""},"vendor":""},"use_example_db_sta":false},"features":{"disabled":[],"enabled":[]},"hostname":{"admin":"","adminUrl":"","hostname":"myhostname","strict":false,"strictBackchannel":false},"http":{"httpEnabled":false,"httpPort":"","httpsPort":"","tlsSecret":""},"image":"","imagePullSecrets":[],"ingress":{"className":"","enabled":false},"instance":1,"name":"example-keycloak","namespace":"keycloak","resources":{},"transaction":{"xaEnabled":false}}` | Configuration of the Keycloak instance |
+| keycloak | object | `{"additionalAnnotations":{},"additionalLabels":{},"additionalOptions":{},"db":{"example_db_pass":"","exmple_db_user":"testuser","settings":{"custom_database":false,"database":"","host":"","passwordSecret":{"key":"","name":""},"poolInitialSize":"","poolMaxSize":"","poolMinSize":"","port":"","schema":"","url":"","usernameSecret":{"key":"","name":""},"vendor":""},"use_example_db_sta":false},"features":{"disabled":[],"enabled":[]},"hostname":{"admin":"","adminUrl":"","hostname":"myhostname","strict":false,"strictBackchannel":false},"http":{"httpEnabled":false,"httpPort":"","httpsPort":"","tlsSecret":""},"image":"","imagePullSecrets":[],"ingress":{"className":"","enabled":false},"instance":1,"name":"example-keycloak","namespace":"keycloak","resources":{},"syncwave":5,"transaction":{"xaEnabled":false}}` | Configuration of the Keycloak instance |
 | keycloak.additionalAnnotations | object | {} | Additional annotations to add to the Keycloak instance as key: value pairs. |
 | keycloak.additionalLabels | object | {} | Additional labels to add to the Keycloak instance as key: value pairs. |
 | keycloak.additionalOptions | object | {} | The additionalOptions field of the Keycloak CR enables Red Hat build of Keycloak to accept any available configuration in the form <br /> of key-value pairs. You can use this field to include any option that is omitted in the Keycloak CR. For details on configuring options, see <br /> [All configurations](https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/server_configuration_guide/#all-config) |
@@ -97,6 +97,7 @@ Verify the subcharts for additional settings:
 | keycloak.instance | int | 1 | Number of Keycloak instances in HA mode. Default is 1. |
 | keycloak.name | string | example-keycloak | The name of the Keycloak instance. |
 | keycloak.namespace | string | keycloak | The namespace in which the Keycloak instance is deployed. |
+| keycloak.syncwave | int | 5 | Argo CD sync-wave for the Keycloak CR. |
 | keycloak.transaction | object | `{"xaEnabled":false}` | In this section you can find all properties related to the settings of transaction behavior. |
 | keycloak.transaction.xaEnabled | bool | false | Determine whether Keycloak should use a non-XA datasource in case the database does not support XA transactions. |
 
