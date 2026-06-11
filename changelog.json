@@ -1,8 +1,70 @@
 {
-  "generated": "2026-06-11T11:45:33.070329Z",
+  "generated": "2026-06-11T11:56:49.760305Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "rhacm-setup",
+      "version": "1.0.24",
+      "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
+      "lastModified": "2026-06-11T13:53:59+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "support for tolerations in MultiClusterHub CRD"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-chcker v4"
+        },
+        {
+          "kind": "added",
+          "description": "README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "added support for nodeSelector of the Main instance"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster."
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass."
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.21) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.22) - update tpl minimum version to 1.0.28"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.23) - per-resource additionalLabels and additionalAnnotations on MultiClusterHub, Search, ManagedCluster, KlusterletAddonConfig, and search-collector ConfigMap; bump tpl to ~1.0.31; CHANGELOG.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.24) - fixing indentation issues"
+        }
+      ]
+    },
     {
       "name": "rh-build-keycloak",
       "version": "1.0.7",
@@ -72,64 +134,6 @@
         {
           "kind": "changed",
           "description": "(1.0.7) - per-resource additionalLabels and additionalAnnotations on Collector, Instrumentation, TargetAllocator, Namespace, and ServiceAccount; bump tpl to ~1.0.31; CHANGELOG.md"
-        }
-      ]
-    },
-    {
-      "name": "rhacm-setup",
-      "version": "1.0.23",
-      "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
-      "lastModified": "2026-06-11T13:41:03+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "support for tolerations in MultiClusterHub CRD"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-chcker v4"
-        },
-        {
-          "kind": "added",
-          "description": "README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "added support for nodeSelector of the Main instance"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.19) added support to enable or disable KlusterletAddons. For example searchCollector can be disabled to save resources. This can be done for all clusters, or per cluster."
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.20) added support for searchCollector add-on. It is now possible to configure the allowed and denied resources for the searchCollector as well as a storageclass."
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.21) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.22) - update tpl minimum version to 1.0.28"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.23) - per-resource additionalLabels and additionalAnnotations on MultiClusterHub, Search, ManagedCluster, KlusterletAddonConfig, and search-collector ConfigMap; bump tpl to ~1.0.31; CHANGELOG.md"
         }
       ]
     },

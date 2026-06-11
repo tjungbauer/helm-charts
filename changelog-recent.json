@@ -1,37 +1,15 @@
 {
-  "generated": "2026-06-11T11:45:33.070329Z",
+  "generated": "2026-06-11T11:56:49.760305Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "rhacs-backup",
-      "version": "1.0.7",
-      "description": "Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
-      "lastModified": "2026-06-11T13:41:03+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.7) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md"
-        }
-      ]
-    },
-    {
       "name": "rhacm-setup",
-      "version": "1.0.23",
+      "version": "1.0.24",
       "description": "Setup and configure Advanced Cluster Managerment. Replaces the Chart rhacm-full-stack.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacm-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acm.png",
-      "lastModified": "2026-06-11T13:41:03+02:00",
+      "lastModified": "2026-06-11T13:53:59+02:00",
       "changes": [
         {
           "kind": "fixed",
@@ -80,6 +58,32 @@
         {
           "kind": "changed",
           "description": "(1.0.23) - per-resource additionalLabels and additionalAnnotations on MultiClusterHub, Search, ManagedCluster, KlusterletAddonConfig, and search-collector ConfigMap; bump tpl to ~1.0.31; CHANGELOG.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.24) - fixing indentation issues"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-backup",
+      "version": "1.0.7",
+      "description": "Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png",
+      "lastModified": "2026-06-11T13:41:03+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md"
         }
       ]
     },
