@@ -1,8 +1,148 @@
 {
-  "generated": "2026-06-11T10:50:21.264386Z",
+  "generated": "2026-06-11T11:23:59.491780Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "helper-loki-bucket-secret",
+      "version": "1.0.15",
+      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-06-11T13:17:12+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "removed hardcodedstring logging"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.13) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.14) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.15) chart-root additionalLabels and additionalAnnotations on hook Job, ServiceAccount, and ClusterRoleBinding; CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "name": "helper-objectstore",
+      "version": "1.0.11",
+      "description": "A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently type PV is supported only (Creating a local Persistent Volume-backed backingstore)!",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-06-11T13:17:12+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "Added README and did some cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.11) chart-root additionalLabels and additionalAnnotations on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim; CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "name": "helper-odf-bucket-secret",
+      "version": "1.0.6",
+      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-06-11T13:17:12+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Initial release"
+        },
+        {
+          "kind": "fixed",
+          "description": "disabled example values"
+        },
+        {
+          "kind": "added",
+          "description": "cleanup and renaming"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.4) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.6) chart-root additionalLabels and additionalAnnotations on hook Job, ServiceAccount, and ClusterRoleBinding; CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "name": "helper-server-side-apply",
+      "version": "1.0.16",
+      "description": "Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
+      "lastModified": "2026-06-11T13:17:12+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure roles and tains for nodes"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.16) - bump tpl to ~1.0.31 and using isEnabled guard; CHANGELOG.md"
+        }
+      ]
+    },
     {
       "name": "network-observability",
       "version": "2.0.5",
@@ -1480,78 +1620,6 @@
       ]
     },
     {
-      "name": "helper-loki-bucket-secret",
-      "version": "1.0.14",
-      "description": "Loki requires a secret with specific keys. This Chart creates a Job that will create such a secret based on the OpenShift Data Foundation BucketClaim.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-loki-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-05-31T08:18:42+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "removed hardcodedstring logging"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.13) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.14) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
-      "name": "helper-odf-bucket-secret",
-      "version": "1.0.5",
-      "description": "Some services like Tempo require a secret with a specifc key for the object sotrage. When a S3 bucket is created via OpenShift Data Foundation, then this chart will help to generate a correct secret. (This is an evolution of helper-loki-bucket-secret)",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-odf-bucket-secret",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-05-31T08:18:42+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Initial release"
-        },
-        {
-          "kind": "fixed",
-          "description": "disabled example values"
-        },
-        {
-          "kind": "added",
-          "description": "cleanup and renaming"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.3) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.4) - Configurable ttlSecondsAfterFinished on bucket-secret Job (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.5) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)"
-        }
-      ]
-    },
-    {
       "name": "quay-registry-setup",
       "version": "2.0.20",
       "description": "Deploy and configure Red Hat Quay Registry.",
@@ -1784,32 +1852,6 @@
       ]
     },
     {
-      "name": "helper-objectstore",
-      "version": "1.0.10",
-      "description": "A helper Chart to create BackingStore, BackingClass, BucketClaim and StorageClass objects, when ODF is used. Currently type PV is supported only (Creating a local Persistent Volume-backed backingstore)!",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-objectstore",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "Added README and did some cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.10) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
       "name": "helper-proj-onboarding",
       "version": "1.0.47",
       "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
@@ -1856,32 +1898,6 @@
         {
           "kind": "changed",
           "description": "(1.0.47) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "helper-server-side-apply",
-      "version": "1.0.15",
-      "description": "Using Server Side Apply to create for example node labelling, requires openshift-gitops 1.6+",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-server-side-apply",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure roles and tains for nodes"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.15) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         }
       ]
     },
