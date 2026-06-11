@@ -20,6 +20,14 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
+## [1.0.48] - 2026-06-11
+
+### Fixed
+
+- fixing indentation issues (#83 chrissmanynames)
+
+---
+
 ## [1.0.47] - 2026-06-07
 
 ### Added
@@ -93,6 +101,7 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
+[1.0.48]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.47...rhacs-setup-1.0.48
 [1.0.47]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.46...rhacs-setup-1.0.47
 [1.0.46]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.45...rhacs-setup-1.0.46
 [1.0.45]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.44...rhacs-setup-1.0.45
