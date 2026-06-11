@@ -30,7 +30,7 @@ spec:
   nodePlacement:
 
 {{- if $value.nodeSelector }}
-{{- include "tpl.nodeSelector" $value| indent 2 }}
+{{- include "tpl.nodeSelector" $value| indent 4 }}
 {{- end }}
 
     {{- if $value.tolerations }}
