@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
+  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
 
  
 
@@ -49,6 +49,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-ne
 |-----|------|---------|-------------|
 | anp | list | '' | AdminNetworkPolicy |
 | anp[0] | object | N/A | Name of the AdminNetworkPolicy. Only Applicable for ANP. |
+| anp[0].additionalAnnotations | object | {} | Additional annotations for this AdminNetworkPolicy. |
+| anp[0].additionalLabels | object | {} | Additional labels for this AdminNetworkPolicy. |
 | anp[0].enabled | bool | false | Enable this ANP or not. You must explicitly set this to "true" |
 | anp[0].priority | int | 50 | Priority is a value from 0 to 1000 (0-99 according to OpenShift documentation). Policies with lower priority values have higher precedence, and are checked before policies with higher priority values. Any ANP should have a unique priority |
 | anp[0].syncwave | int | 10 | Syncwave for Argo CD |
@@ -93,6 +95,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-ne
 |-----|------|---------|-------------|
 | banp | list | '' | BaselineAdminNetworkPolicy NOTE: BANP cannot set an object name |
 | banp[0] | object | false | Enable this ANP or not. You must explicitly set this to "true" |
+| banp[0].additionalAnnotations | object | {} | Additional annotations for this BaselineAdminNetworkPolicy. |
+| banp[0].additionalLabels | object | {} | Additional labels for this BaselineAdminNetworkPolicy. |
 | banp[0].syncwave | int | 10 | Syncwave for Argo CD |
 
 ## Installing the Chart

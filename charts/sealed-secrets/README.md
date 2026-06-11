@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.29](https://img.shields.io/badge/Version-1.0.29-informational?style=flat-square)
+  ![Version: 1.0.30](https://img.shields.io/badge/Version-1.0.30-informational?style=flat-square)
 
  
 
@@ -30,7 +30,7 @@ This chart has the following dependencies:
 | Repository | Name | Version |
 |------------|------|---------|
 | https://bitnami-labs.github.io/sealed-secrets | sealed-secrets | 2.18.4 |
-| https://charts.stderr.at/ | tpl | ~1.0.27 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
 
@@ -57,7 +57,11 @@ Verify the full documentation of the Subchart at [Bitnami Sealed Secret](https:/
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| namespace.additionalAnnotations | object | {} | Additional annotations for the Namespace. |
+| namespace.additionalLabels | object | {} | Additional labels for the Namespace. |
 | namespace.create | bool | false | Create Namespace or not |
+| namespace.descr | string | "" | Description of the namespace. |
+| namespace.display | string | "" | Display name of the namespace. |
 | namespace.name | string | `"sealed-secrets"` | Namespace where Sealed Secrets shall be installed |
 | sealed-secrets.containerSecurityContext | object | `{"enabled":false}` | Dont touch the security context values, deployment will fail in OpenShift otherwise. |
 | sealed-secrets.enabled | bool | false | Enable or disable deployment of Sealed Secrets |
