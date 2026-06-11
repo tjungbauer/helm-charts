@@ -1,4 +1,4 @@
-{{ if eq (.Values.keycloak.db.use_example_db_sta | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.keycloak.db.use_example_db_sta }}
 ---
 kind: Secret
 apiVersion: v1

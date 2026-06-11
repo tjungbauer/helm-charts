@@ -38,6 +38,14 @@ rhacm:
     #    operator: Equal
     #    value: reserved
 
+    # -- Additional annotations for the MultiClusterHub
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for the MultiClusterHub
+    # @default -- {}
+    additionalLabels: {}
+
   # -- ManagedCluster + KlusterletAddonConfig when enabled (see templates/rhacm/managedCluster.yaml)
   # This will create a new cluster in the management cluster.
   # However, this will only prepare the cluster, you still need to download and execute the command to fully integrate the new cluster.
@@ -53,6 +61,14 @@ rhacm:
     # -- Syncwave for the KlusterletAddonConfig. MUST be HIGHER than managed_cluster_syncwave
     # @default -- 10
     klusterlet_addon_syncwave: '10'
+
+    # -- Additional annotations for ManagedCluster and KlusterletAddonConfig (merged with clusters[].additionalAnnotations)
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for ManagedCluster and KlusterletAddonConfig (merged with clusters[].additionalLabels)
+    # @default -- {}
+    additionalLabels: {}
 
     # List of clusters to import.
     # @default -- []
@@ -93,6 +109,14 @@ rhacm:
 
     # -- Argo CD sync wave; place after MultiClusterHub / search operator is available.
     syncwave: "15"
+
+    # -- Additional annotations for the Search custom resource
+    # @default -- {}
+    additionalAnnotations: {}
+
+    # -- Additional labels for the Search custom resource
+    # @default -- {}
+    additionalLabels: {}
 
     # -- PostgreSQL PVC for search-postgres.
     # Omit entire key (set to null) to let the operator keep defaults (e.g. emptyDir for non-prod).
@@ -160,6 +184,14 @@ rhacm:
       # -- Syncwave for the ConfigMap.
       # @default -- 20
       syncwave: "20"
+
+      # -- Additional annotations for the search-collector ConfigMap
+      # @default -- {}
+      additionalAnnotations: {}
+
+      # -- Additional labels for the search-collector ConfigMap
+      # @default -- {}
+      additionalLabels: {}
 
       # -- Structured rules; rendered as YAML under ConfigMap data keys AllowedResources / DeniedResources.
       # @default -- {}

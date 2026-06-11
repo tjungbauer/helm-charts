@@ -1,4 +1,4 @@
-{{- if eq (.Values.namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.namespace.create }}
 {{- with .Values.namespace }}
 ---
 apiVersion: v1

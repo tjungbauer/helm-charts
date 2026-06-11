@@ -21,4 +21,5 @@
 .idea/
 *.tmproj
 .vscode/
-tests
+# helm-docs source template (README.md is generated in CI)
+README.md.gotmpl

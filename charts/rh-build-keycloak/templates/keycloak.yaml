@@ -4,9 +4,11 @@ kind: Keycloak
 metadata:
   labels:
     app: sso
-    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | indent 4 }}
   annotations:
-    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "5")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   name: {{ .name | default "example-keycloak" }}
   namespace: {{ .namespace | default "keycloak" }}
 spec:
@@ -14,22 +16,22 @@ spec:
     admin: {{ .hostname.admin | default "" }}
     adminUrl: {{ .hostname.adminUrl | default "" }}
     hostname: {{ .hostname.hostname | default "" }}
-    {{- if eq (.hostname.strict | toString) "true" }}
+    {{- if include "tpl.isEnabled" .hostname.strict }}
     strict: true
     {{- end }}
-    {{- if eq (.hostname.strictBackchannel | toString) "true" }}
+    {{- if include "tpl.isEnabled" .hostname.strictBackchannel }}
     strictBackchannel: true
     {{- end }}
   instances: {{ .instance | default "1" }}
   image: {{ .image | default "" }}
   http:
-    {{- if eq (.http.httpEnabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" .http.httpEnabled }}
     httpEnabled: true
     {{- end }}
     httpPort: {{ .http.httpPort | default "" }}
     httpsPort: {{ .http.httpsPort | default "" }}
     tlsSecret: {{ .http.tlsSecret | default "" }}
-  
+
   {{- if .imagePullSecrets }}
   imagePullSecrets:
   {{- range .imagePullSecrets }}
@@ -37,14 +39,14 @@ spec:
   {{- end }}
   {{- end }}
 
-  {{- if eq (.ingress.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .ingress.enabled }}
   ingress:
     enabled: {{ .ingress.enabled }}
     className: {{ .ingress.className }}
   {{- end }}
 
 
-  {{- if eq (.db.use_example_db_sta | toString) "true" }}
+  {{- if include "tpl.isEnabled" .db.use_example_db_sta }}
   db:
     vendor: postgres
     host: postgres-db
@@ -56,7 +58,7 @@ spec:
       key: password
   {{- else if .db.settings }}
   {{- with .db.settings }}
-  {{- if eq (.custom_database | toString) "true" }}
+  {{- if include "tpl.isEnabled" .custom_database }}
   db:
     {{- if .usernameSecret }}
     usernameSecret:
@@ -98,7 +100,7 @@ spec:
 
   {{- if .transaction }}
   transaction:
-  {{- if eq (.transaction.xaEnabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" .transaction.xaEnabled }}
     xaEnabled: true
   {{- end }}
   {{- end }}

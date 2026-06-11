@@ -78,6 +78,11 @@ keycloak:
   #  additionalLabel1: "My Label"
   #  additionalLabel2: "My Label 2"
 
+  # -- Argo CD sync-wave for the Keycloak CR.
+  # @section -- keycloak
+  # @default -- 5
+  syncwave: 5
+
   # -- In this section you can configure Keycloak hostname and related properties.
   # @section -- keycloak
   hostname:

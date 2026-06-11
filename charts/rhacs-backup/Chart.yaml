@@ -1,12 +1,12 @@
 apiVersion: v2
 name: rhacs-backup
 description: Chart to create a CronJoc to backup Advanced Cluster Security for Kubernetes to a PerstistentVolume.
-version: 1.0.6
+version: 1.0.7
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-backup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/backup.png
 dependencies:
   - name: tpl
-    version: ~1.0.27
+    version: ~1.0.31
     repository: https://charts.stderr.at/
 maintainers:
   - name: tjungbauer
@@ -31,3 +31,5 @@ annotations:
       description: Initial release
     - kind: changed
       description: (1.0.6) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+    - kind: changed
+      description: (1.0.7) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md

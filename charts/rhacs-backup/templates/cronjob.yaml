@@ -1,4 +1,4 @@
-{{ if eq (.Values.enabled | toString) "true" }}
+{{ if include "tpl.isEnabled" .Values.enabled }}
 ---
 kind: CronJob
 apiVersion: batch/v1
@@ -66,7 +66,7 @@ spec:
 
                   printf "Done\n"
 
-                  printf "Deleting files older than {{ .Values.cronjob.retention }} days\n" ; 
+                  printf "Deleting files older than {{ .Values.cronjob.retention }} days\n" ;
                   ls -la {{ .Values.cronjob.nfs_mountpath }}/;
                   find {{ .Values.cronjob.nfs_mountpath }}/ -type f -mtime +{{ .Values.cronjob.retention }} -exec rm {} \;
 
