@@ -24,7 +24,7 @@ spec:
   customize:
     deploymentDefaults:
 {{- if .nodeSelector }}
-{{- include "tpl.nodeSelector" . | indent 4 }}
+{{- include "tpl.nodeSelector" . | indent 6 }}
 {{- end }}
 {{- if .tolerations }}
 {{ include "tpl.tolerations" .tolerations | indent 6 }}
@@ -49,7 +49,7 @@ spec:
 
 {{- /* Set tolerations for the scanner */}}
 {{- if .Values.rhacs.scanner.analyzer.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacs.scanner.analyzer | indent 4 }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.analyzer | indent 6 }}
 {{- end }}
 
 {{- if .Values.rhacs.scanner.analyzer.tolerations }}
@@ -74,7 +74,7 @@ spec:
 
 {{- /* Set tolerations for the SCANNER DB */}}
 {{- if .Values.rhacs.scanner.db.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacs.scanner.db | indent 4 }}
+{{- include "tpl.nodeSelector" .Values.rhacs.scanner.db | indent 6 }}
 {{- end }}
 
 {{- if .Values.rhacs.scanner.db.tolerations }}
@@ -118,7 +118,7 @@ spec:
     {{- end }}
     {{- end }}
 {{- if .Values.rhacs.secured_cluster.admissioncontrol.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.admissioncontrol | indent 2 }}
+{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.admissioncontrol | indent 4 }}
 {{- end }}
 {{- if .Values.rhacs.secured_cluster.admissioncontrol.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.secured_cluster.admissioncontrol.tolerations | indent 4 }}
@@ -127,7 +127,7 @@ spec:
   {{- if .Values.rhacs.secured_cluster.sensor }}
   sensor:
 {{- if .Values.rhacs.secured_cluster.sensor.nodeSelector }}
-{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.sensor | indent 2 }}
+{{- include "tpl.nodeSelector" .Values.rhacs.secured_cluster.sensor | indent 4 }}
 {{- end }}
 {{- if .Values.rhacs.secured_cluster.sensor.tolerations }}
 {{ include "tpl.tolerations" .Values.rhacs.secured_cluster.sensor.tolerations | indent 4 }}
