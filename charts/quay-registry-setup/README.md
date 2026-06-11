@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.20](https://img.shields.io/badge/Version-2.0.20-informational?style=flat-square)
+  ![Version: 2.0.21](https://img.shields.io/badge/Version-2.0.21-informational?style=flat-square)
 
  
 
@@ -37,7 +37,7 @@ This chart has the following dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.stderr.at/ | tpl | ~1.0.28 |
+| https://charts.stderr.at/ | tpl | ~1.0.31 |
 
 ## Maintainers
 
@@ -62,6 +62,23 @@ Verify the possible sub-charts for additional settings:
 * [helper-status-checker](https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker): Check the status of the Operator.
 
 ## Values
+
+### Generic Settings
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay.additionalAnnotations | object | {} | Additional annotations merged onto Quay chart resources |
+| quay.additionalLabels | object | {} | Additional labels merged onto Quay chart resources (Namespace, QuayRegistry, Jobs, etc.) |
+| quay.config_bundle | string | quay-generated-configuration | Name of the Secret of the Quay configuration. This should be configured by the chart used by GitOps approach. |
+| quay.enabled | bool | false | Enable configuration of the Quay Operator. This will setup the Namespace and the Operator isntance. |
+| quay.job_ttlSecondsAfterFinished | int | 600 | Seconds to retain finished Quay hook Jobs before Kubernetes deletes them (init, cert inject) |
+| quay.namespace.bindtoNode | object | N/A | When you want to schedule Quay on a specific node (role), for example infrastructure nodes, you can define the role here. Technically, it will add specific annotations onto the Namespace object. |
+| quay.namespace.bindtoNode.role | string | `"infra"` | Role where Quay shall be scheduled @default: N/A |
+| quay.namespace.create | bool | false | Create the Namespace for Quay Enterprise. Should be "true" if it is a new namespace. |
+| quay.namespace.name | string | N/A | Name of the Namespace |
+| quay.namespace.syncwave | int | 0 | Syncwave to create the Namespace |
+| quay.public_route | string | N/A | The public route that shall be used for the registry. This setting is required to initialize quay. |
+| quay.syncwave | int | 3 | Syncwave for the quay CRD |
 
 ### Bucket Configuration
 
@@ -91,21 +108,6 @@ Verify the possible sub-charts for additional settings:
 | quay.components.redis.managed | string | true | Let Operator manage Redis |
 | quay.components.route.managed | string | true | Let Operator manage Route creation |
 | quay.components.tls.managed | string | true | Let Operator manage Certificates |
-
-### Generic Settings
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| quay.config_bundle | string | quay-generated-configuration | Name of the Secret of the Quay configuration. This should be configured by the chart used by GitOps approach. |
-| quay.enabled | bool | false | Enable configuration of the Quay Operator. This will setup the Namespace and the Operator isntance. |
-| quay.job_ttlSecondsAfterFinished | int | 600 | Seconds to retain finished Quay hook Jobs before Kubernetes deletes them (init, cert inject) |
-| quay.namespace.bindtoNode | object | N/A | When you want to schedule Quay on a specific node (role), for example infrastructure nodes, you can define the role here. Technically, it will add specific annotations onto the Namespace object. |
-| quay.namespace.bindtoNode.role | string | `"infra"` | Role where Quay shall be scheduled @default: N/A |
-| quay.namespace.create | bool | false | Create the Namespace for Quay Enterprise. Should be "true" if it is a new namespace. |
-| quay.namespace.name | string | N/A | Name of the Namespace |
-| quay.namespace.syncwave | int | 0 | Syncwave to create the Namespace |
-| quay.public_route | string | N/A | The public route that shall be used for the registry. This setting is required to initialize quay. |
-| quay.syncwave | int | 3 | Syncwave for the quay CRD |
 
 ### Job Initialize Quay
 
@@ -180,6 +182,32 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.logs_model_config.splunk_config.port | string | '' | Splunk management cluster endpoint port. |
 | quay_configuration.logs_model_config.splunk_config.ssl_ca_path | string | '' | The relative container path to a single .pem file containing a certificate authority (CA) for SSL validation |
 | quay_configuration.logs_model_config.splunk_config.verify_ssl | bool | true | Enable (True) or disable (False) TLS/SSL verification for HTTPS connections. |
+
+### Quay Configuration Generic
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| quay_configuration.additionalAnnotations | object | {} | Additional annotations merged onto configuration Job, ConfigMap skeleton, and related RBAC |
+| quay_configuration.additionalLabels | object | {} | Additional labels merged onto configuration Job, ConfigMap skeleton, and related RBAC |
+| quay_configuration.bucket.boto_timeout | int | 60 | Optional. The time, in seconds, until a timeout exception is thrown when attempting to read from a connection. The default is 60 seconds. Used by GoogleCloudStorage. |
+| quay_configuration.bucket.is_secure | bool | true | Is the bucket connection secured (TLS) |
+| quay_configuration.bucket.name | string | N/A | S3 Bucket name |
+| quay_configuration.bucket.port | int | 443 | Port to access the bucket |
+| quay_configuration.bucket.region | string | us-east-1 | Region of the bucket. Used for object storage S3Storage or STSS3Storage |
+| quay_configuration.bucket.sas_token | string | some/path/ | SAS Token for Azure. Used by AzureStorage. |
+| quay_configuration.bucket.sts_role_arn | string | None | The unique Amazon Resource Name (ARN). Used by STSS3Storage. |
+| quay_configuration.bucket.swift_ca_path | string | /conf/stack/swift.cert | CA Path for Swift storage. Used by SwiftStorage. |
+| quay_configuration.configmapName | string | quay-configuration-skeleton | Name of the config map skeleton |
+| quay_configuration.enabled | bool | false | Enable Quay configuration |
+| quay_configuration.ldap_auth_secret | string | N/A | When LDAP authentication is used, a secret with the keys LDAP_ADMIN_DN and LDAP_ADMIN_PASSWD must be created |
+| quay_configuration.s3_hostname.hostname | string | N/A | Hostname of the object storage. This is coming from a ConfigMap that is generated by ODF which is then mounted into /tmp/quay-bucket/BUCKET_HOST |
+| quay_configuration.s3_hostname.overwrite | bool | false | Overwrite the hostname for the object storage. This might be required to use a public URL for example, instead of the name that is storaged by ODF. |
+| quay_configuration.storage | object | `{"instance":"RadosGWStorage","maximum_chunk_size_mb":100,"server_side_assembly":true}` | Storage Settings. Verify the Quay documentation about the object storage configuration: <a href=https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-storage-noobaa>Quay Storage Configuration</a> |
+| quay_configuration.storage.instance | string | RadosGWStorage | Instance of storage that shall be used. Dependent on the instance type, different parameters are used in the configuration. There are some types Quay supports:<br /> <ul>   <li>LocalStorage</li>   <li>RHOCSStorage</li>   <li>RadosGWStorage (default) - Ceph/RadosGW and Nutanix</li>   <li>S3Storage</li>   <li>STSS3Storage</li>   <li>GoogleCloudStorage</li>   <li>AzureStorage</li>   <li>SwiftStorage</li>   <li>IBMCloudStorage</li> </ul> |
+| quay_configuration.storage.maximum_chunk_size_mb | int | 100Mb | Defines the maximum chunk size in MB for the final copy. Has no effect if server_side_assembly is set to false. Used by RadosGWStorage, RHOCSStorage, IBMCloudStorage |
+| quay_configuration.storage.server_side_assembly | bool | true | Whether Red Hat Quay should try and use server side assembly and the final chunked copy instead of client assembly. Defaults to true. |
+| quay_configuration.syncwave | int | 3 | Syncwave for generating the quay configuration |
+| quay_configuration.ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished configuration Job before Kubernetes deletes it |
 
 ### Quay Configuration Settings
 
@@ -271,30 +299,6 @@ Verify the possible sub-charts for additional settings:
 | quay_configuration.userfiles_location | string | default | ID of the storage engine in which to place user-uploaded files<br /> Example: s3_us_east |
 | quay_configuration.userfiles_path | string | userfiles | Path under storage in which to place user-uploaded files Example: userfiles |
 | quay_configuration.v2_pagination_size | int | 50 | The number of results returned per page in V2 registry APIs |
-
-### Quay Configuration Generic
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| quay_configuration.bucket.boto_timeout | int | 60 | Optional. The time, in seconds, until a timeout exception is thrown when attempting to read from a connection. The default is 60 seconds. Used by GoogleCloudStorage. |
-| quay_configuration.bucket.is_secure | bool | true | Is the bucket connection secured (TLS) |
-| quay_configuration.bucket.name | string | N/A | S3 Bucket name |
-| quay_configuration.bucket.port | int | 443 | Port to access the bucket |
-| quay_configuration.bucket.region | string | us-east-1 | Region of the bucket. Used for object storage S3Storage or STSS3Storage |
-| quay_configuration.bucket.sas_token | string | some/path/ | SAS Token for Azure. Used by AzureStorage. |
-| quay_configuration.bucket.sts_role_arn | string | None | The unique Amazon Resource Name (ARN). Used by STSS3Storage. |
-| quay_configuration.bucket.swift_ca_path | string | /conf/stack/swift.cert | CA Path for Swift storage. Used by SwiftStorage. |
-| quay_configuration.configmapName | string | quay-configuration-skeleton | Name of the config map skeleton |
-| quay_configuration.enabled | bool | false | Enable Quay configuration |
-| quay_configuration.ldap_auth_secret | string | N/A | When LDAP authentication is used, a secret with the keys LDAP_ADMIN_DN and LDAP_ADMIN_PASSWD must be created |
-| quay_configuration.s3_hostname.hostname | string | N/A | Hostname of the object storage. This is coming from a ConfigMap that is generated by ODF which is then mounted into /tmp/quay-bucket/BUCKET_HOST |
-| quay_configuration.s3_hostname.overwrite | bool | false | Overwrite the hostname for the object storage. This might be required to use a public URL for example, instead of the name that is storaged by ODF. |
-| quay_configuration.storage | object | `{"instance":"RadosGWStorage","maximum_chunk_size_mb":100,"server_side_assembly":true}` | Storage Settings. Verify the Quay documentation about the object storage configuration: <a href=https://docs.redhat.com/en/documentation/red_hat_quay/3.11/html-single/configure_red_hat_quay/index#config-fields-storage-noobaa>Quay Storage Configuration</a> |
-| quay_configuration.storage.instance | string | RadosGWStorage | Instance of storage that shall be used. Dependent on the instance type, different parameters are used in the configuration. There are some types Quay supports:<br /> <ul>   <li>LocalStorage</li>   <li>RHOCSStorage</li>   <li>RadosGWStorage (default) - Ceph/RadosGW and Nutanix</li>   <li>S3Storage</li>   <li>STSS3Storage</li>   <li>GoogleCloudStorage</li>   <li>AzureStorage</li>   <li>SwiftStorage</li>   <li>IBMCloudStorage</li> </ul> |
-| quay_configuration.storage.maximum_chunk_size_mb | int | 100Mb | Defines the maximum chunk size in MB for the final copy. Has no effect if server_side_assembly is set to false. Used by RadosGWStorage, RHOCSStorage, IBMCloudStorage |
-| quay_configuration.storage.server_side_assembly | bool | true | Whether Red Hat Quay should try and use server side assembly and the final chunked copy instead of client assembly. Defaults to true. |
-| quay_configuration.syncwave | int | 3 | Syncwave for generating the quay configuration |
-| quay_configuration.ttlSecondsAfterFinished | int | 600 | Seconds to retain the finished configuration Job before Kubernetes deletes it |
 
 ### Quay Configuration Settings QUOTA
 
