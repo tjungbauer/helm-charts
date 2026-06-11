@@ -33757,6 +33757,63 @@ entries:
           description: (1.0.49) - fixing indentation issues
         - kind: changed
           description: (1.0.50) - disabled defaults for namespace, central, and secured-cluster
+        - kind: changed
+          description: (1.0.51) - changed Jobs to use type "hook"
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T14:27:26.846363369Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Master chart to deploy RHACS operator, initialize it and do some
+      configuration using API Calls
+    digest: b013987998671869cf9e76b77e305e231e06ac53422026f82bbe3d15ba77ca56
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
+    keywords:
+    - acs
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: rhacs-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/rhacs-setup-1.0.51/rhacs-setup-1.0.51.tgz
+    version: 1.0.51
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: added
+          description: (1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala
+        - kind: fixed
+          description: (1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks
+        - kind: added
+          description: (1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)
+        - kind: changed
+          description: (1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)
+        - kind: changed
+          description: (1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC
+        - kind: changed
+          description: (1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31
+        - kind: fixed
+          description: (1.0.47) rename declarative-config template (was declerative-config.yaml)
+        - kind: added
+          description: (1.0.47) CHANGELOG.md
+        - kind: fixed
+          description: (1.0.48) - fixing indentation issues (#83 chrissmanynames)
+        - kind: changed
+          description: (1.0.49) - fixing indentation issues
+        - kind: changed
+          description: (1.0.50) - disabled defaults for namespace, central, and secured-cluster
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -40390,4 +40447,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T14:08:29.841175853Z"
+generated: "2026-06-11T14:27:26.847831172Z"
