@@ -88,7 +88,7 @@ rhacs:
 
     # -- Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters.
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Syncwave for Argo CD to create the Central
     # @default -- 3
@@ -349,7 +349,7 @@ rhacs:
     # -- If you do not want to deploy the Red Hat Advanced Cluster Security Scanner,
     # you can disable it here (not recommended).
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Expose the monitoring endpoint. A new service, "monitoring", with port 9090,
     # will be created as well as a network policy allowing inbound connections to

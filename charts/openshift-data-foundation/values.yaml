@@ -12,6 +12,14 @@ storagecluster:
   # @default -- 3
   syncwave: 3
 
+  # -- Additional annotations for the StorageCluster resource.
+  # @default -- {}
+  additionalAnnotations: {}
+
+  # -- Additional labels for the StorageCluster resource.
+  # @default -- {}
+  additionalLabels: {}
+
   # -- There are two options:
   # Either install the MultiCloudGateway only. This is useful if you just need S3 for Quay registry for example or do a full deployment.
   multigateway_only:

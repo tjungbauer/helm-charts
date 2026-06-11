@@ -3,7 +3,7 @@
 tls:
   enable: {{ .tls.enable | default false }}
   insecureSkipVerify: {{ .tls.insecureSkipVerify | default false }}
-  {{- if eq (.tls.enable | toString ) "true" }}
+  {{- if include "tpl.isEnabled" .tls.enable }}
   userCert:
     certFile: {{ .tls.userCert.certFile | default "" }}
     certKey: {{ .tls.userCert.certKey | default "" }}

@@ -1,4 +1,4 @@
-{{- if eq ( .Values.netobserv.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.netobserv.enabled }}
 {{- with .Values.netobserv }}
 ---
 apiVersion: flows.netobserv.io/v1beta2
@@ -7,11 +7,12 @@ metadata:
   name: cluster
   namespace: {{ .namespace.name | default "netobserv" }}
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default "10" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    {{- include "tpl.additionalAnnotations" .additionalAnnotations | indent 4 }}
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" (.syncwave | default "10")
+                "extra" (.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
-    {{- include "tpl.additionalLabels" .additionalLabels | indent 4 }}
+    {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | nindent 4 }}
 spec:
   namespace: {{ .namespace.name | default "netobserv" }}
   {{- include "validate.deploymentModel" .deploymentModel }}
@@ -23,7 +24,7 @@ spec:
     {{- if eq .type "eBPF" }}
     {{- with .ebpf }}
     ebpf:
-      {{- if eq (.privileged | toString) "true" }}
+      {{- if include "tpl.isEnabled" .privileged }}
       privileged: {{ .privileged }}
       {{- end }}
       {{- include "validate.eBPF_Features" .features }}
@@ -79,7 +80,7 @@ spec:
   {{- /* ──────────────────── LOKI CONFIGURATION ──────────────────── */}}
   {{- with .loki }}
   loki:
-    {{- if eq (.enable | toString) "true" }}
+    {{- if include "tpl.isEnabled" .enable }}
     enable: true
     {{- end }}
     readTimeout: {{ .readTimeout | default "30s" }}
@@ -120,7 +121,7 @@ spec:
     manual:
       {{- include "validate.authToken" .manual.authtoken }}
       authtoken: {{ .manual.authtoken | default "Disabled" }}
-      ingesterUrl: {{ .manual.ingesterUrl | default "http://loki:3100/" | quote}}
+      ingesterUrl: {{ .manual.ingesterUrl | default "http://loki:3100/" | quote }}
       querierUrl: {{ .manual.querierUrl | default "http://loki:3100/" | quote }}
       statusUrl: {{ .manual.statusUrl | default "" | quote }}
       tenantID: {{ .manual.tenantID | default "netobserv" | quote }}
@@ -154,7 +155,7 @@ spec:
     logLevel: {{ .logLevel | default "info" }}
     {{- include "validate.imagePullPolicy" .imagePullPolicy }}
     imagePullPolicy: {{ .imagePullPolicy | default "IfNotPresent" }}
-    {{- if eq (.enable | toString ) "true" }}
+    {{- if include "tpl.isEnabled" .enable }}
     {{- if .portNaming }}
     portNaming:
       enable: {{ .portNaming.enable | default "false" }}
@@ -162,7 +163,7 @@ spec:
       {{- .portNaming.portNames | toYaml | nindent 8 }}
     {{- end }}
     {{- end }}
-    quickFilters: 
+    quickFilters:
       {{- .quickFilters | toYaml | nindent 6 }}
     {{- if .resources }}
     resources:
@@ -184,7 +185,7 @@ spec:
       scheduling:
         {{- if .advanced.scheduling.nodeSelector }}
 {{- include "tpl.nodeSelector" .advanced.scheduling | indent 8 }}
-        {{- end}}
+        {{- end }}
         {{- if .advanced.scheduling.tolerations }}
 {{ include "tpl.tolerations" .advanced.scheduling.tolerations | indent 8 }}
         {{- end }}
@@ -194,7 +195,7 @@ spec:
   {{- /* ──────────────────── PROCESSOR CONFIGURATION ──────────────────── */}}
   {{- with .processor }}
   processor:
-    {{- if eq (.addZone | toString) "true" }}
+    {{- if include "tpl.isEnabled" .addZone }}
     addZone: true
     {{- end }}
     {{- include "validate.logTypes" .logTypes }}
@@ -212,7 +213,7 @@ spec:
     {{- if .metrics }}
     metrics:
       {{- if .metrics.disableAlerts }}
-      {{- include "validate.Processor_disabledMetricAlerts" .metrics.disableAlerts  }}
+      {{- include "validate.Processor_disabledMetricAlerts" .metrics.disableAlerts }}
       disableAlerts:
       {{- range .metrics.disableAlerts }}
         - {{ . }}
@@ -250,7 +251,7 @@ spec:
     {{- include "validate.imagePullPolicy" .imagePullPolicy }}
     imagePullPolicy: {{ .imagePullPolicy | default "IfNotPresent" }}
     multiClusterDeployment: {{ .multiClusterDeployment | default "false" }}
-    {{- if eq (.multiClusterDeployment | toString) "true" }}
+    {{- if include "tpl.isEnabled" .multiClusterDeployment }}
     clusterName: {{ .clusterName | default "" }}
     {{- end }}
   {{- end }}

@@ -1,17 +1,20 @@
 {{- with .Values.storagecluster }}
-{{ if eq ( .enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .enabled }}
 {{- with .full_deployment }}
-{{- if eq ( .enabled | toString) "true" }}  
+{{- if include "tpl.isEnabled" .enabled }}
+---
 apiVersion: ocs.openshift.io/v1
 kind: StorageCluster
 metadata:
   name: ocs-storagecluster
   namespace: openshift-storage
   annotations:
-    argocd.argoproj.io/sync-wave: {{ $.Values.storagecluster.syncwave | default "3" | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    {{- include "tpl.argocdMetadata"
+          (dict "syncWave" ($.Values.storagecluster.syncwave | default "3")
+                "extra" ($.Values.storagecluster.additionalAnnotations | default dict)) | nindent 4 }}
   labels:
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" ($.Values.storagecluster.additionalLabels | default dict) | nindent 4 }}
 spec:
   resourceProfile: {{ .resourceProfile | default "balanced" }}
   storageDeviceSets:

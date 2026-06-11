@@ -1,6 +1,6 @@
-{{- if eq ( .Values.netobserv.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" .Values.netobserv.enabled }}
 {{- with .Values.netobserv }}
-{{- if eq ( .namespace.create | toString) "true" }}
+{{- if include "tpl.isEnabled" .namespace.create }}
 ---
 apiVersion: v1
 kind: Namespace
@@ -9,6 +9,11 @@ metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
     {{- include "tpl.labels" $ | nindent 4 }}
+    {{- include "tpl.additionalLabels" (.additionalLabels | default dict) | nindent 4 }}
+  annotations:
+    {{- include "tpl.namespaceDescr" .namespace.descr | nindent 4 }}
+    {{- include "tpl.namespaceDisplay" .namespace.display | nindent 4 }}
+    {{- include "tpl.additionalAnnotations" (.additionalAnnotations | default dict) | nindent 4 }}
 {{- end }}
 {{- end }}
 {{- end }}

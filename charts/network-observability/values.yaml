@@ -20,19 +20,34 @@ netobserv:
     # @default -- true
     create: true
 
-  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+    # -- Description of the namespace.
+    # @section -- General
+    # @default -- ""
+    descr: ""
+
+    # -- Display name of the namespace.
+    # @section -- General
+    # @default -- ""
+    display: ""
+
+  # -- Additional annotations for FlowCollector, Namespace, and RBAC resources.
   # @section -- General
   # @default -- {}
   additionalAnnotations: {}
   #  additionalAnnotation1: "My Annotation"
   #  additionalAnnotation2: "My Annotation 2"
 
-  # -- Additional labels to add to the Keycloak instance as key: value pairs.
+  # -- Additional labels for FlowCollector, Namespace, and RBAC resources.
   # @section -- General
   # @default -- {}
   additionalLabels: {}
   #  additionalLabel1: "My Label"
   #  additionalLabel2: "My Label 2"
+
+  # -- Argo CD sync-wave for ClusterRole and ClusterRoleBinding resources.
+  # @section -- General
+  # @default -- 3
+  rbacSyncwave: 3
 
   # -- Syncwave for the FlowCollector resource.
   # @section -- General
