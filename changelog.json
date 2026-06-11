@@ -1,8 +1,164 @@
 {
-  "generated": "2026-06-11T12:47:46.980505Z",
+  "generated": "2026-06-11T12:58:46.491689Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "admin-networkpolicies",
+      "version": "1.0.11",
+      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
+      "lastModified": "2026-06-11T14:53:20+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "fixes and adding README"
+        },
+        {
+          "kind": "added",
+          "description": "added support for portEndNumber"
+        },
+        {
+          "kind": "added",
+          "description": "fixing portRange implementation"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.8) Changelog and values.schema.json"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.9) values.schema.json allows Helm-injected global values when used as a dependency"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.10) CHANGELOG cleanup"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) per-policy additionalLabels and additionalAnnotations on AdminNetworkPolicy and BaselineAdminNetworkPolicy via tpl.argocdMetadata"
+        }
+      ]
+    },
+    {
+      "name": "sealed-secrets",
+      "version": "1.0.30",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2026-06-11T14:53:20+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version"
+        },
+        {
+          "kind": "added",
+          "description": "new README"
+        },
+        {
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.29) - bump version"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "name": "setup-container-security-operator",
+      "version": "1.0.13",
+      "description": "Setup the Quay Container Security Operator.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png",
+      "lastModified": "2026-06-11T14:53:20+02:00",
+      "changes": [
+        {
+          "kind": "fixed",
+          "description": "Signing Chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated to helper-status-checker v4 and added new README"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.13) - align .helmignore; CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "name": "sonarqube",
+      "version": "1.0.31",
+      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
+      "lastModified": "2026-06-11T14:53:20+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial chart"
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md"
+        }
+      ]
+    },
     {
       "name": "network-observability",
       "version": "2.0.6",
@@ -1288,52 +1444,6 @@
       ]
     },
     {
-      "name": "admin-networkpolicies",
-      "version": "1.0.10",
-      "description": "Configure AdminNetworkPolicy and BaselineNetworkPolicy resources for a cluster.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/admin-networkpolicies",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/policy.png",
-      "lastModified": "2026-06-04T06:03:55+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "fixes and adding README"
-        },
-        {
-          "kind": "added",
-          "description": "added support for portEndNumber"
-        },
-        {
-          "kind": "added",
-          "description": "fixing portRange implementation"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.8) using tpl min version 1.0.31 and tpl.isEnabled guard"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.8) Changelog and values.schema.json"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.9) values.schema.json allows Helm-injected global values when used as a dependency"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.10) CHANGELOG cleanup"
-        }
-      ]
-    },
-    {
       "name": "collection-management-operators",
       "version": "1.0.58",
       "description": "Collection of management Operators which are required as a dependency for other services, such as Logging, Loki, NetObserv etc. It simply calls helper-operator to deploy all required operators without any configuration of a CRD.",
@@ -1944,78 +2054,6 @@
       ]
     },
     {
-      "name": "sonarqube",
-      "version": "1.0.30",
-      "description": "A Helm chart to deploy sonarqube community edition -d epends on Sonarcube's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sonarqube",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sonarqube.png",
-      "lastModified": "2026-05-31T07:56:26+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial chart"
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.29) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.30) - set set_admin_password to false by default, configurable ttlSecondsAfterFinished on admin-password Job via tpl.ttlSecondsAfterFinished"
-        }
-      ]
-    },
-    {
-      "name": "sealed-secrets",
-      "version": "1.0.29",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-04-15T10:22:10+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.29) - bump version"
-        }
-      ]
-    },
-    {
       "name": "helper-proj-onboarding",
       "version": "1.0.47",
       "description": "This Chart shall deploy namespaces and their depending resources, like NetworkPolicies or Quotas etc.",
@@ -2138,28 +2176,6 @@
         {
           "kind": "added",
           "description": "added tpl chart"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        }
-      ]
-    },
-    {
-      "name": "setup-container-security-operator",
-      "version": "1.0.12",
-      "description": "Setup the Quay Container Security Operator.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/setup-container-security-operator",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-security-operator.png",
-      "lastModified": "2026-03-30T08:11:55+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated to helper-status-checker v4 and added new README"
         },
         {
           "kind": "changed",
