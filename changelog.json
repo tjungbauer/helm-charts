@@ -1,8 +1,58 @@
 {
-  "generated": "2026-06-11T11:56:49.760305Z",
+  "generated": "2026-06-11T12:24:38.843936Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.49",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2026-06-11T14:22:13+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.47) rename declarative-config template (was declerative-config.yaml)"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.47) CHANGELOG.md"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.48) - fixing indentation issues (#83 chrissmanynames)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.49) - fixing indentation issues"
+        }
+      ]
+    },
     {
       "name": "rhacm-setup",
       "version": "1.0.24",
@@ -334,52 +384,6 @@
         {
           "kind": "fixed",
           "description": "(2.0.5) - fixing indentation issues (#83 chrissmanynames)"
-        }
-      ]
-    },
-    {
-      "name": "rhacs-setup",
-      "version": "1.0.48",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-06-11T12:47:05+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.47) rename declarative-config template (was declerative-config.yaml)"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.47) CHANGELOG.md"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.48) - fixing indentation issues (#83 chrissmanynames)"
         }
       ]
     },
