@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square)
+  ![Version: 1.0.11](https://img.shields.io/badge/Version-1.0.11-informational?style=flat-square)
 
  
 
@@ -54,6 +54,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalAnnotations | object | {} | Additional annotations on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim. |
+| additionalLabels | object | {} | Additional labels on BackingStore, BucketClass, StorageClass, and ObjectBucketClaim. |
 | backingstore_name | string | `"backingstore"` | Name of the BackingStore |
 | backingstore_size | string | `"700Gi"` | Size of the BackingStore that each volume shall have. |
 | baseStorageClass | string | `"gp3-csi"` | The StorageClass the BackingStore is based on |
@@ -88,6 +90,9 @@ pvPool:
 baseStorageClass: gp3-csi
 
 storageclass_name: bucket-storage-class
+
+additionalAnnotations: {}
+additionalLabels: {}
 
 # Bucket that shall be created
 bucket:

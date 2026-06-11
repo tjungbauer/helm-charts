@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square)
+  ![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square)
 
  
 
@@ -59,6 +59,8 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| additionalAnnotations | object | {} | Additional annotations on Job, ServiceAccount, and ClusterRoleBinding. |
+| additionalLabels | object | {} | Additional labels on Job, ServiceAccount, and ClusterRoleBinding. |
 | bucket.name | string | `"bucket-name"` | Name of the Bucket shall has been created. |
 | enabled | bool | false | Enable Job to create a Secret. |
 | keys | object | `{"access_key_id":"access_key_id","access_key_secret":"access_key_secret","bucket":"bucket","endpoint":"endpoint","region":"region"}` | Keys that shall be used to create the Secret. |
@@ -90,6 +92,12 @@ namespace: namespace-with-target-resource-and-bucket
 
 # -- Name of Secret that shall be created.
 secretname: secretname-to-create
+
+# -- Additional annotations on Job, ServiceAccount, and ClusterRoleBinding.
+additionalAnnotations: {}
+
+# -- Additional labels on Job, ServiceAccount, and ClusterRoleBinding.
+additionalLabels: {}
 
 # Bucket Configuration
 bucket:
