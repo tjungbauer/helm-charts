@@ -88,7 +88,7 @@ rhacs:
 
     # -- Enabled yes or not. Typically, a Central is installed only once (maybe on the management cluster) and will manage different external clusters.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Syncwave for Argo CD to create the Central
     # @default -- 3
@@ -233,6 +233,12 @@ rhacs:
     #     # @default -- empty
     #     ephemeral-storage: 500Mi
 
+    # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
+    # @default -- empty
+    nodeSelector: {}
+    #  key: node-role.kubernetes.io/infra
+    #  value: ""
+
     # -- If you want this component to only run on specific nodes, you can
     # configure tolerations of tainted nodes.
     # tolerations:
@@ -313,6 +319,12 @@ rhacs:
       #     # @default -- empty
       #     ephemeral-storage: 500Mi
 
+      # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
+
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
       # tolerations:
@@ -337,7 +349,7 @@ rhacs:
     # -- If you do not want to deploy the Red Hat Advanced Cluster Security Scanner,
     # you can disable it here (not recommended).
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Expose the monitoring endpoint. A new service, "monitoring", with port 9090,
     # will be created as well as a network policy allowing inbound connections to
@@ -372,6 +384,12 @@ rhacs:
         # configured to match this value.
         # @default -- 3
         replicas: 3
+
+      # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
 
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
@@ -424,6 +442,13 @@ rhacs:
     # SCANNER DB
     ###############
     db:
+
+      # -- Specify a nodeSelector for example to move the Pods to infrastructure nodes.
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
+
       # -- If you want this component to only run on specific nodes, you can
       # configure tolerations of tainted nodes.
       tolerations:

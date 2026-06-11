@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.48
+version: 1.0.49
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -44,3 +44,5 @@ annotations:
       description: (1.0.47) CHANGELOG.md
     - kind: fixed
       description: (1.0.48) - fixing indentation issues (#83 chrissmanynames)
+    - kind: changed
+      description: (1.0.49) - fixing indentation issues
