@@ -16730,6 +16730,60 @@ entries:
           description: "added annotations to namespace"
         - kind: changed
           description: (1.0.47) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.48) - enabled guards use tpl.isEnabled; bump tpl to ~1.0.31; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T14:08:28.669819656Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: This Chart shall deploy namespaces and their depending resources,
+      like NetworkPolicies or Quotas etc.
+    digest: e86ffccea9a0a6f07be8f0875b4dd931b728a213f29cc25992dd0593b99dd682
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-proj-onboarding
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-proj-onboarding
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-proj-onboarding-1.0.48/helper-proj-onboarding-1.0.48.tgz
+    version: 1.0.48
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Signing Chart"
+        - kind: fixed
+          description: "changed the ifelse definitions for resourcequota for tshirt sizes"
+        - kind: fixed
+          description: "changed the way default network policies are managed"
+        - kind: fixed
+          description: "streamlined the creation of AppProject"
+        - kind: added
+          description: "added README and did some fixed"
+        - kind: added
+          description: "possibility to define egressIPs"
+        - kind: added
+          description: "added dependency tp tpl library"
+        - kind: fixed
+          description: "fullaccess of argocd project now also allows to define the own repository for a developer"
+        - kind: fixed
+          description: "added annotations to namespace"
+        - kind: changed
+          description: (1.0.47) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -26535,6 +26589,62 @@ entries:
           description: allowing to define network policy ruleset
         - kind: changed
           description: (3.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (3.0.8) - tpl.isEnabled guards, additionalLabels and additionalAnnotations on logging resources via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T14:08:28.875642394Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Deploy and configure OpenShift Logging based on LokiStack
+    digest: 2fb55c982da75267f7c377ff7e4a8d8f06b58f5abe40364fe39103b37df98128
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-logging
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/logging.svg
+    keywords:
+    - logging
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: openshift-logging
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/openshift-logging-3.0.8/openshift-logging-3.0.8.tgz
+    version: 3.0.8
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: Optimizing Loki configuration for ClusterLogging object.
+        - kind: added
+          description: updated to helper-status-checker 4.0.0
+        - kind: added
+          description: v2.0 added README and removed Elasticsearch configuration as it is considered as deprecated.
+        - kind: fixed
+          description: moved values.yaml to values-examples.yaml to be sure that not default values interefere with any setting.
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: switching some snippets to use global tpl
+        - kind: added
+          description: major update to openshift logging version 6.0. This changes the cutom resources and possibilities completely. The parameter operatorVersion indicates which version should be used. Version 6 should be used for any new deployment. Keep in mind that an upgrade from 5 to 6 ist not easy and should be prepared accordingly.
+        - kind: added
+          description: afixed typo in values file
+        - kind: added
+          description: allowing to define 6 or 6.0 as operator version
+        - kind: added
+          description: allowing to define network policy ruleset
+        - kind: changed
+          description: (3.0.7) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -28121,6 +28231,48 @@ entries:
           description: added tpl chart
         - kind: changed
           description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.13) - align .helmignore; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2026-06-11T14:08:29.03304713Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.27
+    description: Create an example Pipeline which does a linting of openshift-clusterconfig-gitops
+      using kubelinter, yamllin, yamlscore ....
+    digest: 52c73c96c03f7623241fddcfb256a1ffefb16ed752da3dbc461702a1cdfe9579
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/pipeline-example
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/tekton.png
+    keywords:
+    - pipelines
+    - cicd
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: pipeline-example
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-1.0.13/pipeline-example-1.0.13.tgz
+    version: 1.0.13
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: added tpl chart
+        - kind: changed
+          description: (1.0.12) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -28509,6 +28661,87 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/pipeline-example-0.1.0/pipeline-example-0.1.0.tgz
     version: 0.1.0
   quay-registry-setup:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: using some templates
+        - kind: fixed
+          description: Postgres does not allow replica override.
+        - kind: fixed
+          description: Removed hardcoded nodeSelector from Namespace resource. This might be added later as variable
+        - kind: added
+          description: using new tpl function bindtoNode
+        - kind: added
+          description: This big update moved Config Generation into this chart and included a Job that is able to inject the certificate into the Quay configration. Moreover, any storage type is now supported to be generated by this chart.
+        - kind: fixed
+          description: Fixed some default configuration values
+        - kind: added
+          description: Added support for LDAP authentication, added possibility to set proxy_cache and several settings for Quotas
+        - kind: added
+          description: Added support for Github, Google, OIDC oauth, added option for Mailing configuration
+        - kind: added
+          description: Added support to configure different logging options and some additional parameters
+        - kind: fixed
+          description: Error in configuration file creation Job
+        - kind: fixed
+          description: Fixing some errors on Quay configuration rendering
+        - kind: added
+          description: Added new option repo_mirror_server_hostname to set hostname for the mirroring service
+        - kind: fixed
+          description: Fixed some errors in the init-quay job
+        - kind: fixed
+          description: Fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: Added support for RHOCSStorage
+        - kind: fixed
+          description: Fixed issue with hook-delete-policy
+        - kind: added
+          description: Added support for auto-prune feature
+        - kind: changed
+          description: (2.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (2.0.19) - Configurable ttlSecondsAfterFinished on Quay hook Jobs (default 600s)
+        - kind: changed
+          description: (2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+        - kind: changed
+          description: (2.0.21) - tpl.isEnabled guards; additionalLabels and additionalAnnotations via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-11T14:08:29.193672013Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Deploy and configure Red Hat Quay Registry.
+    digest: bd994153110c48fce66ecf254033871bb729f55ac969c8975d2ed6bbda54e7a1
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-2.0.21/quay-registry-setup-2.0.21.tgz
+    version: 2.0.21
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -40157,4 +40390,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T12:58:15.531004994Z"
+generated: "2026-06-11T14:08:29.841175853Z"
