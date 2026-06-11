@@ -1,6 +1,6 @@
 {{- range $key, $value := .Values.gitopsinstances }}
-{{- if eq ($value.enabled | toString) "true" }}
-{{- if eq ($value.global_project.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value.enabled }}
+{{- if include "tpl.isEnabled" $value.global_project.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:

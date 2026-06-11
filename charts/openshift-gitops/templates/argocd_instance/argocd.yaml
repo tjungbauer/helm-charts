@@ -1,5 +1,5 @@
 {{- range $key, $value := .Values.gitopsinstances }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value.enabled }}
 ---
 apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
@@ -23,14 +23,14 @@ spec:
   {{- if $value.generic_config.kustomizeBuildOptions }}
   kustomizeBuildOptions: {{ $value.generic_config.kustomizeBuildOptions }}
   {{- end }}
-  {{- if eq ($value.generic_config.disableAdmin | toString) "true" }}
+  {{- if include "tpl.isEnabled" $value.generic_config.disableAdmin }}
   disableAdmin: true
   {{- end }}
   {{- /* Set tolerations */}}
   nodePlacement:
 
 {{- if $value.nodeSelector }}
-{{- include "tpl.nodeSelector" $value| indent 2 }}
+{{- include "tpl.nodeSelector" $value| indent 4 }}
 {{- end }}
 
     {{- if $value.tolerations }}
@@ -64,7 +64,7 @@ spec:
     route:
       enabled: {{ $value.server.route.enabled | default "true" }}
       {{- if $value.server.route.tls }}
-      {{ if eq ($value.server.route.tls.enabled | toString) "true" }}
+      {{- if include "tpl.isEnabled" $value.server.route.tls.enabled }}
       tls:
         termination: {{ $value.server.route.tls.termination | default "edge" }}
         {{- if  $value.server.route.tls.caCertificate  }}
@@ -97,7 +97,7 @@ spec:
       enabled: false
   initialSSHKnownHosts: {}
   {{- if $value.sourceNamespaces }}
-  {{- if eq ($value.sourceNamespaces.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" $value.sourceNamespaces.enabled }}
   sourceNamespaces:
   {{- range $value.sourceNamespaces.observedNamespaces }}
     - {{ . }}
@@ -106,7 +106,7 @@ spec:
   {{- end }}
   applicationSet:
     {{- if $value.sourceNamespaces }}
-    {{- if eq ($value.sourceNamespaces.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" $value.sourceNamespaces.enabled }}
     sourceNamespaces:
     {{- range $value.sourceNamespaces.observedNamespaces }}
       - {{ . }}
@@ -148,7 +148,7 @@ spec:
     {{- if $value.repo.additionalSidecars }}
     sidecarContainers:
       {{- range $value.repo.additionalSidecars }}
-      {{- if eq (.enabled | toString) "true" }}
+      {{- if include "tpl.isEnabled" .enabled }}
       - name: {{ .name | default "post-render" }}
         command:
           - {{ .command | default "/var/run/argocd/argocd-cmp-server" }}
@@ -191,7 +191,7 @@ spec:
     {{- end }}
     {{- if $value.repo.additionalSidecars }}
     {{- range $value.repo.additionalSidecars }}
-      {{- if eq (.enabled | toString) "true" }}
+      {{- if include "tpl.isEnabled" .enabled }}
       - configMap:
           name: {{ .configMapName | default "post-render" }}
         name: {{ .configMapName | default "post-render" }}
@@ -200,12 +200,12 @@ spec:
     {{- end }}
   resourceExclusions: |
     {{ $value.resourceExclusions | nindent 4 }}
-  {{- if or (eq ($value.default_resourceHealthChecks | toString) "true") ($value.custom_resourceHealthChecks) }}
+  {{- if or (include "tpl.isEnabled" $value.default_resourceHealthChecks) ($value.custom_resourceHealthChecks) }}
   resourceHealthChecks:
     {{- if $value.custom_resourceHealthChecks }}
       {{- $value.custom_resourceHealthChecks | nindent 4 }}
     {{- end }}
-    {{- if eq ($value.default_resourceHealthChecks | toString) "true" }}
+    {{- if include "tpl.isEnabled" $value.default_resourceHealthChecks }}
     - check: |
         hs = {}
         -- Default return value ... to have something
@@ -390,10 +390,10 @@ spec:
   oidcConfig: |
     {{- $value.oidcConfig | toYaml | nindent 4 }}
   {{- end }}
-  {{- if eq ($value.sso.enabled | toString) "true" }}
+  {{- if include "tpl.isEnabled" $value.sso.enabled }}
   sso:
     {{- if $value.sso.dex }}
-    {{- if ne ($value.sso.dex.enabled | toString) "false" }}
+    {{- if include "tpl.isEnabled" ($value.sso.dex.enabled | default true) }}
     dex:
       openShiftOAuth: {{ $value.sso.dex.openShiftOAuth | default "true" }}
       resources:
@@ -406,7 +406,7 @@ spec:
     {{- end }}
     {{- end }}
     {{- if $value.sso.keycloak }}
-    {{- if eq ($value.sso.keycloak.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" $value.sso.keycloak.enabled }}
     keycloak:
       {{- if $value.sso.keycloak.claims }}
       {{- range $value.sso.keycloak.claims }}
@@ -415,7 +415,7 @@ spec:
       {{- end }}
       host: {{ $value.sso.keycloak.host }}
       rootCA: {{ $value.sso.keycloak.rootCA }}
-      {{- if eq ($value.sso.keycloak.verifyTLS | toString) "true" }}
+      {{- if include "tpl.isEnabled" $value.sso.keycloak.verifyTLS }}
       verifyTLS: true
       {{- end }}
       version: {{ $value.sso.keycloak.version }}
@@ -459,7 +459,7 @@ spec:
         memory: {{ $value.controller.memory_requests | default "1Gi" }}
     {{- if $value.controller.sharding }}
     sharding:
-    {{- if eq ($value.controller.sharding.enabled | toString) "true" }}
+    {{- if include "tpl.isEnabled" $value.controller.sharding.enabled }}
       enabled: {{ $value.controller.sharding.enabled | default "false" }}
       {{- if $value.controller.sharding.clustersPerShard }}
       clustersPerShard: {{ $value.controller.sharding.clustersPerShard }}

@@ -2,22 +2,6 @@
 
 All notable changes to the **openshift-gitops** Helm chart are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and chart releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html) via `Chart.yaml` `version`.
-
-## How this file relates to other metadata
-
-| Location | Purpose |
-|----------|---------|
-| **`CHANGELOG.md` (this file)** | Human-readable history for maintainers and chart consumers; grouped by version with Added / Changed / Fixed / Security / Removed. |
-| **`Chart.yaml` `version`** | SemVer of the **chart package**; bump on every releaseable change. |
-| **`Chart.yaml` `annotations.artifacthub.io/changes`** | Short bullets for [Artifact Hub](https://artifacthub.io/) on **each published version only**—keep in sync when you cut a release. |
-
-**Workflow**
-
-1. Add user-visible bullets under **`[Unreleased]`** while developing.
-2. On release: rename `[Unreleased]` → `[x.y.z] - YYYY-MM-DD`, bump `Chart.yaml` `version`, and copy the **same bullets** (shortened if needed) into `artifacthub.io/changes` for that version.
-3. Do **not** duplicate typo-only or internal refactors here unless operators would care when upgrading.
-
 ---
 
 ## [Unreleased]
@@ -33,6 +17,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - (nothing yet)
+
+---
+
+## [1.1.14] - 2026-06-11
+
+### Changed
+
+- enabled guards use tpl.isEnabled across Argo CD instance templates
+- tpl library chart dependency bumped to ~1.0.31
+
+---
+
+## [1.1.13] - 2026-06-10
+
+### Added
+
+- CHANGELOG.md for release notes
 
 ---
 
@@ -116,11 +117,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
-## Earlier versions
+## Earlier releases
 
-Versions **before 1.1.0** predate this changelog. See git history and historical `artifacthub.io/changes` entries in `Chart.yaml` for older release notes.
+See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
-[Unreleased]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.12...HEAD
+[1.1.14]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.13...openshift-gitops-1.1.14
+[1.1.13]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.12...openshift-gitops-1.1.13
 [1.1.12]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.11...openshift-gitops-1.1.12
 [1.1.11]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.10...openshift-gitops-1.1.11
 [1.1.10]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.9...openshift-gitops-1.1.10

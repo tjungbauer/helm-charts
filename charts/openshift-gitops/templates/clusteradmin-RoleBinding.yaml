@@ -1,5 +1,5 @@
 {{- range $key, $value := .Values.gitopsinstances }}
-{{ if eq ($value.enabled | toString) "true" }}
+{{- if include "tpl.isEnabled" $value.enabled }}
 {{ if eq ( $value.clusterAdmin | toString) "enabled" }}
 ---
 kind: ClusterRoleBinding
