@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 2.0.21](https://img.shields.io/badge/Version-2.0.21-informational?style=flat-square)
+  ![Version: 2.0.22](https://img.shields.io/badge/Version-2.0.22-informational?style=flat-square)
 
  
 
@@ -372,7 +372,7 @@ Verify the possible sub-charts for additional settings:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | quay_configuration.oidc_login_config.enabled | bool | false | Enable OIDC Oauth |
-| quay_configuration.oidc_login_config.github_oauth_secret | string | '' | When OIDC OAuth is used, a secret with the keys OIDC_CLIENT_ID and OIDC_CLIENT_SECRET must be created |
+| quay_configuration.oidc_login_config.oidc_auth_secret | string | '' | When OIDC OAuth is used, a secret with the keys OIDC_CLIENT_ID and OIDC_CLIENT_SECRET must be created |
 | quay_configuration.oidc_login_config.oidc_debuglog | bool | false | Whether to enable debugging. |
 | quay_configuration.oidc_login_config.oidc_disable_user_endpoint | bool | false | Whether to allow or disable the /userinfo endpoint. If using Azure Entra ID, this field must be set to true because Azure obtains the user’s information from the token instead of calling the /userinfo endpoint. |
 | quay_configuration.oidc_login_config.oidc_endpoint_custom_params | string | N/A | Support for custom query parameters on OIDC endpoints. The following endpoints are supported: authorization_endpoint, token_endpoint, and user_endpoint. |

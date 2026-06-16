@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.12](https://img.shields.io/badge/Version-1.0.12-informational?style=flat-square)
+  ![Version: 1.0.13](https://img.shields.io/badge/Version-1.0.13-informational?style=flat-square)
 
  
 
@@ -78,7 +78,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-co
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | '' | Name of the created ServiceAccount |
 | skip_tls_verification | bool | false | Skip TLS verification for Minio. This set the variable MC_INSECURE to true Can be used when you are using self-signed certificates for example. |
-| synwave | int | 5 | Argo CD Sync wave for the Minio provisioner |
+| syncwave | int | 5 | Argo CD Sync wave for the Minio provisioner |
 | tls.enabled | bool | `true` | Enable tls in front of the container |
 | tls.mountPath | string | "" | The mount path where the secret will be located Custom mount path where the certificates will be located, if empty will default to /certs |
 | tls.secretName | string | "" | Name of the Secret that contains the TLS information |
