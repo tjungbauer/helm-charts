@@ -2,7 +2,7 @@ apiVersion: v2
 name: sealed-secrets
 description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart
 type: application
-version: 1.0.30
+version: 1.0.31
 appVersion: 1.0.0
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
 icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
@@ -17,7 +17,7 @@ sources:
 dependencies:
   - name: sealed-secrets
     version: "2.18.4"
-    repository: https://bitnami-labs.github.io/sealed-secrets
+    repository: https://bitnami.github.io/sealed-secrets
     condition: sealed-secrets.enabled
   - name: tpl
     version: ~1.0.31
@@ -50,3 +50,5 @@ annotations:
       description: (1.0.29) - bump version
     - kind: changed
       description: (1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md
+    - kind: changed
+      description: (1.0.31) - updated sealed secrets helm repository to bitnami.github.io
