@@ -8,7 +8,7 @@ namespace: minio-tenant-namespace
 
 # -- Argo CD Sync wave for the Minio provisioner
 # @default -- 5
-synwave: 5
+syncwave: 5
 
 argoproj:
   # -- Argo CD Hook phase

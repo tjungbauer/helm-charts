@@ -1120,7 +1120,7 @@ quay_configuration:
     # -- When OIDC OAuth is used, a secret with the keys OIDC_CLIENT_ID and OIDC_CLIENT_SECRET must be created
     # @section -- OIDC Oauth
     # @default -- ''
-    github_oauth_secret: github-oauth
+    oidc_auth_secret: ''
 
     # -- Whether to enable debugging.
     # @section -- OIDC Oauth

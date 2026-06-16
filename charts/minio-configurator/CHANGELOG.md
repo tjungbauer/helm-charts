@@ -20,6 +20,14 @@ All notable changes to the **minio-configurator** Helm chart are documented in t
 
 ---
 
+## [1.0.13] - 2026-06-16
+
+### Fixed
+
+- fixed typo in values_example.yaml
+
+---
+
 ## [1.0.12] - 2026-06-10
 
 ### Changed
@@ -44,5 +52,6 @@ All notable changes to the **minio-configurator** Helm chart are documented in t
 
 See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
+[1.0.13]: https://github.com/tjungbauer/helm-charts/compare/minio-configurator-1.0.12...minio-configurator-1.0.13
 [1.0.12]: https://github.com/tjungbauer/helm-charts/compare/minio-configurator-1.0.11...minio-configurator-1.0.12
 [1.0.11]: https://github.com/tjungbauer/helm-charts/tree/minio-configurator-1.0.11/charts/minio-configurator

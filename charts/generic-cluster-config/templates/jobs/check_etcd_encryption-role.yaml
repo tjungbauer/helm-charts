@@ -12,7 +12,6 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
   name:  {{ include "tpl.serviceAccount" .serviceAccount }}-clusterrole
-  namespace: {{ .namespace | quote }}
 rules:
 - verbs:
   - get

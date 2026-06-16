@@ -20,6 +20,14 @@ All notable changes to the **ingresscontroller** Helm chart are documented in th
 
 ---
 
+## [1.0.20] - 2026-06-16
+
+### Fixed
+
+- removed unknown spec namespaceSelector
+
+---
+
 ## [1.0.19] - 2026-06-10
 
 ### Added
@@ -56,5 +64,6 @@ Feature history before CHANGELOG.md (from git history and chart releases):
 
 See `Chart.yaml` `artifacthub.io/changes` for Artifact Hub release notes (some early entries may predate per-version tagging).
 
+[1.0.20]: https://github.com/tjungbauer/helm-charts/compare/ingresscontroller-1.0.19...ingresscontroller-1.0.20
 [1.0.19]: https://github.com/tjungbauer/helm-charts/compare/ingresscontroller-1.0.18...ingresscontroller-1.0.19
 [1.0.18]: https://github.com/tjungbauer/helm-charts/tree/ingresscontroller-1.0.18/charts/ingresscontroller

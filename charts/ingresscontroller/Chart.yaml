@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ingresscontroller
 description: Configures the IngressController object.
-version: 1.0.19
+version: 1.0.20
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 dependencies:
@@ -47,3 +47,5 @@ annotations:
       description: (1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels
     - kind: added
       description: (1.0.19) CHANGELOG.md and .helmignore
+    - kind: fixed
+      description: (1.0.20) removed unknown spec namespaceSelector

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: generic-cluster-config
 description: This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.
-version: 1.0.67
+version: 1.0.68
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
 maintainers:
@@ -73,3 +73,5 @@ annotations:
       description: (1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh
     - kind: added
       description: (1.0.67) CHANGELOG.md and .helmignore
+    - kind: fixed
+      description: (1.0.68) - removed namespace from ClusterRole

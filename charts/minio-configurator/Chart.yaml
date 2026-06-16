@@ -1,7 +1,7 @@
 apiVersion: v2
 name: minio-configurator
 description: A Chart to automate the bucket creation and configuration for MINIO Object Storage
-version: 1.0.12
+version: 1.0.13
 maintainers:
   - name: tjungbauer
     email: dev@stdin.at
@@ -38,3 +38,5 @@ annotations:
       description: (1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed
     - kind: fixed
       description: (1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing
+    - kind: fixed
+      description: (1.0.13) fixed typo in values_example.yaml

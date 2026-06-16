@@ -33,7 +33,7 @@ spec:
           {{- range .limits.global.streams }}
           - days: {{ .days }}
             priority: {{ .priority }}
-            selector: {{ .days }}
+            selector: {{ .selector }}
           {{- end }}
         {{- end }}
     {{- end }}

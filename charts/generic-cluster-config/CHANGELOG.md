@@ -20,6 +20,14 @@ All notable changes to the **generic-cluster-config** Helm chart are documented 
 
 ---
 
+## [1.0.68] - 2026-06-16
+
+### Fixed
+
+- removed namespace from ClusterRole
+
+---
+
 ## [1.0.67] - 2026-06-07
 
 ### Added
@@ -77,6 +85,7 @@ All notable changes to the **generic-cluster-config** Helm chart are documented 
 
 ---
 
+[1.0.68]: https://github.com/tjungbauer/helm-charts/compare/generic-cluster-config-1.0.67...generic-cluster-config-1.0.68
 [1.0.67]: https://github.com/tjungbauer/helm-charts/compare/generic-cluster-config-1.0.66...generic-cluster-config-1.0.67
 [1.0.66]: https://github.com/tjungbauer/helm-charts/compare/generic-cluster-config-1.0.65...generic-cluster-config-1.0.66
 [1.0.65]: https://github.com/tjungbauer/helm-charts/compare/generic-cluster-config-1.0.64...generic-cluster-config-1.0.65

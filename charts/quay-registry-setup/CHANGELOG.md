@@ -4,6 +4,10 @@ All notable changes to the **quay-registry-setup** Helm chart are documented in 
 
 ---
 
+## [1.0.22] - 2026-06-16
+
+- Fixed oidc_auth_secret wrong usage of value
+
 ## [2.0.21] - 2026-06-08
 
 ### Changed
@@ -26,3 +30,18 @@ See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was in
 
 [2.0.21]: https://github.com/tjungbauer/helm-charts/compare/quay-registry-setup-2.0.20...quay-registry-setup-2.0.21
 [2.0.20]: https://github.com/tjungbauer/helm-charts/tree/quay-registry-setup-2.0.20/charts/quay-registry-setup
+
+---
+
+## [2.0.22] - 2026-06-16
+
+### Fixed
+
+- Fixed oidc_auth_secret wrong usage of value
+
+---
+
+[1.0.22]: https://github.com/tjungbauer/helm-charts/compare/quay-registry-setup-2.0.21...quay-registry-setup-1.0.22
+[2.0.21]: https://github.com/tjungbauer/helm-charts/compare/quay-registry-setup-2.0.20...quay-registry-setup-2.0.21
+[2.0.20]: https://github.com/tjungbauer/helm-charts/compare/quay-registry-setup-2.0.22...quay-registry-setup-2.0.20
+[2.0.22]: https://github.com/tjungbauer/helm-charts/tree/quay-registry-setup-2.0.22/charts/quay-registry-setup

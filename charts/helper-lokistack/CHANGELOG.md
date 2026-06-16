@@ -4,6 +4,14 @@ All notable changes to the **helper-lokistack** Helm chart are documented in thi
 
 ---
 
+## [1.0.25] - 2026-06-16
+
+### Fixed
+
+- fixed selector value in LokiStack template
+
+---
+
 ## [1.0.24] - 2026-06-07
 
 ### Changed
@@ -56,6 +64,7 @@ All notable changes to the **helper-lokistack** Helm chart are documented in thi
 
 ---
 
+[1.0.25]: https://github.com/tjungbauer/helm-charts/compare/helper-lokistack-1.0.24...helper-lokistack-1.0.25
 [1.0.24]: https://github.com/tjungbauer/helm-charts/compare/helper-lokistack-1.0.23...helper-lokistack-1.0.24
 [1.0.23]: https://github.com/tjungbauer/helm-charts/compare/helper-lokistack-1.0.22...helper-lokistack-1.0.23
 [1.0.22]: https://github.com/tjungbauer/helm-charts/compare/helper-lokistack-1.0.21...helper-lokistack-1.0.22

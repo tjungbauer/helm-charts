@@ -31,8 +31,6 @@ spec:
     {{- if .routeAdmission.namespaceOwnership }}
     namespaceOwnership: {{ .routeAdmission.namespaceOwnership }}
     {{- end }}
-    {{- if .routeAdmission.namespaceSelector }}
-    {{- end }}
     {{- if .routeAdmission.wildcardPolicy }}
     wildcardPolicy: {{ .routeAdmission.wildcardPolicy }}
     {{- end }}
