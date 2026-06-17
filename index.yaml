@@ -7686,6 +7686,88 @@ entries:
           description: (1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh
         - kind: added
           description: (1.0.67) CHANGELOG.md and .helmignore
+        - kind: fixed
+          description: (1.0.68) - removed namespace from ClusterRole
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-17T05:14:15.954486126Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: This Chart is responsible for deploying generic cluster configuration,
+      for example, etcd encryption, OAuth etc.
+    digest: a174b044abbd657c24e4572225cc88417094de68982f2e009389b105b0ce2704
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: generic-cluster-config
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/generic-cluster-config-1.0.68/generic-cluster-config-1.0.68.tgz
+    version: 1.0.68
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Possibility to configure allowed registries"
+        - kind: added
+          description: "added new type of etcd encryption, monitoring stack configuration etc."
+        - kind: added
+          description: "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        - kind: added
+          description: "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        - kind: added
+          description: "using some templates"
+        - kind: added
+          description: "switching some snippets to use global tpl"
+        - kind: added
+          description: "Allowing configuration of Samples operator"
+        - kind: added
+          description: "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: added
+          description: "You can now define your external AlertManager and external Labels."
+        - kind: added
+          description: "you can now define nodeExporter features and resources"
+        - kind: fixed
+          description: "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        - kind: fixed
+          description: "cont cleanup"
+        - kind: added
+          description: "added option to configure remoteWrite"
+        - kind: added
+          description: "added possibility to configure the metricsServer"
+        - kind: added
+          description: "added possibility to configure the google openID"
+        - kind: added
+          description: "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        - kind: fixed
+          description: "fixed some issues with the proxy and trusted CA"
+        - kind: fixed
+          description: "fixing ArtifactHub"
+        - kind: changed
+          description: (1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)
+        - kind: changed
+          description: (1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh
+        - kind: added
+          description: (1.0.67) CHANGELOG.md and .helmignore
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -13920,6 +14002,65 @@ entries:
           description: (1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)
         - kind: changed
           description: (1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md
+        - kind: fixed
+          description: (1.0.25) - fixed selector value in LokiStack template
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-17T05:14:16.142133687Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: The only purpose of this helper chart is to provide a template for
+      the LokiStack Custom Resource, so it must not be re-defined for multiple services.
+    digest: b2a183b7e903fc90661422f0292880f36e69bb90c2c4ddb14b7b85b6a80b2d3b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png
+    keywords:
+    - helper
+    - subchart
+    - gitops
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-lokistack
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/helper-lokistack-1.0.25/helper-lokistack-1.0.25.tgz
+    version: 1.0.25
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: added
+          description: finalizing README and added possibility to configure culster-admin list and retention
+        - kind: fixed
+          description: fixed value .size to .storage.size
+        - kind: added
+          description: added dependency tp tpl library
+        - kind: added
+          description: using global template to build tolerations
+        - kind: fixed
+          description: changed default schema
+        - kind: added
+          description: possibility to configure the CA configmap
+        - kind: added
+          description: added possibility to configure nodeSelector for LokiStack components.
+        - kind: added
+          description: added possibility to configure network policy ruleset
+        - kind: changed
+          description: (1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: fixed
+          description: (1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)
+        - kind: changed
+          description: (1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -19678,6 +19819,61 @@ entries:
           description: (1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels
         - kind: added
           description: (1.0.19) CHANGELOG.md and .helmignore
+        - kind: fixed
+          description: (1.0.20) removed unknown spec namespaceSelector
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-17T05:14:16.320975831Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Configures the IngressController object.
+    digest: 9cf3dbdd10e920638c92a43e882c3c754c3953780b88e39a77ae065adfb4ca23
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png
+    keywords:
+    - generic
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: ingresscontroller
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/ingresscontroller-1.0.20/ingresscontroller-1.0.20.tgz
+    version: 1.0.20
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Possibility to configure allowed registries
+        - kind: added
+          description: added new type of etcd encryption, monitoring stack configuration etc.
+        - kind: added
+          description: added README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: added defaultCertificate option to use a valid certificate for the ingresscontroller
+        - kind: added
+          description: added possibility to define annotations for the IngressController. For example to enable HTTP/2
+        - kind: added
+          description: added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain
+        - kind: added
+          description: added option to configure routeAdmission
+        - kind: changed
+          description: (1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels
+        - kind: added
+          description: (1.0.19) CHANGELOG.md and .helmignore
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -20464,6 +20660,53 @@ entries:
     - https://github.com/tjungbauer/helm-charts/releases/download/kube-descheduler-1.0.0/kube-descheduler-1.0.0.tgz
     version: 1.0.0
   minio-configurator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+        - kind: changed
+          description: changed the image to the new minio-client-tools image
+        - kind: fixed
+          description: fixed the issue with the findutils package
+        - kind: changed
+          description: (1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed
+        - kind: fixed
+          description: (1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing
+        - kind: fixed
+          description: (1.0.13) fixed typo in values_example.yaml
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-17T05:14:16.506807786Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Chart to automate the bucket creation and configuration for MINIO
+      Object Storage
+    digest: 01409c7b4c2a5c42ad1f32f3f58731d8fe6553f6348318cffedb08c2aabc25ac
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator
+    icon: https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png
+    keywords:
+    - minio
+    - storage
+    - clusterconfig
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: minio-configurator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/minio-configurator-1.0.13/minio-configurator-1.0.13.tgz
+    version: 1.0.13
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -28713,6 +28956,89 @@ entries:
           description: (2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
         - kind: changed
           description: (2.0.21) - tpl.isEnabled guards; additionalLabels and additionalAnnotations via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md
+        - kind: fixed
+          description: (2.0.22) - Fixed oidc_auth_secret wrong usage of value
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2026-06-17T05:14:16.693175291Z"
+    dependencies:
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: Deploy and configure Red Hat Quay Registry.
+    digest: 18afa1e020720b1447e91d71f691ea5707404dfc9410f0a3d676c36c57eb9ef5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png
+    keywords:
+    - management tool
+    - registry
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: quay-registry-setup
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/quay-registry-setup-2.0.22/quay-registry-setup-2.0.22.tgz
+    version: 2.0.22
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Signing Chart
+        - kind: added
+          description: updated to helper-status-checker v4
+        - kind: added
+          description: README
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: using some templates
+        - kind: fixed
+          description: Postgres does not allow replica override.
+        - kind: fixed
+          description: Removed hardcoded nodeSelector from Namespace resource. This might be added later as variable
+        - kind: added
+          description: using new tpl function bindtoNode
+        - kind: added
+          description: This big update moved Config Generation into this chart and included a Job that is able to inject the certificate into the Quay configration. Moreover, any storage type is now supported to be generated by this chart.
+        - kind: fixed
+          description: Fixed some default configuration values
+        - kind: added
+          description: Added support for LDAP authentication, added possibility to set proxy_cache and several settings for Quotas
+        - kind: added
+          description: Added support for Github, Google, OIDC oauth, added option for Mailing configuration
+        - kind: added
+          description: Added support to configure different logging options and some additional parameters
+        - kind: fixed
+          description: Error in configuration file creation Job
+        - kind: fixed
+          description: Fixing some errors on Quay configuration rendering
+        - kind: added
+          description: Added new option repo_mirror_server_hostname to set hostname for the mirroring service
+        - kind: fixed
+          description: Fixed some errors in the init-quay job
+        - kind: fixed
+          description: Fixed issue with newline in tpl.sleeptimer
+        - kind: added
+          description: Added support for RHOCSStorage
+        - kind: fixed
+          description: Fixed issue with hook-delete-policy
+        - kind: added
+          description: Added support for auto-prune feature
+        - kind: changed
+          description: (2.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: added
+          description: (2.0.19) - Configurable ttlSecondsAfterFinished on Quay hook Jobs (default 600s)
+        - kind: changed
+          description: (2.0.20) - Refresh tpl dependency to 1.0.29 (Chart.lock and vendored subchart)
+        - kind: changed
+          description: (2.0.21) - tpl.isEnabled guards; additionalLabels and additionalAnnotations via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -35607,6 +35933,65 @@ entries:
           description: (1.0.29) - bump version
         - kind: changed
           description: (1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md
+        - kind: changed
+          description: (1.0.31) - updated sealed secrets helm repository to bitnami.github.io
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-06-17T05:14:17.055646956Z"
+    dependencies:
+    - condition: sealed-secrets.enabled
+      name: sealed-secrets
+      repository: https://bitnami.github.io/sealed-secrets
+      version: 2.18.4
+    - name: tpl
+      repository: https://charts.stderr.at/
+      version: ~1.0.31
+    description: A Helm chart to deploy sealed-secrets - depends on Bitnami's helm
+      chart
+    digest: 02df3efa7b054e0c17dd139658e1c8b923445be41826e25a1aff408a7c6e1579
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets
+    icon: https://avatars.githubusercontent.com/u/34656521?s=200&v=4
+    keywords:
+    - secretmanagement
+    - security
+    maintainers:
+    - email: dev@stdin.at
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: sealed-secrets
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    type: application
+    urls:
+    - https://github.com/tjungbauer/helm-charts/releases/download/sealed-secrets-1.0.31/sealed-secrets-1.0.31.tgz
+    version: 1.0.31
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: updated sealed secrets helm chart version
+        - kind: added
+          description: new README
+        - kind: added
+          description: new version of sealed secrets chart 2.16
+        - kind: added
+          description: added tpl chart
+        - kind: added
+          description: updated sealed secrets helm chart version to 2.18.0
+        - kind: changed
+          description: (1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email
+        - kind: changed
+          description: (1.0.29) - bump version
+        - kind: changed
+          description: (1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md
       artifacthub.io/license: Apache-2.0
       artifacthub.io/signKey: |
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
@@ -40447,4 +40832,4 @@ entries:
     urls:
     - https://github.com/tjungbauer/helm-charts/releases/download/update-clusterversion-1.0.0/update-clusterversion-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-11T14:27:26.847831172Z"
+generated: "2026-06-17T05:14:17.058397261Z"
