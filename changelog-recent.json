@@ -1,73 +1,65 @@
 {
-  "generated": "2026-06-11T14:28:07.251662Z",
+  "generated": "2026-06-17T05:14:43.993244Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
-      "name": "rhacs-setup",
-      "version": "1.0.51",
-      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
-      "lastModified": "2026-06-11T16:24:56+02:00",
+      "name": "sealed-secrets",
+      "version": "1.0.31",
+      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
+      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
+      "lastModified": "2026-06-16T14:17:52+02:00",
       "changes": [
         {
-          "kind": "added",
-          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
-        },
-        {
           "kind": "fixed",
-          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
+          "description": "Signing Chart"
         },
         {
           "kind": "added",
-          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.47) rename declarative-config template (was declerative-config.yaml)"
+          "description": "updated sealed secrets helm chart version"
         },
         {
           "kind": "added",
-          "description": "(1.0.47) CHANGELOG.md"
+          "description": "new README"
         },
         {
-          "kind": "fixed",
-          "description": "(1.0.48) - fixing indentation issues (#83 chrissmanynames)"
+          "kind": "added",
+          "description": "new version of sealed secrets chart 2.16"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "updated sealed secrets helm chart version to 2.18.0"
         },
         {
           "kind": "changed",
-          "description": "(1.0.49) - fixing indentation issues"
+          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
         },
         {
           "kind": "changed",
-          "description": "(1.0.50) - disabled defaults for namespace, central, and secured-cluster"
+          "description": "(1.0.29) - bump version"
         },
         {
           "kind": "changed",
-          "description": "(1.0.51) - changed Jobs to use type \"hook\""
+          "description": "(1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.31) - updated sealed secrets helm repository to bitnami.github.io"
         }
       ]
     },
     {
       "name": "quay-registry-setup",
-      "version": "2.0.21",
+      "version": "2.0.22",
       "description": "Deploy and configure Red Hat Quay Registry.",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/quay-registry-setup",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/quay-icon.png",
-      "lastModified": "2026-06-11T16:03:44+02:00",
+      "lastModified": "2026-06-16T14:10:46+02:00",
       "changes": [
         {
           "kind": "added",
@@ -168,6 +160,336 @@
         {
           "kind": "changed",
           "description": "(2.0.21) - tpl.isEnabled guards; additionalLabels and additionalAnnotations via tpl.argocdMetadata; bump tpl to ~1.0.31; CHANGELOG.md"
+        },
+        {
+          "kind": "fixed",
+          "description": "(2.0.22) - Fixed oidc_auth_secret wrong usage of value"
+        }
+      ]
+    },
+    {
+      "name": "minio-configurator",
+      "version": "1.0.13",
+      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
+      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
+      "lastModified": "2026-06-16T14:10:46+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "changed",
+          "description": "changed the image to the new minio-client-tools image"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed the issue with the findutils package"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.13) fixed typo in values_example.yaml"
+        }
+      ]
+    },
+    {
+      "name": "ingresscontroller",
+      "version": "1.0.20",
+      "description": "Configures the IngressController object.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-06-16T14:10:46+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "added README"
+        },
+        {
+          "kind": "added",
+          "description": "added tpl chart"
+        },
+        {
+          "kind": "added",
+          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure routeAdmission"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.19) CHANGELOG.md and .helmignore"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.20) removed unknown spec namespaceSelector"
+        }
+      ]
+    },
+    {
+      "name": "helper-lokistack",
+      "version": "1.0.25",
+      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
+      "lastModified": "2026-06-16T14:10:46+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "initial release"
+        },
+        {
+          "kind": "added",
+          "description": "finalizing README and added possibility to configure culster-admin list and retention"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed value .size to .storage.size"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library"
+        },
+        {
+          "kind": "added",
+          "description": "using global template to build tolerations"
+        },
+        {
+          "kind": "fixed",
+          "description": "changed default schema"
+        },
+        {
+          "kind": "added",
+          "description": "possibility to configure the CA configmap"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure nodeSelector for LokiStack components."
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure network policy ruleset"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.25) - fixed selector value in LokiStack template"
+        }
+      ]
+    },
+    {
+      "name": "generic-cluster-config",
+      "version": "1.0.68",
+      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
+      "lastModified": "2026-06-16T14:10:46+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "Possibility to configure allowed registries"
+        },
+        {
+          "kind": "added",
+          "description": "added new type of etcd encryption, monitoring stack configuration etc."
+        },
+        {
+          "kind": "added",
+          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
+        },
+        {
+          "kind": "added",
+          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
+        },
+        {
+          "kind": "added",
+          "description": "using some templates"
+        },
+        {
+          "kind": "added",
+          "description": "switching some snippets to use global tpl"
+        },
+        {
+          "kind": "added",
+          "description": "Allowing configuration of Samples operator"
+        },
+        {
+          "kind": "added",
+          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "You can now define your external AlertManager and external Labels."
+        },
+        {
+          "kind": "added",
+          "description": "you can now define nodeExporter features and resources"
+        },
+        {
+          "kind": "fixed",
+          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
+        },
+        {
+          "kind": "fixed",
+          "description": "cont cleanup"
+        },
+        {
+          "kind": "added",
+          "description": "added option to configure remoteWrite"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the metricsServer"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the google openID"
+        },
+        {
+          "kind": "added",
+          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixed some issues with the proxy and trusted CA"
+        },
+        {
+          "kind": "fixed",
+          "description": "fixing ArtifactHub"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.67) CHANGELOG.md and .helmignore"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.68) - removed namespace from ClusterRole"
+        }
+      ]
+    },
+    {
+      "name": "rhacs-setup",
+      "version": "1.0.51",
+      "description": "Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls",
+      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup",
+      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png",
+      "lastModified": "2026-06-11T16:24:56+02:00",
+      "changes": [
+        {
+          "kind": "added",
+          "description": "(1.0.43) - Added .spec.customize.deploymentDefaults to SecuredCluster CRD to allow default placement on infra nodes. Contributor mcapala"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.44) - Guard SecuredCluster spec.customize.deploymentDefaults so missing or empty values do not nil-deref or emit empty blocks"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.45) - Configurable ttlSecondsAfterFinished on setup Jobs (default 600s)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.46) Refresh tpl dependency to ~1.0.29 (Chart.lock and vendored subchart)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) tpl.argocdMetadata and per-component additionalAnnotations and additionalLabels on namespace, Central, SecuredCluster, Jobs, and RBAC"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.47) rename declarative-config template (was declerative-config.yaml)"
+        },
+        {
+          "kind": "added",
+          "description": "(1.0.47) CHANGELOG.md"
+        },
+        {
+          "kind": "fixed",
+          "description": "(1.0.48) - fixing indentation issues (#83 chrissmanynames)"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.49) - fixing indentation issues"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.50) - disabled defaults for namespace, central, and secured-cluster"
+        },
+        {
+          "kind": "changed",
+          "description": "(1.0.51) - changed Jobs to use type \"hook\""
         }
       ]
     },
@@ -370,52 +692,6 @@
         {
           "kind": "changed",
           "description": "(1.0.13) - align .helmignore; CHANGELOG.md"
-        }
-      ]
-    },
-    {
-      "name": "sealed-secrets",
-      "version": "1.0.30",
-      "description": "A Helm chart to deploy sealed-secrets - depends on Bitnami's helm chart",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-secrets",
-      "icon": "https://avatars.githubusercontent.com/u/34656521?s=200&v=4",
-      "lastModified": "2026-06-11T14:53:20+02:00",
-      "changes": [
-        {
-          "kind": "fixed",
-          "description": "Signing Chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version"
-        },
-        {
-          "kind": "added",
-          "description": "new README"
-        },
-        {
-          "kind": "added",
-          "description": "new version of sealed secrets chart 2.16"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "updated sealed secrets helm chart version to 2.18.0"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.28) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.29) - bump version"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.30) - tpl.isEnabled guard, additionalLabels and additionalAnnotations on Namespace; bump tpl to ~1.0.31; CHANGELOG.md"
         }
       ]
     },
@@ -1038,60 +1314,6 @@
       ]
     },
     {
-      "name": "ingresscontroller",
-      "version": "1.0.19",
-      "description": "Configures the IngressController object.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/ingresscontroller",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2026-06-10T22:11:52+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "added README"
-        },
-        {
-          "kind": "added",
-          "description": "added tpl chart"
-        },
-        {
-          "kind": "added",
-          "description": "added defaultCertificate option to use a valid certificate for the ingresscontroller"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to define annotations for the IngressController. For example to enable HTTP/2"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure namespaceSelector, endpointPublishingStrategy, tlsSecurityProfile and domain"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure routeAdmission"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.18) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.19) tpl.argocdMetadata on IngressController CR with syncwave, additionalAnnotations, and additionalLabels"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.19) CHANGELOG.md and .helmignore"
-        }
-      ]
-    },
-    {
       "name": "trusted-artifact-signer",
       "version": "1.0.3",
       "description": "Configure Trusted Artifact Signer",
@@ -1164,40 +1386,6 @@
         {
           "kind": "changed",
           "description": "(1.0.8) enabled guards use tpl.isEnabled across templates and validation helpers"
-        }
-      ]
-    },
-    {
-      "name": "minio-configurator",
-      "version": "1.0.12",
-      "description": "A Chart to automate the bucket creation and configuration for MINIO Object Storage",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/minio-configurator",
-      "icon": "https://raw.githubusercontent.com/tjungbauer/helm-charts/gh-pages/images/minio.png",
-      "lastModified": "2026-06-10T15:58:13+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "changed",
-          "description": "changed the image to the new minio-client-tools image"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed the issue with the findutils package"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.11) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.12) tpl dependency minimum version raised to ~1.0.31 and Chart.lock refreshed"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.12) provisioning Job and ConfigMap template whitespace and bucket replication URL spacing"
         }
       ]
     },
@@ -1532,170 +1720,6 @@
         {
           "kind": "added",
           "description": "(2.0.9) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on CertManager, Issuer/ClusterIssuer, and Certificate"
-        }
-      ]
-    },
-    {
-      "name": "generic-cluster-config",
-      "version": "1.0.67",
-      "description": "This Chart is responsible for deploying generic cluster configuration, for example, etcd encryption, OAuth etc.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/generic-cluster-config",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/settings-icon.png",
-      "lastModified": "2026-06-07T20:35:23+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "Possibility to configure allowed registries"
-        },
-        {
-          "kind": "added",
-          "description": "added new type of etcd encryption, monitoring stack configuration etc."
-        },
-        {
-          "kind": "added",
-          "description": "README and adding possibility to configure userworkload monitoring and complete check and fixing issues"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library and allowing the configuration of a custom certificate and the audit profile for the APIServer."
-        },
-        {
-          "kind": "added",
-          "description": "using some templates"
-        },
-        {
-          "kind": "added",
-          "description": "switching some snippets to use global tpl"
-        },
-        {
-          "kind": "added",
-          "description": "Allowing configuration of Samples operator"
-        },
-        {
-          "kind": "added",
-          "description": "Starting cleaning up monitoring configuration, so Argo CD can see if actual changes are done. fields in ConfigMap are stored in specific order"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "You can now define your external AlertManager and external Labels."
-        },
-        {
-          "kind": "added",
-          "description": "you can now define nodeExporter features and resources"
-        },
-        {
-          "kind": "fixed",
-          "description": "configmap cleanup for user-defined monitoring. fixing order of toleration"
-        },
-        {
-          "kind": "fixed",
-          "description": "cont cleanup"
-        },
-        {
-          "kind": "added",
-          "description": "added option to configure remoteWrite"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the metricsServer"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the google openID"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure the proxy and trusted CA. only use when you do not need username,password for the proxy"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed some issues with the proxy and trusted CA"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixing ArtifactHub"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.65) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.66) - Configurable ttlSecondsAfterFinished on etcd-encryption check Job (default 600s)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.67) tpl.isEnabled guards across templates, tpl ~1.0.31, Chart.lock refresh"
-        },
-        {
-          "kind": "added",
-          "description": "(1.0.67) CHANGELOG.md and .helmignore"
-        }
-      ]
-    },
-    {
-      "name": "helper-lokistack",
-      "version": "1.0.24",
-      "description": "The only purpose of this helper chart is to provide a template for the LokiStack Custom Resource, so it must not be re-defined for multiple services.",
-      "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-lokistack",
-      "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/loki.png",
-      "lastModified": "2026-06-07T08:27:48+02:00",
-      "changes": [
-        {
-          "kind": "added",
-          "description": "initial release"
-        },
-        {
-          "kind": "added",
-          "description": "finalizing README and added possibility to configure culster-admin list and retention"
-        },
-        {
-          "kind": "fixed",
-          "description": "fixed value .size to .storage.size"
-        },
-        {
-          "kind": "added",
-          "description": "added dependency tp tpl library"
-        },
-        {
-          "kind": "added",
-          "description": "using global template to build tolerations"
-        },
-        {
-          "kind": "fixed",
-          "description": "changed default schema"
-        },
-        {
-          "kind": "added",
-          "description": "possibility to configure the CA configmap"
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure nodeSelector for LokiStack components."
-        },
-        {
-          "kind": "added",
-          "description": "added possibility to configure network policy ruleset"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.22) - Add Chart.lock for reproducible installs, refresh resolved dependencies, maintainer email"
-        },
-        {
-          "kind": "fixed",
-          "description": "(1.0.23) - fixed indentation in LokiStack template and podplacement section (PR 82 - spre4dy)"
-        },
-        {
-          "kind": "changed",
-          "description": "(1.0.24) LokiStack uses tpl.argocdMetadata for Argo CD annotations (sync-wave, sync-options) and tpl.additionalLabels for additional labels, added CHANGELOG.md"
         }
       ]
     },
