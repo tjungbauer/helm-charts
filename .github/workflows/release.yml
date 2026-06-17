@@ -64,7 +64,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami 2>/dev/null || true
           helm repo add tjungbauer https://charts.stderr.at/ 2>/dev/null || true
           helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
-          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
+          helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets 2>/dev/null || true
           helm repo update
           helm repo list
           echo "HELM_CONFIG_HOME=$HELM_CONFIG_HOME"
@@ -155,7 +155,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami 2>/dev/null || true
           helm repo add tjungbauer https://charts.stderr.at/ 2>/dev/null || true
           helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
-          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
+          helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets 2>/dev/null || true
           helm repo update
           helm repo list
           grep -q 'charts.stderr.at' "$HELM_CONFIG_HOME/repositories.yaml"

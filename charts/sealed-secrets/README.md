@@ -19,7 +19,7 @@
 
 Install Sealed Secrets to secure your sensitive data. This chart here is used as a wrapper to allow additional settings if required and uses as a Subchart the Bitnami Chart:
 
-* [Bitnami Sealed Secret](https://bitnami-labs.github.io/sealed-secrets)
+* [Bitnami Sealed Secret](https://bitnami.github.io/sealed-secrets)
 
 You can also call this directly. This Chart was only created to wrap it into processes required for labs. However, it is mainly used to actively create the required Namespace first, since there were issues where the option in the source Helm Chart did not work.
 
@@ -51,7 +51,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/sealed-s
 ## Parameters
 
 NOTE: Only the parameters of the Subcharts that I ususally set are described here.
-Verify the full documentation of the Subchart at [Bitnami Sealed Secret](https://bitnami-labs.github.io/sealed-secrets)
+Verify the full documentation of the Subchart at [Bitnami Sealed Secret](https://bitnami.github.io/sealed-secrets)
 
 ## Values
 

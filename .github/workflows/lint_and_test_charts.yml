@@ -99,7 +99,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tjungbauer https://charts.stderr.at/
           helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube
-          helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+          helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets
           helm repo update
 
       # Ensures Chart.lock resolves and vendored charts/*/charts/*.tgz match `helm dependency build`.

@@ -78,7 +78,7 @@ helm_ensure_repos() {
   # Charts in this repo (see Chart.yaml repository: fields)
   helm repo add tjungbauer https://charts.stderr.at/ 2>/dev/null || true
   helm repo add sonarsource https://SonarSource.github.io/helm-chart-sonarqube 2>/dev/null || true
-  helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets 2>/dev/null || true
+  helm repo add sealed-secrets https://bitnami.github.io/sealed-secrets 2>/dev/null || true
   helm repo update
   return 0
 }
