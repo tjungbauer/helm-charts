@@ -133,8 +133,78 @@ spec:
   egress:
     connectivityPolicy: {{ .Values.rhacs.central.egress.connectivityPolicy | default "Online" }}
 
+  {{- /* SCANNER V4 — supports legacy string rhacs.scannerV4 or structured object */}}
+  {{- $sv4 := .Values.rhacs.scannerV4 | default dict }}
   scannerV4:
-    scannerComponent: {{ .Values.rhacs.scannerV4 | default "Default" }}
+    {{- if kindIs "string" $sv4 }}
+    scannerComponent: {{ $sv4 | default "Default" }}
+    {{- else }}
+    scannerComponent: {{ $sv4.scannerComponent | default "Default" }}
+    {{- with $sv4.db }}
+    {{- if or .pvc .pvc_size .pvc_storageclass .tolerations (and .nodeSelector (not (empty .nodeSelector))) }}
+    db:
+      {{- if or .pvc .pvc_size .pvc_storageclass }}
+      persistence:
+        persistentVolumeClaim:
+          claimName: {{ .pvc | default "scanner-v4-db" | quote }}
+          {{- if .pvc_storageclass }}
+          storageClassName: {{ .pvc_storageclass }}
+          {{- end }}
+          {{- if .pvc_size }}
+          size: {{ .pvc_size }}
+          {{- end }}
+      {{- end }}
+{{- if and .nodeSelector (not (empty .nodeSelector)) }}
+{{- include "tpl.nodeSelector" . | indent 6 }}
+{{- end }}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{- end }}
+    {{- end }}
+    {{- end }}
+    {{- with $sv4.indexer }}
+    {{- if or .logLevel .autoscaling .tolerations (and .nodeSelector (not (empty .nodeSelector))) }}
+    indexer:
+      {{- if .logLevel }}
+      logLevel: {{ .logLevel }}
+      {{- end }}
+      {{- if .autoscaling }}
+      scaling:
+        autoScaling: {{ .autoscaling.status | default "Enabled" }}
+        maxReplicas: {{ .autoscaling.max | default 5 }}
+        minReplicas: {{ .autoscaling.min | default 2 }}
+        replicas: {{ .autoscaling.replicas | default 3 }}
+      {{- end }}
+{{- if and .nodeSelector (not (empty .nodeSelector)) }}
+{{- include "tpl.nodeSelector" . | indent 6 }}
+{{- end }}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{- end }}
+    {{- end }}
+    {{- end }}
+    {{- with $sv4.matcher }}
+    {{- if or .logLevel .autoscaling .tolerations (and .nodeSelector (not (empty .nodeSelector))) }}
+    matcher:
+      {{- if .logLevel }}
+      logLevel: {{ .logLevel }}
+      {{- end }}
+      {{- if .autoscaling }}
+      scaling:
+        autoScaling: {{ .autoscaling.status | default "Enabled" }}
+        maxReplicas: {{ .autoscaling.max | default 5 }}
+        minReplicas: {{ .autoscaling.min | default 2 }}
+        replicas: {{ .autoscaling.replicas | default 3 }}
+      {{- end }}
+{{- if and .nodeSelector (not (empty .nodeSelector)) }}
+{{- include "tpl.nodeSelector" . | indent 6 }}
+{{- end }}
+{{- if .tolerations }}
+{{ include "tpl.tolerations" .tolerations | indent 6 }}
+{{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
 
   {{- /* SCANNER */}}
   {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
@@ -190,10 +260,9 @@ spec:
 {{- end }}
 
     {{- end }}
-    {{- end }}
-    {{- if include "tpl.isEnabled" .Values.rhacs.scanner.enabled }}
     scannerComponent: Enabled
-    {{- else }}
+  {{- else }}
+  scanner:
     scannerComponent: Disabled
-    {{- end }}
+  {{- end }}
 {{- end }}

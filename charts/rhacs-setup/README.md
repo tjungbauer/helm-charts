@@ -7,7 +7,7 @@
   [![Lint and Test Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/lint_and_test_charts.yml)
   [![Release Charts](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml/badge.svg)](https://github.com/tjungbauer/helm-charts/actions/workflows/release.yml)
 
-  ![Version: 1.0.51](https://img.shields.io/badge/Version-1.0.51-informational?style=flat-square)
+  ![Version: 1.0.52](https://img.shields.io/badge/Version-1.0.52-informational?style=flat-square)
 
  
 
@@ -168,7 +168,37 @@ Verify the subcharts for additional settings:
 | rhacs.scanner.db.tolerations | list | `[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]` | If you want this component to only run on specific nodes, you can configure tolerations of tainted nodes. |
 | rhacs.scanner.enabled | bool | false | If you do not want to deploy the Red Hat Advanced Cluster Security Scanner, you can disable it here (not recommended). |
 | rhacs.scanner.monitoring | string | Disabled | Expose the monitoring endpoint. A new service, "monitoring", with port 9090, will be created as well as a network policy allowing inbound connections to the port. |
-| rhacs.scannerV4 | string | Default | Enable scanner V4. Valid settings are: Default, Enabled, Disabled NOTE: In ACS 4.8 scannerV4 will be enabled by default. |
+| rhacs.scannerV4.db.nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
+| rhacs.scannerV4.db.nodeSelector.value | string | `""` |  |
+| rhacs.scannerV4.db.pvc | string | `"scanner-v4-db"` |  |
+| rhacs.scannerV4.db.pvc_size | string | `"100Gi"` |  |
+| rhacs.scannerV4.db.tolerations[0].effect | string | `"NoSchedule"` |  |
+| rhacs.scannerV4.db.tolerations[0].key | string | `"infra"` |  |
+| rhacs.scannerV4.db.tolerations[0].operator | string | `"Equal"` |  |
+| rhacs.scannerV4.db.tolerations[0].value | string | `"reserved"` |  |
+| rhacs.scannerV4.indexer.autoscaling.max | int | `5` |  |
+| rhacs.scannerV4.indexer.autoscaling.min | int | `2` |  |
+| rhacs.scannerV4.indexer.autoscaling.replicas | int | `3` |  |
+| rhacs.scannerV4.indexer.autoscaling.status | string | `"Enabled"` |  |
+| rhacs.scannerV4.indexer.logLevel | string | `"INFO"` |  |
+| rhacs.scannerV4.indexer.nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
+| rhacs.scannerV4.indexer.nodeSelector.value | string | `""` |  |
+| rhacs.scannerV4.indexer.tolerations[0].effect | string | `"NoSchedule"` |  |
+| rhacs.scannerV4.indexer.tolerations[0].key | string | `"infra"` |  |
+| rhacs.scannerV4.indexer.tolerations[0].operator | string | `"Equal"` |  |
+| rhacs.scannerV4.indexer.tolerations[0].value | string | `"reserved"` |  |
+| rhacs.scannerV4.matcher.autoscaling.max | int | `5` |  |
+| rhacs.scannerV4.matcher.autoscaling.min | int | `2` |  |
+| rhacs.scannerV4.matcher.autoscaling.replicas | int | `3` |  |
+| rhacs.scannerV4.matcher.autoscaling.status | string | `"Enabled"` |  |
+| rhacs.scannerV4.matcher.logLevel | string | `"INFO"` |  |
+| rhacs.scannerV4.matcher.nodeSelector.key | string | `"node-role.kubernetes.io/infra"` |  |
+| rhacs.scannerV4.matcher.nodeSelector.value | string | `""` |  |
+| rhacs.scannerV4.matcher.tolerations[0].effect | string | `"NoSchedule"` |  |
+| rhacs.scannerV4.matcher.tolerations[0].key | string | `"infra"` |  |
+| rhacs.scannerV4.matcher.tolerations[0].operator | string | `"Equal"` |  |
+| rhacs.scannerV4.matcher.tolerations[0].value | string | `"reserved"` |  |
+| rhacs.scannerV4.scannerComponent | string | Default | Enable Scanner V4 on Central. Valid settings: Default, Enabled, Disabled. |
 | rhacs.secured_cluster.additionalAnnotations | object | `{}` |  |
 | rhacs.secured_cluster.additionalLabels | object | `{}` |  |
 | rhacs.secured_cluster.admissioncontrol | object | `{"listenOn":{"creates":true,"events":true,"updates":true},"nodeSelector":{"key":"node-role.kubernetes.io/infra","value":""},"tolerations":[{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"},{"effect":"NoSchedule","key":"infra","operator":"Equal","value":"reserved"}]}` | Settings for AdmissionControl |

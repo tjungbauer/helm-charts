@@ -4,19 +4,11 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
-## [Unreleased]
+## [1.0.52] - 2026-06-26
 
 ### Added
 
-- (nothing yet)
-
-### Changed
-
-- (nothing yet)
-
-### Fixed
-
-- (nothing yet)
+- Configurable Scanner V4 DB PVC, indexer/matcher autoscaling and log level, and pod placement on Central CR
 
 ---
 
@@ -129,6 +121,7 @@ All notable changes to the **rhacs-setup** Helm chart are documented in this fil
 
 ---
 
+[1.0.52]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.51...rhacs-setup-1.0.52
 [1.0.51]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.50...rhacs-setup-1.0.51
 [1.0.50]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.49...rhacs-setup-1.0.50
 [1.0.49]: https://github.com/tjungbauer/helm-charts/compare/rhacs-setup-1.0.48...rhacs-setup-1.0.49

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhacs-setup
 description: Master chart to deploy RHACS operator, initialize it and do some configuration using API Calls
-version: 1.0.51
+version: 1.0.52
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/rhacs-setup
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/acs.png
 dependencies:
@@ -50,3 +50,5 @@ annotations:
       description: (1.0.50) - disabled defaults for namespace, central, and secured-cluster
     - kind: changed
       description: (1.0.51) - changed Jobs to use type "hook"
+    - kind: added
+      description: (1.0.52) - Configurable Scanner V4 DB PVC, indexer/matcher autoscaling and log level, and pod placement on Central CR

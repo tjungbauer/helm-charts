@@ -338,13 +338,112 @@ rhacs:
       #     value: reserved
 
   ###############
-  # SCANNER
+  # SCANNER V4
   ###############
-  # -- Enable scanner V4. Valid settings are: Default, Enabled, Disabled
-  # NOTE: In ACS 4.8 scannerV4 will be enabled by default.
-  # @default -- Default
-  scannerV4: Default
+  scannerV4:
+    # -- Enable Scanner V4 on Central. Valid settings: Default, Enabled, Disabled.
+    # NOTE: In ACS 4.8 Scanner V4 is enabled by default when set to Default.
+    # @default -- Default
+    scannerComponent: Default
 
+    # Scanner V4 DB (PostgreSQL). A PVC is required on Central clusters.
+    db:
+      # -- PVC name for Scanner V4 DB persistent data. Created if it does not exist.
+      # @default -- scanner-v4-db
+      # pvc: scanner-v4-db
+
+      # -- PVC size when created through the claim (grow supported by some storage classes).
+      # @default -- operator default
+      # pvc_size: 100Gi
+
+      # -- StorageClass for the Scanner V4 DB PVC (required when the cluster has no default).
+      # @default -- cluster default storage class
+      # pvc_storageclass: ""
+
+      # -- nodeSelector for Scanner V4 DB pods (for example infrastructure nodes).
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
+
+      # -- tolerations for Scanner V4 DB pods.
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: infra
+      #     operator: Equal
+      #     value: reserved
+
+    # Scanner V4 Indexer — indexes images and creates finding reports.
+    indexer:
+      # -- Log level for the Scanner V4 Indexer (for example INFO, DEBUG).
+      # @default -- INFO
+      # logLevel: INFO
+
+      # Controls replica count and autoscaling for the Indexer.
+      # If omitted, the operator applies its defaults (typically autoscaling enabled).
+      # autoscaling:
+      #   # -- Is autoscaling enabled for the Indexer?
+      #   # @default -- Enabled
+      #   status: Enabled
+      #   # -- Minimum number of Indexer pods.
+      #   # @default -- 2
+      #   min: 2
+      #   # -- Maximum number of Indexer pods.
+      #   # @default -- 5
+      #   max: 5
+      #   # -- Replica count when autoscaling is disabled.
+      #   # @default -- 3
+      #   replicas: 3
+
+      # -- nodeSelector for Scanner V4 Indexer pods.
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
+
+      # -- tolerations for Scanner V4 Indexer pods.
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: infra
+      #     operator: Equal
+      #     value: reserved
+
+    # Scanner V4 Matcher — matches indexer reports against vulnerability data in Scanner V4 DB.
+    matcher:
+      # -- Log level for the Scanner V4 Matcher (for example INFO, DEBUG).
+      # @default -- INFO
+      # logLevel: INFO
+
+      # autoscaling:
+      #   # -- Is autoscaling enabled for the Matcher?
+      #   # @default -- Enabled
+      #   status: Enabled
+      #   # -- Minimum number of Matcher pods.
+      #   # @default -- 2
+      #   min: 2
+      #   # -- Maximum number of Matcher pods.
+      #   # @default -- 5
+      #   max: 5
+      #   # -- Replica count when autoscaling is disabled.
+      #   # @default -- 3
+      #   replicas: 3
+
+      # -- nodeSelector for Scanner V4 Matcher pods.
+      # @default -- empty
+      nodeSelector: {}
+      #  key: node-role.kubernetes.io/infra
+      #  value: ""
+
+      # -- tolerations for Scanner V4 Matcher pods.
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: infra
+      #     operator: Equal
+      #     value: reserved
+
+  ###############
+  # SCANNER (StackRox Scanner — deprecated, still required on Central)
+  ###############
   scanner:
     # -- If you do not want to deploy the Red Hat Advanced Cluster Security Scanner,
     # you can disable it here (not recommended).
