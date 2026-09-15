@@ -20,6 +20,14 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 ---
 
+## [1.1.15] - 2026-09-15
+
+### Added
+
+- Configurable Argo CD Image Updater (spec.imageUpdater.enabled, env, resources)
+
+---
+
 ## [1.1.14] - 2026-06-11
 
 ### Changed
@@ -121,6 +129,7 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
+[1.1.15]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.14...openshift-gitops-1.1.15
 [1.1.14]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.13...openshift-gitops-1.1.14
 [1.1.13]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.12...openshift-gitops-1.1.13
 [1.1.12]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.11...openshift-gitops-1.1.12

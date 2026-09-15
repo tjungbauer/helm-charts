@@ -129,6 +129,19 @@ spec:
   extraConfig:
 {{ toYaml $value.extraConfig | indent 4 }}
   {{- end }}
+  {{- with $value.imageUpdater }}
+  {{- if include "tpl.isEnabled" .enabled }}
+  imageUpdater:
+    enabled: true
+    {{- if .env }}
+    env:
+      {{- toYaml .env | nindent 6 }}
+    {{- end }}
+    {{- if .resources }}
+{{ include "tpl.resources" .resources | indent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
   repo:
     {{- if $value.repo.additional_env }}
     env:

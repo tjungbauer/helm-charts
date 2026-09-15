@@ -7,7 +7,7 @@ gitopsinstances:
   gitops_application:
     # -- Create the instance or not.
     # @default -- false
-    enabled: false
+    enabled: true
 
     # -- Namespace for this application
     namespace: gitops-application
@@ -480,6 +480,31 @@ gitopsinstances:
     # @default -- empty
     extraConfig: {}
     # value: key
+
+    # -- Argo CD Image Updater controller for this instance (OpenShift GitOps 1.21+).
+    imageUpdater:
+      # -- Deploy the Image Updater controller next to this Argo CD instance.
+      # @default -- false
+      enabled: false
+
+      # -- Additional environment variables for the Image Updater controller.
+      # Typical keys are IMAGE_UPDATER_LOGLEVEL and IMAGE_UPDATER_WATCH_NAMESPACES.
+      # @default -- []
+      env: []
+      #   - name: IMAGE_UPDATER_LOGLEVEL
+      #     value: info
+      #   - name: IMAGE_UPDATER_WATCH_NAMESPACES
+      #     value: "openshift-gitops,team-a"
+
+      # -- Resource requests and limits for the Image Updater controller.
+      # @default -- {}
+      resources: {}
+      #  limits:
+      #    cpu: 500m
+      #    memory: 1024Mi
+      #  requests:
+      #    cpu: 250m
+      #    memory: 512Mi
 
     # -- RBAC settings for the Argo CD instance
     # This will set the default role to "none" and denies access to any resource.

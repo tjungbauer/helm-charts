@@ -51,6 +51,12 @@ openshift-gitops:
         disableAdmin: true
         resourceTrackingMethod: annotation
 
+      imageUpdater:
+        enabled: true
+        env:
+          - name: IMAGE_UPDATER_LOGLEVEL
+            value: info
+
       ha:
         enabled: false
 
