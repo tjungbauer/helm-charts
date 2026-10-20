@@ -322,6 +322,23 @@ gitopsinstances:
         # - name: MY_ENV_VAR2
         #   value: my_value2
 
+      # -- Additional volumeMounts for the repo server container.
+      # Useful to mount a Secret or ConfigMap that tooling inside the repo
+      # server needs, for example a Helm registry login for
+      # `kustomize build --enable-helm`.
+      # The matching volume has to be declared in `volumes` below.
+      # @default -- empty
+      volumeMounts: []
+      #   - name: my-secret
+      #     mountPath: /path/in/container
+
+      # -- Additional volumes for the repo server Pod.
+      # @default -- empty
+      volumes: []
+      #   - name: my-secret
+      #     secret:
+      #       secretName: my-secret
+
       # Add SideCar specification, for example when a post-renderer shall be used.
       additionalSidecars:
           # -- Name of the sidecar container

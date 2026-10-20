@@ -20,6 +20,14 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 ---
 
+## [1.1.17] - 2026-10-14
+
+### Added
+
+- Generic repo.volumes and repo.volumeMounts passthrough for the Argo CD repo server - m.engel
+
+---
+
 ## [1.1.15] - 2026-09-15
 
 ### Added
@@ -129,6 +137,7 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
+[1.1.17]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.15...openshift-gitops-1.1.17
 [1.1.15]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.14...openshift-gitops-1.1.15
 [1.1.14]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.13...openshift-gitops-1.1.14
 [1.1.13]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.12...openshift-gitops-1.1.13

@@ -196,6 +196,9 @@ spec:
         name: cluster-root-ca-bundle
         subPath: ca-bundle.crt
     {{- end }}
+    {{- with $value.repo.volumeMounts }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
     volumes:
     {{- if $value.repo.additional_trusted_ca }}
       - configMap:
@@ -210,6 +213,9 @@ spec:
         name: {{ .configMapName | default "post-render" }}
       {{- end }}
     {{- end }}
+    {{- end }}
+    {{- with $value.repo.volumes }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
   resourceExclusions: |
     {{ $value.resourceExclusions | nindent 4 }}
