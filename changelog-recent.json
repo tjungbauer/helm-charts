@@ -1,16 +1,20 @@
 {
-  "generated": "2026-09-15T14:09:53.977963Z",
+  "generated": "2026-10-20T06:11:19.415242Z",
   "repository": "https://github.com/tjungbauer/helm-charts",
   "charts_url": "https://charts.stderr.at/",
   "charts": [
     {
       "name": "openshift-gitops",
-      "version": "1.1.16",
+      "version": "1.1.17",
       "description": "Installs and patches the Red Hat Openshift Gitops Operator",
       "home": "https://github.com/tjungbauer/helm-charts/tree/main/charts/openshift-gitops",
       "icon": "https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png",
-      "lastModified": "2026-09-15T16:06:34+02:00",
+      "lastModified": "2026-10-20T08:08:33+02:00",
       "changes": [
+        {
+          "kind": "added",
+          "description": "(1.1.17) Generic repo.volumes and repo.volumeMounts passthrough for the Argo CD repo server - m.engel"
+        },
         {
           "kind": "added",
           "description": "(1.1.15) Configurable Argo CD Image Updater (spec.imageUpdater.enabled, env, resources)"
