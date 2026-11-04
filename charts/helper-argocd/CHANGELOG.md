@@ -20,6 +20,18 @@ All notable changes to the **helper-argocd** Helm chart are documented in this f
 
 ---
 
+## [2.0.48] - 2026-11-04
+
+### Added
+
+- ApplicationSet settings applicationName, templateLabels, templateAnnotations and ignoreMissingValueFiles for multiple_sources
+
+### Changed
+
+- quote templated values in ApplicationSets, so that Go template parameters can be used for project, path, value files and releaseName
+
+---
+
 ## [2.0.47] - 2026-06-08
 
 ### Added
@@ -213,6 +225,7 @@ All notable changes to the **helper-argocd** Helm chart are documented in this f
 
 ---
 
+[2.0.48]: https://github.com/tjungbauer/helm-charts/compare/helper-argocd-2.0.47...helper-argocd-2.0.48
 [2.0.47]: https://github.com/tjungbauer/helm-charts/compare/helper-argocd-2.0.46...helper-argocd-2.0.47
 [2.0.46]: https://github.com/tjungbauer/helm-charts/compare/helper-argocd-2.0.45...helper-argocd-2.0.46
 [2.0.45]: https://github.com/tjungbauer/helm-charts/compare/helper-argocd-2.0.44...helper-argocd-2.0.45

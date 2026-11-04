@@ -77,8 +77,11 @@ spec:
   {{- end }}
   template:
     metadata:
+      {{/* A free name wins over the name defined by the generator */}}
+      {{- if .applicationName }}
+          name: {{ .applicationName | quote }}
       {{/* MATRIX GENERATOR */}}
-      {{- if .generatormatrix }}
+      {{- else if .generatormatrix }}
         {{- if include "tpl.isEnabled" .omitClustername }}
           name: >-
           '{{ .targetCluster }}-{{ .path.basenameNormalized }}'
@@ -120,6 +123,18 @@ spec:
             {{ printf "{{ name }}-%s" $key | replace "_" "-" }}
         {{- end }}
       {{- end }}
+      {{- with .templateLabels }}
+          labels:
+            {{- range $label_key, $label_value := . }}
+            {{ $label_key }}: {{ $label_value | quote }}
+            {{- end }}
+      {{- end }}
+      {{- with .templateAnnotations }}
+          annotations:
+            {{- range $annotation_key, $annotation_value := . }}
+            {{ $annotation_key }}: {{ $annotation_value | quote }}
+            {{- end }}
+      {{- end }}
     spec:
       {{- if .ignoreDifferences }}
       ignoreDifferences:
@@ -143,7 +158,7 @@ spec:
         {{- end }}
       {{- end }}
     {{- if .argocd_project }}
-      project: {{ .argocd_project }}
+      project: {{ .argocd_project | quote }}
     {{- else }}
       {{- if .generatorlist }}
       project: >-
@@ -163,25 +178,28 @@ spec:
           repoURL: {{ .repoUrl }}
           {{- end }}
           {{- if .path }}
-          path: {{ .path }}
+          path: {{ .path | quote }}
           {{- end }}
           {{- if .default_version }}
           targetRevision: {{ .default_version }}
           {{- else }}
-          targetRevision: {{ if .targetRevision }}{{ .targetRevision }}{{ else }}'{{ printf "{{ chart_version }}" }}'{{ end }}
+          targetRevision: {{ if .targetRevision }}{{ .targetRevision | quote }}{{ else }}'{{ printf "{{ chart_version }}" }}'{{ end }}
           {{- end }}
           {{- if .ref }}
           ref: {{ .ref | default "values" }}
           {{- end }}
           {{- if .chart }}
-          chart: {{ .chart }}
+          chart: {{ .chart | quote }}
           {{- end }}
           {{- if .helm }}
           helm:
+            {{- if include "tpl.isEnabled" .helm.ignoreMissingValueFiles }}
+            ignoreMissingValueFiles: true
+            {{- end }}
             valueFiles:
-              - {{ .helm.default_values_file }}
+              - {{ .helm.default_values_file | quote }}
             {{- range .helm.additional_values_files }}
-              - {{ . }}
+              - {{ . | quote }}
             {{- end }}
             {{- if $value.helm }}
             {{- if $value.helm.per_cluster_helm_values }}
@@ -196,7 +214,7 @@ spec:
             {{- end }}
             {{- end }}
             {{- if .helm.releaseName }}
-            releaseName: {{ .helm.releaseName }}
+            releaseName: {{ .helm.releaseName | quote }}
             {{- end }}
           {{- end }}
         {{- end }}

@@ -419,6 +419,74 @@ applicationsets:
 
 # These define the default values.
 # It is possible to overwrite repourl and targetrevision in the Applications(Sets)
+
+  #########################################
+  # MATRIX GENERATOR EXAMPLE Multi Source #
+  #########################################
+  # One Application per component of a cluster: the first Git generator reads the components from a file,
+  # the list generator creates one result per component.
+  # This example shows the settings that do not depend on the generator:
+  #   - applicationName: name of the generated Applications, overrides the name defined by the generator.
+  #   - templateLabels and templateAnnotations: labels and annotations of the generated Applications.
+  #   - ignoreMissingValueFiles: value files are optional, a misnamed file is not an error.
+  # All of them, and argocd_project, can use Go template parameters. goTemplate must be true.
+  cluster-config-demo:
+    enabled: false
+
+    description: "Deploys the components of one cluster"
+
+    goTemplate: true
+    preserveResourcesOnDeletion: true
+
+    # Name of the generated Applications.
+    applicationName: 'cfg-{{ .path.basename }}-{{ .app }}'
+
+    # Labels on the generated Applications.
+    templateLabels:
+      cluster: '{{ .path.basename }}'
+      app: '{{ .app }}'
+
+    # Annotations on the generated Applications.
+    templateAnnotations:
+      argocd.argoproj.io/manifest-generate-paths: '/components/{{ .app }};/clusters-ng/{{ .path.basename }}'
+
+    argocd_project: '{{ .path.basename }}'
+
+    # Switch to set the namespace to '.namespace' ... must be defined by the generator
+    use_configured_namespace: true
+
+    generatormatrix:
+      - git:
+          repoURL: *repourl
+          revision: *branch
+          files:
+            - path: clusters-ng/demo/cluster.yaml
+      - list:
+          elementsYaml: |
+            {{- range $name, $cfg := .components }}
+            - app: {{ $name }}
+              targetCluster: {{ $.path.basename }}
+              namespace: {{ $cfg.namespace }}
+            {{- end }}
+
+    multiple_sources:
+      - repoUrl: *repourl
+        path: 'components/{{ .app }}'
+        targetRevision: *branch
+        helm:
+          releaseName: '{{ .app }}'
+          # Do not fail if a value file does not exist.
+          ignoreMissingValueFiles: true
+          default_values_file: '$values/clusters-ng/global.yaml'
+          additional_values_files:
+            - '$values/clusters-ng/{{ .path.basename }}/values/{{ .app }}.yaml'
+      - repoUrl: *repourl
+        targetRevision: *branch
+        ref: values
+  #############################################
+  # END MATRIX GENERATOR EXAMPLE Multi Source #
+  #############################################
+
 general:
   argocd_project: 'default'
   source:

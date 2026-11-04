@@ -48,6 +48,16 @@
 #     # -- Additional labels on the ApplicationSet.
 #     # @default -- {}
 #     additionalLabels: {}
+#     # -- Name of the generated Applications. Overrides the name defined by the generator. Can use Go template parameters.
+#     # @default -- ''
+#     applicationName: 'cfg-{{ .path.basename }}-{{ .app }}'
+#     # -- Labels on the generated Applications. Can use Go template parameters.
+#     # @default -- {}
+#     templateLabels: {}
+#     # -- Annotations on the generated Applications. Can use Go template parameters.
+#     # @default -- {}
+#     templateAnnotations: {}
+#     # multiple_sources[].helm.ignoreMissingValueFiles: do not fail if a value file does not exist.
 
 # general:
 #   argocd_project: default

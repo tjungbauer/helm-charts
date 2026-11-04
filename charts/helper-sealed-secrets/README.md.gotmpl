@@ -1,0 +1,49 @@
+{{ template "doc.header" . }}
+
+This Helm Chart renders [SealedSecret](https://github.com/bitnami-labs/sealed-secrets) objects from values.
+
+A SealedSecret can only be decrypted by the cluster it was sealed for. If the object is part of a Chart, this Chart
+only works on one cluster. With this helper, a Chart only adds a dependency and every cluster provides its own
+encrypted values. A cluster without values renders no object.
+
+{{ template "doc.deps" . }}
+
+This chart has no dependencies to other charts, but the Sealed Secrets controller must be deployed on the cluster.
+
+It is best used with a full GitOps approach such as Argo CD does. For example, https://github.com/tjungbauer/openshift-clusterconfig-gitops
+
+{{ template "doc.maintainer_and_sources" . }}
+
+## Parameters
+
+{{ template "doc.values" . }}
+
+## Example
+
+Add the dependency to the Chart:
+
+```yaml
+dependencies:
+  - name: helper-sealed-secrets
+    version: ~1.0.0
+    repository: https://charts.stderr.at/
+```
+
+Add the Secrets to the values of the cluster:
+
+```yaml
+helper-sealed-secrets:
+  secrets:
+    prod-route53-credentials-secret:
+      namespace: cert-manager
+      syncwave: 1
+      encryptedData:
+        access-key-id: AgCfy6kc...
+        secret-access-key: AgArsykG...
+```
+
+Name and namespace must match the values used with kubeseal:
+
+```bash
+echo -n '<value>' | kubeseal --raw --namespace cert-manager --name prod-route53-credentials-secret
+```

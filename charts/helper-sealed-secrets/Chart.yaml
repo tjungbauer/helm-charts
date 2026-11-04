@@ -1,0 +1,31 @@
+apiVersion: v2
+name: helper-sealed-secrets
+description: A helper Chart to render SealedSecret objects from values, so that a Chart can be reused on clusters with different sealing keys.
+version: 1.0.0
+home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-sealed-secrets
+icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/sealed-secrets.png
+maintainers:
+  - name: tjungbauer
+    email: dev@stdin.at
+    url: https://blog.stderr.at/
+dependencies:
+  - name: tpl
+    version: ~1.0.31
+    repository: https://charts.stderr.at/
+sources:
+  - https://github.com/tjungbauer/helm-charts
+  - https://charts.stderr.at/
+  - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+keywords:
+  - helper
+  - subchart
+  - sealed-secrets
+  - secrets
+annotations:
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/signKey: |
+    fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+    url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+  artifacthub.io/changes: |
+    - kind: added
+      description: [1.0.0] initial release

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helper-argocd
 description: Takes care of creation of Applications, Appprojects and ApplicationSets (supporting different generators)
-version: 2.0.47
+version: 2.0.48
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/argo-icon-color.png
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-argocd
 maintainers:
@@ -62,3 +62,7 @@ annotations:
       description: (2.0.47) tpl.argocdMetadata and per-resource additionalAnnotations and additionalLabels on AppProject, Application, and ApplicationSet
     - kind: changed
       description: (2.0.47) enabled guards use tpl.isEnabled; tpl dependency ~1.0.31; CHANGELOG and .helmignore
+    - kind: added
+      description: (2.0.48) ApplicationSet settings applicationName, templateLabels, templateAnnotations and ignoreMissingValueFiles for multiple_sources
+    - kind: changed
+      description: (2.0.48) quote templated values in ApplicationSets, so that Go template parameters can be used for project, path, value files and releaseName

@@ -1,0 +1,20 @@
+---
+# -- SealedSecret objects to render, the key is the name of the Secret.
+# Nothing is rendered if this is empty. A map is used so that value files can add
+# a Secret without replacing the others.
+#
+# Every entry supports:
+#   enabled:               set to false to skip this Secret (default: true)
+#   namespace:             namespace of the Secret (required)
+#   encryptedData:         the values encrypted with kubeseal (required)
+#   type:                  type of the Secret, for example Opaque
+#   syncwave:              Syncwave for Argo CD (default: 0)
+#   additionalAnnotations: additional annotations
+#   additionalLabels:      additional labels
+# @default -- {}
+secrets: {}
+#  my-secret:
+#    namespace: my-namespace
+#    syncwave: 1
+#    encryptedData:
+#      password: AgBy3i4OJSWK...
