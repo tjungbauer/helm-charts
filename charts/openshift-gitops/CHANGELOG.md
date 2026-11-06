@@ -20,6 +20,14 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 ---
 
+## [1.1.18] - 2026-11-06
+
+### Fixed
+
+- disabled the gitops-application instance by default
+
+---
+
 ## [1.1.17] - 2026-10-14
 
 ### Added
@@ -137,6 +145,7 @@ All notable changes to the **openshift-gitops** Helm chart are documented in thi
 
 See `Chart.yaml` `artifacthub.io/changes` for history before CHANGELOG.md was introduced.
 
+[1.1.18]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.17...openshift-gitops-1.1.18
 [1.1.17]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.15...openshift-gitops-1.1.17
 [1.1.15]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.14...openshift-gitops-1.1.15
 [1.1.14]: https://github.com/tjungbauer/helm-charts/compare/openshift-gitops-1.1.13...openshift-gitops-1.1.14

@@ -7,7 +7,7 @@ gitopsinstances:
   gitops_application:
     # -- Create the instance or not.
     # @default -- false
-    enabled: true
+    enabled: false
 
     # -- Namespace for this application
     namespace: gitops-application
